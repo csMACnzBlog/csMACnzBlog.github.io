@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Code Demoing with Visual Studio - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Code Demoing with Visual Studio">
+<meta itemprop="description" content="I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.
+Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called Productivity Power Tools 2013. Specifically, the built in presentation feature."><meta itemprop="datePublished" content="2015-05-24T08:24:28+00:00" />
+<meta itemprop="dateModified" content="2015-05-24T08:24:28+00:00" />
+<meta itemprop="wordCount" content="452">
+<meta itemprop="keywords" content="Visual Studio,Tips and Tricks," /><meta property="og:title" content="Code Demoing with Visual Studio" />
+<meta property="og:description" content="I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.
+Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called Productivity Power Tools 2013. Specifically, the built in presentation feature." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2015-05-24T08:24:28+00:00" />
+<meta property="article:modified_time" content="2015-05-24T08:24:28+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Code Demoing with Visual Studio"/>
+<meta name="twitter:description" content="I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.
+Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called Productivity Power Tools 2013. Specifically, the built in presentation feature."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Code Demoing with Visual Studio</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Code Demoing with Visual Studio</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>May 24, 2015
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>3 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy">#Visual Studio</a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy">#Visual Studio</a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.</p>
+<p>Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called <a href="https://visualstudiogallery.msdn.microsoft.com/dbcb8670-889e-4a54-a226-a48a15e4cace" target="_blank">Productivity Power Tools 2013</a>
+.  Specifically, the built in presentation feature.</p>
+<p>Productivity Power Tools 2013 is a Visual Studio extension I use for numerous reasons. One being this awesome present mode feature, but others include coloured tabs, and squiggles for Error visualisations.</p>
+<p>So how does the present mode work?  Pretty straight forward. There are three tasks: <code>PresentOn</code> <code>PresentOff</code> and <code>PresentEdit</code>.  These tasks can be found in the Quick Launch bar, in the top right of Visual Studio. You can focus the cursor in the Quick Launch bar but using the <code>Ctrl + Q</code> keyboard shortcut.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1432098704/Quicklaunch_cprcam.png" alt="Visual Studio&amp;rsquo;s Quick Launch feature."  loading="lazy" />
+</p>
+<p>You type <code>Present</code> and it will show you the three options, with descriptions for you to choose from.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1432098704/PresentQuickLaunch_ezg9xl.png" alt="Present search results in Quick Launch"  loading="lazy" />
+</p>
+<p>So what do each of the options do? Well if it is currently off, you can use <code>PresentOn</code>  to turn on presentation mode. When on, using <code>PresentOff</code> turns it off again.  <code>PresentEdit</code> allows you to quickly open the settings xml file for presenter mode, and change the fonts and sizes of text used in visual studio, when you turn presentation mode on.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1432098966/PresentEditSettings_cheawe.png" alt="Your presenter mode settings configuration"  loading="lazy" />
+</p>
+<p>The EnvironmentFont* settings change the font size for things like the menu and labels, while TextEditorFont* affects the editor text. You can emphasise your code or the IDE, depending on what you are trying to demo.</p>
+<p>Here you can see I have made the text editor bigger, and the environment smaller.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1432099978/OverTheTopPresent_ghcuev.png" alt="Extreme font sizing for effect."  loading="lazy" />
+</p>
+<p>For most of what I present, I find putting the Environment up just a little, and the font to about 16 works well for most demonstrations, at whatever resolution projectors seem to put my machine into.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1432099979/DefaultPresentSettings_n1l5es.png" alt="My default presentation mode font settings."  loading="lazy" />
+</p>
+<p>If you have more hi-res monitors such as televisions or lcd screens, you might want to dial up the font a bit bigger. The default fonts work fine for me, but you can change these to whatever makes sense for you as well.</p>
+<p>When your all done with your presentation, you can easily use <code>PresentOff</code> to get back to a reasonable working surface without having to change your fonts back manually, and this avoids the constant scroll-zoom every time you open a file during a demo.</p>
+<h4 id="update-2015-05-29">Update: 2015-05-29</h4>
+<p>I just found out about <a href="http://www.codepp.net/" target="_blank">Code Presenter Pro</a>
+ for presenting code in PowerPoint. This is available as a <a href="https://store.office.com/code-presenter-pro-WA104379263.aspx" target="_blank">PowerPoint Addin</a>
+ and makes your code look much clearing and more usable from inside your slides. Worth a look.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/caliburn-micro-and-async/">Caliburn.Micro and Async</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/relocate-your-library-folders-from-registry/">Relocate your library folders from registry</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/console2-console-arrow-keys-acting-wrong-the-fix/">Console2 Console arrow keys acting wrong - The fix</a></li><li><a href="https://csmacnzblog.github.io/post/new-zealand-public-holidays-calendar/">New Zealand Public holidays Calendar</a></li><li><a href="https://csmacnzblog.github.io/post/hosts-entries-and-windows-services/">Hosts entries and windows services</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

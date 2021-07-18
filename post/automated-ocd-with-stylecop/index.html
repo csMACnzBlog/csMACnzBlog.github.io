@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Automated OCD with Stylecop - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Automated OCD with Stylecop">
+<meta itemprop="description" content="I never really got into Stylecop or FXCop. I did make use of some of the Resharper autoformatting configuration, and static analysis features, and have in the past automated and configured this.
+But since starting to use Visual Studio Code, I have been looking for more and more ways to get the benefits of the Visual Studio Gui tools, but as command-line alternatives. This leads me to the Roslyn Analyzers."><meta itemprop="datePublished" content="2018-04-30T07:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-04-30T07:00:00+00:00" />
+<meta itemprop="wordCount" content="2218">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="Automated OCD with Stylecop" />
+<meta property="og:description" content="I never really got into Stylecop or FXCop. I did make use of some of the Resharper autoformatting configuration, and static analysis features, and have in the past automated and configured this.
+But since starting to use Visual Studio Code, I have been looking for more and more ways to get the benefits of the Visual Studio Gui tools, but as command-line alternatives. This leads me to the Roslyn Analyzers." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/automated-ocd-with-stylecop/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-04-30T07:00:00+00:00" />
+<meta property="article:modified_time" content="2018-04-30T07:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Automated OCD with Stylecop"/>
+<meta name="twitter:description" content="I never really got into Stylecop or FXCop. I did make use of some of the Resharper autoformatting configuration, and static analysis features, and have in the past automated and configured this.
+But since starting to use Visual Studio Code, I have been looking for more and more ways to get the benefits of the Visual Studio Gui tools, but as command-line alternatives. This leads me to the Roslyn Analyzers."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Automated OCD with Stylecop</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Automated OCD with Stylecop</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Apr 30, 2018
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>11 min read
+  </span>
+</div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#a-gentle-reminder">A gentle reminder</a></li>
+        <li><a href="#roslyn-analyzers">Roslyn Analyzers</a></li>
+        <li><a href="#the-packages">The Packages</a></li>
+        <li><a href="#exception-to-the-rule">Exception to the Rule</a></li>
+        <li><a href="#recommendations">Recommendations</a></li>
+        <li><a href="#editor-config">Editor Config</a></li>
+        <li><a href="#getting-it-working-on-your-build-servers">Getting it working on your Build Servers</a></li>
+        <li><a href="#some-stylecop-rules-that-i-turn-off">Some StyleCop Rules that I turn off</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>I never really got into Stylecop or FXCop.  I did make use of some of the Resharper autoformatting configuration, and static analysis features, and have in the past automated and configured this.</p>
+<p>But since starting to use Visual Studio Code, I have been looking for more and more ways to get the benefits of the Visual Studio Gui tools, but as command-line alternatives.  This leads me to the Roslyn Analyzers.</p>
+<p>I&rsquo;m gonna preempt typo considerations here. The technology is Rosyln Analyzers, with a Zed (Z), which while hurts my spelling sensibilities, it is a name, so I am going to respect that spelling. Much like using libraries that use color instead of colour, most of us non-US English speakers are used to this anyway. But I digress.</p>
+<h3 id="a-gentle-reminder">A gentle reminder</h3>
+<p>This is the cool new latest-and-greatest technology of choice. This means two things: If you are not using the latest dotnet core project structure (1.1 or greater), this might not be for you; and you may come across bugs and errors that require bug reports to be posted, or custom rule configuration to disable some rules you don&rsquo;t like.</p>
+<h3 id="roslyn-analyzers">Roslyn Analyzers</h3>
+<p>As of Visual Studio 2015, A new concept of Code Analyzers was introduced. 2017 has taken these further with analyzer APIs supporting automated code fixes as well.</p>
+<p>A great example of this coming to fruition is the latest version of the xUnit NuGet packages.  Since xUnit version 2.3.0 the xUnit.analyzers has been bundled as a dependency with xUnit. When you compile, you will see warnings and errors on how you use their library.  Basically, as well as the interfaces of what you can do with their library, you also get style guidance on how you use them.  For example, if you write a test with an Assert.Equal with boolean parameters, you get an Analyzer error:</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1524469666/xunitAssertRefactor_xfuulv.png" alt=""  loading="lazy" />
+</p>
+<p>The neat thing about this error is that it is actually a compiler error. You cannot compile and run your code unless you fix it! Amazing!</p>
+<p>(You can find documentation of xUnit&rsquo;s rules here: <a href="https://xunit.github.io/xunit.analyzers/rules/">https://xunit.github.io/xunit.analyzers/rules/</a>)</p>
+<p>How does this work? Well, NuGet packages are required to be restored before building, or the build fails. Packages result in assembly references, as well as loading MSBuild target files, and also Rosyln Analyzers. All of this is fed into the Roslyn compiler. The compiler executes the Analyzers, and they come out with other Compiler Info/Warning/Error messages. If there are any errors, the build fails. No need for anything more than your compiler to make the most of these checks, which means they not only work with Visual Studio, but also works when using the dotnet cli only as well.</p>
+<p>As you can see above, the analyzers also get loaded by the IDE, and can give red underlining of errors, and, if available, automatic refactoring, too!</p>
+<p>The best bit, because they do not require any extra tools or processes to be run on your code, you fix the issues as you make them, not later on when you run a special manual post-processing script before checking in, or on your Pull Request Builds. No chance of creating code bugs from restyling your code, if you have to fix all before it compiles, and you have to compile before you test your work.</p>
+<h3 id="the-packages">The Packages</h3>
+<p>There are a ship-load of analyzers already out there, and more NuGet packages are likely to ship with Analyzers going forward. (As well as the xUnit Analyzers, I also found one distributed with FluentAssertions, and there are many other custom ones.)</p>
+<p>I found <a href="https://codehollow.com/2016/08/use-code-analyzers-csharp-improve-code-quality/" target="_blank">an article that pulled out a few key ones</a>
+ from 18 months ago that are still going strong and have found they provide good coverage to tune your code by.</p>
+<ul>
+<li><code>Microsoft.CodeAnalysis.FxCopAnalyzers</code> (an aggregate over several Rosyln Analyzers from Microsft)</li>
+<li><code>codecracker.CSharp</code> (The first OpenSource Analyzer project I heard about)</li>
+<li><code>SonarAnalyzer.CSharp</code> (If you&rsquo;ve used SonarCube in the past, this is their modern approach so analyzers)</li>
+<li><code>StyleCop.Analyzers</code> (StyleCop new and shiny using the .NET Compiler Platform)</li>
+</ul>
+<p>I&rsquo;ve gone whole-hog and added all four to some of my projects, and so far so good.  Each project is individually tunable, so you can disable rules as needed, and some give better support for the automated refactorings that others do.</p>
+<p>Note that <code>Microsoft.CodeAnalysis.FxCopAnalyzers</code> is in beta, and chasing the tails of the Roslyn Compiler&rsquo;s newest features, so have a look at <a href="https://github.com/dotnet/roslyn-analyzers#recommended-version-of-analyzer-packages">https://github.com/dotnet/roslyn-analyzers#recommended-version-of-analyzer-packages</a> to make sure you pick the version most compatible with your minimum compiler version your team/project is using.</p>
+<p>Because it is so cutting edge, there is an advanced compiler feature you have to enable to get the rules working with 2.3.0-beta1:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ItemGroup&gt;</span>
+  <span style="color:#f92672">&lt;Features&gt;</span>IOperation<span style="color:#f92672">&lt;/Features&gt;</span>
+<span style="color:#f92672">&lt;/ItemGroup&gt;</span>
+</code></pre></div><p>The latest on this is:</p>
+<blockquote>
+<p>IOperation API shipped in Visual Studio 2017 15.5 Preview5, and we have released fully supported version 2.6.0 analyzer packages that should work on all future compiler/Visual Studio versions.</p>
+</blockquote>
+<h4 id="first-helpful-trick">First Helpful Trick:</h4>
+<p>If you are producing NuGet packages, you might not want everyone using your project to be forced into using these all themselves.</p>
+<p><code>PrivateAssets=&quot;All&quot;</code> Solves this!</p>
+<p>If you use this on your Package Reference in the <code>csproj</code> file, then it will not inherit these dependencies into your built package.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Microsoft.CodeAnalysis.FxCopAnalyzers&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;2.3.0-beta1&#34;</span> <span style="color:#a6e22e">PrivateAssets=</span><span style="color:#e6db74">&#34;All&#34;</span><span style="color:#f92672">/&gt;</span>
+</code></pre></div><h4 id="second-helpful-trick">Second Helpful Trick:</h4>
+<p>You have a lot of projects. I don&rsquo;t mean 2-3, I mean a lot.  You have so many <code>csproj</code> files, that trying to add this to your projects is daunting.</p>
+<p>Enter MSBuild.  There is an under-utilised feature of MSBuild that allows you to add <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build" target="_blank">Directory.Build.Props</a>
+ files to your parent directories, and share common settings across your projects. Now that man-handling <code>csproj</code> files is much calmer and simpler, this is super useful for adding common settings to one place that should be the same across projects. (You can also replace/remove/override these in child folders and <code>csproj</code> files as well.)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span style="color:#f92672">&lt;Project&gt;</span>
+  <span style="color:#f92672">&lt;PropertyGroup&gt;</span>
+    <span style="color:#f92672">&lt;Authors&gt;</span>csMACnz<span style="color:#f92672">&lt;/Authors&gt;</span>
+    <span style="color:#f92672">&lt;DebugType&gt;</span>full<span style="color:#f92672">&lt;/DebugType&gt;</span>
+    <span style="color:#f92672">&lt;NeutralLanguage&gt;</span>en-NZ<span style="color:#f92672">&lt;/NeutralLanguage&gt;</span>
+    <span style="color:#f92672">&lt;VersionPrefix&gt;</span>0.0.1<span style="color:#f92672">&lt;/VersionPrefix&gt;</span>
+    <span style="color:#f92672">&lt;TreatWarningsAsErrors&gt;</span>true<span style="color:#f92672">&lt;/TreatWarningsAsErrors&gt;</span>
+    <span style="color:#f92672">&lt;Company&gt;</span>csMACnz<span style="color:#f92672">&lt;/Company&gt;</span>
+    <span style="color:#f92672">&lt;Product&gt;</span>MyWidgetFizzBuzz<span style="color:#f92672">&lt;/Product&gt;</span>
+    <span style="color:#f92672">&lt;PackageTags&gt;</span>Fizz; Buzz<span style="color:#f92672">&lt;/PackageTags&gt;</span>
+    <span style="color:#f92672">&lt;Copyright&gt;</span>Copyright © csMACnz 2018<span style="color:#f92672">&lt;/Copyright&gt;</span>
+    <span style="color:#f92672">&lt;LangVersion&gt;</span>7.1<span style="color:#f92672">&lt;/LangVersion&gt;</span>
+    <span style="color:#f92672">&lt;Features&gt;</span>IOperation<span style="color:#f92672">&lt;/Features&gt;</span>
+    <span style="color:#f92672">&lt;CodeAnalysisRuleSet&gt;</span>$(MSBuildThisFileDirectory)/ruleset.ruleset<span style="color:#f92672">&lt;/CodeAnalysisRuleSet&gt;</span>
+  <span style="color:#f92672">&lt;/PropertyGroup&gt;</span>
+
+  <span style="color:#f92672">&lt;PropertyGroup</span> <span style="color:#a6e22e">Condition=</span><span style="color:#e6db74">&#34;&#39;$(Configuration)|$(Platform)&#39;==&#39;Debug|AnyCPU&#39;&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;DebugSymbols&gt;</span>True<span style="color:#f92672">&lt;/DebugSymbols&gt;</span>
+  <span style="color:#f92672">&lt;/PropertyGroup&gt;</span>
+   
+  <span style="color:#f92672">&lt;ItemGroup&gt;</span>
+    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Microsoft.CodeAnalysis.FxCopAnalyzers&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;2.3.0-beta1&#34;</span>  <span style="color:#a6e22e">PrivateAssets=</span><span style="color:#e6db74">&#34;All&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;SonarAnalyzer.CSharp&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;6.6.0.3969&#34;</span> <span style="color:#a6e22e">PrivateAssets=</span><span style="color:#e6db74">&#34;All&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;codecracker.CSharp&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;1.0.3&#34;</span> <span style="color:#a6e22e">PrivateAssets=</span><span style="color:#e6db74">&#34;All&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;StyleCop.Analyzers&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;1.1.0-beta004&#34;</span> <span style="color:#a6e22e">PrivateAssets=</span><span style="color:#e6db74">&#34;All&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;/ItemGroup&gt;</span>
+<span style="color:#f92672">&lt;/Project&gt;</span>
+</code></pre></div><p>As well as adding the selected analyzers to every project, this can handle common metadata like <code>Company</code>, <code>Product</code>, <code>Authors</code>, <code>Copyright</code> and compiler options such as <code>TreatWarningsAsErrors</code>, <code>DebugType</code>, <code>LangVersion</code> and <code>VersionPrefix</code>.  You are actually removing more clutter from your <code>csproj</code> files, making them super slimmed down.</p>
+<h3 id="exception-to-the-rule">Exception to the Rule</h3>
+<p>You have added the Analyzers, and you now have thousands of failing errors in your project. Some of these you will want to actually fix now, others fix later, and some just don&rsquo;t matter and the rule needs to be turned off.</p>
+<p>You can use a <code>.ruleset</code> xml file to configure rules. This is done using the <code>&lt;CodeAnalysisRuleSet&gt;</code> section tag in your project file. Alternatively (as above) you can use <code>&lt;CodeAnalysisRuleSet&gt;$(MSBuildThisFileDirectory)/ruleset.ruleset&lt;/CodeAnalysisRuleSet&gt;</code> in your <code>Directory.Build.Props</code> file, and have a shared <code>ruleset.ruleset</code> xml file next to it at the root of your repository.</p>
+<p>Ruleset files can also include other ruleset files so you can make these modular, or heirarchical. (This is useful if you want slightly different rules for one project. Override <code>&lt;CodeAnalysisRuleSet&gt;</code> in your project to use it&rsquo;s own file, and include the main <code>.ruleset</code> file from the project&rsquo;s own version.)</p>
+<p><a href="https://github.com/dotnet/roslyn/blob/master/docs/compilers/Rule%20Set%20Format.md#sample">https://github.com/dotnet/roslyn/blob/master/docs/compilers/Rule%20Set%20Format.md#sample</a></p>
+<p>Great advice is to copy someone else&rsquo;s configuration file as a starting point, then disable anything you still don&rsquo;t like and then schedule time to review the existing exclusions possibly to turn them on again. (If the other project is yours, it probably doesn&rsquo;t need much tweaking.)</p>
+<p>A large number of the errors you will see will be &ldquo;Fix spacing&rdquo;. The default rules seem perfectly reasonable so I recommend using the fix all across Solution auto-fix for these first, to find where the real problems lie. You could also go through and disable all the rules that are failing and come back one or two a sprint to slowly improve things, too.</p>
+<p>I guarantee that you will find at least one issue that will make you say &ldquo;ooh, yip, that&rsquo;s an exception waiting to happen&rdquo;.</p>
+<p>Fixing some of these issues will break existing contracts. If this is a library that is shared with others, be sure to follow SemVer for breaking changes, or add exceptions around areas that could break existing contracts, with a comment explaining why you have violated the rule, so it can be fixed in your next lot of breaking changes. (You can do this by wrapping your code in <code>#pragma warning disable CA1034</code> <code>#pragma warning enable CA1034</code>)</p>
+<h3 id="recommendations">Recommendations</h3>
+<p>I&rsquo;ve done a bunch of analysis on the Analyzers. I can tell you that they do not drastically increase your build times enough to not use them. Yes, there is an increase, but it is not enough in practice to slow down your build/test development cycle. It respects the existing build caching and only runs if you actually need to do a rebuild of a particular project.</p>
+<p>It might cause you to spend more time on the code formatting as you write it, but that is going to reduce errors you might have added if you came back later and tried to fix them out of context.</p>
+<p>Given the four Analyzers above, here are some rough results (on an application that takes <strong>about 1 minute to build</strong> a project one of my projects.)</p>
+<p>Some quick stats: <strong>24019 lines of code, 497 C# code files, 33 projects, (incl. 6 application component projects, 7 Test projects)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th style="text-align:right">Number of Analyzers</th>
+<th style="text-align:right">Analyzer Execution Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No Analyzers</td>
+<td style="text-align:right">0/729</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>Microsoft.CodeAnalysis.FxCopAnalyzers</td>
+<td style="text-align:right">51/152</td>
+<td style="text-align:right">~9.2 seconds</td>
+</tr>
+<tr>
+<td>codecracker.CSharp</td>
+<td style="text-align:right">50/76</td>
+<td style="text-align:right">~17.2 seconds</td>
+</tr>
+<tr>
+<td>StyleCop.Analyzers</td>
+<td style="text-align:right">34/194</td>
+<td style="text-align:right">~16.3 seconds</td>
+</tr>
+<tr>
+<td>SonarAnalyzer.CSharp</td>
+<td style="text-align:right">142/307</td>
+<td style="text-align:right">~47.7 seconds</td>
+</tr>
+<tr>
+<td>All 4 Analyzers</td>
+<td style="text-align:right">277/729</td>
+<td style="text-align:right">~71.9 seconds</td>
+</tr>
+</tbody>
+</table>
+<p>Basically, if you are worried about performance, don&rsquo;t use SonarAnalyzer. Another reason to not use SonarAnalyzer is that it was the one I had to disable the most analyzers from.  If you are really really worried, I recommend just using <code>Microsoft.CodeAnalysis.FxCopAnalyzers</code> and <code>StyleCop.Analyzers</code> for the best coverage vs time ratio.</p>
+<p>You can also see from these stats that there are more Analyzers available in these packs than are enabled to run by default. It might be worth looking into what you are missing that you want to enforce.</p>
+<h3 id="editor-config">Editor Config</h3>
+<p>Do you use editor config? You should use editor config.</p>
+<p>Once you start using Code Analyzers, specifically the StyleCop Analyzer, you may find the default code generation rules in Visual Studio and VSCode (or even Resharper) might fight against you.  Luckily you can use EditorConfig to tell Visual Studio, VSCode, and even Resharper the specific way you want your code generation to be formatted as.  The <code>.editorconfig</code> file checks into your repository, so you can make this configurable per repository.</p>
+<p>More details:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference">https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference</a></li>
+<li><a href="http://kent-boogaart.com/blog/editorconfig-reference-for-c-developers">http://kent-boogaart.com/blog/editorconfig-reference-for-c-developers</a></li>
+</ul>
+<h3 id="getting-it-working-on-your-build-servers">Getting it working on your Build Servers</h3>
+<p>This is short and sweet. Your build server will just fail to build on analyzer errors, with build errors. Because its all part of the compile pipeline in Roslyn now.</p>
+<h3 id="some-stylecop-rules-that-i-turn-off">Some StyleCop Rules that I turn off</h3>
+<p>This contains the opinions of Me, the Environment I&rsquo;ve learned C# in, and possibly that of my Team. Possible controversy ahead.</p>
+<ul>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA0001.md" target="_blank">SA0001</a>
+ - Xml Comment Analysis Disabled
+<ul>
+<li>I don&rsquo;t use XML documentation, so this rule is disabled</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1101.md" target="_blank">SA1101</a>
+ - Prefix Local Calls With This
+<ul>
+<li>This is unnecessary since I prefer the underscore prefix of private fields. Never use <code>this</code>, it is redundant.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1118.md" target="_blank">SA1118</a>
+ - Parameter Must Not Span Multiple Lines
+<ul>
+<li>You probably don&rsquo;t need this, but for syntactic reasons, some fluent code building reads better allowing this and I use it a lot.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1200.md" target="_blank">SA1200</a>
+ - Using Directives Must Be Placed Correctly
+<ul>
+<li>Stylecop seems to want them inside namespaces, despite all tooling I&rsquo;ve ever used has always placed them outside. Turning this on will confuse more than assist.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1201.md" target="_blank">SA1201</a>
+ - Elements Must Appear In The Correct Order
+<ul>
+<li>If you are starting a new project, then this might appeal, but the code churn in git of turning this on is worse than the benefits. Also, automating to match this ordering is non-obvious</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1202.md" target="_blank">SA1202</a>
+ - Elements Must Be Ordered By Access
+<ul>
+<li>Similar to the above, ordering is hard on an existing project, and I like private fields at the top for some reason (History). You might still find it gets in the way of your preferred ordering, anyway.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1204.md" target="_blank">SA1204</a>
+ - Static Elements Must Appear Before Instance Elements
+<ul>
+<li>As with SA1201 and SA1204 above.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1309.md" target="_blank">SA1309</a>
+ - Field Names Must Not Begin With Underscore
+<ul>
+<li>Related to SA1101, I have a preference for using underscores here.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1413.md" target="_blank">SA1413</a>
+ - Use Trailing Commas In Multi Line Initializers
+<ul>
+<li>o rly? I can see the appeal for merging actually, but the compiler will catch it, and that&rsquo;s what Build servers and PRs are for. My pedantic nature wants to remove it, so I do, and this rule is off.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1600.md" target="_blank">SA1600</a>
+ - Elements Must Be Documented
+<ul>
+<li>In an ideal world of a pristine reference code base, this must be amazing to have. For an application where comments get out of sync faster then the build can run, Nope.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1602.md" target="_blank">SA1602</a>
+ - Enumeration Items Must Be Documented
+<ul>
+<li>Docs again, as above.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1633.md" target="_blank">SA1633</a>
+ - File Must Have Header
+<ul>
+<li>Same opinion as SA1600 above</li>
+</ul>
+</li>
+</ul>
+<p>There are probably other (related) rules, but I haven&rsquo;t hit them yet, so haven&rsquo;t turned them off.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Go forth and automate the improved quality of your Repository! You have the tools, instructions, and if you have read this far the inclination to make it happen.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/">A Windows Service using netcoreapp on dotnet</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/code-kata/">Code Katas</a>
+    </div></div>
+</div></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

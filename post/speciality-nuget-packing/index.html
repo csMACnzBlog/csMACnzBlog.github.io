@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Speciality NuGet Packing on .Net Core - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Speciality NuGet Packing on .Net Core">
+<meta itemprop="description" content="I recently wrote about NuGet packing on linuxspecifically, and want to continue the theme with other things you can do with NuGet packaging.
+As a quick recap you can use a .Net Core *.csproj as a wrapper around a *.nuspec file and use dotnet pack to pack it, cross-platform, without needing nuget.exe.
+&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt; &lt;PropertyGroup&gt; &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt; &lt;NuspecFile&gt;mynewapp.nuspec&lt;/NuspecFile&gt; &lt;GeneratePackageOnBuild&gt;true&lt;/GeneratePackageOnBuild&gt; &lt;SkipCompilerExecution&gt;true&lt;/SkipCompilerExecution&gt; &lt;CopyBuildOutputToOutputDirectory&gt;false&lt;/CopyBuildOutputToOutputDirectory&gt; &lt;/PropertyGroup&gt; &lt;/Project&gt; (See the other articlefor more detailed analysis of these properties."><meta itemprop="datePublished" content="2018-10-08T05:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-08T05:00:00+00:00" />
+<meta itemprop="wordCount" content="1085">
+<meta itemprop="keywords" content="dotnetcore,NuGet," /><meta property="og:title" content="Speciality NuGet Packing on .Net Core" />
+<meta property="og:description" content="I recently wrote about NuGet packing on linuxspecifically, and want to continue the theme with other things you can do with NuGet packaging.
+As a quick recap you can use a .Net Core *.csproj as a wrapper around a *.nuspec file and use dotnet pack to pack it, cross-platform, without needing nuget.exe.
+&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt; &lt;PropertyGroup&gt; &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt; &lt;NuspecFile&gt;mynewapp.nuspec&lt;/NuspecFile&gt; &lt;GeneratePackageOnBuild&gt;true&lt;/GeneratePackageOnBuild&gt; &lt;SkipCompilerExecution&gt;true&lt;/SkipCompilerExecution&gt; &lt;CopyBuildOutputToOutputDirectory&gt;false&lt;/CopyBuildOutputToOutputDirectory&gt; &lt;/PropertyGroup&gt; &lt;/Project&gt; (See the other articlefor more detailed analysis of these properties." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/speciality-nuget-packing/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-10-08T05:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-08T05:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Speciality NuGet Packing on .Net Core"/>
+<meta name="twitter:description" content="I recently wrote about NuGet packing on linuxspecifically, and want to continue the theme with other things you can do with NuGet packaging.
+As a quick recap you can use a .Net Core *.csproj as a wrapper around a *.nuspec file and use dotnet pack to pack it, cross-platform, without needing nuget.exe.
+&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt; &lt;PropertyGroup&gt; &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt; &lt;NuspecFile&gt;mynewapp.nuspec&lt;/NuspecFile&gt; &lt;GeneratePackageOnBuild&gt;true&lt;/GeneratePackageOnBuild&gt; &lt;SkipCompilerExecution&gt;true&lt;/SkipCompilerExecution&gt; &lt;CopyBuildOutputToOutputDirectory&gt;false&lt;/CopyBuildOutputToOutputDirectory&gt; &lt;/PropertyGroup&gt; &lt;/Project&gt; (See the other articlefor more detailed analysis of these properties."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Speciality NuGet Packing on .Net Core</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Speciality NuGet Packing on .Net Core</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Oct 8, 2018
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/nuget/" class="post-taxonomy">#NuGet</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/nuget/" class="post-taxonomy">#NuGet</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#contentfiles">ContentFiles</a></li>
+        <li><a href="#build-props-and-targets">build props and targets</a></li>
+        <li><a href="#metadata-properties">Metadata properties</a></li>
+        <li><a href="#summary">Summary</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>I recently wrote about <a href="/nuget-packing-on-linux/">NuGet packing on linux</a>
+ specifically, and want to continue the theme with other things you can do with NuGet packaging.</p>
+<p>As a quick recap you can use a .Net Core <code>*.csproj</code> as a wrapper around a <code>*.nuspec</code> file and use <code>dotnet pack</code> to pack it, cross-platform, without needing <code>nuget.exe</code>.</p>
+<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
+    &lt;NuspecFile&gt;mynewapp.nuspec&lt;/NuspecFile&gt;
+    &lt;GeneratePackageOnBuild&gt;true&lt;/GeneratePackageOnBuild&gt;
+    &lt;SkipCompilerExecution&gt;true&lt;/SkipCompilerExecution&gt;
+    &lt;CopyBuildOutputToOutputDirectory&gt;false&lt;/CopyBuildOutputToOutputDirectory&gt;
+  &lt;/PropertyGroup&gt;
+
+&lt;/Project&gt;
+
+</code></pre><p>(See the <a href="/nuget-packing-on-linux/">other article</a>
+ for more detailed analysis of these properties.)</p>
+<p>Now for something new.</p>
+<h3 id="contentfiles">ContentFiles</h3>
+<p>Do you remember Content files? There was(is?) this feature in NuGet files where you can include files, and have those files automatically added to your .Net Framework applications when the Package is Installed. Some libraries used this to distribute code that could be embedded into your application instead of linking to a library dependency.  Dapper was one example that did this, and I think some logging frameworks also distributed some code this way.</p>
+<p>There were a tonne of downsides to this approach. The files were editable, they were put into source control, and they didn&rsquo;t update automatically when you updated the NuGet package.  These might sound like upsides, and they were probably best practice given the circumstances. But from a distributer&rsquo;s point of view, these were downsides.</p>
+<p>There were other issues as well, especially now we have dotnet core cli, and we have cross-platform builds. This approach is no longer viable in most situations.</p>
+<p>Luckily, there is a replacement to <code>Content</code> files, and that is <code>ContentFiles</code>. <a href="https://blog.nuget.org/20160126/nuget-contentFiles-demystified.html" target="_blank">NuGet ContentFiles Demystified
+</a>
+ seems to be the canonical reference post on what these are and how they work, and if you want to read the spec for how to use these with <code>nuspec</code>, that is <a href="https://docs.microsoft.com/en-us/nuget/reference/nuspec#contentfiles" target="_blank">documented here</a>
+.</p>
+<p>How do we make this work with <code>dotnet pack</code> without using the <code>nuspec</code> trick above? Say you are already packaging a DLL, and want to add an extra file to the mix?  Here is the answer:</p>
+<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
+  &lt;/PropertyGroup&gt;
+
+  &lt;ItemGroup&gt;
+    &lt;Compile Remove=&quot;IncludedFile.cs&quot; /&gt;
+    &lt;Content Include=&quot;IncludedFile.cs&quot; BuildAction=&quot;Compile&quot; /&gt;
+  &lt;/ItemGroup&gt;
+
+&lt;/Project&gt;
+</code></pre><p>Let&rsquo;s say this is an application with a bunch of source files. We have one source file that rather than compile it in, we want to include into the project that uses the package at compile time.  First, we remove our file from compiling inside our app, then we make it <code>Content</code>.  By default, any <code>Content</code> files will become <code>contentFiles</code> in the NuGet package.  It is that easy.</p>
+<p>There is one cool trick you can do here, too. if you call your file <code>*.cs.pp</code>, you can run transforms over it. The most (and only) useful one for us is the namespace placeholder. Anywhere in the file you write <code>$rootnamespace$</code> it will be replaced by the namespace of the project that imports the package, before that library compiles this file. Very handy to ensure that the user&rsquo;s own namespace is used when compiling this file.</p>
+<p>A few notes:</p>
+<ul>
+<li>If the code in that file doesn&rsquo;t compile, consumers will not be able to compile their application (maybe look at using <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives/" target="_blank">preprocessor directives</a>
+ for different framework targets.</li>
+<li>Clients need to include <code>contentfiles</code> Assets when they reference the library or they won&rsquo;t get the files, and they can also use that feature to explicitly turn that off. Document this for them. (specifically <code>&lt;IncludeAssets&gt;contentfiles;&lt;/IncludeAssets&gt;</code>, but <code>IncludeAssets</code> is set to include all asset types by default anyway.)</li>
+<li>The <code>contentFiles</code> are included per language, per framework, based on the <code>TargetFramework</code> you are building against (the same way the DLLs do). This means the files will only work with the same language as the project (by default) and the same target frameworks by default. My understanding is that this still follows the usual highest compatible resolution.</li>
+<li>If you don&rsquo;t want your NuGet to pack content files, you can use the <code>&lt;IncludeContentInPack&gt;false&lt;/IncludeContentInPack&gt;</code> setting to turn that feature off completely.</li>
+<li>you can set <code>Pack=&quot;false&quot;</code> onto a Content element to exclude it from packaging as one of the contentFiles. You can also set <code>Pack=&quot;true&quot;</code> on None and Compile elements as well for them to be included the same way.
+As well as BuildAction <code>Compile</code>, there are a couple of others: <code>Content</code>, <code>None</code>, <code>Embedded Resource</code>. The same way you can define a file to be one of these in your <code>csproj</code>, the project that includes your <code>contentFiles</code> will have them set to that specified item type.  <code>Content</code> might be useful if you want a file to be copied to their build output folder for some reason. I can&rsquo;t seem to think of a valid reason for <code>None</code>, though.</li>
+</ul>
+<p>It turns out it is that simple to do <code>contentFiles</code> out of the box.</p>
+<h3 id="build-props-and-targets">build props and targets</h3>
+<p>You can arbitrarily include any file into any location in the NuGet package if you like. There is a special folder called <code>build</code> that contains props and targets to extend MSBuild. For instance, we might want to have a props file</p>
+<pre><code>&lt;None Include=&quot;MyNewApp.props&quot; PackagePath=&quot;build/$(TargetFramework)&quot; Pack=&quot;true&quot; /&gt;
+</code></pre><p>If you wanted the same file to work for all targets, you could simply just use <code>PackagePath=&quot;build&quot;</code>.</p>
+<p>When using props and targets, you want your entry file to be the same name as the project/package, so that it will get loaded by the project that consumes your NuGet package.</p>
+<p>More about how the <code>nuspec</code> file is supposed to look for props and targets <a href="https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#including-msbuild-props-and-targets-in-a-package" target="_blank">can be found here</a>
+.</p>
+<p>Note they recommend using a min client version to let clients know you are using this feature:</p>
+<pre><code>&lt;PropertyGroup&gt;
+    &lt;MinClientVersion&gt;2.5&lt;/MinClientVersion&gt;
+&lt;/PropertyGroup&gt;
+</code></pre><p>And with that, you can now augment the build props and tasks in your consumers' projects, and use this approach to include any arbitrary files into your NuGet package.</p>
+<h3 id="metadata-properties">Metadata properties</h3>
+<p>The nice thing about using a <code>csproj</code>, is that with this one file you can set all your assembly metadata, as well as NuGet package metadata.</p>
+<p>The <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties" target="_blank">Additions to the csproj format</a>
+ page gives a great overview of (among other things) all the possible properties you can put into your <code>csproj</code> files, and where exactly these will go into your file NuGet package metadata. This is the final piece that ensures you don&rsquo;t actually have to hand-craft a <code>nuspec</code> file at all and can keep all your pack information inside the <code>csproj</code> file instead.</p>
+<h3 id="summary">Summary</h3>
+<p>If you follow everything here, you should get a <code>csproj</code> file that:</p>
+<ul>
+<li>Contains all your project and package metadata</li>
+<li>Can include, or exclude a compiled DLL from source code</li>
+<li>Can include <code>contentFiles</code> including <code>Compile</code> sources, and <code>EmbeddedResource</code> files</li>
+<li>Can include build props and targets to condition how the consumer&rsquo;s build will run</li>
+</ul>
+<p>Happy Hacking those NuGet packages!</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/nuget-packing-on-linux/">NuGet Packing on Linux</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/sharing-audio-to-google-hangouts-or-meets/">Sharing audio to Google Hangouts (or Meets)</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/nuget-packing-on-linux/">NuGet Packing on Linux</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore-nuget/">.Net Core Series - NuGet</a></li><li><a href="https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/">HostBuild your dotnet Consoles like you WebHostBuild your web apps.</a></li><li><a href="https://csmacnzblog.github.io/post/retry-policies-with-polly/">Retry Policies with Polly</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/">.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>freeview on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/freeview/</link>
+    <description>Recent content in freeview on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Fri, 16 Jan 2009 11:40:36 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/freeview/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Myth Update</title>
+      <link>https://csmacnzblog.github.io/post/myth-update/</link>
+      <pubDate>Fri, 16 Jan 2009 11:40:36 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/myth-update/</guid>
+      <description>Ive had my mythbox up and running for about a month now, and its working perfectly. Here are a few wee changes i had to make from the default xfce mythbuntu 8.10 I had to make. Mythwelcome I have my mythbox set up to autologin and run with the remote, without a keyboard and mouse. for this reason i needed it to have some way of getting back into mythtv frontend without having to remote login or plug in a keyboard.</description>
+    </item>
+    
+    <item>
+      <title>Media PC/Server</title>
+      <link>https://csmacnzblog.github.io/post/media-pcserver/</link>
+      <pubDate>Sun, 12 Oct 2008 23:56:47 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/media-pcserver/</guid>
+      <description>It has come to the end of another university year and I&amp;rsquo;m ready to once again start being a bit more regular with my blog posts.It also means i have more free time to start working on some projects of my own.The plan for this summer is to get a server running, to do samba/nfs file sharing and ldap authentication, as well as hopefully a mythtv server with a dual-tuner digital terrestrial card for watching and recording freeview here in New Zealand.</description>
+    </item>
+    
+  </channel>
+</rss>

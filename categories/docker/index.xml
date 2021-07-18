@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/docker/</link>
+    <description>Recent content in docker on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 16 Jul 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</title>
+      <link>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</link>
+      <pubDate>Mon, 16 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</guid>
+      <description>I&amp;rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
+Start with the defaults Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.</description>
+    </item>
+    
+    <item>
+      <title>More .Net on Docker - AspNet Core Debugging Tips and Tricks</title>
+      <link>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</link>
+      <pubDate>Sun, 15 Jul 2018 22:02:30 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</guid>
+      <description>Last timewe covered some basics of Dockerfile with a console application. Let&amp;rsquo;s continue our journal with AspNet Core.
+Develop-time dependencies We are using React and the .Net WebPack Hot Reloader. While at development time this requires node, at runtime it doesn&amp;rsquo;t. Here is a couple of fun facts about Visual Studio debugging I combine in an interesting way.
+Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&amp;rsquo;t actually use or do what your Dockerfile says.</description>
+    </item>
+    
+    <item>
+      <title>Develop your Rust in Docker</title>
+      <link>https://csmacnzblog.github.io/post/develop-your-rust-in-docker/</link>
+      <pubDate>Mon, 14 May 2018 07:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/develop-your-rust-in-docker/</guid>
+      <description>I decided a while ago that the next language I would try to learn is Rust. I don&amp;rsquo;t want to go too much into Rust other than to repeat its own summary:
+ Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. &amp;ndash; https://www.rust-lang.org/
+ But like all things, there are bits that need to be installed. I want to get started, I don&amp;rsquo;t want to muck around with installers.</description>
+    </item>
+    
+    <item>
+      <title>A Windows Service using netcoreapp on dotnet</title>
+      <link>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</link>
+      <pubDate>Sun, 22 Apr 2018 07:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</guid>
+      <description>I wrote Building a Windows Service with .Net Coreand had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application. Technically the title is still valid, it was a windows service, and I built it using .Net Core tools. But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.</description>
+    </item>
+    
+    <item>
+      <title>dotnet build, targeting full .Net 4.5.1 on nanoserver docker</title>
+      <link>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</link>
+      <pubDate>Fri, 31 Mar 2017 01:18:07 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</guid>
+      <description>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
+Basically I was trying this:
+docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This maps the current repository directory to a folder called work on the container, and runs the build inside it. This approach means:</description>
+    </item>
+    
+    <item>
+      <title>&#34;failed to peek context header from STDIN&#34; and how to fix</title>
+      <link>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</link>
+      <pubDate>Tue, 29 Nov 2016 04:12:29 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</guid>
+      <description>The docker guidance saysyou can run docker build piping the dockerfile:
+#On linux $ docker build - &amp;lt; Dockerfile and on Windows it says to do this:
+#PowerShell Get-Content Dockerfile | docker build - Nice. But I&amp;rsquo;ve been getting this error all day&amp;hellip;
+&amp;gt; Get-Content Dockerfile | docker build - unable to prepare context: failed to peek context header from STDIN: Incorrect function. WAT After much pain, I figured out the error is because I was running inside conemu.</description>
+    </item>
+    
+  </channel>
+</rss>

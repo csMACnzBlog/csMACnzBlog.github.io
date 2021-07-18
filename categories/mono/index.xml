@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mono on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/mono/</link>
+    <description>Recent content in Mono on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Sun, 08 Feb 2015 15:29:13 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/mono/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>monocov &#43; Travis-CI = WINNING</title>
+      <link>https://csmacnzblog.github.io/post/monocov-travis-ci-winning/</link>
+      <pubDate>Sun, 08 Feb 2015 15:29:13 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/monocov-travis-ci-winning/</guid>
+      <description>After much frustration, I now have monocovrunning on my Travis-CI build, and I&amp;rsquo;m going to share with you how I did it.
+TL;DR The coverage results don&amp;rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.
+As I mentioned in a previous post, I am building a coveralls.iopublisher for .Net code coverage. This means (to me any way) that I need to support mono coverage as well.</description>
+    </item>
+    
+  </channel>
+</rss>

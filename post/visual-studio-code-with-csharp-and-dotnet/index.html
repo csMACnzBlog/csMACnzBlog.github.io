@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Visual Studio Code with C# and dotnet - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Visual Studio Code with C# and dotnet">
+<meta itemprop="description" content="Getting Started with Visual Studio Code? Me too. Let&rsquo;s see what it takes to get going. This is a bit of a companion piece alongside my .Net Core SeriesI am writing at the moment. Hopefully as well as .Net Core, I will have a play with writing TypeScript, Rust and maybe C&#43;&#43; inside Visual Studio Code. I might have to focus on the interface in another article as well."><meta itemprop="datePublished" content="2016-07-03T04:34:30+00:00" />
+<meta itemprop="dateModified" content="2016-07-03T04:34:30+00:00" />
+<meta itemprop="wordCount" content="2107">
+<meta itemprop="keywords" content="c#,dotnetcore,vscode," /><meta property="og:title" content="Visual Studio Code with C# and dotnet" />
+<meta property="og:description" content="Getting Started with Visual Studio Code? Me too. Let&rsquo;s see what it takes to get going. This is a bit of a companion piece alongside my .Net Core SeriesI am writing at the moment. Hopefully as well as .Net Core, I will have a play with writing TypeScript, Rust and maybe C&#43;&#43; inside Visual Studio Code. I might have to focus on the interface in another article as well." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-07-03T04:34:30+00:00" />
+<meta property="article:modified_time" content="2016-07-03T04:34:30+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Visual Studio Code with C# and dotnet"/>
+<meta name="twitter:description" content="Getting Started with Visual Studio Code? Me too. Let&rsquo;s see what it takes to get going. This is a bit of a companion piece alongside my .Net Core SeriesI am writing at the moment. Hopefully as well as .Net Core, I will have a play with writing TypeScript, Rust and maybe C&#43;&#43; inside Visual Studio Code. I might have to focus on the interface in another article as well."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Visual Studio Code with C# and dotnet</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Visual Studio Code with C# and dotnet</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jul 3, 2016
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>10 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/vscode/" class="post-taxonomy">#vscode</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/vscode/" class="post-taxonomy">#vscode</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#installing-c-support">Installing C# Support</a></li>
+        <li><a href="#build-and-run-a-project">Build and Run a Project</a></li>
+        <li><a href="#debug">Debug</a></li>
+        <li><a href="#solution-level-configuration">Solution Level Configuration</a></li>
+        <li><a href="#whats-next">Whats Next?</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>Getting Started with Visual Studio Code? Me too. Let&rsquo;s see what it takes to get going. This is a bit of a companion piece alongside my <a href="https://blog.csmac.nz/dotnetcore-getting-started/" target="_blank">.Net Core Series</a>
+ I am writing at the moment. Hopefully as well as .Net Core, I will have a play with writing TypeScript, Rust and maybe C++ inside Visual Studio Code. I might have to focus on the interface in another article as well.</p>
+<p>After downloading and installing Visual Studio Code from <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a>
+, or installing using <code>choco install visualstudiocode</code> from the command line, there are few things missing.</p>
+<p>It seems that, by default, Code is <a href="https://en.wikipedia.org/wiki/Out_of_the_box_%28feature%29" target="_blank">OOTB</a>
+ ready for JavaScript. But .Net support needs to be installed.</p>
+<h3 id="installing-c-support">Installing C# Support</h3>
+<p>From inside Visual Studio Code, press <code>Ctrl + p</code> to bring up the Quick Open bar, and type in <code>ext install csharp</code>. This installs the extension
+C# for Visual Studio Code (<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp" target="_blank">Details for the extension here</a>
+). This includes the OmniSharp tooling as well as support for .Net Core (as of version 1.2, RC1 and RC2 versions are no longer supported and this tooling Supports the 1.0.0 release build.), and support for <code>csproj</code> files (which is probably highly in flux, and currently doesn&rsquo;t work on Linux or OS X, apparently).</p>
+<h3 id="build-and-run-a-project">Build and Run a Project</h3>
+<p>Now that we have our environment set up, we can open a folder with a .Net Core Console Application project in it.  (If you haven&rsquo;t already, check out my <a href="https://blog.csmac.nz/dotnetcore-getting-started/" target="_blank">Getting Started post</a>
+ on creating a new .Net Core application.)</p>
+<p>Choose <code>File -&gt; Open Folder...</code> and navigate into or select the folder for your project. This is the one you initialised with the <code>dotnet new</code> command already (<a href="https://blog.csmac.nz/dotnetcore-getting-started/" target="_blank">didn&rsquo;t you?</a>
+).</p>
+<p>If you are lucky, you will see a banner at the top of the screen appear suggesting <code>Required assets to build and debug are missing from your project. Add them?</code>.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1467488141/RequiredBuildAssetsMissing_tawlgc.png" alt="Required assets to build and debug are missing from your project. Add them?"  loading="lazy" />
+</p>
+<p>If so, click <code>Yes</code> and skip to <a href="#thenextstep">the next step</a>
+. If not, you will need to initialise this manually.</p>
+<h4 id="initialise-manually">Initialise manually</h4>
+<p>Press F1 to bring up the Command Palette. This is where you can exercise commands against Visual Studio Code. A helpful suggestion menu will pop up, but we want to type in <code>tasks</code>.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1467488343/CommandPaletteTasks_td24bk.png" alt="Enter tasks into the Command Palette."  loading="lazy" />
+</p>
+<p>Highlight the <code>Tasks: Configure Task Runner</code> option and press enter. The UI will change to display <code>Select a task runner</code> in the prompt. Select the option <code>.Net Core</code> from the options and press enter.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1467488344/CommandPaletteSelectTaskRunner_vymepv.png" alt="Select .Net Core from the options."  loading="lazy" />
+</p>
+<h4 id="the-next-step">The next step</h4>
+<p>Now you should see that we have created a <code>tasks.json</code> file inside a <code>.vscode</code> folder.  This configures all the tasks that you can run inside VS code such as build, test, run etc.</p>
+<p>To run this task, press <code>Ctrl + p</code> to bring up the <code>Quick Open</code> menu, and type in <code>task </code>.  As soon as you add that last space, the hint menu should now show our task <code>build</code>. Either select this and press enter or type in <code>build</code> so that the command bar now says <code>task build</code> and press enter.</p>
+<p>Apart from a spinner at the bottom right, there isn&rsquo;t much to see. We should open the Output window using either <code>Ctrl + Shift + U</code> or from the menu <code>View -&gt; Toggle Output</code>. Now we can see the output produced from our build.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1467488343/dotnetCoreBuildOutput_p9wcnt.png" alt="Output showing a successful build."  loading="lazy" />
+</p>
+<p>To add a run command, we just need to modify our task runner. Add the following json below the <code>build</code> command:</p>
+<pre><code>,
+        {
+            &quot;taskName&quot;: &quot;run&quot;,
+            &quot;args&quot;: [ ],
+            &quot;showOutput&quot;: &quot;always&quot;
+        }
+</code></pre><p>Now use <code>Ctrl + p</code>, type <code>task run</code> and press enter. You should now see the following output in the Output window:</p>
+<pre><code>Project MyNewApp (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified
+Compiling MyNewApp for .NETCoreApp,Version=v1.0
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+Time elapsed 00:00:01.4849643
+ 
+Hello World!
+</code></pre><p>Now we have a .Net Core application successfully running inside Visual Studio Code.</p>
+<h3 id="debug">Debug</h3>
+<p>Of course, we probably want to be able to debug as well as run the application, so let&rsquo;s look at that next.</p>
+<p>Switching to debug mode can be done using the Bug icon tab on the left-hand side, by using the menu <code>View -&gt; Debug</code> or by using the shortcut key <code>Ctrl + Shift + D</code>. (<code>Ctrl + Shift + E</code> gets you back to the <strong>E</strong>xplorer View where the files are).</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1467488343/VSCodeDebugView_cur5uc.png" alt="Visual Studio Code Debug View."  loading="lazy" />
+</p>
+<p>There is a familiar debug play button in the top of this panel. There is a dropdown beside it that says <code>No Configurations</code>. When we press play for the first time, we will see the Command Palette open again with a selection list. Select the <code>.Net Core</code> option and press enter (or just click on it, both work). Now we will have a <code>launch.json</code> file added into the .vscode folder as well.</p>
+<p>When we look back at the dropdown beside the green Debugger button we see it has 3 options in it: <code>.NET Core Launch (console)</code>, <code>.NET Core Launch (web)</code> and <code>.NET Core Attach</code>. These match the names of the three Configurations in the <code>launch.json</code> file.</p>
+<p>One thing we need to change is the path in the program variable.</p>
+<pre><code>&quot;program&quot;: &quot;${workspaceRoot}/bin/Debug/&lt;target-framework&gt;/&lt;project-name.dll&gt;&quot;,
+</code></pre><p>Needs to be replaced with:</p>
+<pre><code>&quot;program&quot;: &quot;${workspaceRoot}/bin/Debug/netcoreapp1.0/MyNewApp.dll&quot;,
+</code></pre><p>With the <code>.NET Core Launch (console)</code> option selected in the Configurations dropdown, press the Debugger green play button.</p>
+<p>Two things might happen here, depending on If you used Visual studio to create your project, or if you used the <code>dotnet new</code> command.</p>
+<h4 id="because-i-used-an-xproj">Because I used an xproj&hellip;</h4>
+<p>When we pressed play, we might see it successfully produce output similar to the one below.</p>
+<pre><code>Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll'. Cannot find or open the symbol file.
+WARNING: Could not load symbols for 'MyNewApp.dll'. 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb' is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
+Loaded 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll'. Cannot find or open the symbol file.
+Hello World!
+The program 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll' has exited with code 0 (0x00000000).
+
+</code></pre><p>It turns out that this is <em>WARNING</em> near the start is important:</p>
+<pre><code>WARNING: Could not load symbols for 'MyNewApp.dll'. 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb' is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
+</code></pre><p>If you don&rsquo;t actually see this warning in your output, just skip ahead to the next <a href="#debugworking">Debug Working</a>
+ section.</p>
+<p>If we try to debug at the moment, the breakpoint doesn&rsquo;t get hit. We are missing a setting in our <code>project.json</code> file. The <code>buildOptions</code> section needs a <code>debugType</code> value of <code>portable</code> added, to correctly produce the right kind of <code>pdb</code> files for debugging with Visual Studio Code. Modify your <code>project.json</code> file as below to add <code>&quot;debugType&quot;: &quot;portable&quot;</code> to <code>buildOptions</code></p>
+<pre><code>{
+  ...
+  &quot;buildOptions&quot;: {
+    ...
+    &quot;debugType&quot;: &quot;portable&quot;
+  },
+  ...
+}
+</code></pre><p>Now we can continue and we should no longer see the warning.</p>
+<h4 id="debug-working">Debug Working</h4>
+<p>When we run the debugger now we should see the following output:</p>
+<pre><code>Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll'. Cannot find or open the symbol file.
+Loaded 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll'. Symbols loaded.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll'. Cannot find or open the symbol file.
+Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll'. Cannot find or open the symbol file.
+Hello World!
+The program 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll' has exited with code 0 (0x00000000).
+</code></pre><p>As we can see, apart from some issues loading framework symbols, our app has run correctly.</p>
+<p>We can now go into our <code>Program.cs</code> file, add a breakpoint, and successfully break inside our code. Yay!</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1467551946/VSCodeDebuggerAttached_yoxcwb.png" alt="Breakpoint hit during debugging on Visual Studio Code."  loading="lazy" />
+</p>
+<p>Thanks to <a href="http://codeclimber.net.nz/archive/2016/05/20/How-to-debug-NET-Core-RC2-app-with-Visual-Studio.aspx" target="_blank">CodeClimber</a>
+ for getting me out when I got stuck in places, too.</p>
+<h3 id="solution-level-configuration">Solution Level Configuration</h3>
+<p>Now I want to try something harder. I want to find out if we can get something a bit more like what we are used to in Visual Studio instead, with a Solution-level build and run.</p>
+<h4 id="caveat">Caveat</h4>
+<p>I have no idea if this is possible or sensible, I have not had a chance to see what happens when I have multiple projects that depend on each other, and only one open in code. This is an experiment. What will happen?</p>
+<h4 id="open-the-solution">Open the solution</h4>
+<p>Choose <code>File -&gt; Open Folder...</code> and navigate into or select the folder for your solution. In my case I have a Visual Studio folder structure like this:</p>
+<ul>
+<li>MyNewApp
+<ul>
+<li>src
+<ul>
+<li>MyNewApp
+<ul>
+<li>Properties
+<ul>
+<li>AssemblyInfo.cs</li>
+</ul>
+</li>
+<li>MyNewApp.xproj</li>
+<li>Program.cs</li>
+<li>project.json</li>
+<li>project.lock.json</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>global.json</li>
+<li>MyNewApp.sln</li>
+</ul>
+</li>
+</ul>
+<p>(Note: I have excluded some unimportant build artifact files and folders you might see in your directories, such as <code>bin</code>, <code>obj</code> and <code>.vs</code>)</p>
+<p>On my machine, I have opened the MyNewApp folder containing the src folder and MyNewApp.sln. What happens next might vary for you if you choose a different location to open.</p>
+<p>The first thing that we need to do is set up build tasks. We can start with the default ones and then modify them as needed. As before:</p>
+<ul>
+<li>F1 launch Command Palette</li>
+<li>type tasks</li>
+<li>Select <code>Tasks: Configure Task Runner</code></li>
+</ul>
+<p>This time from the options we will select <code>msbuild</code>. We want to be able to build and run our solution, rather than use the dotnet CLI on a single project.</p>
+<p>As earlier, we should now have a <code>tasks.json</code> file inside a <code>.vscode</code> folder inside the top-level folder you Opened earlier. This time, however, it is set up to run MSBuild.</p>
+<p>Now we can run it again as we did last time with <code>Ctrl + p</code>, type <code>task build</code> and Enter.</p>
+<pre><code>Failed to launch external program msbuild /property:GenerateFullPaths=true.
+spawn msbuild ENOENT
+</code></pre><p>On my machine, it looks like <code>msbuild.exe</code> is not in the path. In my case I am going to add the MSBuild version 14.0 that came with Visual Studio 2015 into my %PATH% environment variable:</p>
+<pre><code>C:\Program Files (x86)\MSBuild\14.0\Bin
+</code></pre><p>And restart Visual Studio Code. (It is nice that it remembers the last folder I had open, too.)</p>
+<p>One more <code>Ctrl + Shift + B</code> (or &lsquo;Ctrl + p&rsquo;, <code>task build</code>, Enter) and It looks successful:</p>
+<pre><code>Microsoft (R) Build Engine version 14.0.25420.1
+Copyright (C) Microsoft Corporation. All rights reserved.
+Building the projects in this solution one at a time. To enable parallel build, please add the &quot;/m&quot; switch.
+Build started 03/07/2016 16:44:02.
+Project &quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&quot; on node 1 (build target(s)).
+ValidateSolutionConfiguration:
+  Building solution configuration &quot;Debug|Any CPU&quot;.
+Project &quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&quot; (1) is building &quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&quot; (2) on node 1 (default targets).
+CoreCompile:
+  C:\Program Files\dotnet\dotnet.exe build &quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp&quot; --configuration Debug --no-dependencies
+  Project MyNewApp (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
+Done Building Project &quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&quot; (default targets).
+Done Building Project &quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&quot; (build target(s)).
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+Time Elapsed 00:00:02.08
+</code></pre><p>So now I can build my Visual Studio <code>xproj</code> using MSBuild inside Visual Studio Code.</p>
+<h4 id="debug-1">Debug</h4>
+<p>Just like before, we can set up Debugging with just a few changes:</p>
+<ul>
+<li>Press the Debugger play button</li>
+<li>The Command Palette will open again</li>
+<li>Select the <code>.Net Core</code> option and press enter</li>
+<li>The <code>launch.json</code> file will be created</li>
+<li>Change the path in the program variable.</li>
+</ul>
+<p>This time, though, we change the path to be a bit longer since we are in a different root directory.</p>
+<pre><code>&quot;program&quot;: &quot;${workspaceRoot}/src/MyNewApp/bin/Debug/netcoreapp1.0/MyNewApp.dll&quot;,
+</code></pre><p>Now we should be ready to place a breakpoint and debug our code.  If you already <a href="#becauseiusedanxproj">followed the earlier instructions</a>
+ with the same project, (or you created it using <code>dotnet new</code>), the <code>&quot;debugType&quot;: &quot;portable&quot;</code> fix should already be there, otherwise, you can apply that now.</p>
+<p>Place a breakpoint into <code>Program.cs</code> and hit the green Debug play button. Alternatively, you can use the familiar <code>F5</code> shortcut key to start debugging.  Success!</p>
+<h3 id="whats-next">Whats Next?</h3>
+<p>So now we can build and debug our application using Visual Studio Code either at the Solution-level or at the project-level.  Going forward we will want to start thinking about tests and running those as well. But I want to go a bit further into how to test using .Net Core from the command-line for a bit before I double back and tackle it in Visual Studio Code.</p>
+<p>This has been fun, though probably the longest way to write a blog post. Yes it&rsquo;s a long one too, so I think I&rsquo;ll have to look at breaking things down into small achievable chunks if I do this again.  Thanks for sticking with me and getting to the end.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/dotnetcore-getting-started/">.Net Core Series - Getting Started</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/dotnetcore-whats-in-the-box/">.Net Core Series - What&#39;s in the box</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/dotnetcore-getting-started/">.Net Core Series - Getting Started</a></li><li><a href="https://csmacnzblog.github.io/post/using-over-lambda/">using over lambda</a></li><li><a href="https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/">A couple of debugging tips</a></li><li><a href="https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/">ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</a></li><li><a href="https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/">Using C# 5.0 with Visual Studio 2015</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SOLID-ifying your Nuget Packaging - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="SOLID-ifying your Nuget Packaging">
+<meta itemprop="description" content="The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to DLL Hell. But I had this slight epiphany from another comment, where it was observed that our X.Common package had &lsquo;helper code&rsquo; for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc)."><meta itemprop="datePublished" content="2015-04-27T07:54:17+00:00" />
+<meta itemprop="dateModified" content="2015-04-27T07:54:17+00:00" />
+<meta itemprop="wordCount" content="1419">
+<meta itemprop="keywords" content="Editorial,NuGet," /><meta property="og:title" content="SOLID-ifying your Nuget Packaging" />
+<meta property="og:description" content="The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to DLL Hell. But I had this slight epiphany from another comment, where it was observed that our X.Common package had &lsquo;helper code&rsquo; for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/solid-ifying-your-nuget-packaging/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2015-04-27T07:54:17+00:00" />
+<meta property="article:modified_time" content="2015-04-27T07:54:17+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SOLID-ifying your Nuget Packaging"/>
+<meta name="twitter:description" content="The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to DLL Hell. But I had this slight epiphany from another comment, where it was observed that our X.Common package had &lsquo;helper code&rsquo; for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc)."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">SOLID-ifying your Nuget Packaging</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">SOLID-ifying your Nuget Packaging</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Apr 27, 2015
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>7 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy">#Editorial</a><a href="https://csmacnzblog.github.io/categories/nuget/" class="post-taxonomy">#NuGet</a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy">#Editorial</a><a href="https://csmacnzblog.github.io/tags/nuget/" class="post-taxonomy">#NuGet</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#single-responsibility">Single responsibility</a></li>
+        <li><a href="#open-closed">Open-closed</a></li>
+        <li><a href="#liskov-substitution">Liskov substitution</a></li>
+        <li><a href="#interface-segregation">Interface segregation</a></li>
+        <li><a href="#dependency-inversion">Dependency inversion</a></li>
+        <li><a href="#composition-over-inheritance">Composition over Inheritance</a></li>
+        <li><a href="#summary">Summary</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to <strong>DLL Hell</strong>. But I had this slight epiphany from another comment, where it was observed that our <strong>X.Common package</strong> had <em>&lsquo;helper code&rsquo;</em> for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc).</p>
+<p>The second part of this problem, was that other packages pulled in this large common package for one small part, and ended up with all of it&rsquo;s dependencies as well. The applications, once put together had packages that it had no necessity for, and dependency trees that where deep, intertwined, and prone to break when versions of common third-party libraries had breaking changes.</p>
+<p><em>&ldquo;We should be building our packages with a single responsibility, or split them up until they do&rdquo;</em> was my statement. At hearing this back out of my own mouth, my brain instantly started thinking about the <a href="http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29" target="_blank"><strong>SOLID Principles</strong></a>
+ and the concept of <a href="http://en.wikipedia.org/wiki/Composition_over_inheritance" target="_blank"><strong>Composition  over Inheritance</strong></a>
+.</p>
+<p>My mind was racing ahead of itself thinking through how applicable these OO concepts were to assembly and package architecture. And It looks like these principles apply at whatever scale you are looking at, where you have units of functionality, and composability.</p>
+<p>So here are my thoughts put into writing. Agree? Disagree? Have a read and please leave your thoughts in the comments.</p>
+<ul>
+<li>Single responsibility</li>
+<li>Open-closed</li>
+<li>Liskov substitution</li>
+<li>Interface segregation</li>
+<li>Dependency inversion</li>
+<li><strong>BONUS ROUND</strong> - Composition over Inheritance</li>
+</ul>
+<h3 id="single-responsibility">Single responsibility</h3>
+<p>Each NuGet package should have one, and only one reason to change.  It should do one thing, and one thing well. Just like having a class called <code>'Manager'</code> is a code smell, a package called <code>'Common'</code> is also a smell. Maybe you have a <code>Core.Math</code>, a <code>Core.Formatting</code> and a <code>Core.NHibernateExtensions</code> package that can be pulled out of your <code>'Common'</code> and be much clearer what they are for, and which one you would add new code to when the need arises.</p>
+<h3 id="open-closed">Open-closed</h3>
+<p>I struggle a little with how this directly applies, but I can see one example that kind of makes sense.  If you have a requirement for your package component to log out information, you might think about including NLog so that you have defined that functionality. But now you are closed to extension, someone can&rsquo;t come in and use entlib logging, or you would have to open it up and modify it to now support both of these, as required. But this doesn&rsquo;t scale to a third, or fourth logging platform.</p>
+<p>Instead, have the Logging capabilities defined as a pluggable part of your package. Even supply a NO-OP implementation (or <a href="http://en.wikipedia.org/wiki/Null_Object_pattern" target="_blank">Null Object</a>
+) so that this is now an opt-in function. You can then leave your component closed for modification, and open to extension by you, or anyone else building an adapter package, a <code>'Feature.Logging.NLog'</code> and <code>'Feature.Logging.EntLibLogging'</code> series of other small single-purpose adapter packages that their application can pull in when it wants to use your library with their particular logging framework. This doesn&rsquo;t even need to be a package, since they could implement their adaptation directly in their application code if they want to.</p>
+<p>Extend this out from logging, to all the other cross-cutting concerns a large scale application might want your component to have the ability to instrument in, and there are many opportunities for this principle to be applied.</p>
+<h3 id="liskov-substitution">Liskov substitution</h3>
+<p>This is another hard one, but maybe we should look at this in terms of semantic versioning?  <a href="http://semver.org/" target="_blank">Semantic Versioning</a>
+ defines the major version number as breaking changes, the minor as new features that are backwards compatible, and patch as backwards compatible bug fixes. So we say base class is a Major release (2.0.0), and it&rsquo;s subclass(derived class) is the next Minor (2.1.0) or Patch (2.0.1) release.  Does this mean that this holds true?</p>
+<blockquote>
+<p>&ldquo;<strong>NuGet Dependencies</strong> in a program should be replaceable with instances of <strong>new Minor or Patch versions of those packages</strong> without altering the correctness of that program&rdquo;</p>
+</blockquote>
+<p>and extending from this:</p>
+<blockquote>
+<p>&ldquo;<strong>NuGet Dependencies</strong> in a <em><strong>NuGet Package</strong></em> should be replaceable with instances of <strong>new Minor or Patch versions of those packages</strong> without altering the correctness of that <em><strong>Package</strong></em>&rdquo;</p>
+</blockquote>
+<p>I think this is a fair substitution right? Exactly what Semantic Versioning has been defined to allow.  If some third party library has updated, my app should be able to consume a newer minor or patch version, without needing to modify the original application (even compilation of sed program).  And updating a third party library in the application, should not affect any of it&rsquo;s other NuGet packages, even ones which were compiled with the compatible Major version that we updated.</p>
+<h3 id="interface-segregation">Interface segregation</h3>
+<blockquote>
+<p>“many client-specific interfaces are better than one general-purpose interface.”</p>
+</blockquote>
+<p>Well, should we say lets have lots of smaller packages, because that&rsquo;s going to be better than one giant common package?  Maybe we want to take that even further? We may have a framework NuGet Package that solves 5 different problems. But we may want to only use one of these 5. If we create 5 interface projects, and depend on only the one we want, either someone else could implement a faster, or more efficient version of this one interface, and we can swap between them. If that new faster thing also had to implement all the other parts, we couldn&rsquo;t do this.</p>
+<p>Yeah, this just sounds like the original pattern, but explicitly separating the interface of a packages functionality, from the implementation packages does sound valuable, and this even allows version independence that is much stronger to detect changes for. (This is sounding more like Liskov again, hmmm&hellip;)</p>
+<p>That&rsquo;s the problem with trying to define precise examples with solid I think, I feel like Interface segregation is less of a concern when you are already following Single responsibility and Liskov substitution.</p>
+<h3 id="dependency-inversion">Dependency inversion</h3>
+<p>Ok, this one sounds the most obvious one right? In fact, I kind of covered this in my Open-Closed example. And kind of almost touched on it with Interface segregation as well.</p>
+<blockquote>
+<p>one should “Depend upon Abstractions. Do not depend upon concretions.”</p>
+</blockquote>
+<h3 id="composition-over-inheritance">Composition over Inheritance</h3>
+<p>We all get told we should compose our objects from other components, instead of deriving and deriving from base classes for behaviour inheritance. Packages are the same. Lets take dependencies on 50 <strong>small packages</strong> and compose these into our application, and tie them together as required. These small packages are small because they follow all the above patterns, and their dependency tree is flat. at most they take only one or two (non-framework) packages as dependencies, which have no dependencies of their own. Definitely nothing too much more deeply nested then this if you can help it.</p>
+<p>This is much better that the alternative, of 100 packages, intertwined like the most spaghetti of code that you might have ever seen, with no way in sight of decoupling and de-tangling the mess.  The benefits of a flat structure and allowing the application to compose, is that you can get the maximum of reuse from any of these projects, they are truly independent components, and you can make the decision at the app level, if done well, about which logging framework your use, which ORM, or data access you choose, which database you use, how you host your code, and even what front-end technology you want to use, without any of these concerns having to be consistent across all your packages. These concerns are just more packages and tie-in code that you compose in.</p>
+<h3 id="summary">Summary</h3>
+<p>So where does that put us? Well here are some general rules and observations I would try to follow, if the packages are only just starting to take shape, or you are looking at tidying up your packaging scenarios.</p>
+<ul>
+<li>Have a flat dependency structure, like you would a class hierarchy.</li>
+<li>Keep your packages small and single purpose.</li>
+<li>Use Semantic versioning properly, to help anyone who consumes your package.</li>
+<li>Don&rsquo;t take dependencies on anything large, or that you don&rsquo;t need to from inside a package.</li>
+<li>provide extension hooks from inside your package so that others can extend the functionality or swap out implementations of common concerns like data access and logging.</li>
+<li>Don&rsquo;t force a hard dependency on your functionality, if an interface package would do, especially for version compatibility.</li>
+</ul>
+<p>Did I get it wrong? Do you Agree? Anything I missed? Leave a comment and let me know.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/git-lol/">git lol</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/ports-and-adapters/">Ports and Adapters</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/semantics-vs-implementation-detail/">Semantics vs implementation detail</a></li><li><a href="https://csmacnzblog.github.io/post/thoughts-on-testing/">Thoughts on Testing</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

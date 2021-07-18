@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Looking back on C# 6: Elvis Operator - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Looking back on C# 6: Elvis Operator">
+<meta itemprop="description" content="With C# 8 on our doorstep, I wanted to go through some of the C# 6 and 7 language features I have been using that you may have missed.
+We start with the Elvis Operator from C# 6. The real name is Null Conditional Operator I believe, but I prefer the former.
+It is always good to first look at what the simplest, common code scenario the feature addresses.
+var widget = service."><meta itemprop="datePublished" content="2019-03-25T06:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-03-25T06:00:00+00:00" />
+<meta itemprop="wordCount" content="838">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="Looking back on C# 6: Elvis Operator" />
+<meta property="og:description" content="With C# 8 on our doorstep, I wanted to go through some of the C# 6 and 7 language features I have been using that you may have missed.
+We start with the Elvis Operator from C# 6. The real name is Null Conditional Operator I believe, but I prefer the former.
+It is always good to first look at what the simplest, common code scenario the feature addresses.
+var widget = service." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/looking-back-on-csharp6-elvis-operator/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-03-25T06:00:00+00:00" />
+<meta property="article:modified_time" content="2019-03-25T06:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Looking back on C# 6: Elvis Operator"/>
+<meta name="twitter:description" content="With C# 8 on our doorstep, I wanted to go through some of the C# 6 and 7 language features I have been using that you may have missed.
+We start with the Elvis Operator from C# 6. The real name is Null Conditional Operator I believe, but I prefer the former.
+It is always good to first look at what the simplest, common code scenario the feature addresses.
+var widget = service."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Looking back on C# 6: Elvis Operator</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Looking back on C# 6: Elvis Operator</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Mar 25, 2019
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>4 min read
+  </span>
+</div>
+<div class="post-content mb-3"><p>With C# 8 on our doorstep, I wanted to go through some of the C# 6 and 7 language features I have been using that you may have missed.</p>
+<p>We start with the Elvis Operator from C# 6. The real name is Null Conditional Operator I believe, but I prefer the former.</p>
+<p>It is always good to first look at what the simplest, common code scenario the feature addresses.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">var</span> widget = service.GetWidget(widgetId);
+
+<span style="color:#66d9ef">if</span>(widget.IsInStock())
+{
+   service.PurchaseWidgets(widgetId, quantity);
+}
+</code></pre></div><p>A simple scenario to purchase some widgets. Pretty standard code.</p>
+<p>But what if <code>GetWidget</code> returns <code>null</code> when the id is incorrect? (Whether returning nulls is a good idea is another topic, so we won&rsquo;t go into that here.)  We get a <code>NullReferenceException</code> when we try to check <code>widget.IsInStock()</code>.</p>
+<p>We can fix that:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">var</span> widget = service.GetWidget(widgetId);
+
+<span style="color:#66d9ef">if</span>(widget != <span style="color:#66d9ef">null</span> &amp;&amp; widget.IsInStock())
+{
+   service.PurchaseWidgets(widgetId, quantity);
+}
+</code></pre></div><p>We add a <code>null</code> guard and everything works again as expected. The code becomes a bit more verbose for these very common use cases.</p>
+<p>Instead, we can use the new(ish) symbol, the Null Conditional Operator or &ldquo;Elvis Operator&rdquo;, which looks like <code>?.</code> when used, which at a squint looks a bit like two eyes (<code>..</code>) and a coif of hair resembling the look <a href="http://www.schwarzkopf.international/en/hairstyling/fiftieshairstyles/elvis-presley-hairstyle.html" target="_blank">made famous by Elvis Presley</a>
+. (Technically it&rsquo;s just the <code>?</code> but it usually ends up with a <code>.</code> following it.)</p>
+<p>This symbol is a Null Check. It means &ldquo;if the evaluated expression on the left is null, don&rsquo;t evaluate the right-hand side, and evaluate to a null value if required.&rdquo;</p>
+<p>Some example usages:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">interface</span> ITestInterface {
+    <span style="color:#66d9ef">int</span> ANumberProperty { <span style="color:#66d9ef">get</span>; }
+    <span style="color:#66d9ef">void</span> DoSomeWork();
+    <span style="color:#66d9ef">string</span> GetSomeData();
+    <span style="color:#66d9ef">long</span> GetALong();
+}
+
+<span style="color:#75715e">// getValue returns an `ITestInterface`
+</span><span style="color:#75715e"></span>ITestInterface aValue = getValue();
+
+<span style="color:#75715e">// Safely get the value from a Property when the object might be null
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int?</span> aNumber = aValue?.ANumberProperty;
+
+<span style="color:#75715e">// if aValue is not null, execute `.DoSomeWork()`
+</span><span style="color:#75715e"></span>aValue?.DoSomeWork();
+
+<span style="color:#75715e">// if aValue is not null, execute `.GetSomeData()`
+</span><span style="color:#75715e">// at this point, data could be null, and as a string, could have been anyway
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">string</span> data = aValue?.GetSomeData();
+
+<span style="color:#75715e">// if aValue is not null, execute `.GetALong()`
+</span><span style="color:#75715e">// at this point, the result is now nullable
+</span><span style="color:#75715e">// We should all try to get along...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">long?</span> aLong = aValue?.GetALong();
+</code></pre></div><p>For our above example, this means we can now write this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">if</span>(widget?.IsInStock() == <span style="color:#66d9ef">true</span>)
+{
+   service.PurchaseWidgets(widgetId, quantity);
+}
+</code></pre></div><p>This is functionally identical code to the working example above. Note that because <code>if(...)</code> expects a boolean expression (something that evaluates to either true or false) we need to add <code>== true</code> to the end. This is because <code>widget?.IsInStock()</code> evaluates to <code>Nullable&lt;bool&gt;</code>, or <code>bool?</code> (The original <code>bool</code> becomes <code>bool?</code> thanks to the Elvis Operator.) Personally, I think this is very readable code.</p>
+<p>One other ideal scenario for this is Function Pointers. Specifically, the language feature of Delegates, Funcs and Actions. To make this work, you have to use the <code>Invoke</code> method, rather than execute them like functions. Examples of what I mean are below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">event</span> PropertyChangedEventHandler PropertyChanged;
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> OnPropertyChanged(<span style="color:#66d9ef">string</span> propertyName)
+{
+    <span style="color:#75715e">// This is a pretty traditional EventHandler scenario implementation
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> handler = PropertyChanged;
+    <span style="color:#66d9ef">if</span> (handler != <span style="color:#66d9ef">null</span>)
+        handler.Invoke(<span style="color:#66d9ef">this</span>, <span style="color:#66d9ef">new</span> PropertyChangedEventArgs(propertyName));
+}
+</code></pre></div><p>If this code doesn&rsquo;t look familiar, skip to the next paragraph. Otherwise, I&rsquo;ll go on. Events and EventHandler code can have problems if no-one has actually subscribed to the event, the execution could fail. But that&rsquo;s where we update to use the Elvis Operator, and throw away a bunch of code. You don&rsquo;t even have to create a shadow-copy variable to avoid multithread update race conditions, because the code generated by the compiler does that for you!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> OnPropertyChanged(<span style="color:#66d9ef">string</span> propertyName)
+{
+    PropertyChanged?.Invoke(<span style="color:#66d9ef">this</span>, <span style="color:#66d9ef">new</span> PropertyChangedEventArgs(propertyName));
+}
+</code></pre></div><p>For Funcs and Actions, you can safeguard against null values using the Elvis Operator as well.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoWork(Action&lt;<span style="color:#66d9ef">string</span>&gt; logStuff)
+{
+    <span style="color:#75715e">// Work happens here
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// This throws when `logStuff` is null
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// logStuff(&#34;Finished Doing Work.&#34;); 
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// This will work, only executing if logStuff is not null
+</span><span style="color:#75715e"></span>    logStuff?.Invoke(<span style="color:#e6db74">&#34;Finished Doing Work.&#34;</span>);
+}
+
+<span style="color:#66d9ef">public</span> Stuff GetStuff(Func&lt;<span style="color:#66d9ef">string</span>&gt; getMoreStuff)
+{
+    <span style="color:#75715e">// Work happens here
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// This also throws when `getMoreStuff` is null
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// var moreStuff = getMoreStuff();
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// moreStuff will be null if getMoreStuff is null, OR if getMoreStuff returns null
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// You still might do a null check if you care about the difference
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> moreStuff = getMoreStuff?.Invoke();
+    
+    <span style="color:#75715e">// We could also use the null coalescing operator (`??`) as well to fallback in both cases:
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> another = getMoreStuff?.Invoke() ?? <span style="color:#e6db74">&#34;FallBack Value&#34;</span>;
+    
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Stuff
+    {
+        Thing1 = <span style="color:#ae81ff">3.4</span>,
+        Thing2 = <span style="color:#ae81ff">3.3</span>,
+        MoreStuff = moreStuff
+    };
+}
+
+</code></pre></div><p>While I often hear people talking about &ldquo;clever code&rdquo; as an antipattern, and I totally agree with that statement, I find the argument for any particular feature or technique being &ldquo;clever&rdquo; is very time sensitive. As a language feature reaches a large enough common usage status, it is no longer considered &ldquo;clever&rdquo;. (Historical examples of this might be <code>foreach</code> Extension methods, lambdas, even LINQ statements and async compared to two years ago.)</p>
+<p>That applies here as well. It is time to embrace the Elvis Operator in your code.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/looking-back-on-c/">Looking back on C#</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/silverlight-6-with-netstandard-support-announced/">Silverlight 6 with .NetStandard support Announced</a>
+    </div></div>
+</div></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

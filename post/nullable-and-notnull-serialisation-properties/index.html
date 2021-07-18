@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nullable and notnull Serialisation Properties - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Nullable and notnull Serialisation Properties">
+<meta itemprop="description" content="The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely. However, there is one niggly workaround that I&rsquo;m not a fan of, and that is = default!;
+problem definition // This class is used to serialise/deserialise a payload from a server public class MyContractDTO { public string Value { get; set; } = default!; } My codebase is now littered with this code hack to get it to compile because nullable says it can&rsquo;t guarantee that this property is not null."><meta itemprop="datePublished" content="2020-07-26T02:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-07-26T02:00:00+00:00" />
+<meta itemprop="wordCount" content="1332">
+<meta itemprop="keywords" content="c#,dotnetcore,software development," /><meta property="og:title" content="Nullable and notnull Serialisation Properties" />
+<meta property="og:description" content="The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely. However, there is one niggly workaround that I&rsquo;m not a fan of, and that is = default!;
+problem definition // This class is used to serialise/deserialise a payload from a server public class MyContractDTO { public string Value { get; set; } = default!; } My codebase is now littered with this code hack to get it to compile because nullable says it can&rsquo;t guarantee that this property is not null." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-07-26T02:00:00+00:00" />
+<meta property="article:modified_time" content="2020-07-26T02:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nullable and notnull Serialisation Properties"/>
+<meta name="twitter:description" content="The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely. However, there is one niggly workaround that I&rsquo;m not a fan of, and that is = default!;
+problem definition // This class is used to serialise/deserialise a payload from a server public class MyContractDTO { public string Value { get; set; } = default!; } My codebase is now littered with this code hack to get it to compile because nullable says it can&rsquo;t guarantee that this property is not null."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Nullable and notnull Serialisation Properties</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Nullable and notnull Serialisation Properties</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jul 26, 2020
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>7 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy">#software development</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy">#software development</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#problem-definition">problem definition</a></li>
+    <li><a href="#normal-solutions">Normal solutions</a></li>
+    <li><a href="#but-serialisation">But serialisation</a></li>
+    <li><a href="#the-json-may-or-may-not-include-the-field-or-it-might-be-null">The JSON may or may not include the field or it might be null</a></li>
+    <li><a href="#use-constructors">Use Constructors</a></li>
+    <li><a href="#what-about-not-using-newtonsoftjson">What about not using Newtonsoft.Json?</a></li>
+    <li><a href="#decisions-decisions">Decisions, Decisions</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&rsquo;m not a fan of, and that is <code>= default!;</code></p>
+<h2 id="problem-definition">problem definition</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#75715e">// This class is used to serialise/deserialise a payload from a server
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyContractDTO</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>!;
+}
+</code></pre></div><p>My codebase is now littered with this code hack to get it to compile because nullable says it can&rsquo;t guarantee that this property is not null.</p>
+<p>Let&rsquo;s take a closer look at what we are saying.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">
+<span style="color:#75715e">// With the Nullable feature enabled, I need to ensure Value is not null:
+</span><span style="color:#75715e">// - either in the constructor from a notnull argument
+</span><span style="color:#75715e">// - or giving it a default non-null value.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+
+<span style="color:#75715e">// Initialise the property to its default value (which for reference types like string is null)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>;
+
+<span style="color:#75715e">// The &#39;!&#39; says to treat the value as if it is notnull, the developer knows better
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>!;
+</code></pre></div><p>What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&rsquo;t like it.</p>
+<h2 id="normal-solutions">Normal solutions</h2>
+<p>There are two solution paths to take here:</p>
+<ul>
+<li>Acknowledge that it might be null and make it nullable.</li>
+<li>Initialise in the constructor.</li>
+</ul>
+<p>These work great with normal codebases and in some cases, one is better than the other.  If you know it certainly can be null, use the first option. If you know you never expect or want it to be null, use the second.</p>
+<p>Bonus points once you have the constructor is to make the type immutable.
+For all domain and application logic, This is what I have done successfully so far and will continue doing.</p>
+<h2 id="but-serialisation">But serialisation</h2>
+<p>Here is the problem. Serialisation.</p>
+<p>When we have a type that is going to be used to deserialise transport models we again have the same choices as above, but a few more points to consider.</p>
+<ul>
+<li>The JSON may or may not include the field</li>
+<li>The JSON may have the field set to null</li>
+<li>The Deserialiser might not support constructors</li>
+<li>The Deserialiser doesn&rsquo;t know about Nullable and can&rsquo;t ensure the safety is upheld.</li>
+</ul>
+<p>Again we can make the call to acknowledge that it might be null and make it nullable.  But there are drawbacks here. If you do this, you have to add all the error-handling for dealing with nullable checks. And if you control both server and client in this situation, then you might be writing and testing code for something you never plan to, nor may never need to ever support. Being null is an exceptional/fatal situation you don&rsquo;t want to have to constantly guard against.</p>
+<p>Which leads us back to the de-facto solution currently being advocated and used:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>!;
+</code></pre></div><p>I&rsquo;m still not happy. So why don&rsquo;t we work on that?</p>
+<h2 id="the-json-may-or-may-not-include-the-field-or-it-might-be-null">The JSON may or may not include the field or it might be null</h2>
+<p>Luckily for us, this concern is fairly easy to address. Say we are using Newtonsoft.Json and want this extra piece of reassurance.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#a6e22e">[JsonProperty(Required = Required.Always)]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>!;
+</code></pre></div><p>The <code>Required</code> attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a <code>JsonSerializationException</code> for free.</p>
+<p>This ensures we:</p>
+<ul>
+<li>have minimal code doing the null checking</li>
+<li>don&rsquo;t have to guard every access to a nullable property</li>
+<li>Treat null or missing as fatal errors as part of an existing serialisation error handling process (which we should always have anyway).</li>
+</ul>
+<p>This still doesn&rsquo;t stop any other piece of code from creating an invalid object state, though. But this may be the easiest solution to add those missing guarantees alongside using <code>default!</code>.</p>
+<h2 id="use-constructors">Use Constructors</h2>
+<p>Newtonsoft.Json helps once again by supporting constructors. Make sure all the mandatory non-nullable properties are in the constructor. And as long as there is no default constructor (which when doing nullable right you can&rsquo;t anyway) and the constructor parameters have names matching the properties, this just works as expected.</p>
+<pre><code>public class MyContractDTO
+{
+    public MyContractDTO(string value)
+    {
+        if(value is null) throw new ArgumentNullException(nameof(value));
+        Value = value;
+    }
+    
+    public string Value { get; set; };
+}
+</code></pre><p>You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.</p>
+<p>Once more, Newtonsoft.Json with constructors also means support for read-only (immutable) objects.</p>
+<h2 id="what-about-not-using-newtonsoftjson">What about not using Newtonsoft.Json?</h2>
+<p>There is a new kid on the block - <code>System.Text.Json</code>. However, this is one area where it doesn&rsquo;t shine so bright compared to Newtonsoft.Json.</p>
+<p>Pretty much none of the above works. Constructors are not supported. Required annotation is not supported. Along with many other things.</p>
+<p>More on <a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to" target="_blank">what does and does not translate across from Newtonsoft.Json is documented here</a>
+.</p>
+<p>Instead, you will need to write your own converter and manually deserialise your object with your own explicit null checks (which could be done inside the constructor).</p>
+<p>For example, given our simple type above, we might do the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#a6e22e">[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyContractDTO</span>
+{
+    <span style="color:#66d9ef">public</span> MyContractDTO(<span style="color:#66d9ef">string</span> <span style="color:#66d9ef">value</span>)
+    {
+        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">value</span> <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(<span style="color:#66d9ef">value</span>));
+        Value = <span style="color:#66d9ef">value</span>;
+    }
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; }
+}
+
+<span style="color:#75715e">// Made using the examples given at https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#required-properties
+</span><span style="color:#75715e">// Your decisions may vary.
+</span><span style="color:#75715e">// e.g. this only supports {&#34;value&#34;: &#34;...&#34;} format, no extra properties allowed.
+</span><span style="color:#75715e">// For a more complex object, you would probably be more flexible.
+</span><span style="color:#75715e">// Better guides here: https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyContractDTOConverter</span> : JsonConverter&lt;MyContractDTO&gt;
+{
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> JsonEncodedText ValueName = JsonEncodedText.Encode(<span style="color:#e6db74">&#34;value&#34;</span>);
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> Implementation Read(
+        <span style="color:#66d9ef">ref</span> Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options)
+    {
+        <span style="color:#66d9ef">if</span> (reader.TokenType != JsonTokenType.StartObject)
+        {
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> JsonException();
+        };
+
+        <span style="color:#66d9ef">string?</span> <span style="color:#66d9ef">value</span> = <span style="color:#66d9ef">default</span>;
+
+        reader.Read();
+        <span style="color:#75715e">// One property must exist
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (reader.TokenType != JsonTokenType.PropertyName)
+        {
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> JsonException();
+        }
+
+        <span style="color:#75715e">// That property must have the right name
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (reader.ValueTextEquals(ValueName.EncodedUtf8Bytes))
+        {
+            <span style="color:#66d9ef">value</span> = ReadProperty(<span style="color:#66d9ef">ref</span> reader, options);
+        }
+        <span style="color:#66d9ef">else</span>
+        {
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> JsonException();
+        }
+
+        reader.Read();
+        <span style="color:#75715e">// There must be no other properties
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (reader.TokenType != JsonTokenType.EndObject)
+        {
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> JsonException();
+        }
+
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MyContractDTO(<span style="color:#66d9ef">value</span>);
+    }
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">string</span> ReadProperty(<span style="color:#66d9ef">ref</span> Utf8JsonReader reader, JsonSerializerOptions options)
+    {
+        Debug.Assert(reader.TokenType == JsonTokenType.PropertyName);
+
+        reader.Read();
+
+        <span style="color:#66d9ef">return</span> reader.GetString();
+    }
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> WriteProperty(Utf8JsonWriter writer, JsonEncodedText name, <span style="color:#66d9ef">string</span> stringValue, JsonSerializerOptions options)
+    {
+        writer.WritePropertyName(name);
+        writer.WriteStringValue(stringValue);
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">void</span> Write(
+        Utf8JsonWriter writer,
+        Implementation implementation,
+        JsonSerializerOptions options)
+    {
+        writer.WriteStartObject();
+        WriteProperty(writer, ValueName, implementation.Value, options);
+        writer.WriteEndObject();
+    }
+}
+</code></pre></div><p>At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.</p>
+<h2 id="decisions-decisions">Decisions, Decisions</h2>
+<p>So what would I recommend?</p>
+<p>Firstly, don&rsquo;t just use <code>default!</code> on your serialised types.</p>
+<p>For maximum effect, make your classes have constructors for notnull values, and maybe even make your properties Immutable, if that makes sense. Have your constructors guard against nulls so that your compile-time assurances have runtime verifications. Especially is this is a client library you provide to others.</p>
+<p>If you are using Newtonsoft.Json you should at least apply the <code>[JsonProperty(Required = Required.Always)]</code> to all your notnull properties. But add the constructors as well because you can. If you can stick with Newtonsoft.Json, your life will be very easy.</p>
+<p>If you are using (or have to use) System.Text.Json, write custom converters for your types so that you can have those constructors mentioned above. Make sure you keep them flexible enough to ignore any extra properties you might add in the future to avoid breaking backwards compatibility.</p>
+<p>This experiment has a companion GitHub repo of tests (a mixture of proof they work, and proof they fail tests) <a href="https://github.com/csMacnzBlog/NullableSerialisationExperiments" target="_blank">available here</a>
+.</p>
+<p>Happy Null-Hunting.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/untitled-4/">Microsoft and dotnet: 4 is the new 9</a></li><li><a href="https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/">Looking forward to dotnet in 2019</a></li><li><a href="https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/">Clean Startup in your AspNetCore</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore-self-contained-applications/">.Net Core Series - Self-contained Applications</a></li><li><a href="https://csmacnzblog.github.io/post/migrating-onto-dotnet-tools-1-0-0/">Migrating onto dotnet tools 1.0.0</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

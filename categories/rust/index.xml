@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rust on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/rust/</link>
+    <description>Recent content in Rust on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 14 May 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Develop your Rust in Docker</title>
+      <link>https://csmacnzblog.github.io/post/develop-your-rust-in-docker/</link>
+      <pubDate>Mon, 14 May 2018 07:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/develop-your-rust-in-docker/</guid>
+      <description>I decided a while ago that the next language I would try to learn is Rust. I don&amp;rsquo;t want to go too much into Rust other than to repeat its own summary:
+ Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. &amp;ndash; https://www.rust-lang.org/
+ But like all things, there are bits that need to be installed. I want to get started, I don&amp;rsquo;t want to muck around with installers.</description>
+    </item>
+    
+  </channel>
+</rss>

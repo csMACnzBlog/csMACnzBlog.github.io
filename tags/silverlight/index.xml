@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>silverlight on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/silverlight/</link>
+    <description>Recent content in silverlight on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Wed, 16 Feb 2011 04:38:14 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/silverlight/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bing Maps Control Series - 2: Add a simple map to your application</title>
+      <link>https://csmacnzblog.github.io/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</link>
+      <pubDate>Wed, 16 Feb 2011 04:38:14 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</guid>
+      <description>This is part 2 of a series on using the Silverlight Bing Maps Control. If haven&amp;rsquo;t already, check out part 1.
+So Now that you have installed the Bing Maps Silverlight Control, and got yourself a key, you need to add the control to your project. For completeness, lets start by creating a new Silverlight 4 Application Project in Visual Studio 2010, and open up the MainPage.xaml file.
+Now before we can add the control, we need a reference to it.</description>
+    </item>
+    
+    <item>
+      <title>Bing Maps Control Series - 1: Downloading and Installing the Tools</title>
+      <link>https://csmacnzblog.github.io/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</link>
+      <pubDate>Sun, 16 Jan 2011 19:29:10 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</guid>
+      <description>Over the last month or so I have has the opportunity to develop using the Bing Maps Control for Silverlight, and thought it appropriate to share this experience as well as a bit of a &amp;lsquo;how to&amp;rsquo; on using it. I plan for this to be a bit of a series based on the following items: - Downloading and Installing the Tools.
+ Add a Simple map to your application.</description>
+    </item>
+    
+    <item>
+      <title>Custom Control Validation in Silverlight</title>
+      <link>https://csmacnzblog.github.io/post/custom-control-validation-in-silverlight/</link>
+      <pubDate>Wed, 17 Nov 2010 20:52:11 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/custom-control-validation-in-silverlight/</guid>
+      <description>So you&amp;rsquo;ve built up your nice new fancy custom control, and some Dependency Properties for your users to bind there data to, what else could you want? How about validation? Turns out that the control base class is all ready set up for this exact scenario. There is only one step required: Create the Visual states. Just add a visualstategroup called ValidationStates and a state for each of Valid, InvalidUnfocused and InvalidFocused corresponding to how you want your control to behave when in each of those states.</description>
+    </item>
+    
+    <item>
+      <title>WPF VS Silverlight 1: Data Template Selector</title>
+      <link>https://csmacnzblog.github.io/post/wpf-vs-silverlight-1-data-template-selector/</link>
+      <pubDate>Wed, 06 Oct 2010 03:44:12 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/wpf-vs-silverlight-1-data-template-selector/</guid>
+      <description>Here is my first post on what I will try and turn into a series of WPF/Silverlight differences and how to get around them. First I will begin by talking about DataTemplateSelector.
+I suppose before I talk about the DataTemplateSelector class, I should mention a little bit about what a Template is. Unless you are new to WPF and Silverlight Development (and by extension, WP7 development) you will be aware all controls have a Template Property.</description>
+    </item>
+    
+    <item>
+      <title>Where can I find Silverlight?</title>
+      <link>https://csmacnzblog.github.io/post/where-can-i-find-silverlight/</link>
+      <pubDate>Mon, 26 Apr 2010 09:23:24 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/where-can-i-find-silverlight/</guid>
+      <description>I had someone ask me the other day where he could go to see silverlight in action, what sites are using silverlight, so I did a bit of searching, and found that it&amp;rsquo;s not that easy to find really. So here is my attempt to create such a list. Feel free to add anything I miss by posting comments.
+Bing maps I mentioned Twitter Maps on Bing in an earlier postbut Bing maps is actually powered by silverlight, in its most advanced version.</description>
+    </item>
+    
+  </channel>
+</rss>

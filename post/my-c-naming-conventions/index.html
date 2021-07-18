@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My C# naming conventions - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="My C# naming conventions">
+<meta itemprop="description" content="I have opinions!
+I&rsquo;ve been meaning to write this article for a while. I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.
+Firstly, let&rsquo;s just say that there are Guidelines and Opinions."><meta itemprop="datePublished" content="2018-03-25T05:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-03-25T05:00:00+00:00" />
+<meta itemprop="wordCount" content="2405">
+<meta itemprop="keywords" content="Tips and Tricks,c#," /><meta property="og:title" content="My C# naming conventions" />
+<meta property="og:description" content="I have opinions!
+I&rsquo;ve been meaning to write this article for a while. I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.
+Firstly, let&rsquo;s just say that there are Guidelines and Opinions." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/my-c-naming-conventions/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-03-25T05:00:00+00:00" />
+<meta property="article:modified_time" content="2018-03-25T05:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="My C# naming conventions"/>
+<meta name="twitter:description" content="I have opinions!
+I&rsquo;ve been meaning to write this article for a while. I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.
+Firstly, let&rsquo;s just say that there are Guidelines and Opinions."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">My C# naming conventions</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">My C# naming conventions</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Mar 25, 2018
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>12 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#an-overview">An Overview</a>
+      <ul>
+        <li><a href="#microsoft-guidance">Microsoft Guidance</a></li>
+        <li><a href="#contracts-public-vs-private">Contracts: Public Vs Private</a></li>
+      </ul>
+    </li>
+    <li><a href="#check-out-m-style">Check Out M' Style</a>
+      <ul>
+        <li><a href="#naming-conventions">Naming Conventions</a></li>
+        <li><a href="#hungarian-notation">Hungarian Notation</a></li>
+        <li><a href="#method-signatures">Method signatures</a></li>
+        <li><a href="#braces">Braces</a></li>
+        <li><a href="#general-whitespace">General Whitespace</a></li>
+        <li><a href="#privates">Privates</a></li>
+        <li><a href="#tests">Tests</a></li>
+        <li><a href="#automation">Automation</a></li>
+        <li><a href="#the-end">The End</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>I have opinions!</p>
+<p>I&rsquo;ve been meaning to write this article for a while.  I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.</p>
+<p>Firstly, let&rsquo;s just say that there are Guidelines and Opinions. I might not be clear exactly which one something is below, but it will be one or the other.  That means that what I say won&rsquo;t fit all situations. Don&rsquo;t take it as a hard and fast rule. Use your own judgement.</p>
+<p>Also, I love feedback, it is how I change and evolve my own style. I would love to revisit this in another couple of years and share how it might have changed. Please leave comments at the end.</p>
+<p>One final thought before I start: Decide this as a team. If your whole team have individual styles and conventions, the code can feel like reading a book with multiple authors, disjointed and hard to follow. Just like a book, different chapters can have different authors and work well, the code can have different styles in different modules (libraries, packages, repositories). As long as the whole team is using the same style in the same code together, it will become more cohesive to read, write and maintain. And that is the ultimate point of applying Style Guidelines in the first place.</p>
+<h2 id="an-overview">An Overview</h2>
+<p>Before I go into my styles, let&rsquo;s look at something more general, and standard.</p>
+<h3 id="microsoft-guidance">Microsoft Guidance</h3>
+<p>Starting with something simple. If you are new to Microsoft Development and .Net, I would recommend reading their <a href="https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/naming-guidelines" target="_blank">Naming Guidelines</a>
+ and <a href="https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/general-naming-conventions" target="_blank">General Naming Conventions</a>
+. At the very least, it makes it easier to read other peoples code. If they write in C#, there is a high chance that they follow these guidelines. Either because they are part of a team that enforces them or the tooling uses it by default (Visual Studio, VSCode, Resharper, Rider etc) by their auto-formatter, or something like <a href="https://github.com/dotnet/roslyn-analyzers#recommended-version-of-analyzer-packages" target="_blank">FxCop</a>
+ or <a href="https://github.com/StyleCop/StyleCop" target="_blank">StyleCop</a>
+ is enforcing it.</p>
+<p>I may deviate a little, but this guidance was my starting point when I first began writing C# code.</p>
+<h3 id="contracts-public-vs-private">Contracts: Public Vs Private</h3>
+<p>There are two places where you can apply your style and convention. Internally in your code, as you write it, and externally in the public API and contracts that your library exposes to other programs to use.</p>
+<p>Before taking anything else into account, I recommend that any public signatures (e.g. naming conventions - class names, method names, parameter names, properties etc) Should follow the guidance from Microsoft. People using your library should not have to deal with your style and conventions, they should match what the expected C# library conventions are. This can also include protected methods and properties if your library is extensible.</p>
+<p>Inside your code, its all up to you. Anything private (and protected if the class is sealed) is never exposed to the consumer, you can do what you like. Similarly, the layout of your code (whitespace, braces, class/file distribution) is all up to you (and your team).</p>
+<h2 id="check-out-m-style">Check Out M' Style</h2>
+<p>Let&rsquo;s get specific on how I do.</p>
+<p>In general my rules are pretty hard to describe, so hopefully, the examples will help (I will use <code>•</code> as the representative of space and <code>⟶</code> as the representative of tab - SPOILER: I will never use this tab character&hellip;)</p>
+<h3 id="naming-conventions">Naming Conventions</h3>
+<p>Every person and every language has their own approach to naming conventions. In C# there are a few basics: Capital letters starting Namespaces, Classes, Methods, and Properties and we use <code>PascalCase</code> by default, and not underscores.  Properties do not start their name with &ldquo;Get&rdquo;.</p>
+<p>I stick to this as a strong rule. All methods, All Properties, anything public.</p>
+<p>In general, variables and parameters use <code>camelCase</code>.</p>
+<p>I use a couple of conventions for naming things well. For instance, I might name something that is a boolean <code>IsOpen</code> rather than <code>Open</code> or <code>Opened</code>, and for a setting <code>CanOpen</code>.  <code>Is</code> and <code>Can</code> prefixes help readability of the code a lot. This is for properties but applies to methods just as much.</p>
+<p>Private fields always (always) start with an underscore (<code>_</code>). When you are reading code, it makes it easier to determine what belongs to the method, and what belongs to the class.</p>
+<p>Use long descriptive names, not single letter variables. Even if you are using Linq, if the name of the item in the lambda isn&rsquo;t obvious, still use a full name as the lambda parameter.</p>
+<pre><code>// bad
+var names = data.Select(w =&gt; w.Name).ToList();
+
+// better
+var names = data.Select(widget =&gt; widget.Name).ToList();
+</code></pre><h3 id="hungarian-notation">Hungarian Notation</h3>
+<p>Related to naming things is <a href="https://en.wikipedia.org/wiki/Hungarian_notation" target="_blank">Hungarian Notation</a>
+. Now there are two interpretations to this, the wrong one, and the original one. Most people remember Visual Basic, and using <code>btnSave</code> and <code>txtName</code> for UI controls, or the terrible <code>strName</code>.  This is the wrong interpretation of HN. Notation shouldn&rsquo;t be re-declaring the type which the reader can discover themselves, but instead to indicate the meaning of the data to avoid ambiguity. I think the name people use for the correct way is &ldquo;Apps Hungarian&rdquo;.</p>
+<p>Anyway, I use this when it is useful.  My simplest example is when I have an argument that is an <code>int</code> providing a time. I will call my parameter <code>timeoutInSeconds</code>. Not strictly Hungarian Notation, but serves a similar purpose.  Of course, if it makes more sense, I will use a <code>TimeSpan</code> instead, but sometimes an integer amount of seconds is a better API.</p>
+<p>This also extends to units of measure. If we are using real world values we name the variables with their unit of measure.  <code>lengthInMeters</code> and <code>lengthInInches</code> helps the readability of code, especially when you have to mix units. Also if your mixing amounts with volumes, it helps to have <code>qtyAmount</code>, <code>mnyUnitCost</code> and <code>mnyTotal</code> to identify which decimal is a quantity, and which is a monitary amount.</p>
+<p>Or better yet, use <a href="https://blog.csmac.nz/semantics-vs-implementation-detail/" target="_blank">Value Types</a>
+ for all of the above, instead.</p>
+<h3 id="method-signatures">Method signatures</h3>
+<p>If anything in this article will surprise you, it is probably this one.</p>
+<p>I can&rsquo;t remember when I first saw this, but it took years to finally sink in and for me to <a href="https://en.wikipedia.org/wiki/Grok" target="_blank">grok</a>
+ it. It has to do with long signatures.</p>
+<p>First, try not to have long signatures. decompose your classes to shrink their constructors, and use Parameter Objects to pass around instead.</p>
+<p>Sometimes the problem isn&rsquo;t the number of arguments, but the names of those arguments. Nice long descriptive class names will quickly lead to this problem, even with only two or three parameters, especially Constructors when IOC is in play (which is always, right?).</p>
+<pre><code>public•class•MyClass
+{
+••••public•MyClass•(MyFirstDependentServiceWithALongName•myFirstDependentServiceWithALongName,•AnotherDependencyYouNeed•anotherDependencyYouNeed)
+••••{
+••••}
+
+...
+
+}
+</code></pre><p>Is your screen wrapping, or is it just me?</p>
+<p>There are two problems with this style.</p>
+<ul>
+<li>You need to scroll your code window to see the whole signature, and when you scroll you lose the rest of your code. (I don&rsquo;t care how wide your screen is, this can and will still happen.)</li>
+<li>Your source control tool with thrash on the signature line, with high potential for merge conflicts and such during development.</li>
+</ul>
+<p>Like I say, it took me years after reading this idea before actually using it. Let it stew a bit in your mind.</p>
+<pre><code>public•class•MyClass
+{
+••••public•MyClass•(
+••••••••MyFirstDependentServiceWithALongName•myFirstDependentServiceWithALongName,
+••••••••AnotherDependencyYouNeed•anotherDependencyYouNeed)
+••••{
+••••}
+
+...
+
+}
+</code></pre><p>We put each argument on a new line. They are indented an additional four spaces (the default indentation amount for one indent level).  That last closing brace is on the same line as the last argument. (Because it will have to change to a <code>,</code> anyway if we adding another arg, and the function body braces work better with it that way.)</p>
+<p>Always, always put the first argument on a new line. If you don&rsquo;t, the indentation is too wide, and if you rename the method, the indentation would keep shifting. You want to keep a stable, predictable indentation, within a method, and between methods. Consistency. (Again, this helps source control)</p>
+<p>Let&rsquo;s see that without the visible whitespace:</p>
+<pre><code>public class MyClass
+{
+    public MyClass (
+        MyFirstDependentServiceWithALongName myFirstDependentServiceWithALongName,
+        AnotherDependencyYouNeed anotherDependencyYouNeed)
+    {
+    }
+
+...
+
+}
+</code></pre><p>I find this style much easier to read, now.</p>
+<p>It even works during the method calls:</p>
+<pre><code>var result = ProcessData(
+    inputData,
+    customers,
+    authorisationData,
+    filterOptions,
+    sortOptions);
+</code></pre><p>The main take-away for me is, follow the Yoda method. Do or do not.</p>
+<p>Always put everything on one line, or always put all arguments on their own lines.</p>
+<h3 id="braces">Braces</h3>
+<p>Braces go on new lines, not like <code>JavaScript</code> where they start on the same line as the header line. Pretty sure that is standard.</p>
+<p>Always use braces when optional.</p>
+<p>So there is some great guidance that <code>if</code> statements and similar should only ever have one statement, so the braces for a body block should never be necessary. That&rsquo;s fine.  But the main reason for overriding it with my rule is the following. With no braces, you leave that code open to an edit vulnerability that can trick even the most experienced programmer to miss because our brains love to trick us.</p>
+<pre><code>if (someCondition(withAnArg))
+    DoWork();
+    
+if (aDifferentCondition(wthAnotherArg))
+    DoDifferentWork();
+    ButAlsoDoAnotherThing();
+</code></pre><p>That second example is lying to you.</p>
+<p>look again with braces:</p>
+<pre><code>if (someCondition(withAnArg))
+{
+    DoWork();
+}
+    
+if (aDifferentCondition(wthAnotherArg))
+{
+    DoDifferentWork();
+}
+    ButAlsoDoAnotherThing();
+
+</code></pre><p>Even without fixing the whitespace, there is no mistaking what the second set of code does, whether you can read C# or not. It is far too easy for someone to start with code like the first <code>if (someCondition(withAnArg))</code> and add another line that they think is inside the condition, but actually isn&rsquo;t, like what has happened to the <code>if (aDifferentCondition(wthAnotherArg))</code> condition in the first example.</p>
+<p>That is why I always enforce braces.</p>
+<p>Lambdas are fine. you can leave out the braces on one-liner lambdas because the compiler will sort you out if you get that wrong.</p>
+<h3 id="general-whitespace">General Whitespace</h3>
+<p>StyleCop has really helped me get stricter with my whitespace, enforcing my rules at compile time.</p>
+<p>These are really minor things, but I find they aid readability.</p>
+<ul>
+<li>Use a space before <code>(</code> in method signatures (but not in calls)</li>
+<li>(As Mentioned above) signatures on lines longer than 80 chars wide puts each arg on a new line.</li>
+<li>If you have your curly braces (<code>{</code> <code>}</code>) on one line, they should have spaces on either side.</li>
+<li>between class names and the base-class/interface, one space either side of the colon (<code>public class MyClass : IMyInterface</code>)</li>
+<li>spaces either side of lambda arrows (<code>w =&gt; w.Name</code>)  (Also most symbols really)</li>
+<li>One space after starting a comment line/block (This is law, <a href="https://stackoverflow.blog/2018/03/14/podcast-123-jon-skeet-wants-you-to-be-a-feminist/" target="_blank">John Skeet declared it so on a podcast</a>
+)</li>
+<li>Use 4 spaces for indentation</li>
+<li>No tabs, ever</li>
+<li>No spaces on empty lines (Just being anal)</li>
+</ul>
+<p>Mostly, I just follow the Out-Of-The-Box settings from StyleCop.</p>
+<h3 id="privates">Privates</h3>
+<p>As mentioned, I enforce underscore (<code>_</code>) prefixes for private fields. And <a href="http://stackoverflow.com/questions/4540146/naming-convention-for-private-fields/11461218#11461218" target="_blank">I am not alone</a>
+.</p>
+<p>(stolen from the comment linked above:)</p>
+<ul>
+<li>It eliminates conflicts with camel-cased parameter names - no need to use &ldquo;this&rdquo;</li>
+<li>It&rsquo;s a visual indicator that the internal persistent state of the object is being read, or - more importantly - being written. It&rsquo;s a flag saying <em>&ldquo;this has side effects outside of the particular method I happen to be looking at&rdquo;</em>, which is very important to know when looking at unfamiliar code.</li>
+<li>Although you can apply the above as a reverse argument for <code>this</code>, the above will be enforced by the compiler non-optional, while <code>this</code> can be left off by choice.</li>
+</ul>
+<p>Statics tend to vary a bit. If they are <code>static</code> and <code>readonly</code>, I have been known to use a starting Capital letter <code>PascalCase</code>. For consistency, often Mutable Statics are named the same.</p>
+<p>I have been known to use ALLCAPS for Constants. This is a carry-over from C I suspect but makes it easier to spot a Constant in code. Sometimes this feels too harsh, and I may use <code>PascalCase</code> here instead. What is the difference to the end user between a <code>private static readonly</code> and a <code>private const</code> anyway?</p>
+<p>My thinking is that if it starts with a Capital letter (<code>PascalCase</code>), it isn&rsquo;t owned by you. Either it belongs to the class you called to get it (property) or it doesn&rsquo;t belong to this instance (Static). For this thinking, I often will use Pascal Case for Protected fields as well, so that derived classes can tell they do not own it, either.</p>
+<p>These rules are a bit less thought through, and I don&rsquo;t tend to be any stricter than my tooling tells me to be. (If Resharper or StyleCop says to change it, I usually will.)</p>
+<h3 id="tests">Tests</h3>
+<p>This is probably the most controversial and the most varied. Somehow, when it comes to tests, it feels easier to break the rules.</p>
+<p>Don&rsquo;t get me wrong, I subscribe to Uncle Bob, and your tests should be given the care and attention that any of your code is given. SOLID, DRY, Coupling vs cohesion, modularisation etc etc.  But tests exercise requirements, so readability is more important than expected standards.  Also, tests are all under your domain, your style can flourish, you are the only consumer.</p>
+<p>What I am talking about primarily is using underscores in test names rather than strict PascalCase.</p>
+<p>I have been experimenting, and I have two approaches I use:</p>
+<ul>
+<li>Every_Word_Is_Seperated_By_An_Underscore_So_That_It_Forms_A_Descriptive_Sentence</li>
+<li>GivenIHaveATestMethod_WhenINeedToNameIt_ThenISeperateTheGivenWhenThenComponentsByUnderscores</li>
+</ul>
+<p>I have more recently extended my ideas to following this further guidance of organising tests to now use nested classes, and inheritance:</p>
+<pre><code>public class GivenIHaveAUser
+{
+    public class GivenIHaveLoggedIn : GivenIHaveAUser
+    {
+        public class GivenINavigateToTheFormPage : GivenIHaveLoggedIn
+        {
+            public class GivenISubmitAValidForm : GivenINavigateToTheFormPage
+            {
+                [Test]
+                public void ItSubmitsSuccessfully()
+                {
+                   ...
+                }
+            }
+
+            public class GivenISubmitAnInvalidForm : GivenINavigateToTheFormPage
+            {
+                [Test]
+                public void ItShowsValidationMessages()
+                {
+                   ...
+                }
+            }
+        }
+    }
+}
+</code></pre><h3 id="automation">Automation</h3>
+<p>If you want to really care about the style of your code, I recommend installing a few NuGet packages into your projects to get compile-time enforcement (don&rsquo;t worry, the rules are configurable):</p>
+<pre><code>&lt;PackageReference Include=&quot;Microsoft.CodeAnalysis.FxCopAnalyzers&quot; Version=&quot;2.6.0&quot;  PrivateAssets=&quot;All&quot; /&gt;
+&lt;PackageReference Include=&quot;codecracker.CSharp&quot; Version=&quot;1.0.3&quot; PrivateAssets=&quot;All&quot; /&gt;
+&lt;PackageReference Include=&quot;StyleCop.Analyzers&quot; Version=&quot;1.1.0-beta004&quot; PrivateAssets=&quot;All&quot; /&gt;
+</code></pre><p>(That needs a whole article in itself, but this is a taster.)</p>
+<h3 id="the-end">The End</h3>
+<p>I hope you enjoyed reading and thinking about code formatting. If you haven&rsquo;t taken something away to try, read it again and find something to challenge me on. If you can&rsquo;t make an argument for or against, maybe give it a go yourself, or suggest it to your team.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/dotnetcore2-self-contained-applications/">.Net Core SDK 2.* Series - Self-contained Applications</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/developers-are-not-lazy-theyre-efficient/">Developers are not lazy, they&#39;re efficient</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/there-can-be-only-one-return/">There can be only one return; 0 RLY?</a></li><li><a href="https://csmacnzblog.github.io/post/in-c-your-structs-should-be-immutable/">In C#, your structs should be immutable.</a></li><li><a href="https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/">A couple of debugging tips</a></li><li><a href="https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/">ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</a></li><li><a href="https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/">Using C# 5.0 with Visual Studio 2015</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

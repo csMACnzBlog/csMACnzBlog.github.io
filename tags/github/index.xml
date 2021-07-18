@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GitHub on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/github/</link>
+    <description>Recent content in GitHub on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Sun, 14 Aug 2016 21:51:20 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>New Projects - Consolable, ConcurrentConsole &amp; t4tinytypes</title>
+      <link>https://csmacnzblog.github.io/post/new-projects-consolable-concurrentconsole-t4tinytypes/</link>
+      <pubDate>Sun, 14 Aug 2016 21:51:20 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/new-projects-consolable-concurrentconsole-t4tinytypes/</guid>
+      <description>I&amp;rsquo;ve been working on some new projects, so thought I would do a quick elevator pitch for each.
+Consolable I was having an issue with environment variables as arguments, and with PowerShell replacing &amp;quot;text&amp;quot; with text (stripping double-quotes) and how these interacted with my command line arguments. Especially when the environment variable was empty, the error messages were just not clear enough.
+So I&amp;rsquo;m building yet another CLI parsing library, but with a primary focus on error messaging.</description>
+    </item>
+    
+    <item>
+      <title>Fork off with your branches</title>
+      <link>https://csmacnzblog.github.io/post/fork-off-with-your-branches/</link>
+      <pubDate>Sun, 05 Jun 2016 21:32:04 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/fork-off-with-your-branches/</guid>
+      <description>The nice thing about git is that branches are cheap and you can create many and varied branches for every little fix, format or feature. The annoying thing about GitHub is that every user creates many many many branches.
+One of my pet peeves at the moment is a large number of branches on our upstream repository. That is, the shared common one we all fork from and Pull Request into.</description>
+    </item>
+    
+    <item>
+      <title>TeamCity, GitHub and Pull Requests</title>
+      <link>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</link>
+      <pubDate>Mon, 06 Apr 2015 12:29:27 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</guid>
+      <description>I&amp;rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&amp;rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.
+It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the Statuses api on GitHubfor just how easy).</description>
+    </item>
+    
+  </channel>
+</rss>

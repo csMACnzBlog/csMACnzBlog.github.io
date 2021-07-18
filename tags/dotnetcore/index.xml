@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dotnetcore on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/dotnetcore/</link>
+    <description>Recent content in dotnetcore on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Sun, 26 Jul 2020 02:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/dotnetcore/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nullable and notnull Serialisation Properties</title>
+      <link>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</link>
+      <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
+      <description>The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely. However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is = default!;
+problem definition // This class is used to serialise/deserialise a payload from a server public class MyContractDTO { public string Value { get; set; } = default!; } My codebase is now littered with this code hack to get it to compile because nullable says it can&amp;rsquo;t guarantee that this property is not null.</description>
+    </item>
+    
+    <item>
+      <title>Microsoft and dotnet: 4 is the new 9</title>
+      <link>https://csmacnzblog.github.io/post/untitled-4/</link>
+      <pubDate>Mon, 08 Jul 2019 22:54:03 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/untitled-4/</guid>
+      <description>Dotnet core 3.0 is about to drop, but we already have lots of information about vnext specifically that it&amp;rsquo;s going to be dotnet 5.
+It wasn&amp;rsquo;t that many years ago that Microsoft seemingly forgot how to.count. Windows 8 with all its modern UI was succeeded with not Windows 9, but instead a version named Windows 10. Not sure what the aversion to the number 9 was, buta they are up to their old tricks again with .</description>
+    </item>
+    
+    <item>
+      <title>Looking forward to dotnet in 2019</title>
+      <link>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</link>
+      <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</guid>
+      <description>It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.
+The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)
+C# 8 It feels like we&amp;rsquo;ve been talking about C# 8 for a while, with 7.</description>
+    </item>
+    
+    <item>
+      <title>Speciality NuGet Packing on .Net Core</title>
+      <link>https://csmacnzblog.github.io/post/speciality-nuget-packing/</link>
+      <pubDate>Mon, 08 Oct 2018 05:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/speciality-nuget-packing/</guid>
+      <description>I recently wrote about NuGet packing on linuxspecifically, and want to continue the theme with other things you can do with NuGet packaging.
+As a quick recap you can use a .Net Core *.csproj as a wrapper around a *.nuspec file and use dotnet pack to pack it, cross-platform, without needing nuget.exe.
+&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt; &amp;lt;PropertyGroup&amp;gt; &amp;lt;TargetFramework&amp;gt;netstandard2.0&amp;lt;/TargetFramework&amp;gt; &amp;lt;NuspecFile&amp;gt;mynewapp.nuspec&amp;lt;/NuspecFile&amp;gt; &amp;lt;GeneratePackageOnBuild&amp;gt;true&amp;lt;/GeneratePackageOnBuild&amp;gt; &amp;lt;SkipCompilerExecution&amp;gt;true&amp;lt;/SkipCompilerExecution&amp;gt; &amp;lt;CopyBuildOutputToOutputDirectory&amp;gt;false&amp;lt;/CopyBuildOutputToOutputDirectory&amp;gt; &amp;lt;/PropertyGroup&amp;gt; &amp;lt;/Project&amp;gt; (See the other articlefor more detailed analysis of these properties.</description>
+    </item>
+    
+    <item>
+      <title>NuGet Packing on Linux</title>
+      <link>https://csmacnzblog.github.io/post/nuget-packing-on-linux/</link>
+      <pubDate>Mon, 01 Oct 2018 05:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/nuget-packing-on-linux/</guid>
+      <description>For anyone who has been cutting-edge with .Net for a while will know that the nuget.exe runs under mono. And that you can use nuget.exe to package *.nuspec files into *.nupkg files.
+Anyone who has been doing dotnet cross-platform will also know that you can use dotnet pack on both Windows and Linux to package your project into a NuGet package containing the dll. It even does references and multi-targeting correctly out of the box.</description>
+    </item>
+    
+    <item>
+      <title>HostBuild your dotnet Consoles like you WebHostBuild your web apps.</title>
+      <link>https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</link>
+      <pubDate>Mon, 17 Sep 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</guid>
+      <description>I wrote a while back on getting your Windows Services building with .Net Corewhich is a nice way to use the new SDK pipeline but still host on Windows without much fuss.
+But what If you like the approach but want to run on Linux?
+Well after some stumbling around in the dotnet core docs, I found information about HostBuilder, which looks a lot like the WebHostBuilder and WebHost that we use with AspNetCore.</description>
+    </item>
+    
+    <item>
+      <title>Retry Policies with Polly</title>
+      <link>https://csmacnzblog.github.io/post/retry-policies-with-polly/</link>
+      <pubDate>Mon, 13 Aug 2018 04:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/retry-policies-with-polly/</guid>
+      <description>I originally set out to write about Polly. Then I started reading their documentation. I quickly realised that I couldn&amp;rsquo;t write anything as detailed and accurate as they already had available. So instead, I&amp;rsquo;m going to give more of a super high level, with links to relevant reading.
+You can find their Documentation on their Github at github.com/App-vNext/Polly, as well as plenty more resources at www.thepollyproject.org/.
+The elevator pitch is this:</description>
+    </item>
+    
+    <item>
+      <title>.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</title>
+      <link>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</link>
+      <pubDate>Mon, 16 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</guid>
+      <description>I&amp;rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
+Start with the defaults Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.</description>
+    </item>
+    
+    <item>
+      <title>More .Net on Docker - AspNet Core Debugging Tips and Tricks</title>
+      <link>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</link>
+      <pubDate>Sun, 15 Jul 2018 22:02:30 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</guid>
+      <description>Last timewe covered some basics of Dockerfile with a console application. Let&amp;rsquo;s continue our journal with AspNet Core.
+Develop-time dependencies We are using React and the .Net WebPack Hot Reloader. While at development time this requires node, at runtime it doesn&amp;rsquo;t. Here is a couple of fun facts about Visual Studio debugging I combine in an interesting way.
+Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&amp;rsquo;t actually use or do what your Dockerfile says.</description>
+    </item>
+    
+    <item>
+      <title>Clean Startup in your AspNetCore</title>
+      <link>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</link>
+      <pubDate>Mon, 02 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</guid>
+      <description>I want to talk about this point made about Keeping a Clean Startup.cs in Asp.Net Coreby K. Scott Alan. Mostly I want to agree and elaborate on it.
+(Warning! I used the British English customised below. If this doesn&amp;rsquo;t match your sensibilities, just use customize instead.)
+The Idea The basic idea is that we have a Startup.cs file, where we configure our application. This becomes a dumping ground for all sorts of configuration of both services, and pipeline if we let it.</description>
+    </item>
+    
+    <item>
+      <title>A Windows Service using netcoreapp on dotnet</title>
+      <link>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</link>
+      <pubDate>Sun, 22 Apr 2018 07:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</guid>
+      <description>I wrote Building a Windows Service with .Net Coreand had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application. Technically the title is still valid, it was a windows service, and I built it using .Net Core tools. But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - Self-contained Applications</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore2-self-contained-applications/</link>
+      <pubDate>Sun, 18 Mar 2018 20:18:22 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore2-self-contained-applications/</guid>
+      <description>This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications &amp;lt;=(We are here)  (At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)
+The Problem Distributing the fruits of your labour is one of the rewarding parts of building any kind of software.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - Publishing Portable Applications</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore2-publishing-portable-applications/</link>
+      <pubDate>Sun, 11 Mar 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore2-publishing-portable-applications/</guid>
+      <description>This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications &amp;lt;=(We are here) Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)
+We can now take everything we have learned and start publishing our applications.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - Multi-targeting</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore2-multi-targeting/</link>
+      <pubDate>Tue, 06 Mar 2018 22:35:53 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore2-multi-targeting/</guid>
+      <description>This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting &amp;lt;=(We are here) Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)
+Last timewe learned how to package our libraries as NuGet packages.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - NuGet</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore2-nuget/</link>
+      <pubDate>Mon, 19 Feb 2018 04:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore2-nuget/</guid>
+      <description>This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet &amp;lt;=(We are here) Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)
+Let&amp;rsquo;s set aside Application packing for later, and focus our attention on NuGet.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - Testing</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore2-testing/</link>
+      <pubDate>Mon, 12 Feb 2018 04:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore2-testing/</guid>
+      <description>This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing &amp;lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)
+The Setup Like before, we will rattle off a new project.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - Using Multiple Projects</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore2-using-multiple-projects/</link>
+      <pubDate>Mon, 05 Feb 2018 04:45:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore2-using-multiple-projects/</guid>
+      <description>This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&amp;rsquo;s in the box Using Multiple Projects &amp;lt;=(We are here) Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)
+We know how to create new projects, we know how to build and run our application and we know (roughly) what the content in the csproj file means.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - What&#39;s in the box</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore2-whats-in-the-box/</link>
+      <pubDate>Mon, 22 Jan 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore2-whats-in-the-box/</guid>
+      <description>This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&amp;rsquo;s in the box &amp;lt;=(We are here) Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)
+Last time we created a new application. Once with dotnet CLI and once with Visual Studio.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Self-contained Applications</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-self-contained-applications/</link>
+      <pubDate>Sun, 21 Jan 2018 20:05:52 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-self-contained-applications/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications &amp;lt;=(We are here)  This was meant to be an article on Self-contained applications in .Net Core 1, with project.json files.
+Since .Net Core 1.1 switched to csproj, and .</description>
+    </item>
+    
+    <item>
+      <title>Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply</title>
+      <link>https://csmacnzblog.github.io/post/storytellerreduxsample/</link>
+      <pubDate>Thu, 28 Dec 2017 23:41:13 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/storytellerreduxsample/</guid>
+      <description>A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React + .Net Applications. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
+While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - Getting Started</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore2-getting-started/</link>
+      <pubDate>Mon, 20 Nov 2017 07:00:25 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore2-getting-started/</guid>
+      <description>This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started &amp;lt;=(We are here) What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.0.3. I use windows, you don&amp;rsquo;t have to!)
+Introduction I originally wrote a series on .Net Core when it was still a 1.</description>
+    </item>
+    
+    <item>
+      <title>dotnet build, targeting full .Net 4.5.1 on nanoserver docker</title>
+      <link>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</link>
+      <pubDate>Fri, 31 Mar 2017 01:18:07 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</guid>
+      <description>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
+Basically I was trying this:
+docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This maps the current repository directory to a folder called work on the container, and runs the build inside it. This approach means:</description>
+    </item>
+    
+    <item>
+      <title>Migrating onto dotnet tools 1.0.0</title>
+      <link>https://csmacnzblog.github.io/post/migrating-onto-dotnet-tools-1-0-0/</link>
+      <pubDate>Sat, 11 Mar 2017 23:52:52 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/migrating-onto-dotnet-tools-1-0-0/</guid>
+      <description>Since Visual Studio 2017 is out, and we have a 1.0.0 tools release for .Net Core, I&amp;rsquo;m going to try and migrate a simple project from the pre-release tooling, onto the new tooling.
+The biggest difference is that instead of using a project.json file, the new tooling now uses a .csproj file instead. It will take a few more posts to go into the differences and re-learn how this works, so for now lets just get something building.</description>
+    </item>
+    
+    <item>
+      <title>Building a Windows Service with .Net Core</title>
+      <link>https://csmacnzblog.github.io/post/building-a-windows-service-with-net-core/</link>
+      <pubDate>Sun, 12 Feb 2017 04:29:12 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/building-a-windows-service-with-net-core/</guid>
+      <description>While we are all wanting to get onto the new hotness that is .Net Core cross platform applications, the reality is that our servers are running windows, and we use a combination of Scheduled tasks, IIS, and Windows Services to host our applications. Most .Net Core applications are console apps that work well for Scheduled tasks, and there are tonnes of tutorials for hosting in IIS. I&amp;rsquo;ve got for you here the how-to for Windows Services.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Publishing Portable Applications</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-publishing-portable-applications/</link>
+      <pubDate>Tue, 07 Feb 2017 04:30:50 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-publishing-portable-applications/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications &amp;lt;=(We are here) Self-contained Applications  We can now take everything we have learned and start publishing our applications. Luckily, there is a command for that too.
+The Setup I don&amp;rsquo;t know why I bother saying anything here, this is pretty straight-forward by now.</description>
+    </item>
+    
+    <item>
+      <title>.Net core tests not showing up in VS? Here&#39;s the trick...</title>
+      <link>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</link>
+      <pubDate>Tue, 01 Nov 2016 01:38:35 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</guid>
+      <description>I&amp;rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use dotnet test, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp;amp; netcoreapp1.0).
+But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.
+Turns out, if you want tests to show up in Visual Studio you have to make sure that in your project.</description>
+    </item>
+    
+    <item>
+      <title>dotnet &#43; nunit3 &#43; TeamCity success</title>
+      <link>https://csmacnzblog.github.io/post/dotnet/</link>
+      <pubDate>Tue, 25 Oct 2016 00:54:19 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet/</guid>
+      <description>The new .Net Core CLI has the ability to use xunitor nunit. Which is great. For running tests locally.
+I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to import xml reportswhich supports junit (which is xunit-compatible) and nunit. But choosing nunit means support for the nunit2 xml format. And guess what? The new .</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Multi-targeting</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-multi-targeting/</link>
+      <pubDate>Tue, 09 Aug 2016 00:33:21 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-multi-targeting/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting &amp;lt;=(We are here) Publishing Portable Applications Self-contained Applications  Last timewe learned how to package our libraries as NuGet packages. But it was only targeting netstandard1.6, the new netstandard target framework moniker.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - NuGet</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-nuget/</link>
+      <pubDate>Mon, 01 Aug 2016 08:18:33 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-nuget/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet &amp;lt;=(We are here) Multi-targeting Publishing Portable Applications Self-contained Applications  Let&amp;rsquo;s set aside Application packing for later, and focus our attention on NuGet.
+Our Demo library Again we will quickly whip up a library to use:</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Testing</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-testing/</link>
+      <pubDate>Mon, 25 Jul 2016 07:14:36 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-testing/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing &amp;lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  We want to be able to test our application code that we build. Let&amp;rsquo;s get started.
+The Setup Like before, we will rattle off a new project.</description>
+    </item>
+    
+    <item>
+      <title>Experimenting with global.json</title>
+      <link>https://csmacnzblog.github.io/post/experimenting-with-global-json/</link>
+      <pubDate>Thu, 21 Jul 2016 06:47:17 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/experimenting-with-global-json/</guid>
+      <description>While working on my .Net Core SeriesI noticed that Visual Studio was adding a global.json file to the root of my project, and liked to put src and test in there. I thought I would investigate what it actually does.
+I noticed that if all my project folders were next to each other it didn&amp;rsquo;t matter. So here is my experiment, and the results.
+global.json The default file I end up with in Visual Studio looks roughly like this:</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Using Multiple Projects</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-using-multiple-projects/</link>
+      <pubDate>Mon, 18 Jul 2016 06:32:53 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-using-multiple-projects/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects &amp;lt;=(We are here) Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  We know how to create new projects, we know how to build and run our application and we know (roughly) what the content in the project.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - What&#39;s in the box</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-whats-in-the-box/</link>
+      <pubDate>Sat, 09 Jul 2016 02:50:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-whats-in-the-box/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box &amp;lt;=(We are here) Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  Last time we created a new application. Once with dotnet CLI and once with Visual Studio.
+We will have a look at some of the files and their contents.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio Code with C# and dotnet</title>
+      <link>https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/</link>
+      <pubDate>Sun, 03 Jul 2016 04:34:30 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/</guid>
+      <description>Getting Started with Visual Studio Code? Me too. Let&amp;rsquo;s see what it takes to get going. This is a bit of a companion piece alongside my .Net Core SeriesI am writing at the moment. Hopefully as well as .Net Core, I will have a play with writing TypeScript, Rust and maybe C++ inside Visual Studio Code. I might have to focus on the interface in another article as well.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Getting Started</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-getting-started/</link>
+      <pubDate>Thu, 30 Jun 2016 09:25:34 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-getting-started/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started &amp;lt;=(We are here) What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  We finally got some finalised bits in a release this week. So here is a bit of a guide to get you started. I will (probably) be only showing instructions from on Windows, but all dotnet CLI instructions should be cross platform.</description>
+    </item>
+    
+  </channel>
+</rss>

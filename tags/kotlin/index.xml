@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kotlin on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/kotlin/</link>
+    <description>Recent content in kotlin on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Tue, 11 May 2021 17:42:06 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kotlin, TeamCity and reflection</title>
+      <link>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</link>
+      <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</guid>
+      <description>I&amp;rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.
+Today&amp;rsquo;s fun little problem was the error message:
+ Runtime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found
+ The canonical stack overflow question that (at the time of writing this) had no answer: https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou
+The repro was the simplest piece of code in the end.</description>
+    </item>
+    
+  </channel>
+</rss>

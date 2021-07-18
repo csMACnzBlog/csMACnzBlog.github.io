@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>.Net Open Source Series - 2. Build - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content=".Net Open Source Series - 2. Build">
+<meta itemprop="description" content="This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle."><meta itemprop="datePublished" content="2015-02-24T20:30:15+00:00" />
+<meta itemprop="dateModified" content="2015-02-24T20:30:15+00:00" />
+<meta itemprop="wordCount" content="1343">
+<meta itemprop="keywords" content="Continuous Delivery," /><meta property="og:title" content=".Net Open Source Series - 2. Build" />
+<meta property="og:description" content="This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/net-os-2-build/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2015-02-24T20:30:15+00:00" />
+<meta property="article:modified_time" content="2015-02-24T20:30:15+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=".Net Open Source Series - 2. Build"/>
+<meta name="twitter:description" content="This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">.Net Open Source Series - 2. Build</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">.Net Open Source Series - 2. Build</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Feb 24, 2015
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>7 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy">#Continuous Delivery</a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy">#Continuous Delivery</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#build">Build</a>
+      <ul>
+        <li><a href="#msbuild">MSBuild</a></li>
+        <li><a href="#batsh">bat/sh</a></li>
+        <li><a href="#psake--powershell">psake (+ PowerShell)</a></li>
+        <li><a href="#fake">FAKE</a></li>
+        <li><a href="#nodejs-gruntgulp">Node.js (Grunt/gulp)</a></li>
+        <li><a href="#appveyor">AppVeyor</a></li>
+        <li><a href="#travis-ci">Travis-CI</a></li>
+        <li><a href="#atlassian-bamboo">Atlassian Bamboo</a></li>
+        <li><a href="#teamcitycodebetter">TeamCity.CodeBetter</a></li>
+        <li><a href="#so-there-it-is">So there it is</a></li>
+      </ul>
+    </li>
+    <li><a href="#updates">Updates</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
+<ol>
+<li><a href="/-net-os-1-source-control">Source Control</a>
+</li>
+</ol>
+<ul>
+<li>Build &lt;=(We are here)</li>
+<li><a href="/-net-os-3-test/">Test</a>
+</li>
+<li><a href="/-net-os-4-publish-deploy/">Publish &amp; Deploy</a>
+</li>
+<li><a href="/-net-os-5-documentation/">Documentation</a>
+</li>
+<li><a href="/-net-os-6-metrics/">Metrics</a>
+</li>
+<li><a href="/-net-os-7-lifecycle-management/">Lifecycle Management</a>
+</li>
+</ul>
+<h2 id="build">Build</h2>
+<p>So not we have our source control sorted (and if you don&rsquo;t check back on <a href="/-net-os-1-source-control/">part 1</a>
+) We can start writing code. And once we have some code together we need a way to build it.  If your a Visual Studio developer like me, you might think &lsquo;I have foo.csproj, and it builds just fine!&rsquo;.  Well that&rsquo;s great, if your wanting to depend on a visual studio GUI. But if you want to reach Continuous * Nirvana, you need a build server, and it needs to run autonomously.  As well as needing this build server, we probably want scripts to automate our build process. And over time we can add to these scripts with other steps, like running tests, packaging deployables, and running static analysis.</p>
+<p>I will quickly run through a few build script options I&rsquo;ve used, and although not definitive, are plenty powerful to get the job done. These are:</p>
+<ul>
+<li>MSBuild</li>
+<li>bat/sh</li>
+<li>psake(/PowerShell)</li>
+<li>FAKE</li>
+<li>Node.js (Grunt/gulp)</li>
+</ul>
+<p>And as far as builder servers go, (skipping over the self-hosted servers like <a href="https://www.jetbrains.com/teamcity/" target="_blank">TeamCity</a>
+ and <a href="http://jenkins-ci.org/" target="_blank">Jenkins</a>
+ Build Servers), there are some great Build Server as a Service (BSAAS) options that you can use to host your public open source repositories.</p>
+<ul>
+<li>Travis-CI</li>
+<li>AppVeyor</li>
+<li>Atlassian Bamboo</li>
+<li>TeamCity.CodeBetter</li>
+</ul>
+<h3 id="msbuild">MSBuild</h3>
+<p>Unless you&rsquo;ve been blinding using Visual Studio like magic, you will be aware that this is the way *.csproj files get turned into dlls and assemblies. And all of this can be done on command line as well, either with devenv.exe, or with the MSBuild tool itself. A good baseline in absence of anything else.</p>
+<h3 id="batsh">bat/sh</h3>
+<p>the simple cmd.exe command shell is the most basic place to start stringing simple commands one after the other. If all you need is to run devenv.exe or MSBuild.exe with the &lsquo;build my solution&rsquo; command, followed by a call to something else to &lsquo;run my tests&rsquo;, then maybe you can get away with something as simple as a .bat file.  If your more into mono, then the shell capabilities of Linux and probably all too familiar.  You can even get some powerful behaviour out of <a href="http://ss64.com/nt/syntax.html" target="_blank">batch scripting</a>
+ if you want to go down that road.</p>
+<h3 id="psake--powershell">psake (+ PowerShell)</h3>
+<p>I used <a href="https://github.com/psake/psake" target="_blank">psake</a>
+ about 3 years ago with a project and it did seem quite heavy handed. It was also already established when I got there. After being if TFS build script land for a while I came back to try psake again on my <a href="https://github.com/csMACnz" target="_blank">own projects</a>
+ and when starting from scratch I finally see the power and simplicity this has.  Not only is is just PowerShell, so I can run any arbitrary command line, PowerShell or .net code I need, but its also a simple yet powerful task orchestration system.  I think I&rsquo;m going to be more than happy having all my projects using this as their build system.</p>
+<h3 id="fake">FAKE</h3>
+<p><a href="http://fsharp.github.io/FAKE/" target="_blank">FAKE</a>
+ follows the tradition of other *ake build tools (<a href="http://www.gnu.org/software/make/" target="_blank">make</a>
+, <a href="http://www.cmake.org/" target="_blank">cmake</a>
+, <a href="http://docs.seattlerb.org/rake/" target="_blank">rake</a>
+ etc) but uses the F# language to do it. If you have ever wanted to learn F#, or are already using it, this is a nice choice to write your build scripts in. There are plenty of projects using this, and since its all just IL, people are using it with their mono builds too.  I haven&rsquo;t used this myself but it does seem like a nice way to write your build scripts.</p>
+<h3 id="nodejs-gruntgulp">Node.js (Grunt/gulp)</h3>
+<p><a href="http://nodejs.org/" target="_blank">Node.js</a>
+ is all the rage, and using one of the popular task runners like <a href="http://gruntjs.com/" target="_blank">Grunt</a>
+ or <a href="http://gulpjs.com/" target="_blank">gulp</a>
+ gives you powerful pipe lining capabilities to get your projects put together. These are especially useful if your project includes a lot of Javascript and css, and you want to be able to bundle it all together, to compile it from a language like CoffeeScript, Less or Sass.  I have <a href="http://blog.csmac.nz/gulp--net/" target="_blank">an article I wrote last year</a>
+ on gulp, although have since switched to psake, due to lack of web technologies in the project.  But worth looking into if your solution is more web-focused.</p>
+<p>And on to the build servers.</p>
+<h3 id="appveyor">AppVeyor</h3>
+<p>Ever since Scott Hanselman did <a href="http://www.hanselman.com/blog/AppVeyorAGoodContinuousIntegrationSystemIsAJoyToBehold.aspx" target="_blank">this great write-up on AppVeyor</a>
+ I&rsquo;ve started using it with my open source projects.  For .Net developers, <a href="http://www.appveyor.com/" target="_blank">AppVeyor</a>
+ is the simplest, most powerful Build Server experience I&rsquo;ve seen for a C# project, that just works out of the box.  On top of that, you can configure it to do just about anything with extra scripting, on top of the configuration extensions they already have available to configure in their settings GUI. This is my go-to Solution for my CI, and I can&rsquo;t see myself being easily swayed towards anything else in the short term.</p>
+<h3 id="travis-ci">Travis-CI</h3>
+<p><a href="https://travis-ci.org" target="_blank">Travis-CI</a>
+ only just opened up beta support for .Net back in December 2014 (less than 3 months ago at the time of this writing) and already they have support to build and test Xamarin, portable class libraries and anything that will run against the mono runtime.  This is a great way to ensure your open source library will actually build and run on mono and that your not doing anything that will break for your mono users, without knowing about it.  I even have my integration tests running against one of my projects on .Net and mono with AppVeyor, and again with mono on Travis-CI on every commit, which really neat to see.</p>
+<h3 id="atlassian-bamboo">Atlassian Bamboo</h3>
+<p>Atlassian, not to be left out from a ALM opportunity, have a build server called <a href="https://www.atlassian.com/software/bamboo" target="_blank">Bamboo</a>
+. In fact keep an eye out in almost every most I think I&rsquo;ll be finding an Atlassian product to call out.  They seem to be <a href="https://www.atlassian.com/opensource/overview" target="_blank">right behind open source</a>
+ and it is great to see. Although I use their products at work, I haven&rsquo;t really had the chance to use Bamboo with any projects, so If your interested you will have to follow this one on your own.  But I would be keen to hear back from anyone who has used it on how they found it.</p>
+<h3 id="teamcitycodebetter">TeamCity.CodeBetter</h3>
+<p>Just when you thought you couldn&rsquo;t keep using your beloved TeamCity, the team at CodeBetter have <a href="http://codebetter.com/codebetter-ci/" target="_blank">collaborated with JetBrains on this hosted version</a>
+, <a href="http://teamcity.codebetter.com/" target="_blank">TeamCity.CodeBetter.com</a>
+ and its free for open source projects to register and get their CI running here.  Personally it is a few hoops to just through, and AppVeyor is much simpler so I don&rsquo;t think I will make the leap. But its an open available if you want it.</p>
+<h3 id="so-there-it-is">So there it is</h3>
+<p>I&rsquo;m sure there are more out there (I know there are but the others I found don&rsquo;t support .Net), and would love to hear about them if you find them.</p>
+<p>In conclusion, I find AppVeyor is the one I&rsquo;ll keep using, because its got a great range of features, and I&rsquo;ve managed to see and make change on what comes in the build VM when it boots, which is awesome.  For mono I will keep using Travis-CI and see how it goes, and hopefully help them extend their support for C# along the way too.</p>
+<p>Now the have source control, and a place for continuous integration, next up is testing!</p>
+<h2 id="updates">Updates</h2>
+<p>I totally forgot to mention one other awesome tool for CI builds -  <a href="https://github.com/ParticularLabs/GitVersion/wiki/GitFlowExamples#major-release" target="_blank">GitVersion</a>
+! This awesome library (available as a <a href="https://chocolatey.org/packages/GitVersion.Portable/2.0.1" target="_blank">Chocolatey Package</a>
+) determines the ideal version number for your current build, and gives you various permutations so you can use it exactly how you want to inside your build scripts. It integrates with various build servers, and (mostly) just works.  There is plenty of guidance on their wiki on github, and they support Git Flow and GitHub Flow branching strategies. Recommended.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/net-os-1-source-control/">.Net Open Source Series - 1. Source Control</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/net-os-3-test/">.Net Open Source Series - 3. Test</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/net-os-1-source-control/">.Net Open Source Series - 1. Source Control</a></li><li><a href="https://csmacnzblog.github.io/post/monocov-travis-ci-winning/">monocov &#43; Travis-CI = WINNING</a></li><li><a href="https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/">Travis-ci, C# and PCL</a></li><li><a href="https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/">Hey, I found this thing called Coveralls.io</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

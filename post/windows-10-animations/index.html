@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Windows 10 Animations - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Windows 10 Animations">
+<meta itemprop="description" content="You&rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?
+Since Aerocame onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects. With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View."><meta itemprop="datePublished" content="2015-08-02T17:18:45+00:00" />
+<meta itemprop="dateModified" content="2015-08-02T17:18:45+00:00" />
+<meta itemprop="wordCount" content="517">
+<meta itemprop="keywords" content="Tips and Tricks,Windows 10," /><meta property="og:title" content="Windows 10 Animations" />
+<meta property="og:description" content="You&rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?
+Since Aerocame onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects. With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/windows-10-animations/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2015-08-02T17:18:45+00:00" />
+<meta property="article:modified_time" content="2015-08-02T17:18:45+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Windows 10 Animations"/>
+<meta name="twitter:description" content="You&rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?
+Since Aerocame onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects. With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Windows 10 Animations</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Windows 10 Animations</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Aug 2, 2015
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>3 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/categories/windows-10/" class="post-taxonomy">#Windows 10</a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/tags/windows-10/" class="post-taxonomy">#Windows 10</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#where-are-the-settings">Where are the settings?</a></li>
+        <li><a href="#caveat">Caveat</a></li>
+        <li><a href="#i-dont-currently-see-animations">I don&rsquo;t currently see animations</a></li>
+        <li><a href="#the-animations-annoy-me">The animations annoy me</a></li>
+        <li><a href="#i-want-to-pick-and-choose">I want to pick and choose</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>You&rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?</p>
+<p>Since <a href="https://en.wikipedia.org/wiki/Windows_Aero" target="_blank">Aero</a>
+ came onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects.  With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View.</p>
+<p>Luckily there has also always been a way to customise how little, or how much of the animations you want to see or use.</p>
+<h3 id="where-are-the-settings">Where are the settings?</h3>
+<p>To find the settings related to the animations, first you need to open <code>System Information</code>.  This can be done by typing <code>System</code> into search.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10searchsystem_tluume.png" alt="Search for System Information using Windows Search."  loading="lazy" />
+</p>
+<p>Or more simply, use the keyboard shortcut Winkey + Pause  (Pause is found near the Print Screen or scroll lock buttons on most keyboard I have used).</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10SystemInformation_fwvamw.png" alt="The System Information dialog."  loading="lazy" />
+</p>
+<p>From here, simply click on the <code>Advanced system settings</code> button on the left. This opens the <code>System Properties</code> dialog. Navigate to the <code>Advanced</code> tab.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10systemproperties_qyzvak.png" alt="The System Properties dialog."  loading="lazy" />
+</p>
+<p>Click on <code>Settings</code> in the <code>Performance</code> section. This is where we can customise the <code>Visual Effects</code> of Windows.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10performanceoptions_iicexg.png" alt="The Performance Options dialog."  loading="lazy" />
+</p>
+<h3 id="caveat">Caveat</h3>
+<p>Windows might think it knows best and have turned off settings that your graphics setup cannot handle. Either setting could be completely unavailable to you, or you might start getting performance issues by turning some of these on. There, I&rsquo;ve warned you. Tweak the settings to your hearts content.</p>
+<h3 id="i-dont-currently-see-animations">I don&rsquo;t currently see animations</h3>
+<p>You really want to see the animations, but they don&rsquo;t seem to be currently on? You might have <code>Adjust for best performance</code> or <code>Let Windows choose what's best for my computer</code> selected.  Choose <code>Adjust for best appearance</code> and animations will be turned on.  Still not happy with this, you can use <code>Custom</code> and selectively turn on the ones you want.</p>
+<h3 id="the-animations-annoy-me">The animations annoy me</h3>
+<p>If you sincerely despise the animations windows throws at you, you are in luck. This is configurable. You may currently see <code>Adjust for best appearance</code>, or <code>Let Windows choose what's best for my computer</code>.  Just change this to <code>Adjust for best performance</code> and there is a good chance all the check boxes become unticked. All your animations will now be turned off.</p>
+<p>You may want to choose <code>Custom</code> and start selectively turning off the ones that really annoy you, and leave the rest on that make sense to you.</p>
+<h3 id="i-want-to-pick-and-choose">I want to pick and choose</h3>
+<p>As mentioned above, there is an option <code>Custom</code>. This lets your turn on and off specific OS animations. For instance <code>Animate windows when minimizing and maximizing</code> will turn on the transition for windows as you minimise and maximise them to the system tray, but also controls the multiple desktop transition left and right.  For the best balance, you can turn on the ones that work for you, and turn off the ones that don&rsquo;t. Customising these will give you the best experience for you and your machine to balance the power of the machine, against your tolerance or preference to the animations and transitions.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/">ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/visual-studio-2015-vs-visual-studio-2013/">Visual Studio 2015 vs Visual Studio 2013</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/">ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</a></li><li><a href="https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/">Using C# 5.0 with Visual Studio 2015</a></li><li><a href="https://csmacnzblog.github.io/post/the-service-locator-base-class-antipattern/">The Service Locator base class anti-pattern</a></li><li><a href="https://csmacnzblog.github.io/post/windows-10-phantom-text-fix/">Windows 10 phantom text fix</a></li><li><a href="https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/">Code Demoing with Visual Studio</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

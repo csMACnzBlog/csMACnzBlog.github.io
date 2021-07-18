@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Resharper on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/resharper/</link>
+    <description>Recent content in Resharper on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Sun, 16 Aug 2015 08:14:28 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/resharper/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Resharper Shortcuts</title>
+      <link>https://csmacnzblog.github.io/post/resharper-shortcuts/</link>
+      <pubDate>Sun, 16 Aug 2015 08:14:28 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/resharper-shortcuts/</guid>
+      <description>Shortcut keys are a huge productivity tool. The longer you can keep your fingers on the keyboard typing without reaching for the mouse, the faster you will get things done. Using Resharper with Visual Studio is no different.
+The core concepts Choices, Choices&amp;hellip; As with most things in live, you have a choice to make.
+To make the most of the productivity boost of shortcuts, use an out of the box set, and make sure it is the same set that everyone on your team uses.</description>
+    </item>
+    
+    <item>
+      <title>Resharper on AppVeyor</title>
+      <link>https://csmacnzblog.github.io/post/resharper-on-appveyor/</link>
+      <pubDate>Sat, 15 Aug 2015 17:16:08 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/resharper-on-appveyor/</guid>
+      <description>JetBrains have some great tools. One I am particularly fond of is Resharper. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as CodeRushand JustCode.
+If you are using TeamCity, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&amp;rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.</description>
+    </item>
+    
+    <item>
+      <title>ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</title>
+      <link>https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</link>
+      <pubDate>Sun, 02 Aug 2015 08:37:47 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</guid>
+      <description>There is some great static analysis stuff that ReSharper does for you. Specifically around nullability, purity and usage of your code. From their Code Annotations page in Visual Studio:
+ ReSharper Annotations help reduce false positive warnings, explicitly declare purity and nullability in your code, deal with implicit usages of member, support special semantics of APIs in ASP.NET and XAML frameworks and otherwise increase accuracy of ReSharper code inspections.
+ Right, what I said.</description>
+    </item>
+    
+  </channel>
+</rss>

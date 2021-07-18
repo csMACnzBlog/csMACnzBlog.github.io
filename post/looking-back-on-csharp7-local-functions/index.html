@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Looking Back on C# 7: Local functions - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Looking Back on C# 7: Local functions">
+<meta itemprop="description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Lambdas - a recap All the way back in C# 3 we were given lambdas."><meta itemprop="datePublished" content="2019-06-03T10:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-06-03T10:00:00+00:00" />
+<meta itemprop="wordCount" content="1153">
+<meta itemprop="keywords" content="c#," /><meta property="og:title" content="Looking Back on C# 7: Local functions" />
+<meta property="og:description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Lambdas - a recap All the way back in C# 3 we were given lambdas." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-06-03T10:00:00+00:00" />
+<meta property="article:modified_time" content="2019-06-03T10:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Looking Back on C# 7: Local functions"/>
+<meta name="twitter:description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Lambdas - a recap All the way back in C# 3 we were given lambdas."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Looking Back on C# 7: Local functions</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Looking Back on C# 7: Local functions</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jun 3, 2019
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#lambdas---a-recap">Lambdas - a recap</a></li>
+    <li><a href="#working-with-lambdas">working with lambdas</a></li>
+    <li><a href="#put-functions-inside-your-functions">Put functions inside your functions!</a></li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
+<h2 id="lambdas---a-recap">Lambdas - a recap</h2>
+<p>All the way back in C# 3 we were given lambdas. These are anonymous functions that can be passed around as what are essentially function pointers.</p>
+<p>&ldquo;Anonymous&rdquo; refers to the fact that the function has no name, and is not tied to an actual class or instance. The term comes from functional programming.</p>
+<p>In terms of implementation details, there are two categories of lambdas, those which stand alone and are pure functions, and those that have a captured scope, known as a closure. Closure, again, is a functional programming term. We capture variables from the scope of the parent and encapsulate them into this anonymous function instance.</p>
+<p>Pure functions can easily be refactored into a public static function in a static class very easily, and the compilation is very similar.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">
+<span style="color:#66d9ef">static</span> Action&lt;<span style="color:#66d9ef">int</span>&gt; GetRandomValueFunction()
+{
+    Console.WriteLine(<span style="color:#e6db74">&#34;Use static value for counter: {0}&#34;</span>, counter);
+    <span style="color:#66d9ef">return</span> () =&gt; <span style="color:#ae81ff">5</span>;
+}
+
+<span style="color:#75715e">// These two methods are the same as the above
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> Action&lt;<span style="color:#66d9ef">int</span>&gt; GetRandomValueFunction()
+{
+    Console.WriteLine(<span style="color:#e6db74">&#34;Use static value for counter: {0}&#34;</span>, counter);
+    <span style="color:#66d9ef">return</span> StaticValueFunction;
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> StaticValueFunction()
+{
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">5</span>;
+}
+</code></pre></div><p>There is no simple construct equivalent for closures. Hopefully, by example, we can see how these transform into simple static methods anyway. (In an example stolen from <a href="https://stackoverflow.com/a/5438331/2118268" target="_blank">SO</a>
+)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"> <span style="color:#66d9ef">static</span> Action CreateShowAndIncrementAction()
+{
+    Random rng = <span style="color:#66d9ef">new</span> Random();
+    <span style="color:#66d9ef">int</span> counter = rng.Next(<span style="color:#ae81ff">10</span>);
+    Console.WriteLine(<span style="color:#e6db74">&#34;Initial value for counter: {0}&#34;</span>, counter);
+    <span style="color:#66d9ef">return</span> () =&gt;
+    {
+        Console.WriteLine(counter);
+        counter++;
+    };
+}
+</code></pre></div><p>Given the above C# code, the compiled code will more closely resemble the below:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">
+<span style="color:#66d9ef">static</span> Action CreateShowAndIncrementAction()
+{
+    ActionHelper helper = <span style="color:#66d9ef">new</span> ActionHelper();        
+    Random rng = <span style="color:#66d9ef">new</span> Random();
+    helper.counter = rng.Next(<span style="color:#ae81ff">10</span>);
+    Console.WriteLine(<span style="color:#e6db74">&#34;Initial value for counter: {0}&#34;</span>, helper.counter);
+
+    <span style="color:#75715e">// 
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> helper.DoAction;
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ActionHelper</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> counter;
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoAction()
+    {
+        Console.WriteLine(counter);
+        counter++;
+    }
+}
+</code></pre></div><p>Because the compiler generates these, it also controls access and visibility, so that you cannot actually access it in this way from your code directly. But it does all this automatically for you, and with fewer lines of code to achieve the same logical execution. It is also clearer from the lambda version that the calling method is the owner of the function, and no one else can or should share it.</p>
+<p>Clearly, lambdas reduce our lines of code and are superior.</p>
+<h2 id="working-with-lambdas">working with lambdas</h2>
+<p>Sometimes, though, your lambdas get complicated. When you have big complicated lambdas inside LINQ pipelines, it gets messy fast.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> List&lt;Widget&gt; GetWidgetsByPlumbob(<span style="color:#66d9ef">string</span> plumb, <span style="color:#66d9ef">int</span> restrictionNumber)
+{
+    <span style="color:#66d9ef">var</span> restriction =  <span style="color:#ae81ff">_</span>store.GetRestriction(restrictionNumber);
+    
+    
+    <span style="color:#75715e">// This `where` clause is only going to get more complicated from here.
+</span><span style="color:#75715e"></span>    <span style="color:#ae81ff">_</span>store
+        .GetWidgets()
+        .Where(w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction)
+        .Select(Map)
+        .ToList();
+}
+</code></pre></div><p>We have a few options prior to C# 7:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> List&lt;Widget&gt; GetWidgetsByPlumbob(<span style="color:#66d9ef">string</span> plumb, <span style="color:#66d9ef">int</span> restrictionNumber)
+{
+    <span style="color:#66d9ef">var</span> restriction =  <span style="color:#ae81ff">_</span>store.GetRestriction(restrictionNumber);
+    
+    <span style="color:#ae81ff">_</span>store
+        .GetWidgets()
+        .Where(w =&gt; Filter(w, plumb, restriction))
+        .Select(Map)
+        .ToList();
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">bool</span> Filter(Widget widget, <span style="color:#66d9ef">string</span> plumb, Restriction restriction)
+{
+    <span style="color:#66d9ef">return</span> (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction &gt; restriction;
+}
+</code></pre></div><p>There are a couple of problems with this. We are now passing all the parameters through to the nested function. This is fine, but from a maintenance point of view, we might add more parameters and we now end up maintaining two signatures every time we change.</p>
+<p>Also, we open up for another function to start using the &ldquo;sharable&rdquo; filter function. Now we would be coupled to that new function. We can&rsquo;t change our own filter without affecting that other new function, and that adds brittle fragility. Sometimes duplicating logic that has different reasons to change is worth the duplication, but the architecture of this code does not guard against this.</p>
+<p>Another example is to pull the lambda into a variable:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> List&lt;Widget&gt; GetWidgetsByPlumbob(<span style="color:#66d9ef">string</span> plumb, <span style="color:#66d9ef">int</span> restrictionNumber)
+{
+    <span style="color:#66d9ef">var</span> restriction =  <span style="color:#ae81ff">_</span>store.GetRestriction(restrictionNumber);
+    
+    <span style="color:#66d9ef">var</span> filter = w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction);
+    
+    <span style="color:#ae81ff">_</span>store
+        .GetWidgets()
+        .Where(filter)
+        .Select(Map)
+        .ToList();
+}
+</code></pre></div><p>Looking at the example, it adds some simplification. Because like the original example this lambda is a closure, the lambda can match the expected signature of the <code>Where</code> LINQ Extension.</p>
+<p>However, sometimes this approach causes issues with type interpolation. That is, if you pull out into a variable, often you can&rsquo;t use <code>var</code> or need to add explicit type casting to help the compiler out, or it will not compile.</p>
+<p>I don&rsquo;t think we have actually helped with the readability as much as we would like. It may not be obvious on the first pass of reading the function that this is a lambda, not a statement. This is also a simple example, and they can get more complex fast.</p>
+<h2 id="put-functions-inside-your-functions">Put functions inside your functions!</h2>
+<p>With C# 7, we can now use a nested function. This gives us the benefits of not polluting the namespace of the class, while also making it more readable. It also makes it clearer that the function is owned by the caller as the only consumer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> List&lt;Widget&gt; GetWidgetsByPlumbob(<span style="color:#66d9ef">string</span> plumb, <span style="color:#66d9ef">int</span> restrictionNumber)
+{
+    <span style="color:#66d9ef">var</span> restriction =  <span style="color:#ae81ff">_</span>store.GetRestriction(restrictionNumber);
+    
+    <span style="color:#66d9ef">bool</span> Filter(Widget widget)
+    {
+        <span style="color:#66d9ef">return</span> (w.PlumbBob.StartsWith(plumb) || w.PlumbBob.EndsWith(plumb)) &amp;&amp; w.Restriction &gt; restriction;
+    }
+    
+    <span style="color:#ae81ff">_</span>store
+        .GetWidgets()
+        .Where(Filter)
+        .Select(Map)
+        .ToList();
+}
+</code></pre></div><p>Our compiler now ensures no one else can use this function. It is only callable from this method and gives the reader the knowledge that this is a specific implementation detail for this function only and not a shared common piece of logic. (Encapsulation.)</p>
+<p>In this example it also still allows us to use the simplified <code>Where</code> call.</p>
+<p>The best example of where this is really useful is recursion.</p>
+<p>Often a recursive algorithm has a bootstrap function, that then calls the recursive part. Let&rsquo;s print a tree of items with indentations.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> PrintLines(TextWriter <span style="color:#66d9ef">out</span>, Tree items)
+{
+    <span style="color:#66d9ef">out</span>.WriteLine(items.Title);
+    <span style="color:#66d9ef">foreach</span>(<span style="color:#66d9ef">var</span> node <span style="color:#66d9ef">in</span> items.Children)
+    {
+        Print(<span style="color:#66d9ef">out</span>, node, <span style="color:#e6db74">&#34;&#34;</span>);
+    }
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> Print(TextWriter <span style="color:#66d9ef">out</span>, TreeNode node, <span style="color:#66d9ef">string</span> indent)
+{
+    <span style="color:#66d9ef">out</span>.WriteLine(<span style="color:#e6db74">&#34;{0}{1}&#34;</span>, indent, items.Title);
+    <span style="color:#66d9ef">if</span>(node.HasChildren)
+    {
+        <span style="color:#66d9ef">foreach</span>(<span style="color:#66d9ef">var</span> node <span style="color:#66d9ef">in</span> items.Children)
+        {
+            Print(<span style="color:#66d9ef">out</span>, node indent + <span style="color:#e6db74">&#34;    &#34;</span>);
+        }
+    }
+}
+</code></pre></div><p>For simplicity you can now write this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> PrintLines(TextWriter <span style="color:#66d9ef">out</span>, Tree items)
+{
+    <span style="color:#66d9ef">void</span> Print(TreeNode node, <span style="color:#66d9ef">string</span> indent)
+    {
+        <span style="color:#66d9ef">out</span>.WriteLine(<span style="color:#e6db74">&#34;{0}{1}&#34;</span>, indent, items.Title);
+        <span style="color:#66d9ef">if</span>(node.HasChildren)
+        {
+            <span style="color:#66d9ef">foreach</span>(<span style="color:#66d9ef">var</span> node <span style="color:#66d9ef">in</span> items.Children)
+            {
+                Print(<span style="color:#66d9ef">out</span>, node indent + <span style="color:#e6db74">&#34;    &#34;</span>);
+            }
+        }
+    }
+
+    <span style="color:#66d9ef">out</span>.WriteLine(items.Title);
+    <span style="color:#66d9ef">foreach</span>(<span style="color:#66d9ef">var</span> node <span style="color:#66d9ef">in</span> items.Children)
+    {
+        Print(node, <span style="color:#e6db74">&#34;&#34;</span>);
+    }
+}
+
+</code></pre></div><p>This example may not reduce lines of code by much, but the cognitive load of the encapsulation can be hugely beneficial when in a class with more service methods as well.</p>
+<h2 id="summary">Summary</h2>
+<p>The cliché &ldquo;another tool in the toolbelt&rdquo; comes to mind but this is certainly that, and sprinkled through code strategically can really help with readability and maintainability. Not a &ldquo;use often&rdquo; but certainly something I can and have used in my dotnet apps.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/mucon-2019-part2/">µCon 2019 - Day 3</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/">Looking Back on C# 7: Out variables</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/">Looking Back on C# 7: throw expressions</a></li><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/">Looking Back on C# 7: More Expression body members</a></li><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp7-tuples-upgraded/">Looking Back on C# 7: Tuples upgraded</a></li><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp6-expression-body-members/">Looking Back on C# 6: Expression body members</a></li><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp6-initializers/">Looking back on C# 6: Initializers</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

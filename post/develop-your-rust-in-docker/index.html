@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Develop your Rust in Docker - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Develop your Rust in Docker">
+<meta itemprop="description" content="I decided a while ago that the next language I would try to learn is Rust. I don&rsquo;t want to go too much into Rust other than to repeat its own summary:
+ Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. &ndash; https://www.rust-lang.org/
+ But like all things, there are bits that need to be installed. I want to get started, I don&rsquo;t want to muck around with installers."><meta itemprop="datePublished" content="2018-05-14T07:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-05-14T07:00:00+00:00" />
+<meta itemprop="wordCount" content="751">
+<meta itemprop="keywords" content="Rust,docker," /><meta property="og:title" content="Develop your Rust in Docker" />
+<meta property="og:description" content="I decided a while ago that the next language I would try to learn is Rust. I don&rsquo;t want to go too much into Rust other than to repeat its own summary:
+ Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. &ndash; https://www.rust-lang.org/
+ But like all things, there are bits that need to be installed. I want to get started, I don&rsquo;t want to muck around with installers." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/develop-your-rust-in-docker/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-05-14T07:00:00+00:00" />
+<meta property="article:modified_time" content="2018-05-14T07:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Develop your Rust in Docker"/>
+<meta name="twitter:description" content="I decided a while ago that the next language I would try to learn is Rust. I don&rsquo;t want to go too much into Rust other than to repeat its own summary:
+ Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. &ndash; https://www.rust-lang.org/
+ But like all things, there are bits that need to be installed. I want to get started, I don&rsquo;t want to muck around with installers."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Develop your Rust in Docker</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Develop your Rust in Docker</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>May 14, 2018
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>4 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/rust/" class="post-taxonomy">#Rust</a><a href="https://csmacnzblog.github.io/categories/docker/" class="post-taxonomy">#docker</a><a href="https://csmacnzblog.github.io/tags/rust/" class="post-taxonomy">#Rust</a><a href="https://csmacnzblog.github.io/tags/docker/" class="post-taxonomy">#docker</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#online-playground">Online playground</a></li>
+        <li><a href="#why-not-docker">Why not docker?</a></li>
+        <li><a href="#an-example">An Example</a></li>
+        <li><a href="#the-end">The End</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>I decided a while ago that the next language I would try to learn is Rust.  I don&rsquo;t want to go too much into Rust other than to repeat its own summary:</p>
+<blockquote>
+<p>Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.
+&ndash; <a href="https://www.rust-lang.org/">https://www.rust-lang.org/</a></p>
+</blockquote>
+<p>But like all things, there are bits that need to be installed. I want to get started, I don&rsquo;t want to muck around with installers.</p>
+<h3 id="online-playground">Online playground</h3>
+<p>The Rust docs online include <a href="https://doc.rust-lang.org/rust-by-example/" target="_blank">Rust By Example</a>
+, which is interactive documentation that you can edit and execute from inside the browser.</p>
+<p>There is also the <a href="https://play.rust-lang.org/" target="_blank">Rust Playground</a>
+ which lets you write, compile, run, decompile Rust, and even generate intermediate representations of it in several formats.</p>
+<p>Many modern languages now have playgrounds like this including C# (<a href="https://dotnetfiddle.net/" target="_blank">.Net Fiddle</a>
+ or <a href="https://csharppad.com/" target="_blank">C# Pad</a>
+), JavaScript (<a href="https://jsbin.com/" target="_blank">JS Bin</a>
+, <a href="https://jsfiddle.net/" target="_blank">JS Fiddle</a>
+ or <a href="https://javascriptplayground.com/" target="_blank">The Javascript Playground</a>
+) and F# (<a href="http://www.tryfsharp.org/" target="_blank">Try F#</a>
+) (as well as many others).</p>
+<p>Ok for playing around, but not sufficient, especially if you want to write custom <a href="https://en.wikipedia.org/wiki/Intellectual_property" target="_blank">IP</a>
+, or start doing IO for instance.</p>
+<h3 id="why-not-docker">Why not docker?</h3>
+<p>On windows, I can build and run Rust on Docker, without installing Rust. Since I already have Docker installed, this is the fastest way to get going.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">docker run -it -v <span style="color:#e6db74">&#34;</span>$(pwd)<span style="color:#e6db74">:/usr/src/myapp&#34;</span> -w /usr/src/myapp --rm rust<span style="color:#960050;background-color:#1e0010">:</span>latest cargo test
+</code></pre></div><p>This PowerShell-compatible command launches and tests my application in docker. Breaking it down:</p>
+<ul>
+<li><code>docker run</code> says we are executing a container from an image</li>
+<li><code>-it</code> specifies we want it to be an interactive session (show me the console logs)</li>
+<li><code>-v &quot;$(pwd):/usr/src/myapp&quot;</code> I want to map (share) my current local folder inside the container at the path &ldquo;/usr/src/myapp&rdquo;</li>
+<li><code>-w /usr/src/myapp</code> start the session inside the working directory as the one we just mapped from our local system</li>
+<li><code>--rm</code> clean up the instance when we exit</li>
+<li><code>rust:latest</code> use the latest rust container image</li>
+<li><code>cargo test</code> run the rust command cargo test (a bit like dotnet test)</li>
+</ul>
+<h3 id="an-example">An Example</h3>
+<p>Let&rsquo;s work this a step at a time. I want to:</p>
+<ul>
+<li>Create a new rust project</li>
+<li>Build it</li>
+</ul>
+<p>We had a look at the rust command to build in detail, so we can now quickly look at the commands to create a new rust project and then build it.</p>
+<h4 id="file-new-project">File New Project</h4>
+<p>In Rust, there is a tool called Cargo, which works a lot like <code>dotnet</code> for C#.  There is also a compiler <code>rustc</code> that will compile a single file. You could just run the above command with <code>rustc main.rs</code> instead of <code>cargo test</code> and it will build the <code>main.rs</code> file from inside the container.</p>
+<p>Instead, we will use cargo.</p>
+<p>(As a caveat, we need to declare a <code>$USER</code> environment variable for cargo new since this appears to be unset on this Docker container image.)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mkdir rustroot
+cd rustroot
+docker run -e USER=MyUser -it -v <span style="color:#e6db74">&#34;</span>$(pwd)<span style="color:#e6db74">:/usr/src&#34;</span> -w /usr/src --rm rust<span style="color:#960050;background-color:#1e0010">:</span>latest cargo new --bin myApp
+</code></pre></div><p>If everything went well, you should now have a local file structure on your machine:</p>
+<pre><code>rustroot
++-- myApp
+    |-- Cargo.toml
+    +-- src
+        \-- main.rs
+</code></pre><p>Let&rsquo;s move into the newly created directory.</p>
+<pre><code>cd myApp
+</code></pre><h4 id="build-and-test">build and test</h4>
+<p>From inside the <code>myApp</code> folder, we can once again launch a docker instance to perform our build and test:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">docker run -it -v <span style="color:#e6db74">&#34;</span>$(pwd)<span style="color:#e6db74">:/usr/src/myapp&#34;</span> -w /usr/src/myapp --rm rust<span style="color:#960050;background-color:#1e0010">:</span>latest cargo test
+</code></pre></div><p>You should now see the following successful output:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; docker run -it -v <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">:/usr/src/myapp&#34;</span> -w /usr/src/myapp --rm rust:latest cargo test
+   Compiling myApp v0.1.0 <span style="color:#f92672">(</span>file:///usr/src/myapp<span style="color:#f92672">)</span>
+warning: crate <span style="color:#e6db74">`</span>myApp<span style="color:#e6db74">`</span> should have a snake <span style="color:#66d9ef">case</span> name such as <span style="color:#e6db74">`</span>my_app<span style="color:#e6db74">`</span>
+  |
+  <span style="color:#f92672">=</span> note: <span style="color:#75715e">#[warn(non_snake_case)] on by default</span>
+
+    Finished dev <span style="color:#f92672">[</span>unoptimized + debuginfo<span style="color:#f92672">]</span> target<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> in 1.4 secs
+     Running target/debug/deps/myApp-f7629208065f5316
+
+running <span style="color:#ae81ff">0</span> tests
+
+test result: ok. <span style="color:#ae81ff">0</span> passed; <span style="color:#ae81ff">0</span> failed; <span style="color:#ae81ff">0</span> ignored; <span style="color:#ae81ff">0</span> measured; <span style="color:#ae81ff">0</span> filtered out
+</code></pre></div><p>At some point, I had an error trying to run this a second time. I used <code>rm -r ./target</code> to fix it, possibly because of some sort of locking? I&rsquo;m not sure. All I knew at the time was that if I didn&rsquo;t remove it, it didn&rsquo;t build a second time. It seems to work fine now though. <em>shrug</em></p>
+<h3 id="the-end">The End</h3>
+<p>Long term I will still want to install a development environment for Rust, but to get going fast and for just learning the syntax and libraries, this is a nice quick way to get started. (And if you want to run a Rust workshop/lesson, it may be easier to get certain groups up and running if you know they already have docker - like your team at work, perhaps.)</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/you-cant-out-exercise-a-bad-diet/">You can&#39;t out-exercise a bad diet</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/aws-summit-london-2018/">AWS Summit London 2018</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/">A Windows Service using netcoreapp on dotnet</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/">dotnet build, targeting full .Net 4.5.1 on nanoserver docker</a></li><li><a href="https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/">&#34;failed to peek context header from STDIN&#34; and how to fix</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

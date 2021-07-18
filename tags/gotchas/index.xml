@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gotchas on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/gotchas/</link>
+    <description>Recent content in Gotchas on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Thu, 14 Oct 2010 02:17:28 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/gotchas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dialogs From Outside the UI</title>
+      <link>https://csmacnzblog.github.io/post/dialogs-from-outside-the-ui/</link>
+      <pubDate>Thu, 14 Oct 2010 02:17:28 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dialogs-from-outside-the-ui/</guid>
+      <description>If you are getting the &amp;ldquo;Dialogs must be user-initiated.&amp;rdquo; error in Visual Studio, you are probably calling an OpenFileDialog or SaveFileDialog from the wrong place.
+The most common &amp;lsquo;wrong place&amp;rsquo; seems to actually be the debugger. If are stepping through your code and try to step over a dialog.ShowDialog() call, you will most definitely get this error. So before you go rewriting your code, try placing the breakpoint after the call, and see if that fixes your problem.</description>
+    </item>
+    
+  </channel>
+</rss>

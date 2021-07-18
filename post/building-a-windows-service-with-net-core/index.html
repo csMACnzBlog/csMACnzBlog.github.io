@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Building a Windows Service with .Net Core - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Building a Windows Service with .Net Core">
+<meta itemprop="description" content="While we are all wanting to get onto the new hotness that is .Net Core cross platform applications, the reality is that our servers are running windows, and we use a combination of Scheduled tasks, IIS, and Windows Services to host our applications. Most .Net Core applications are console apps that work well for Scheduled tasks, and there are tonnes of tutorials for hosting in IIS. I&rsquo;ve got for you here the how-to for Windows Services."><meta itemprop="datePublished" content="2017-02-12T04:29:12+00:00" />
+<meta itemprop="dateModified" content="2017-02-12T04:29:12+00:00" />
+<meta itemprop="wordCount" content="1144">
+<meta itemprop="keywords" content="dotnetcore," /><meta property="og:title" content="Building a Windows Service with .Net Core" />
+<meta property="og:description" content="While we are all wanting to get onto the new hotness that is .Net Core cross platform applications, the reality is that our servers are running windows, and we use a combination of Scheduled tasks, IIS, and Windows Services to host our applications. Most .Net Core applications are console apps that work well for Scheduled tasks, and there are tonnes of tutorials for hosting in IIS. I&rsquo;ve got for you here the how-to for Windows Services." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/building-a-windows-service-with-net-core/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2017-02-12T04:29:12+00:00" />
+<meta property="article:modified_time" content="2017-02-12T04:29:12+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Building a Windows Service with .Net Core"/>
+<meta name="twitter:description" content="While we are all wanting to get onto the new hotness that is .Net Core cross platform applications, the reality is that our servers are running windows, and we use a combination of Scheduled tasks, IIS, and Windows Services to host our applications. Most .Net Core applications are console apps that work well for Scheduled tasks, and there are tonnes of tutorials for hosting in IIS. I&rsquo;ve got for you here the how-to for Windows Services."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Building a Windows Service with .Net Core</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Building a Windows Service with .Net Core</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Feb 12, 2017
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#introducing-topshelf">Introducing TopShelf</a></li>
+        <li><a href="#a-simple-service">A Simple Service</a></li>
+        <li><a href="#setup-the-application">Setup the application</a></li>
+        <li><a href="#package-your-service">Package your service</a></li>
+        <li><a href="#appconfig">App.Config</a></li>
+        <li><a href="#future-proofing">Future-proofing</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>While we are all wanting to get onto the new hotness that is .Net Core cross platform applications, the reality is that our servers are running windows, and we use a combination of Scheduled tasks, IIS, and Windows Services to host our applications. Most .Net Core applications are console apps that work well for Scheduled tasks, and there are tonnes of tutorials for hosting in IIS.  I&rsquo;ve got for you here the how-to for Windows Services.</p>
+<h3 id="introducing-topshelf">Introducing TopShelf</h3>
+<p>If you are writing Windows Services and not using <a href="http://topshelf-project.com/" target="_blank">TopShelf</a>
+ then you are doing it wrong (IMHO).  Since a colleague introduced me to it 2 years ago it has become the only thing I use for Windows Services.</p>
+<p>TopShelf is not a <code>netstandard</code> target, with the current latest version (<a href="https://www.nuget.org/packages/Topshelf/4.0.3" target="_blank">4.0.3</a>
+) instead targeting .Net 4.5.2. However that is fine since we need a few things from the full framework to host as a Windows Service, anyway. (Don&rsquo;t quote me on that, but for the purposes of using TopShelf today, it will be fine.)</p>
+<h3 id="a-simple-service">A Simple Service</h3>
+<p>Let&rsquo;s look at a simple Windows Service that simply runs a sleep loop and prints to the console. Because lets face it, your service is probably a spin loop of some kind.</p>
+<pre><code>    public class Processor
+    {
+        private bool _running;
+        private Task _myLoop;
+        
+        public async Task Start()
+        {
+            //Probably do some async data loading here
+            await Task.Delay(1);
+            _running = true;
+            _myLoop = Loop();
+        }
+
+        public async Task Stop()
+        {
+            _running = false;
+            await _myLoop;
+        }
+
+        public async Task Loop()
+        {
+            while(_running)
+            {
+                await Task.Delay(5000);
+                System.Console.WriteLine(&quot;Everything is fine.&quot;);
+            }
+        }
+    }
+</code></pre><p>Hopefully this looks somewhat familiar for a service that can be started and stopped to host as a Windows Service.</p>
+<h3 id="setup-the-application">Setup the application</h3>
+<p>First things first, We need make this a .Net 4.5.2 project and include the <code>TopShelf</code> NuGet package.</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;,
+    &quot;emitEntryPoint&quot;: true
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;net452&quot;: {
+      &quot;dependencies&quot;: {
+        &quot;TopShelf&quot;: &quot;4.0.3&quot;
+      }
+    }
+  }
+}
+</code></pre><p>Don&rsquo;t forget to <code>dotnet restore</code></p>
+<p>To host our <code>Processor</code>, we use TopShelf like this:</p>
+<pre><code>    public class Program
+    {
+        /// &lt;summary&gt;
+        /// The main entry point for the application.
+        /// &lt;/summary&gt;
+        public static void Main()
+        {
+            HostFactory.Run(x =&gt;
+            {
+                x.Service&lt;Processor&gt;(s =&gt;
+                {
+                    s.ConstructUsing(() =&gt; Create());
+                    s.WhenStarted(p=&gt; p.Start().Wait());
+                    s.WhenStopped(p =&gt; p.Stop().Wait());
+                });
+                x.RunAsLocalSystem();
+
+                x.StartAutomatically();
+                x.EnableServiceRecovery(r =&gt;
+                {
+                    r.RestartService(0);
+                    r.RestartService(1);
+                    r.RestartService(2);
+
+                    r.OnCrashOnly();
+
+                    //number of days until the error count resets
+                    r.SetResetPeriod(1);
+                });
+
+                x.SetDescription(&quot;My App&quot;);
+                x.SetDisplayName(&quot;MyApp&quot;);
+                x.SetServiceName(&quot;MyApp&quot;);
+            });
+        }
+
+        public static Processor Create()
+        {
+            //Allow parameterised configuration here.
+            return new Processor();
+        }
+    }
+</code></pre><p>The nice thing about TopShelf is that you can basically run the application as a console application when it isn&rsquo;t installed, and It runs basically the same loop:</p>
+<pre><code>dotnet build
+dotnet run
+</code></pre><p><code>Control+C</code> is used to stop the running application. (In case you were wondering, or stuck. Though it does clearly say <code>The MyApp service is now running, press Control+C to exit.</code> in the output.)</p>
+<pre><code>Project MyApp (.NETFramework,Version=v4.5.2) was previously compiled. Skipping compilation.
+Configuration Result:
+[Success] Name MyApp
+[Success] Description My App
+[Success] ServiceName MyApp
+Topshelf v4.0.0.0, .NET Framework v4.0.30319.42000
+The MyApp service is now running, press Control+C to exit.
+Everything is fine.
+Everything is fine.
+Everything is fine.
+Control+C detected, attempting to stop service.
+</code></pre><p>The application build output can be seen below. Take not that as this is a .Net 4.5.2 application, we have a nice little exe file as the output.</p>
+<pre><code>MyApp
+|-- Processor.cs
+|-- Program.cs
+|-- project.json
+|-- project.lock.json
++-- bin
+    |-- Debug
+        |-- net452
+            |-- MyApp.exe
+            |-- MyApp.pdb
+            +-- win7-x64
+                |-- MyApp.exe
+                |-- MyApp.pdb
+                |-- Topshelf.dll
+</code></pre><p>Topshelf has a few commands you can use to easily manage it: <code>install</code>, <code>start</code>, <code>stop</code> &amp; <code>uninstall</code>. There require you to be running as administrator.</p>
+<pre><code>dotnet run install
+dotnet run start
+</code></pre><p>Alternatively, since it is an exe you can just use:</p>
+<pre><code>.\bin\Debug\net452\win7-x64\MyApp.exe install
+.\bin\Debug\net452\win7-x64\MyApp.exe start
+</code></pre><p>Take note though, your app cannot be started in console mode if an instance is already installed on the machine.</p>
+<h3 id="package-your-service">Package your service</h3>
+<p>We can easily package our Service using the following command:</p>
+<pre><code>dotnet publish -c Release -f net452 -r win7-x64 -o ../MyAppPublished
+</code></pre><p>(Update the <code>-c</code> (output directory) and <code>-r</code> (target runtime) as desired.)</p>
+<p>This should give us:</p>
+<pre><code>MyAppPublished
+|-- MyApp.exe
+|-- MyApp.pdb
++-- Topshelf.dll
+</code></pre><h3 id="appconfig">App.Config</h3>
+<p>If you are migrating onto the dotnet tools, or still have legacy tooling that performs xml transforms on <code>App.config</code> files then your keen eye would have noticed the lack of a <code>MyApp.exe.config</code> file above. Not to worry, I have a solution for that, too.</p>
+<p>First we add an <code>App.config</code> file to the project:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+&lt;/configuration&gt;
+</code></pre><p>Then we make a few changes to our <code>project.json</code> file.</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;,
+    &quot;emitEntryPoint&quot;: true
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;net452&quot;: {
+      &quot;buildOptions&quot;: {
+        &quot;copyToOutput&quot;: {
+          &quot;mappings&quot;: {
+            &quot;MyApp.exe.config&quot;: &quot;App.config&quot;
+          }
+        }
+      },
+      &quot;frameworkAssemblies&quot;: {
+        &quot;System.Configuration&quot;: &quot;4.0.0.0&quot;
+      },
+      &quot;dependencies&quot;: {
+        &quot;TopShelf&quot;: &quot;4.0.3&quot;
+      }
+    }
+  }
+}
+</code></pre><p>If you run another publish you should now have your config file, too.</p>
+<pre><code>dotnet restore
+dotnet publish -c Release -f net452 -r win7-x64 -o ../MyAppPublished
+</code></pre><h3 id="future-proofing">Future-proofing</h3>
+<p>So that&rsquo;s all well and good to get the old school running through the new tooling. But you might want to use the .Net Core App Runtime as well. Luckily I&rsquo;ve got an example using a #Define Compiler Directive to share the same codebase across both runtimes.</p>
+<p>With .Net core, applications are simply console apps. So you just need an app that runs until it stops (or is killed). At this time, TopShelf doesn&rsquo;t have a .Net Core version, so we have two different Compiled versions depending on the Compiler Directive. Here is my sample app.</p>
+<p>The <code>project.json</code>:</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;,
+    &quot;emitEntryPoint&quot;: true
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;netcoreapp1.0&quot;: {
+      &quot;dependencies&quot;: {
+        &quot;Microsoft.NETCore.App&quot;: {
+          &quot;type&quot;: &quot;platform&quot;,
+          &quot;version&quot;: &quot;1.0.0&quot;
+        }
+      }
+    },
+    &quot;net452&quot;: {
+      &quot;buildOptions&quot;: {
+        &quot;copyToOutput&quot;: {
+          &quot;mappings&quot;: {
+            &quot;MyApp.exe.config&quot;: &quot;App.config&quot;
+          }
+        },
+        &quot;define&quot;: [
+          &quot;WindowsService&quot;
+        ]
+      },
+      &quot;frameworkAssemblies&quot;: {
+        &quot;System.Configuration&quot;: &quot;4.0.0.0&quot;
+      },
+      &quot;dependencies&quot;: {
+        &quot;TopShelf&quot;: &quot;4.0.3&quot;
+      }
+    }
+  }
+}
+</code></pre><p>And a <code>Program.cs</code>:</p>
+<pre><code>using System.Threading.Tasks;
+#if WindowsService
+using Topshelf;
+#endif
+
+namespace MyNewService
+{
+    public class Program
+    {
+        /// &lt;summary&gt;
+        /// The main entry point for the application.
+        /// &lt;/summary&gt;
+public static void Main()
+        {
+#if WindowsService
+            HostFactory.Run(x =&gt;
+            {
+                x.Service&lt;Processor&gt;(s =&gt;
+                {
+                    s.ConstructUsing(() =&gt; Create());
+                    s.WhenStarted(p=&gt; p.Start().Wait());
+                    s.WhenStopped(p =&gt; p.Stop().Wait());
+                });
+                x.RunAsLocalSystem();
+
+                x.StartAutomatically();
+                x.EnableServiceRecovery(r =&gt;
+                {
+                    r.RestartService(0);
+                    r.RestartService(1);
+                    r.RestartService(2);
+
+                    r.OnCrashOnly();
+
+                    //number of days until the error count resets
+                    r.SetResetPeriod(1);
+                });
+
+                x.SetDescription(&quot;My App&quot;);
+                x.SetDisplayName(&quot;MyApp&quot;);
+                x.SetServiceName(&quot;MyApp&quot;);
+            });
+#else
+            RunAsynchronously().Wait();
+#endif
+        }
+
+        private static async Task RunAsynchronously()
+        {
+            var processor = Create();
+            await processor.Start();
+            System.Console.WriteLine(&quot;Press any key to stop program&quot;);
+            System.Console.Read();
+            await processor.Stop();
+        }
+        public static Processor Create()
+        {
+            //Allow parameterised configuration here.
+            return new Processor();
+        }
+    }
+}
+</code></pre><p>Swap out your own <code>Processor.cs</code> and you will have a nice Windows Service 4.5.2 app, and a new .Net Core Console app that you can host how you like on Windows and Linux however the new stuff is supposed to be hosted.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/dotnetcore-publishing-portable-applications/">.Net Core Series - Publishing Portable Applications</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/migrating-onto-dotnet-tools-1-0-0/">Migrating onto dotnet tools 1.0.0</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/dotnetcore-publishing-portable-applications/">.Net Core Series - Publishing Portable Applications</a></li><li><a href="https://csmacnzblog.github.io/post/net-core-tests-not-showing/">.Net core tests not showing up in VS? Here&#39;s the trick...</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet/">dotnet &#43; nunit3 &#43; TeamCity success</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore-multi-targeting/">.Net Core Series - Multi-targeting</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore-nuget/">.Net Core Series - NuGet</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

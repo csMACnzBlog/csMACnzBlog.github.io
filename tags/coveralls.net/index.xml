@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>coveralls.net on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/coveralls.net/</link>
+    <description>Recent content in coveralls.net on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 04 Jun 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/coveralls.net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Coveralls.Net 1.0.0 Release</title>
+      <link>https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/</link>
+      <pubDate>Mon, 04 Jun 2018 07:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/</guid>
+      <description>Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a Series of Blog Posts. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first. This has continued at a slow pace for the last 3 years.</description>
+    </item>
+    
+    <item>
+      <title>monocov &#43; Travis-CI = WINNING</title>
+      <link>https://csmacnzblog.github.io/post/monocov-travis-ci-winning/</link>
+      <pubDate>Sun, 08 Feb 2015 15:29:13 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/monocov-travis-ci-winning/</guid>
+      <description>After much frustration, I now have monocovrunning on my Travis-CI build, and I&amp;rsquo;m going to share with you how I did it.
+TL;DR The coverage results don&amp;rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.
+As I mentioned in a previous post, I am building a coveralls.iopublisher for .Net code coverage. This means (to me any way) that I need to support mono coverage as well.</description>
+    </item>
+    
+    <item>
+      <title>Introducing Coveralls.net</title>
+      <link>https://csmacnzblog.github.io/post/introducing-coveralls-net/</link>
+      <pubDate>Sat, 24 Jan 2015 14:33:48 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/introducing-coveralls-net/</guid>
+      <description>So I&amp;rsquo;ve built an (almost MVP) code coverage publisher for coveralls.iofrom C# code, using opencover coverage results. Checkout the github repoand nuget packagesif you want to use it. I&amp;rsquo;m even dogfooding it on appveyor as part of my psake build tasks.
+So how do you use it? Well luckily I used docopts.netto give you a bit of a command line experience while you use it, but the gist is this:</description>
+    </item>
+    
+    <item>
+      <title>Hey, I found this thing called Coveralls.io</title>
+      <link>https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/</link>
+      <pubDate>Sun, 14 Dec 2014 19:50:47 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/</guid>
+      <description>In my pursuit to find a build task runner for my code coverageI stumbled on this whole other side of the internet I didn&amp;rsquo;t know about (from a .Net developer&amp;rsquo;s perspective). I&amp;rsquo;ve been using AppVeyor.comfor my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!</description>
+    </item>
+    
+  </channel>
+</rss>

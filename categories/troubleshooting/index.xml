@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>troubleshooting on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/troubleshooting/</link>
+    <description>Recent content in troubleshooting on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 13 Nov 2017 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/troubleshooting/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Couldn&#39;t Connect. Get Connected to your Wireless Display Adapter</title>
+      <link>https://csmacnzblog.github.io/post/fix-wireless-display-connection/</link>
+      <pubDate>Mon, 13 Nov 2017 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/fix-wireless-display-connection/</guid>
+      <description>I was having trouble with connecting my laptops to a remote display with Miricast.
+Specifically, I was trying to use the functionality built into Windows 10 to connect to a wireless display and had a Microsoft Wireless Display Adapter V2 plugged into my TV.
+It would say Connecting to ... for a while and then fail with a message Couldn&#39;t connect.
+I managed to find a support article from Microsoft, which has some great troubleshooting steps to follow.</description>
+    </item>
+    
+    <item>
+      <title>Windows 10 phantom text fix</title>
+      <link>https://csmacnzblog.github.io/post/windows-10-phantom-text-fix/</link>
+      <pubDate>Wed, 01 Jul 2015 20:35:13 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/windows-10-phantom-text-fix/</guid>
+      <description>I&amp;rsquo;ve been using the Windows 10 Insider Previews on my Dell Latitude ST2E Tabletfor a few months and It has been a bit hit and miss. I&amp;rsquo;ve really enjoyed the experience of previewing what&amp;rsquo;s coming, but it has been quite buggy up until the 10158/10159 builds leading up to the July 29th RTM. But there is one bug that has survived for me that, through wishful thinking I had expected to just go away after a while.</description>
+    </item>
+    
+    <item>
+      <title>Strange Monitor issues</title>
+      <link>https://csmacnzblog.github.io/post/strange-monitor-issues/</link>
+      <pubDate>Thu, 12 Feb 2009 22:35:24 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/strange-monitor-issues/</guid>
+      <description>Just a little backstory to put this in context. I have a dual-boot Vista/Ubuntu machine. I updated my hardware and vista needed to re-register, but my internet connection was down. Fine, I&amp;rsquo;ll use Ubuntu till my internets back.
+All is well until I finally reboot into Vista and re-active my licence online, download all the latest updates and reboot. All of a sudden my LCD screen no longer works. Fortunately, I have two screens but the LCD no longer detects as UPnP and won&amp;rsquo;t take a resolution higher than 1024x768.</description>
+    </item>
+    
+  </channel>
+</rss>

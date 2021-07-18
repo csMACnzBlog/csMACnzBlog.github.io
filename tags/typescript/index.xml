@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TypeScript on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/typescript/</link>
+    <description>Recent content in TypeScript on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 11 Dec 2017 22:49:19 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TypeScript over JavaScript, Always</title>
+      <link>https://csmacnzblog.github.io/post/typescript-over-javascript-always/</link>
+      <pubDate>Mon, 11 Dec 2017 22:49:19 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/typescript-over-javascript-always/</guid>
+      <description>Prelude As a developer, JavaScript is inevitable. Unless you&amp;rsquo;re a dba or mobile app developer I suppose, but I digress.
+When working with JavaScript applications, you certainly have to be using a build pipeline of some description. If you are not at least bundling and minifying you are certainly doing it wrong, and if that process isn&amp;rsquo;t automated somehow then your not doing it right.
+Using new language features makes JavaScript palatable, so you are already using ES6 (or newer) features, and because compatibility on the web is hard, you have a transpiler step already to convert all your code to ES5 (or ES3, I don&amp;rsquo;t judge compatibility decisions).</description>
+    </item>
+    
+  </channel>
+</rss>

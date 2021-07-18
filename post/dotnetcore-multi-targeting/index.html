@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>.Net Core Series - Multi-targeting - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="This is a series on the new .Net Core bits.
+Is this article, we learn how to target multiple platforms with our .Net Libraries using .Net Core." /><meta itemprop="name" content=".Net Core Series - Multi-targeting">
+<meta itemprop="description" content="This is a series on the new .Net Core bits.
+Is this article, we learn how to target multiple platforms with our .Net Libraries using .Net Core."><meta itemprop="datePublished" content="2016-08-09T00:33:21+00:00" />
+<meta itemprop="dateModified" content="2016-08-09T00:33:21+00:00" />
+<meta itemprop="wordCount" content="1439">
+<meta itemprop="keywords" content="c#,dotnetcore," /><meta property="og:title" content=".Net Core Series - Multi-targeting" />
+<meta property="og:description" content="This is a series on the new .Net Core bits.
+Is this article, we learn how to target multiple platforms with our .Net Libraries using .Net Core." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/dotnetcore-multi-targeting/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-08-09T00:33:21+00:00" />
+<meta property="article:modified_time" content="2016-08-09T00:33:21+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=".Net Core Series - Multi-targeting"/>
+<meta name="twitter:description" content="This is a series on the new .Net Core bits.
+Is this article, we learn how to target multiple platforms with our .Net Libraries using .Net Core."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">.Net Core Series - Multi-targeting</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">.Net Core Series - Multi-targeting</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Aug 9, 2016
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>7 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#light-reading">Light reading</a></li>
+        <li><a href="#setup">Setup</a></li>
+        <li><a href="#on-with-the-show">On with the show!</a></li>
+        <li><a href="#dependencies">Dependencies</a></li>
+        <li><a href="#conditional-compilation">Conditional Compilation</a></li>
+        <li><a href="#packaging">Packaging</a></li>
+        <li><a href="#a-sidenote-on-running">A sidenote on running</a></li>
+        <li><a href="#net40">net40</a></li>
+        <li><a href="#whats-left">What&rsquo;s Left?</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>This is a series on the .Net Core 1.0 bits. Looking for <a href="/dotnetcore2-getting-started">.Net Core 2 Series</a>
+?</p>
+<ul>
+<li><a href="/dotnetcore-getting-started">Getting Started</a>
+</li>
+<li><a href="/dotnetcore-whats-in-the-box">What&rsquo;s in the box</a>
+</li>
+<li><a href="/dotnetcore-testing">Using Multiple Projects</a>
+</li>
+<li><a href="/dotnetcore-testing">Testing</a>
+</li>
+<li><a href="/dotnetcore-nuget">NuGet</a>
+</li>
+<li>Multi-targeting &lt;=(We are here)</li>
+<li><a href="/dotnetcore-publishing-portable-applications">Publishing Portable Applications</a>
+</li>
+<li><a href="/dotnetcore-self-contained-applications">Self-contained Applications</a>
+</li>
+</ul>
+<p><a href="/dotnetcore-nuget">Last time</a>
+ we learned how to package our libraries as NuGet packages. But it was only targeting <code>netstandard1.6</code>, the new <code>netstandard</code> target framework moniker.</p>
+<h3 id="light-reading">Light reading</h3>
+<p>I recommend you go off and read through some of the architecture documents and NuGet pages to get a feel for the various targets that can or should be used. Starting with the <a href="https://github.com/dotnet/corefx/blob/master/Documentation/architecture/net-platform-standard.md" target="_blank">.NET Platform Standard</a>
+ page.</p>
+<p>In short, all the old profiles and various platforms have been mapped to this new <code>netstandard</code> system, and if you implement this target in your package, it can be used by other libraries that use these targets at an equal or  higher level.</p>
+<p>Further reading can be found on the NuGet.org <a href="https://docs.nuget.org/create/targetframeworks" target="_blank">target frameworks</a>
+ page.</p>
+<h3 id="setup">Setup</h3>
+<p>If you have been following the series right through, you should be able to follow what the next script does to set up our starting project:</p>
+<pre><code>mkdir mynewpackage
+cd mynewpackage
+dotnet new -t Lib
+dotnet restore
+dotnet build
+</code></pre><p>Like before, you may wish to replace <code>Library.cs</code> with a <code>Calculator</code> class.</p>
+<pre><code>namespace mynewpackage  
+{
+    public class Calculator
+    {
+        public int Add(int first, int second)
+        {
+            return first + second;
+        }
+    }
+}
+</code></pre><p>One more:</p>
+<pre><code>dotnet build
+</code></pre><h3 id="on-with-the-show">On with the show!</h3>
+<p>This all boils down to the <code>project.json</code> file. I&rsquo;ll probably come back and revisit this when that <a href="http://fizzylogic.nl/2016/05/11/project-json-is-going-away-and-it-s-a-good-thing/" target="_blank">finally goes away</a>
+ but for now this is what you need to do.</p>
+<p>Starting with the initial <code>project.json</code> file:</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;netstandard1.6&quot;: {
+      &quot;dependencies&quot;: {
+        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      }
+    }
+  }
+}
+</code></pre><p>Say we wanted to target <code>netstandard1.0</code> instead. It would be as simple as changing <code>&quot;netstandard1.6&quot;</code> to <code>&quot;netstandard1.0&quot;</code>.</p>
+<p>Using some examples might help here. Let&rsquo;s say we want to use some <code>netstandard1.6</code> features, if they are available. But we also want to be compatible with <code>netstandard1.0</code>, with limited functionality, or alternative features used.  We would do this to our <code>project.json</code>.</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;netstandard1.0&quot;: {
+      &quot;dependencies&quot;: {
+        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      }
+    },
+    &quot;netstandard1.6&quot;: {
+      &quot;dependencies&quot;: {
+        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      }
+    }
+  }
+}
+</code></pre><p>By adding new frameworks, we can target multiple platforms. By default, a build with now build all the frameworks.</p>
+<p>I mentioned in a previous article, <code>&quot;NETStandard.Library&quot;: &quot;1.6.0&quot;</code> is a Package, and version 1.6 actually contains the required parts for all <code>netstandard*</code> dependencies in the same package. So you don&rsquo;t change the version of this, even when we do change the <code>netstandard*</code> one.</p>
+<p>As whenever we change the <code>project.json</code> we run restore and build.</p>
+<pre><code>dotnet restore
+dotnet build
+</code></pre><pre><code>Project mynewpackage (.NETStandard,Version=v1.0) will be compiled because expected outputs are missing
+Compiling mynewpackage for .NETStandard,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.5760786
+
+
+Project mynewpackage (.NETStandard,Version=v1.6) will be compiled because inputs were modified
+Compiling mynewpackage for .NETStandard,Version=v1.6
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.5280100
+</code></pre><p>What does this do to our file tree?</p>
+<pre><code>mynewpackage
+|-- Library.cs
+|-- project.json
+|-- project.lock.json
++-- bin
+     +-- Debug
+          +-- netstandard1.0
+          |    |-- mynewpackage.deps.json
+          |    |-- mynewpackage.dll
+          |    +-- mynewpackage.pdb
+          +-- netstandard1.6
+               |-- mynewpackage.deps.json
+               |-- mynewpackage.dll
+               +-- mynewpackage.pdb
+
+</code></pre><p>We now have two target outputs, and two <code>dll</code> files, which target different frameworks.</p>
+<h3 id="dependencies">Dependencies</h3>
+<p>As we can see from the above, there are three places where we can put dependencies. I&rsquo;ve <a href="/dotnetcore-whats-in-the-box/#frameworksanddependencies">discussed this before</a>
+, but let&rsquo;s recap. If you put a dependency in the top level section, it will be available to all target frameworks. This means that it needs to contain a compatible target version to match every framework you have used.  If you want to use a dependency only for a specific target, or you want to use different dependencies depending on the target, these can go in <code>dependencies</code> under that specific framework.</p>
+<p>You might use this feature to include a bridging library against an older framework when the newer framework might contain it. An example of this is the <a href="https://www.nuget.org/packages/Microsoft.Bcl.Async/" target="_blank">Microsoft.Bcl.Async</a>
+ package. Or you might want to use a full framework package when targeting <code>net40</code>, and a dotnet core package when targeting <code>netframework1.3</code>.</p>
+<h3 id="conditional-compilation">Conditional Compilation</h3>
+<p>If we are targeting different frameworks, we likely have to adjust the code as well. We do this using the <code>define</code> <code>buildOption</code>.</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;netstandard1.0&quot;: {
+      &quot;buildOptions&quot;: {
+        &quot;define&quot;: [&quot;netstandard&quot;]
+      },
+      &quot;dependencies&quot;: {
+        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      }
+    },
+    &quot;netstandard1.6&quot;: {
+      &quot;buildOptions&quot;: {
+        &quot;define&quot;: [&quot;netstandard&quot;]
+      },
+      &quot;dependencies&quot;: {
+        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      }
+    }
+  }
+}
+</code></pre><p>By defining <code>netstandard</code> above, we can include it as part of a conditional compile in our code:</p>
+<pre><code>#if netstandard
+        //Extra code for netstandard
+        var x = 0;
+#endif
+</code></pre><p>Like before, if we add defines to the to <code>buildOption</code> section it will be defined for all targets. If we add it to a specific framework, it will only be defined when building against that target.</p>
+<h3 id="packaging">Packaging</h3>
+<p>Packaging into a <code>nupkg</code> file works the same as before.</p>
+<pre><code>dotnet pack
+</code></pre><pre><code>Project mynewpackage (.NETStandard,Version=v1.0) was previously compiled. Skipping compilation.
+Project mynewpackage (.NETStandard,Version=v1.6) was previously compiled. Skipping compilation.
+Producing nuget package &quot;mynewpackage.1.0.0&quot; for mynewpackage
+mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpackage.1.0.0.nupkg
+Producing nuget package &quot;mynewpackage.1.0.0.symbols&quot; for mynewpackage
+mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpackage.1.0.0.symbols.nupkg
+</code></pre><p>And results in some new files:</p>
+<pre><code>mynewpackage
+|-- Library.cs
+|-- project.json
+|-- project.lock.json
++-- bin
+     +-- Debug
+          |-- mynewpackage.1.0.0.nupkg
+          |-- mynewpackage.1.0.0.symbols.nupkg
+          +-- netstandard1.0
+          |    |-- mynewpackage.deps.json
+          |    |-- mynewpackage.dll
+          |    +-- mynewpackage.pdb
+          +-- netstandard1.6
+               |-- mynewpackage.deps.json
+               |-- mynewpackage.dll
+               +-- mynewpackage.pdb
+</code></pre><p>Instead of getting a package per target, we get one package that contains both targets.</p>
+<pre><code>mynewpackage.1.0.0.nupkg  
+|-- mynewpackage.nuspec
++-- lib
+     +-- netstandard1.0
+     |    +-- mynewpackage.dll
+     +-- netstandard1.6
+          +-- mynewpackage.dll
+</code></pre><h3 id="a-sidenote-on-running">A sidenote on running</h3>
+<p>You can also use multi-targeting on an application. When you want to run an application with multiple targets, you can use the <code>dotnet run</code> command with the <code>-f</code> flag.</p>
+<pre><code>dotnet run -f netcoreapp1.0
+</code></pre><p>Of course, <code>netcoreapp1.0</code> is the application target for the .Net Core runtime, compared to using <code>net45</code> perhaps to target .Net 4.5 runtime instead.</p>
+<h3 id="net40">net40</h3>
+<p>The target <code>netstandard1.0</code> is compatible with .Net 4.5 and newer, UWP apps, Windows 8 &amp; Windows Phone 8 or newer, Mono and Xamarin, and of course new .Net Core applications.  But we all know that there are a ton of applications out there targeting .Net 4.0, and even .Net 3.5 that we still maintain and support that we might want our library packages to target.</p>
+<p>So we can easily target net40 and net35 as well.</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;net35&quot;: {
+      &quot;buildOptions&quot;: {
+        &quot;define&quot;: [&quot;net35&quot;]
+      },
+      &quot;dependencies&quot;: {
+      }
+    },
+    &quot;net40&quot;: {
+      &quot;buildOptions&quot;: {
+        &quot;define&quot;: [&quot;net40&quot;]
+      },
+      &quot;dependencies&quot;: {
+      }
+    },
+    &quot;netstandard1.0&quot;: {
+      &quot;buildOptions&quot;: {
+        &quot;define&quot;: [&quot;netstandard&quot;]
+      },
+      &quot;dependencies&quot;: {
+        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      }
+    },
+    &quot;netstandard1.6&quot;: {
+      &quot;buildOptions&quot;: {
+        &quot;define&quot;: [&quot;netstandard&quot;]
+      },
+      &quot;dependencies&quot;: {
+        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      }
+    }
+  }
+}
+</code></pre><p>This simple library doesn&rsquo;t need anything outside the standard library, bu if it did, we would add in target-specific packages and libraries to the <code>net35</code> and <code>net40</code> targets as well.</p>
+<pre><code>dotnet restore
+dotnet build
+</code></pre><pre><code>Project mynewpackage (.NETFramework,Version=v3.5) will be compiled because expected outputs are missing
+Compiling mynewpackage for .NETFramework,Version=v3.5
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.1810785
+
+
+Project mynewpackage (.NETFramework,Version=v4.0) will be compiled because expected outputs are missing
+Compiling mynewpackage for .NETFramework,Version=v4.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.1155631
+
+
+Project mynewpackage (.NETStandard,Version=v1.0) will be compiled because inputs were modified
+Compiling mynewpackage for .NETStandard,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.0899710
+
+
+Project mynewpackage (.NETStandard,Version=v1.6) will be compiled because inputs were modified
+Compiling mynewpackage for .NETStandard,Version=v1.6
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.0806550
+</code></pre><p>We can pack this.</p>
+<pre><code>dotnet pack
+</code></pre><pre><code>Project mynewpackage (.NETFramework,Version=v3.5) was previously compiled. Skipping compilation.
+Project mynewpackage (.NETFramework,Version=v4.0) was previously compiled. Skipping compilation.
+Project mynewpackage (.NETStandard,Version=v1.0) was previously compiled. Skipping compilation.
+Project mynewpackage (.NETStandard,Version=v1.6) was previously compiled. Skipping compilation.
+Producing nuget package &quot;mynewpackage.1.0.0&quot; for mynewpackage
+mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpackage.1.0.0.nupkg
+Producing nuget package &quot;mynewpackage.1.0.0.symbols&quot; for mynewpackage
+mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpackage.1.0.0.symbols.nupkg
+</code></pre><p>Then we will get:</p>
+<pre><code>mynewpackage
+|-- Library.cs
+|-- project.json
+|-- project.lock.json
++-- bin
+     +-- Debug
+          |-- mynewpackage.1.0.0.nupkg
+          |-- mynewpackage.1.0.0.symbols.nupkg
+          +-- net35
+          |    |-- mynewpackage.dll
+          |    +-- mynewpackage.pdb
+          +-- net40
+          |    |-- mynewpackage.dll
+          |    +-- mynewpackage.pdb
+          +-- netstandard1.0
+          |    |-- mynewpackage.deps.json
+          |    |-- mynewpackage.dll
+          |    +-- mynewpackage.pdb
+          +-- netstandard1.6
+               |-- mynewpackage.deps.json
+               |-- mynewpackage.dll
+               +-- mynewpackage.pdb
+</code></pre><p>And:</p>
+<pre><code>mynewpackage.1.0.0.nupkg  
+|-- mynewpackage.nuspec
++-- lib
+     +-- net35
+     |    +-- mynewpackage.dll
+     +-- net40
+     |    +-- mynewpackage.dll
+     +-- netstandard1.0
+     |    +-- mynewpackage.dll
+     +-- netstandard1.6
+          +-- mynewpackage.dll
+</code></pre><h3 id="whats-left">What&rsquo;s Left?</h3>
+<p>That should give you a reasonable (albeit simple) overview of multi-targeting libraries.  The last focus is on applications, and how we publish and distribute these using the dotnet CLI tools.  Up Next!</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/dotnetcore-nuget/">.Net Core Series - NuGet</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/new-projects-consolable-concurrentconsole-t4tinytypes/">New Projects - Consolable, ConcurrentConsole &amp; t4tinytypes</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/dotnetcore-nuget/">.Net Core Series - NuGet</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore-testing/">.Net Core Series - Testing</a></li><li><a href="https://csmacnzblog.github.io/post/experimenting-with-global-json/">Experimenting with global.json</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore-using-multiple-projects/">.Net Core Series - Using Multiple Projects</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore-whats-in-the-box/">.Net Core Series - What&#39;s in the box</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>.Net Core SDK 2.* Series - Self-contained Applications - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content=".Net Core SDK 2.* Series - Self-contained Applications">
+<meta itemprop="description" content="This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications &lt;=(We are here)  (At the time of writing, 2.1.4. I use windows, you don&rsquo;t have to!)
+The Problem Distributing the fruits of your labour is one of the rewarding parts of building any kind of software."><meta itemprop="datePublished" content="2018-03-18T20:18:22+00:00" />
+<meta itemprop="dateModified" content="2018-03-18T20:18:22+00:00" />
+<meta itemprop="wordCount" content="2534">
+<meta itemprop="keywords" content="dotnetcore," /><meta property="og:title" content=".Net Core SDK 2.* Series - Self-contained Applications" />
+<meta property="og:description" content="This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications &lt;=(We are here)  (At the time of writing, 2.1.4. I use windows, you don&rsquo;t have to!)
+The Problem Distributing the fruits of your labour is one of the rewarding parts of building any kind of software." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/dotnetcore2-self-contained-applications/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-03-18T20:18:22+00:00" />
+<meta property="article:modified_time" content="2018-03-18T20:18:22+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=".Net Core SDK 2.* Series - Self-contained Applications"/>
+<meta name="twitter:description" content="This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications &lt;=(We are here)  (At the time of writing, 2.1.4. I use windows, you don&rsquo;t have to!)
+The Problem Distributing the fruits of your labour is one of the rewarding parts of building any kind of software."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">.Net Core SDK 2.* Series - Self-contained Applications</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">.Net Core SDK 2.* Series - Self-contained Applications</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Mar 18, 2018
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>12 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#the-problem">The Problem</a></li>
+        <li><a href="#installing-multiple-platforms">Installing Multiple Platforms</a></li>
+        <li><a href="#but-why-a-runtime">But why a Runtime?</a></li>
+        <li><a href="#look-mum-no-runtime">Look Mum, No Runtime!</a></li>
+        <li><a href="#show-me-the-code">Show me the Code!</a></li>
+        <li><a href="#the-cake-is-a-lie">The Cake is a Lie</a></li>
+        <li><a href="#wrap-up">Wrap up</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-end">The End</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>This is a series on the latest 2.* .Net Core bits, Following on from the original <a href="https://blog.csmac.nz/dotnetcore-getting-started" target="_blank">.Net Core Series</a>
+</p>
+<ul>
+<li><a href="/dotnetcore2-getting-started">Getting Started</a>
+</li>
+<li><a href="/dotnetcore2-whats-in-the-box">What&rsquo;s in the box</a>
+</li>
+<li><a href="/dotnetcore2-using-multiple-projects">Using Multiple Projects</a>
+</li>
+<li><a href="/dotnetcore2-testing">Testing</a>
+</li>
+<li><a href="/dotnetcore2-nuget">NuGet</a>
+</li>
+<li><a href="/dotnetcore2-multi-targeting">Multi-targeting</a>
+</li>
+<li><a href="/dotnetcore2-publishing-portable-applications">Publishing Portable Applications</a>
+</li>
+<li>Self-contained Applications &lt;=(We are here)</li>
+</ul>
+<p>(At the time of writing, 2.1.4. I use windows, you don&rsquo;t have to!)</p>
+<h3 id="the-problem">The Problem</h3>
+<p>Distributing the fruits of your labour is one of the rewarding parts of building any kind of software. People actually start to use it!  But distribution is never as easy as it should be. With .Net Core Applications, the story can be a similar one.</p>
+<p>Traditionally, distributing a .Net Application means requiring a runtime on the target machine. While .Net isn&rsquo;t the only platform to work this way, It has meant a bit of dependency wrangling on the target machine before you can run your app. Again, by no means is this as terrible an experience, or as painful as other platforms &amp; runtimes can be, but you need to be aware of it.</p>
+<p>With <code>netcoreapp*</code> applications this is no different. While using the latest SDK can target multiple runtime versions and platforms (including older versions), and can pull down the right files for building against, you may find that unless you install the correct runtime, you won&rsquo;t be able to run what you build. This is true even with the SDKs for the same major version are installed.</p>
+<p>Let&rsquo;s first take a look at how we can install different target runtime versions, then we can see how we can remove the need for this altogether.</p>
+<h3 id="installing-multiple-platforms">Installing Multiple Platforms</h3>
+<p>One option on your development machine is to install everything.</p>
+<p><a href="https://www.microsoft.com/net/download/all" target="_blank">This page</a>
+ has all the download links for all the different versions of .Net Core. You could download all these installers and install all the SDKs and runtimes.</p>
+<p>If you do that, you can then run any version of .Net Core applications, and also build using any version of the SDK.  You will have to install them in order from oldest to newest (especially true of the sdks) or some might not install properly. (All I mean is that installing oldest to newest will install everything as intended, but doing so out of order may not produce the desired result.)</p>
+<p>But who has time for that? Automation anyone?</p>
+<p>There are a set of <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script" target="_blank">dotnet-install scripts</a>
+, both in Bash and PowerShell formats, that allow you to script the installation of dotnet runtimes. By default, these scripts will install the latest version into your user profile, but there are a tonne of options you can choose from.</p>
+<p>There are a couple of ways to run the script, either download and execute as one command, or save the file, then execute it. (Shown below in PowerShell command format.)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ps" data-lang="ps"><span style="color:#a6e22e">#</span> <span style="color:#a6e22e">Download</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">Execute</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">script</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">one</span> <span style="color:#a6e22e">command</span>
+<span style="color:#a6e22e">&#34;&amp;</span><span style="color:#e6db74">([scriptblock]::Create((Invoke-WebRequest -useb &#39;https://dot.net/v1/dotnet-install.ps1&#39;)))</span> <span style="color:#a6e22e">-DryRun&#34;</span>
+
+<span style="color:#a6e22e">#Alternatively</span> <span style="color:#a6e22e">save</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">script,</span> <span style="color:#a6e22e">then</span> <span style="color:#a6e22e">execute</span> <span style="color:#a6e22e">it</span>
+<span style="color:#a6e22e">Invoke-WebRequest</span> <span style="color:#a6e22e">-useb</span> <span style="color:#a6e22e">&#39;https:</span><span style="color:#960050;background-color:#1e0010">/</span>/dot.net/v1/dotnet-install.ps1&#39; <span style="color:#a6e22e">-OutFile</span> <span style="color:#a6e22e">&#34;dotn</span>
+<span style="color:#a6e22e">et-install.ps1&#34;</span>
+<span style="color:#a6e22e">.\dotnet-install.ps1</span> <span style="color:#a6e22e">-DryRun</span>
+</code></pre></div><p>(I&rsquo;ve used <code>-DryRun</code> argument to test the script parameters, before actually making changes.)</p>
+<p>Let&rsquo;s see how to use the script in two ways: First to install the equivalent of the way the installers would onto your machine. (You will need an Administrator Prompt for this.)</p>
+<pre><code># This assumes your ${Env:ProgramFiles(x86)} is set to &quot;C:\Program Files (x86)&quot;
+# Your default Program Files directory might be different otherwise.
+
+.\dotnet-install.ps1 -Version 2.1.4 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
+
+# You can do this for other SDK versions
+.\dotnet-install.ps1 -Version 2.0.3 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
+.\dotnet-install.ps1 -Version 1.1.7 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
+.\dotnet-install.ps1 -Version 1.1.5 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
+.\dotnet-install.ps1 -Version 1.0.4 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
+
+# And for other runtimes
+.\dotnet-install.ps1 -Version 2.0.5 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
+.\dotnet-install.ps1 -Version 2.0.3 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
+.\dotnet-install.ps1 -Version 2.0.0 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
+.\dotnet-install.ps1 -Version 1.1.6 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
+.\dotnet-install.ps1 -Version 1.1.5 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
+.\dotnet-install.ps1 -Version 1.0.9 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
+.\dotnet-install.ps1 -Version 1.0.8 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
+
+</code></pre><p>If you haven&rsquo;t already run an installer for any versions of dotnet SDK, you will probably have to manually add <code>C:\Program Files (x86)\dotnet</code> to your PATH Environment Variable. By default it will be made immediately available for the current console window session.</p>
+<p>Next let&rsquo;s look at doing the same thing into a stand-alone folder on your machine instead.</p>
+<pre><code># Install the latest/current stable SDK first
+.\dotnet-install.ps1 -Channel Current -InstallDir C:\dotnet-cli
+
+# Now other required SDKs
+.\dotnet-install.ps1 -Version 2.1.4 -InstallDir C:\dotnet-cli # Should be the same as Current at the time of writing
+.\dotnet-install.ps1 -Version 2.0.3 -InstallDir C:\dotnet-cli
+.\dotnet-install.ps1 -Version 1.1.7 -InstallDir C:\dotnet-cli
+.\dotnet-install.ps1 -Version 1.1.5 -InstallDir C:\dotnet-cli
+.\dotnet-install.ps1 -Version 1.0.4 -InstallDir C:\dotnet-cli
+.\dotnet-install.ps1 -Version 1.0.1 -InstallDir C:\dotnet-cli
+
+# Now all the required runtimes
+.\dotnet-install.ps1 -Version 2.0.5 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 2.0.3 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 2.0.0 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 1.1.6 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 1.1.5 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 1.1.2 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 1.1.1 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 1.1.0 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 1.0.9 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 1.0.8 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 1.0.4 -InstallDir C:\dotnet-cli -SharedRuntime
+.\dotnet-install.ps1 -Version 1.0.3 -InstallDir C:\dotnet-cli -SharedRuntime
+
+</code></pre><p>As mentioned before, for the current session you will find the newly installed <code>dotnet.exe</code> set in your path pointing at the new folders, but You will also need to manually put this into your PATH Environment variable to make this version always available as the default <code>dotnet</code> command.</p>
+<h3 id="but-why-a-runtime">But why a Runtime?</h3>
+<p>Why do we need to install the target runtime? Well, mainly it is because we want to keep our application distribution small. We do this by leaving out a bunch of common framework executable code, that we entrust to a runtime distribution to deliver to the target machine for us.  This runtime can be shared across applications and so they will all get the benefit of being smaller.</p>
+<p>But what if we don&rsquo;t want to share? Traditionally this hasn&rsquo;t been much of an option. For certain <code>dll</code> files, we can distribute them with our app to ensure the correct one is chosen, rather than relying on the system to find them for us. But this isn&rsquo;t generally true for all parts of the framework, especially more crucial low-level system details. (And sometimes the installed framework will override us anyway - &ldquo;GAC DLL hell&rdquo; or &ldquo;dee el hell&rdquo; is what we called it.)</p>
+<h3 id="look-mum-no-runtime">Look Mum, No Runtime!</h3>
+<p>But .Net Core&hellip;</p>
+<p>Yes, now with .Net Core, there is a way to bundle the entire (yes all!) specific (exact version!) runtime with your application.</p>
+<p>This has two main benefits:</p>
+<ul>
+<li>We do not require anything* to be pre-installed on the target machine.</li>
+<li>We can ensure exactly the right set of libraries and code is running with our application, down to the framework bugs at the time of packaging.</li>
+</ul>
+<p>Just so this doesn&rsquo;t sound too Silver-Bullet-y, a few quick drawbacks, too:</p>
+<ul>
+<li>Your distributable won&rsquo;t be small anymore. (~60mb to start, just for the runtime)</li>
+<li>You will be distributing against a specific platform (Operating System), and may need multiple packages, one per Operating System target.</li>
+</ul>
+<p>It is up to you to decide the trade-offs that make the most sense for your application.</p>
+<h3 id="show-me-the-code">Show me the Code!</h3>
+<pre><code>mkdir MySelfContainedApp
+cd MySelfContainedApp
+mkdir MyApp
+cd MyApp
+dotnet new console
+cd ../
+dotnet new sln
+dotnet sln add .\MyApp\MyApp.csproj
+dotnet build
+</code></pre><p>Once we have an app to use, this is how we package it with its own runtime:</p>
+<pre><code>dotnet publish --self-contained --runtime win7-x64
+</code></pre><p>(Not using Windows? Other runtime values include <code>osx.10.12-x64</code> and <code>ubuntu.16.04-x64</code>. A full list and description of them all can be found in the <a href="https://docs.microsoft.com/en-nz/dotnet/core/rid-catalog" target="_blank">rid catalog</a>
+)</p>
+<p>The runtime identifier <code>win7-x64</code> means we will package with a runtime compatible with the Windows 7(&amp; Windows Server 2008 R2) Operating System, 64-bit Architecture. This means that it will run on those Operating Systems, and should be forward-compatible to newer systems (compatibility). (It also means there may be performance optimisations from newer systems like <code>Win8</code> and <code>Win10</code> that won&rsquo;t be taken advantage of when it runs in Compatability mode on the newer OS versions.)  It also states that it requires a 64-bit Architecture. no 32-bit Architecture machines will be able to run the application. (You may recall building apps in the past that could target <code>AnyCPU</code>. This isn&rsquo;t it.)</p>
+<p>In general, you can identify Operating System, OS Version, and architecture from the parts of an rid. This is representative, and should not be relied on as a composition of any OS/Version/Arch into an rid. Use the reference guide to ensure you are using valid identifiers.</p>
+<p>As well as specific runtimes, SDK 2.0 introduces Portable rids. <code>Win-x64</code>, <code>linux-x64</code> and <code>osx-x64</code> give you version-agnostic Operating System Targets. (Most useful for Linux, since it is across multiple distros - Ubuntu, Tizen, Red Hat, Fedora etc etc.) This doesn&rsquo;t necessarily affect the size, mostly just the compatibility. (Affects Performance/Optimisations? Possibly. Perf test if you want to find out! 😉 )</p>
+<p>Let&rsquo;s take a look at the output from our publish command:</p>
+<pre><code>MySelfContainedApp
+|-- MySelfContainedApp.sln
++---MyApp
+    |-- MyApp.csproj
+    |-- Program.cs
+    +-- bin
+        +-- Debug
+            +-- netcoreapp2.0
+                |-- MyApp.deps.json
+                |-- MyApp.dll
+                |-- MyApp.pdb
+                |-- MyApp.runtimeconfig.dev.json
+                |-- MyApp.runtimeconfig.json
+                +-- win7-x64
+                    |-- hostfxr.dll
+                    |-- hostpolicy.dll
+                    |-- MyApp.deps.json
+                    |-- MyApp.dll
+                    |-- MyApp.exe
+                    |-- MyApp.pdb
+                    |-- MyApp.runtimeconfig.dev.json
+                    |-- MyApp.runtimeconfig.json
+                    |--
+                    +-- publish
+                        |-- api-ms-win-core-console-l1-1-0.dll
+                        |-- api-ms-win-core-datetime-l1-1-0.dll
+                        |-- api-ms-win-core-debug-l1-1-0.dll
+                        |-- api-ms-win-core-errorhandling-l1-1-0.dll
+                        |-- api-ms-win-core-file-l1-1-0.dll
+                        |-- api-ms-win-core-file-l1-2-0.dll
+                        |-- api-ms-win-core-file-l2-1-0.dll
+                        |-- api-ms-win-core-handle-l1-1-0.dll
+                        |-- api-ms-win-core-heap-l1-1-0.dll
+                        |-- api-ms-win-core-interlocked-l1-1-0.dll
+                        |-- api-ms-win-core-libraryloader-l1-1-0.dll
+                        |-- api-ms-win-core-localization-l1-2-0.dll
+                        |-- api-ms-win-core-memory-l1-1-0.dll
+                        |-- api-ms-win-core-namedpipe-l1-1-0.dll
+                        |-- api-ms-win-core-processenvironment-l1-1-0.dll
+                        |-- api-ms-win-core-processthreads-l1-1-0.dll
+                        |-- api-ms-win-core-processthreads-l1-1-1.dll
+                        |-- api-ms-win-core-profile-l1-1-0.dll
+                        |-- api-ms-win-core-rtlsupport-l1-1-0.dll
+                        |-- api-ms-win-core-string-l1-1-0.dll
+                        |-- api-ms-win-core-synch-l1-1-0.dll
+                        |-- api-ms-win-core-synch-l1-2-0.dll
+                        |-- api-ms-win-core-sysinfo-l1-1-0.dll
+                        |-- api-ms-win-core-timezone-l1-1-0.dll
+                        |-- api-ms-win-core-util-l1-1-0.dll
+                        |-- api-ms-win-crt-conio-l1-1-0.dll
+                        |-- api-ms-win-crt-convert-l1-1-0.dll
+                        |-- api-ms-win-crt-environment-l1-1-0.dll
+                        |-- api-ms-win-crt-filesystem-l1-1-0.dll
+                        |-- api-ms-win-crt-heap-l1-1-0.dll
+                        |-- api-ms-win-crt-locale-l1-1-0.dll
+                        |-- api-ms-win-crt-math-l1-1-0.dll
+                        |-- api-ms-win-crt-multibyte-l1-1-0.dll
+                        |-- api-ms-win-crt-private-l1-1-0.dll
+                        |-- api-ms-win-crt-process-l1-1-0.dll
+                        |-- api-ms-win-crt-runtime-l1-1-0.dll
+                        |-- api-ms-win-crt-stdio-l1-1-0.dll
+                        |-- api-ms-win-crt-string-l1-1-0.dll
+                        |-- api-ms-win-crt-time-l1-1-0.dll
+                        |-- api-ms-win-crt-utility-l1-1-0.dll
+                        |-- clrcompression.dll
+                        |-- clretwrc.dll
+                        |-- clrjit.dll
+                        |-- coreclr.dll
+                        |-- dbgshim.dll
+                        |-- hostfxr.dll
+                        |-- hostpolicy.dll
+                        |-- Microsoft.CSharp.dll
+                        |-- Microsoft.DiaSymReader.Native.amd64.dll
+                        |-- Microsoft.VisualBasic.dll
+                        |-- Microsoft.Win32.Primitives.dll
+                        |-- Microsoft.Win32.Registry.dll
+                        |-- mscordaccore.dll
+                        |-- mscordaccore_amd64_amd64_4.6.00001.0.dll
+                        |-- mscordbi.dll
+                        |-- mscorlib.dll
+                        |-- mscorrc.debug.dll
+                        |-- mscorrc.dll
+                        |-- MyApp.deps.json
+                        |-- MyApp.dll
+                        |-- MyApp.exe
+                        |-- MyApp.pdb
+                        |-- MyApp.runtimeconfig.json
+                        |-- netstandard.dll
+                        |-- sos.dll
+                        |-- SOS.NETCore.dll
+                        |-- sos_amd64_amd64_4.6.00001.0.dll
+                        |-- System.AppContext.dll
+                        |-- System.Buffers.dll
+                        |-- System.Collections.Concurrent.dll
+                        |-- System.Collections.dll
+                        |-- System.Collections.Immutable.dll
+                        |-- System.Collections.NonGeneric.dll
+                        |-- System.Collections.Specialized.dll
+                        |-- System.ComponentModel.Annotations.dll
+                        |-- System.ComponentModel.Composition.dll
+                        |-- System.ComponentModel.DataAnnotations.dll
+                        |-- System.ComponentModel.dll
+                        |-- System.ComponentModel.EventBasedAsync.dll
+                        |-- System.ComponentModel.Primitives.dll
+                        |-- System.ComponentModel.TypeConverter.dll
+                        |-- System.Configuration.dll
+                        |-- System.Console.dll
+                        |-- System.Core.dll
+                        |-- System.Data.Common.dll
+                        |-- System.Data.dll
+                        |-- System.Diagnostics.Contracts.dll
+                        |-- System.Diagnostics.Debug.dll
+                        |-- System.Diagnostics.DiagnosticSource.dll
+                        |-- System.Diagnostics.FileVersionInfo.dll
+                        |-- System.Diagnostics.Process.dll
+                        |-- System.Diagnostics.StackTrace.dll
+                        |-- System.Diagnostics.TextWriterTraceListener.dll
+                        |-- System.Diagnostics.Tools.dll
+                        |-- System.Diagnostics.TraceSource.dll
+                        |-- System.Diagnostics.Tracing.dll
+                        |-- System.dll
+                        |-- System.Drawing.dll
+                        |-- System.Drawing.Primitives.dll
+                        |-- System.Dynamic.Runtime.dll
+                        |-- System.Globalization.Calendars.dll
+                        |-- System.Globalization.dll
+                        |-- System.Globalization.Extensions.dll
+                        |-- System.IO.Compression.dll
+                        |-- System.IO.Compression.FileSystem.dll
+                        |-- System.IO.Compression.ZipFile.dll
+                        |-- System.IO.dll
+                        |-- System.IO.FileSystem.AccessControl.dll
+                        |-- System.IO.FileSystem.dll
+                        |-- System.IO.FileSystem.DriveInfo.dll
+                        |-- System.IO.FileSystem.Primitives.dll
+                        |-- System.IO.FileSystem.Watcher.dll
+                        |-- System.IO.IsolatedStorage.dll
+                        |-- System.IO.MemoryMappedFiles.dll
+                        |-- System.IO.Pipes.dll
+                        |-- System.IO.UnmanagedMemoryStream.dll
+                        |-- System.Linq.dll
+                        |-- System.Linq.Expressions.dll
+                        |-- System.Linq.Parallel.dll
+                        |-- System.Linq.Queryable.dll
+                        |-- System.Net.dll
+                        |-- System.Net.Http.dll
+                        |-- System.Net.HttpListener.dll
+                        |-- System.Net.Mail.dll
+                        |-- System.Net.NameResolution.dll
+                        |-- System.Net.NetworkInformation.dll
+                        |-- System.Net.Ping.dll
+                        |-- System.Net.Primitives.dll
+                        |-- System.Net.Requests.dll
+                        |-- System.Net.Security.dll
+                        |-- System.Net.ServicePoint.dll
+                        |-- System.Net.Sockets.dll
+                        |-- System.Net.WebClient.dll
+                        |-- System.Net.WebHeaderCollection.dll
+                        |-- System.Net.WebProxy.dll
+                        |-- System.Net.WebSockets.Client.dll
+                        |-- System.Net.WebSockets.dll
+                        |-- System.Numerics.dll
+                        |-- System.Numerics.Vectors.dll
+                        |-- System.ObjectModel.dll
+                        |-- System.Private.CoreLib.dll
+                        |-- System.Private.DataContractSerialization.dll
+                        |-- System.Private.Uri.dll
+                        |-- System.Private.Xml.dll
+                        |-- System.Private.Xml.Linq.dll
+                        |-- System.Reflection.DispatchProxy.dll
+                        |-- System.Reflection.dll
+                        |-- System.Reflection.Emit.dll
+                        |-- System.Reflection.Emit.ILGeneration.dll
+                        |-- System.Reflection.Emit.Lightweight.dll
+                        |-- System.Reflection.Extensions.dll
+                        |-- System.Reflection.Metadata.dll
+                        |-- System.Reflection.Primitives.dll
+                        |-- System.Reflection.TypeExtensions.dll
+                        |-- System.Resources.Reader.dll
+                        |-- System.Resources.ResourceManager.dll
+                        |-- System.Resources.Writer.dll
+                        |-- System.Runtime.CompilerServices.VisualC.dll
+                        |-- System.Runtime.dll
+                        |-- System.Runtime.Extensions.dll
+                        |-- System.Runtime.Handles.dll
+                        |-- System.Runtime.InteropServices.dll
+                        |-- System.Runtime.InteropServices.RuntimeInformation.dll
+                        |-- System.Runtime.InteropServices.WindowsRuntime.dll
+                        |-- System.Runtime.Loader.dll
+                        |-- System.Runtime.Numerics.dll
+                        |-- System.Runtime.Serialization.dll
+                        |-- System.Runtime.Serialization.Formatters.dll
+                        |-- System.Runtime.Serialization.Json.dll
+                        |-- System.Runtime.Serialization.Primitives.dll
+                        |-- System.Runtime.Serialization.Xml.dll
+                        |-- System.Security.AccessControl.dll
+                        |-- System.Security.Claims.dll
+                        |-- System.Security.Cryptography.Algorithms.dll
+                        |-- System.Security.Cryptography.Cng.dll
+                        |-- System.Security.Cryptography.Csp.dll
+                        |-- System.Security.Cryptography.Encoding.dll
+                        |-- System.Security.Cryptography.OpenSsl.dll
+                        |-- System.Security.Cryptography.Primitives.dll
+                        |-- System.Security.Cryptography.X509Certificates.dll
+                        |-- System.Security.dll
+                        |-- System.Security.Principal.dll
+                        |-- System.Security.Principal.Windows.dll
+                        |-- System.Security.SecureString.dll
+                        |-- System.ServiceModel.Web.dll
+                        |-- System.ServiceProcess.dll
+                        |-- System.Text.Encoding.dll
+                        |-- System.Text.Encoding.Extensions.dll
+                        |-- System.Text.RegularExpressions.dll
+                        |-- System.Threading.dll
+                        |-- System.Threading.Overlapped.dll
+                        |-- System.Threading.Tasks.Dataflow.dll
+                        |-- System.Threading.Tasks.dll
+                        |-- System.Threading.Tasks.Extensions.dll
+                        |-- System.Threading.Tasks.Parallel.dll
+                        |-- System.Threading.Thread.dll
+                        |-- System.Threading.ThreadPool.dll
+                        |-- System.Threading.Timer.dll
+                        |-- System.Transactions.dll
+                        |-- System.Transactions.Local.dll
+                        |-- System.ValueTuple.dll
+                        |-- System.Web.dll
+                        |-- System.Web.HttpUtility.dll
+                        |-- System.Windows.dll
+                        |-- System.Xml.dll
+                        |-- System.Xml.Linq.dll
+                        |-- System.Xml.ReaderWriter.dll
+                        |-- System.Xml.Serialization.dll
+                        |-- System.Xml.XDocument.dll
+                        |-- System.Xml.XmlDocument.dll
+                        |-- System.Xml.XmlSerializer.dll
+                        |-- System.Xml.XPath.dll
+                        |-- System.Xml.XPath.XDocument.dll
+                        |-- ucrtbase.dll
+                        \-- WindowsBase.dll
+</code></pre><p>That publish folder is 62.7 MB! Compare that to the size of the files in <code>MySelfContainedApp\MyApp\bin\Debug\netcoreapp2.0</code>, which are only 5.76 KB. Compared to the app, that is a lot of Runtime to carry around. (The application is less than a percent of the total distributable size)</p>
+<p>This is a considerable tradeoff and should be considered carefully when making the decision between packing portable or distributing the runtime.</p>
+<h3 id="the-cake-is-a-lie">The Cake is a Lie</h3>
+<p>I said earlier that one of the benefits of distributing the runtime was <code>We do not require anything* to be pre-installed on the target machine.</code></p>
+<p>The * was &ldquo;with a few exceptions&rdquo;.</p>
+<p>Windows being Windows, you still actually need one more thing. <a href="https://www.microsoft.com/download/details.aspx?id=52685" target="_blank">Microsoft Visual C++ 2015 Redistributable Update 3</a>
+ is needed for the packaged runtime to work on windows. This gets installed if required by the dotnet installer, but won&rsquo;t be in your self-contained package. (It also isn&rsquo;t installed if you use the <code>dotnet-install.ps1</code> script from earlier, either.) It is likely that something else will require this Redistributable on windows anyway, so this isn&rsquo;t a big deal, really.</p>
+<p>You can take a look at <a href="https://docs.microsoft.com/en-nz/dotnet/core/windows-prerequisites" target="_blank">Prerequisites for .NET Core on Windows</a>
+ for more information on this.</p>
+<p>Linux doesn&rsquo;t escape unscathed either. Dependency graphs on Linux distros can get a bit overwhelming at the best of times. That is why we have package managers and installers. Due to the variance of distros, I can&rsquo;t tell you what you will or won&rsquo;t need here. First, see <a href="https://docs.microsoft.com/en-nz/dotnet/core/linux-prerequisites" target="_blank">Prerequisites for .NET Core on Linux</a>
+ for more information in general. Then specifically you will want to check out the <a href="https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-apps.md" target="_blank">Self-contained Linux applications</a>
+ documentation.</p>
+<p>For some reason, MacOS is fine? Apart from a minimum version (macOS 10.12 &ldquo;Sierra&rdquo; and later) and something about <a href="https://docs.microsoft.com/en-nz/dotnet/core/macos-prerequisites?tabs=netcore2x#increase-the-maximum-open-file-limit" target="_blank">increasing the open file limit</a>
+, there isn&rsquo;t much else you need to do. Something to be said for standard software and hardware, I suppose.</p>
+<h3 id="wrap-up">Wrap up</h3>
+<p>So there you have it. You have the choice available to you. You can package one ~5kb portable application (in reality maybe ~5mb) and distribute it, requiring the correct runtime version to be already installed, or you can package in the correct runtime with you app for an extra ~60mb, and build and package at least 3 times to cover windows, Linux and Mac operating systems. (And still require some dependencies anyway).</p>
+<p>IF you are bundling an app(game?) that includes a lot of assets and is already distributing 2GB of software, that extra 60Mb is not a big deal, but in general that ratio is rather large.</p>
+<p>Of course, this is more than about size, because we can guarantee the compatibility as well because we will have tested our application with exactly the right runtime version that we distribute with.</p>
+<p>The choice is yours.</p>
+<p>At some point, I will have to experiment and write about how we might get that size down (there are a few ways I am aware of) so we may still get the best of both worlds.</p>
+<h2 id="the-end">The End</h2>
+<p>Thank you so much for getting this far. It has been a long journey from <a href="/dotnetcore-getting-started">Getting Started with 1.0</a>
+ almost 2 years ago to get here across these new 8 articles. Thanks for sticking with it. I hope you look forward to more .Net Core blog articles to come. Maybe even a revised 3.* version? (Take your time, MS)</p>
+<p>You can find related articles using the <a href="https://blog.csmac.nz/tag/dotnetcore/" target="_blank">dotnetcore tag</a>
+.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/dotnetcore2-publishing-portable-applications/">.Net Core SDK 2.* Series - Publishing Portable Applications</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/my-c-naming-conventions/">My C# naming conventions</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-publishing-portable-applications/">.Net Core SDK 2.* Series - Publishing Portable Applications</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-multi-targeting/">.Net Core SDK 2.* Series - Multi-targeting</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-nuget/">.Net Core SDK 2.* Series - NuGet</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-testing/">.Net Core SDK 2.* Series - Testing</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-using-multiple-projects/">.Net Core SDK 2.* Series - Using Multiple Projects</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>XAML and System.Windows.Markup - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="XAML and System.Windows.Markup">
+<meta itemprop="description" content="On Wednesday I gave a talk on xaml usage outside of the UI. This post is basically a recap of that talk. There are three useful attributes in the System.Windows.Markup namespace that give you some control over how classes can be used in Xaml, and xaml tools like Expression Blend and Visual Studio. This has an impact mostly on human readability and legibility of the xaml, and can benefit anyone who reads and writes raw xaml markup."><meta itemprop="datePublished" content="2010-11-06T09:52:17+00:00" />
+<meta itemprop="dateModified" content="2010-11-06T09:52:17+00:00" />
+<meta itemprop="wordCount" content="1534">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="XAML and System.Windows.Markup" />
+<meta property="og:description" content="On Wednesday I gave a talk on xaml usage outside of the UI. This post is basically a recap of that talk. There are three useful attributes in the System.Windows.Markup namespace that give you some control over how classes can be used in Xaml, and xaml tools like Expression Blend and Visual Studio. This has an impact mostly on human readability and legibility of the xaml, and can benefit anyone who reads and writes raw xaml markup." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/xaml-and-system-windows-markup/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2010-11-06T09:52:17+00:00" />
+<meta property="article:modified_time" content="2010-11-06T09:52:17+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="XAML and System.Windows.Markup"/>
+<meta name="twitter:description" content="On Wednesday I gave a talk on xaml usage outside of the UI. This post is basically a recap of that talk. There are three useful attributes in the System.Windows.Markup namespace that give you some control over how classes can be used in Xaml, and xaml tools like Expression Blend and Visual Studio. This has an impact mostly on human readability and legibility of the xaml, and can benefit anyone who reads and writes raw xaml markup."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">XAML and System.Windows.Markup</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">XAML and System.Windows.Markup</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Nov 6, 2010
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>8 min read
+  </span>
+</div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#xmlnsdefinition">XmlnsDefinition</a></li>
+    <li><a href="#xmlnsprefix">XmlnsPrefix</a></li>
+    <li><a href="#contentproperty">ContentProperty</a></li>
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#inline-strings">Inline Strings</a></li>
+    <li><a href="#demo">Demo</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>On Wednesday I gave a talk on xaml usage outside of the UI. This post is basically a recap of that talk. There are three useful attributes in the System.Windows.Markup namespace that give you some control over how classes can be used in Xaml, and xaml tools like Expression Blend and Visual Studio. This has an impact mostly on human readability and legibility of the xaml, and can benefit anyone who reads and writes raw xaml markup. There are three main attributes in the System.Windows.Markup namespace: XmlnsDefinition, XmlnsPrefix and ContentProperty.</p>
+<h2 id="xmlnsdefinition">XmlnsDefinition</h2>
+<p>XmlnsDefinition is added to the AssemblyInfo.cs file in the following form.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#a6e22e">[assembly: XmlnsDefinition(&#34;http://www.csmac.co.nz/default&#34;, &#34;csmac.XamlCollectionParsing.Default&#34;)]</span> 
+</code></pre></div><p>The first argument is the xml namespace you wish to associate with your .Net namespace, and the second is the .Net namepace. The first thing to note is that this can be used to associate a single xml namespace with multiple .Net namespaces. The opposite is also true the but the former is more useful, because this mapping is supported by Blend 4 and Visual Studio 2010. This means that you can designate and use your own namespace for your own class libraries  in the same way that <a href="http://schemas.microsoft.com/winfx/2006/xaml/presentation">http://schemas.microsoft.com/winfx/2006/xaml/presentation</a> is used to refer to the Silverlight or WPF Presentation framework classes such as Button and TextBlock.</p>
+<p>Of course one thing to be careful that if you map multiple .Net namespaces to an xml namespace, is that each class name within this xml namespace is unique, to avoid ambiguity. If two classes in different .Net namespaces have the same class name, and are both used in the same xml namespace, Things may not work as expected, so try to avoid this. This feature is now used by the latest Silverlight 4 toolkit and sdk to give you a single namespace for each, rather than needing multiple clr-namespace declarations to use different parts of these libraries.</p>
+<h2 id="xmlnsprefix">XmlnsPrefix</h2>
+<p>The second attribute, XmlnsPrefix, is used is conjunction with XmlnsDefinition, and again is supported by Blend 4 and VS 2010. This is the default preferred prefix to use for a namespace, and looks like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#a6e22e">[assembly:XmlnsPrefix(&#34;http://www.csmac.co.nz/default&#34;, &#34;default&#34;)]</span>
+</code></pre></div><p>The first argument is the xml namespace, as defined by an XmlnsDefinition, and the second is the preferred prefix. When you drag an item from the associated namespace from the toolbox onto the designer, the tool will use this prefix when declaring the namespace at the top of the file. <code>xmlns:default=&quot;http://www.csmac.co.nz/default&quot;</code> will be added to the root xml element, rather then using the default prefix <code>my</code>, <code>control</code>, or <code>csmac_xamlCollectionParsing_default</code> as you might see happen when you do not use these attributes. Both <code>XmlnsDefinition</code> and <code>XmlnsPrefix</code> can greatly improve readability of your xaml, and <code>XmlnsPrefix</code> is also used by the latest silverlight 4 toolkit and sdk, using the prefixes sdk and toolkit, good choices IMHO.</p>
+<h2 id="contentproperty">ContentProperty</h2>
+<p>The last of the three is the ContentProperty attribute. this is used at the class level, to mark at class with which property should be used as its Content property. In xaml, this is used for mapping the xml element(s) contained inside the class' xml element to a property on that class. For example, if I have a class called SimpleObject, with a property called Value of type string, I can use the following attribute to mark up the class.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#a6e22e">[ContentProperty(&#34;Value&#34;)]</span> 
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleObject</span>... 
+</code></pre></div><p>Now when I have the following xaml (note the namespace declaration) It will be parsed to set the Value property to the string &ldquo;Hello World!&rdquo;.</p>
+<pre><code class="language-xaml" data-lang="xaml">&lt;SimpleObject xmlns=&quot;http://www.csmac.co.nz/default&quot;&gt;Hello World!&lt;/SimpleObject&gt;
+</code></pre><p>This is the basics of how the content property works, and you are able to add other objects inside if the type of the property matches the type of that object. For example, if XObject has is Content Property set to a property of type YObject, we can use this in our xaml:</p>
+<pre><code class="language-xaml" data-lang="xaml">&lt;Object xmlns=&quot;http://www.csmac.co.nz/default&quot;&gt; 
+    &lt;YObject&gt;Hello World!&lt;/YObject&gt;
+&lt;/XObject&gt;
+</code></pre><p>And this can be extended out as deep as you are willing to make it.</p>
+<h2 id="collections">Collections</h2>
+<p>Now If you would like to set the content property to one that is a Collection type, things work in much the same way, although the parse is clever enough to be able to allow you to not have to declare the actual collection object in xaml, and instead will add the child objects to your existing collection. Basically you can add you objects directly inside the parent one after the other and it will add each one it turn to the collection. I will note that this is done by creating the list item object, then calling the add method on the content property which is of type ICollection (which is basically all standard collection types in C#).</p>
+<p>If we use our example from earlier, but change XObject&rsquo;s content property to be an ObservableCollection of YObjects we can do this:</p>
+<pre><code class="language-xaml" data-lang="xaml">&lt;XObject xmlns=&quot;http://www.csmac.co.nz/default&quot;&gt; 
+    &lt;YObject&gt;Hello World!&lt;/YObject&gt; 
+    &lt;YObject&gt;HelloAgain&lt;/YObject&gt; 
+&lt;YObject&gt;Hi&lt;/YObject&gt; &lt;/XObject&gt; 
+</code></pre><p>And this will just work, and works for all inheritance and all situations where you would be able to add that object to the collection normally. If you want to use collections of strings or other primative types, it is probably best create a reference to the system assembly and use the string object as an element tag like <code>&lt;sys:string&gt;This&lt;/sys:string&gt;</code>. This performs the correct string object creation and you can individually define the list items. This works with double and float, char and all the others as expected, based on how the xaml loader works.</p>
+<p>If an element does not have any attributes, and has some content which is plain text, the Loader will attempt to find a way to convert the content text the the element class type. This generally is through the TypeConverter mechanism of .Net. This is something to be aware of and is made use of later in this post.</p>
+<h2 id="inline-strings">Inline Strings</h2>
+<p>Inline strings in xaml are a special case, as previously mentioned. In the case where we do declare an attribute and have inline text, the content property is used as the target for the string. Where this type is not of type string, the TypeConverter paradigm is again used.</p>
+<p>Now collections of objects work in a very similar fashion. If you have played with any of the presentation classes that accept Inlines, such as Textblock in Silverlight 4 or WPF, you will have noticed you can mix strings with Inline types and it manages to wrap a string into a Run(which is an Inline). Unfortunately this wrapping is not really an out of the box straight forward feature, as I learned the hard way. Fortunately, it uses a pretty standard way of doing this.</p>
+<p>IList has a method called Add that takes an object, and attempts to add this object to the collection. If this fails we get an exception. The presentation collections have a an implementation of the IList Add method which in a roundabout way determines that this is a string and wraps it into a Run. The good news here is that we too can modify the IList.Add method to create a custom string to object wrapping. I have done this using the Observable Collection as a base.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleObjectCollection</span> : ObservableCollection&lt;SimpleObject&gt;, IList
+{ 
+    <span style="color:#66d9ef">int</span> IList.Add(<span style="color:#66d9ef">object</span> <span style="color:#66d9ef">value</span>) 
+    { 
+        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">value</span> <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">string</span>) 
+        { 
+            SimpleObject c = <span style="color:#66d9ef">new</span> SimpleObject() { Text = <span style="color:#66d9ef">value</span> <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">string</span> }; 
+            <span style="color:#66d9ef">value</span> = c; 
+        } 
+        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">value</span> <span style="color:#66d9ef">is</span> SimpleObject) 
+        { 
+            Add((SimpleObject)<span style="color:#66d9ef">value</span>); 
+        } 
+        <span style="color:#66d9ef">else</span> 
+        { 
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentException(<span style="color:#e6db74">&#34;Invalid Type for adding to a Generic Collection of type SimpleObject&#34;</span>);
+        } 
+        <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">this</span>.Count - <span style="color:#ae81ff">1</span>); 
+    } 
+} 
+</code></pre></div><p>What makes this possible is that the generic collections use private implementations of the IList Methods. this means that the implemented methods are not accessible unless you cast your object into the interface type.  This seems to allow the XamlReader to use our custom class' IList.Add method instead of the ObservableCollections one. In my method I check if a string is being handed in and wrap it into a SimpleObject as required.</p>
+<h2 id="demo">Demo</h2>
+<p>Below is an application that implements a simple object and complex object, where the complex object contains a collection of simple objects. You can view some xaml and load it in to see if it is parse-able or not. I have used three difference scenarios here. Scenario 1 is default, where i have only added the above mentioned three attributes, and my collection is an <code>ObservableCollection&lt;SimpleObject&gt;</code>. Scenario 2 is Listed, where I have used my custom <code>SimpleObjectCollection</code> to wrap strings into SimpleObjects. In Scenario 3, Working, I have used the <code>SimpleObjectCollection</code> but added a type converter to my <code>ComplexObject</code>. This converter converts strings into ComplexObjects containing a single <code>SimpleObject</code> with that string. This is a special case for the scenario where you have no property attributes on your xml element, and the first item inside the element is a string. This, as mentioned earlier to string elements, will look for a converter to convert into the <code>ComplexObject</code>, and adding this converter here makes this situation work the way I intend it to. This examples is seen in sample 5.</p>
+<p>[silverlight: uploads/2010/11/csmac.XamlCollectionParsing.xap, 550, 250] (TODO: Fix this demo)</p>
+<p>Notice that Sample 6 fails or all three. Since my collection is readonly, I haven&rsquo;t found a way to make this work, but for my scenario, I won&rsquo;t be using the class.property syntax.</p>
+<p>The Source For this Demo : <a href="http://www.csmac.co.nz/blog/wp-content/uploads/2010/11/csmac.XamlCollectionParsing.zip" title="csmac.XamlCollectionParsing.zip" target="_blank">csmac.XamlCollectionParsing.zip</a>
+</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/temp-slug-40/">WPF vs SL 1: Data Template Selector - Real World Example 1</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/custom-control-validation-in-silverlight/">Custom Control Validation in Silverlight</a>
+    </div></div>
+</div></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

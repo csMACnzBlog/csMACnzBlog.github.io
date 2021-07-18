@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PowerShell on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/powershell/</link>
+    <description>Recent content in PowerShell on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 09 Jul 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/powershell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some cool tricks with your Windows Shells</title>
+      <link>https://csmacnzblog.github.io/post/some-cool-tricks-with-your-windows-shell/</link>
+      <pubDate>Mon, 09 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/some-cool-tricks-with-your-windows-shell/</guid>
+      <description>I&amp;rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (Windows Subsystem for Linux). There are a few of the tricks I have learned recently that help me every day.
+F8 searches history! That&amp;rsquo;s right! When you type into the command line (this work in cmd and PowerShell) and then press F8, it will do a back-in-time search for a historical command that begins with what you typed.</description>
+    </item>
+    
+    <item>
+      <title>A PowerShell Watch Command</title>
+      <link>https://csmacnzblog.github.io/post/a-powershell-watch-command/</link>
+      <pubDate>Tue, 30 Jan 2018 19:36:30 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/a-powershell-watch-command/</guid>
+      <description>I use dotnet-watch a bunch and have used a version via grunt/gulp a little in the past as well.
+In front of me, I had some TypeScript, tsc and an app.ts file. I wanted to watch it and trigger tsc automatically. But there was no csproj, no NuGet, and no npm in sight.
+I went searching far and wide for solutions, and some clever people have some insight to add to the quest:</description>
+    </item>
+    
+    <item>
+      <title>Form posts with PowerShell</title>
+      <link>https://csmacnzblog.github.io/post/formpost-with-powershell/</link>
+      <pubDate>Mon, 27 Jun 2016 03:57:16 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/formpost-with-powershell/</guid>
+      <description>This article is based on an answer found and updated on StackOverflow.
+I&amp;rsquo;f you have used PowerShell for much at all, you are probably familiar with Invoke-WebRequest. But did you know you can carry around a session and have it automatically add and update cookies for you?
+The Scenario I had an API I wanted to consume, but it was a private one. That is, It was designed and used for a SPA app to consume.</description>
+    </item>
+    
+    <item>
+      <title>Treat Warnings As Errors with this one weird PowerShell Script...</title>
+      <link>https://csmacnzblog.github.io/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</link>
+      <pubDate>Mon, 09 May 2016 08:30:59 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
+      <description>There is this great feature in Visual Studio that lets you really dial up the quality of your code. It has been there forever it seems, but very few people use it.
+The compiler spits out errors, which stop your app compiling. You fix your errors and move on. But the compiler also spits out a lot of warnings too. And many of these are to do with the quality of your code, and possible code errors you have introduced that could cause you issues later on.</description>
+    </item>
+    
+    <item>
+      <title>Make me a sandwich</title>
+      <link>https://csmacnzblog.github.io/post/make-me-a-sandwich/</link>
+      <pubDate>Sun, 11 Oct 2015 15:57:06 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/make-me-a-sandwich/</guid>
+      <description>A lesson in powershell.
+I typed this:
+&amp;gt; iisreset Which responded with this:
+Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group. So I typed this:
+&amp;gt; sudo iisreset I was thinking this: But got this:
+sudo : The term &amp;#39;sudo&amp;#39; is not recognized as the name of a cmdlet, function, script file, or operable program.</description>
+    </item>
+    
+    <item>
+      <title>Aliasing your &#39;git status&#39;</title>
+      <link>https://csmacnzblog.github.io/post/aliasing-your-git-status/</link>
+      <pubDate>Sat, 18 Apr 2015 13:26:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/aliasing-your-git-status/</guid>
+      <description>Anyone else have the bad habit of typing in git statsu or git stauts? Or maybe you just end up typing git status all the time at the command line, and wonder if there was a better way. Well, there is.
+Aliases Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an alternative way to call another command, maybe with implicit parameters baked in that you use all the time.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio PowerShell</title>
+      <link>https://csmacnzblog.github.io/post/visual-studio-powershell/</link>
+      <pubDate>Thu, 29 Jan 2015 17:54:54 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/visual-studio-powershell/</guid>
+      <description>I&amp;rsquo;ve been using psake as my build tool and running my builds on Appveyor. Now Appveyor runs with all the visual studio commands available on the path. When you install visual studio, It gives you a special cmd shell shortcut that loads you an environment with all the visual studio stuff available, which is cool. But not for PowerShell.
+DISCLAIMER: I originally found this solution on this msdn blog, but tweaked it to work with Visual Studio 2013, and 64bit versions of windows.</description>
+    </item>
+    
+  </channel>
+</rss>

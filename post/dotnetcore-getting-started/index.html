@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>.Net Core Series - Getting Started - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="This is a series on the new .Net Core bits.
+In the first post, we look at installation, and creating a new application." /><meta itemprop="name" content=".Net Core Series - Getting Started">
+<meta itemprop="description" content="This is a series on the new .Net Core bits.
+In the first post, we look at installation, and creating a new application."><meta itemprop="datePublished" content="2016-06-30T09:25:34+00:00" />
+<meta itemprop="dateModified" content="2016-06-30T09:25:34+00:00" />
+<meta itemprop="wordCount" content="817">
+<meta itemprop="keywords" content="c#,dotnetcore," /><meta property="og:title" content=".Net Core Series - Getting Started" />
+<meta property="og:description" content="This is a series on the new .Net Core bits.
+In the first post, we look at installation, and creating a new application." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/dotnetcore-getting-started/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-06-30T09:25:34+00:00" />
+<meta property="article:modified_time" content="2016-06-30T09:25:34+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=".Net Core Series - Getting Started"/>
+<meta name="twitter:description" content="This is a series on the new .Net Core bits.
+In the first post, we look at installation, and creating a new application."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">.Net Core Series - Getting Started</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">.Net Core Series - Getting Started</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jun 30, 2016
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>4 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#dotnet-cli">dotnet (CLI)</a></li>
+        <li><a href="#visual-studio">Visual Studio)</a></li>
+        <li><a href="#easy">Easy</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>This is a series on the .Net Core 1.0 bits. Looking for <a href="/dotnetcore2-getting-started">.Net Core 2 Series</a>
+?</p>
+<ul>
+<li>Getting Started &lt;=(We are here)</li>
+<li><a href="/dotnetcore-whats-in-the-box">What&rsquo;s in the box</a>
+</li>
+<li><a href="/dotnetcore-using-multiple-projects">Using Multiple Projects</a>
+</li>
+<li><a href="/dotnetcore-testing">Testing</a>
+</li>
+<li><a href="/dotnetcore-nuget">NuGet</a>
+</li>
+<li><a href="/dotnetcore-multi-targeting">Multi-targeting</a>
+</li>
+<li><a href="/dotnetcore-publishing-portable-applications">Publishing Portable Applications</a>
+</li>
+<li><a href="/dotnetcore-self-contained-applications">Self-contained Applications</a>
+</li>
+</ul>
+<p>We finally got some finalised bits in a release this week. So here is a bit of a guide to get you started. I will (probably) be only showing instructions from on Windows, but all dotnet CLI instructions should be cross platform.</p>
+<h3 id="installation">Installation</h3>
+<p>TL;DR =&gt; Just uninstall and reinstall following the instructions here: <a href="https://www.microsoft.com/net/core#windows">https://www.microsoft.com/net/core#windows</a></p>
+<p>This URL is fun spoken rather than written, <a href="http://dot.net" target="_blank">dot.net</a>
+ (dot dot net).  This is where you go to get started.</p>
+<blockquote>
+<p>Before you start, please remove any previous versions of .NET Core from your system by using Add/Remove programs. Also, please verify that you have all of the Windows dependencies installed.</p>
+</blockquote>
+<p>I <em>didnt</em> read this. <em><strong>Read this.</strong></em>  After installing the Visual Studio 2015 Update 3 and <a href="https://go.microsoft.com/fwlink/?LinkId=817245" target="_blank">.NET Core for Visual Studio official MSI Installer</a>
+, I had to actually go back and uninstall .Net Core RC2 preview 1. As this <a href="http://stackoverflow.com/a/37308921/2118268" target="_blank">stack overflow answer</a>
+ says:</p>
+<blockquote>
+<p>After you install RC2, Make sure your control panel shows ONLY these for .Net Core</p>
+<ul>
+<li>Microsoft .Net Core 1.0.0 RC2 - VS 2015 Tooling Preview 1 (1.0.20513.14)</li>
+<li>Microsoft .Net Core 1.0.0 RC2 - SDK Preview 1 (x64) to be version 1.0.0.2702</li>
+</ul>
+</blockquote>
+<p>Except in my case it is:</p>
+<ul>
+<li>Microsoft .Net Core 1.0.0 - VS 2015 Tooling Preview 2</li>
+<li>Microsoft .Net Core 1.0.0 - SDK Preview 2 (x64)</li>
+</ul>
+<p>I also had to uninstall something named along the lines of &ldquo;dotnet CLI dev&rdquo; or &ldquo;Microsoft Dotnet CLI for Windows&rdquo; or something like that. Once all that is sorted you should be good to go.</p>
+<h3 id="dotnet-cli">dotnet (CLI)</h3>
+<p>Ok, so you could just go <a href="https://www.microsoft.com/net/core#windows" target="_blank">RTFM</a>
+. But I will still go ahead and produce the Hello World of dotnet applications. <a href="http://www.mirror.co.uk/news/world-news/internet-full-experts-warn-web-5628789" target="_blank">The internet will be full soon</a>
+, I might as well do my bit.</p>
+<p>Firstly, like with git, we create a new folder and initialise it. In this case, the folder is the equivalent of a project folder.</p>
+<pre><code>mkdir MyNewApp
+cd MyNewApp
+dotnet new
+</code></pre><p>Fun fact: the first time you run <code>dotnet new</code> you might see this:</p>
+<pre><code>Welcome to .NET Core!
+---------------------
+Learn more about .NET Core @ https://aka.ms/dotnet-docs. Use dotnet --help to see available commands or go to https://aka.ms/dotnet-cli-docs.
+Telemetry
+--------------
+The .NET Core tools collect usage data in order to improve your experience. The data is anonymous and does not include commandline arguments. The data is collected by Microsoft and shared with the community.
+You can opt out of telemetry by setting a DOTNET_CLI_TELEMETRY_OPTOUT environment variable to 1 using your favorite shell.
+You can read more about .NET Core tools telemetry @ https://aka.ms/dotnet-cli-telemetry.
+Configuring...
+-------------------
+A command is running to initially populate your local package cache, to improve restore speed and enable offline access. This command will take up to a minute to complete and will only happen once.
+Decompressing 100% 6252 ms
+Expanding 100% 45184 ms
+Created new C# project in C:\dev\temp\MyNewApp.
+</code></pre><p>But I digress. We should now have a new application created with two files:</p>
+<ul>
+<li>Program.cs</li>
+<li>project.json</li>
+</ul>
+<p>Technically, this is enough for a dotnet app.</p>
+<p>First, we need to restore. This is NuGet restore and version locking of the project.json. The project.lock.json file produced is similar to the RubyGem or npm lockfile concept.</p>
+<pre><code>dotnet restore
+</code></pre><pre><code>log  : Restoring packages for C:\dev\temp\MyNewApp\project.json...
+log  : Writing lock file to disk. Path: C:\dev\temp\MyNewApp\project.lock.json
+log  : C:\dev\temp\MyNewApp\project.json
+log  : Restore completed in 2520ms.
+</code></pre><p>Now we run a build.</p>
+<pre><code>dotnet build
+</code></pre><pre><code>Project MyNewApp (.NETCoreApp,Version=v1.0) will be compiled because expected outputs are missing
+Compiling MyNewApp for .NETCoreApp,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:04.6165052
+</code></pre><p>And finally, we run the application.</p>
+<pre><code>dotnet run
+</code></pre><pre><code>Project MyNewApp (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
+Hello World!
+</code></pre><p>That&rsquo;s it. We have a fully executable .Net Core Application.</p>
+<h3 id="visual-studio">Visual Studio)</h3>
+<p>Let&rsquo;s repeat with Visual Studio now. Choose File-&gt; New Project and Select the <code>Console Application (.Net Core)</code> template from under the new <code>.Net Core</code> C# category.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1467318810/FileNewDotNetCoreApp_ktcsks.png" alt="Select Console Application .Net Core from File New Project."  loading="lazy" />
+</p>
+<p>This will create a new Solution with a new Project, a new <code>xproj</code> format. The folder structure is roughly:</p>
+<ul>
+<li>MyNewApp
+<ul>
+<li>src
+<ul>
+<li>MyNewApp
+<ul>
+<li>Properties
+<ul>
+<li>AssemblyInfo.cs</li>
+</ul>
+</li>
+<li>MyNewApp.xproj</li>
+<li>Program.cs</li>
+<li>project.json</li>
+<li>project.lock.json</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>global.json</li>
+<li>MyNewApp.sln</li>
+</ul>
+</li>
+</ul>
+<p>It is worth noting that the tooling is still not finalised, and that the <code>xproj</code> and msbuild tooling is likely to continue to change, and will the other <code>csproj</code> folders and the project.json file things.</p>
+<p>So now we have a project in Visual Studio. If we build and run, both will succeed but there isn&rsquo;t much to see. Let&rsquo;s add the following to our Progam.cs Main method:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">Console.WriteLine(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+Console.ReadKey();
+</code></pre></div><p>Now If we build and run, we should see our Hello World app run. (Press any key to exit).</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/v1467319695/HelloWorldCoreApp_xetx7x.png" alt="Hello World .Net Core app running."  loading="lazy" />
+</p>
+<h3 id="easy">Easy</h3>
+<p>Next time we will take a deeper look into the <code>project.json</code> file and start to experiment on ways to build more complex applications with the new .Net Core.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/formpost-with-powershell/">Form posts with PowerShell</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/">Visual Studio Code with C# and dotnet</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/using-over-lambda/">using over lambda</a></li><li><a href="https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/">A couple of debugging tips</a></li><li><a href="https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/">ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</a></li><li><a href="https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/">Using C# 5.0 with Visual Studio 2015</a></li><li><a href="https://csmacnzblog.github.io/post/methodimplattribute-and-methodimploptions/">MethodImplAttribute and MethodImplOptions</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content=".Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks">
+<meta itemprop="description" content="I&rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
+Start with the defaults Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things."><meta itemprop="datePublished" content="2018-07-16T06:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-07-16T06:00:00+00:00" />
+<meta itemprop="wordCount" content="1407">
+<meta itemprop="keywords" content="docker,dotnetcore,Visual Studio," /><meta property="og:title" content=".Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks" />
+<meta property="og:description" content="I&rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
+Start with the defaults Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-07-16T06:00:00+00:00" />
+<meta property="article:modified_time" content="2018-07-16T06:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=".Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks"/>
+<meta name="twitter:description" content="I&rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
+Start with the defaults Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jul 16, 2018
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>7 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/docker/" class="post-taxonomy">#docker</a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy">#Visual Studio</a><a href="https://csmacnzblog.github.io/tags/docker/" class="post-taxonomy">#docker</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy">#Visual Studio</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#start-with-the-defaults">Start with the defaults</a></li>
+        <li><a href="#proximity-is-key">Proximity is key</a></li>
+        <li><a href="#minimum-vs-default">Minimum vs default</a></li>
+        <li><a href="#multiple-stages">Multiple Stages</a></li>
+        <li><a href="#ignore">Ignore</a></li>
+        <li><a href="#build-with-testing-in-mind">Build with testing in mind</a></li>
+        <li><a href="#wrap-up">Wrap up</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>I&rsquo;ve started getting into building Docker Containers as deployment packages.  These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.</p>
+<h3 id="start-with-the-defaults">Start with the defaults</h3>
+<p>Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.</p>
+<p>In Visual Studio 2017 (I&rsquo;m using 15.7.3, so at least that version if not earlier) You can select a project from the Solution Explorer, <code>right-click =&gt; Add</code> and you will see options for <code>Docker Support</code> and <code>Container Orchestrator Support</code>.</p>
+<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_387/v1531727131/DockerSupport_l16dry.png" alt="Visual Studio Project context menu showing Docker commands."  loading="lazy" />
+</p>
+<p>Docker Support will create a <code>Dockerfile</code> for your project, that follows some conventions and best practices, including separate <code>build</code>/<code>publish</code> steps. (This may be limited to <code>NetCoreApp</code> projects, I haven&rsquo;t thoroughly tested this function yet outside if that scope. You can even choose between Windows and Linux Containers. This might also create the docker-compose, and <code>.dockerignore</code> files as well.</p>
+<p>Container Orchestrator Support creates a new <code>*.dcproj</code> project in your solution that orchestrates a docker-compose file which includes your selected project. If you already have an orchestrator project, the selected project will be added to it.</p>
+<p>You can also find <a href="https://docs.docker.com/engine/examples/dotnetcore/" target="_blank">instructions on docs.docker.com for .Net Core apps</a>
+ which covers some of the basics and recommendations too.</p>
+<h3 id="proximity-is-key">Proximity is key</h3>
+<p>Put your <code>Dockerfile</code> in the same folder as the csproj file. At some point in the future (or if someone really digs into the MSBuild files and finds a hack) this should be able to go anywhere. But for now, putting it at the root of the project with the <code>*.csproj</code> project file lets it work correctly with Visual Studio.</p>
+<p>By default, you also usually have everything relative to a parent directory, such as the source or repository root. This becomes the context you use.  The context can be anywhere you like, but I find shared configs from root as well as the solution file being available is handy. You may even have build scripts here that you include.</p>
+<h3 id="minimum-vs-default">Minimum vs default</h3>
+<p>Let&rsquo;s start with the minimum valid <code>Dockerfile</code> to build our NetCoreApp2.1 application. The application itself doesn&rsquo;t matter, only that it builds.</p>
+<pre><code>FROM microsoft/dotnet:2.1-sdk
+WORKDIR /src
+COPY . .
+RUN dotnet publish MyApp.csproj -c Release -o /app
+WORKDIR /app
+COPY /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+</code></pre><p>That&rsquo;s the least you need, but we can do better.</p>
+<ul>
+<li>This only works if you run build in the context of the project folder</li>
+<li>This will copy over local bin/obj folders (unless you have a <code>.dockerignore</code> file already - Visual Studio may add one for you.)</li>
+<li>Our final container is large because it includes all of the dotnet CLI build tools</li>
+<li>Our final container has all the build artifacts in it, making it larger again</li>
+</ul>
+<p>Most of this is solved by following the <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank">Best practices</a>
+ which you get for free if you create using Visual Studio.</p>
+<pre><code>FROM microsoft/dotnet:2.1-runtime AS base
+WORKDIR /app
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+COPY MyApp/MyApp.csproj MyApp/
+RUN dotnet restore MyApp/MyApp.csproj
+COPY . .
+WORKDIR /src/MyApp
+RUN dotnet build MyApp.csproj -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish MyApp.csproj -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+
+</code></pre><h3 id="multiple-stages">Multiple Stages</h3>
+<p>Talking through this file a bit, we have a multi-stage build, that has three parts.
+Note that the actual container instance that matches the tag, is the one that starts with the base container defined in the <code>FROM</code> command, and has run all the instructions up until the next <code>FROM</code> command, or the end of the file.</p>
+<p>First, we have a <code>base </code>(<code>FROM microsoft/dotnet:2.1-runtime AS base</code>) that serves two purposes: it defines the final result container base up front and also gets used by Visual Studio when performing a special debug build. Visual Studio will build just this target in a multi-stage build, and copy in the build results to debug with. We can declare anything here that we might want in our final output container, and also need during debugging.</p>
+<p>Next, we have a <code>build</code> (<code>FROM microsoft/dotnet:2.1-sdk AS build</code>) which is the container the app is built in. This is where we copy over all our source files (<code>COPY . .</code>).</p>
+<p>Next, a <code>publish</code>(<code>FROM build AS publish</code>) which starts from our earlier <code>build</code>, and is used to produce the final binaries.</p>
+<p>And finally, a <code>final</code> (<code>FROM base AS final</code>) that starts with our <code>base</code> from earlier and produces the container we consider the resulting application. This container is also configured with any ports we want to expose (possibly done in <code>base</code>) and our application entry point (<code>ENTRYPOINT [&quot;dotnet&quot;, &quot;/app/GitHubTagAndRelease.dll&quot;]</code>).</p>
+<p>Using multistage in this way solves the large container size concerns from earlier, and even if we copy too much</p>
+<p>Briefly about caching. Each build step will cache the results if all previous steps are cached, and with <code>COPY</code> commands, if the hash of the source files hasn&rsquo;t changed.  For this reason, we selectively copy over the project first, run a <code>dotnet restore</code>, and then pull in everything else. This caches the NuGet restore step so we don&rsquo;t have to redownload these every time.</p>
+<h3 id="ignore">Ignore</h3>
+<p>We still have the issue of the bin/obj files being copied in from the source folder. Luckily, Visual Studio would add a <code>.gitignore</code> file to solve this. If you add your own, the ignore lines you want are:</p>
+<pre><code>*/bin
+*/obj
+</code></pre><p>This is relative to the base path, so will match <code>MyApp/bin</code> and <code>MyApp.Tests/bin</code> but not <code>src/MyOtherProject/bin</code>. If you want a more comprehensive version, VS gives you this:</p>
+<pre><code>.dockerignore
+.env
+.git
+.gitignore
+.vs
+.vscode
+docker-compose.yml
+docker-compose.*.yml
+*/bin
+*/obj
+</code></pre><p>Note that we don&rsquo;t ignore the <code>Dockerfile</code>, which means changes to the <code>Dockerfile</code> also cache-bust at the <code>COPY</code> step.</p>
+<h3 id="build-with-testing-in-mind">Build with testing in mind</h3>
+<p>Like the default conventions, I build in a <code>build</code> container, then publish to a <code>publish</code> container. This means the final container has minimal dependencies. But I add a twist.</p>
+<p>When the script does the <code>COPY</code> of the project before the restore (a nice caching enhancement I really like) I also copy the test project file at the same time. This gets restored with the project in another restore. Then after doing the project build, I also run the project Tests. Now I know that my container passed all tests before it built because it has to.</p>
+<pre><code>ARG DOCKER_SKIP_TESTS=
+
+FROM microsoft/dotnet:2.1-runtime AS base
+WORKDIR /app
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+COPY MyApp/MyApp.csproj MyApp/
+COPY MyApp.Tests/MyApp.Tests.csproj MyApp.Tests/
+RUN dotnet restore ./MyApp/MyApp.csproj /p:Configuration=Release
+RUN dotnet restore ./MyApp.Tests/MyApp.Tests.csproj /p:Configuration=Release
+COPY . .
+RUN dotnet build ./MyApp/MyApp.csproj --no-restore -c Release -o /app
+
+FROM build as test
+ARG DOCKER_SKIP_TESTS
+
+WORKDIR /src
+RUN [ ! -z &quot;$DOCKER_SKIP_TESTS&quot; ] &amp;&amp; : || dotnet build ./MyApp.Tests/MyApp.Tests.csproj --no-restore -c Release
+RUN [ ! -z &quot;$DOCKER_SKIP_TESTS&quot; ] &amp;&amp; : || dotnet test ./MyApp.Tests/MyApp.Tests.csproj --no-restore --no-build -v normal -c Release
+
+FROM build AS publish
+WORKDIR /src/MyApp
+RUN dotnet publish MyApp.csproj -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+
+</code></pre><p>When running build and release against the target project, I also tell it to skip the restore. This avoids any restore invalidation that may occur from doing the <code>COPY</code>, for whatever reason.  Also during the release, I skip the build, so it reuses the build result from the previous step. Splitting up these steps just saves that little bit of rebuild time and duplication along the way.</p>
+<p>I use bash conditional logic to be able to disable the tests from running (to go faster during dev build cycles) as well. The build-arg <code>DOCKER_SKIP_TESTS</code> is unset, and the test commands are run. If I declare this, it will skip running the tests.</p>
+<pre><code>docker build --build-arg DOCKER_SKIP_TESTS=1 -f .\MyApp\Dockerfile .
+</code></pre><p>Having <code>DOCKER_SKIP_TESTS=</code> declared on the first line means the cache is invalidated whenever I switch this setting on and off, so I get a clean build with, or without tests, and not somewhere in between.</p>
+<p>I&rsquo;ve even managed to convince my <code>Dockerfile</code> it is a ci agent, and it publishes coverage and test results to TeamCity&hellip; but that is for another article I think.</p>
+<h3 id="wrap-up">Wrap up</h3>
+<p>These are some of the tricks that I make use of in my <code>Dockerfile</code>.  Next time, we will take a look at some more advanced features, using an AspNetCore application running in docker and Visual Studio debugging.</p>
+<p>For an example of this working in practice, I&rsquo;ve set up an example project on GitHub. <a href="https://github.com/csMACnzBlog/DockerDotnetDemo" target="_blank">github.com/csMACnzBlog/DockerDotnetDemo</a>
+</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/">More .Net on Docker - AspNet Core Debugging Tips and Tricks</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/a-little-town-called-milton/">A Little Town called Milton</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/">More .Net on Docker - AspNet Core Debugging Tips and Tricks</a></li><li><a href="https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/">A Windows Service using netcoreapp on dotnet</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/">dotnet build, targeting full .Net 4.5.1 on nanoserver docker</a></li><li><a href="https://csmacnzblog.github.io/post/net-core-tests-not-showing/">.Net core tests not showing up in VS? Here&#39;s the trick...</a></li><li><a href="https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/">Clean Startup in your AspNetCore</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

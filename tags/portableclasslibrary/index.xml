@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PortableClassLibrary on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/portableclasslibrary/</link>
+    <description>Recent content in PortableClassLibrary on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Tue, 23 Dec 2014 10:10:46 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/portableclasslibrary/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Travis-ci, C# and PCL</title>
+      <link>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</link>
+      <pubDate>Tue, 23 Dec 2014 10:10:46 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</guid>
+      <description>As any good library should do, I&amp;rsquo;m building my BCLExtensions project(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact). It works great on my AppVeyor CI builds, which is a great .Net windows build server.
+I recently discovered Travis-CI has added beta C# supportso I connected it up with my GitHub prooject, which is designed to eventually work with mono anyway, and gave it a go.</description>
+    </item>
+    
+  </channel>
+</rss>

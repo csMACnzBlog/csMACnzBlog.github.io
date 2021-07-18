@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/statistics/</link>
+    <description>Recent content in Statistics on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Wed, 05 Aug 2015 11:13:12 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/statistics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Visual Studio 2015 vs Visual Studio 2013</title>
+      <link>https://csmacnzblog.github.io/post/visual-studio-2015-vs-visual-studio-2013/</link>
+      <pubDate>Wed, 05 Aug 2015 11:13:12 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/visual-studio-2015-vs-visual-studio-2013/</guid>
+      <description>I&amp;rsquo;ve been running some numbers over our solution to try and make things more efficient. While I was at it, I figured I would put 2013 head to head with 2015.
+The main test I ran was to take a solution open in Visual Studio and make sure it builds. I then ran Clean Solution. Using a stopwatch (so accuracy +- 1-second values) I recorded how long it took to build.</description>
+    </item>
+    
+  </channel>
+</rss>

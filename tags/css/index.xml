@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>css on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/css/</link>
+    <description>Recent content in css on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Tue, 30 Jun 2015 22:55:42 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Html anchors, links, and css</title>
+      <link>https://csmacnzblog.github.io/post/anchors-links-and-css/</link>
+      <pubDate>Tue, 30 Jun 2015 22:55:42 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/anchors-links-and-css/</guid>
+      <description>As part of reskinning my blog, I have had to rethink my menu links and CSS. I discovered something interesting that I hadn&amp;rsquo;t really thought about before. But let&amp;rsquo;s start with a lesson that got me to where I made that realisation.
+LVHA I recall a time at uni where I was learning about CSS. The phrase Love, Ha! was etched into my brain to remember the letters LVHA, which stand for the 4 pseudo classes of an anchor (a) tag, which were link, visited, hover, active.</description>
+    </item>
+    
+  </channel>
+</rss>

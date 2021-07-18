@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/linux/</link>
+    <description>Recent content in Linux on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Sun, 14 Mar 2010 05:54:01 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>From MythTV to Windows Media Center</title>
+      <link>https://csmacnzblog.github.io/post/from-mythtv-to-windows-media-center/</link>
+      <pubDate>Sun, 14 Mar 2010 05:54:01 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/from-mythtv-to-windows-media-center/</guid>
+      <description>I recently decided to make the leap from Ubuntu and open source MythTV to the professional product, Microsoft&amp;rsquo;s Windows Media Center. Why you may ask? Well to be honest I moved and lost my Freeview reception, then came to the conclusion that without that I no longer had any real use for the machine. But also I have recently become a Windows developer and and using Linux less and less. My Windows partitions on my other machines are getting booted more and more, and with windows 7 out (and getting my hands on a couple of copies) I thought it a good time to change focus and try another media PC software out.</description>
+    </item>
+    
+    <item>
+      <title>Tversity On Linux with vmware</title>
+      <link>https://csmacnzblog.github.io/post/tversity-on-linux-with-vmware/</link>
+      <pubDate>Tue, 26 Feb 2008 22:26:15 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/tversity-on-linux-with-vmware/</guid>
+      <description>My struggles with TVersity have come to an end for the moment, and I&amp;rsquo;m quite happy with that. After struggling for many hours to get it working under wine on my ubuntu machine, I decided to try out vmware running virtual windows xp. it took all of a couple of hours, most of which was a windows installation, and i had TVersity working from virtual xp on my ubuntu box. It works well enough to be able to stream music to my psp without any skipping, and I have even tested it with streaming video to an xbox 360.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu misadventures</title>
+      <link>https://csmacnzblog.github.io/post/ubuntu-misadventures/</link>
+      <pubDate>Tue, 29 Jan 2008 01:40:09 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/ubuntu-misadventures/</guid>
+      <description>It was about three months ago that i made the leap into linux on a almost full time basis. I had been using linux on my laptop with dual boot occasionally and had been using fedora at university (along with mac osx and windows 2000) but decided it was time to make the final leap and make it a full time thing.
+Ubuntu was my flavour of choice, as i had heard from a few people that it was very supportive of most hardware and for most people it would just work out of the box.</description>
+    </item>
+    
+    <item>
+      <title>TVersity media streaming</title>
+      <link>https://csmacnzblog.github.io/post/tversity-media-streaming/</link>
+      <pubDate>Wed, 16 Jan 2008 02:52:19 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/tversity-media-streaming/</guid>
+      <description>About a year ago I bought myself a psp off of the local auction website TradeMe, New Zealand&amp;rsquo;s answer to eBay, and have since used it mostly for listening to music and not a lot else. Sure I&amp;rsquo;ve used it for gaming, and struggled with using it for the internet, and just recently I&amp;rsquo;ve started watching videos (though due to the hassle of converting them not many), but music has been its main use.</description>
+    </item>
+    
+  </channel>
+</rss>

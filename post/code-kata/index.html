@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Code Katas - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Code Katas">
+<meta itemprop="description" content="Our team recently went through the Bowling Game Kata(as seen on Clean Code) from Uncle Bob. Here are some interesting learnings and takeaways from the session that I picked up on.
+Practice makes perfect The only way to get good at something is to practice. The concept of doing a Code Kata is to practice the art of TDD and Red-Green-Refactor. By practising, it will become easier to do against real code in real scenarios."><meta itemprop="datePublished" content="2018-05-07T07:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-05-07T07:00:00+00:00" />
+<meta itemprop="wordCount" content="1066">
+<meta itemprop="keywords" content="software development," /><meta property="og:title" content="Code Katas" />
+<meta property="og:description" content="Our team recently went through the Bowling Game Kata(as seen on Clean Code) from Uncle Bob. Here are some interesting learnings and takeaways from the session that I picked up on.
+Practice makes perfect The only way to get good at something is to practice. The concept of doing a Code Kata is to practice the art of TDD and Red-Green-Refactor. By practising, it will become easier to do against real code in real scenarios." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/code-kata/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-05-07T07:00:00+00:00" />
+<meta property="article:modified_time" content="2018-05-07T07:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Code Katas"/>
+<meta name="twitter:description" content="Our team recently went through the Bowling Game Kata(as seen on Clean Code) from Uncle Bob. Here are some interesting learnings and takeaways from the session that I picked up on.
+Practice makes perfect The only way to get good at something is to practice. The concept of doing a Code Kata is to practice the art of TDD and Red-Green-Refactor. By practising, it will become easier to do against real code in real scenarios."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Code Katas</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Code Katas</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>May 7, 2018
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy">#software development</a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy">#software development</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#practice-makes-perfect">Practice makes perfect</a></li>
+        <li><a href="#the-code-is-wrong-and-that-is-ok">The code is Wrong, and that is ok</a></li>
+        <li><a href="#dont-refactor-too-heavily-too-early">Don&rsquo;t refactor too heavily too early</a></li>
+        <li><a href="#more-like-guidelines">More like guidelines</a></li>
+        <li><a href="#resources">Resources</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>Our team recently went through the <a href="http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata" target="_blank">Bowling Game Kata</a>
+ (as seen on <a href="https://vimeo.com/43734265" target="_blank">Clean Code</a>
+) from Uncle Bob. Here are some interesting learnings and takeaways from the session that I picked up on.</p>
+<h3 id="practice-makes-perfect">Practice makes perfect</h3>
+<p>The only way to get good at something is to practice. The concept of doing a Code Kata is to practice the art of TDD and Red-Green-Refactor. By practising, it will become easier to do against real code in real scenarios. To re-iterate the <a href="http://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html" target="_blank">Three Laws of TDD</a>
+:</p>
+<ul>
+<li>You are not allowed to write any production code unless it is to make a failing unit test pass.</li>
+<li>You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.</li>
+<li>You are not allowed to write any more production code than is sufficient to pass the one failing unit test.</li>
+</ul>
+<p>Which complement the steps Red, Green, Refactor:</p>
+<ul>
+<li>Red: Create a unit tests that fails (get to Red)</li>
+<li>Green: Write production code that makes that test pass. (get back to Green)</li>
+<li>Refactor: Clean up the mess you just made. (While Green, Refactor)</li>
+</ul>
+<p>As a group exercise, this gives members of the team a chance to question these premises, gain an understanding from others who already Grok the concept, and by doing, they will reenforce the steps themselves, and come to their own understanding of the principles and why they should want to follow them. (It can also be a good chance to stop and reflect on code, techniques, and choices made by fellow team members in a mobbing-style scenario.)</p>
+<h3 id="the-code-is-wrong-and-that-is-ok">The code is Wrong, and that is ok</h3>
+<p>After implementing the Spare Rule logic, we had the comment raised that one of the developers would have pre-emptively checked against the Strike Rule. This goes against the Red-Green-Refactor and TDD rules because you are writing more code than you need.</p>
+<p>The interesting thing about this comment was that it raised an important aspect of performing Katas. Practising helps your brain absorb the habit, and tear down existing habits. In this case, the existing habit is writing code you know you will need later, but haven&rsquo;t written tests for, yet.</p>
+<p>You need to break the habit of making sure your code is 100% bulletproof (which in reality except for the most trivial cases, it never will be, because you don&rsquo;t know what you don&rsquo;t know). Accept that it is incomplete and follow the rules.</p>
+<p>As Uncle Bob puts it, the code isn&rsquo;t wrong, it passes all the tests so it does exactly what it should do (as documented), and no more, so it is technically right.</p>
+<p>The only way to ensure it does what you expect on an edge case is to actually write the test for the edge case. This test does two things:</p>
+<ul>
+<li>Makes sure that you have documented it as a case (and automated a way to ensure it still does what is expected).</li>
+<li>Makes sure that the edge-case actually does what you expect it to do in the implementation (and that by implementing it, it doesn&rsquo;t break any existing tested cases).</li>
+</ul>
+<p>We had the great idea raised that you should make a note somewhere as you think of edge cases, and use these notes as the basis for the next tests you write.</p>
+<p>It can be hard for programmers to accept that something can be wrong and that it is ok, but without this, enlightenment may not be achieved.</p>
+<blockquote>
+<p>“If I could define enlightenment briefly, I would say it is the quiet acceptance of what is.” Wayne Dyer</p>
+</blockquote>
+<h3 id="dont-refactor-too-heavily-too-early">Don&rsquo;t refactor too heavily too early</h3>
+<p>Some refactoring may seem pertinent after every test. The temptation is to over-refactor. If you do this, you may find that the next test is harder to make pass, or that you end up reversing the refactor straight away. Try refactoring one or two test behind when you first notice the potential, in case the next test makes you change your mind. If in doubt, you will be back at the refactor step soon so just wait until the next cycle.</p>
+<p>On the other hand, refactor too much and see what happens. That is the nice thing about Katas, you can practice techniques, see them fail, feel the pain and the only consequence is your own learning opportunity. Learn from what you experienced, and apply it next time you are following TDD on your software.</p>
+<p>Some obvious examples are:</p>
+<ul>
+<li>If you have an if/else, maybe wait until you see an <code>else if</code> before refactoring to a switch, or strategy.</li>
+<li>If you see duplication, think about if factoring it out will help readability anyway (then go ahead) or is likely to be used again (seems reasonable).</li>
+<li>If removing duplication increases verbosity, and reduces readability, you may want to wait. There may be a larger chunk of duplication after a few more tests that make the refactoring more obvious and less verbose, easier to read.</li>
+</ul>
+<p>But like I say, there is no right or wrong with Katas. Like physical exercise, if you feel it, it is working.</p>
+<p>Uncle Bob says to write the simple cases first, before writing the complicated cases to help with managing the above. Also, think about writing the test that forces you to write the code that you want to write. And write specific tests to generalise the implementation.</p>
+<h3 id="more-like-guidelines">More like guidelines</h3>
+<p>As Barbossa said it, &ldquo;&hellip;the code is more what you&rsquo;d call &ldquo;guidelines&rdquo; than actual rules.&rdquo;</p>
+<p>TDD and Red-Green-Refactor and tools for the toolbelt. It is not a Silver Bullet and not a one size fits all. As you develop your software you may find that you move in and out of TDD at different stages.</p>
+<p>You may be &lsquo;experimenting&rsquo; to understand what the use-cases and requirements are. In that case, you don&rsquo;t know what the test cases are, so how could you write them.</p>
+<p>Other times you may have very specific calculations, evaluations or decision trees. In these cases, writing each case as a test case and following TDD to implement them all makes great sense.</p>
+<p>The main thing is to understand the tool, practice with it. Understand the limitations so that you can recognise the best times to use it or not use it, and use it well when you do.</p>
+<h3 id="resources">Resources</h3>
+<p>For some practical resources to practice your Katas, here is a list of resources.</p>
+<ul>
+<li><a href="http://codekata.com/">http://codekata.com/</a></li>
+<li><a href="http://exercism.io/">http://exercism.io/</a></li>
+<li><a href="https://www.codewars.com/">https://www.codewars.com/</a></li>
+<li><a href="https://github.com/asierba/Katas.CSharp">https://github.com/asierba/Katas.CSharp</a></li>
+<li><a href="https://github.com/gamontal/awesome-katas">https://github.com/gamontal/awesome-katas</a></li>
+</ul>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/automated-ocd-with-stylecop/">Automated OCD with Stylecop</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/you-cant-out-exercise-a-bad-diet/">You can&#39;t out-exercise a bad diet</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/how-to-constructors/">How to Constructors</a></li><li><a href="https://csmacnzblog.github.io/post/guess-whos-back/">Guess Who&#39;s Back?</a></li><li><a href="https://csmacnzblog.github.io/post/on-fixing-problems-in-existing-installations/">On fixing problems in existing solutions</a></li><li><a href="https://csmacnzblog.github.io/post/building-a-better-development-team/">Building a better development team</a></li><li><a href="https://csmacnzblog.github.io/post/action-hero-style-software-development/">Action Hero Style Software Development</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

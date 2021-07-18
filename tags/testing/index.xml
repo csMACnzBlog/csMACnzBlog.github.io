@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Testing on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/testing/</link>
+    <description>Recent content in Testing on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Thu, 28 Dec 2017 23:41:13 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply</title>
+      <link>https://csmacnzblog.github.io/post/storytellerreduxsample/</link>
+      <pubDate>Thu, 28 Dec 2017 23:41:13 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/storytellerreduxsample/</guid>
+      <description>A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React + .Net Applications. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
+While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible.</description>
+    </item>
+    
+    <item>
+      <title>.Net core tests not showing up in VS? Here&#39;s the trick...</title>
+      <link>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</link>
+      <pubDate>Tue, 01 Nov 2016 01:38:35 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</guid>
+      <description>I&amp;rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use dotnet test, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp;amp; netcoreapp1.0).
+But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.
+Turns out, if you want tests to show up in Visual Studio you have to make sure that in your project.</description>
+    </item>
+    
+    <item>
+      <title>dotnet &#43; nunit3 &#43; TeamCity success</title>
+      <link>https://csmacnzblog.github.io/post/dotnet/</link>
+      <pubDate>Tue, 25 Oct 2016 00:54:19 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet/</guid>
+      <description>The new .Net Core CLI has the ability to use xunitor nunit. Which is great. For running tests locally.
+I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to import xml reportswhich supports junit (which is xunit-compatible) and nunit. But choosing nunit means support for the nunit2 xml format. And guess what? The new .</description>
+    </item>
+    
+    <item>
+      <title>The new 80/60 rule for testing</title>
+      <link>https://csmacnzblog.github.io/post/the-new-8060-rule-for-testing/</link>
+      <pubDate>Mon, 30 Nov 2015 06:24:46 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/the-new-8060-rule-for-testing/</guid>
+      <description>I was listening to a presentation on testing, and the question on coverage came up. I was asked my opinion, and this interesting thought occurred to me. So I tweeted:
+ New Rule: At least 80% coverage on 60% of the app. 70% of the time, it works everytime. Mark Clearwater (me) So what do I mean by this? Well basically, 100% test coverage overall is not a good idea.</description>
+    </item>
+    
+    <item>
+      <title>Thoughts on Testing</title>
+      <link>https://csmacnzblog.github.io/post/thoughts-on-testing/</link>
+      <pubDate>Sun, 04 Jan 2015 19:57:02 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/thoughts-on-testing/</guid>
+      <description>I&amp;rsquo;ve gone through the regular evolution when it comes to writing tests. At first there was no time, didnt bother. This was mostly down to the fact I was building demo apps and samples that got less use than it took to build them, working with senior devs who had made their name making said apps.
+The next stage is reluctant acceptance. The team I was put on wrote tests, so I guess I should too.</description>
+    </item>
+    
+  </channel>
+</rss>

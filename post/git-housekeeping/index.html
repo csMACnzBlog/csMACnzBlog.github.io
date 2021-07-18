@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Git Housekeeping - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Git Housekeeping">
+<meta itemprop="description" content="Those who are using Git but still new to the concept will no doubt have realised that files are treated differently to normal source control tools, and that they transition between different known states, according to git. I am going to try and explain these states, and give commands on how to transition between them.
+I needed these commands recently because I wanted to reset my changes and hadn&rsquo;t really thought about how these states affect what it is that gets &lsquo;reset&rsquo;."><meta itemprop="datePublished" content="2014-12-29T09:36:45+00:00" />
+<meta itemprop="dateModified" content="2014-12-29T09:36:45+00:00" />
+<meta itemprop="wordCount" content="1309">
+<meta itemprop="keywords" content="git," /><meta property="og:title" content="Git Housekeeping" />
+<meta property="og:description" content="Those who are using Git but still new to the concept will no doubt have realised that files are treated differently to normal source control tools, and that they transition between different known states, according to git. I am going to try and explain these states, and give commands on how to transition between them.
+I needed these commands recently because I wanted to reset my changes and hadn&rsquo;t really thought about how these states affect what it is that gets &lsquo;reset&rsquo;." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/git-housekeeping/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2014-12-29T09:36:45+00:00" />
+<meta property="article:modified_time" content="2014-12-29T09:36:45+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git Housekeeping"/>
+<meta name="twitter:description" content="Those who are using Git but still new to the concept will no doubt have realised that files are treated differently to normal source control tools, and that they transition between different known states, according to git. I am going to try and explain these states, and give commands on how to transition between them.
+I needed these commands recently because I wanted to reset my changes and hadn&rsquo;t really thought about how these states affect what it is that gets &lsquo;reset&rsquo;."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Git Housekeeping</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Git Housekeeping</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Dec 29, 2014
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>7 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy">#git</a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy">#git</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>Those who are using Git but still new to the concept will no doubt have realised that files are treated differently to normal source control tools, and that they transition between different known states, according to git.  I am going to try and explain these states, and give commands on how to transition between them.</p>
+<p>I needed these commands recently because I wanted to reset my changes and hadn&rsquo;t really thought about how these states affect what it is that gets &lsquo;reset&rsquo;.</p>
+<p>TL;DR: you can use these commands to perform different state transitions</p>
+<ul>
+<li><code>git add &lt;file&gt;</code> - add all changes to a file to stage</li>
+<li><code>git rm --cached</code> - unstage a new file/stage a delete for an existing file, keep local filesystem copy</li>
+<li><code>git reset &lt;file&gt;</code> - unstage, keep local changes</li>
+<li><code>git checkout .</code> - reset unstaged changes, keep staged</li>
+<li><code>git reset --hard</code> - reset all staged changes, reset all unstaged changes of tracked files(new unstaged files not removed)</li>
+<li><code>git clean -f</code> (use <code>git clean -n</code> to dry run first) - removes all  untracked, unstaged changes</li>
+<li><code>git clean -f -x</code> (use <code>git clean -n -x</code> to dry run first) - as above, also removes ignored files</li>
+</ul>
+<p>Skip to summary for coverage.</p>
+<h4 id="the-details">The Details</h4>
+<p>Given a file, git will see it as one of several states: Ignored, New-Unstaged, New-PartialStaged, New-Staged, Existing-Clean, Existing-UnstagedChanges, Existing-PartialStaged, and Existing-Staged.  First I will work through the states and some of the transitions, Then ill list the commands to achieve these transitions. (There is also a Deleted-Unstaged and Deleted-Staged, but ill leave those as an exercise for the reader.)</p>
+<p>You can think or the file as having 3 versions, one commited, one on the file system, and one in a staging area. The Unstaged/PartialStaged/Staged variations just refect whether or not the file system version or staged version has changes from the commited version. Where a change from the commited version is in both the file system and the stage it is staged. When it is in the filesystem but not the stage it is unstaged. When all changes are staged, we are in the Staged state, when all changes are unstaged we are in the Unstaged State, and when it is a mix, we are in the PartialStaged State. Hopefully that helps when looking at the state transitions below.</p>
+<p>A file is in the Ignored state when it is covered by an explicit or wildcard entry in your .gitignore, as long as it isn&rsquo;t already checked in to source control.  To transition into this state, Add a new file that is covered by ignore. If you have have staged changes you need to unstage them but keep the changes on disk. If you have a checked in file, you need to delete the file from git but keep the changes on disk.</p>
+<p>When you add a new file, it will start in the New-Unstaged state, as long as it isn&rsquo;t being ignored by .gitignore. By staging the whole file, you get to the New-Staged, or you can stage some of the lines in the file to be in the New-PartialStaged state.</p>
+<p>When you have an existing file, it starts in the Existing-Clean state.  making changes puts it into the Existing-UnstagedChanges, and staging these produces the Existing-PartialStaged and Existing-Staged, depending on if some or all changes are staged.</p>
+<p>Hopefully by now you have learned how to move changes forward with <code>git add &lt;filename&gt;</code> and how to commit them with <code>git commit</code>, so next we need to get out head about these 3 commands to go the other way.</p>
+<p>So with out uncommited changes, we want to do one of 3 things: reset both stage and filesystem files to the commited version(or remove completely if new) or unstage the changes but keep them on the filesystem (or un-add if new), or with untracked files(ignored) we want to delete them completely.</p>
+<p>Lets start with the unstaging. We have a new file staged, and we want to unstage, but keep the changes on disk.  Why? well we either want to have it ignored(staged accidentally) or it isn&rsquo;t going in this commit.  Either way, we use <code>git reset &lt;file&gt;</code> or if it a new file we could also use <code>git rm --cached</code> instead. <code>--cached</code> means keep the filesystem changes. Note that if you have a new staged file that is now ignored, or a commited file that you want to become ignored, but deleted, then <code>git rm --cached</code> is the coomand for the job, as long as you already have your .gitignore updated as well.</p>
+<p>Now if have unstaged changes and we want to reset them on disk but leave staging alone? We can use the command <code>git checkout .</code>.  This keeps all staged changes but resets any unstaged changes. The only issue with this command, is that if you have new files, but not staged, they stick around, while new staged files get removed.</p>
+<p>And if we want to remove all staged and local changes of tracked(unignored, non new) files? <code>git reset --hard</code>. Note that any new unstaged files are kept here also. You could use <code>git add .</code> to stage new files, then <code>git reset --hard</code>, or you could try this next command after reset instead.</p>
+<p>To remove unstaged files, you can use <code>git clean -f</code>.  Watch out though, this cannot be undone, so best to run <code>git clean -n</code> to test it first.  This will only remove new unstaged files(basically what the above two commands miss). As a side note, if the add is staged, this won&rsquo;t revert any unstaged changes to the file.</p>
+<p>One final category is the ignored files. You know, all those artifacts, bin files, test results, .user files, package artifacts etc.  These don&rsquo;t go away in a hurry, whether its changing branches, or resetting changes, these files stick around, and some of them take up space over time.  These can be removed using <code>git clean -f -x</code>, again remembering to run <code>git clean -n -x</code> first so you don&rsquo;t lose something you didnt mean to.</p>
+<p>One last one for good measure: if you want to keep all your changes for later, but still reset your files, use <code>git stash -u</code>. The <code>-u</code> here is shorthand for the <code>--include-untracked</code> command.  This quickly gets rid of all but ignored files in your repo, making it as clean as necessary, and even keeps all your changes stored away to bring them back with <code>git stash pop</code>.  Note though that the staged status of your files might not be the same afterwards. It will collapse together the stages and unstaged changes for each file, and put them all staged or all in unstaged. (This seems to be based on whether it is new or not, but more investigation needed).</p>
+<h4 id="summary">Summary</h4>
+<p>(TL;DR continued)</p>
+<p>So lets summarize all these removals a little simpler based on the way I found it <a href="http://stackoverflow.com/questions/22620393/remove-local-git-changes" target="_blank">somewhere else online</a>
+:</p>
+<ul>
+<li>Type 1: Ignored File</li>
+<li>Type 2: Unstaged New File</li>
+<li>Type 3: Unstaged Changes (on new staged, or existing file)</li>
+<li>Type 4: Staged New File(with or without unstaged changes)</li>
+<li>Type 5: Staged Changes on Existing File</li>
+</ul>
+<p>Commands:</p>
+<ul>
+<li><code>git checkout .</code> - Undo Type 3 only</li>
+<li><code>git reset --hard</code> - Undo Types 3, 4 and 5 only</li>
+<li><code>git clean -f</code> - Undo Type 2 only</li>
+<li><code>git clean -f -x</code> - Undo Types 1 and 2 only</li>
+<li><code>git stash -u</code> - Undo Types 2,3,4,5, and creates a stash</li>
+<li><code>git stash -all</code> - Undo All types, and creates a stash(stash includes ignored)</li>
+</ul>
+<p>So to nuke it all?</p>
+<ul>
+<li><code>git reset --hard</code> then <code>git clean -f -x</code> - All, no recovery</li>
+<li><code>git reset --hard</code> then <code>git clean -f</code> - All but ignored, no recovery</li>
+<li><code>git stash -all</code> - All gone, with recovery</li>
+<li><code>git stash -u</code> - All but ignored with recovery</li>
+</ul>
+<p>Thanks to <a href="http://stackoverflow.com/users/430885/frederik-sch%c3%b8ning" target="_blank">Frederik Schøning</a>
+ and others for their <a href="http://stackoverflow.com/questions/22620393/remove-local-git-changes" target="_blank">stackoverflow answer</a>
+ which helped me get the commands straight to solve my problem.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/">Travis-ci, C# and PCL</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/ci-services/">CI Services</a>
+    </div></div>
+</div></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

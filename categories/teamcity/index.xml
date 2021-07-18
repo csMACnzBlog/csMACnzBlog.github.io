@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TeamCity on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/teamcity/</link>
+    <description>Recent content in TeamCity on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Tue, 25 Oct 2016 00:54:19 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/teamcity/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>dotnet &#43; nunit3 &#43; TeamCity success</title>
+      <link>https://csmacnzblog.github.io/post/dotnet/</link>
+      <pubDate>Tue, 25 Oct 2016 00:54:19 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet/</guid>
+      <description>The new .Net Core CLI has the ability to use xunitor nunit. Which is great. For running tests locally.
+I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to import xml reportswhich supports junit (which is xunit-compatible) and nunit. But choosing nunit means support for the nunit2 xml format. And guess what? The new .</description>
+    </item>
+    
+    <item>
+      <title>TeamCity, GitHub and Pull Requests</title>
+      <link>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</link>
+      <pubDate>Mon, 06 Apr 2015 12:29:27 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</guid>
+      <description>I&amp;rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&amp;rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.
+It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the Statuses api on GitHubfor just how easy).</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>software development on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/software-development/</link>
+    <description>Recent content in software development on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Tue, 11 May 2021 17:42:06 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/software-development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kotlin, TeamCity and reflection</title>
+      <link>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</link>
+      <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</guid>
+      <description>I&amp;rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.
+Today&amp;rsquo;s fun little problem was the error message:
+ Runtime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found
+ The canonical stack overflow question that (at the time of writing this) had no answer: https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou
+The repro was the simplest piece of code in the end.</description>
+    </item>
+    
+    <item>
+      <title>Nullable and notnull Serialisation Properties</title>
+      <link>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</link>
+      <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
+      <description>The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely. However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is = default!;
+problem definition // This class is used to serialise/deserialise a payload from a server public class MyContractDTO { public string Value { get; set; } = default!; } My codebase is now littered with this code hack to get it to compile because nullable says it can&amp;rsquo;t guarantee that this property is not null.</description>
+    </item>
+    
+    <item>
+      <title>We are all 10x engineers, but I don&#39;t think it means what you think it means</title>
+      <link>https://csmacnzblog.github.io/post/we-are-all-10x/</link>
+      <pubDate>Mon, 15 Jul 2019 09:50:55 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/we-are-all-10x/</guid>
+      <description>If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:
+As a developer who tries to be good at their job, I have thoughts on this. As a Human, I like to be heard. (Note that being heard is not the same thing as being agreed with, or being right.) So here I am giving my opinion on this idea of a 10x developer, and specifically these &amp;ldquo;10 signs&amp;rdquo; put up online.</description>
+    </item>
+    
+    <item>
+      <title>Snuffleupagus-Oriented Programming</title>
+      <link>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</link>
+      <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</guid>
+      <description>Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.
+How do you build out a new API? Here we are meaning programming contracts effectively. You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.</description>
+    </item>
+    
+    <item>
+      <title>Agile Jogging to complement your Sprinting</title>
+      <link>https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/</link>
+      <pubDate>Mon, 10 Sep 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/</guid>
+      <description>Way back when I was first introduced to everything agile from Jezz Santos, we complemented the terminology of our &amp;ldquo;sprint&amp;rdquo; with that of a &amp;ldquo;jog&amp;rdquo;.
+Sprinting Sprinting or sprints are the idea of a (usually) timeboxed length of real-world time (5 days, 3 weeks etc) that produces a cadence of focused teamwork on a particular selection of stories. Usually, these stories are prioritised, and the team should be working on the top-most unfinished work.</description>
+    </item>
+    
+    <item>
+      <title>A Little Town called Milton</title>
+      <link>https://csmacnzblog.github.io/post/a-little-town-called-milton/</link>
+      <pubDate>Mon, 23 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/a-little-town-called-milton/</guid>
+      <description>There is a small town in the South Island of New Zealand called Milton. The main road runs right through the town in one side and out the other. Its a nice enough place to stop on a road trip.
+There is a unique feature to this main road in Miton, you see. When you get to the middle of the town and the road has a massive kink in it.</description>
+    </item>
+    
+    <item>
+      <title>You can&#39;t out-exercise a bad diet</title>
+      <link>https://csmacnzblog.github.io/post/you-cant-out-exercise-a-bad-diet/</link>
+      <pubDate>Thu, 10 May 2018 20:41:55 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/you-cant-out-exercise-a-bad-diet/</guid>
+      <description>I heard a great quote yesterday:
+ You can&amp;rsquo;t out-exercise a bad diet
+ And this is a great metaphor for technical debt.
+We all agree that you need to pay down your tech debt in your software. And it&amp;rsquo;s great to commit to addressing a little technical debt during each sprint. The problem is that this is the exercise. And if you still have a bad diet of cutting corners and taking shortcuts, your stuck with an overweight system (a monolith, if you like).</description>
+    </item>
+    
+    <item>
+      <title>Code Katas</title>
+      <link>https://csmacnzblog.github.io/post/code-kata/</link>
+      <pubDate>Mon, 07 May 2018 07:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/code-kata/</guid>
+      <description>Our team recently went through the Bowling Game Kata(as seen on Clean Code) from Uncle Bob. Here are some interesting learnings and takeaways from the session that I picked up on.
+Practice makes perfect The only way to get good at something is to practice. The concept of doing a Code Kata is to practice the art of TDD and Red-Green-Refactor. By practising, it will become easier to do against real code in real scenarios.</description>
+    </item>
+    
+    <item>
+      <title>How to Constructors</title>
+      <link>https://csmacnzblog.github.io/post/how-to-constructors/</link>
+      <pubDate>Mon, 16 Jan 2017 02:44:32 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/how-to-constructors/</guid>
+      <description>Constructors for services are a really handy way to pass in configuration, variation and dependencies. Here are some ways I have learned to use Constructors and some ideas on testing.
+What shouldn&amp;rsquo;t be in a Constructor Execution. Any complex execution of code should not be in a constructor. This includes asynchronous method calls (which either has to block synchronously, or runs off to nowhere), web requests, and complex calculations.
+Why? Why not run your whole application in a constructor?</description>
+    </item>
+    
+    <item>
+      <title>Guess Who&#39;s Back?</title>
+      <link>https://csmacnzblog.github.io/post/guess-whos-back/</link>
+      <pubDate>Wed, 04 May 2016 08:08:43 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/guess-whos-back/</guid>
+      <description>Ok, so not that big a leap, it&amp;rsquo;s just me. Six months later me. Moved to the UK me.
+I&amp;rsquo;ve taken the plunge and moved away from Windy Wellington in little old New Zealand to a place in the UK called Milton Keynes. Famous for wide streets, round-a-bouts and concrete cows.
+Why Milton Keynes? Because Xero has an office here of course! Aside from being cheaper to live here than in the middle of London, it&amp;rsquo;s also a bit quieter and a bit of a slower pace of life for a bit, with reasonable connections to anywhere but here.</description>
+    </item>
+    
+    <item>
+      <title>On fixing problems in existing solutions</title>
+      <link>https://csmacnzblog.github.io/post/on-fixing-problems-in-existing-installations/</link>
+      <pubDate>Sun, 08 Nov 2015 07:02:57 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/on-fixing-problems-in-existing-installations/</guid>
+      <description>A builder came around the other day to fix the shelf under the sink. We had a leaking tap that over time had been dripping down onto the shelf and the boards had ended up in an awful state. From my perspective, we just simply needed to rip it out and put a new one in.
+Luckily, the builder was an expert and explained to me what would have to be done.</description>
+    </item>
+    
+    <item>
+      <title>Building a better development team</title>
+      <link>https://csmacnzblog.github.io/post/building-a-better-development-team/</link>
+      <pubDate>Sun, 07 Jun 2015 20:29:10 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/building-a-better-development-team/</guid>
+      <description>Last November I helped out with the Wellington contingent of the Global Day of Coderetreat. It was a great day to explore strategies and techniques to improve your code and expand your knowledge of patterns and practices. This is a great event and I highly recommend looking out for it again later this year. I liked this concept so much, that I started my own series over the Summer (December till January is Summer here is NZ).</description>
+    </item>
+    
+    <item>
+      <title>Action Hero Style Software Development</title>
+      <link>https://csmacnzblog.github.io/post/action-hero-style-software-development/</link>
+      <pubDate>Sun, 28 Mar 2010 21:08:39 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/action-hero-style-software-development/</guid>
+      <description>I just read a really awesome post about software development using the analogy of Chuck Norris and Steven Seagal. Definately worth a read and brings forward some good points about software development. Check it out. http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/</description>
+    </item>
+    
+  </channel>
+</rss>

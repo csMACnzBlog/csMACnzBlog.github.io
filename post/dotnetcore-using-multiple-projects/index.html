@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>.Net Core Series - Using Multiple Projects - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="This is a series on the new .Net Core bits.
+Is this article, we create multiple projects and link them all together." /><meta itemprop="name" content=".Net Core Series - Using Multiple Projects">
+<meta itemprop="description" content="This is a series on the new .Net Core bits.
+Is this article, we create multiple projects and link them all together."><meta itemprop="datePublished" content="2016-07-18T06:32:53+00:00" />
+<meta itemprop="dateModified" content="2016-07-18T06:32:53+00:00" />
+<meta itemprop="wordCount" content="1208">
+<meta itemprop="keywords" content="c#,dotnetcore," /><meta property="og:title" content=".Net Core Series - Using Multiple Projects" />
+<meta property="og:description" content="This is a series on the new .Net Core bits.
+Is this article, we create multiple projects and link them all together." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/dotnetcore-using-multiple-projects/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-07-18T06:32:53+00:00" />
+<meta property="article:modified_time" content="2016-07-18T06:32:53+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=".Net Core Series - Using Multiple Projects"/>
+<meta name="twitter:description" content="This is a series on the new .Net Core bits.
+Is this article, we create multiple projects and link them all together."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">.Net Core Series - Using Multiple Projects</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">.Net Core Series - Using Multiple Projects</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jul 18, 2016
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
+<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#file---new-application">File -&gt; New Application</a></li>
+        <li><a href="#file---new-library">File -&gt; New Library</a></li>
+        <li><a href="#ppppppphttpsenwikipediaorgwiki7_ps_military_adage">PPPPPPP(<a href="https://en.wikipedia.org/wiki/7_Ps_(military_adage)">*</a>)</a></li>
+        <li><a href="#project-references">Project References</a></li>
+        <li><a href="#build-and-run">Build and Run</a></li>
+        <li><a href="#up-next">Up Next</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>This is a series on the .Net Core 1.0 bits. Looking for <a href="/dotnetcore2-getting-started">.Net Core 2 Series</a>
+?</p>
+<ul>
+<li><a href="/dotnetcore-getting-started">Getting Started</a>
+</li>
+<li><a href="/dotnetcore-whats-in-the-box">What&rsquo;s in the box</a>
+</li>
+<li>Using Multiple Projects &lt;=(We are here)</li>
+<li><a href="/dotnetcore-testing">Testing</a>
+</li>
+<li><a href="/dotnetcore-nuget">NuGet</a>
+</li>
+<li><a href="/dotnetcore-multi-targeting">Multi-targeting</a>
+</li>
+<li><a href="/dotnetcore-publishing-portable-applications">Publishing Portable Applications</a>
+</li>
+<li><a href="/dotnetcore-self-contained-applications">Self-contained Applications</a>
+</li>
+</ul>
+<p>We know how to create new projects, we know how to build and run our application and we know (roughly) what the content in the <code>project.json</code> file means. But most projects tend to either require multiple projects or are actually libraries. We can tackle both of these problems together.</p>
+<p>We are going to create and library project, and an application project. We can reference the library from the application, to see how referencing projects work.</p>
+<h3 id="file---new-application">File -&gt; New Application</h3>
+<p>We should be old pros at this bit so let&rsquo;s go:</p>
+<pre><code>mkdir MyNewApp
+cd MyNewApp
+dotnet new
+dotnet restore
+dotnet build
+dotnet run
+</code></pre><p>With our new project created, we can move on to something new - Libraries.</p>
+<h3 id="file---new-library">File -&gt; New Library</h3>
+<p>As well as creating empty console applications (by default), <code>dotnet</code> can also create other things:</p>
+<pre><code>Avaiable types for C# :
+- Console
+- Web
+- Lib
+- xunittest
+</code></pre><p>(It was actually spelt out as <em>Avaiable</em> in the help text too&hellip; but <a href="https://github.com/dotnet/cli/pull/3822" target="_blank">I fixed it for you</a>
+)</p>
+<p><em>Just a quick reminder that like most things tooling, the way templates will work going forward is <a href="https://github.com/dotnet/cli/issues/2052" target="_blank">subject to change</a>
+.</em></p>
+<p><code>Web</code> is obviously the ASP.NET core template, which I won&rsquo;t be covering in this series, and the <code>xunittest</code> is a test project, which is the subject of the next article.</p>
+<p>We want a Library so will use <code>Lib</code>. To do so we add the <code>-t|--type &lt;TYPE&gt;</code> argument to the command <code>dotnet new</code>.</p>
+<pre><code>cd ../
+mkdir MyNewLib
+cd MyNewLib
+dotnet new -t Lib
+</code></pre><pre><code>Created new C# project in C:\dev\MyProject\MyNewLib.
+</code></pre><p>But what&rsquo;s the different between <code>Console</code> and <code>Lib</code> I hear you ask? Patience! It&rsquo;s coming up:</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;netstandard1.6&quot;: {
+      &quot;dependencies&quot;: {
+        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      }
+    }
+  }
+}
+</code></pre><p>For starters, the <code>buildOptions</code> value <code>&quot;emitEntryPoint&quot;: true</code> is not present. This is a library, so it doesn&rsquo;t need an entry point.</p>
+<p>And instead of targeting the concrete framework <code>netcoreapp1.0</code>, we instead target the profile of <code>netstandard1.6</code>.</p>
+<p>I briefly covered this <a href="/dotnetcore-whats-in-the-box#netstandardlibrary">in the last article</a>
+. Essentially <code>netcoreapp1.0</code> and possibly .Net <a href="https://www.reddit.com/r/dotnet/comments/4i5v4k/what_comes_after_462/" target="_blank">4.6.3</a>
+ are (currently) the only implementations of NETStandard version 1.6 (+ mono/Xamarin, though which versions are compatible is unknown to me).</p>
+<p>If we want our library to be more widely usable, such as by older versions of .Net we can lower this to <code>netstandard1.0</code>, which means all .Net 4.5 or greater runtimes are compatible, plus Windows Phone Silverlight (8.0+8.1). It is worth noting that .Net older than version 4.5 is not compatible with this new NetStandard versioning scheme. So if we want to also target .Net 4.0 or .Net3.5, we will have to add these as other frameworks. (More on this in NuGet and Multi-targeting.)</p>
+<p>In our console app last time, we targeted a dependency <code>Microsoft.NETCore.App</code>. This was type <code>platform</code>, and declared a dependency on the runtime for our application.  This time, rather than depend on a runtime, we want to depend on a compatible library version, to provide the contracts to the actual libraries, classes and methods in the framework version we declared above. That is, things like <code>System</code>, <code>System.IO</code>, <code>System.Collections</code>, <code>System.Linq</code> etc etc.</p>
+<p>As mentioned at length last time, there is a the NETStandard.Library.  Our library project declares a dependency on <code>&quot;NETStandard.Library&quot;: &quot;1.6.0&quot;</code>. As discussed, this <a href="https://www.nuget.org/packages/NETStandard.Library/" target="_blank">NuGet package</a>
+ contains the library references for all <code>netstandard</code> versions, so even if we were to change to target <code>netstandard1.0</code> the package version stays 1.6. It gives us all of the NuGet packages for all of the system functionality that comes in the framework, by adding only a single dependency. Later on, we might want to come back, and replace this just with the packages we actually use. For now, while we start development, this gets us going quickly.</p>
+<p>The last thing missing compared to the Console application is the <code>&quot;imports&quot;: &quot;dnxcore50&quot;</code>. Because this is a compatibility measure, for now (as far as I can tell), I hope we don&rsquo;t need to use it with our library. But if we decide to depend on a package that was built using <code>dnxcore</code>, we might need to add it later.</p>
+<p>We can build our library, but of course it cannot be run - its a library.</p>
+<pre><code>dotnet build
+</code></pre><h3 id="ppppppphttpsenwikipediaorgwiki7_ps_military_adage">PPPPPPP(<a href="https://en.wikipedia.org/wiki/7_Ps_%28military_adage%29" target="_blank">*</a>
+)</h3>
+<p>Before we can reference between the two projects, we probably need something to depend on. We can go into the file <code>Library.cs</code> and make a few changes.</p>
+<pre><code>namespace ClassLibrary
+{
+    public class Class1
+    {
+        public void Method1()
+        {
+        }
+    }
+}
+</code></pre><p>Change the namespace to match our project name for starters, <code>MyNewLib</code>. Our class can be called <code>Calculator</code>, and we can implement a simple method, <code>Add</code>.</p>
+<pre><code>namespace MyNewLib
+{
+    public class Calculator
+    {
+        public int Add(int first, int second)
+        {
+            return first + second;
+        }
+    }
+}
+</code></pre><p>Now it is a bit more interesting, at least.</p>
+<h3 id="project-references">Project References</h3>
+<p>To reference a project isn&rsquo;t much different to adding a dependency to a NuGet package. The main difference is that we add <code>&quot;target&quot;: &quot;project&quot;</code> as a property. This is similar to the dependency property <code>&quot;type&quot;: &quot;platform&quot;</code> we saw before used with <code>Microsoft.NETCore.App</code>.</p>
+<p>If we add a dependency on our library <code>MyNewLib</code> from our console application <code>MyNewApp</code>, the <code>project.json</code> file in <code>MyNewApp</code> looks like this:</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;,
+    &quot;emitEntryPoint&quot;: true
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;netcoreapp1.0&quot;: {
+      &quot;dependencies&quot;: {
+        &quot;Microsoft.NETCore.App&quot;: {
+          &quot;type&quot;: &quot;platform&quot;,
+          &quot;version&quot;: &quot;1.0.0&quot;
+        },
+        &quot;MyNewLib&quot;: {
+          &quot;target&quot;: &quot;project&quot;
+        }
+      },
+      &quot;imports&quot;: &quot;dnxcore50&quot;
+    }
+  }
+}
+</code></pre><p>Assuming your &ldquo;MyNewApp&rdquo; and &ldquo;MyNewLib&rdquo; folders appear together in the same parent folder, that should be enough to get this thing going.</p>
+<p>Two things to note: Whenever you now build MyNewApp, it will recursively try and build the project MyNewLib. The second thing to note is that <strong>build</strong> doesn&rsquo;t perform a <strong>restore</strong>. You need to make sure that both projects have had <code>dotnet restore</code> called before trying to build the application now. Luckily, it turns out that <code>dotnet restore</code> can be run in the parent folder and all direct child folders with a project.json will be restored.</p>
+<p>And we will add some code to make the dependency complete. Open MyNewApp&rsquo;s <code>Program.cs</code> file and add a call to our Calculator.</p>
+<pre><code>using System;
+using MyNewLib;
+
+namespace ConsoleApplication
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Calculator calc = new Calculator();
+            var answer = calc.Add(18, 24);
+            Console.WriteLine($&quot;The answer is {answer}.&quot;);
+        }
+    }
+}
+</code></pre><p>One last thing, since we changed the <code>project.json</code> file, is to run the restore command:</p>
+<pre><code>dotnet restore
+</code></pre><h3 id="build-and-run">Build and Run</h3>
+<p>From the MyNewApp folder, we can now build and run our application, including the library code from MyNewLib.</p>
+<pre><code>dotnet build
+dotnet run
+</code></pre><p>And we can see from the output that both projects are built and we see the correct output from our application.</p>
+<pre><code>Project MyNewLib (.NETStandard,Version=v1.6) was previously compiled. Skipping compilation.
+Project MyNewApp2 (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
+The answer is 42.
+</code></pre><h3 id="up-next">Up Next</h3>
+<p>Of course, we don&rsquo;t just want to build and ship code, we want to test it actually works.  Next time we will create a test project, and write some tests against our library code above.</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/dotnetcore-whats-in-the-box/">.Net Core Series - What&#39;s in the box</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/experimenting-with-global-json/">Experimenting with global.json</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/dotnetcore-whats-in-the-box/">.Net Core Series - What&#39;s in the box</a></li><li><a href="https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/">Visual Studio Code with C# and dotnet</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore-getting-started/">.Net Core Series - Getting Started</a></li><li><a href="https://csmacnzblog.github.io/post/using-over-lambda/">using over lambda</a></li><li><a href="https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/">A couple of debugging tips</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

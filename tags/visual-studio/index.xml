@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visual Studio on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/visual-studio/</link>
+    <description>Recent content in Visual Studio on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Thu, 17 Jan 2019 20:40:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/visual-studio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Looking forward to dotnet in 2019</title>
+      <link>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</link>
+      <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</guid>
+      <description>It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.
+The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)
+C# 8 It feels like we&amp;rsquo;ve been talking about C# 8 for a while, with 7.</description>
+    </item>
+    
+    <item>
+      <title>.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</title>
+      <link>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</link>
+      <pubDate>Mon, 16 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</guid>
+      <description>I&amp;rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
+Start with the defaults Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.</description>
+    </item>
+    
+    <item>
+      <title>More .Net on Docker - AspNet Core Debugging Tips and Tricks</title>
+      <link>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</link>
+      <pubDate>Sun, 15 Jul 2018 22:02:30 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</guid>
+      <description>Last timewe covered some basics of Dockerfile with a console application. Let&amp;rsquo;s continue our journal with AspNet Core.
+Develop-time dependencies We are using React and the .Net WebPack Hot Reloader. While at development time this requires node, at runtime it doesn&amp;rsquo;t. Here is a couple of fun facts about Visual Studio debugging I combine in an interesting way.
+Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&amp;rsquo;t actually use or do what your Dockerfile says.</description>
+    </item>
+    
+    <item>
+      <title>.Net core tests not showing up in VS? Here&#39;s the trick...</title>
+      <link>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</link>
+      <pubDate>Tue, 01 Nov 2016 01:38:35 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</guid>
+      <description>I&amp;rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use dotnet test, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp;amp; netcoreapp1.0).
+But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.
+Turns out, if you want tests to show up in Visual Studio you have to make sure that in your project.</description>
+    </item>
+    
+    <item>
+      <title>Treat Warnings As Errors with this one weird PowerShell Script...</title>
+      <link>https://csmacnzblog.github.io/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</link>
+      <pubDate>Mon, 09 May 2016 08:30:59 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
+      <description>There is this great feature in Visual Studio that lets you really dial up the quality of your code. It has been there forever it seems, but very few people use it.
+The compiler spits out errors, which stop your app compiling. You fix your errors and move on. But the compiler also spits out a lot of warnings too. And many of these are to do with the quality of your code, and possible code errors you have introduced that could cause you issues later on.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio 2015 vs Visual Studio 2013</title>
+      <link>https://csmacnzblog.github.io/post/visual-studio-2015-vs-visual-studio-2013/</link>
+      <pubDate>Wed, 05 Aug 2015 11:13:12 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/visual-studio-2015-vs-visual-studio-2013/</guid>
+      <description>I&amp;rsquo;ve been running some numbers over our solution to try and make things more efficient. While I was at it, I figured I would put 2013 head to head with 2015.
+The main test I ran was to take a solution open in Visual Studio and make sure it builds. I then ran Clean Solution. Using a stopwatch (so accuracy +- 1-second values) I recorded how long it took to build.</description>
+    </item>
+    
+    <item>
+      <title>Using C# 5.0 with Visual Studio 2015</title>
+      <link>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</link>
+      <pubDate>Sun, 26 Jul 2015 07:46:16 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</guid>
+      <description>Visual Studio 2015 is out and brings us the new C# 6 language features. We also have the new .Net 4.6 Runtime. But what does that mean?
+Well, the framework version and language version are two separate concerns. You can practically pick any framework, with any language, and it will work. This means that If you want to use C# 6 features on your .Net 4.0 application, you can. Ok, so some language features require specific framework libraries, like generics, and async, but most features tend to be syntactic sugar.</description>
+    </item>
+    
+    <item>
+      <title>Code Demoing with Visual Studio</title>
+      <link>https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/</link>
+      <pubDate>Sun, 24 May 2015 08:24:28 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/</guid>
+      <description>I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.
+Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called Productivity Power Tools 2013. Specifically, the built in presentation feature.</description>
+    </item>
+    
+  </channel>
+</rss>

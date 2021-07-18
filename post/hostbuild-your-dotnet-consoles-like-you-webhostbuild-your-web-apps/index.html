@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HostBuild your dotnet Consoles like you WebHostBuild your web apps. - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="HostBuild your dotnet Consoles like you WebHostBuild your web apps.">
+<meta itemprop="description" content="I wrote a while back on getting your Windows Services building with .Net Corewhich is a nice way to use the new SDK pipeline but still host on Windows without much fuss.
+But what If you like the approach but want to run on Linux?
+Well after some stumbling around in the dotnet core docs, I found information about HostBuilder, which looks a lot like the WebHostBuilder and WebHost that we use with AspNetCore."><meta itemprop="datePublished" content="2018-09-17T06:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-09-17T06:00:00+00:00" />
+<meta itemprop="wordCount" content="887">
+<meta itemprop="keywords" content="dotnetcore,Tips and Tricks," /><meta property="og:title" content="HostBuild your dotnet Consoles like you WebHostBuild your web apps." />
+<meta property="og:description" content="I wrote a while back on getting your Windows Services building with .Net Corewhich is a nice way to use the new SDK pipeline but still host on Windows without much fuss.
+But what If you like the approach but want to run on Linux?
+Well after some stumbling around in the dotnet core docs, I found information about HostBuilder, which looks a lot like the WebHostBuilder and WebHost that we use with AspNetCore." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-09-17T06:00:00+00:00" />
+<meta property="article:modified_time" content="2018-09-17T06:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HostBuild your dotnet Consoles like you WebHostBuild your web apps."/>
+<meta name="twitter:description" content="I wrote a while back on getting your Windows Services building with .Net Corewhich is a nice way to use the new SDK pipeline but still host on Windows without much fuss.
+But what If you like the approach but want to run on Linux?
+Well after some stumbling around in the dotnet core docs, I found information about HostBuilder, which looks a lot like the WebHostBuilder and WebHost that we use with AspNetCore."/>
+<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="https://csmacnzblog.github.io">
+      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> Settings
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
+    </div>
+  </form>
+  <div class="container mt-2 visually-hidden" id="palettePicker">
+    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
+          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
+          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-brown" title="Brown" 
+          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-cyan" title="Cyan" 
+          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-green" title="Green" 
+          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-indigo" title="Indigo" 
+          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-orange" title="Orange" 
+          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-pink" title="Pink" 
+          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-purple" title="Purple" 
+          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-red" title="Red" 
+          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-teal" title="Teal" 
+          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
+        </button><button type="button" id="palette-yellow" title="Yellow" 
+          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
+        </button></button>
+    </div>
+  </div>
+</section></div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">HostBuild your dotnet Consoles like you WebHostBuild your web apps.</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">HostBuild your dotnet Consoles like you WebHostBuild your web apps.</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>Sep 17, 2018
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>5 min read
+  </span>
+<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a></div>
+<div class="post-content mb-3"><p>I wrote a while back on getting your <a href="https://blog.csmac.nz/a-windows-service-on-dotnet/" target="_blank">Windows Services building with .Net Core</a>
+ which is a nice way to use the new SDK pipeline but still host on Windows without much fuss.</p>
+<p>But what If you like the approach but want to run on Linux?</p>
+<p>Well after some stumbling around in the dotnet core docs, I found information about <code>HostBuilder</code>, which looks a lot like the <code>WebHostBuilder</code> and <code>WebHost</code> that we use with AspNetCore.  And that is no accident.</p>
+<p>This new set of classes is a new feature from dotnet core 2.1:</p>
+<blockquote>
+<p>The Generic Host is new in ASP<!-- raw HTML omitted --><!-- raw HTML omitted -->.NET Core 2.1 and isn&rsquo;t suitable for web hosting scenarios. For web hosting scenarios, use the Web Host. The Generic Host is under development to replace the Web Host in a future release and act as the primary host API in both HTTP and non-HTTP scenarios. - <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.1" target="_blank">microsoft docs</a>
+</p>
+</blockquote>
+<p>If you are used to the WebHostBuilder (<code>WebHost.CreateWebHostBuilder(args).Build().Run();</code>) then you will find the contracts for this very similar.  Let&rsquo;s look at an example of what a console app using this new library might look like.</p>
+<p>Like last time, we will use this simple application that will sleep for 1 second, then try to generate the next number in the Fibonacci Sequence and print it out.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> System;
+<span style="color:#66d9ef">using</span> System.Threading;
+<span style="color:#66d9ef">using</span> System.Threading.Tasks;
+
+<span style="color:#66d9ef">namespace</span> MyApp
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyApp</span>
+    {
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> AutoResetEvent <span style="color:#ae81ff">_</span>closeRequested = <span style="color:#66d9ef">new</span> AutoResetEvent(<span style="color:#66d9ef">false</span>);
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">long</span> <span style="color:#ae81ff">_l</span>ast = <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">long</span> <span style="color:#ae81ff">_</span>current = <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">private</span> Task <span style="color:#ae81ff">_</span>work;
+
+        <span style="color:#66d9ef">public</span> MyApp()
+        {
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Start()
+        {
+            <span style="color:#ae81ff">_</span>work = Task.Run(() =&gt; DoWorkLoop());
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Stop()
+        {
+            <span style="color:#ae81ff">_</span>closeRequested.Set();
+            <span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">_</span>work != <span style="color:#66d9ef">null</span>)
+            {
+                <span style="color:#ae81ff">_</span>work.Wait();
+                <span style="color:#ae81ff">_</span>work = <span style="color:#66d9ef">null</span>;
+            }
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoWorkLoop()
+        {
+            <span style="color:#66d9ef">while</span> (!<span style="color:#ae81ff">_</span>closeRequested.WaitOne(<span style="color:#ae81ff">1000</span>))
+            {
+                <span style="color:#66d9ef">var</span> last = <span style="color:#ae81ff">_</span>current;
+                <span style="color:#66d9ef">var</span> next = <span style="color:#ae81ff">_l</span>ast + <span style="color:#ae81ff">_</span>current;
+                <span style="color:#66d9ef">if</span> (next == <span style="color:#ae81ff">0</span>)
+                {
+                    next = <span style="color:#ae81ff">1</span>;
+                }
+                <span style="color:#ae81ff">_l</span>ast = <span style="color:#ae81ff">_</span>current;
+                <span style="color:#ae81ff">_</span>current = next;
+                Console.WriteLine(next);
+            }
+        }
+    }
+}
+</code></pre></div><p>So how can we use this hosted in the new <code>HostBuilder</code>?</p>
+<p>First, we have to use the new <code>IHostedService</code> interface:</p>
+<pre><code>public interface IHostedService
+{
+    // Called when the host is ready to start the service
+    Task StartAsync(CancellationToken cancellationToken);
+
+    // Called on graceful shutdown by the host
+    Task StopAsync(CancellationToken cancellationToken);
+}
+</code></pre><p>Notice the interface uses <code>CancellationToken</code>. This is called when the host needs to cancel the action (such as termination of the application during startup, or if you take too long during shutdown).</p>
+<p>Our app class can be modified to meet these requirements:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyApp</span> : IHostedService
+{
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> AutoResetEvent <span style="color:#ae81ff">_</span>closeRequested = <span style="color:#66d9ef">new</span> AutoResetEvent(<span style="color:#66d9ef">false</span>);
+    ...
+    <span style="color:#66d9ef">private</span> Task <span style="color:#ae81ff">_</span>work;
+
+    Task StartAsync(CancellationToken cancellationToken)
+    {
+        <span style="color:#ae81ff">_</span>work = Task.Run(() =&gt; DoWorkLoop());
+        <span style="color:#66d9ef">return</span> Task.CompletedTask;
+    }
+
+    Task StopAsync(CancellationToken cancellationToken)
+    {
+        <span style="color:#ae81ff">_</span>closeRequested.Set();
+        <span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">_</span>work != <span style="color:#66d9ef">null</span>)
+        {
+            <span style="color:#ae81ff">_</span>task.Wait(cancellationToken);
+            <span style="color:#ae81ff">_</span>work.Dispose();
+            <span style="color:#ae81ff">_</span>work = <span style="color:#66d9ef">null</span>;
+        }
+
+        <span style="color:#66d9ef">return</span> Task.CompletedTask;
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoWorkLoop()
+    {
+        ...
+    }
+}
+</code></pre></div><p>Now we meet the expected interface, we can build our startup code like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">async</span> Task Main(<span style="color:#66d9ef">string</span>[] args)
+    {
+        <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> HostBuilder()
+            .UseHostedService&lt;MyApp&gt;()
+            .RunConsoleAsync();
+    }
+}
+</code></pre></div><p>This is basically the minimum to get this working. But there is so much more you can do now you have a host builder.</p>
+<p>Let&rsquo;s break this down into what those extensions are actually doing for you. The above is essentially equivalent to this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">var</span> host = <span style="color:#66d9ef">new</span> HostBuilder()
+    .ConfigureServices(services =&gt;
+        services.AddHostedService&lt;MyApp&gt;())
+    .UseConsoleLifetime()
+    .Build();
+
+<span style="color:#66d9ef">using</span> (host)
+{
+    <span style="color:#66d9ef">await</span> host.StartAsync();
+
+    <span style="color:#66d9ef">await</span> host.WaitForShutdownAsync();
+}
+</code></pre></div><p><code>UseConsoleLifetime</code>, which is used by <code>RunConsoleAsync()</code> internally, waits for Ctrl+C/SIGINT or SIGTERM commands from the OS (windows mac and Linux where applicable) to make the application compatible with graceful shutdown scenarios.</p>
+<p><code>RunConsoleAsync()</code> also bootstraps the <code>Start</code> and <code>WaitForShutdown</code> usage, making it a really handy helper function to know and use.</p>
+<p><code>ConfigureServices</code> is identical to that you are familiar with on the WebHostBuilder, and Startup classes.  This is your <code>ServiceCollection</code> where you can register dependencies. That&rsquo;s right, this has AspNetCore&rsquo;s Dependency Resolution structure.  <code>AddHostedService</code> is just a shorthand to register you class as an implementation of <code>IHostedService</code> that the Generic <em>Host</em> can later resolve to start and stop for you.</p>
+<p>While talking about <code>AddHostedService</code>, I should mention you can have as many <code>IHostedService</code> instances registered that you want to have running. Multiple worker processes hosted in one app essentially.</p>
+<p>Let&rsquo;s talk about configuration.</p>
+<p>AspNetCore introduced the <code>IConfiguration</code> and the <code>appsettings.json</code> files.  I&rsquo;ve found that adding the following code gives you a very similar experience:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">new</span> HostBuilder()
+   .UseEnvironment(Environment.GetEnvironmentVariable(<span style="color:#e6db74">&#34;ASPNETCORE_ENVIRONMENT&#34;</span>))
+    .ConfigureAppConfiguration((hostContext, configApp) =&gt;
+    {
+        <span style="color:#75715e">// ConfigureAppConfiguration makes sure the config is available
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// as runtime in the IConfiguration.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// You can use ConfigureHostConfiguration which configures the
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// IHostingEnvironment&#39;s Build-type Configuration instead if you
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// care to make the distinction.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// ConfigureAppConfiguration changes are also still visible on
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// IHostingEnvironment as well ¯\_(ツ)_/¯
+</span><span style="color:#75715e"></span>        configApp
+            .AddJsonFile(<span style="color:#e6db74">&#34;appsettings.json&#34;</span>, optional: <span style="color:#66d9ef">false</span>, reloadOnChange: <span style="color:#66d9ef">false</span>)
+            .AddJsonFile(<span style="color:#e6db74">$&#34;appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json&#34;</span>, optional: <span style="color:#66d9ef">true</span>)
+            .AddEnvironmentVariables()
+            .AddCommandLine(args);
+    })
+    .ConfigureServices(services =&gt;
+    {
+        ...
+        
+        services.AddHostedService&lt;MyApp&gt;();
+    }
+    .Build();
+</code></pre></div><p>This configuration should give you the appsettings loading, including the <code>Environment</code>-specific  config files using the same <code>ASPNETCORE_ENVIRONMENT</code> EnvironmentVariable you are used to (though you could call this whatever you want, really). It also loads EnvironmentVariables as config overrides, and enables command line argument overrides as well (as highest priority).</p>
+<p>I will leave you with a mention of logging.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">.ConfigureLogging((hostcontext, loggingBuilder) =&gt;
+{
+    <span style="color:#75715e">// I&#39;m thinking you should go do your own reading on this one, I&#39;m not going to give you ALL the code to copy-paste from!
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.1#configurelogging
+</span><span style="color:#75715e"></span>    ...
+})
+</code></pre></div><p>Happy Coding!</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/">Agile Jogging to complement your Sprinting</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="https://csmacnzblog.github.io/post/my-first-ddd-event-and-how-i-made-the-decision-to-work-a-16-hour-day/">My first DDD Event and how I made the decision to work a 16 hour Saturday</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/">A Windows Service using netcoreapp on dotnet</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/">dotnet build, targeting full .Net 4.5.1 on nanoserver docker</a></li><li><a href="https://csmacnzblog.github.io/post/retry-policies-with-polly/">Retry Policies with Polly</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/">.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/">More .Net on Docker - AspNet Core Debugging Tips and Tricks</a></li></ul>
+  </section></article><div class="post-comments surface row"></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="recent-posts row surface">
+  <h4>Recent Posts</h4>
+  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/categories">Categories</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="https://csmacnzblog.github.io/tags">Tags</a>
+      </h4>
+      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
+          c# <span class="badge rounded-pill">37</span>
+        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
+          dotnetcore <span class="badge rounded-pill">35</span>
+        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
+          Tips and Tricks <span class="badge rounded-pill">30</span>
+        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
+          Editorial <span class="badge rounded-pill">26</span>
+        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
+          Continuous Delivery <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
+          software development <span class="badge rounded-pill">13</span>
+        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
+          Projects <span class="badge rounded-pill">12</span>
+        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
+          Conference <span class="badge rounded-pill">9</span>
+        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
+          git <span class="badge rounded-pill">8</span>
+        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
+          Visual Studio <span class="badge rounded-pill">8</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
+</div></footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

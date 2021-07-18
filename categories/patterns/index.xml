@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Patterns on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/patterns/</link>
+    <description>Recent content in Patterns on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 08 Jul 2019 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/patterns/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Snuffleupagus-Oriented Programming</title>
+      <link>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</link>
+      <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</guid>
+      <description>Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.
+How do you build out a new API? Here we are meaning programming contracts effectively. You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.</description>
+    </item>
+    
+    <item>
+      <title>The Service Locator base class anti-pattern</title>
+      <link>https://csmacnzblog.github.io/post/the-service-locator-base-class-antipattern/</link>
+      <pubDate>Sun, 05 Jul 2015 18:04:40 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/the-service-locator-base-class-antipattern/</guid>
+      <description>Something I have seen a lot of over the last few years is a lot of service location, particularly in base classes, particularly in Controllers. But not limited to there, it can happen anywhere we see base classes.
+Short rant about inheritance The longer I do this, the more I find that base classes are not meant to be overused. I find that if we are pumping base classes full of code, we should probably be breaking them out into smaller classes, and including them in the derived versions that actually use that functionality.</description>
+    </item>
+    
+    <item>
+      <title>More small classes</title>
+      <link>https://csmacnzblog.github.io/post/more-small-classes/</link>
+      <pubDate>Sun, 21 Jun 2015 08:49:59 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/more-small-classes/</guid>
+      <description>Its a pretty common rule of thumb to avoid monoliths and write more small classes. Think about the solid principles.
+ Single responsibility per class. This implies less in it. Smaller. Open for extension closed for modification. Take out the things that will change. Smaller. Liskov substitution principle says substitutability is the way to go. Easier to ensure when your class is smaller. Interface segregation. Smaller interfaces. Dependencies being passed in means less surface area accessible or exposed.</description>
+    </item>
+    
+    <item>
+      <title>Ports and Adapters</title>
+      <link>https://csmacnzblog.github.io/post/ports-and-adapters/</link>
+      <pubDate>Sun, 03 May 2015 09:45:09 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/ports-and-adapters/</guid>
+      <description>It feels like everywhere I turn (in my circles anyway), people are talking about Ports and Adapters, and I thought I would jump on the bandwagon. You may have also heard this architecture called Onion Architecture, or Hexagonal Architecture. All of these are essentially the same idea, under a different name.
+Brief History When we started solving our problems with a 3 tier architecture, we were trying to solve the problem of isolating our business logic from our persistence and from our presentation.</description>
+    </item>
+    
+    <item>
+      <title>Semantics vs implementation detail</title>
+      <link>https://csmacnzblog.github.io/post/semantics-vs-implementation-detail/</link>
+      <pubDate>Sun, 11 Jan 2015 16:36:29 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/semantics-vs-implementation-detail/</guid>
+      <description>When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&amp;rsquo;t call it firstNameString, or cfnString, and we have also lost the bad habit of firstNameStr or strFirstName. The implementation detail simply doesn&amp;rsquo;t matter. Semantically, it represents the customer&amp;rsquo;s first name, so we use customerFirstName. Or if we are clearly in the context of the customer we can simply use firstName or customer.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>c# on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/categories/c#/</link>
+    <description>Recent content in c# on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Sun, 26 Jul 2020 02:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/c#/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nullable and notnull Serialisation Properties</title>
+      <link>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</link>
+      <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
+      <description>The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely. However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is = default!;
+problem definition // This class is used to serialise/deserialise a payload from a server public class MyContractDTO { public string Value { get; set; } = default!; } My codebase is now littered with this code hack to get it to compile because nullable says it can&amp;rsquo;t guarantee that this property is not null.</description>
+    </item>
+    
+    <item>
+      <title>Microsoft and dotnet: 4 is the new 9</title>
+      <link>https://csmacnzblog.github.io/post/untitled-4/</link>
+      <pubDate>Mon, 08 Jul 2019 22:54:03 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/untitled-4/</guid>
+      <description>Dotnet core 3.0 is about to drop, but we already have lots of information about vnext specifically that it&amp;rsquo;s going to be dotnet 5.
+It wasn&amp;rsquo;t that many years ago that Microsoft seemingly forgot how to.count. Windows 8 with all its modern UI was succeeded with not Windows 9, but instead a version named Windows 10. Not sure what the aversion to the number 9 was, buta they are up to their old tricks again with .</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 7: Pattern matching</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/</link>
+      <pubDate>Mon, 01 Jul 2019 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Pattern matching is a powerful feature that has been unlocked against various language constructs in C#.</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C#: async and await</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/</link>
+      <pubDate>Mon, 24 Jun 2019 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Multithreaded programming has always been a difficult thing to get your head around, and there are many pitfalls easily stumbled into.</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 7: refs enhancements</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-refs/</link>
+      <pubDate>Mon, 17 Jun 2019 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-refs/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+We talked about the out variables in the previous post in the series, but there are a few other enhancements related to ref as well.</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 7: Out variables</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/</link>
+      <pubDate>Mon, 10 Jun 2019 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+What are out parameters? Sometimes you want a method to pass back a value by reference.</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 7: Local functions</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/</link>
+      <pubDate>Mon, 03 Jun 2019 10:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Lambdas - a recap All the way back in C# 3 we were given lambdas.</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 7: throw expressions</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/</link>
+      <pubDate>Mon, 27 May 2019 10:30:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Throwing Exceptions is both a blessing and a curse in C#. You can throw from anywhere to unwind the stack.</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 7: More Expression body members</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/</link>
+      <pubDate>Mon, 20 May 2019 10:30:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+We already had a look at how we can use Expression body members in C# 6.</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 7: Tuples upgraded</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-tuples-upgraded/</link>
+      <pubDate>Sun, 19 May 2019 19:54:45 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-tuples-upgraded/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Tuples deconstruction discards https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#tuples https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#discards</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 6: Expression body members</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp6-expression-body-members/</link>
+      <pubDate>Sun, 12 May 2019 22:30:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp6-expression-body-members/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Method blocks are one of the most fundamental components of C#. They get used for all class methods, for property getters and setters, constructors, destructors, so many places.</description>
+    </item>
+    
+    <item>
+      <title>Looking back on C# 6: Initializers</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp6-initializers/</link>
+      <pubDate>Mon, 29 Apr 2019 11:30:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp6-initializers/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+Initializers have had a few upgrades since the early C# days. But before we look at more recent changes, we will review what came before.</description>
+    </item>
+    
+    <item>
+      <title>Looking back on C# 6: String interpolation</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp6-string-interpolation/</link>
+      <pubDate>Sun, 14 Apr 2019 11:30:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp6-string-interpolation/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+String Interpolation is a great feature that I now use everywhere I can (Except logging - see below).</description>
+    </item>
+    
+    <item>
+      <title>Looking back on C#</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-c/</link>
+      <pubDate>Mon, 18 Mar 2019 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-c/</guid>
+      <description>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
+It was back in 2016 with the release of Roslyn, a complete rewrite C# compiler platform written in C# that we started to see a ramp up on language features not seen since .</description>
+    </item>
+    
+    <item>
+      <title>Looking forward to dotnet in 2019</title>
+      <link>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</link>
+      <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</guid>
+      <description>It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.
+The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)
+C# 8 It feels like we&amp;rsquo;ve been talking about C# 8 for a while, with 7.</description>
+    </item>
+    
+    <item>
+      <title>Clean Startup in your AspNetCore</title>
+      <link>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</link>
+      <pubDate>Mon, 02 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</guid>
+      <description>I want to talk about this point made about Keeping a Clean Startup.cs in Asp.Net Coreby K. Scott Alan. Mostly I want to agree and elaborate on it.
+(Warning! I used the British English customised below. If this doesn&amp;rsquo;t match your sensibilities, just use customize instead.)
+The Idea The basic idea is that we have a Startup.cs file, where we configure our application. This becomes a dumping ground for all sorts of configuration of both services, and pipeline if we let it.</description>
+    </item>
+    
+    <item>
+      <title>My C# naming conventions</title>
+      <link>https://csmacnzblog.github.io/post/my-c-naming-conventions/</link>
+      <pubDate>Sun, 25 Mar 2018 05:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/my-c-naming-conventions/</guid>
+      <description>I have opinions!
+I&amp;rsquo;ve been meaning to write this article for a while. I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.
+Firstly, let&amp;rsquo;s just say that there are Guidelines and Opinions.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Self-contained Applications</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-self-contained-applications/</link>
+      <pubDate>Sun, 21 Jan 2018 20:05:52 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-self-contained-applications/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications &amp;lt;=(We are here)  This was meant to be an article on Self-contained applications in .Net Core 1, with project.json files.
+Since .Net Core 1.1 switched to csproj, and .</description>
+    </item>
+    
+    <item>
+      <title>There can be only one return; 0 RLY?</title>
+      <link>https://csmacnzblog.github.io/post/there-can-be-only-one-return/</link>
+      <pubDate>Sun, 03 Dec 2017 22:15:55 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/there-can-be-only-one-return/</guid>
+      <description>My opinions and choices on style of coding evolves and changes over time. By blogging about this now, I can refer back later when I change my mind. I can also elicit the opinions of others to influence me to change my ways if I happen to be wrong and not know it yet.
+Lets talk about returns. There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (&amp;lsquo;if&amp;rsquo;/&amp;lsquo;else&amp;rsquo;, &amp;lsquo;switch&amp;rsquo;, &amp;lsquo;while&amp;rsquo; commands, for instance).</description>
+    </item>
+    
+    <item>
+      <title>In C#, your structs should be immutable.</title>
+      <link>https://csmacnzblog.github.io/post/in-c-your-structs-should-be-immutable/</link>
+      <pubDate>Sun, 26 Nov 2017 20:35:19 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/in-c-your-structs-should-be-immutable/</guid>
+      <description>I wrote some code. It was simple code. I had a collection. I iterated over the collection and updated the values. I did this several times in an outer loop.
+The code didn&amp;rsquo;t work.
+Why didn&amp;rsquo;t it work? My collection was an array of Structs. When I pulled an item out in the for loop, it was copied. When I updated the copy, the changes went away at the end of the scope.</description>
+    </item>
+    
+    <item>
+      <title>Migrating onto dotnet tools 1.0.0</title>
+      <link>https://csmacnzblog.github.io/post/migrating-onto-dotnet-tools-1-0-0/</link>
+      <pubDate>Sat, 11 Mar 2017 23:52:52 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/migrating-onto-dotnet-tools-1-0-0/</guid>
+      <description>Since Visual Studio 2017 is out, and we have a 1.0.0 tools release for .Net Core, I&amp;rsquo;m going to try and migrate a simple project from the pre-release tooling, onto the new tooling.
+The biggest difference is that instead of using a project.json file, the new tooling now uses a .csproj file instead. It will take a few more posts to go into the differences and re-learn how this works, so for now lets just get something building.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Publishing Portable Applications</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-publishing-portable-applications/</link>
+      <pubDate>Tue, 07 Feb 2017 04:30:50 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-publishing-portable-applications/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications &amp;lt;=(We are here) Self-contained Applications  We can now take everything we have learned and start publishing our applications. Luckily, there is a command for that too.
+The Setup I don&amp;rsquo;t know why I bother saying anything here, this is pretty straight-forward by now.</description>
+    </item>
+    
+    <item>
+      <title>How to Constructors</title>
+      <link>https://csmacnzblog.github.io/post/how-to-constructors/</link>
+      <pubDate>Mon, 16 Jan 2017 02:44:32 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/how-to-constructors/</guid>
+      <description>Constructors for services are a really handy way to pass in configuration, variation and dependencies. Here are some ways I have learned to use Constructors and some ideas on testing.
+What shouldn&amp;rsquo;t be in a Constructor Execution. Any complex execution of code should not be in a constructor. This includes asynchronous method calls (which either has to block synchronously, or runs off to nowhere), web requests, and complex calculations.
+Why? Why not run your whole application in a constructor?</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Multi-targeting</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-multi-targeting/</link>
+      <pubDate>Tue, 09 Aug 2016 00:33:21 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-multi-targeting/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting &amp;lt;=(We are here) Publishing Portable Applications Self-contained Applications  Last timewe learned how to package our libraries as NuGet packages. But it was only targeting netstandard1.6, the new netstandard target framework moniker.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - NuGet</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-nuget/</link>
+      <pubDate>Mon, 01 Aug 2016 08:18:33 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-nuget/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet &amp;lt;=(We are here) Multi-targeting Publishing Portable Applications Self-contained Applications  Let&amp;rsquo;s set aside Application packing for later, and focus our attention on NuGet.
+Our Demo library Again we will quickly whip up a library to use:</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Testing</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-testing/</link>
+      <pubDate>Mon, 25 Jul 2016 07:14:36 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-testing/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing &amp;lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  We want to be able to test our application code that we build. Let&amp;rsquo;s get started.
+The Setup Like before, we will rattle off a new project.</description>
+    </item>
+    
+    <item>
+      <title>Experimenting with global.json</title>
+      <link>https://csmacnzblog.github.io/post/experimenting-with-global-json/</link>
+      <pubDate>Thu, 21 Jul 2016 06:47:17 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/experimenting-with-global-json/</guid>
+      <description>While working on my .Net Core SeriesI noticed that Visual Studio was adding a global.json file to the root of my project, and liked to put src and test in there. I thought I would investigate what it actually does.
+I noticed that if all my project folders were next to each other it didn&amp;rsquo;t matter. So here is my experiment, and the results.
+global.json The default file I end up with in Visual Studio looks roughly like this:</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Using Multiple Projects</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-using-multiple-projects/</link>
+      <pubDate>Mon, 18 Jul 2016 06:32:53 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-using-multiple-projects/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects &amp;lt;=(We are here) Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  We know how to create new projects, we know how to build and run our application and we know (roughly) what the content in the project.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - What&#39;s in the box</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-whats-in-the-box/</link>
+      <pubDate>Sat, 09 Jul 2016 02:50:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-whats-in-the-box/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box &amp;lt;=(We are here) Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  Last time we created a new application. Once with dotnet CLI and once with Visual Studio.
+We will have a look at some of the files and their contents.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio Code with C# and dotnet</title>
+      <link>https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/</link>
+      <pubDate>Sun, 03 Jul 2016 04:34:30 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/</guid>
+      <description>Getting Started with Visual Studio Code? Me too. Let&amp;rsquo;s see what it takes to get going. This is a bit of a companion piece alongside my .Net Core SeriesI am writing at the moment. Hopefully as well as .Net Core, I will have a play with writing TypeScript, Rust and maybe C++ inside Visual Studio Code. I might have to focus on the interface in another article as well.</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Getting Started</title>
+      <link>https://csmacnzblog.github.io/post/dotnetcore-getting-started/</link>
+      <pubDate>Thu, 30 Jun 2016 09:25:34 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnetcore-getting-started/</guid>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started &amp;lt;=(We are here) What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  We finally got some finalised bits in a release this week. So here is a bit of a guide to get you started. I will (probably) be only showing instructions from on Windows, but all dotnet CLI instructions should be cross platform.</description>
+    </item>
+    
+    <item>
+      <title>using over lambda</title>
+      <link>https://csmacnzblog.github.io/post/using-over-lambda/</link>
+      <pubDate>Wed, 22 Jun 2016 05:59:37 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/using-over-lambda/</guid>
+      <description>Let&amp;rsquo;s talk about these two patterns:
+public void GetSomethingDone() { var metaData = &amp;#34;Some Sort of Metadata for timing&amp;#34;; var result = DoTimedWork(metaData, () =&amp;gt; { MyResult resul; //Some other complicated work/method-call happens here  return result; }); //either uses or returns result here } public T DoTimedWork(string metaData, Func&amp;lt;T&amp;gt; action) { //Setup code probably here  using(var timer = new MetricsTimer(metaData)) { return action(); } } And another:
+public void GetSomethingDone() { var metaData = &amp;#34;Some Sort of Metadata for timing&amp;#34;; MyResult result; Using(DoTimedWork(metaData)) { //Some other complicated work/method-call happens here  result = complicatedWorkResultSomehow; }; //either uses or returns result here } public IDisposable DoTimedWork(string metaData) { //Setup code probably here  return new MetricsTimer(metaData); } Let&amp;rsquo;s discuss shall we?</description>
+    </item>
+    
+    <item>
+      <title>A couple of debugging tips</title>
+      <link>https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/</link>
+      <pubDate>Mon, 23 May 2016 04:33:09 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/</guid>
+      <description>I had an idea of something I wanted to post, but a quick google turns up I posted it 6 months ago, so here are some debugging tips.
+Console Break So you are writing a console app? Cool. Want to see the output? Of course, you do. But when you run it, the app pops up then disappears really quickly right? No? Have you a break point in the last line?</description>
+    </item>
+    
+    <item>
+      <title>ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</title>
+      <link>https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</link>
+      <pubDate>Sun, 02 Aug 2015 08:37:47 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</guid>
+      <description>There is some great static analysis stuff that ReSharper does for you. Specifically around nullability, purity and usage of your code. From their Code Annotations page in Visual Studio:
+ ReSharper Annotations help reduce false positive warnings, explicitly declare purity and nullability in your code, deal with implicit usages of member, support special semantics of APIs in ASP.NET and XAML frameworks and otherwise increase accuracy of ReSharper code inspections.
+ Right, what I said.</description>
+    </item>
+    
+    <item>
+      <title>Using C# 5.0 with Visual Studio 2015</title>
+      <link>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</link>
+      <pubDate>Sun, 26 Jul 2015 07:46:16 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</guid>
+      <description>Visual Studio 2015 is out and brings us the new C# 6 language features. We also have the new .Net 4.6 Runtime. But what does that mean?
+Well, the framework version and language version are two separate concerns. You can practically pick any framework, with any language, and it will work. This means that If you want to use C# 6 features on your .Net 4.0 application, you can. Ok, so some language features require specific framework libraries, like generics, and async, but most features tend to be syntactic sugar.</description>
+    </item>
+    
+    <item>
+      <title>MethodImplAttribute and MethodImplOptions</title>
+      <link>https://csmacnzblog.github.io/post/methodimplattribute-and-methodimploptions/</link>
+      <pubDate>Sun, 19 Jul 2015 17:11:17 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/methodimplattribute-and-methodimploptions/</guid>
+      <description>I&amp;rsquo;ve been following some C development going on in the community, and discussion around memory management and optimisations lead me to start thinking about how they might be emulated in a C# application.
+Slight Digression Now I know that you have to prioritise Correctness, Performance, Readability, and that C# by design makes things readable and productive sometimes at the sacrifice of performance, but since I am writing helper extensionsfor readability, it is worth considering their performance losses/gains, and if they could be generally better in any way.</description>
+    </item>
+    
+    <item>
+      <title>public, private &amp; new: C# visibility scope explained</title>
+      <link>https://csmacnzblog.github.io/post/public-private-new-c-visibility-scope-explained/</link>
+      <pubDate>Sun, 28 Jun 2015 10:43:07 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/public-private-new-c-visibility-scope-explained/</guid>
+      <description>I wanted to go over the visibility modifiers in C#. There are a few, it&amp;rsquo;s not as simple as just public or private. Let&amp;rsquo;s go through some scenarios and get our heads around what we can use, when and why.
+I couldn&amp;rsquo;t think of a good term to group the concepts of methods, constructors, and classes, so I will refer to these as &amp;lsquo;things&amp;rsquo; for the duration of this post.</description>
+    </item>
+    
+  </channel>
+</rss>

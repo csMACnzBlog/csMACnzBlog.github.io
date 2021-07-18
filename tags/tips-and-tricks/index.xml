@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tips and Tricks on csMacnz&#39;s Blog</title>
+    <link>https://csmacnzblog.github.io/tags/tips-and-tricks/</link>
+    <description>Recent content in Tips and Tricks on csMacnz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 15 Oct 2018 05:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/tips-and-tricks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sharing audio to Google Hangouts (or Meets)</title>
+      <link>https://csmacnzblog.github.io/post/sharing-audio-to-google-hangouts-or-meets/</link>
+      <pubDate>Mon, 15 Oct 2018 05:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/sharing-audio-to-google-hangouts-or-meets/</guid>
+      <description>I work remotely, and I&amp;rsquo;ve used a bunch of solutions over the last few years to be able to route audio from my computer into a meeting call in Google Hangouts. From hardware to virtual audio cable software, every solution has been finicky at best, and wrecks day-to-day audio and video at worst, and requires a bunch of mucking around every time I want to enable or disable the setup.</description>
+    </item>
+    
+    <item>
+      <title>NuGet Packing on Linux</title>
+      <link>https://csmacnzblog.github.io/post/nuget-packing-on-linux/</link>
+      <pubDate>Mon, 01 Oct 2018 05:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/nuget-packing-on-linux/</guid>
+      <description>For anyone who has been cutting-edge with .Net for a while will know that the nuget.exe runs under mono. And that you can use nuget.exe to package *.nuspec files into *.nupkg files.
+Anyone who has been doing dotnet cross-platform will also know that you can use dotnet pack on both Windows and Linux to package your project into a NuGet package containing the dll. It even does references and multi-targeting correctly out of the box.</description>
+    </item>
+    
+    <item>
+      <title>HostBuild your dotnet Consoles like you WebHostBuild your web apps.</title>
+      <link>https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</link>
+      <pubDate>Mon, 17 Sep 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</guid>
+      <description>I wrote a while back on getting your Windows Services building with .Net Corewhich is a nice way to use the new SDK pipeline but still host on Windows without much fuss.
+But what If you like the approach but want to run on Linux?
+Well after some stumbling around in the dotnet core docs, I found information about HostBuilder, which looks a lot like the WebHostBuilder and WebHost that we use with AspNetCore.</description>
+    </item>
+    
+    <item>
+      <title>Some cool tricks with your Windows Shells</title>
+      <link>https://csmacnzblog.github.io/post/some-cool-tricks-with-your-windows-shell/</link>
+      <pubDate>Mon, 09 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/some-cool-tricks-with-your-windows-shell/</guid>
+      <description>I&amp;rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (Windows Subsystem for Linux). There are a few of the tricks I have learned recently that help me every day.
+F8 searches history! That&amp;rsquo;s right! When you type into the command line (this work in cmd and PowerShell) and then press F8, it will do a back-in-time search for a historical command that begins with what you typed.</description>
+    </item>
+    
+    <item>
+      <title>A Windows Service using netcoreapp on dotnet</title>
+      <link>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</link>
+      <pubDate>Sun, 22 Apr 2018 07:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</guid>
+      <description>I wrote Building a Windows Service with .Net Coreand had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application. Technically the title is still valid, it was a windows service, and I built it using .Net Core tools. But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.</description>
+    </item>
+    
+    <item>
+      <title>My C# naming conventions</title>
+      <link>https://csmacnzblog.github.io/post/my-c-naming-conventions/</link>
+      <pubDate>Sun, 25 Mar 2018 05:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/my-c-naming-conventions/</guid>
+      <description>I have opinions!
+I&amp;rsquo;ve been meaning to write this article for a while. I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.
+Firstly, let&amp;rsquo;s just say that there are Guidelines and Opinions.</description>
+    </item>
+    
+    <item>
+      <title>On Screen Shortcut keys for presentations and recordings</title>
+      <link>https://csmacnzblog.github.io/post/on-screen-shortcut-keys-for-presentations-and-recordings/</link>
+      <pubDate>Mon, 26 Feb 2018 04:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/on-screen-shortcut-keys-for-presentations-and-recordings/</guid>
+      <description>I used this tool a while ago that let me show on-screen what keyboard shortcuts and combinations I was pressing so that others could see them, especially during presentations, and on video recordings.
+But for the life of me today, on a new machine, I couldn&amp;rsquo;t remember what it was called. Searching didn&amp;rsquo;t help. For future reference, I will remember I wrote this article, and hopefully, others searching for &amp;ldquo;show shortcut keys on screen&amp;rdquo; will find this article as well.</description>
+    </item>
+    
+    <item>
+      <title>A PowerShell Watch Command</title>
+      <link>https://csmacnzblog.github.io/post/a-powershell-watch-command/</link>
+      <pubDate>Tue, 30 Jan 2018 19:36:30 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/a-powershell-watch-command/</guid>
+      <description>I use dotnet-watch a bunch and have used a version via grunt/gulp a little in the past as well.
+In front of me, I had some TypeScript, tsc and an app.ts file. I wanted to watch it and trigger tsc automatically. But there was no csproj, no NuGet, and no npm in sight.
+I went searching far and wide for solutions, and some clever people have some insight to add to the quest:</description>
+    </item>
+    
+    <item>
+      <title>There can be only one return; 0 RLY?</title>
+      <link>https://csmacnzblog.github.io/post/there-can-be-only-one-return/</link>
+      <pubDate>Sun, 03 Dec 2017 22:15:55 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/there-can-be-only-one-return/</guid>
+      <description>My opinions and choices on style of coding evolves and changes over time. By blogging about this now, I can refer back later when I change my mind. I can also elicit the opinions of others to influence me to change my ways if I happen to be wrong and not know it yet.
+Lets talk about returns. There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (&amp;lsquo;if&amp;rsquo;/&amp;lsquo;else&amp;rsquo;, &amp;lsquo;switch&amp;rsquo;, &amp;lsquo;while&amp;rsquo; commands, for instance).</description>
+    </item>
+    
+    <item>
+      <title>In C#, your structs should be immutable.</title>
+      <link>https://csmacnzblog.github.io/post/in-c-your-structs-should-be-immutable/</link>
+      <pubDate>Sun, 26 Nov 2017 20:35:19 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/in-c-your-structs-should-be-immutable/</guid>
+      <description>I wrote some code. It was simple code. I had a collection. I iterated over the collection and updated the values. I did this several times in an outer loop.
+The code didn&amp;rsquo;t work.
+Why didn&amp;rsquo;t it work? My collection was an array of Structs. When I pulled an item out in the for loop, it was copied. When I updated the copy, the changes went away at the end of the scope.</description>
+    </item>
+    
+    <item>
+      <title>dotnet build, targeting full .Net 4.5.1 on nanoserver docker</title>
+      <link>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</link>
+      <pubDate>Fri, 31 Mar 2017 01:18:07 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</guid>
+      <description>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
+Basically I was trying this:
+docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This maps the current repository directory to a folder called work on the container, and runs the build inside it. This approach means:</description>
+    </item>
+    
+    <item>
+      <title>&#34;failed to peek context header from STDIN&#34; and how to fix</title>
+      <link>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</link>
+      <pubDate>Tue, 29 Nov 2016 04:12:29 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</guid>
+      <description>The docker guidance saysyou can run docker build piping the dockerfile:
+#On linux $ docker build - &amp;lt; Dockerfile and on Windows it says to do this:
+#PowerShell Get-Content Dockerfile | docker build - Nice. But I&amp;rsquo;ve been getting this error all day&amp;hellip;
+&amp;gt; Get-Content Dockerfile | docker build - unable to prepare context: failed to peek context header from STDIN: Incorrect function. WAT After much pain, I figured out the error is because I was running inside conemu.</description>
+    </item>
+    
+    <item>
+      <title>Form posts with PowerShell</title>
+      <link>https://csmacnzblog.github.io/post/formpost-with-powershell/</link>
+      <pubDate>Mon, 27 Jun 2016 03:57:16 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/formpost-with-powershell/</guid>
+      <description>This article is based on an answer found and updated on StackOverflow.
+I&amp;rsquo;f you have used PowerShell for much at all, you are probably familiar with Invoke-WebRequest. But did you know you can carry around a session and have it automatically add and update cookies for you?
+The Scenario I had an API I wanted to consume, but it was a private one. That is, It was designed and used for a SPA app to consume.</description>
+    </item>
+    
+    <item>
+      <title>Retries with Polly</title>
+      <link>https://csmacnzblog.github.io/post/retries-with-polly/</link>
+      <pubDate>Fri, 24 Jun 2016 02:01:49 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/retries-with-polly/</guid>
+      <description>Just a quick results of an investigation of our PrintService v-next logs that keep happening (can&amp;rsquo;t find queue) Why? - Because I was worried that I was using Polly Retries wrong, to know for next time (SPOILERS - I was)
+What: We have retries over checking the queue (and other aws commands. We see many errors of WebException: The remote server returned an error: (504) Gateway Timeout happening quite a lot.</description>
+    </item>
+    
+    <item>
+      <title>Manage your hosts entries better</title>
+      <link>https://csmacnzblog.github.io/post/manage-your-hosts-entries-better/</link>
+      <pubDate>Tue, 31 May 2016 04:25:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/manage-your-hosts-entries-better/</guid>
+      <description>If you are working with a lot of sites in IIS then you will be familiar with the hosts file on your computer. %SystemRoot%\System32\drivers\etc\hosts, usually found in C:\Windows\System32\drivers\etc\hosts. This file acts as a DNS mapping table used by your computer. As a developer, you will often want to tinker with this table. For example, you have a site running locally and you want to run it with a URL in your browser.</description>
+    </item>
+    
+    <item>
+      <title>You can&#39;t handle the jandal</title>
+      <link>https://csmacnzblog.github.io/post/you-cant-handle-the-jandal/</link>
+      <pubDate>Thu, 26 May 2016 23:36:57 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/you-cant-handle-the-jandal/</guid>
+      <description>Notes: https://bytes.com/topic/c-sharp/answers/490586-exceptions-cannot-caught http://www.abhisheksur.com/2011/01/internals-of-exception-handling.html http://stackoverflow.com/questions/3341534/partly-crashing-application-how-can-i-catch-uncatchable-exceptions http://forums.asp.net/t/1975718.aspx?Exception+not+caught+using+catch+block https://netfxharmonics.com/2006/10/uncatchable-exception
+public class JandleException : Exception { [DebuggerHidden] public JandleException() { Environment.FailFast(&amp;quot;You can&#39;t handle the jandal!&amp;quot;, this); } } public class Program { static void Main(string[] args) { try { doStuff(); } catch { Console.WriteLine(&amp;quot;Exception Caught&amp;quot;); } finally { Console.WriteLine(&amp;quot;Finally was executed&amp;quot;); } Console.ReadKey(); } private static void doStuff() { throw new JandleException(); } } </description>
+    </item>
+    
+    <item>
+      <title>A couple of debugging tips</title>
+      <link>https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/</link>
+      <pubDate>Mon, 23 May 2016 04:33:09 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/</guid>
+      <description>I had an idea of something I wanted to post, but a quick google turns up I posted it 6 months ago, so here are some debugging tips.
+Console Break So you are writing a console app? Cool. Want to see the output? Of course, you do. But when you run it, the app pops up then disappears really quickly right? No? Have you a break point in the last line?</description>
+    </item>
+    
+    <item>
+      <title>Make me a sandwich</title>
+      <link>https://csmacnzblog.github.io/post/make-me-a-sandwich/</link>
+      <pubDate>Sun, 11 Oct 2015 15:57:06 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/make-me-a-sandwich/</guid>
+      <description>A lesson in powershell.
+I typed this:
+&amp;gt; iisreset Which responded with this:
+Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group. So I typed this:
+&amp;gt; sudo iisreset I was thinking this: But got this:
+sudo : The term &amp;#39;sudo&amp;#39; is not recognized as the name of a cmdlet, function, script file, or operable program.</description>
+    </item>
+    
+    <item>
+      <title>F5 VPN and Windows 10</title>
+      <link>https://csmacnzblog.github.io/post/f5-vpn-and-windows-10/</link>
+      <pubDate>Thu, 03 Sep 2015 09:24:27 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/f5-vpn-and-windows-10/</guid>
+      <description>I recently had the need to VPN into a network using an F5 Networks VPN. Turns out the provided BIG-IP Edge Client installs ok on Windows 10 but doesn&amp;rsquo;t connect. I kept getting the &amp;ldquo;Network Access Connection Device was not found.&amp;rdquo; error at the last step of connecting.
+Turns out that it was adding a &amp;lsquo;device&amp;rsquo; to device manager but not associating a driver to it. Easily fixed as it happens.</description>
+    </item>
+    
+    <item>
+      <title>Keyboard shortcuts for Windows 10 Power Users - Part 2</title>
+      <link>https://csmacnzblog.github.io/post/keyboard-shortcuts-for-windows-10-power-users-2/</link>
+      <pubDate>Thu, 20 Aug 2015 07:57:16 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/keyboard-shortcuts-for-windows-10-power-users-2/</guid>
+      <description>When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.
+ Part 1: What&amp;rsquo;s New Part 2: Old Classics &amp;lt;=(We are here)  Part 2 Old classics If you are a Windows 7 power user, there is nothing new for you here.</description>
+    </item>
+    
+    <item>
+      <title>Resharper Shortcuts</title>
+      <link>https://csmacnzblog.github.io/post/resharper-shortcuts/</link>
+      <pubDate>Sun, 16 Aug 2015 08:14:28 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/resharper-shortcuts/</guid>
+      <description>Shortcut keys are a huge productivity tool. The longer you can keep your fingers on the keyboard typing without reaching for the mouse, the faster you will get things done. Using Resharper with Visual Studio is no different.
+The core concepts Choices, Choices&amp;hellip; As with most things in live, you have a choice to make.
+To make the most of the productivity boost of shortcuts, use an out of the box set, and make sure it is the same set that everyone on your team uses.</description>
+    </item>
+    
+    <item>
+      <title>Keyboard shortcuts for Windows 10 Power Users - Part 1</title>
+      <link>https://csmacnzblog.github.io/post/keyboard-shortcuts-for-windows-10-power-users-1/</link>
+      <pubDate>Sun, 16 Aug 2015 07:46:39 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/keyboard-shortcuts-for-windows-10-power-users-1/</guid>
+      <description>When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.
+ Part 1: What&amp;rsquo;s New &amp;lt;=(We are here) Part 2: Old Classics  Part 1: Whats new?</description>
+    </item>
+    
+    <item>
+      <title>Windows 10 Animations</title>
+      <link>https://csmacnzblog.github.io/post/windows-10-animations/</link>
+      <pubDate>Sun, 02 Aug 2015 17:18:45 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/windows-10-animations/</guid>
+      <description>You&amp;rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?
+Since Aerocame onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects. With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View.</description>
+    </item>
+    
+    <item>
+      <title>ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</title>
+      <link>https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</link>
+      <pubDate>Sun, 02 Aug 2015 08:37:47 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</guid>
+      <description>There is some great static analysis stuff that ReSharper does for you. Specifically around nullability, purity and usage of your code. From their Code Annotations page in Visual Studio:
+ ReSharper Annotations help reduce false positive warnings, explicitly declare purity and nullability in your code, deal with implicit usages of member, support special semantics of APIs in ASP.NET and XAML frameworks and otherwise increase accuracy of ReSharper code inspections.
+ Right, what I said.</description>
+    </item>
+    
+    <item>
+      <title>Using C# 5.0 with Visual Studio 2015</title>
+      <link>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</link>
+      <pubDate>Sun, 26 Jul 2015 07:46:16 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</guid>
+      <description>Visual Studio 2015 is out and brings us the new C# 6 language features. We also have the new .Net 4.6 Runtime. But what does that mean?
+Well, the framework version and language version are two separate concerns. You can practically pick any framework, with any language, and it will work. This means that If you want to use C# 6 features on your .Net 4.0 application, you can. Ok, so some language features require specific framework libraries, like generics, and async, but most features tend to be syntactic sugar.</description>
+    </item>
+    
+    <item>
+      <title>The Service Locator base class anti-pattern</title>
+      <link>https://csmacnzblog.github.io/post/the-service-locator-base-class-antipattern/</link>
+      <pubDate>Sun, 05 Jul 2015 18:04:40 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/the-service-locator-base-class-antipattern/</guid>
+      <description>Something I have seen a lot of over the last few years is a lot of service location, particularly in base classes, particularly in Controllers. But not limited to there, it can happen anywhere we see base classes.
+Short rant about inheritance The longer I do this, the more I find that base classes are not meant to be overused. I find that if we are pumping base classes full of code, we should probably be breaking them out into smaller classes, and including them in the derived versions that actually use that functionality.</description>
+    </item>
+    
+    <item>
+      <title>Code Demoing with Visual Studio</title>
+      <link>https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/</link>
+      <pubDate>Sun, 24 May 2015 08:24:28 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/</guid>
+      <description>I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.
+Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called Productivity Power Tools 2013. Specifically, the built in presentation feature.</description>
+    </item>
+    
+    <item>
+      <title>Console2 Console arrow keys acting wrong - The fix</title>
+      <link>https://csmacnzblog.github.io/post/console2-console-arrow-keys-acting-wrong-the-fix/</link>
+      <pubDate>Mon, 30 Mar 2015 15:15:54 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/console2-console-arrow-keys-acting-wrong-the-fix/</guid>
+      <description>The Introduction I&amp;rsquo;m having fun using all my console windows inside tabs in one application using Console2(hooray for easily finding a Hanselman blog post on my specific topicfor you to read all about it) and it has been going well.
+The Issue However, the other day, my whole console window started sliding around when I pressed the arrow keys, instead of moving the type cursor left and right, or moving through the history buffer with up and down.</description>
+    </item>
+    
+    <item>
+      <title>New Zealand Public holidays Calendar</title>
+      <link>https://csmacnzblog.github.io/post/new-zealand-public-holidays-calendar/</link>
+      <pubDate>Tue, 02 Dec 2014 14:53:39 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/new-zealand-public-holidays-calendar/</guid>
+      <description>Want to see all the New Zealand public holidays on your calendar on your Google Calendar, but don&amp;rsquo;t want to have to enter them yourself, or maintain them?
+I found this great page with public holidays and calendarson the MBIE site. They have the New Zealand public holidays here for the current, past and future years for your reference. They also have this great link to an icalendar (ics) url for National public holiday dates, including all regional anniversaries(linked here for your reference) on the NZ public holiday iCalendar feedspage.</description>
+    </item>
+    
+    <item>
+      <title>Hosts entries and windows services</title>
+      <link>https://csmacnzblog.github.io/post/hosts-entries-and-windows-services/</link>
+      <pubDate>Sun, 29 Apr 2012 03:26:04 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/hosts-entries-and-windows-services/</guid>
+      <description>This is regarding an issue where the hosts file is being ignored when running a service as local system. Skip to the bottom for the solution or read on if you care what lead to the need for this in the first place.
+The Problem Recently I had an issue with my machine and hosts file being ignored. I was using a Windows Server 2008 R2 machine, in a large network environment.</description>
+    </item>
+    
+  </channel>
+</rss>
