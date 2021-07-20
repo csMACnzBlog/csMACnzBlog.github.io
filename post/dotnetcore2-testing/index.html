@@ -1,177 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>.Net Core SDK 2.* Series - Testing - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content=".Net Core SDK 2.* Series - Testing">
-<meta itemprop="description" content="This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects Testing &lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don&rsquo;t have to!)
-The Setup Like before, we will rattle off a new project."><meta itemprop="datePublished" content="2018-02-12T04:00:00+00:00" />
-<meta itemprop="dateModified" content="2018-02-12T04:00:00+00:00" />
-<meta itemprop="wordCount" content="755">
-<meta itemprop="keywords" content="dotnetcore," /><meta property="og:title" content=".Net Core SDK 2.* Series - Testing" />
-<meta property="og:description" content="This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects Testing &lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don&rsquo;t have to!)
-The Setup Like before, we will rattle off a new project." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://csmacnzblog.github.io/post/dotnetcore2-testing/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-02-12T04:00:00+00:00" />
-<meta property="article:modified_time" content="2018-02-12T04:00:00+00:00" />
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+    <meta name='language' content='EN'>
+    <meta name='medium' content='blog'>
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=".Net Core SDK 2.* Series - Testing"/>
-<meta name="twitter:description" content="This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects Testing &lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don&rsquo;t have to!)
-The Setup Like before, we will rattle off a new project."/>
-<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
 
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
+    <title>.Net Core SDK 2.* Series - Testing - csMACnz&#39;s Blog</title>
+    <meta name="description" content="This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series  Getting Started What&rsquo;s in the box Using Multiple Projects Testing &lt;=(We are here) NuGet Multi-targeting …">
+    <meta name='keywords' content='csMACnz, dotnetcore'>
+
+    
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content=".Net Core SDK 2.* Series - Testing"/>
+    <meta property="og:description" content="This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series  Getting Started What&rsquo;s in the box Using Multiple Projects Testing &lt;=(We are here) NuGet Multi-targeting …"/>
+    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+    <meta property="og:url" content="https://csmacnzblog.github.io/post/dotnetcore2-testing/"/>
+    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content=".Net Core SDK 2.* Series - Testing"/>
+    <meta name="twitter:description" content="This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series  Getting Started What&rsquo;s in the box Using Multiple Projects Testing &lt;=(We are here) NuGet Multi-targeting …"/>
+    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+    <meta name="twitter:site" content="@csMACnz"/>
+    <meta name="twitter:creator" content="@csMACnz"/>
+
+
+    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+    <script>
+        var d_id  = 'csmacnz',
+            g_id  = 'UA-18464866-2',
+            g_url = 'auto';
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+    <!-- ENTERING partial seo-schema.html -->
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "Article",
+        "publisher": {
+            "@type": "Organization",
+            "name": "csMACnz&#x27;s Blog",
+            "logo": "https://blog.csmac.nz/content/images/2014/10/apple-touch-icon-144x144-precomposed.png"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Mark Clearwater",
+            "image": {
+                "@type": "ImageObject",
+                "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                "width": 440,
+                "height": 295
+            },
+            "url": "https://blog.csmac.nz/author/csmacnz/",
+            "sameAs": [
+                "http://csmac.nz"
+            ]
+        },
+        "articleSection" : "post",
+        "name" : ".Net Core SDK 2.* Series - Testing",
+        "headline" : ".Net Core SDK 2.* Series - Testing",
+        "url" : "https:\/\/csmacnzblog.github.io\/post\/dotnetcore2-testing\/",
+        "datePublished": "2018-02-12T04:00:00.000Z",
+        "dateModified" : "2018-02-12T04:00:00.000Z",
+        "keywords" : [ "dotnetcore" ]
+        "description" : "This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series\n Getting Started What\u0026rsquo;s in the box Using Multiple Projects Testing \u0026lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don\u0026rsquo;t have to!)\nThe Setup Like before, we will rattle off a new project.\nmkdir MyTestApplicationRepo cd MyTestApplicationRepo mkdir MyLib cd MyLib dotnet new classlib cd .",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.csmac.nz/"
+        }
+        "inLanguage" : "en-US",
+        "author" : "Mark Clearwater",
+        "creator" : "Mark Clearwater",
+        "accountablePerson" : "Mark Clearwater",
+        "copyrightHolder" : "Mark Clearwater",
+        "copyrightYear" : "2018",
+        "wordCount" : "755",
+    }
+    </script>
+    
+    
+    <!-- LEAVING partial seo-schema.html -->
+
+    <link rel="alternate" type="application/rss+xml" title="csMACnz&#x27;s Blog" href="https://blog.csmac.nz/rss/" />
+    <style>
+        .post-content img {
+            max-width: 500px;
+        }
+    </style>
+    </head>
+    <body class="blog">
+        <div class="page-area"><header class="header-area">
+    <h1 class="header-area-title">csMACnz</h1>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">.Net Core SDK 2.* Series - Testing</li></ol>
-</nav><article class="post row surface"><div class="post-toolbox">
-  <div class="col-12 d-none d-lg-block">
-    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
-  </div>
-</div>
-<h1 class="post-title my-3">.Net Core SDK 2.* Series - Testing</h1><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Feb 12, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>4 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
-<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
-</a>
-
-<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#the-setup">The Setup</a></li>
-        <li><a href="#add-a-test-project">Add a test project</a></li>
-        <li><a href="#test-the-project">Test the project!</a></li>
-        <li><a href="#reference-the-project">Reference the project</a></li>
-        <li><a href="#test-the-library">Test the library</a></li>
-        <li><a href="#stay-tuned">Stay Tuned&hellip;</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div><div class="post-content mb-3"><p>This is a series on the latest 2.* .Net Core bits, Following on from the original <a href="https://blog.csmac.nz/dotnetcore-getting-started" target="_blank">.Net Core Series</a>
-</p>
+<nav class="navigation-area header-bar-parent">
+    <div class="header-bar header-bar-blog">
+        <ul class="menu">
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+        </ul>
+    </div>
+</nav><div id="content" class="content-area">
+            
+<article>
+    <div class="content-box" itemscope itemtype="http://schema.org/Article">
+    
+        <span class="post-meta"><time datetime="2018-02-12"  itemprop="datePublished">12 Feb 18</time> on
+            <a href="https://csmacnzblog.github.iotags/dotnetcore">dotnetcore</a>
+        </span>
+    
+        <h1 class="post-title" itemprop="headline">.Net Core SDK 2.* Series - Testing</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <p>This is a series on the latest 2.* .Net Core bits, Following on from the original <a href="https://blog.csmac.nz/dotnetcore-getting-started">.Net Core Series</a></p>
 <ul>
-<li><a href="/dotnetcore2-getting-started">Getting Started</a>
-</li>
-<li><a href="/dotnetcore2-whats-in-the-box">What&rsquo;s in the box</a>
-</li>
-<li><a href="/dotnetcore2-using-multiple-projects">Using Multiple Projects</a>
-</li>
+<li><a href="/dotnetcore2-getting-started">Getting Started</a></li>
+<li><a href="/dotnetcore2-whats-in-the-box">What&rsquo;s in the box</a></li>
+<li><a href="/dotnetcore2-using-multiple-projects">Using Multiple Projects</a></li>
 <li>Testing &lt;=(We are here)</li>
-<li><a href="/dotnetcore2-nuget">NuGet</a>
-</li>
-<li><a href="/dotnetcore2-multi-targeting">Multi-targeting</a>
-</li>
-<li><a href="/dotnetcore2-publishing-portable-applications">Publishing Portable Applications</a>
-</li>
-<li><a href="/dotnetcore2-self-contained-applications">Self-contained Applications</a>
-</li>
+<li><a href="/dotnetcore2-nuget">NuGet</a></li>
+<li><a href="/dotnetcore2-multi-targeting">Multi-targeting</a></li>
+<li><a href="/dotnetcore2-publishing-portable-applications">Publishing Portable Applications</a></li>
+<li><a href="/dotnetcore2-self-contained-applications">Self-contained Applications</a></li>
 </ul>
 <p>(At the time of writing, 2.1.4. I use windows, you don&rsquo;t have to!)</p>
 <h3 id="the-setup">The Setup</h3>
@@ -184,8 +153,8 @@ dotnet new classlib
 cd ../
 dotnet new sln
 dotnet sln add ./MyLib/MyLib.csproj
-</code></pre><p>(Refer back to <a href="dotnetcore2-using-multiple-projects">Using Multiple Projects</a>
- where we learned these commands)</p>
+</code></pre>
+<p>(Refer back to <a href="dotnetcore2-using-multiple-projects">Using Multiple Projects</a> where we learned these commands)</p>
 <p>And we will also replace <code>.\MyLib\Class1.cs</code> content:</p>
 <pre><code>using System;
 
@@ -199,19 +168,22 @@ namespace MyLib
         }
     }
 }
-</code></pre><p>And to be sure that everything is working, we can do a build.</p>
+</code></pre>
+<p>And to be sure that everything is working, we can do a build.</p>
 <pre><code>dotnet build
-</code></pre><p>This puts us in a similar situation to the <a href="https://blog.csmac.nz/dotnetcore2-using-multiple-projects/" target="_blank">last post</a>
- (minus the application).</p>
+</code></pre>
+<p>This puts us in a similar situation to the <a href="https://blog.csmac.nz/dotnetcore2-using-multiple-projects/">last post</a> (minus the application).</p>
 <h3 id="add-a-test-project">Add a test project</h3>
 <p>On with the testing. Getting the project set up is not much different to the way we linked a library and app last time.</p>
 <pre><code>mkdir MyLib.Tests
 cd MyLib.Tests
 dotnet new xunit
-</code></pre><p>For good measure, we will add this to our solution as well.</p>
+</code></pre>
+<p>For good measure, we will add this to our solution as well.</p>
 <pre><code>cd ../
 dotnet sln add MyLib.Tests/MyLib.Tests.csproj
-</code></pre><h3 id="test-the-project">Test the project!</h3>
+</code></pre>
+<h3 id="test-the-project">Test the project!</h3>
 <p>If we open up the <code>.\MyLib.Tests\UnitTest1.cs</code> file we see:</p>
 <pre><code>using System;
 using Xunit;
@@ -227,9 +199,11 @@ namespace MyLib.Tests
         }
     }
 }
-</code></pre><p>Pretty straightforward. So if everything is set up correctly we should be able to just run the test.</p>
+</code></pre>
+<p>Pretty straightforward. So if everything is set up correctly we should be able to just run the test.</p>
 <pre><code>dotnet test
-</code></pre><pre><code>Build started, please wait...
+</code></pre>
+<pre><code>Build started, please wait...
 Build started, please wait...
 Build completed.
 
@@ -256,18 +230,23 @@ Starting test execution, please wait...
 Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
 Test Run Successful.
 Test execution time: 1.3026 Seconds
-</code></pre><p>A successful test run. Though there were some errors at the start. Something to keep in mind when you run tests from the solution, it will try and run tests from every project in the solution. This may not be a problem for you, but if it annoys you, you can just test the one project using:</p>
+</code></pre>
+<p>A successful test run. Though there were some errors at the start. Something to keep in mind when you run tests from the solution, it will try and run tests from every project in the solution. This may not be a problem for you, but if it annoys you, you can just test the one project using:</p>
 <pre><code>dotnet test .\MyLib.Tests\MyLib.Tests.csproj
-</code></pre><p>You can also just run <code>dotnet test</code> from inside the project folder instead.</p>
+</code></pre>
+<p>You can also just run <code>dotnet test</code> from inside the project folder instead.</p>
 <p>As usual, calling <code>dotnet test</code> can also cause a restore and/or a build, if it is required.</p>
 <h3 id="reference-the-project">Reference the project</h3>
 <p>We need to reference the library from the test project. Just like last time, we can use the add reference CLI functionality.</p>
 <pre><code>cd ./MyLib.Tests
 dotnet add reference ..\MyLib\MyLib.csproj
-</code></pre><pre><code>Reference `..\MyLib\MyLib.csproj` added to the project.
-</code></pre><p>To make sure we are in good order:</p>
+</code></pre>
+<pre><code>Reference `..\MyLib\MyLib.csproj` added to the project.
+</code></pre>
+<p>To make sure we are in good order:</p>
 <pre><code>dotnet test
-</code></pre><pre><code>Build started, please wait...
+</code></pre>
+<pre><code>Build started, please wait...
 Build completed.
 
 Test run for C:\dev\MyTestApplicationRepo\MyLib.Tests\bin\Debug\netcoreapp2.0\MyLib.Tests.dll(.NETCoreApp,Version=v2.0)
@@ -283,11 +262,13 @@ Starting test execution, please wait...
 Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
 Test Run Successful.
 Test execution time: 2.6617 Seconds
-</code></pre><h3 id="test-the-library">Test the library</h3>
+</code></pre>
+<h3 id="test-the-library">Test the library</h3>
 <p>It&rsquo;s one thing to reference the project, it is another to actually use its code.</p>
 <p>First, we will add a <code>using</code> to our <code>UnitTest1.cs</code> file:</p>
 <pre><code>using MyLib;
-</code></pre><p>And add another test:</p>
+</code></pre>
+<p>And add another test:</p>
 <pre><code>[Fact]
 public void OnePlusOneIsTwo()
 {
@@ -295,9 +276,11 @@ public void OnePlusOneIsTwo()
     var result = calculator.Add(1, 1);
     Assert.Equal(2, result);
 }
-</code></pre><p>Since we can build and test with one command, run:</p>
+</code></pre>
+<p>Since we can build and test with one command, run:</p>
 <pre><code>dotnet test
-</code></pre><pre><code>Build started, please wait...
+</code></pre>
+<pre><code>Build started, please wait...
 Build completed.
 
 Test run for C:\dev\MyTestApplicationRepo\MyLib.Tests\bin\Debug\netcoreapp2.0\MyLib.Tests.dll(.NETCoreApp,Version=v2.0)
@@ -313,86 +296,117 @@ Starting test execution, please wait...
 Total tests: 2. Passed: 2. Failed: 0. Skipped: 0.
 Test Run Successful.
 Test execution time: 1.4901 Seconds
-</code></pre><p>We now have a successful test passing in the xUnit.net CLI test runner using code from our own .Net Core library.</p>
+</code></pre>
+<p>We now have a successful test passing in the xUnit.net CLI test runner using code from our own .Net Core library.</p>
 <h3 id="stay-tuned">Stay Tuned&hellip;</h3>
 <p>Before we can think about publishing our awesome library we need a way to pack it up. Tune in next week.</p>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
-  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/dotnetcore2-using-multiple-projects/">.Net Core SDK 2.* Series - Using Multiple Projects</a>
-    </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/dotnetcore2-nuget/">.Net Core SDK 2.* Series - NuGet</a>
-    </div></div>
-</div><section class="related-posts">
-    <h3>Related Posts</h3>
-    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-using-multiple-projects/">.Net Core SDK 2.* Series - Using Multiple Projects</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-whats-in-the-box/">.Net Core SDK 2.* Series - What&#39;s in the box</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore-self-contained-applications/">.Net Core Series - Self-contained Applications</a></li><li><a href="https://csmacnzblog.github.io/post/storytellerreduxsample/">Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-getting-started/">.Net Core SDK 2.* Series - Getting Started</a></li></ul>
-  </section></article><div class="post-comments surface row"></div></div>
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="http://twitter.com/share?text=.Net%20Core%20SDK%202.%2a%20Series%20-%20Testing&url=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fdotnetcore2-testing%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fdotnetcore2-testing%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = '.Net Core SDK 2.* Series - Testing';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+        </div><aside class="sidebar-area">
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-twitter">Twitter</div>
+                
+                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-rss">Subscribe</div>
+                
+                <a class="email-subscribe-link" href="https://feedburner.google.com/fb/a/mailverify?uri=csmacnzBlog&amp;loc=en_US">Subscribe to csMACnz's Blog by Email</a>
+                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                <br />
+                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-xbox">Gamercard</div>
+                
+
+                <div style="margin: 0 auto; width:201px;">
+                    <iframe src="//gamercard.xbox.com/csMACnz.card" scrolling="no" frameborder="0" height="136px" width="201px">AutomatonMan</iframe>
+                </div>
+                <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="http://steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-ads">Advertisement</div>
+                
+                <div>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4517187877737982"
+                         data-ad-slot="7632444699"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+            </div>
+        </aside>
+        
+        <footer class="footer-area"><p>
+    Designed and Maintained by Mark Clearwater; Last updated June 2015.
+    <br /><a class="footer-link" >Hi</a>
+</p></footer>
+    </div>
+    
+    
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script src="/js/codetoggle.js"></script> 
+
+    
+    <script>
+        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </body>
 </html>

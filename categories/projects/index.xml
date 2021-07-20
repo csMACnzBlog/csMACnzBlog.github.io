@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Projects on csMacnz&#39;s Blog</title>
+    <title>Projects on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/projects/</link>
-    <description>Recent content in Projects on csMacnz&#39;s Blog</description>
+    <description>Recent content in Projects on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 27 Aug 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/projects/index.xml" rel="self" type="application/rss+xml" />
@@ -14,7 +14,7 @@
       
       <guid>https://csmacnzblog.github.io/post/time-tracking-analysis/</guid>
       <description>As a remote worker, I need to keep myself honest. This is as much &amp;ldquo;Make sure I do my hours&amp;rdquo; as it is &amp;ldquo;Don&amp;rsquo;t overwork!&amp;rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.
-To monitor this, I use Toggl. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop.</description>
+To monitor this, I use Toggl. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop.</description>
     </item>
     
     <item>
@@ -23,7 +23,7 @@ To monitor this, I use Toggl. Toggl is time-tracking as a service, which includ
       <pubDate>Mon, 04 Jun 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/</guid>
-      <description>Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a Series of Blog Posts. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first. This has continued at a slow pace for the last 3 years.</description>
+      <description>Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a Series of Blog Posts. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first. This has continued at a slow pace for the last 3 years.</description>
     </item>
     
     <item>
@@ -44,7 +44,7 @@ So I&amp;rsquo;m building yet another CLI parsing library, but with a primary fo
       
       <guid>https://csmacnzblog.github.io/post/you-cant-handle-the-jandal/</guid>
       <description>Notes: https://bytes.com/topic/c-sharp/answers/490586-exceptions-cannot-caught http://www.abhisheksur.com/2011/01/internals-of-exception-handling.html http://stackoverflow.com/questions/3341534/partly-crashing-application-how-can-i-catch-uncatchable-exceptions http://forums.asp.net/t/1975718.aspx?Exception+not+caught+using+catch+block https://netfxharmonics.com/2006/10/uncatchable-exception
-public class JandleException : Exception { [DebuggerHidden] public JandleException() { Environment.FailFast(&amp;quot;You can&#39;t handle the jandal!&amp;quot;, this); } } public class Program { static void Main(string[] args) { try { doStuff(); } catch { Console.WriteLine(&amp;quot;Exception Caught&amp;quot;); } finally { Console.WriteLine(&amp;quot;Finally was executed&amp;quot;); } Console.ReadKey(); } private static void doStuff() { throw new JandleException(); } } </description>
+public class JandleException : Exception { [DebuggerHidden] public JandleException() { Environment.FailFast(&amp;quot;You can&#39;t handle the jandal!&amp;quot;, this); } }  public class Program { static void Main(string[] args) { try { doStuff(); } catch { Console.WriteLine(&amp;quot;Exception Caught&amp;quot;); } finally { Console.WriteLine(&amp;quot;Finally was executed&amp;quot;); } Console.ReadKey(); } private static void doStuff() { throw new JandleException(); } }  </description>
     </item>
     
     <item>
@@ -53,8 +53,8 @@ public class JandleException : Exception { [DebuggerHidden] public JandleExcepti
       <pubDate>Sat, 15 Aug 2015 17:16:08 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/resharper-on-appveyor/</guid>
-      <description>JetBrains have some great tools. One I am particularly fond of is Resharper. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as CodeRushand JustCode.
-If you are using TeamCity, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&amp;rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.</description>
+      <description>JetBrains have some great tools. One I am particularly fond of is Resharper. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as CodeRush and JustCode.
+If you are using TeamCity, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&amp;rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.</description>
     </item>
     
     <item>
@@ -63,8 +63,8 @@ If you are using TeamCity, which is the Continuous Integration server from JetB
       <pubDate>Sun, 08 Mar 2015 17:34:21 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/introducing-publishcoverity/</guid>
-      <description>As part of my open source development tooling investigation, I came across Coverity ScanStatic Analysis. And thanks to Arkfps&#39; postI could automate the process of submitting the results. And now Appveyor includes Coverity on it&amp;rsquo;s images. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.
-PublishCoverityis available on NuGet, and has two use cases: Compress and Publish.</description>
+      <description>As part of my open source development tooling investigation, I came across Coverity Scan Static Analysis. And thanks to Arkfps&#39; post I could automate the process of submitting the results. And now Appveyor includes Coverity on it&amp;rsquo;s images. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.
+PublishCoverity is available on NuGet, and has two use cases: Compress and Publish.</description>
     </item>
     
     <item>
@@ -73,7 +73,7 @@ PublishCoverityis available on NuGet, and has two use cases: Compress and Publi
       <pubDate>Sun, 15 Feb 2015 15:25:45 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/introducing-bclextensions/</guid>
-      <description>It has been a pipe-dream of mine for a while to have my very own C# extensions library. Well now I do. I&amp;rsquo;ve been chipping away at a library on github for ages (my init commit was 15 Sep 2012!) and it is finally a real thing! I&amp;rsquo;ve got a V1.0.0, a Nuget package, and even 100% coverage. I even have the coverity reportrunning, although it&amp;rsquo;s taken so long that I don&amp;rsquo;t have anything to worry about right now.</description>
+      <description>It has been a pipe-dream of mine for a while to have my very own C# extensions library. Well now I do. I&amp;rsquo;ve been chipping away at a library on github for ages (my init commit was 15 Sep 2012!) and it is finally a real thing! I&amp;rsquo;ve got a V1.0.0, a Nuget package, and even 100% coverage. I even have the coverity report running, although it&amp;rsquo;s taken so long that I don&amp;rsquo;t have anything to worry about right now.</description>
     </item>
     
     <item>
@@ -82,8 +82,8 @@ PublishCoverityis available on NuGet, and has two use cases: Compress and Publi
       <pubDate>Sat, 24 Jan 2015 14:33:48 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/introducing-coveralls-net/</guid>
-      <description>So I&amp;rsquo;ve built an (almost MVP) code coverage publisher for coveralls.iofrom C# code, using opencover coverage results. Checkout the github repoand nuget packagesif you want to use it. I&amp;rsquo;m even dogfooding it on appveyor as part of my psake build tasks.
-So how do you use it? Well luckily I used docopts.netto give you a bit of a command line experience while you use it, but the gist is this:</description>
+      <description>So I&amp;rsquo;ve built an (almost MVP) code coverage publisher for coveralls.io from C# code, using opencover coverage results. Checkout the github repo and nuget packages if you want to use it. I&amp;rsquo;m even dogfooding it on appveyor as part of my psake build tasks.
+So how do you use it? Well luckily I used docopts.net to give you a bit of a command line experience while you use it, but the gist is this:</description>
     </item>
     
     <item>
@@ -92,8 +92,8 @@ So how do you use it? Well luckily I used docopts.netto give you a bit of a com
       <pubDate>Tue, 23 Dec 2014 10:10:46 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</guid>
-      <description>As any good library should do, I&amp;rsquo;m building my BCLExtensions project(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact). It works great on my AppVeyor CI builds, which is a great .Net windows build server.
-I recently discovered Travis-CI has added beta C# supportso I connected it up with my GitHub prooject, which is designed to eventually work with mono anyway, and gave it a go.</description>
+      <description>As any good library should do, I&amp;rsquo;m building my BCLExtensions project(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact). It works great on my AppVeyor CI builds, which is a great .Net windows build server.
+I recently discovered Travis-CI has added beta C# support so I connected it up with my GitHub prooject, which is designed to eventually work with mono anyway, and gave it a go.</description>
     </item>
     
     <item>
@@ -102,7 +102,7 @@ I recently discovered Travis-CI has added beta C# supportso I connected it up w
       <pubDate>Sun, 14 Dec 2014 19:50:47 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/</guid>
-      <description>In my pursuit to find a build task runner for my code coverageI stumbled on this whole other side of the internet I didn&amp;rsquo;t know about (from a .Net developer&amp;rsquo;s perspective). I&amp;rsquo;ve been using AppVeyor.comfor my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!</description>
+      <description>In my pursuit to find a build task runner for my code coverage I stumbled on this whole other side of the internet I didn&amp;rsquo;t know about (from a .Net developer&amp;rsquo;s perspective). I&amp;rsquo;ve been using AppVeyor.com for my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!</description>
     </item>
     
     <item>
@@ -111,7 +111,7 @@ I recently discovered Travis-CI has added beta C# supportso I connected it up w
       <pubDate>Sun, 07 Dec 2014 17:41:40 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/gulp-vs-net/</guid>
-      <description>I wanted to add continuous code coverage to my little extension library project, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!
+      <description>I wanted to add continuous code coverage to my little extension library project, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!
 Because I&amp;rsquo;m started to learn more about this nodejs thing as a .Net developer, I figured I should give one of the build automation projects from there a go, even though my project is a .</description>
     </item>
     
@@ -122,7 +122,7 @@ Because I&amp;rsquo;m started to learn more about this nodejs thing as a .Net de
       
       <guid>https://csmacnzblog.github.io/post/7-lessons-from-building-a-wp7-game-in-7-days/</guid>
       <description>This is a companion post for my talk at Wellington&amp;rsquo;s SLAMD user group on 6 July 2011.
-Recently I took part in Nigel Parker&amp;rsquo;s &amp;ldquo;Release an App for Windows Phone 7 in 7 Days for a Chance to Win a New HTC 7 Trophy Phone&amp;rdquo; competition, with the intent of winning a Windows Phone 7 device. Although I didn&amp;rsquo;t manage to win the device, I did get a free 1 year subscription to the App Hub, allowing me to develop and submit apps that I build, had fun doing it, and learned a few lessons along the way.</description>
+Recently I took part in Nigel Parker&amp;rsquo;s &amp;ldquo;Release an App for Windows Phone 7 in 7 Days for a Chance to Win a New HTC 7 Trophy Phone&amp;rdquo; competition, with the intent of winning a Windows Phone 7 device. Although I didn&amp;rsquo;t manage to win the device, I did get a free 1 year subscription to the App Hub, allowing me to develop and submit apps that I build, had fun doing it, and learned a few lessons along the way.</description>
     </item>
     
   </channel>

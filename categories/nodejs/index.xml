@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>nodejs on csMacnz&#39;s Blog</title>
+    <title>nodejs on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/nodejs/</link>
-    <description>Recent content in nodejs on csMacnz&#39;s Blog</description>
+    <description>Recent content in nodejs on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Sun, 07 Dec 2014 17:41:40 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/nodejs/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,7 @@
       <pubDate>Sun, 07 Dec 2014 17:41:40 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/gulp-vs-net/</guid>
-      <description>I wanted to add continuous code coverage to my little extension library project, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!
+      <description>I wanted to add continuous code coverage to my little extension library project, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!
 Because I&amp;rsquo;m started to learn more about this nodejs thing as a .Net developer, I figured I should give one of the build automation projects from there a go, even though my project is a .</description>
     </item>
     

@@ -1,176 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>.Net Open Source Series - 7. Lifecycle Management - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content=".Net Open Source Series - 7. Lifecycle Management">
-<meta itemprop="description" content="This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle."><meta itemprop="datePublished" content="2015-03-03T19:42:16+00:00" />
-<meta itemprop="dateModified" content="2015-03-03T19:42:16+00:00" />
-<meta itemprop="wordCount" content="985">
-<meta itemprop="keywords" content="Continuous Delivery," /><meta property="og:title" content=".Net Open Source Series - 7. Lifecycle Management" />
-<meta property="og:description" content="This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://csmacnzblog.github.io/post/net-os-7-lifecycle-management/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2015-03-03T19:42:16+00:00" />
-<meta property="article:modified_time" content="2015-03-03T19:42:16+00:00" />
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+    <meta name='language' content='EN'>
+    <meta name='medium' content='blog'>
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=".Net Open Source Series - 7. Lifecycle Management"/>
-<meta name="twitter:description" content="This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle."/>
-<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
 
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
+    <title>.Net Open Source Series - 7. Lifecycle Management - csMACnz&#39;s Blog</title>
+    <meta name="description" content="This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. …">
+    <meta name='keywords' content='csMACnz, Continuous Delivery'>
+
+    
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content=".Net Open Source Series - 7. Lifecycle Management"/>
+    <meta property="og:description" content="This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. …"/>
+    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+    <meta property="og:url" content="https://csmacnzblog.github.io/post/net-os-7-lifecycle-management/"/>
+    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content=".Net Open Source Series - 7. Lifecycle Management"/>
+    <meta name="twitter:description" content="This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. …"/>
+    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+    <meta name="twitter:site" content="@csMACnz"/>
+    <meta name="twitter:creator" content="@csMACnz"/>
+
+
+    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+    <script>
+        var d_id  = 'csmacnz',
+            g_id  = 'UA-18464866-2',
+            g_url = 'auto';
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+    <!-- ENTERING partial seo-schema.html -->
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "Article",
+        "publisher": {
+            "@type": "Organization",
+            "name": "csMACnz&#x27;s Blog",
+            "logo": "https://blog.csmac.nz/content/images/2014/10/apple-touch-icon-144x144-precomposed.png"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Mark Clearwater",
+            "image": {
+                "@type": "ImageObject",
+                "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                "width": 440,
+                "height": 295
+            },
+            "url": "https://blog.csmac.nz/author/csmacnz/",
+            "sameAs": [
+                "http://csmac.nz"
+            ]
+        },
+        "articleSection" : "post",
+        "name" : ".Net Open Source Series - 7. Lifecycle Management",
+        "headline" : ".Net Open Source Series - 7. Lifecycle Management",
+        "url" : "https:\/\/csmacnzblog.github.io\/post\/net-os-7-lifecycle-management\/",
+        "datePublished": "2015-03-03T19:42:16.000Z",
+        "dateModified" : "2015-03-03T19:42:16.000Z",
+        "keywords" : [ "Continuous Delivery" ]
+        "description" : "This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.csmac.nz/"
+        }
+        "inLanguage" : "en-US",
+        "author" : "Mark Clearwater",
+        "creator" : "Mark Clearwater",
+        "accountablePerson" : "Mark Clearwater",
+        "copyrightHolder" : "Mark Clearwater",
+        "copyrightYear" : "2015",
+        "wordCount" : "979",
+    }
+    </script>
+    
+    
+    <!-- LEAVING partial seo-schema.html -->
+
+    <link rel="alternate" type="application/rss+xml" title="csMACnz&#x27;s Blog" href="https://blog.csmac.nz/rss/" />
+    <style>
+        .post-content img {
+            max-width: 500px;
+        }
+    </style>
+    </head>
+    <body class="blog">
+        <div class="page-area"><header class="header-area">
+    <h1 class="header-area-title">csMACnz</h1>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">.Net Open Source Series - 7. Lifecycle Management</li></ol>
-</nav><article class="post row surface"><div class="post-toolbox">
-  <div class="col-12 d-none d-lg-block">
-    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
-  </div>
-</div>
-<h1 class="post-title my-3">.Net Open Source Series - 7. Lifecycle Management</h1><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Mar 3, 2015
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>5 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy">#Continuous Delivery</a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy">#Continuous Delivery</a></div>
-<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
-</a>
-
-<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#lifecycle-management">Lifecycle Management</a>
-      <ul>
-        <li><a href="#waffle">Waffle</a></li>
-        <li><a href="#trello">Trello</a></li>
-        <li><a href="#issue-stats">Issue Stats</a></li>
-        <li><a href="#sourcegraph">Sourcegraph</a></li>
-        <li><a href="#open-hub">Open HUB</a></li>
-        <li><a href="#bountysource">Bountysource</a></li>
-        <li><a href="#gratipay">Gratipay</a></li>
-        <li><a href="#tip4commit">Tip4Commit</a></li>
-        <li><a href="#dash">Dash</a></li>
-        <li><a href="#shieldsio">Shields.io</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div><div class="post-content mb-3"><p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
+<nav class="navigation-area header-bar-parent">
+    <div class="header-bar header-bar-blog">
+        <ul class="menu">
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+        </ul>
+    </div>
+</nav><div id="content" class="content-area">
+            
+<article>
+    <div class="content-box" itemscope itemtype="http://schema.org/Article">
+    
+        <span class="post-meta"><time datetime="2015-03-03"  itemprop="datePublished">03 Mar 15</time> on
+            <a href="https://csmacnzblog.github.iotags/continuous-delivery">Continuous Delivery</a>
+        </span>
+    
+        <h1 class="post-title" itemprop="headline">.Net Open Source Series - 7. Lifecycle Management</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
 <ol>
-<li><a href="/-net-os-1-source-control">Source Control</a>
-</li>
+<li><a href="/-net-os-1-source-control">Source Control</a></li>
 </ol>
 <ul>
-<li><a href="/-net-os-2-build">Build</a>
-</li>
-<li><a href="/-net-os-3-test/">Test</a>
-</li>
-<li><a href="/-net-os-4-publish-deploy/">Publish &amp; Deploy</a>
-</li>
-<li><a href="/-net-os-5-documentation/">Documentation</a>
-</li>
-<li><a href="/-net-os-6-metrics/">Metrics</a>
-</li>
+<li><a href="/-net-os-2-build">Build</a></li>
+<li><a href="/-net-os-3-test/">Test</a></li>
+<li><a href="/-net-os-4-publish-deploy/">Publish &amp; Deploy</a></li>
+<li><a href="/-net-os-5-documentation/">Documentation</a></li>
+<li><a href="/-net-os-6-metrics/">Metrics</a></li>
 <li>Lifecycle Management &lt;=(We are here)</li>
 </ul>
 <h2 id="lifecycle-management">Lifecycle Management</h2>
@@ -188,125 +158,133 @@
 <li>Shields.io</li>
 </ul>
 <h3 id="waffle">Waffle</h3>
-<p><a href="https://waffle.io/" target="_blank">Waffle</a>
- is an issue tracking board. But not as a stand along system, no no. They use your issues on GitHub as their database, surfacing the information based on conventions.  They also use webhooks to automatically create, update and close your issues based on pull requests and labels. Each of your issues is a card, and interacting with Waffle you can move your cards around, edit the details and add labels and comments to track them easier.  A nice feature is you can point Waffle at anyone&rsquo;s repository, even if they don&rsquo;t use it, to see their issues displayed as cards. Very cool. I have been <a href="https://waffle.io/csmacnz/coveralls.net" target="_blank">using it with Coveralls.net</a>
-, and you can also <a href="https://waffle.io/dotnet/roslyn" target="_blank">see it working with the Roslyn repository</a>
-.</p>
+<p><a href="https://waffle.io/">Waffle</a> is an issue tracking board. But not as a stand along system, no no. They use your issues on GitHub as their database, surfacing the information based on conventions.  They also use webhooks to automatically create, update and close your issues based on pull requests and labels. Each of your issues is a card, and interacting with Waffle you can move your cards around, edit the details and add labels and comments to track them easier.  A nice feature is you can point Waffle at anyone&rsquo;s repository, even if they don&rsquo;t use it, to see their issues displayed as cards. Very cool. I have been <a href="https://waffle.io/csmacnz/coveralls.net">using it with Coveralls.net</a>, and you can also <a href="https://waffle.io/dotnet/roslyn">see it working with the Roslyn repository</a>.</p>
 <h3 id="trello">Trello</h3>
-<p><a href="https://trello.com/" target="_blank">Trello</a>
- is a Kanban style card board, which is feature rich, and free to use. Collaborate with others in a private board. This is a modern web application, and works well in what it does. Cards support drag and drop and it keeps track of the history as changes are made. You can make your board public or keep it private. The only issue with using this for your public open source repository is the duplication between here, and issues in GitHub. For private projects, this could be a great Kanban tracking solution (though I suggest for that purpose you also check out <a href="http://kanbanflow.com/" target="_blank">KanbanFlow</a>
-)</p>
+<p><a href="https://trello.com/">Trello</a> is a Kanban style card board, which is feature rich, and free to use. Collaborate with others in a private board. This is a modern web application, and works well in what it does. Cards support drag and drop and it keeps track of the history as changes are made. You can make your board public or keep it private. The only issue with using this for your public open source repository is the duplication between here, and issues in GitHub. For private projects, this could be a great Kanban tracking solution (though I suggest for that purpose you also check out <a href="http://kanbanflow.com/">KanbanFlow</a>)</p>
 <h3 id="issue-stats">Issue Stats</h3>
-<p><a href="http://www.issuestats.com/" target="_blank">Issue Stats</a>
- is kind of meta. Its designed to analyse and compare your issues and pull requests in GitHub, and tell you hoy long it takes to close them. It also provides a simple graph of the distribution of time to close, as well as <a href="http://www.issuestats.com/analysis" target="_blank">graphs and status</a>
- across all the repositories to see interesting stats comparing languages. Simple but effective. Again check out how the <a href="http://www.issuestats.com/github/dotnet/roslyn" target="_blank">Roslyn Repository</a>
- looks via Issue Stats.</p>
+<p><a href="http://www.issuestats.com/">Issue Stats</a> is kind of meta. Its designed to analyse and compare your issues and pull requests in GitHub, and tell you hoy long it takes to close them. It also provides a simple graph of the distribution of time to close, as well as <a href="http://www.issuestats.com/analysis">graphs and status</a> across all the repositories to see interesting stats comparing languages. Simple but effective. Again check out how the <a href="http://www.issuestats.com/github/dotnet/roslyn">Roslyn Repository</a> looks via Issue Stats.</p>
 <h3 id="sourcegraph">Sourcegraph</h3>
-<p><a href="https://sourcegraph.com/" target="_blank">Sourcegraph</a>
- is another service that integrates with GitHub repositories. It provides a code search engine on top of your repository. The unique twist is it can then search all the other repositories it knows about to find usages of your methods, giving you real code examples of how it is used. A really cool premise. Sourcegraph supports Java (Maven), Python, JavaScript (Node.js), Go, and Ruby, but I will continue to hassle them about their lack of C# support.</p>
+<p><a href="https://sourcegraph.com/">Sourcegraph</a> is another service that integrates with GitHub repositories. It provides a code search engine on top of your repository. The unique twist is it can then search all the other repositories it knows about to find usages of your methods, giving you real code examples of how it is used. A really cool premise. Sourcegraph supports Java (Maven), Python, JavaScript (Node.js), Go, and Ruby, but I will continue to hassle them about their lack of C# support.</p>
 <h3 id="open-hub">Open HUB</h3>
-<p><a href="https://www.openhub.net/" target="_blank">Open HUB</a>
- is another project comparison system. It allows you to claim your contributions to open source projects, as well as showing statistics on the projects that it has in its system. I have my <a href="https://www.openhub.net/p/coverallsdotnet" target="_blank">Coveralls.Net</a>
- and <a href="https://www.openhub.net/p/BCLExtensions-dotnet" target="_blank">BCLExtensions</a>
- libraries on here.</p>
+<p><a href="https://www.openhub.net/">Open HUB</a> is another project comparison system. It allows you to claim your contributions to open source projects, as well as showing statistics on the projects that it has in its system. I have my <a href="https://www.openhub.net/p/coverallsdotnet">Coveralls.Net</a> and <a href="https://www.openhub.net/p/BCLExtensions-dotnet">BCLExtensions</a> libraries on here.</p>
 <h3 id="bountysource">Bountysource</h3>
-<p><a href="https://www.bountysource.com/" target="_blank">Bountysource</a>
- puts developers and funding together. Roughly speaking, someone puts up a bounty on an issue or feature and whoever fulfils it gets the bounty. If you have an issue on an open source project that isn&rsquo;t being fixed, you can put up some money to encourage it to be fixed faster. An interesting concept, and looks like it works for some projects, but not for others.</p>
+<p><a href="https://www.bountysource.com/">Bountysource</a> puts developers and funding together. Roughly speaking, someone puts up a bounty on an issue or feature and whoever fulfils it gets the bounty. If you have an issue on an open source project that isn&rsquo;t being fixed, you can put up some money to encourage it to be fixed faster. An interesting concept, and looks like it works for some projects, but not for others.</p>
 <h3 id="gratipay">Gratipay</h3>
-<p><a href="http://gratipay.com" target="_blank">Gratipay</a>
- is a pure and simple donation system. You have an account, and you can add and withdraw money. Then you can pledge an amount per week to an individual or team, and others can do the same back. You may end up with a net profit, or net spend, as you see fit.</p>
+<p><a href="http://gratipay.com">Gratipay</a> is a pure and simple donation system. You have an account, and you can add and withdraw money. Then you can pledge an amount per week to an individual or team, and others can do the same back. You may end up with a net profit, or net spend, as you see fit.</p>
 <h3 id="tip4commit">Tip4Commit</h3>
-<p><a href="https://tip4commit.com/" target="_blank">Tip4Commit</a>
- is another donation service for open source projects. This one works in Bitcoins.</p>
+<p><a href="https://tip4commit.com/">Tip4Commit</a> is another donation service for open source projects. This one works in Bitcoins.</p>
 <h3 id="dash">Dash</h3>
-<p><a href="https://www.thedash.com/" target="_blank">Dash</a>
- gives you Dashboard As A Service. Add all the widgets to track the metrics that matter to you in a dashboard you can look at to track your progress.  There is a nice <a href="https://www.thedash.com/dashboard/eevIT7ceUO" target="_blank">Example Fitness Dashboard</a>
- that shows you what can be done. The only gripe I have with this is the lack of development platforms that work out of the box.  You can create custom results, but they require you to host and run your own proxy to transform the data into a format it can display. Otherwise a nice dashboard service.</p>
+<p><a href="https://www.thedash.com/">Dash</a> gives you Dashboard As A Service. Add all the widgets to track the metrics that matter to you in a dashboard you can look at to track your progress.  There is a nice <a href="https://www.thedash.com/dashboard/eevIT7ceUO">Example Fitness Dashboard</a> that shows you what can be done. The only gripe I have with this is the lack of development platforms that work out of the box.  You can create custom results, but they require you to host and run your own proxy to transform the data into a format it can display. Otherwise a nice dashboard service.</p>
 <h3 id="shieldsio">Shields.io</h3>
-<p>Most projects online, especially the ones above, provide badges for you to display on your projects to show off their service, give you visibility on your coverage number, your build success or failure status, and other useful information <a href="http://shields.io/" target="_blank">Shields.io</a>
- is not so much a tool, as it is Badges As A Service (BAAS? I should stop making these up I think). Using their service, you can unify all your badges to look nice together, and even theme them with a few options like flat, rounded and such.  More and more services are being exposed through Shields.io every time I go back, and you can even DIY with special urls that take the display text, style and colour as query parameters like this: <img class="img-fluid" src="https://img.shields.io/badge/FOSS-7/7-FF00FF.svg" alt="A Sample Custom Badge "  loading="lazy" />
-</p>
-<p>For a good list of a whole bunch of places to get free for open source things, check out <a href="http://ossperks.com/" target="_blank">OSS Perks</a>
-. And that&rsquo;s all she wrote. This is the last post in the series, that was designed to be a companion to my <a href="http://www.meetup.com/WelliDotNet/events/219398813" target="_blank">.Net User Group Talk</a>
-. The slides from my talk are <a href="http://prezi.com/y1v19jvfgel1" target="_blank">available on prezi</a>
-.</p>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
-  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/net-os-6-metrics/">.Net Open Source Series - 6. Metrics</a>
-    </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/introducing-publishcoverity/">Introducing PublishCoverity</a>
-    </div></div>
-</div><section class="related-posts">
-    <h3>Related Posts</h3>
-    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/net-os-6-metrics/">.Net Open Source Series - 6. Metrics</a></li><li><a href="https://csmacnzblog.github.io/post/net-os-5-documentation/">.Net Open Source Series - 5. Documentation</a></li><li><a href="https://csmacnzblog.github.io/post/net-os-4-publish-deploy/">.Net Open Source Series - 4. Publish &amp; Deploy</a></li><li><a href="https://csmacnzblog.github.io/post/net-os-3-test/">.Net Open Source Series - 3. Test</a></li><li><a href="https://csmacnzblog.github.io/post/net-os-2-build/">.Net Open Source Series - 2. Build</a></li></ul>
-  </section></article><div class="post-comments surface row"></div></div>
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
+<p>Most projects online, especially the ones above, provide badges for you to display on your projects to show off their service, give you visibility on your coverage number, your build success or failure status, and other useful information <a href="http://shields.io/">Shields.io</a> is not so much a tool, as it is Badges As A Service (BAAS? I should stop making these up I think). Using their service, you can unify all your badges to look nice together, and even theme them with a few options like flat, rounded and such.  More and more services are being exposed through Shields.io every time I go back, and you can even DIY with special urls that take the display text, style and colour as query parameters like this: <img src="https://img.shields.io/badge/FOSS-7/7-FF00FF.svg" alt="A Sample Custom Badge "></p>
+<p>For a good list of a whole bunch of places to get free for open source things, check out <a href="http://ossperks.com/">OSS Perks</a>. And that&rsquo;s all she wrote. This is the last post in the series, that was designed to be a companion to my <a href="http://www.meetup.com/WelliDotNet/events/219398813">.Net User Group Talk</a>. The slides from my talk are <a href="http://prezi.com/y1v19jvfgel1">available on prezi</a>.</p>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="http://twitter.com/share?text=.Net%20Open%20Source%20Series%20-%207.%20Lifecycle%20Management&url=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fnet-os-7-lifecycle-management%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fnet-os-7-lifecycle-management%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = '.Net Open Source Series - 7. Lifecycle Management';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+        </div><aside class="sidebar-area">
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-twitter">Twitter</div>
+                
+                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-rss">Subscribe</div>
+                
+                <a class="email-subscribe-link" href="https://feedburner.google.com/fb/a/mailverify?uri=csmacnzBlog&amp;loc=en_US">Subscribe to csMACnz's Blog by Email</a>
+                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                <br />
+                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-xbox">Gamercard</div>
+                
+
+                <div style="margin: 0 auto; width:201px;">
+                    <iframe src="//gamercard.xbox.com/csMACnz.card" scrolling="no" frameborder="0" height="136px" width="201px">AutomatonMan</iframe>
+                </div>
+                <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="http://steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-ads">Advertisement</div>
+                
+                <div>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4517187877737982"
+                         data-ad-slot="7632444699"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+            </div>
+        </aside>
+        
+        <footer class="footer-area"><p>
+    Designed and Maintained by Mark Clearwater; Last updated June 2015.
+    <br /><a class="footer-link" >Hi</a>
+</p></footer>
+    </div>
+    
+    
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script src="/js/codetoggle.js"></script> 
+
+    
+    <script>
+        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </body>
 </html>

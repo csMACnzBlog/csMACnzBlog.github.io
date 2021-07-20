@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Storyteller on csMacnz&#39;s Blog</title>
+    <title>Storyteller on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/storyteller/</link>
-    <description>Recent content in Storyteller on csMacnz&#39;s Blog</description>
+    <description>Recent content in Storyteller on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Thu, 28 Dec 2017 23:41:13 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/storyteller/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,7 @@
       <pubDate>Thu, 28 Dec 2017 23:41:13 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/storytellerreduxsample/</guid>
-      <description>A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React + .Net Applications. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
+      <description>A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React + .Net Applications. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
 While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible.</description>
     </item>
     

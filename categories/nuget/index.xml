@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>NuGet on csMacnz&#39;s Blog</title>
+    <title>NuGet on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/nuget/</link>
-    <description>Recent content in NuGet on csMacnz&#39;s Blog</description>
+    <description>Recent content in NuGet on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 08 Oct 2018 05:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/nuget/index.xml" rel="self" type="application/rss+xml" />
@@ -13,9 +13,9 @@
       <pubDate>Mon, 08 Oct 2018 05:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/speciality-nuget-packing/</guid>
-      <description>I recently wrote about NuGet packing on linuxspecifically, and want to continue the theme with other things you can do with NuGet packaging.
+      <description>I recently wrote about NuGet packing on linux specifically, and want to continue the theme with other things you can do with NuGet packaging.
 As a quick recap you can use a .Net Core *.csproj as a wrapper around a *.nuspec file and use dotnet pack to pack it, cross-platform, without needing nuget.exe.
-&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt; &amp;lt;PropertyGroup&amp;gt; &amp;lt;TargetFramework&amp;gt;netstandard2.0&amp;lt;/TargetFramework&amp;gt; &amp;lt;NuspecFile&amp;gt;mynewapp.nuspec&amp;lt;/NuspecFile&amp;gt; &amp;lt;GeneratePackageOnBuild&amp;gt;true&amp;lt;/GeneratePackageOnBuild&amp;gt; &amp;lt;SkipCompilerExecution&amp;gt;true&amp;lt;/SkipCompilerExecution&amp;gt; &amp;lt;CopyBuildOutputToOutputDirectory&amp;gt;false&amp;lt;/CopyBuildOutputToOutputDirectory&amp;gt; &amp;lt;/PropertyGroup&amp;gt; &amp;lt;/Project&amp;gt; (See the other articlefor more detailed analysis of these properties.</description>
+&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;&amp;lt;PropertyGroup&amp;gt;&amp;lt;TargetFramework&amp;gt;netstandard2.0&amp;lt;/TargetFramework&amp;gt;&amp;lt;NuspecFile&amp;gt;mynewapp.nuspec&amp;lt;/NuspecFile&amp;gt;&amp;lt;GeneratePackageOnBuild&amp;gt;true&amp;lt;/GeneratePackageOnBuild&amp;gt;&amp;lt;SkipCompilerExecution&amp;gt;true&amp;lt;/SkipCompilerExecution&amp;gt;&amp;lt;CopyBuildOutputToOutputDirectory&amp;gt;false&amp;lt;/CopyBuildOutputToOutputDirectory&amp;gt;&amp;lt;/PropertyGroup&amp;gt;&amp;lt;/Project&amp;gt; (See the other article for more detailed analysis of these properties.</description>
     </item>
     
     <item>
@@ -34,9 +34,10 @@ Anyone who has been doing dotnet cross-platform will also know that you can use 
       <pubDate>Mon, 01 Aug 2016 08:18:33 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnetcore-nuget/</guid>
-      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
- Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet &amp;lt;=(We are here) Multi-targeting Publishing Portable Applications Self-contained Applications  Let&amp;rsquo;s set aside Application packing for later, and focus our attention on NuGet.
-Our Demo library Again we will quickly whip up a library to use:</description>
+      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
+ Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet &amp;lt;=(We are here) Multi-targeting Publishing Portable Applications Self-contained Applications  Let&amp;rsquo;s set aside Application packing for later, and focus our attention on NuGet.
+Our Demo library Again we will quickly whip up a library to use:
+mkdir mynewpackagecd mynewpackagedotnet new -t Libdotnet restoredotnet build Some quick touch-ups to make it more interesting.</description>
     </item>
     
     <item>

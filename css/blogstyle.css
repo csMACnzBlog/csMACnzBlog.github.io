@@ -1,0 +1,66 @@
+.post-meta {
+  display: inline-block;
+  margin: 0 0 5px 0;
+  font-size: 0.8em;
+  color: #00bbf2;
+}
+
+.post-meta a {
+  color: #00bbf2;
+  text-decoration: none;
+}
+
+.post-meta a:hover {
+  color: #4B4B4B;
+  text-decoration: underline;
+}
+
+.post-title-link, 
+.post-title-link:link, 
+.post-title-link:visited {
+ color: #4B4B4B; 
+}
+
+.post-title-link:hover {
+  color: #00bbf2; 
+}
+
+.post-content {
+  overflow-wrap: break-word;
+}
+
+.post-content img {
+  width: auto;
+  max-width: 100%;
+}
+  
+.pagination {
+  text-align: center;
+}
+
+/*
+  theme toggle
+*/
+.post-content pre {
+  position: relative;
+}
+
+.code-theme-toggle {
+  background-image: linear-gradient(to bottom left, #FFFFFF 50%, #002b36 50%);
+  background-image: -o-linear-gradient(bottom left, #FFFFFF 50%, #002b36 50%);
+  background-image: -moz-linear-gradient(bottom left, #FFFFFF 50%, #002b36 50%);
+  background-image: -webkit-linear-gradient(bottom left, #FFFFFF 50%, #002b36 50%);
+  background-image: -ms-linear-gradient(bottom left #FFFFFF 50%, #002b36 50%);
+  border: 1px #4B4B4B solid;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  width: 20px;
+}
+
+pre:hover .code-theme-toggle {
+  visibility: visible;
+}

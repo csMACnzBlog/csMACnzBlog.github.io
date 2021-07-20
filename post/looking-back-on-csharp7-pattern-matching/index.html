@@ -1,328 +1,349 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Looking Back on C# 7: Pattern matching - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="Looking Back on C# 7: Pattern matching">
-<meta itemprop="description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
-Pattern matching is a powerful feature that has been unlocked against various language constructs in C#."><meta itemprop="datePublished" content="2019-07-01T06:00:00+00:00" />
-<meta itemprop="dateModified" content="2019-07-01T06:00:00+00:00" />
-<meta itemprop="wordCount" content="844">
-<meta itemprop="keywords" content="c#," /><meta property="og:title" content="Looking Back on C# 7: Pattern matching" />
-<meta property="og:description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
-Pattern matching is a powerful feature that has been unlocked against various language constructs in C#." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2019-07-01T06:00:00+00:00" />
-<meta property="article:modified_time" content="2019-07-01T06:00:00+00:00" />
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+    <meta name='language' content='EN'>
+    <meta name='medium' content='blog'>
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Looking Back on C# 7: Pattern matching"/>
-<meta name="twitter:description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.
-Pattern matching is a powerful feature that has been unlocked against various language constructs in C#."/>
-<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
 
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
+    <title>Looking Back on C# 7: Pattern matching - csMACnz&#39;s Blog</title>
+    <meta name="description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some …">
+    <meta name='keywords' content='csMACnz, c#'>
+
+    
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Looking Back on C# 7: Pattern matching"/>
+    <meta property="og:description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some …"/>
+    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+    <meta property="og:url" content="https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/"/>
+    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Looking Back on C# 7: Pattern matching"/>
+    <meta name="twitter:description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some …"/>
+    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+    <meta name="twitter:site" content="@csMACnz"/>
+    <meta name="twitter:creator" content="@csMACnz"/>
+
+
+    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+    <script>
+        var d_id  = 'csmacnz',
+            g_id  = 'UA-18464866-2',
+            g_url = 'auto';
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+    <!-- ENTERING partial seo-schema.html -->
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "Article",
+        "publisher": {
+            "@type": "Organization",
+            "name": "csMACnz&#x27;s Blog",
+            "logo": "https://blog.csmac.nz/content/images/2014/10/apple-touch-icon-144x144-precomposed.png"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Mark Clearwater",
+            "image": {
+                "@type": "ImageObject",
+                "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                "width": 440,
+                "height": 295
+            },
+            "url": "https://blog.csmac.nz/author/csmacnz/",
+            "sameAs": [
+                "http://csmac.nz"
+            ]
+        },
+        "articleSection" : "post",
+        "name" : "Looking Back on C# 7: Pattern matching",
+        "headline" : "Looking Back on C# 7: Pattern matching",
+        "url" : "https:\/\/csmacnzblog.github.io\/post\/looking-back-on-csharp7-pattern-matching\/",
+        "datePublished": "2019-07-01T06:00:00.000Z",
+        "dateModified" : "2019-07-01T06:00:00.000Z",
+        "image" : {
+            "@type": "ImageObject",
+            "url": "https:\/\/images.unsplash.com\/photo-1530226406379-f84b9edd291b?ixlib=rb-1.2.1\u0026q=80\u0026fm=jpg\u0026crop=entropy\u0026cs=tinysrgb\u0026w=1080\u0026fit=max\u0026ixid=eyJhcHBfaWQiOjE2ODI3fQ",
+            "width": 440,
+            "height": 295
+        },
+        "keywords" : [ "c#" ]
+        "description" : "With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.\nPattern matching is a powerful feature that has been unlocked against various language constructs in C#.",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.csmac.nz/"
+        }
+        "inLanguage" : "en-US",
+        "author" : "Mark Clearwater",
+        "creator" : "Mark Clearwater",
+        "accountablePerson" : "Mark Clearwater",
+        "copyrightHolder" : "Mark Clearwater",
+        "copyrightYear" : "2019",
+        "wordCount" : "844",
+    }
+    </script>
+    
+    
+    <!-- LEAVING partial seo-schema.html -->
+
+    <link rel="alternate" type="application/rss+xml" title="csMACnz&#x27;s Blog" href="https://blog.csmac.nz/rss/" />
+    <style>
+        .post-content img {
+            max-width: 500px;
+        }
+    </style>
+    </head>
+    <body class="blog">
+        <div class="page-area"><header class="header-area">
+    <h1 class="header-area-title">csMACnz</h1>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Looking Back on C# 7: Pattern matching</li></ol>
-</nav><article class="post row surface"><div class="post-toolbox">
-  <div class="col-12 d-none d-lg-block">
-    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
-  </div>
-</div>
-<h1 class="post-title my-3">Looking Back on C# 7: Pattern matching</h1><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Jul 1, 2019
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>4 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a></div>
-<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
-</a>
-
-<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#is-expression">is Expression</a></li>
-        <li><a href="#switch-statement">Switch Statement</a></li>
-        <li><a href="#pattern-matching-coming-soon">Pattern Matching coming soon</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div><div class="post-content mb-3"><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
+<nav class="navigation-area header-bar-parent">
+    <div class="header-bar header-bar-blog">
+        <ul class="menu">
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+        </ul>
+    </div>
+</nav><div id="content" class="content-area">
+            
+<article>
+    <div class="content-box" itemscope itemtype="http://schema.org/Article">
+    
+        <span class="post-meta"><time datetime="2019-07-01"  itemprop="datePublished">01 Jul 19</time> on
+            <a href="https://csmacnzblog.github.iotags/c">c#</a>
+        </span>
+    
+        <h1 class="post-title" itemprop="headline">Looking Back on C# 7: Pattern matching</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <img class="post-image" src="https://images.unsplash.com/photo-1530226406379-f84b9edd291b?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ"><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
 <p>Pattern matching is a powerful feature that has been unlocked against various language constructs in C#.  The idea is to take existing features like <code>case</code> from switches and <code>is</code> and extract their capabilities into a &ldquo;pattern matching&rdquo; concept over types and values. This can then be applied back to these language features, and other places in the future.</p>
 <p>Before the new concept of patterns, <code>case</code> accepted a constant as an argument, and <code>is</code> would accept a type.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#75715e">// Check the type of the variable &#34;is assignable to&#34; Shape
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span>(widget <span style="color:#66d9ef">is</span> Shape)
+<pre><code class="language-cs">// Check the type of the variable &quot;is assignable to&quot; Shape
+if(widget is Shape)
 {
-    <span style="color:#66d9ef">switch</span> ((widget <span style="color:#66d9ef">as</span> Shape).Type)
+    switch ((widget as Shape).Type)
     {
-        <span style="color:#75715e">// When value matches the constant &#34;Square&#34;
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;Square&#34;</span>:
-            <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">break</span>;
-        <span style="color:#66d9ef">default</span>:
-            <span style="color:#66d9ef">break</span>;
+        // When value matches the constant &quot;Square&quot;
+        case &quot;Square&quot;:
+            // ...
+            break;
+        default:
+            break;
     }
 }
-</code></pre></div><p>With the introduction of C# 7.0, both of these language features have been enhanced to use the new Pattern Matching syntax.  This is a backwards-compatible change, meaning that the pattern type can be a const or a type. As well as these existing cases, it also includes <code>when</code> clauses and var patterns as well.</p>
+</code></pre>
+<p>With the introduction of C# 7.0, both of these language features have been enhanced to use the new Pattern Matching syntax.  This is a backwards-compatible change, meaning that the pattern type can be a const or a type. As well as these existing cases, it also includes <code>when</code> clauses and var patterns as well.</p>
 <h3 id="is-expression">is Expression</h3>
 <p>Originally, <code>is</code> was able to check a type. This could create more readable code but often left casting or <code>as</code> operator usage in the aftermath.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">if</span> (widget <span style="color:#66d9ef">is</span> Shape)
+<pre><code class="language-cs">if (widget is Shape)
 {
-    <span style="color:#66d9ef">var</span> myShape = widget <span style="color:#66d9ef">as</span> Shape;
-    <span style="color:#75715e">// var myShape = (Shape)widget;
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>This has been improved by the pattern matching. First, we have constant checking:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">if</span> (widget.Type <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>)
+    var myShape = widget as Shape;
+    // var myShape = (Shape)widget;
+}
+</code></pre>
+<p>This has been improved by the pattern matching. First, we have constant checking:</p>
+<pre><code class="language-cs">if (widget.Type is null)
 {
-    <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>}
+    // ...
+}
 
-<span style="color:#66d9ef">if</span> (widget.Type <span style="color:#66d9ef">is</span> <span style="color:#e6db74">&#34;FOO&#34;</span>)
+if (widget.Type is &quot;FOO&quot;)
 {
-    <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>}
+    // ...
+}
 
-</code></pre></div><p>As well as this, the Type checking Pattern now includes support to create a scoped variable of the correct type, similar to the new out parameter functionality. This language feature is collectively known as &ldquo;expression variables&rdquo;.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">if</span> (widget <span style="color:#66d9ef">is</span> Shape shape)
+</code></pre>
+<p>As well as this, the Type checking Pattern now includes support to create a scoped variable of the correct type, similar to the new out parameter functionality. This language feature is collectively known as &ldquo;expression variables&rdquo;.</p>
+<pre><code class="language-cs">if (widget is Shape shape)
 {
-    <span style="color:#75715e">// ... use `shape`
-</span><span style="color:#75715e"></span>}
+    // ... use `shape`
+}
 
-</code></pre></div><h3 id="switch-statement">Switch Statement</h3>
+</code></pre>
+<h3 id="switch-statement">Switch Statement</h3>
 <p>A switch used to only match on constants, but with the new pattern matching, we can do so much more.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">void</span> SwitchIt(<span style="color:#66d9ef">object</span> <span style="color:#66d9ef">value</span>)
+<pre><code class="language-cs">void SwitchIt(object value)
 {
-    <span style="color:#66d9ef">var</span> result = <span style="color:#ae81ff">0</span>;
-    <span style="color:#66d9ef">switch</span> (<span style="color:#66d9ef">value</span>)
+    var result = 0;
+    switch (value)
     {
-        <span style="color:#75715e">// We can still switch on constants, even when the types don&#39;t match
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span>:
-            <span style="color:#66d9ef">break</span>;
-        <span style="color:#75715e">// We can switch on type, and even create a scoped variable (like with `is`)
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> IEnumerable&lt;<span style="color:#66d9ef">int</span>&gt; childSequence:
+        // We can still switch on constants, even when the types don't match
+        case 0:
+            break;
+        // We can switch on type, and even create a scoped variable (like with `is`)
+        case IEnumerable&lt;int&gt; childSequence:
         {
-            <span style="color:#66d9ef">foreach</span>(<span style="color:#66d9ef">var</span> item <span style="color:#66d9ef">in</span> childSequence)
-                result += (item &gt; <span style="color:#ae81ff">0</span>) ? item : <span style="color:#ae81ff">0</span>;
-            <span style="color:#66d9ef">break</span>;
+            foreach(var item in childSequence)
+                result += (item &gt; 0) ? item : 0;
+            break;
         }
-        <span style="color:#75715e">// using `when`, we can do range or bounds checking
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">int</span> n when n &gt; <span style="color:#ae81ff">0</span>:
+        // using `when`, we can do range or bounds checking
+        case int n when n &gt; 0:
             result += n;
-            <span style="color:#66d9ef">break</span>;
-        <span style="color:#75715e">// We can constant check against null
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">null</span>:
-            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NullReferenceException(<span style="color:#e6db74">&#34;Null found in sequence&#34;</span>);
-        <span style="color:#66d9ef">default</span>:
-            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> InvalidOperationException(<span style="color:#e6db74">&#34;Unrecognized type&#34;</span>);
+            break;
+        // We can constant check against null
+        case null:
+            throw new NullReferenceException(&quot;Null found in sequence&quot;);
+        default:
+            throw new InvalidOperationException(&quot;Unrecognized type&quot;);
     }
 
-    <span style="color:#66d9ef">return</span> result;
+    return result;
 }
-</code></pre></div><p>There is another new pattern that is useful with switch, which is the var pattern. The &ldquo;var pattern&rdquo; is similar to the type pattern, except that it always matches, but creates a variable with the assigned value.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">switch</span>(shape)
+</code></pre>
+<p>There is another new pattern that is useful with switch, which is the var pattern. The &ldquo;var pattern&rdquo; is similar to the type pattern, except that it always matches, but creates a variable with the assigned value.</p>
+<pre><code class="language-cs">switch(shape)
 {
-    <span style="color:#66d9ef">case</span> Circle c:
-        WriteLine(<span style="color:#e6db74">$&#34;circle with radius {c.Radius}&#34;</span>);
-        <span style="color:#66d9ef">break</span>;
-    <span style="color:#66d9ef">case</span> Rectangle s when (s.Length == s.Height):
-        WriteLine(<span style="color:#e6db74">$&#34;{s.Length} x {s.Height} square&#34;</span>);
-        <span style="color:#66d9ef">break</span>;
-    <span style="color:#66d9ef">case</span> Rectangle r:
-        WriteLine(<span style="color:#e6db74">$&#34;{r.Length} x {r.Height} rectangle&#34;</span>);
-        <span style="color:#66d9ef">break</span>;
-    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">var</span> s:
-        <span style="color:#75715e">// Always matches (similar to default) but gives access to the value as `s`
-</span><span style="color:#75715e"></span>        WriteLine(<span style="color:#e6db74">$&#34;This is some kind of {s.Name} shape&#34;</span>);
-        <span style="color:#66d9ef">break</span>;
+    case Circle c:
+        WriteLine($&quot;circle with radius {c.Radius}&quot;);
+        break;
+    case Rectangle s when (s.Length == s.Height):
+        WriteLine($&quot;{s.Length} x {s.Height} square&quot;);
+        break;
+    case Rectangle r:
+        WriteLine($&quot;{r.Length} x {r.Height} rectangle&quot;);
+        break;
+    case var s:
+        // Always matches (similar to default) but gives access to the value as `s`
+        WriteLine($&quot;This is some kind of {s.Name} shape&quot;);
+        break;
 }
-</code></pre></div><p>It is worth pointing out that the order of your <code>case</code> arguments now matters. while not a logical breaking change, since it never mattered what order constants where declared, it would always match the right answer, this is a conceptual change you need to be aware of. Mixing and matching patterns in a switch mean that the order does matter, and the first pattern that matches will get executed. To repeat, when all cases are constants this wouldn&rsquo;t make any difference to the outcome but more advanced checks will.</p>
-<p>In C# 7.1, the patterns were extended to work correctly with generic variables as well. In C# 7.0, you could use these type patterns as expected by first casting the <code>T foo</code> value to an <code>Object</code> (which could cause Boxing) and then the type checking would all work. In C# 7.1, this cast is no longer necessary, and also avoids any boxing and unboxing along the way. <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch#type-pattern" target="_blank">The docs</a>
- go over this is more detail with an example comparing the two implementations, as there are a few subtle differences, especially around null/default cases.</p>
+</code></pre>
+<p>It is worth pointing out that the order of your <code>case</code> arguments now matters. while not a logical breaking change, since it never mattered what order constants where declared, it would always match the right answer, this is a conceptual change you need to be aware of. Mixing and matching patterns in a switch mean that the order does matter, and the first pattern that matches will get executed. To repeat, when all cases are constants this wouldn&rsquo;t make any difference to the outcome but more advanced checks will.</p>
+<p>In C# 7.1, the patterns were extended to work correctly with generic variables as well. In C# 7.0, you could use these type patterns as expected by first casting the <code>T foo</code> value to an <code>Object</code> (which could cause Boxing) and then the type checking would all work. In C# 7.1, this cast is no longer necessary, and also avoids any boxing and unboxing along the way. <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch#type-pattern">The docs</a> go over this is more detail with an example comparing the two implementations, as there are a few subtle differences, especially around null/default cases.</p>
 <h3 id="pattern-matching-coming-soon">Pattern Matching coming soon</h3>
 <p>This feature is an interesting one in the sense that it is both newer and probably under-used and less known. You can program away happily in C# never needing to use it and not coming across it.</p>
 <p>But with C# 8, there is a bunch of new features that will be using this existing pattern matching coming, so you might want to get on board with this in preparation, because soon you will need to understand code using it, and probably see a lot more of it around.</p>
 <p>Bring on the Switch Expression!</p>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
-  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/">Looking Back on C#: async and await</a>
-    </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/">Snuffleupagus-Oriented Programming</a>
-    </div></div>
-</div><section class="related-posts">
-    <h3>Related Posts</h3>
-    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/">Looking Back on C#: async and await</a></li><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp7-refs/">Looking Back on C# 7: refs enhancements</a></li><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/">Looking Back on C# 7: Out variables</a></li><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/">Looking Back on C# 7: Local functions</a></li><li><a href="https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/">Looking Back on C# 7: throw expressions</a></li></ul>
-  </section></article><div class="post-comments surface row"></div></div>
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="http://twitter.com/share?text=Looking%20Back%20on%20C%23%207%3a%20Pattern%20matching&url=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2flooking-back-on-csharp7-pattern-matching%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2flooking-back-on-csharp7-pattern-matching%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = 'Looking Back on C# 7: Pattern matching';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+        </div><aside class="sidebar-area">
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-twitter">Twitter</div>
+                
+                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-rss">Subscribe</div>
+                
+                <a class="email-subscribe-link" href="https://feedburner.google.com/fb/a/mailverify?uri=csmacnzBlog&amp;loc=en_US">Subscribe to csMACnz's Blog by Email</a>
+                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                <br />
+                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-xbox">Gamercard</div>
+                
+
+                <div style="margin: 0 auto; width:201px;">
+                    <iframe src="//gamercard.xbox.com/csMACnz.card" scrolling="no" frameborder="0" height="136px" width="201px">AutomatonMan</iframe>
+                </div>
+                <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="http://steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-ads">Advertisement</div>
+                
+                <div>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4517187877737982"
+                         data-ad-slot="7632444699"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+            </div>
+        </aside>
+        
+        <footer class="footer-area"><p>
+    Designed and Maintained by Mark Clearwater; Last updated June 2015.
+    <br /><a class="footer-link" >Hi</a>
+</p></footer>
+    </div>
+    
+    
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script src="/js/codetoggle.js"></script> 
+
+    
+    <script>
+        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </body>
 </html>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Resharper on csMacnz&#39;s Blog</title>
+    <title>Resharper on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/resharper/</link>
-    <description>Recent content in Resharper on csMacnz&#39;s Blog</description>
+    <description>Recent content in Resharper on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Sun, 16 Aug 2015 08:14:28 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/resharper/index.xml" rel="self" type="application/rss+xml" />
@@ -24,8 +24,8 @@ To make the most of the productivity boost of shortcuts, use an out of the box s
       <pubDate>Sat, 15 Aug 2015 17:16:08 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/resharper-on-appveyor/</guid>
-      <description>JetBrains have some great tools. One I am particularly fond of is Resharper. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as CodeRushand JustCode.
-If you are using TeamCity, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&amp;rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.</description>
+      <description>JetBrains have some great tools. One I am particularly fond of is Resharper. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as CodeRush and JustCode.
+If you are using TeamCity, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&amp;rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.</description>
     </item>
     
     <item>

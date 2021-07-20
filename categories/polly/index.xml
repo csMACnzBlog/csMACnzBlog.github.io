@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Polly on csMacnz&#39;s Blog</title>
+    <title>Polly on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/polly/</link>
-    <description>Recent content in Polly on csMacnz&#39;s Blog</description>
+    <description>Recent content in Polly on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 13 Aug 2018 04:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/polly/index.xml" rel="self" type="application/rss+xml" />
@@ -14,7 +14,7 @@
       
       <guid>https://csmacnzblog.github.io/post/retry-policies-with-polly/</guid>
       <description>I originally set out to write about Polly. Then I started reading their documentation. I quickly realised that I couldn&amp;rsquo;t write anything as detailed and accurate as they already had available. So instead, I&amp;rsquo;m going to give more of a super high level, with links to relevant reading.
-You can find their Documentation on their Github at github.com/App-vNext/Polly, as well as plenty more resources at www.thepollyproject.org/.
+You can find their Documentation on their Github at github.com/App-vNext/Polly, as well as plenty more resources at www.thepollyproject.org/.
 The elevator pitch is this:</description>
     </item>
     

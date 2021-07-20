@@ -1,452 +1,0 @@
-<!doctype html>
-<html lang="en">
-  <head>
-	<meta name="generator" content="Hugo 0.85.0" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>csMacnz&#39;s Blog Page 4</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="csMacnz&#39;s Blog">
-<meta itemprop="description" content=""><meta property="og:title" content="csMacnz&#39;s Blog" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://csmacnzblog.github.io/" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="csMacnz&#39;s Blog"/>
-<meta name="twitter:description" content=""/>
-<link rel="alternate" type="application/rss+xml" href="https://csmacnzblog.github.io/index.xml" title="csMacnz's Blog" /><link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand active" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
-
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
-</header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><div class="posts mb-4"><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnetcore2-multi-targeting/">.Net Core SDK 2.* Series - Multi-targeting</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Mar 6, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>8 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
-<div class="post-summary mb-3">This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting &lt;=(We are here) Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/on-screen-shortcut-keys-for-presentations-and-recordings/">On Screen Shortcut keys for presentations and recordings</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Feb 26, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a></div>
-<div class="post-summary mb-3">I used this tool a while ago that let me show on-screen what keyboard shortcuts and combinations I was pressing so that others could see them, especially during presentations, and on video recordings.
-But for the life of me today, on a new machine, I couldn&rsquo;t remember what it was called. Searching didn&rsquo;t …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnetcore2-nuget/">.Net Core SDK 2.* Series - NuGet</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Feb 19, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>5 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
-<div class="post-summary mb-3">This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects Testing NuGet &lt;=(We are here) Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnetcore2-testing/">.Net Core SDK 2.* Series - Testing</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Feb 12, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>4 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
-<div class="post-summary mb-3">This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects Testing &lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnetcore2-using-multiple-projects/">.Net Core SDK 2.* Series - Using Multiple Projects</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Feb 5, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>9 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
-<div class="post-summary mb-3">This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box Using Multiple Projects &lt;=(We are here) Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/a-powershell-watch-command/">A PowerShell Watch Command</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Jan 30, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>2 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/categories/powershell/" class="post-taxonomy">#PowerShell</a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/tags/powershell/" class="post-taxonomy">#PowerShell</a></div>
-<div class="post-summary mb-3">I use dotnet-watch a bunch and have used a version via grunt/gulp a little in the past as well.
-In front of me, I had some TypeScript, tsc and an app.ts file. I wanted to watch it and trigger tsc automatically. But there was no csproj, no NuGet, and no npm in sight.
-I went searching far and wide for solutions, and some …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnetcore2-whats-in-the-box/">.Net Core SDK 2.* Series - What&#39;s in the box</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Jan 22, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>7 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
-<div class="post-summary mb-3">This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started What&rsquo;s in the box &lt;=(We are here) Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnetcore-self-contained-applications/">.Net Core Series - Self-contained Applications</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Jan 21, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a></div>
-<div class="post-summary mb-3">This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
- Getting Started What&rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications &lt;=(We are here)  This was meant to be an article on Self-contained …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/storytellerreduxsample/">Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Dec 28, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>6 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/storyteller/" class="post-taxonomy">#Storyteller</a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/testing/" class="post-taxonomy">#Testing</a><a href="https://csmacnzblog.github.io/tags/storyteller/" class="post-taxonomy">#Storyteller</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/testing/" class="post-taxonomy">#Testing</a></div>
-<div class="post-summary mb-3">A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React + .Net Applications. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
-While he had a proven way of communicating between React/Redux and …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/pro-tips-for-working-in-powershell/">Pro-tips for working in PowerShell</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Dec 12, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span>
-</div>
-<div class="post-summary mb-3">utilies, scripts, configs I use
-*visual studio devenv (link to existing article?)
-functions gs watch (link) sudo bash
-powershell gallery ps-get post-git post-dotnet https://www.powershellgallery.com/packages/posh-dotnet/1.2.3
-git-lol (link)</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/typescript-over-javascript-always/">TypeScript over JavaScript, Always</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Dec 11, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>6 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/typescript/" class="post-taxonomy">#TypeScript</a><a href="https://csmacnzblog.github.io/categories/javascript/" class="post-taxonomy">#JavaScript</a><a href="https://csmacnzblog.github.io/tags/typescript/" class="post-taxonomy">#TypeScript</a><a href="https://csmacnzblog.github.io/tags/javascript/" class="post-taxonomy">#JavaScript</a></div>
-<div class="post-summary mb-3">Prelude As a developer, JavaScript is inevitable. Unless you&rsquo;re a dba or mobile app developer I suppose, but I digress.
-When working with JavaScript applications, you certainly have to be using a build pipeline of some description. If you are not at least bundling and minifying you are certainly doing it wrong, …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/there-can-be-only-one-return/">There can be only one return; 0 RLY?</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Dec 3, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>8 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a></div>
-<div class="post-summary mb-3">My opinions and choices on style of coding evolves and changes over time. By blogging about this now, I can refer back later when I change my mind. I can also elicit the opinions of others to influence me to change my ways if I happen to be wrong and not know it yet.
-Lets talk about returns. There is an opinion that …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/in-c-your-structs-should-be-immutable/">In C#, your structs should be immutable.</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Nov 26, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>2 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a></div>
-<div class="post-summary mb-3">I wrote some code. It was simple code. I had a collection. I iterated over the collection and updated the values. I did this several times in an outer loop.
-The code didn&rsquo;t work.
-Why didn&rsquo;t it work? My collection was an array of Structs. When I pulled an item out in the for loop, it was copied. When I …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnetcore2-getting-started/">.Net Core SDK 2.* Series - Getting Started</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Nov 20, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>4 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
-<div class="post-summary mb-3">This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series Getting Started &lt;=(We are here) What&rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.0.3. I use …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/fix-wireless-display-connection/">Couldn&#39;t Connect. Get Connected to your Wireless Display Adapter</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Nov 13, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>2 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/troubleshooting/" class="post-taxonomy">#troubleshooting</a><a href="https://csmacnzblog.github.io/tags/troubleshooting/" class="post-taxonomy">#troubleshooting</a></div>
-<div class="post-summary mb-3">I was having trouble with connecting my laptops to a remote display with Miricast.
-Specifically, I was trying to use the functionality built into Windows 10 to connect to a wireless display and had a Microsoft Wireless Display Adapter V2 plugged into my TV.
-It would say Connecting to ... for a while and then fail with …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/a-story-about-an-intern-and-dotnet/">A story about an intern and dotnet</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Nov 6, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>11 min read
-  </span>
-</div>
-<div class="post-summary mb-3">Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn.
-&ldquo;It&rsquo;s your first day, and we need you to work out all this new dotnet command line stuff&rdquo;. Jack recalled the words of his new Boss, Joe. &ldquo;We are far too busy to figure this out, we have code to ship, …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/ghost-blog-upgrade-to-v1/">Ghost Blog Upgrade to 1.* (1.8.4 in fact)</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Sep 9, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>2 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/ghost/" class="post-taxonomy">#Ghost</a><a href="https://csmacnzblog.github.io/tags/ghost/" class="post-taxonomy">#Ghost</a></div>
-<div class="post-summary mb-3">While I&rsquo;ve been hapily blogging away on Ghost version 0.8.0 hosted on azure (very much ad-hoc hosting approach) the Ghost Blog team made the leap to a 1.* version, with a very breaking changes along the way, especially to their upgrade process. They&rsquo;ve made it all the way to 1.8.4 and so I figured it was …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/">dotnet build, targeting full .Net 4.5.1 on nanoserver docker</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Mar 31, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>3 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/docker/" class="post-taxonomy">#docker</a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/docker/" class="post-taxonomy">#docker</a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy">#Tips and Tricks</a></div>
-<div class="post-summary mb-3">I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
-Basically I was trying this:
-docker run -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/migrating-onto-dotnet-tools-1-0-0/">Migrating onto dotnet tools 1.0.0</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Mar 11, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>4 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy">#c#</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy">#c#</a></div>
-<div class="post-summary mb-3">Since Visual Studio 2017 is out, and we have a 1.0.0 tools release for .Net Core, I&rsquo;m going to try and migrate a simple project from the pre-release tooling, onto the new tooling.
-The biggest difference is that instead of using a project.json file, the new tooling now uses a .csproj file instead. It will take a …</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/building-a-windows-service-with-net-core/">Building a Windows Service with .Net Core</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Feb 12, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>6 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
-<div class="post-summary mb-3">While we are all wanting to get onto the new hotness that is .Net Core cross platform applications, the reality is that our servers are running windows, and we use a combination of Scheduled tasks, IIS, and Windows Services to host our applications. Most .Net Core applications are console apps that work well for …</div>
-      </div>
-    </article></div><div class="row table-responsive mb-3">
-    <ul class="pagination pagination-default">
-      <li class="page-item">
-        <a href="/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/page/3/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
-      </li>
-      <li class="page-item">
-        <a href="/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
-      </li>
-      <li class="page-item active">
-        <a href="#" aria-current="page" aria-label="Page 4" class="page-link" role="button">4</a>
-      </li>
-      <li class="page-item">
-        <a href="/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
-      </li>
-      <li class="page-item">
-        <a href="/page/6/" aria-label="Page 6" class="page-link" role="button">6</a>
-      </li>
-      <li class="page-item">
-        <a href="/page/5/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/page/12/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
-      </li>
-    </ul></div>
-</div>
-
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
-    <a class="nav-link social-link" target="_blank" href="https://csmacnzblog.github.io/index.xml" title="RSS">
-      <i class="fas fa-fw fa-2x fa-rss"></i>
-    </a>
-  </li></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
-</html>

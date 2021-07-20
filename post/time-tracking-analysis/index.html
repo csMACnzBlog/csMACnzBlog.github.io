@@ -1,178 +1,161 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data">
-<meta itemprop="description" content="As a remote worker, I need to keep myself honest. This is as much &ldquo;Make sure I do my hours&rdquo; as it is &ldquo;Don&rsquo;t overwork!&rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.
-To monitor this, I use Toggl. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop."><meta itemprop="datePublished" content="2018-08-27T06:00:00+00:00" />
-<meta itemprop="dateModified" content="2018-08-27T06:00:00+00:00" />
-<meta itemprop="wordCount" content="1017">
-<meta itemprop="keywords" content="Projects," /><meta property="og:title" content="Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data" />
-<meta property="og:description" content="As a remote worker, I need to keep myself honest. This is as much &ldquo;Make sure I do my hours&rdquo; as it is &ldquo;Don&rsquo;t overwork!&rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.
-To monitor this, I use Toggl. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://csmacnzblog.github.io/post/time-tracking-analysis/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-08-27T06:00:00+00:00" />
-<meta property="article:modified_time" content="2018-08-27T06:00:00+00:00" />
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+    <meta name='language' content='EN'>
+    <meta name='medium' content='blog'>
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data"/>
-<meta name="twitter:description" content="As a remote worker, I need to keep myself honest. This is as much &ldquo;Make sure I do my hours&rdquo; as it is &ldquo;Don&rsquo;t overwork!&rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.
-To monitor this, I use Toggl. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop."/>
-<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
 
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
+    <title>Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data - csMACnz&#39;s Blog</title>
+    <meta name="description" content="As a remote worker, I need to keep myself honest. This is as much &ldquo;Make sure I do my hours&rdquo; as it is &ldquo;Don&rsquo;t overwork!&rdquo;. Anyone who has worked from home or remotely for a period of time …">
+    <meta name='keywords' content='csMACnz, Projects'>
+
+    
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data"/>
+    <meta property="og:description" content="As a remote worker, I need to keep myself honest. This is as much &ldquo;Make sure I do my hours&rdquo; as it is &ldquo;Don&rsquo;t overwork!&rdquo;. Anyone who has worked from home or remotely for a period of time …"/>
+    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+    <meta property="og:url" content="https://csmacnzblog.github.io/post/time-tracking-analysis/"/>
+    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data"/>
+    <meta name="twitter:description" content="As a remote worker, I need to keep myself honest. This is as much &ldquo;Make sure I do my hours&rdquo; as it is &ldquo;Don&rsquo;t overwork!&rdquo;. Anyone who has worked from home or remotely for a period of time …"/>
+    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+    <meta name="twitter:site" content="@csMACnz"/>
+    <meta name="twitter:creator" content="@csMACnz"/>
+
+
+    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+    <script>
+        var d_id  = 'csmacnz',
+            g_id  = 'UA-18464866-2',
+            g_url = 'auto';
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+    <!-- ENTERING partial seo-schema.html -->
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "Article",
+        "publisher": {
+            "@type": "Organization",
+            "name": "csMACnz&#x27;s Blog",
+            "logo": "https://blog.csmac.nz/content/images/2014/10/apple-touch-icon-144x144-precomposed.png"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Mark Clearwater",
+            "image": {
+                "@type": "ImageObject",
+                "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                "width": 440,
+                "height": 295
+            },
+            "url": "https://blog.csmac.nz/author/csmacnz/",
+            "sameAs": [
+                "http://csmac.nz"
+            ]
+        },
+        "articleSection" : "post",
+        "name" : "Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data",
+        "headline" : "Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data",
+        "url" : "https:\/\/csmacnzblog.github.io\/post\/time-tracking-analysis\/",
+        "datePublished": "2018-08-27T06:00:00.000Z",
+        "dateModified" : "2018-08-27T06:00:00.000Z",
+        "image" : {
+            "@type": "ImageObject",
+            "url": "https:\/\/images.unsplash.com\/photo-1490684409501-7fef866a3396?ixlib=rb-0.3.5\u0026q=80\u0026fm=jpg\u0026crop=entropy\u0026cs=tinysrgb\u0026w=1080\u0026fit=max\u0026ixid=eyJhcHBfaWQiOjE2ODI3fQ\u0026s=334a716ec6c4eb50b0bdc360e2c67c7c",
+            "width": 440,
+            "height": 295
+        },
+        "keywords" : [ "Projects" ]
+        "description" : "As a remote worker, I need to keep myself honest. This is as much \u0026ldquo;Make sure I do my hours\u0026rdquo; as it is \u0026ldquo;Don\u0026rsquo;t overwork!\u0026rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.\nTo monitor this, I use Toggl. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop.",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.csmac.nz/"
+        }
+        "inLanguage" : "en-US",
+        "author" : "Mark Clearwater",
+        "creator" : "Mark Clearwater",
+        "accountablePerson" : "Mark Clearwater",
+        "copyrightHolder" : "Mark Clearwater",
+        "copyrightYear" : "2018",
+        "wordCount" : "1014",
+    }
+    </script>
+    
+    
+    <!-- LEAVING partial seo-schema.html -->
+
+    <link rel="alternate" type="application/rss+xml" title="csMACnz&#x27;s Blog" href="https://blog.csmac.nz/rss/" />
+    <style>
+        .post-content img {
+            max-width: 500px;
+        }
+    </style>
+    </head>
+    <body class="blog">
+        <div class="page-area"><header class="header-area">
+    <h1 class="header-area-title">csMACnz</h1>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data</li></ol>
-</nav><article class="post row surface"><div class="post-toolbox">
-  <div class="col-12 d-none d-lg-block">
-    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
-  </div>
-</div>
-<h1 class="post-title my-3">Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data</h1><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Aug 27, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>5 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy">#Projects</a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy">#Projects</a></div>
-<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
-</a>
-
-<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#the-instructions">The instructions</a></li>
-        <li><a href="#analysis">Analysis</a></li>
-        <li><a href="#conclusion">Conclusion</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div><div class="post-content mb-3"><p>As a remote worker, I need to keep myself honest. This is as much &ldquo;Make sure I do my hours&rdquo; as it is &ldquo;Don&rsquo;t overwork!&rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.</p>
-<p>To monitor this, I use <a href="https://www.toggl.com" target="_blank">Toggl</a>
-. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop. Tracking is even done server side so you can start your timer on one device, and stop it from another. As I say, you can annotate your time with Client, Project, even custom tags.</p>
-<p>Toggl has a bunch of advanced time-coding features to produce reports against different projects. If you pay for their starter plan, it can even handle Billable Time. I don&rsquo;t use any of that. I use their Windows Desktop client (which includes idle time detection to easily clear <a href="https://www.grammarly.com/blog/afk-meaning/" target="_blank">AFK</a>
- time) and their online data storage, to hold onto my data for me.</p>
+<nav class="navigation-area header-bar-parent">
+    <div class="header-bar header-bar-blog">
+        <ul class="menu">
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+        </ul>
+    </div>
+</nav><div id="content" class="content-area">
+            
+<article>
+    <div class="content-box" itemscope itemtype="http://schema.org/Article">
+    
+        <span class="post-meta"><time datetime="2018-08-27"  itemprop="datePublished">27 Aug 18</time> on
+            <a href="https://csmacnzblog.github.iotags/projects">Projects</a>
+        </span>
+    
+        <h1 class="post-title" itemprop="headline">Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <img class="post-image" src="https://images.unsplash.com/photo-1490684409501-7fef866a3396?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ&amp;s=334a716ec6c4eb50b0bdc360e2c67c7c"><p>As a remote worker, I need to keep myself honest. This is as much &ldquo;Make sure I do my hours&rdquo; as it is &ldquo;Don&rsquo;t overwork!&rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.</p>
+<p>To monitor this, I use <a href="https://www.toggl.com">Toggl</a>. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop. Tracking is even done server side so you can start your timer on one device, and stop it from another. As I say, you can annotate your time with Client, Project, even custom tags.</p>
+<p>Toggl has a bunch of advanced time-coding features to produce reports against different projects. If you pay for their starter plan, it can even handle Billable Time. I don&rsquo;t use any of that. I use their Windows Desktop client (which includes idle time detection to easily clear <a href="https://www.grammarly.com/blog/afk-meaning/">AFK</a> time) and their online data storage, to hold onto my data for me.</p>
 <p>I created this little tool to help me visualise my work patterns as a bit of a heatmap. This was a way for me to answer the question &ldquo;What are my &lsquo;office hours&rsquo;&rdquo; as well as an indication of my work patterns for my team.</p>
 <h3 id="the-instructions">The instructions</h3>
 <h4 id="exporting-data">Exporting Data</h4>
-<p>Using the Toggl Reports, I can select a time period of data I want to have access to. (Instructions <a href="https://support.toggl.com/tag/export/" target="_blank">here</a>
-.) I select a range, say the last year, and then export as CSV.</p>
-<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1534489912/TogglExport_wzkiix.png" alt="Export Toggl Report data using detailed."  loading="lazy" />
-</p>
+<p>Using the Toggl Reports, I can select a time period of data I want to have access to. (Instructions <a href="https://support.toggl.com/tag/export/">here</a>.) I select a range, say the last year, and then export as CSV.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1534489912/TogglExport_wzkiix.png" alt="Export Toggl Report data using detailed."></p>
 <p>Make sure that you are Exporting a Detailed report. Your file will be named like &ldquo;Toggl_time_entries_2016-01-01_to_2016-12-31.csv&rdquo;.</p>
 <p>The format of this file should be like this:</p>
 <pre><code>User,Email,Client,Project,Task,Description,Billable,Start date,Start time,End date,End time,Duration,Tags,Amount ()
 First Last,first.last@email.address,,,,&quot;&quot;,No,2016-05-04,10:00:00,2016-05-04,13:00:00,03:00:00,,
 First Last,first.last@email.address,,,,&quot;&quot;,No,2016-05-04,14:00:00,2016-05-04,16:00:00,02:00:00,,
-</code></pre><p>In theory, anyone could create a CSV in this format and this tool will work just fine for them too. I only use the <code>Start date,Start time,End date,End time,Duration</code> fields anyway.</p>
+</code></pre>
+<p>In theory, anyone could create a CSV in this format and this tool will work just fine for them too. I only use the <code>Start date,Start time,End date,End time,Duration</code> fields anyway.</p>
 <h4 id="process-the-data">Process the data</h4>
 <p>Now that I have a local CSV file, I can process it through my application.</p>
 <p>I have made this available as a dotnet tool, so you can easily install it globally and run it from anywhere.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd"># install globally
+<pre><code class="language-cmd"># install globally
 dotnet tool install -g TogglHeatmap
 
 # if installed globally, this should just be available on your path
@@ -183,18 +166,21 @@ dotnet tool install TogglHeatmap --tools-path tools
 
 # if installed into a tools path, you can run it from there.
 .\tools\TogglHeatmap &lt;args&gt;
-</code></pre></div><p>For those new to tools, there is also an update option if newer versions come available, as well as a version parameter if you require a specific version:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">dotnet tool install -g TogglHeatmap --version 1.0.0
-# update doesn&#39;t support version but instead gets the latest
+</code></pre>
+<p>For those new to tools, there is also an update option if newer versions come available, as well as a version parameter if you require a specific version:</p>
+<pre><code class="language-cmd">dotnet tool install -g TogglHeatmap --version 1.0.0
+# update doesn't support version but instead gets the latest
 dotnet tool update -g TogglHeatmap
 # to replace with a specific version, first uninstall, then install with specific version required specified.
-</code></pre></div><p>At this stage, the args for the application are as follows (subject to change, check <code>TogglHeatmap --help</code> for latest):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd"># Start and End dates
+</code></pre>
+<p>At this stage, the args for the application are as follows (subject to change, check <code>TogglHeatmap --help</code> for latest):</p>
+<pre><code class="language-cmd"># Start and End dates
 TogglHeatmap dataFile.csv 2018-01-01 2018-06-01
 
 # Start and week count
 TogglHeatmap dataFile.csv 2018-01-01 26
-</code></pre></div><p>This should produce a nice report of numbers to the console output:</p>
+</code></pre>
+<p>This should produce a nice report of numbers to the console output:</p>
 <pre><code>&gt; TogglHeatmap Toggl_time_entries_2017-08-15_to_2018-08-15.csv 2018-1-1 2018-08-15
 Data from 1/1/18 0:00:00 to 15/8/18 0:00:00
 First day: Monday
@@ -252,105 +238,131 @@ Time,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
 ----
 
 Copy the data above into a CSV file to make it pretty in a spreadsheet
-</code></pre><p>We have our heatmap data, and we can copy and save it to a CSV file. Now we can do whatever makes sense to us to present it.</p>
+</code></pre>
+<p>We have our heatmap data, and we can copy and save it to a CSV file. Now we can do whatever makes sense to us to present it.</p>
 <h4 id="spreadsheet-ui">Spreadsheet UI</h4>
 <p>For instance, you may want to pull it into a Google Sheet. This should be similar for Excel if that is your office suite of choice instead.</p>
 <p>First, create a new Sheet.</p>
 <p>Take your CSV file of data you created before from the output. You can import that file into Sheets. Simply go to <code>File-&gt;Import...</code> menu, and in the popup and locate your file. Once you have located, uploaded and selected your file, you will get the second dialogue. In this dialogue Select where you want the data to go (for example <code>Insert new sheet</code>, or <code>Replace current sheet</code>) and choose <code>Comma</code> for the Separator type.</p>
-<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_200/v1534489034/SheetsImportFileDialog_izktyl.png" alt="Import Sheet dialogue"  loading="lazy" />
-</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_200/v1534489034/SheetsImportFileDialog_izktyl.png" alt="Import Sheet dialogue"></p>
 <p>Once imported, you may want to conditionally colour the numbers. Select cell range from <code>B2</code> to <code>H49</code>, Select <code>Format-&gt;Conditional Formatting...</code> from the menu. In the sidebar that opens on the right, select the <code>Color scale</code> from the tab at the top, ensure <code>Apply to range</code> is set to <code>B2:H49</code> as selected before, And select the colours you want from the drop-down labelled <code>Preview</code>.</p>
-<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_200/v1534491621/GoogleSheetsColorFormating_nzeuba.png" alt="Use Color scale Conditional formatting on cells"  loading="lazy" />
-</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_200/v1534491621/GoogleSheetsColorFormating_nzeuba.png" alt="Use Color scale Conditional formatting on cells"></p>
 <p>Click done to finish and enjoy your pretty picture.</p>
-<p><img class="img-fluid" src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1534492505/HeatmapResult_alnhio.png" alt="A calendar view with heatmap data on each cell"  loading="lazy" />
-</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1534492505/HeatmapResult_alnhio.png" alt="A calendar view with heatmap data on each cell"></p>
 <h3 id="analysis">Analysis</h3>
 <p>For me, this &lsquo;graph&rsquo; above gives me interesting insights, such as that my day is 10am-5pm then Monday nights and Wednesday nights 9:30 pm until 1 am, But I am really working anytime from 8:30 am till midnight early in the week, 8 am till 11 pm later in the week. There is also no correlation for when I take lunch, but dinner break is some time between 6:30 pm and 8 pm.</p>
 <p>These insights are easier to presume from the visual graph, and I can compare these graphs for different periods of the year to see how these insights change.</p>
 <h3 id="conclusion">Conclusion</h3>
-<p>I&rsquo;ve got a bunch of ideas to improve the CLI interface for TogglHeatmap. Including just using all the data as the date range without requiring entry. It might happen at some point, who knows? One of my other projects is working on an <a href="https://github.com/csMACnz/consolable" target="_blank">args parser library</a>
- so this might be just another testbed for that at some point.</p>
-<p>The source code is on Github at <a href="https://github.com/csMACnz/TogglHeatmap" target="_blank">github.com/csMACnz/TogglHeatmap</a>
-. Issues welcome.</p>
+<p>I&rsquo;ve got a bunch of ideas to improve the CLI interface for TogglHeatmap. Including just using all the data as the date range without requiring entry. It might happen at some point, who knows? One of my other projects is working on an <a href="https://github.com/csMACnz/consolable">args parser library</a> so this might be just another testbed for that at some point.</p>
+<p>The source code is on Github at <a href="https://github.com/csMACnz/TogglHeatmap">github.com/csMACnz/TogglHeatmap</a>. Issues welcome.</p>
 <p>Hopefully, someone other than me finds this useful. If not, I have found it useful to document the evolution of my working hours.</p>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
-  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/method-calls-less-chaining-more-functional/">Method calls. Less chaining, more Functional.</a>
-    </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/">Agile Jogging to complement your Sprinting</a>
-    </div></div>
-</div><section class="related-posts">
-    <h3>Related Posts</h3>
-    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/">Coveralls.Net 1.0.0 Release</a></li><li><a href="https://csmacnzblog.github.io/post/new-projects-consolable-concurrentconsole-t4tinytypes/">New Projects - Consolable, ConcurrentConsole &amp; t4tinytypes</a></li><li><a href="https://csmacnzblog.github.io/post/you-cant-handle-the-jandal/">You can&#39;t handle the jandal</a></li><li><a href="https://csmacnzblog.github.io/post/resharper-on-appveyor/">Resharper on AppVeyor</a></li><li><a href="https://csmacnzblog.github.io/post/introducing-publishcoverity/">Introducing PublishCoverity</a></li></ul>
-  </section></article><div class="post-comments surface row"></div></div>
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="http://twitter.com/share?text=Time-tracking%20Analysis%20-%20Parsing%20and%20Presenting%20a%20Heatmap%20of%20your%20working%20week%20from%20Toggl%20Data&url=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2ftime-tracking-analysis%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2ftime-tracking-analysis%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = 'Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+        </div><aside class="sidebar-area">
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-twitter">Twitter</div>
+                
+                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-rss">Subscribe</div>
+                
+                <a class="email-subscribe-link" href="https://feedburner.google.com/fb/a/mailverify?uri=csmacnzBlog&amp;loc=en_US">Subscribe to csMACnz's Blog by Email</a>
+                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                <br />
+                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-xbox">Gamercard</div>
+                
+
+                <div style="margin: 0 auto; width:201px;">
+                    <iframe src="//gamercard.xbox.com/csMACnz.card" scrolling="no" frameborder="0" height="136px" width="201px">AutomatonMan</iframe>
+                </div>
+                <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="http://steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-ads">Advertisement</div>
+                
+                <div>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4517187877737982"
+                         data-ad-slot="7632444699"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+            </div>
+        </aside>
+        
+        <footer class="footer-area"><p>
+    Designed and Maintained by Mark Clearwater; Last updated June 2015.
+    <br /><a class="footer-link" >Hi</a>
+</p></footer>
+    </div>
+    
+    
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script src="/js/codetoggle.js"></script> 
+
+    
+    <script>
+        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </body>
 </html>

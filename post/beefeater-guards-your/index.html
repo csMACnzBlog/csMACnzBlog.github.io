@@ -1,167 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Beefeater - Guard your methods&#39; Ins and Outs. - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="Beefeater - Guard your methods&#39; Ins and Outs.">
-<meta itemprop="description" content="A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater.
-This library contains helpers to add semantics to the optionality of your parameters and results from method calls. I built it on NetStandard1.0 for maximum compatibility.
-Some of this will soon become obsolete with C# 8 features such as the C# 8 nullable reference types, but much of it gives you the power you need right now."><meta itemprop="datePublished" content="2018-08-06T06:00:00+00:00" />
-<meta itemprop="dateModified" content="2018-08-06T06:00:00+00:00" />
-<meta itemprop="wordCount" content="1482">
-<meta itemprop="keywords" content="" /><meta property="og:title" content="Beefeater - Guard your methods&#39; Ins and Outs." />
-<meta property="og:description" content="A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater.
-This library contains helpers to add semantics to the optionality of your parameters and results from method calls. I built it on NetStandard1.0 for maximum compatibility.
-Some of this will soon become obsolete with C# 8 features such as the C# 8 nullable reference types, but much of it gives you the power you need right now." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://csmacnzblog.github.io/post/beefeater-guards-your/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-08-06T06:00:00+00:00" />
-<meta property="article:modified_time" content="2018-08-06T06:00:00+00:00" />
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+    <meta name='language' content='EN'>
+    <meta name='medium' content='blog'>
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Beefeater - Guard your methods&#39; Ins and Outs."/>
-<meta name="twitter:description" content="A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater.
-This library contains helpers to add semantics to the optionality of your parameters and results from method calls. I built it on NetStandard1.0 for maximum compatibility.
-Some of this will soon become obsolete with C# 8 features such as the C# 8 nullable reference types, but much of it gives you the power you need right now."/>
-<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
 
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
+    <title>Beefeater - Guard your methods&#39; Ins and Outs. - csMACnz&#39;s Blog</title>
+    <meta name="description" content=" A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater. This library contains helpers to add semantics to the optionality …&lt;/!--&gt;">
+    <meta name='keywords' content='csMACnz'>
+
+    
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Beefeater - Guard your methods&#39; Ins and Outs."/>
+    <meta property="og:description" content=" A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater. This library contains helpers to add semantics to the optionality …&lt;/!--&gt;"/>
+    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+    <meta property="og:url" content="https://csmacnzblog.github.io/post/beefeater-guards-your/"/>
+    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Beefeater - Guard your methods&#39; Ins and Outs."/>
+    <meta name="twitter:description" content=" A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater. This library contains helpers to add semantics to the optionality …&lt;/!--&gt;"/>
+    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+    <meta name="twitter:site" content="@csMACnz"/>
+    <meta name="twitter:creator" content="@csMACnz"/>
+
+
+    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+    <script>
+        var d_id  = 'csmacnz',
+            g_id  = 'UA-18464866-2',
+            g_url = 'auto';
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+    <!-- ENTERING partial seo-schema.html -->
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "Article",
+        "publisher": {
+            "@type": "Organization",
+            "name": "csMACnz&#x27;s Blog",
+            "logo": "https://blog.csmac.nz/content/images/2014/10/apple-touch-icon-144x144-precomposed.png"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Mark Clearwater",
+            "image": {
+                "@type": "ImageObject",
+                "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                "width": 440,
+                "height": 295
+            },
+            "url": "https://blog.csmac.nz/author/csmacnz/",
+            "sameAs": [
+                "http://csmac.nz"
+            ]
+        },
+        "articleSection" : "post",
+        "name" : "Beefeater - Guard your methods\u0027 Ins and Outs.",
+        "headline" : "Beefeater - Guard your methods\u0027 Ins and Outs.",
+        "url" : "https:\/\/csmacnzblog.github.io\/post\/beefeater-guards-your\/",
+        "datePublished": "2018-08-06T06:00:00.000Z",
+        "dateModified" : "2018-08-06T06:00:00.000Z",
+        "keywords" : [  ]
+        "description" : "A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater.\nThis library contains helpers to add semantics to the optionality of your parameters and results from method calls. I built it on NetStandard1.0 for maximum compatibility.\nSome of this will soon become obsolete with C# 8 features such as the C# 8 nullable reference types, but much of it gives you the power you need right now.",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.csmac.nz/"
+        }
+        "inLanguage" : "en-US",
+        "author" : "Mark Clearwater",
+        "creator" : "Mark Clearwater",
+        "accountablePerson" : "Mark Clearwater",
+        "copyrightHolder" : "Mark Clearwater",
+        "copyrightYear" : "2018",
+        "wordCount" : "1480",
+    }
+    </script>
+    
+    
+    <!-- LEAVING partial seo-schema.html -->
+
+    <link rel="alternate" type="application/rss+xml" title="csMACnz&#x27;s Blog" href="https://blog.csmac.nz/rss/" />
+    <style>
+        .post-content img {
+            max-width: 500px;
+        }
+    </style>
+    </head>
+    <body class="blog">
+        <div class="page-area"><header class="header-area">
+    <h1 class="header-area-title">csMACnz</h1>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Beefeater - Guard your methods&#39; Ins and Outs.</li></ol>
-</nav><article class="post row surface"><div class="post-toolbox">
-  <div class="col-12 d-none d-lg-block">
-    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
-  </div>
-</div>
-<h1 class="post-title my-3">Beefeater - Guard your methods&#39; Ins and Outs.</h1><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Aug 6, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>7 min read
-  </span>
-</div>
-<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
-</a>
-
-<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#the-bits">The bits</a></li>
-        <li><a href="#show-me-the-code">Show me the code!</a></li>
-        <li><a href="#c-8">C# 8</a></li>
-        <li><a href="#performance">Performance?</a></li>
-        <li><a href="#attention">Attention!</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div><div class="post-content mb-3"><!-- raw HTML omitted -->
+<nav class="navigation-area header-bar-parent">
+    <div class="header-bar header-bar-blog">
+        <ul class="menu">
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+        </ul>
+    </div>
+</nav><div id="content" class="content-area">
+            
+<article>
+    <div class="content-box" itemscope itemtype="http://schema.org/Article">
+    
+        <span class="post-meta"><time datetime="2018-08-06"  itemprop="datePublished">06 Aug 18</time> on
+            
+        </span>
+    
+        <h1 class="post-title" itemprop="headline">Beefeater - Guard your methods&#39; Ins and Outs.</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <!-- raw HTML omitted -->
 <p>A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater.</p>
 <p>This library contains helpers to add semantics to the optionality of your parameters and results from method calls. I built it on <code>NetStandard1.0</code> for maximum compatibility.</p>
 <p>Some of this will soon become obsolete with C# 8 features such as the C# 8 nullable reference types, but much of it gives you the power you need right now.</p>
-<p>You can install the NuGet package using <code>Install-Package Beefeater</code> or by heading to the <a href="https://www.nuget.org/packages/Beefeater" target="_blank">Nuget Package Page</a>
-.</p>
+<p>You can install the NuGet package using <code>Install-Package Beefeater</code> or by heading to the <a href="https://www.nuget.org/packages/Beefeater">Nuget Package Page</a>.</p>
 <p>Last week I released version 0.5.0.</p>
 <p>The basic idea is similar to the <code>Nullable&lt;T&gt;</code> type that exists for value types. But extend this into semantic markup around method arguments and return types.</p>
 <p>The approach is to allow you to write declarative code, and let the library determine which part gets called.</p>
@@ -172,8 +146,7 @@ Some of this will soon become obsolete with C# 8 features such as the C# 8 nulla
 <ul>
 <li><code>Option&lt;T&gt;</code> - declare a reference type as possibly null (C# 8 makes this obsolete, but implicit casts to/from the new syntax might work)</li>
 <li><code>NotNull&lt;T&gt;</code> - so you can declare something is certainly never null (or crash immediately rather than on dereference)</li>
-<li><code>Result&lt;TValue, TError&gt;</code> - Represents either a success result or an error (Modelled after <a href="https://doc.rust-lang.org/std/result/" target="_blank">Rust&rsquo;s std::result</a>
-)</li>
+<li><code>Result&lt;TValue, TError&gt;</code> - Represents either a success result or an error (Modelled after <a href="https://doc.rust-lang.org/std/result/">Rust&rsquo;s std::result</a>)</li>
 <li><code>Either&lt;TValue, TError&gt;</code> - a more generic concept of a two-part Union type</li>
 </ul>
 <p>There are implicit casts to and from (where sensible) these types when they are in use, so you only need to explicitly declare them in contracts, and occasionally in return types. Although, a bunch of work has been put in to avoid return types most of the type.</p>
@@ -201,7 +174,8 @@ Some of this will soon become obsolete with C# 8 features such as the C# 8 nulla
     }
     return first + second;
 }
-</code></pre><p>Typical code. A bit of error checking, and some switch logic based on an optional argument.</p>
+</code></pre>
+<p>Typical code. A bit of error checking, and some switch logic based on an optional argument.</p>
 <p>I don&rsquo;t know about you, but it is hard for me to know that <code>first</code> is required, but <code>second</code> is optional. At least not without comments, or a thorough inspection of the code. Shouldn&rsquo;t the signature tell me this? (C# 8 says it will.)</p>
 <p>Lets take a look at this using Beefeater:</p>
 <pre><code>public Option&lt;string&gt; Modify(NotNull&lt;string&gt; first, Option&lt;string&gt; second)
@@ -213,7 +187,8 @@ Some of this will soon become obsolete with C# 8 features such as the C# 8 nulla
 
 var x = Modify(&quot;Hello&quot;, &quot;World&quot;);
 var y = Modify(&quot;Hello&quot;, null);
-</code></pre><p>That is very clean to me. First, the signature tells us everything we need to know.</p>
+</code></pre>
+<p>That is very clean to me. First, the signature tells us everything we need to know.</p>
 <p>And when we look at the calling syntax, it is seamless. it works exactly as you expect. With one difference.</p>
 <p><code>x</code> and <code>y</code> in the example are both <code>Option&lt;string&gt;</code> type. This means you cannot pass this to a method that requires <code>NotNull&lt;string&gt;</code>, or even <code>string</code> itself.</p>
 <p>Why? Well, clearly you have no idea if that result is safe. You know it is either a Nothing or a non-null string. (Is it both?  Schrodinger&rsquo;s <code>Option&lt;T&gt;</code>?)</p>
@@ -226,7 +201,8 @@ var outputMessage = x.Match(
   none: () =&gt; &quot;There wasn't anything to report&quot;);
 
 Console.WriteLine(outputMessage);
-</code></pre><p>Your code will start to become very functional, but you will also get compile-type checks to ensure you are handling error cases correctly.</p>
+</code></pre>
+<p>Your code will start to become very functional, but you will also get compile-type checks to ensure you are handling error cases correctly.</p>
 <p>If you really want to live dangerously, though, there is an explicit cast back to the original type, that will throw a <code>PanicException</code>. This is basically the library equivalent to the <code>NullReferenceException</code>, but should normally throw earlier in your code when the Null is first observed, rather than late at dereference.</p>
 <p>Much like async/await, this library is contagious and will ripple through your code, just FYI.</p>
 <h4 id="resulttvalue-terror">Result&lt;TValue, TError&gt;</h4>
@@ -251,7 +227,8 @@ Console.WriteLine(outputMessage);
     }
     return true;
 }
-</code></pre><p>Again, a little cruft. Optionality unclear. But there is more.  This method can and will throw a bunch of exceptions. FileNotFound, UnauthorizedAccess, and others. Your calling code is either going to handle many exceptions, or the app will crash. We could put the logic into the method, and the code would get complex. But how do we handle the return? returns <code>true</code>, <code>false</code> or Throws exception, how do you translate that into a concise return type of <code>true</code>, <code>false</code> or FileNotFound or Unauthorized or Other?</p>
+</code></pre>
+<p>Again, a little cruft. Optionality unclear. But there is more.  This method can and will throw a bunch of exceptions. FileNotFound, UnauthorizedAccess, and others. Your calling code is either going to handle many exceptions, or the app will crash. We could put the logic into the method, and the code would get complex. But how do we handle the return? returns <code>true</code>, <code>false</code> or Throws exception, how do you translate that into a concise return type of <code>true</code>, <code>false</code> or FileNotFound or Unauthorized or Other?</p>
 <p>Beefeater says like this:
 (Rust too, actually&hellip;)</p>
 <pre><code>public enum ErrorResult
@@ -293,7 +270,8 @@ public Result&lt;bool, ErrorResult&gt; Create(NotNull&lt;string&gt; filePath, Op
             () =&gt; false);
     }
 }
-</code></pre><p>To me, the business logic is very easy to read from this code. Again the signature is clear what to expect and how to use the result.</p>
+</code></pre>
+<p>To me, the business logic is very easy to read from this code. Again the signature is clear what to expect and how to use the result.</p>
 <pre><code>var result = Create(&quot;myfile.txt&quot;, someVar);
 var outputMessage = result.Match(
   isCreated =&gt; isCreated
@@ -314,7 +292,8 @@ var outputMessage = result.Match(
   });
 
 Console.WriteLine(outputMessage);
-</code></pre><p>Just like that, every code-branch/edge-case has to be covered, or it will not compile. (Enum notwithstanding.)</p>
+</code></pre>
+<p>Just like that, every code-branch/edge-case has to be covered, or it will not compile. (Enum notwithstanding.)</p>
 <h4 id="either">Either</h4>
 <p><code>Either&lt;T1, T2&gt;</code> is very similar to Result, except the semantic meaning differs. It allows a method to return either one type or another type.</p>
 <pre><code>public Either&lt;long, double&gt; DivideByTwo(int aNumber)
@@ -326,13 +305,15 @@ Console.WriteLine(outputMessage);
 
 var x = DivideByTwo(10);
 var x = DivideByTwo(5);
-</code></pre><h4 id="recursion">Recursion?</h4>
+</code></pre>
+<h4 id="recursion">Recursion?</h4>
 <p>You could even nest these things:</p>
 <pre><code>Either&lt;Option&lt;string&gt;, NotNull&lt;int&gt;&gt;
 Option&lt;Either&lt;Foo, Bar&gt;&gt;
 Result&lt;Option&lt;string&gt;,CustomError&gt;
 Result&lt;Unit,string&gt;
-</code></pre><p>Different combinations will provide different value in different situations.</p>
+</code></pre>
+<p>Different combinations will provide different value in different situations.</p>
 <p><code>Unit</code>? Yeah. When you go functional, representing <code>void</code> as a type is much helpful. I have another library where I get my Unit from, but there are literally dozens on Nuget.</p>
 <h3 id="c-8">C# 8</h3>
 <p>I&rsquo;ve hung a lot of stuff on C# 8 in this article. At some point, I should cover what is coming (though at this stage nothing is certain). Basically, though, this library has been hanging around for a while, before nullable reference types was even being discussed publicly. So whether nullable reference types happens in 8, 8.1 or C# 9, this library is here today and can get you started thinking about different states of optionality in your code today.</p>
@@ -343,80 +324,113 @@ Result&lt;Unit,string&gt;
 <h3 id="attention">Attention!</h3>
 <p>So that&rsquo;s Beefeater. I&rsquo;ve started using it slowly on utilities and simple console apps. Hopefully, you find it interesting and it inspires you to think about how you handle your code yourself.</p>
 <p>If you don&rsquo;t like the ideas in this library, remember a <code>Result&lt;,&gt;</code> is just a tuple, a <code>(string, ErrorEnum)</code> if you wish. The rest is just boilerplate code you could write yourself. (Though I do handle all the error and state checking for you so you can just provide the Actions 😉 )</p>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
-  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/a-little-town-called-milton/">A Little Town called Milton</a>
-    </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/retry-policies-with-polly/">Retry Policies with Polly</a>
-    </div></div>
-</div></article><div class="post-comments surface row"></div></div>
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="http://twitter.com/share?text=Beefeater%20-%20Guard%20your%20methods%27%20Ins%20and%20Outs.&url=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fbeefeater-guards-your%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fbeefeater-guards-your%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = 'Beefeater - Guard your methods\u0027 Ins and Outs.';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+        </div><aside class="sidebar-area">
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-twitter">Twitter</div>
+                
+                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-rss">Subscribe</div>
+                
+                <a class="email-subscribe-link" href="https://feedburner.google.com/fb/a/mailverify?uri=csmacnzBlog&amp;loc=en_US">Subscribe to csMACnz's Blog by Email</a>
+                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                <br />
+                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-xbox">Gamercard</div>
+                
+
+                <div style="margin: 0 auto; width:201px;">
+                    <iframe src="//gamercard.xbox.com/csMACnz.card" scrolling="no" frameborder="0" height="136px" width="201px">AutomatonMan</iframe>
+                </div>
+                <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="http://steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-ads">Advertisement</div>
+                
+                <div>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4517187877737982"
+                         data-ad-slot="7632444699"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+            </div>
+        </aside>
+        
+        <footer class="footer-area"><p>
+    Designed and Maintained by Mark Clearwater; Last updated June 2015.
+    <br /><a class="footer-link" >Hi</a>
+</p></footer>
+    </div>
+    
+    
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script src="/js/codetoggle.js"></script> 
+
+    
+    <script>
+        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </body>
 </html>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tips and Tricks on csMacnz&#39;s Blog</title>
+    <title>Tips and Tricks on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/tips-and-tricks/</link>
-    <description>Recent content in Tips and Tricks on csMacnz&#39;s Blog</description>
+    <description>Recent content in Tips and Tricks on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 15 Oct 2018 05:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/tips-and-tricks/index.xml" rel="self" type="application/rss+xml" />
@@ -32,7 +32,7 @@ Anyone who has been doing dotnet cross-platform will also know that you can use 
       <pubDate>Mon, 17 Sep 2018 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</guid>
-      <description>I wrote a while back on getting your Windows Services building with .Net Corewhich is a nice way to use the new SDK pipeline but still host on Windows without much fuss.
+      <description>I wrote a while back on getting your Windows Services building with .Net Core which is a nice way to use the new SDK pipeline but still host on Windows without much fuss.
 But what If you like the approach but want to run on Linux?
 Well after some stumbling around in the dotnet core docs, I found information about HostBuilder, which looks a lot like the WebHostBuilder and WebHost that we use with AspNetCore.</description>
     </item>
@@ -43,7 +43,7 @@ Well after some stumbling around in the dotnet core docs, I found information ab
       <pubDate>Mon, 09 Jul 2018 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/some-cool-tricks-with-your-windows-shell/</guid>
-      <description>I&amp;rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (Windows Subsystem for Linux). There are a few of the tricks I have learned recently that help me every day.
+      <description>I&amp;rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (Windows Subsystem for Linux). There are a few of the tricks I have learned recently that help me every day.
 F8 searches history! That&amp;rsquo;s right! When you type into the command line (this work in cmd and PowerShell) and then press F8, it will do a back-in-time search for a historical command that begins with what you typed.</description>
     </item>
     
@@ -53,7 +53,7 @@ F8 searches history! That&amp;rsquo;s right! When you type into the command line
       <pubDate>Sun, 22 Apr 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</guid>
-      <description>I wrote Building a Windows Service with .Net Coreand had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application. Technically the title is still valid, it was a windows service, and I built it using .Net Core tools. But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.</description>
+      <description>I wrote Building a Windows Service with .Net Core and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application. Technically the title is still valid, it was a windows service, and I built it using .Net Core tools. But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.</description>
     </item>
     
     <item>
@@ -117,7 +117,7 @@ Why didn&amp;rsquo;t it work? My collection was an array of Structs. When I pull
       <guid>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</guid>
       <description>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
 Basically I was trying this:
-docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This maps the current repository directory to a folder called work on the container, and runs the build inside it. This approach means:</description>
+docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This maps the current repository directory to a folder called work on the container, and runs the build inside it. This approach means:</description>
     </item>
     
     <item>
@@ -126,10 +126,10 @@ docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/d
       <pubDate>Tue, 29 Nov 2016 04:12:29 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</guid>
-      <description>The docker guidance saysyou can run docker build piping the dockerfile:
-#On linux $ docker build - &amp;lt; Dockerfile and on Windows it says to do this:
-#PowerShell Get-Content Dockerfile | docker build - Nice. But I&amp;rsquo;ve been getting this error all day&amp;hellip;
-&amp;gt; Get-Content Dockerfile | docker build - unable to prepare context: failed to peek context header from STDIN: Incorrect function. WAT After much pain, I figured out the error is because I was running inside conemu.</description>
+      <description>The docker guidance says you can run docker build piping the dockerfile:
+#On linux$ docker build - &amp;lt; Dockerfile and on Windows it says to do this:
+#PowerShellGet-Content Dockerfile | docker build - Nice. But I&amp;rsquo;ve been getting this error all day&amp;hellip;
+&amp;gt; Get-Content Dockerfile | docker build -unable to prepare context: failed to peek context header from STDIN: Incorrect function. WAT After much pain, I figured out the error is because I was running inside conemu.</description>
     </item>
     
     <item>
@@ -138,7 +138,7 @@ docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/d
       <pubDate>Mon, 27 Jun 2016 03:57:16 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/formpost-with-powershell/</guid>
-      <description>This article is based on an answer found and updated on StackOverflow.
+      <description>This article is based on an answer found and updated on StackOverflow.
 I&amp;rsquo;f you have used PowerShell for much at all, you are probably familiar with Invoke-WebRequest. But did you know you can carry around a session and have it automatically add and update cookies for you?
 The Scenario I had an API I wanted to consume, but it was a private one. That is, It was designed and used for a SPA app to consume.</description>
     </item>
@@ -169,7 +169,7 @@ What: We have retries over checking the queue (and other aws commands. We see ma
       
       <guid>https://csmacnzblog.github.io/post/you-cant-handle-the-jandal/</guid>
       <description>Notes: https://bytes.com/topic/c-sharp/answers/490586-exceptions-cannot-caught http://www.abhisheksur.com/2011/01/internals-of-exception-handling.html http://stackoverflow.com/questions/3341534/partly-crashing-application-how-can-i-catch-uncatchable-exceptions http://forums.asp.net/t/1975718.aspx?Exception+not+caught+using+catch+block https://netfxharmonics.com/2006/10/uncatchable-exception
-public class JandleException : Exception { [DebuggerHidden] public JandleException() { Environment.FailFast(&amp;quot;You can&#39;t handle the jandal!&amp;quot;, this); } } public class Program { static void Main(string[] args) { try { doStuff(); } catch { Console.WriteLine(&amp;quot;Exception Caught&amp;quot;); } finally { Console.WriteLine(&amp;quot;Finally was executed&amp;quot;); } Console.ReadKey(); } private static void doStuff() { throw new JandleException(); } } </description>
+public class JandleException : Exception { [DebuggerHidden] public JandleException() { Environment.FailFast(&amp;quot;You can&#39;t handle the jandal!&amp;quot;, this); } }  public class Program { static void Main(string[] args) { try { doStuff(); } catch { Console.WriteLine(&amp;quot;Exception Caught&amp;quot;); } finally { Console.WriteLine(&amp;quot;Finally was executed&amp;quot;); } Console.ReadKey(); } private static void doStuff() { throw new JandleException(); } }  </description>
     </item>
     
     <item>
@@ -178,7 +178,7 @@ public class JandleException : Exception { [DebuggerHidden] public JandleExcepti
       <pubDate>Mon, 23 May 2016 04:33:09 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/</guid>
-      <description>I had an idea of something I wanted to post, but a quick google turns up I posted it 6 months ago, so here are some debugging tips.
+      <description>I had an idea of something I wanted to post, but a quick google turns up I posted it 6 months ago, so here are some debugging tips.
 Console Break So you are writing a console app? Cool. Want to see the output? Of course, you do. But when you run it, the app pops up then disappears really quickly right? No? Have you a break point in the last line?</description>
     </item>
     
@@ -190,10 +190,11 @@ Console Break So you are writing a console app? Cool. Want to see the output? Of
       <guid>https://csmacnzblog.github.io/post/make-me-a-sandwich/</guid>
       <description>A lesson in powershell.
 I typed this:
-&amp;gt; iisreset Which responded with this:
-Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group. So I typed this:
-&amp;gt; sudo iisreset I was thinking this: But got this:
-sudo : The term &amp;#39;sudo&amp;#39; is not recognized as the name of a cmdlet, function, script file, or operable program.</description>
+&amp;gt; iisreset  Which responded with this:
+Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group.  So I typed this:
+&amp;gt; sudo iisreset  I was thinking this: 
+But got this:
+sudo : The term &#39;sudo&#39; is not recognized as the name of a cmdlet, function, script file, or operable program.</description>
     </item>
     
     <item>
@@ -213,7 +214,7 @@ Turns out that it was adding a &amp;lsquo;device&amp;rsquo; to device manager bu
       
       <guid>https://csmacnzblog.github.io/post/keyboard-shortcuts-for-windows-10-power-users-2/</guid>
       <description>When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.
- Part 1: What&amp;rsquo;s New Part 2: Old Classics &amp;lt;=(We are here)  Part 2 Old classics If you are a Windows 7 power user, there is nothing new for you here.</description>
+ Part 1: What&amp;rsquo;s New Part 2: Old Classics &amp;lt;=(We are here)  Part 2 Old classics If you are a Windows 7 power user, there is nothing new for you here.</description>
     </item>
     
     <item>
@@ -234,7 +235,7 @@ To make the most of the productivity boost of shortcuts, use an out of the box s
       
       <guid>https://csmacnzblog.github.io/post/keyboard-shortcuts-for-windows-10-power-users-1/</guid>
       <description>When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.
- Part 1: What&amp;rsquo;s New &amp;lt;=(We are here) Part 2: Old Classics  Part 1: Whats new?</description>
+ Part 1: What&amp;rsquo;s New &amp;lt;=(We are here) Part 2: Old Classics  Part 1: Whats new?</description>
     </item>
     
     <item>
@@ -244,7 +245,7 @@ To make the most of the productivity boost of shortcuts, use an out of the box s
       
       <guid>https://csmacnzblog.github.io/post/windows-10-animations/</guid>
       <description>You&amp;rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?
-Since Aerocame onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects. With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View.</description>
+Since Aero came onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects. With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View.</description>
     </item>
     
     <item>
@@ -265,7 +266,7 @@ Since Aerocame onto the scene in Vista, Windows has leveraged your graphics car
       
       <guid>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</guid>
       <description>Visual Studio 2015 is out and brings us the new C# 6 language features. We also have the new .Net 4.6 Runtime. But what does that mean?
-Well, the framework version and language version are two separate concerns. You can practically pick any framework, with any language, and it will work. This means that If you want to use C# 6 features on your .Net 4.0 application, you can. Ok, so some language features require specific framework libraries, like generics, and async, but most features tend to be syntactic sugar.</description>
+Well, the framework version and language version are two separate concerns. You can practically pick any framework, with any language, and it will work. This means that If you want to use C# 6 features on your .Net 4.0 application, you can. Ok, so some language features require specific framework libraries, like generics, and async, but most features tend to be syntactic sugar.</description>
     </item>
     
     <item>
@@ -285,7 +286,7 @@ Short rant about inheritance The longer I do this, the more I find that base cla
       
       <guid>https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/</guid>
       <description>I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.
-Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called Productivity Power Tools 2013. Specifically, the built in presentation feature.</description>
+Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called Productivity Power Tools 2013. Specifically, the built in presentation feature.</description>
     </item>
     
     <item>
@@ -294,7 +295,7 @@ Now I have a trick that I find really useful that saves a lot of hassle and work
       <pubDate>Mon, 30 Mar 2015 15:15:54 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/console2-console-arrow-keys-acting-wrong-the-fix/</guid>
-      <description>The Introduction I&amp;rsquo;m having fun using all my console windows inside tabs in one application using Console2(hooray for easily finding a Hanselman blog post on my specific topicfor you to read all about it) and it has been going well.
+      <description>The Introduction I&amp;rsquo;m having fun using all my console windows inside tabs in one application using Console2 (hooray for easily finding a Hanselman blog post on my specific topic for you to read all about it) and it has been going well.
 The Issue However, the other day, my whole console window started sliding around when I pressed the arrow keys, instead of moving the type cursor left and right, or moving through the history buffer with up and down.</description>
     </item>
     
@@ -305,7 +306,7 @@ The Issue However, the other day, my whole console window started sliding around
       
       <guid>https://csmacnzblog.github.io/post/new-zealand-public-holidays-calendar/</guid>
       <description>Want to see all the New Zealand public holidays on your calendar on your Google Calendar, but don&amp;rsquo;t want to have to enter them yourself, or maintain them?
-I found this great page with public holidays and calendarson the MBIE site. They have the New Zealand public holidays here for the current, past and future years for your reference. They also have this great link to an icalendar (ics) url for National public holiday dates, including all regional anniversaries(linked here for your reference) on the NZ public holiday iCalendar feedspage.</description>
+I found this great page with public holidays and calendars on the MBIE site. They have the New Zealand public holidays here for the current, past and future years for your reference. They also have this great link to an icalendar (ics) url for National public holiday dates, including all regional anniversaries (linked here for your reference) on the NZ public holiday iCalendar feeds page.</description>
     </item>
     
     <item>

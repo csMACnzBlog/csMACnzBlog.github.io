@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ghost on csMacnz&#39;s Blog</title>
+    <title>Ghost on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/ghost/</link>
-    <description>Recent content in Ghost on csMacnz&#39;s Blog</description>
+    <description>Recent content in Ghost on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Sat, 09 Sep 2017 10:07:33 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/ghost/index.xml" rel="self" type="application/rss+xml" />
@@ -23,9 +23,9 @@ This was going to be a nightmare if it wasn&amp;rsquo;t for two things.</descrip
       <pubDate>Sun, 14 Jun 2015 17:25:12 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/ghost-blog-backups/</guid>
-      <description>I&amp;rsquo;ve been using Ghostto run my blog for a few months now. One thing that was not immediately obvious to me was how to backup the content in my blog. So here is a quick recap on how its done.
+      <description>I&amp;rsquo;ve been using Ghost to run my blog for a few months now. One thing that was not immediately obvious to me was how to backup the content in my blog. So here is a quick recap on how its done.
 Its actually pretty easy, although not very discoverable. When you are logged in, you can head to the URL https://[YourBlogDomain]/ghost/debug. This takes you to the following debug page:
-From here you can see the Export button, which exports your blog is a Ghost blog custom json format.</description>
+From here you can see the Export button, which exports your blog is a Ghost blog custom json format.</description>
     </item>
     
   </channel>

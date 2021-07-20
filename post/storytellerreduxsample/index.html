@@ -1,244 +1,216 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply">
-<meta itemprop="description" content="A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React &#43; .Net Applications. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
-While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible."><meta itemprop="datePublished" content="2017-12-28T23:41:13+00:00" />
-<meta itemprop="dateModified" content="2017-12-28T23:41:13+00:00" />
-<meta itemprop="wordCount" content="1133">
-<meta itemprop="keywords" content="Storyteller,dotnetcore,Testing," /><meta property="og:title" content="Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply" />
-<meta property="og:description" content="A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React &#43; .Net Applications. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
-While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://csmacnzblog.github.io/post/storytellerreduxsample/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2017-12-28T23:41:13+00:00" />
-<meta property="article:modified_time" content="2017-12-28T23:41:13+00:00" />
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+    <meta name='language' content='EN'>
+    <meta name='medium' content='blog'>
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply"/>
-<meta name="twitter:description" content="A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React &#43; .Net Applications. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
-While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible."/>
-<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
 
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
+    <title>Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply - csMACnz&#39;s Blog</title>
+    <meta name="description" content="A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React &#43; .Net Applications. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against …">
+    <meta name='keywords' content='csMACnz, Storyteller, dotnetcore, Testing'>
+
+    
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply"/>
+    <meta property="og:description" content="A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React &#43; .Net Applications. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against …"/>
+    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+    <meta property="og:url" content="https://csmacnzblog.github.io/post/storytellerreduxsample/"/>
+    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply"/>
+    <meta name="twitter:description" content="A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React &#43; .Net Applications. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against …"/>
+    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+    <meta name="twitter:site" content="@csMACnz"/>
+    <meta name="twitter:creator" content="@csMACnz"/>
+
+
+    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+    <script>
+        var d_id  = 'csmacnz',
+            g_id  = 'UA-18464866-2',
+            g_url = 'auto';
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+    <!-- ENTERING partial seo-schema.html -->
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "Article",
+        "publisher": {
+            "@type": "Organization",
+            "name": "csMACnz&#x27;s Blog",
+            "logo": "https://blog.csmac.nz/content/images/2014/10/apple-touch-icon-144x144-precomposed.png"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Mark Clearwater",
+            "image": {
+                "@type": "ImageObject",
+                "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                "width": 440,
+                "height": 295
+            },
+            "url": "https://blog.csmac.nz/author/csmacnz/",
+            "sameAs": [
+                "http://csmac.nz"
+            ]
+        },
+        "articleSection" : "post",
+        "name" : "Subcutaneous Testing against React \u002b .Net Applications with Storyteller - A Reply",
+        "headline" : "Subcutaneous Testing against React \u002b .Net Applications with Storyteller - A Reply",
+        "url" : "https:\/\/csmacnzblog.github.io\/post\/storytellerreduxsample\/",
+        "datePublished": "2017-12-28T23:41:13.000Z",
+        "dateModified" : "2017-12-28T23:41:13.000Z",
+        "keywords" : [ "Storyteller", "dotnetcore", "Testing" ]
+        "description" : "A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React \u002b .Net Applications. It outlined some early R\u0026amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.\nWhile he had a proven way of communicating between React\/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible.",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.csmac.nz/"
+        }
+        "inLanguage" : "en-US",
+        "author" : "Mark Clearwater",
+        "creator" : "Mark Clearwater",
+        "accountablePerson" : "Mark Clearwater",
+        "copyrightHolder" : "Mark Clearwater",
+        "copyrightYear" : "2017",
+        "wordCount" : "1131",
+    }
+    </script>
+    
+    
+    <!-- LEAVING partial seo-schema.html -->
+
+    <link rel="alternate" type="application/rss+xml" title="csMACnz&#x27;s Blog" href="https://blog.csmac.nz/rss/" />
+    <style>
+        .post-content img {
+            max-width: 500px;
+        }
+    </style>
+    </head>
+    <body class="blog">
+        <div class="page-area"><header class="header-area">
+    <h1 class="header-area-title">csMACnz</h1>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply</li></ol>
-</nav><article class="post row surface"><div class="post-toolbox">
-  <div class="col-12 d-none d-lg-block">
-    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
-  </div>
-</div>
-<h1 class="post-title my-3">Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply</h1><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Dec 28, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>6 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/storyteller/" class="post-taxonomy">#Storyteller</a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/categories/testing/" class="post-taxonomy">#Testing</a><a href="https://csmacnzblog.github.io/tags/storyteller/" class="post-taxonomy">#Storyteller</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/testing/" class="post-taxonomy">#Testing</a></div>
-<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
-</a>
-
-<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#first-hurdle">First Hurdle</a></li>
-        <li><a href="#an-aspnetcore-app">An AspNetCore app</a></li>
-        <li><a href="#launching-aspnetcore-from-storyteller">Launching AspNetCore from Storyteller</a></li>
-        <li><a href="#tests">Tests</a></li>
-        <li><a href="#results">Results</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div><div class="post-content mb-3"><p>A week or two ago Jeremy Miller posted an article <a href="https://jeremydmiller.com/2017/12/19/subcutaneous-testing-against-react-net-applications/" target="_blank">Subcutaneous Testing against React + .Net Applications</a>
-. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.</p>
+<nav class="navigation-area header-bar-parent">
+    <div class="header-bar header-bar-blog">
+        <ul class="menu">
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+        </ul>
+    </div>
+</nav><div id="content" class="content-area">
+            
+<article>
+    <div class="content-box" itemscope itemtype="http://schema.org/Article">
+    
+        <span class="post-meta"><time datetime="2017-12-28"  itemprop="datePublished">28 Dec 17</time> on
+            <a href="https://csmacnzblog.github.iotags/storyteller">Storyteller</a><a href="https://csmacnzblog.github.iotags/dotnetcore">dotnetcore</a><a href="https://csmacnzblog.github.iotags/testing">Testing</a>
+        </span>
+    
+        <h1 class="post-title" itemprop="headline">Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <p>A week or two ago Jeremy Miller posted an article <a href="https://jeremydmiller.com/2017/12/19/subcutaneous-testing-against-react-net-applications/">Subcutaneous Testing against React + .Net Applications</a>. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.</p>
 <p>While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned.  So I figured I would pull on that thread and see what is actually possible.</p>
 <h3 id="first-hurdle">First Hurdle</h3>
 <p>My first hurdle was that the code in question was part of Storyteller 5. This does not run on my machine (for various reasons) and so to test anything I needed to backport Storyteller.Redux onto Storyteller 4. (Storyteller.Redux is also only an alpha release currently, anyway).</p>
-<p>So I copied the <a href="https://github.com/storyteller/Storyteller/tree/master/src/Storyteller.Redux" target="_blank">Storyteller.Redux</a>
- and <a href="https://github.com/storyteller/Storyteller/tree/master/src/ReduxSamples" target="_blank">ReduxSamples</a>
- into a new solution, and changed the project references to NuGet package references for Storyteller 4. So far so good.</p>
+<p>So I copied the <a href="https://github.com/storyteller/Storyteller/tree/master/src/Storyteller.Redux">Storyteller.Redux</a> and <a href="https://github.com/storyteller/Storyteller/tree/master/src/ReduxSamples">ReduxSamples</a> into a new solution, and changed the project references to NuGet package references for Storyteller 4. So far so good.</p>
 <h3 id="an-aspnetcore-app">An AspNetCore app</h3>
 <p>I created another folder (<code>myapp</code>) next to these projects and used the <code>dotnet new reactredux</code> to create a default sample AspNetCore app using react and redux. This would be my test application. This comes with a few pages, and a couple of stores and commands to play with as test targets.</p>
 <h3 id="launching-aspnetcore-from-storyteller">Launching AspNetCore from Storyteller</h3>
-<p>I couldn&rsquo;t use the <a href="https://www.nuget.org/packages/Storyteller.AspNetCore/" target="_blank">Storyteller.AspNetCore</a>
- package because it actually creates an in-memory server (which is great for some kinds of testing) but to test React, I actually have to launch a browser to point to the app, so a real running instance is required.</p>
+<p>I couldn&rsquo;t use the <a href="https://www.nuget.org/packages/Storyteller.AspNetCore/">Storyteller.AspNetCore</a> package because it actually creates an in-memory server (which is great for some kinds of testing) but to test React, I actually have to launch a browser to point to the app, so a real running instance is required.</p>
 <p>Instead, I created a new System that could launch the WebApp using Startup but still hosted on a port that a browser can talk to. I can then use Selenium (again not directly using Storyteller.Selenium for reasons) to launch and host the running page. This required a few custom classes:</p>
 <ul>
-<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/BrowserDriver.cs" target="_blank">BrowserDriver.cs</a>
-</li>
-<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/SeleniumReduxSagaExtension.cs" target="_blank">SeleniumReduxSagaExtension.cs</a>
-</li>
-<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs" target="_blank">Program.cs (+ReduxSampleSystem)</a>
-</li>
+<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/BrowserDriver.cs">BrowserDriver.cs</a></li>
+<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/SeleniumReduxSagaExtension.cs">SeleniumReduxSagaExtension.cs</a></li>
+<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs">Program.cs (+ReduxSampleSystem)</a></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BrowserDriver</span>: IDisposable
+<pre><code class="language-cs">    public class BrowserDriver: IDisposable
     {
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">object</span> <span style="color:#ae81ff">_</span>browserLock = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>();
+        private object _browserLock = new object();
 
-        <span style="color:#66d9ef">private</span> ChromeDriverService <span style="color:#ae81ff">_d</span>riverService;
-        <span style="color:#66d9ef">private</span> ChromeOptions <span style="color:#ae81ff">_</span>options;
-        <span style="color:#66d9ef">private</span> ChromeDriver <span style="color:#ae81ff">_d</span>river;
+        private ChromeDriverService _driverService;
+        private ChromeOptions _options;
+        private ChromeDriver _driver;
 
-        <span style="color:#66d9ef">public</span> BrowserDriver()
+        public BrowserDriver()
         {
-            <span style="color:#ae81ff">_d</span>riverService = ChromeDriverService.CreateDefaultService(PlatformServices.Default.Application.ApplicationBasePath, <span style="color:#e6db74">&#34;chromedriver.exe&#34;</span>);
-            <span style="color:#ae81ff">_</span>options = <span style="color:#66d9ef">new</span> ChromeOptions();
-            <span style="color:#75715e">//_options.AddAdditionalCapability(&#34;IsJavaScriptEnabled&#34;, true);
-</span><span style="color:#75715e"></span>        }
+            _driverService = ChromeDriverService.CreateDefaultService(PlatformServices.Default.Application.ApplicationBasePath, &quot;chromedriver.exe&quot;);
+            _options = new ChromeOptions();
+            //_options.AddAdditionalCapability(&quot;IsJavaScriptEnabled&quot;, true);
+        }
 
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> LaunchUrl(<span style="color:#66d9ef">string</span> targetURL)
+        public void LaunchUrl(string targetURL)
         {
-            <span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">_d</span>river != <span style="color:#66d9ef">null</span>)
+            if (_driver != null)
             {
                 Close();
             }
 
-            <span style="color:#ae81ff">_d</span>river = <span style="color:#66d9ef">new</span> ChromeDriver(<span style="color:#ae81ff">_d</span>riverService, <span style="color:#ae81ff">_</span>options);
+            _driver = new ChromeDriver(_driverService, _options);
 
-            <span style="color:#66d9ef">var</span> wait = <span style="color:#66d9ef">new</span> WebDriverWait(<span style="color:#ae81ff">_d</span>river, TimeSpan.FromSeconds(<span style="color:#ae81ff">20</span>));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
 
-            <span style="color:#ae81ff">_d</span>river.Navigate().GoToUrl(targetURL);
+            _driver.Navigate().GoToUrl(targetURL);
 
-            wait.Until(driver =&gt; driver.FindElement(By.TagName(<span style="color:#e6db74">&#34;body&#34;</span>)));
-            wait.Until(driver =&gt; ((IJavaScriptExecutor)driver).ExecuteScript(<span style="color:#e6db74">&#34;return document.readyState&#34;</span>).Equals(<span style="color:#e6db74">&#34;complete&#34;</span>));
+            wait.Until(driver =&gt; driver.FindElement(By.TagName(&quot;body&quot;)));
+            wait.Until(driver =&gt; ((IJavaScriptExecutor)driver).ExecuteScript(&quot;return document.readyState&quot;).Equals(&quot;complete&quot;));
 
-            IEnumerable&lt;LogEntry&gt; logs = <span style="color:#ae81ff">_d</span>river.Manage().Logs.GetLog(<span style="color:#e6db74">&#34;browser&#34;</span>);
+            IEnumerable&lt;LogEntry&gt; logs = _driver.Manage().Logs.GetLog(&quot;browser&quot;);
 
-            <span style="color:#66d9ef">if</span> (logs.Any(l =&gt; l.Level == LogLevel.Warning || l.Level == LogLevel.Severe))
+            if (logs.Any(l =&gt; l.Level == LogLevel.Warning || l.Level == LogLevel.Severe))
             {
-                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Exception(<span style="color:#e6db74">$&#34;Warnings/Errors logged: \n{string.Join(&#34;</span>/n<span style="color:#e6db74">&#34;, logs.Select(l =&gt; l.Timestamp + &#34;</span>:::<span style="color:#e6db74">&#34; + l.Message))}&#34;</span>);
+                throw new Exception($&quot;Warnings/Errors logged: \n{string.Join(&quot;/n&quot;, logs.Select(l =&gt; l.Timestamp + &quot;:::&quot; + l.Message))}&quot;);
             }
         }
 
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Close()
+        public void Close()
         {
-            <span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">_d</span>river != <span style="color:#66d9ef">null</span>)
+            if (_driver != null)
             {
-                <span style="color:#ae81ff">_d</span>river.Quit();
-                <span style="color:#ae81ff">_d</span>river = <span style="color:#66d9ef">null</span>;
+                _driver.Quit();
+                _driver = null;
             }
         }
 
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Dispose()
+        public void Dispose()
         {
-            Dispose(<span style="color:#66d9ef">true</span>);
-            GC.SuppressFinalize(<span style="color:#66d9ef">this</span>);
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> Dispose(<span style="color:#66d9ef">bool</span> disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            <span style="color:#66d9ef">if</span> (disposing)
+            if (disposing)
             {
-                <span style="color:#ae81ff">_d</span>riverService?.Dispose();
-                <span style="color:#ae81ff">_d</span>riverService = <span style="color:#66d9ef">null</span>;
+                _driverService?.Dispose();
+                _driverService = null;
             }
         }
     }
-</code></pre></div><pre><code>    public class SeleniumReduxSagaExtension : IExtension
+</code></pre>
+<pre><code>    public class SeleniumReduxSagaExtension : IExtension
     {
         public string Url { get; }
 
@@ -296,7 +268,8 @@ While he had a proven way of communicating between React/Redux and Storyteller, 
 
         }
     }
-</code></pre><pre><code>    public class ReduxSampleSystem : SimpleSystem
+</code></pre>
+<pre><code>    public class ReduxSampleSystem : SimpleSystem
     {
         private const string WebHostUrl = &quot;http://localhost:5050&quot;;
         private IWebHost _host;
@@ -338,26 +311,18 @@ While he had a proven way of communicating between React/Redux and Storyteller, 
             base.Dispose();
         }
     }
-</code></pre><p>Here is some explaination of the interesting parts of this that make it work. To use a startup in a test project, where you are using MVC views and <code>aspx</code> pages, you need a few tweaks.</p>
+</code></pre>
+<p>Here is some explaination of the interesting parts of this that make it work. To use a startup in a test project, where you are using MVC views and <code>aspx</code> pages, you need a few tweaks.</p>
 <ul>
-<li>In the csproj there <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/ReduxSamples.csproj#L30-L36" target="_blank">is some extra code required</a>
- to copy over the reference dependencies for the view page on-demand parsing of MVC.</li>
-<li>You also need to <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs#L50" target="_blank">set the Content Root correctly</a>
- (<code>CalculateRelativeContentRootPath</code> above)</li>
-<li>I make use of the Selenium drivers (In this case, ChromeDriver) <a href="https://www.nuget.org/packages/Selenium.WebDriver.ChromeDriver" target="_blank">Selenium.WebDriver.ChromeDriver</a>
- &amp; <a href="https://www.nuget.org/packages/Selenium.WebDriver" target="_blank">Selenium.WebDriver</a>
-</li>
+<li>In the csproj there <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/ReduxSamples.csproj#L30-L36">is some extra code required</a> to copy over the reference dependencies for the view page on-demand parsing of MVC.</li>
+<li>You also need to <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs#L50">set the Content Root correctly</a> (<code>CalculateRelativeContentRootPath</code> above)</li>
+<li>I make use of the Selenium drivers (In this case, ChromeDriver) <a href="https://www.nuget.org/packages/Selenium.WebDriver.ChromeDriver">Selenium.WebDriver.ChromeDriver</a> &amp; <a href="https://www.nuget.org/packages/Selenium.WebDriver">Selenium.WebDriver</a></li>
 </ul>
 <p>To finish making the connection work, I had to make a couple of changes to <code>myapp</code> as well:</p>
 <ul>
-<li>Add a flag to ensure webpack is always used, but without the hotreload feature on (<a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/Startup.cs#L23" target="_blank">Flag</a>
- + <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/Startup.cs#L34-L43" target="_blank">Changes</a>
-)</li>
-<li>Add the reduxharness.js and typescript-ify as <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/reduxharness.ts" target="_blank">reduxharness.ts</a>
-</li>
-<li>use <code>reduxharness.ts</code> in <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/boot-client.tsx" target="_blank">boot-client.tsx</a>
- <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/boot-client.tsx#L23" target="_blank">here</a>
-</li>
+<li>Add a flag to ensure webpack is always used, but without the hotreload feature on (<a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/Startup.cs#L23">Flag</a> + <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/Startup.cs#L34-L43">Changes</a>)</li>
+<li>Add the reduxharness.js and typescript-ify as <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/reduxharness.ts">reduxharness.ts</a></li>
+<li>use <code>reduxharness.ts</code> in <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/boot-client.tsx">boot-client.tsx</a> <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/boot-client.tsx#L23">here</a></li>
 </ul>
 <p>At this stage, when I run a test, it launches chrome through chromedriver, and the WebSocket connection should start. Storyteller is connected.</p>
 <h3 id="tests">Tests</h3>
@@ -374,7 +339,8 @@ While he had a proven way of communicating between React/Redux and Storyteller, 
 |&gt; Increment
 |&gt; CheckValue number=1
 ~~~
-</code></pre><p>Which is based on this feature (not too dissimilar to the original sample):</p>
+</code></pre>
+<p>Which is based on this feature (not too dissimilar to the original sample):</p>
 <pre><code>    public class CalculatorFixture : ReduxFixture
     {
         public void GetInitialState()
@@ -395,91 +361,120 @@ While he had a proven way of communicating between React/Redux and Storyteller, 
         }
         // ENDSAMPLE
     }
-</code></pre><p>To make life easier, there is also an added feature to be able to <code>ForceRefetchOfState</code>, because this isn&rsquo;t currently populated when first connected, you had to issue your first command for it to trigger a refresh of state. (Feature request?) Adding this allows me to forcibly request the initial state. ReduxSamples aside, I think this was the only functional change I actually made to the original Storyteller.Redux project (apart from pulling in a copy of WebSocketsHandler from StorytellerRunner, and switching references to NuGets to make it run).</p>
+</code></pre>
+<p>To make life easier, there is also an added feature to be able to <code>ForceRefetchOfState</code>, because this isn&rsquo;t currently populated when first connected, you had to issue your first command for it to trigger a refresh of state. (Feature request?) Adding this allows me to forcibly request the initial state. ReduxSamples aside, I think this was the only functional change I actually made to the original Storyteller.Redux project (apart from pulling in a copy of WebSocketsHandler from StorytellerRunner, and switching references to NuGets to make it run).</p>
 <p>With this setup, every test first launches a fresh browser window to the target URL. (It also closes any open window first - makes it nice seeing the results of the last run test still open, but that still cleans up after itself.) It may be beneficial to extend this example to also have the navigation ability in a fixture, too.</p>
 <h3 id="results">Results</h3>
-<p>Have a look at my GitHub repository at <a href="https://github.com/csMACnz/StorytellerReduxSample" target="_blank">github.com/csMACnz/StorytellerReduxSample</a>
- for a working example of the solution outlined above. At some point, I should feedback the tweaks to Storyteller.Redux (or <a href="https://github.com/jeremydmiller" target="_blank">@jeremydmiller</a>
- can just steal them&hellip;) but until Storyteller 5 is stable, I would keep using my copy, anyway.</p>
+<p>Have a look at my GitHub repository at <a href="https://github.com/csMACnz/StorytellerReduxSample">github.com/csMACnz/StorytellerReduxSample</a> for a working example of the solution outlined above. At some point, I should feedback the tweaks to Storyteller.Redux (or <a href="https://github.com/jeremydmiller">@jeremydmiller</a> can just steal them&hellip;) but until Storyteller 5 is stable, I would keep using my copy, anyway.</p>
 <p>Now that selenium is connected, there is also no reason I can&rsquo;t drive UI interaction with the rest of React this way, too. (Although perhaps thorough testing of React is best left up to Jasmine tests&hellip;)</p>
 <p>Still to do to make this more production ready: add some flags to conditionally compile in or out the <code>reduxharness</code> (WebPack maybe?) so that it is only available in development builds, and not production builds.</p>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
-  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/pro-tips-for-working-in-powershell/">Pro-tips for working in PowerShell</a>
-    </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/dotnetcore-self-contained-applications/">.Net Core Series - Self-contained Applications</a>
-    </div></div>
-</div><section class="related-posts">
-    <h3>Related Posts</h3>
-    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/net-core-tests-not-showing/">.Net core tests not showing up in VS? Here&#39;s the trick...</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet/">dotnet &#43; nunit3 &#43; TeamCity success</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-getting-started/">.Net Core SDK 2.* Series - Getting Started</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/">dotnet build, targeting full .Net 4.5.1 on nanoserver docker</a></li><li><a href="https://csmacnzblog.github.io/post/migrating-onto-dotnet-tools-1-0-0/">Migrating onto dotnet tools 1.0.0</a></li></ul>
-  </section></article><div class="post-comments surface row"></div></div>
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="http://twitter.com/share?text=Subcutaneous%20Testing%20against%20React%20%2b%20.Net%20Applications%20with%20Storyteller%20-%20A%20Reply&url=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fstorytellerreduxsample%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fstorytellerreduxsample%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = 'Subcutaneous Testing against React \u002b .Net Applications with Storyteller - A Reply';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+        </div><aside class="sidebar-area">
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-twitter">Twitter</div>
+                
+                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-rss">Subscribe</div>
+                
+                <a class="email-subscribe-link" href="https://feedburner.google.com/fb/a/mailverify?uri=csmacnzBlog&amp;loc=en_US">Subscribe to csMACnz's Blog by Email</a>
+                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                <br />
+                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-xbox">Gamercard</div>
+                
+
+                <div style="margin: 0 auto; width:201px;">
+                    <iframe src="//gamercard.xbox.com/csMACnz.card" scrolling="no" frameborder="0" height="136px" width="201px">AutomatonMan</iframe>
+                </div>
+                <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="http://steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-ads">Advertisement</div>
+                
+                <div>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4517187877737982"
+                         data-ad-slot="7632444699"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+            </div>
+        </aside>
+        
+        <footer class="footer-area"><p>
+    Designed and Maintained by Mark Clearwater; Last updated June 2015.
+    <br /><a class="footer-link" >Hi</a>
+</p></footer>
+    </div>
+    
+    
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script src="/js/codetoggle.js"></script> 
+
+    
+    <script>
+        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </body>
 </html>

@@ -1,164 +1,144 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retry Policies with Polly - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="Retry Policies with Polly">
-<meta itemprop="description" content="I originally set out to write about Polly. Then I started reading their documentation. I quickly realised that I couldn&rsquo;t write anything as detailed and accurate as they already had available. So instead, I&rsquo;m going to give more of a super high level, with links to relevant reading.
-You can find their Documentation on their Github at github.com/App-vNext/Polly, as well as plenty more resources at www.thepollyproject.org/.
-The elevator pitch is this:"><meta itemprop="datePublished" content="2018-08-13T04:00:00+00:00" />
-<meta itemprop="dateModified" content="2018-08-13T04:00:00+00:00" />
-<meta itemprop="wordCount" content="1465">
-<meta itemprop="keywords" content="Polly,dotnetcore," /><meta property="og:title" content="Retry Policies with Polly" />
-<meta property="og:description" content="I originally set out to write about Polly. Then I started reading their documentation. I quickly realised that I couldn&rsquo;t write anything as detailed and accurate as they already had available. So instead, I&rsquo;m going to give more of a super high level, with links to relevant reading.
-You can find their Documentation on their Github at github.com/App-vNext/Polly, as well as plenty more resources at www.thepollyproject.org/.
-The elevator pitch is this:" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://csmacnzblog.github.io/post/retry-policies-with-polly/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-08-13T04:00:00+00:00" />
-<meta property="article:modified_time" content="2018-08-13T04:00:00+00:00" />
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+    <meta name='language' content='EN'>
+    <meta name='medium' content='blog'>
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Retry Policies with Polly"/>
-<meta name="twitter:description" content="I originally set out to write about Polly. Then I started reading their documentation. I quickly realised that I couldn&rsquo;t write anything as detailed and accurate as they already had available. So instead, I&rsquo;m going to give more of a super high level, with links to relevant reading.
-You can find their Documentation on their Github at github.com/App-vNext/Polly, as well as plenty more resources at www.thepollyproject.org/.
-The elevator pitch is this:"/>
-<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
 
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
+    <title>Retry Policies with Polly - csMACnz&#39;s Blog</title>
+    <meta name="description" content="I originally set out to write about Polly. Then I started reading their documentation.  I quickly realised that I couldn&rsquo;t write anything as detailed and accurate as they already had available.  So instead, …">
+    <meta name='keywords' content='csMACnz, Polly, dotnetcore'>
+
+    
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Retry Policies with Polly"/>
+    <meta property="og:description" content="I originally set out to write about Polly. Then I started reading their documentation.  I quickly realised that I couldn&rsquo;t write anything as detailed and accurate as they already had available.  So instead, …"/>
+    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+    <meta property="og:url" content="https://csmacnzblog.github.io/post/retry-policies-with-polly/"/>
+    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Retry Policies with Polly"/>
+    <meta name="twitter:description" content="I originally set out to write about Polly. Then I started reading their documentation.  I quickly realised that I couldn&rsquo;t write anything as detailed and accurate as they already had available.  So instead, …"/>
+    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+    <meta name="twitter:site" content="@csMACnz"/>
+    <meta name="twitter:creator" content="@csMACnz"/>
+
+
+    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+    <script>
+        var d_id  = 'csmacnz',
+            g_id  = 'UA-18464866-2',
+            g_url = 'auto';
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+    <!-- ENTERING partial seo-schema.html -->
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "Article",
+        "publisher": {
+            "@type": "Organization",
+            "name": "csMACnz&#x27;s Blog",
+            "logo": "https://blog.csmac.nz/content/images/2014/10/apple-touch-icon-144x144-precomposed.png"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Mark Clearwater",
+            "image": {
+                "@type": "ImageObject",
+                "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                "width": 440,
+                "height": 295
+            },
+            "url": "https://blog.csmac.nz/author/csmacnz/",
+            "sameAs": [
+                "http://csmac.nz"
+            ]
+        },
+        "articleSection" : "post",
+        "name" : "Retry Policies with Polly",
+        "headline" : "Retry Policies with Polly",
+        "url" : "https:\/\/csmacnzblog.github.io\/post\/retry-policies-with-polly\/",
+        "datePublished": "2018-08-13T04:00:00.000Z",
+        "dateModified" : "2018-08-13T04:00:00.000Z",
+        "image" : {
+            "@type": "ImageObject",
+            "url": "https:\/\/images.unsplash.com\/photo-1430990480609-2bf7c02a6b1a?ixlib=rb-0.3.5\u0026q=80\u0026fm=jpg\u0026crop=entropy\u0026cs=tinysrgb\u0026w=1080\u0026fit=max\u0026ixid=eyJhcHBfaWQiOjE2ODI3fQ\u0026s=67f4f8628b1faa89c6ed4d8bddf64eaf",
+            "width": 440,
+            "height": 295
+        },
+        "keywords" : [ "Polly", "dotnetcore" ]
+        "description" : "I originally set out to write about Polly. Then I started reading their documentation. I quickly realised that I couldn\u0026rsquo;t write anything as detailed and accurate as they already had available. So instead, I\u0026rsquo;m going to give more of a super high level, with links to relevant reading.\nYou can find their Documentation on their Github at github.com\/App-vNext\/Polly, as well as plenty more resources at www.thepollyproject.org\/.\nThe elevator pitch is this:",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.csmac.nz/"
+        }
+        "inLanguage" : "en-US",
+        "author" : "Mark Clearwater",
+        "creator" : "Mark Clearwater",
+        "accountablePerson" : "Mark Clearwater",
+        "copyrightHolder" : "Mark Clearwater",
+        "copyrightYear" : "2018",
+        "wordCount" : "1455",
+    }
+    </script>
+    
+    
+    <!-- LEAVING partial seo-schema.html -->
+
+    <link rel="alternate" type="application/rss+xml" title="csMACnz&#x27;s Blog" href="https://blog.csmac.nz/rss/" />
+    <style>
+        .post-content img {
+            max-width: 500px;
+        }
+    </style>
+    </head>
+    <body class="blog">
+        <div class="page-area"><header class="header-area">
+    <h1 class="header-area-title">csMACnz</h1>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">Retry Policies with Polly</li></ol>
-</nav><article class="post row surface"><div class="post-toolbox">
-  <div class="col-12 d-none d-lg-block">
-    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
-  </div>
-</div>
-<h1 class="post-title my-3">Retry Policies with Polly</h1><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Aug 13, 2018
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>7 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/polly/" class="post-taxonomy">#Polly</a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy">#dotnetcore</a><a href="https://csmacnzblog.github.io/tags/polly/" class="post-taxonomy">#Polly</a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy">#dotnetcore</a></div>
-<a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
-</a>
-
-<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#why">Why</a></li>
-        <li><a href="#standard-polly-cies">Standard Polly-cies</a></li>
-        <li><a href="#net-core-21">.Net Core 2.1</a></li>
-        <li><a href="#roadmap">Roadmap</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div><div class="post-content mb-3"><p>I originally set out to write about Polly. Then I started reading their documentation.  I quickly realised that I couldn&rsquo;t write anything as detailed and accurate as they already had available.  So instead, I&rsquo;m going to give more of a super high level, with links to relevant reading.</p>
-<p>You can find their Documentation on their Github at <a href="https://github.com/App-vNext/Polly" target="_blank">github.com/App-vNext/Polly</a>
-, as well as plenty more resources at <a href="http://www.thepollyproject.org/" target="_blank">www.thepollyproject.org/</a>
-.</p>
+<nav class="navigation-area header-bar-parent">
+    <div class="header-bar header-bar-blog">
+        <ul class="menu">
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+        </ul>
+    </div>
+</nav><div id="content" class="content-area">
+            
+<article>
+    <div class="content-box" itemscope itemtype="http://schema.org/Article">
+    
+        <span class="post-meta"><time datetime="2018-08-13"  itemprop="datePublished">13 Aug 18</time> on
+            <a href="https://csmacnzblog.github.iotags/polly">Polly</a><a href="https://csmacnzblog.github.iotags/dotnetcore">dotnetcore</a>
+        </span>
+    
+        <h1 class="post-title" itemprop="headline">Retry Policies with Polly</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <img class="post-image" src="https://images.unsplash.com/photo-1430990480609-2bf7c02a6b1a?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ&amp;s=67f4f8628b1faa89c6ed4d8bddf64eaf"><p>I originally set out to write about Polly. Then I started reading their documentation.  I quickly realised that I couldn&rsquo;t write anything as detailed and accurate as they already had available.  So instead, I&rsquo;m going to give more of a super high level, with links to relevant reading.</p>
+<p>You can find their Documentation on their Github at <a href="https://github.com/App-vNext/Polly">github.com/App-vNext/Polly</a>, as well as plenty more resources at <a href="http://www.thepollyproject.org/">www.thepollyproject.org/</a>.</p>
 <p>The elevator pitch is this:</p>
 <blockquote>
 <p>Polly is a .NET resilience and transient-fault-handling library that allows developers to express policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback in a fluent and thread-safe manner.</p>
@@ -174,131 +154,148 @@ The elevator pitch is this:"/>
 <h4 id="fallback">Fallback</h4>
 <p>If anything goes wrong to the point of failure, you need to have a decision of what to do. If &ldquo;Crash the entire app&rdquo; or &ldquo;500 the HTTP request&rdquo; is a valid decision, you may start from there.</p>
 <p>But more likely there will be an &ldquo;Unavailable&rdquo; message, a fallback image, a hard-coded result, an alternative display component, a too many requests Http Response. There will be something you can use in place of a hard failure. Thinking about, and determining this up front makes other decisions easier to make, especially around retries and timeouts.  You will hardly ever be writing business software where <code>UnhandledException</code> is a valid use case.</p>
-<p>The Polly policy for fallback is documented <a href="https://github.com/App-vNext/Polly/wiki/Fallback" target="_blank">here</a>
-.</p>
+<p>The Polly policy for fallback is documented <a href="https://github.com/App-vNext/Polly/wiki/Fallback">here</a>.</p>
 <h4 id="timout">Timout</h4>
 <p>You want to be fast. You want to be responsive. You don&rsquo;t want to wait forever. There is probably a point that if you haven&rsquo;t got an answer yet, waiting another 5 minutes probably won&rsquo;t help.  Work out what you can tolerate, what is a reasonable time for a response, and configure a proper timeout.</p>
 <p>You can do a lot with Polly here. It could be GETs and POSTs have different timeouts. It could be lower for auxiliary data, and higher for primary data sources. Polly is pretty flexible if you need to get really custom. But think about timeouts early and monitor your dependencies for adjustment as necessary.</p>
 <p>Revisit your fallback, and see if it makes sense on timeout, and if not, either alter it or create an alternative fallback for timeouts.</p>
-<p>The Polly policy for timeout is documented <a href="https://github.com/App-vNext/Polly/wiki/Timeout" target="_blank">here</a>
-.</p>
+<p>The Polly policy for timeout is documented <a href="https://github.com/App-vNext/Polly/wiki/Timeout">here</a>.</p>
 <h4 id="retry">Retry</h4>
 <p>Retry doesn&rsquo;t mean you will eventually get an answer, but it does mean if you wait, you might do.  If we already handle Fallback and Timeout, we can be confident in what happens when our final retry fails.</p>
 <p>We know some errors are transient, and if we try again it might actually work the next time. So we use a retry policy to try again. We want to have some sort of delay, and we want to think about using a back-off strategy, too. We don&rsquo;t want to be the cause of a DDOS or making any service exhaustion issues worse.</p>
-<p>This is probably the most discussed of all the error-handling strategies so I will defer to others, and point you at the Polly retry documentation <a href="https://github.com/App-vNext/Polly/wiki/Retry" target="_blank">here</a>
-.</p>
+<p>This is probably the most discussed of all the error-handling strategies so I will defer to others, and point you at the Polly retry documentation <a href="https://github.com/App-vNext/Polly/wiki/Retry">here</a>.</p>
 <h4 id="circuit-breaker">Circuit Breaker</h4>
 <p>I briefly mentioned back-off and service exhaustion in the Retry section. CircuitBreaker is another approach that helps here.</p>
 <p>The most common analogy is the fuse box in your house. If an appliance is faulty, it blows the fuse and breaks the circuit. This stops the bad electricity problem from continuing.  When you have isolated the problem, you can reset the fuse, and try again. If you haven&rsquo;t isolated the problem, the fuse will break the circuit again, until it is made right again.</p>
 <p>This is a basic circuit breaker pattern, and you can imagine how this applies to software, service failures or outages.</p>
 <p>The Polly Circuit Breaker allows you to &ldquo;blow the fuse&rdquo; after a bunch of failures, assuming the remote service has issues. This broken fuse stops other parts of the application making the same request, they hit the same broken circuit and fail fast. The main benefits from a circuit breaker pattern are that your application can return a failure without even attempting to make the call, which makes the application fast, and also avoids contributing to exhaustion issues.</p>
-<p>Polly Circuit Breaker docs are <a href="https://github.com/App-vNext/Polly/wiki/Circuit-Breaker" target="_blank">here</a>
-.</p>
+<p>Polly Circuit Breaker docs are <a href="https://github.com/App-vNext/Polly/wiki/Circuit-Breaker">here</a>.</p>
 <h4 id="bulkhead">Bulkhead</h4>
 <p>Their description of the Bulkhead pattern is much better than I could come up with:</p>
 <blockquote>
 <p>A bulkhead is a wall within a ship which separates one compartment from another, such that damage to one compartment does not cause the whole ship to sink.</p>
 <p>Similarly, a bulkhead isolation policy assigns operations to constrained resource pools, such that one faulting channel of actions cannot swamp all resource (threads/CPU/whatever) in a system, bringing down other operations with it. The impact of a faulting system is isolated to the resource-pool to which it is limited; other threads/pools/capacity remain to continue serving other calls.</p>
 </blockquote>
-<p>We basically limit the number of requests to a particular resource, so that if too many requests are issued, further requests are turned away fast to avoid resource exhaustion. Again, when this happens we need to consider our retries, circuit breakers, and fallbacks for how our application behaves and responds to this exhaustion (<a href="https://httpstatuses.com/429" target="_blank">429?</a>
-).</p>
-<p>Polly talks about this more <a href="https://github.com/App-vNext/Polly/wiki/Bulkhead" target="_blank">here</a>
-.</p>
+<p>We basically limit the number of requests to a particular resource, so that if too many requests are issued, further requests are turned away fast to avoid resource exhaustion. Again, when this happens we need to consider our retries, circuit breakers, and fallbacks for how our application behaves and responds to this exhaustion (<a href="https://httpstatuses.com/429">429?</a>).</p>
+<p>Polly talks about this more <a href="https://github.com/App-vNext/Polly/wiki/Bulkhead">here</a>.</p>
 <h4 id="combinationspipeline">Combinations/Pipeline</h4>
 <p>You can chain these policies together, too. For instance, you may chain a Retry, to a CircuitBreaker to a Timeout. This means a request will go into Retry, then CircuitBreaker, then Timeout. Each request will be limited to a short timeout. That then updates the state of the circuit and then hits Retry. Our Retry might wait a short space of time (ms) and try again. That might be enough and a timeout might not be hit this time. If the Timeout fails again, we may trigger our CircuitBreaker. Our Retry triggers again and we wait longer. If we haven&rsquo;t waited long enough we hit the CircuitBreaker and fail onto another retry. If we wait on Retry again, the circuit will be restored. and we try again and hopefully get past the timeout this time.  Too many trys and we give up and call it a failure. We may now resort to showing our fallback here, perhaps.</p>
-<p>A much better explanation of this (with diagrams) is <a href="https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory#applying-multiple-policies" target="_blank">here</a>
-, as well as example codes of how this hooks together.</p>
+<p>A much better explanation of this (with diagrams) is <a href="https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory#applying-multiple-policies">here</a>, as well as example codes of how this hooks together.</p>
 <h3 id="net-core-21">.Net Core 2.1</h3>
 <p>If you&rsquo;ve been following the .Net 2.1 <code>IHttpClientFactory</code> changes, you will be happy to hear that Polly has this usage in mind already.</p>
-<p>A large part of this boils down to avoiding some of the pitfalls associated with managing HttpClient yourself (<a href="https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/" target="_blank">the disposing-it-too-often-can-cause-socket-exhaustion</a>
- but also <a href="http://byterot.blogspot.co.uk/2016/07/singleton-httpclient-dns.html" target="_blank">only-using-a-singleton-can-miss-DNS-updates</a>
- aspects). (Text as taken from the Polly docs.)</p>
-<p>You can see their documentation <a href="https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory" target="_blank">Polly and HttpClientFactory</a>
- as well as mention of Polly specifically on the official <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.1" target="_blank">Initiate HTTP requests</a>
- page (about <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.1#use-polly-based-handlers" target="_blank">three-quarters of the way down</a>
-).</p>
+<p>A large part of this boils down to avoiding some of the pitfalls associated with managing HttpClient yourself (<a href="https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/">the disposing-it-too-often-can-cause-socket-exhaustion</a> but also <a href="http://byterot.blogspot.co.uk/2016/07/singleton-httpclient-dns.html">only-using-a-singleton-can-miss-DNS-updates</a> aspects). (Text as taken from the Polly docs.)</p>
+<p>You can see their documentation <a href="https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory">Polly and HttpClientFactory</a> as well as mention of Polly specifically on the official <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.1">Initiate HTTP requests</a> page (about <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.1#use-polly-based-handlers">three-quarters of the way down</a>).</p>
 <p>Plugging in Polly Policies at the <code>HttpMessageHandler</code> level can keep your calling code just the way you are used to while providing the benefits of these Policies. It could also mean you can provide policies for third-party libraries that expose the HttpClient enough to inject your own Polly Message Handlers.</p>
 <h3 id="roadmap">Roadmap</h3>
-<p>Polly even has a <a href="https://github.com/App-vNext/Polly/wiki/Polly-Roadmap" target="_blank">roadmap</a>
- set out so you can see what is being worked on for future releases.</p>
+<p>Polly even has a <a href="https://github.com/App-vNext/Polly/wiki/Polly-Roadmap">roadmap</a> set out so you can see what is being worked on for future releases.</p>
 <p>Like I said, the docs are thorough, so refer to them as you start building out with Polly and make your applications more robust, and more useful when (not if) things go wrong.</p>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
-  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/beefeater-guards-your/">Beefeater - Guard your methods&#39; Ins and Outs.</a>
-    </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/untitled/">A fake FileSystem abstraction you can trust.</a>
-    </div></div>
-</div><section class="related-posts">
-    <h3>Related Posts</h3>
-    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/">.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</a></li><li><a href="https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/">More .Net on Docker - AspNet Core Debugging Tips and Tricks</a></li><li><a href="https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/">Clean Startup in your AspNetCore</a></li><li><a href="https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/">A Windows Service using netcoreapp on dotnet</a></li><li><a href="https://csmacnzblog.github.io/post/dotnetcore2-self-contained-applications/">.Net Core SDK 2.* Series - Self-contained Applications</a></li></ul>
-  </section></article><div class="post-comments surface row"></div></div>
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="http://twitter.com/share?text=Retry%20Policies%20with%20Polly&url=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fretry-policies-with-polly%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fretry-policies-with-polly%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = 'Retry Policies with Polly';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+        </div><aside class="sidebar-area">
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-twitter">Twitter</div>
+                
+                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-rss">Subscribe</div>
+                
+                <a class="email-subscribe-link" href="https://feedburner.google.com/fb/a/mailverify?uri=csmacnzBlog&amp;loc=en_US">Subscribe to csMACnz's Blog by Email</a>
+                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                <br />
+                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-xbox">Gamercard</div>
+                
+
+                <div style="margin: 0 auto; width:201px;">
+                    <iframe src="//gamercard.xbox.com/csMACnz.card" scrolling="no" frameborder="0" height="136px" width="201px">AutomatonMan</iframe>
+                </div>
+                <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="http://steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-ads">Advertisement</div>
+                
+                <div>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4517187877737982"
+                         data-ad-slot="7632444699"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+            </div>
+        </aside>
+        
+        <footer class="footer-area"><p>
+    Designed and Maintained by Mark Clearwater; Last updated June 2015.
+    <br /><a class="footer-link" >Hi</a>
+</p></footer>
+    </div>
+    
+    
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script src="/js/codetoggle.js"></script> 
+
+    
+    <script>
+        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </body>
 </html>

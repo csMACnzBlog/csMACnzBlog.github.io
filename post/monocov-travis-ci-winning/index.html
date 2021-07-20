@@ -1,280 +1,304 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>monocov &#43; Travis-CI = WINNING - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="monocov &#43; Travis-CI = WINNING">
-<meta itemprop="description" content="After much frustration, I now have monocovrunning on my Travis-CI build, and I&rsquo;m going to share with you how I did it.
-TL;DR The coverage results don&rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.
-As I mentioned in a previous post, I am building a coveralls.iopublisher for .Net code coverage. This means (to me any way) that I need to support mono coverage as well."><meta itemprop="datePublished" content="2015-02-08T15:29:13+00:00" />
-<meta itemprop="dateModified" content="2015-02-08T15:29:13+00:00" />
-<meta itemprop="wordCount" content="686">
-<meta itemprop="keywords" content="Continuous Delivery,coveralls.net,Mono," /><meta property="og:title" content="monocov &#43; Travis-CI = WINNING" />
-<meta property="og:description" content="After much frustration, I now have monocovrunning on my Travis-CI build, and I&rsquo;m going to share with you how I did it.
-TL;DR The coverage results don&rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.
-As I mentioned in a previous post, I am building a coveralls.iopublisher for .Net code coverage. This means (to me any way) that I need to support mono coverage as well." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://csmacnzblog.github.io/post/monocov-travis-ci-winning/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2015-02-08T15:29:13+00:00" />
-<meta property="article:modified_time" content="2015-02-08T15:29:13+00:00" />
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+    <meta name='language' content='EN'>
+    <meta name='medium' content='blog'>
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="monocov &#43; Travis-CI = WINNING"/>
-<meta name="twitter:description" content="After much frustration, I now have monocovrunning on my Travis-CI build, and I&rsquo;m going to share with you how I did it.
-TL;DR The coverage results don&rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.
-As I mentioned in a previous post, I am building a coveralls.iopublisher for .Net code coverage. This means (to me any way) that I need to support mono coverage as well."/>
-<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
 
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
+    <title>monocov &#43; Travis-CI = WINNING - csMACnz&#39;s Blog</title>
+    <meta name="description" content="After much frustration, I now have monocov running on my Travis-CI build, and I&rsquo;m going to share with you how I did it. TL;DR The coverage results don&rsquo;t seem accurate just yet, but jump to the end to see the …">
+    <meta name='keywords' content='csMACnz, Continuous Delivery, coveralls.net, Mono'>
+
+    
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="monocov &#43; Travis-CI = WINNING"/>
+    <meta property="og:description" content="After much frustration, I now have monocov running on my Travis-CI build, and I&rsquo;m going to share with you how I did it. TL;DR The coverage results don&rsquo;t seem accurate just yet, but jump to the end to see the …"/>
+    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+    <meta property="og:url" content="https://csmacnzblog.github.io/post/monocov-travis-ci-winning/"/>
+    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="monocov &#43; Travis-CI = WINNING"/>
+    <meta name="twitter:description" content="After much frustration, I now have monocov running on my Travis-CI build, and I&rsquo;m going to share with you how I did it. TL;DR The coverage results don&rsquo;t seem accurate just yet, but jump to the end to see the …"/>
+    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+    <meta name="twitter:site" content="@csMACnz"/>
+    <meta name="twitter:creator" content="@csMACnz"/>
+
+
+    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+    <script>
+        var d_id  = 'csmacnz',
+            g_id  = 'UA-18464866-2',
+            g_url = 'auto';
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+    <!-- ENTERING partial seo-schema.html -->
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "Article",
+        "publisher": {
+            "@type": "Organization",
+            "name": "csMACnz&#x27;s Blog",
+            "logo": "https://blog.csmac.nz/content/images/2014/10/apple-touch-icon-144x144-precomposed.png"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Mark Clearwater",
+            "image": {
+                "@type": "ImageObject",
+                "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                "width": 440,
+                "height": 295
+            },
+            "url": "https://blog.csmac.nz/author/csmacnz/",
+            "sameAs": [
+                "http://csmac.nz"
+            ]
+        },
+        "articleSection" : "post",
+        "name" : "monocov \u002b Travis-CI = WINNING",
+        "headline" : "monocov \u002b Travis-CI = WINNING",
+        "url" : "https:\/\/csmacnzblog.github.io\/post\/monocov-travis-ci-winning\/",
+        "datePublished": "2015-02-08T15:29:13.000Z",
+        "dateModified" : "2015-02-08T15:29:13.000Z",
+        "keywords" : [ "Continuous Delivery", "coveralls.net", "Mono" ]
+        "description" : "After much frustration, I now have monocov running on my Travis-CI build, and I\u0026rsquo;m going to share with you how I did it.\nTL;DR The coverage results don\u0026rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.\nAs I mentioned in a previous post, I am building a coveralls.io publisher for .Net code coverage. This means (to me any way) that I need to support mono coverage as well.",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.csmac.nz/"
+        }
+        "inLanguage" : "en-US",
+        "author" : "Mark Clearwater",
+        "creator" : "Mark Clearwater",
+        "accountablePerson" : "Mark Clearwater",
+        "copyrightHolder" : "Mark Clearwater",
+        "copyrightYear" : "2015",
+        "wordCount" : "684",
+    }
+    </script>
+    
+    
+    <!-- LEAVING partial seo-schema.html -->
+
+    <link rel="alternate" type="application/rss+xml" title="csMACnz&#x27;s Blog" href="https://blog.csmac.nz/rss/" />
+    <style>
+        .post-content img {
+            max-width: 500px;
+        }
+    </style>
+    </head>
+    <body class="blog">
+        <div class="page-area"><header class="header-area">
+    <h1 class="header-area-title">csMACnz</h1>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">monocov &#43; Travis-CI = WINNING</li></ol>
-</nav><article class="post row surface"><div class="post-toolbox">
-  <div class="col-12 d-none d-lg-block">
-    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
-  </div>
-</div>
-<h1 class="post-title my-3">monocov &#43; Travis-CI = WINNING</h1><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Feb 8, 2015
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>4 min read
-  </span>
-<a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy">#Continuous Delivery</a><a href="https://csmacnzblog.github.io/categories/coveralls.net/" class="post-taxonomy">#coveralls.net</a><a href="https://csmacnzblog.github.io/categories/mono/" class="post-taxonomy">#Mono</a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy">#Continuous Delivery</a><a href="https://csmacnzblog.github.io/tags/coveralls.net/" class="post-taxonomy">#coveralls.net</a><a href="https://csmacnzblog.github.io/tags/mono/" class="post-taxonomy">#Mono</a></div>
-<div class="post-content mb-3"><p>After much frustration, I now have <a href="https://github.com/mono/monocov" target="_blank">monocov</a>
- running on my Travis-CI build, and I&rsquo;m going to share with you how I did it.</p>
+<nav class="navigation-area header-bar-parent">
+    <div class="header-bar header-bar-blog">
+        <ul class="menu">
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+        </ul>
+    </div>
+</nav><div id="content" class="content-area">
+            
+<article>
+    <div class="content-box" itemscope itemtype="http://schema.org/Article">
+    
+        <span class="post-meta"><time datetime="2015-02-08"  itemprop="datePublished">08 Feb 15</time> on
+            <a href="https://csmacnzblog.github.iotags/continuous-delivery">Continuous Delivery</a><a href="https://csmacnzblog.github.iotags/coveralls.net">coveralls.net</a><a href="https://csmacnzblog.github.iotags/mono">Mono</a>
+        </span>
+    
+        <h1 class="post-title" itemprop="headline">monocov &#43; Travis-CI = WINNING</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <p>After much frustration, I now have <a href="https://github.com/mono/monocov">monocov</a> running on my Travis-CI build, and I&rsquo;m going to share with you how I did it.</p>
 <p>TL;DR
 The coverage results don&rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.</p>
-<p>As I mentioned in a <a href="http://blog.csmac.nz/introducing-coveralls-net" target="_blank">previous post</a>
-, I am building a <a href="https://coveralls.io" target="_blank">coveralls.io</a>
- publisher for .Net code coverage.  This means (to me any way) that I need to support mono coverage as well.  The best suggested coverage tool <a href="http://www.mono-project.com/docs/debug&#43;profile/profile/code-coverage/" target="_blank">mentioned online</a>
- for mono is monocov, despite being officially unmaintained since May 2011.  But I stuck with it.</p>
-<p>So I started building a <a href="https://github.com/csMACnz/Coveralls.net-Samples" target="_blank">sample library</a>
- with CI on github and very easily got examples working for AppVeyor on windows.  But I wanted to get monocov working as a sample with Travis-CI before I built support for it.  I found pretty quickly that monocov is not installed on Travis-ci, and in fact there is no package available to install it either that I could find.</p>
+<p>As I mentioned in a <a href="http://blog.csmac.nz/introducing-coveralls-net">previous post</a>, I am building a <a href="https://coveralls.io">coveralls.io</a> publisher for .Net code coverage.  This means (to me any way) that I need to support mono coverage as well.  The best suggested coverage tool <a href="http://www.mono-project.com/docs/debug+profile/profile/code-coverage/">mentioned online</a> for mono is monocov, despite being officially unmaintained since May 2011.  But I stuck with it.</p>
+<p>So I started building a <a href="https://github.com/csMACnz/Coveralls.net-Samples">sample library</a> with CI on github and very easily got examples working for AppVeyor on windows.  But I wanted to get monocov working as a sample with Travis-CI before I built support for it.  I found pretty quickly that monocov is not installed on Travis-ci, and in fact there is no package available to install it either that I could find.</p>
 <p>Thanks to github forks, I found someone else had forked and updated the source for monocov to work with a newer Xamarin version of the mono installation.  So naturally I forked this fork so I could make my own changes if necessary.</p>
-<p>Using a few tricks I was able to get my Travis-CI build to clone down the git fork, build it and install it on the build server.  I did have to change a compile setting and set a variable based on <a href="http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13" target="_blank">this blog post</a>
-, and I had to pull down the <a href="https://www.nuget.org/packages/Mono.Cecil/" target="_blank">mono.cecil nuget package</a>
- so I had the Mono.Cecil.dll file required by the C# side of monocov. I also made to install gtk-sharp2 for the GUI library to build with make, although I don&rsquo;t use it. After all these steps I finally got it to a point where it was installed.  The Travis-CI code ended up using these instructions in the install section:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">sudo apt-get install gtk-sharp2</span>
-- <span style="color:#ae81ff">curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip</span>
-- <span style="color:#ae81ff">unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil</span>
-- <span style="color:#ae81ff">cp /tmp/cecil/lib/net40/Mono.Cecil.dll .</span>
-- <span style="color:#ae81ff">cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/</span>
-- <span style="color:#ae81ff">git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov</span>
-- <span style="color:#ae81ff">cd ../../csMACnz/monocov</span>
-- <span style="color:#ae81ff">cp /tmp/cecil/Mono.Cecil.dll .</span>
-- <span style="color:#ae81ff">./configure</span>
-- <span style="color:#ae81ff">make</span>
-- <span style="color:#ae81ff">sudo make install</span>
-- <span style="color:#ae81ff">cd ../../csMACnz/Coveralls.net-Samples </span>
-</code></pre></div><p>Note I changed directories a few times, and pulled monocov into a directory beside my actual repo build folder.</p>
+<p>Using a few tricks I was able to get my Travis-CI build to clone down the git fork, build it and install it on the build server.  I did have to change a compile setting and set a variable based on <a href="http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13">this blog post</a>, and I had to pull down the <a href="https://www.nuget.org/packages/Mono.Cecil/">mono.cecil nuget package</a> so I had the Mono.Cecil.dll file required by the C# side of monocov. I also made to install gtk-sharp2 for the GUI library to build with make, although I don&rsquo;t use it. After all these steps I finally got it to a point where it was installed.  The Travis-CI code ended up using these instructions in the install section:</p>
+<pre><code class="language-yaml">- sudo apt-get install gtk-sharp2
+- curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip
+- unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil
+- cp /tmp/cecil/lib/net40/Mono.Cecil.dll .
+- cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/
+- git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov
+- cd ../../csMACnz/monocov
+- cp /tmp/cecil/Mono.Cecil.dll .
+- ./configure
+- make
+- sudo make install
+- cd ../../csMACnz/Coveralls.net-Samples 
+</code></pre>
+<p>Note I changed directories a few times, and pulled monocov into a directory beside my actual repo build folder.</p>
 <p>To get it to run over my tests, I had to use a couple of options:</p>
 <ul>
-<li>set the load library path as seen in the <a href="http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13" target="_blank">blog post</a>
- I mentioned earlier.</li>
+<li>set the load library path as seen in the <a href="http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13">blog post</a> I mentioned earlier.</li>
 <li>&ndash;profile=monocov:outfile=monocovCoverage.cov to get monocov to run and output to a specified file</li>
 <li>,+[GameOfLife],+[GameOfLife.xUnit.Tests] as part of the coverage to specify which assemblies to record coverage for</li>
 <li>/noshadow so it didn&rsquo;t use a temp directory for the results, since it has to locate the dll in step 2</li>
 <li>run a second step afterwards to convert the *.cov file into a folder of detailed xml files</li>
 </ul>
 <p>The resulting code for this looked like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">export LD_LIBRARY_PATH=/usr/local/lib</span>
-- <span style="color:#ae81ff">mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow</span>
-- <span style="color:#ae81ff">monocov --export-xml=monocovCoverage monocovCoverage.cov</span>
-</code></pre></div><p>So whats the next steps? Well now I have actual results I will get <a href="https://github.com/csMACnz/coveralls.net" target="_blank">coveralls.net</a>
- support written and get it published to nuget and usable on my Travis-CI build, so it is passing.  After that I will look at the accuracy of the existing code, since my initial results haven&rsquo;t really looked that accurate.</p>
+<pre><code class="language-yaml">- export LD_LIBRARY_PATH=/usr/local/lib
+- mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow
+- monocov --export-xml=monocovCoverage monocovCoverage.cov
+</code></pre>
+<p>So whats the next steps? Well now I have actual results I will get <a href="https://github.com/csMACnz/coveralls.net">coveralls.net</a> support written and get it published to nuget and usable on my Travis-CI build, so it is passing.  After that I will look at the accuracy of the existing code, since my initial results haven&rsquo;t really looked that accurate.</p>
 <p>In summary, and If you just skipped to the end, my full <code>travis.yml</code> file running monocov over my .net project on Travis-CI looks like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">language</span>: <span style="color:#ae81ff">csharp</span>
-<span style="color:#f92672">solution</span>: <span style="color:#ae81ff">./src/GameOfLife.sln</span>
-<span style="color:#f92672">install</span>:
-  - <span style="color:#ae81ff">nuget restore ./src/GameOfLife.sln</span>
-  - <span style="color:#ae81ff">chmod +x ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe</span>
-  - <span style="color:#ae81ff">sudo apt-get install nunit-console</span>
-  - <span style="color:#ae81ff">sudo apt-get install gtk-sharp2</span>
-  - <span style="color:#ae81ff">curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip</span>
-  - <span style="color:#ae81ff">unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil</span>
-  - <span style="color:#ae81ff">cp /tmp/cecil/lib/net40/Mono.Cecil.dll .</span>
-  - <span style="color:#ae81ff">cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/</span>
-  - <span style="color:#ae81ff">git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov</span>
-  - <span style="color:#ae81ff">cd ../../csMACnz/monocov</span>
-  - <span style="color:#ae81ff">cp /tmp/cecil/Mono.Cecil.dll .</span>
-  - <span style="color:#ae81ff">./configure</span>
-  - <span style="color:#ae81ff">make</span>
-  - <span style="color:#ae81ff">sudo make install</span>
-  - <span style="color:#ae81ff">cd ../../csMACnz/Coveralls.net-Samples</span>
-<span style="color:#f92672">script</span>:
-  - <span style="color:#ae81ff">xbuild /p:Configuration=Release ./src/GameOfLife.sln</span>
-  - <span style="color:#ae81ff">export LD_LIBRARY_PATH=/usr/local/lib</span>
-  - <span style="color:#ae81ff">mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow</span>
-  - <span style="color:#ae81ff">monocov --export-xml=monocovCoverage monocovCoverage.cov</span>
-</code></pre></div><p>Hope someone finds this useful, and stay tuned for the coveralls.io update.</p>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
-  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/visual-studio-powershell/">Visual Studio PowerShell</a>
-    </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/introducing-bclextensions/">Introducing BCLExtensions</a>
-    </div></div>
-</div><section class="related-posts">
-    <h3>Related Posts</h3>
-    <ul class="related-posts"><li><a href="https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/">Hey, I found this thing called Coveralls.io</a></li><li><a href="https://csmacnzblog.github.io/post/introducing-coveralls-net/">Introducing Coveralls.net</a></li><li><a href="https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/">Travis-ci, C# and PCL</a></li></ul>
-  </section></article><div class="post-comments surface row"></div></div>
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
+<pre><code class="language-yaml">language: csharp
+solution: ./src/GameOfLife.sln
+install:
+  - nuget restore ./src/GameOfLife.sln
+  - chmod +x ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe
+  - sudo apt-get install nunit-console
+  - sudo apt-get install gtk-sharp2
+  - curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip
+  - unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil
+  - cp /tmp/cecil/lib/net40/Mono.Cecil.dll .
+  - cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/
+  - git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov
+  - cd ../../csMACnz/monocov
+  - cp /tmp/cecil/Mono.Cecil.dll .
+  - ./configure
+  - make
+  - sudo make install
+  - cd ../../csMACnz/Coveralls.net-Samples
+script:
+  - xbuild /p:Configuration=Release ./src/GameOfLife.sln
+  - export LD_LIBRARY_PATH=/usr/local/lib
+  - mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow
+  - monocov --export-xml=monocovCoverage monocovCoverage.cov
+</code></pre>
+<p>Hope someone finds this useful, and stay tuned for the coveralls.io update.</p>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="http://twitter.com/share?text=monocov%20%2b%20Travis-CI%20%3d%20WINNING&url=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fmonocov-travis-ci-winning%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fmonocov-travis-ci-winning%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = 'monocov \u002b Travis-CI = WINNING';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+        </div><aside class="sidebar-area">
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-twitter">Twitter</div>
+                
+                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-rss">Subscribe</div>
+                
+                <a class="email-subscribe-link" href="https://feedburner.google.com/fb/a/mailverify?uri=csmacnzBlog&amp;loc=en_US">Subscribe to csMACnz's Blog by Email</a>
+                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                <br />
+                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-xbox">Gamercard</div>
+                
+
+                <div style="margin: 0 auto; width:201px;">
+                    <iframe src="//gamercard.xbox.com/csMACnz.card" scrolling="no" frameborder="0" height="136px" width="201px">AutomatonMan</iframe>
+                </div>
+                <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="http://steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-ads">Advertisement</div>
+                
+                <div>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4517187877737982"
+                         data-ad-slot="7632444699"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+            </div>
+        </aside>
+        
+        <footer class="footer-area"><p>
+    Designed and Maintained by Mark Clearwater; Last updated June 2015.
+    <br /><a class="footer-link" >Hi</a>
+</p></footer>
+    </div>
+    
+    
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script src="/js/codetoggle.js"></script> 
+
+    
+    <script>
+        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </body>
 </html>

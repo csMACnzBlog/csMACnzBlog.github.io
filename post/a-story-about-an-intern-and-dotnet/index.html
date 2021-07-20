@@ -1,140 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>A story about an intern and dotnet - csMacnz&#39;s Blog</title><link rel="apple-touch-icon" href="https://csmacnzblog.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://csmacnzblog.github.io/images/favicons/manifest.json">
-<link rel="icon" href="https://csmacnzblog.github.io/images/favicons/favicon.ico">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="A story about an intern and dotnet">
-<meta itemprop="description" content="Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn.
-&ldquo;It&rsquo;s your first day, and we need you to work out all this new dotnet command line stuff&rdquo;. Jack recalled the words of his new Boss, Joe. &ldquo;We are far too busy to figure this out, we have code to ship, but this should keep you busy for a few months while we ship the Widgets 2."><meta itemprop="datePublished" content="2017-11-06T06:30:00+00:00" />
-<meta itemprop="dateModified" content="2017-11-06T06:30:00+00:00" />
-<meta itemprop="wordCount" content="2343">
-<meta itemprop="keywords" content="" /><meta property="og:title" content="A story about an intern and dotnet" />
-<meta property="og:description" content="Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn.
-&ldquo;It&rsquo;s your first day, and we need you to work out all this new dotnet command line stuff&rdquo;. Jack recalled the words of his new Boss, Joe. &ldquo;We are far too busy to figure this out, we have code to ship, but this should keep you busy for a few months while we ship the Widgets 2." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://csmacnzblog.github.io/post/a-story-about-an-intern-and-dotnet/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2017-11-06T06:30:00+00:00" />
-<meta property="article:modified_time" content="2017-11-06T06:30:00+00:00" />
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+    <meta name='language' content='EN'>
+    <meta name='medium' content='blog'>
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="A story about an intern and dotnet"/>
-<meta name="twitter:description" content="Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn.
-&ldquo;It&rsquo;s your first day, and we need you to work out all this new dotnet command line stuff&rdquo;. Jack recalled the words of his new Boss, Joe. &ldquo;We are far too busy to figure this out, we have code to ship, but this should keep you busy for a few months while we ship the Widgets 2."/>
-<link rel=stylesheet href="https://csmacnzblog.github.io/css/bundle.min.ce383e7297312216c2d2ced30574d5a9ae83c451db9f064a454509955ae2462d.css" integrity="sha256-zjg&#43;cpcxIhbC0s7TBXTVqa6DxFHbnwZKRUUJlVriRi0=" crossorigin="anonymous"><script src="https://csmacnzblog.github.io/js/bundle.min.ad6d83537f5b4374c837a12a76422496582e04d1dde91bbb443641ec12c506c6.js" integrity="sha256-rW2DU39bQ3TIN6EqdkIkllguBNHd6Ru7RDZB7BLFBsY=" crossorigin="anonymous"></script>
-</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="https://csmacnzblog.github.io">
-      <img class="logo" alt="Logo" src="https://csmacnzblog.github.io/images/logo.webp" loading="lazy"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="https://csmacnzblog.github.io/search">
-  <div class="input-group input-group-sm">
-    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
-    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
-  </div>
-</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
-  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
-    aria-controls="offcanvasSettings">
-    <i class="fas fa-fw fa-sliders-h"></i> Settings
-  </a>
-</li>
 
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
-  aria-labelledby="offcanvasSettingsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> Settings</h5>
-    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
-      <span class="fas fa-2x fa-fw fa-times"></span>
-    </a>
-  </div>
-  <div class="offcanvas-body"><section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
-</section>
-<section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
-    </div>
-    <div class="col-auto ms-auto">
-      <span id="btnPalette" class="btn btn-sm"><i class="fas fa-eye-dropper"></i></span>
-    </div>
-  </form>
-  <div class="container mt-2 visually-hidden" id="palettePicker">
-    <div class="btn-group"><button type="button" id="palette-blue" title="Blue" 
-          class="btn btn-sm palette bg-blue d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-blue-gray" title="Blue Gray" 
-          class="btn btn-sm palette bg-blue-gray d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-brown" title="Brown" 
-          class="btn btn-sm palette bg-brown d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-cyan" title="Cyan" 
-          class="btn btn-sm palette bg-cyan d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-green" title="Green" 
-          class="btn btn-sm palette bg-green d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-indigo" title="Indigo" 
-          class="btn btn-sm palette bg-indigo d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-orange" title="Orange" 
-          class="btn btn-sm palette bg-orange d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-pink" title="Pink" 
-          class="btn btn-sm palette bg-pink d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-purple" title="Purple" 
-          class="btn btn-sm palette bg-purple d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-red" title="Red" 
-          class="btn btn-sm palette bg-red d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-teal" title="Teal" 
-          class="btn btn-sm palette bg-teal d-flex align-items-center justify-content-center">
-        </button><button type="button" id="palette-yellow" title="Yellow" 
-          class="btn btn-sm palette bg-yellow d-flex align-items-center justify-content-center">
-        </button></button>
-    </div>
-  </div>
-</section></div>
-</div></ul>
-    </div>
-  </div>
-</nav>
+    <title>A story about an intern and dotnet - csMACnz&#39;s Blog</title>
+    <meta name="description" content="Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn. &ldquo;It&rsquo;s your first day, and we need you to work out all this new dotnet command line stuff&rdquo;. Jack recalled the …">
+    <meta name='keywords' content='csMACnz'>
+
+    
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="A story about an intern and dotnet"/>
+    <meta property="og:description" content="Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn. &ldquo;It&rsquo;s your first day, and we need you to work out all this new dotnet command line stuff&rdquo;. Jack recalled the …"/>
+    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+    <meta property="og:url" content="https://csmacnzblog.github.io/post/a-story-about-an-intern-and-dotnet/"/>
+    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="A story about an intern and dotnet"/>
+    <meta name="twitter:description" content="Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn. &ldquo;It&rsquo;s your first day, and we need you to work out all this new dotnet command line stuff&rdquo;. Jack recalled the …"/>
+    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+    <meta name="twitter:site" content="@csMACnz"/>
+    <meta name="twitter:creator" content="@csMACnz"/>
+
+
+    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+    <script>
+        var d_id  = 'csmacnz',
+            g_id  = 'UA-18464866-2',
+            g_url = 'auto';
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+    <!-- ENTERING partial seo-schema.html -->
+    
+    
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "Article",
+        "publisher": {
+            "@type": "Organization",
+            "name": "csMACnz&#x27;s Blog",
+            "logo": "https://blog.csmac.nz/content/images/2014/10/apple-touch-icon-144x144-precomposed.png"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Mark Clearwater",
+            "image": {
+                "@type": "ImageObject",
+                "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                "width": 440,
+                "height": 295
+            },
+            "url": "https://blog.csmac.nz/author/csmacnz/",
+            "sameAs": [
+                "http://csmac.nz"
+            ]
+        },
+        "articleSection" : "post",
+        "name" : "A story about an intern and dotnet",
+        "headline" : "A story about an intern and dotnet",
+        "url" : "https:\/\/csmacnzblog.github.io\/post\/a-story-about-an-intern-and-dotnet\/",
+        "datePublished": "2017-11-06T06:30:00.000Z",
+        "dateModified" : "2017-11-06T06:30:00.000Z",
+        "keywords" : [  ]
+        "description" : "Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn.\n\u0026ldquo;It\u0026rsquo;s your first day, and we need you to work out all this new dotnet command line stuff\u0026rdquo;. Jack recalled the words of his new Boss, Joe. \u0026ldquo;We are far too busy to figure this out, we have code to ship, but this should keep you busy for a few months while we ship the Widgets 2.",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.csmac.nz/"
+        }
+        "inLanguage" : "en-US",
+        "author" : "Mark Clearwater",
+        "creator" : "Mark Clearwater",
+        "accountablePerson" : "Mark Clearwater",
+        "copyrightHolder" : "Mark Clearwater",
+        "copyrightYear" : "2017",
+        "wordCount" : "2341",
+    }
+    </script>
+    
+    
+    <!-- LEAVING partial seo-schema.html -->
+
+    <link rel="alternate" type="application/rss+xml" title="csMACnz&#x27;s Blog" href="https://blog.csmac.nz/rss/" />
+    <style>
+        .post-content img {
+            max-width: 500px;
+        }
+    </style>
+    </head>
+    <body class="blog">
+        <div class="page-area"><header class="header-area">
+    <h1 class="header-area-title">csMACnz</h1>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/">Home</a></li><li class="breadcrumb-item"><a href="https://csmacnzblog.github.io/post/">Posts</a></li><li class="breadcrumb-item active">A story about an intern and dotnet</li></ol>
-</nav><article class="post row surface"><div class="post-toolbox">
-  <div class="col-12 d-none d-lg-block">
-    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
-  </div>
-</div>
-<h1 class="post-title my-3">A story about an intern and dotnet</h1><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>Nov 6, 2017
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>11 min read
-  </span>
-</div>
-<div class="post-content mb-3"><p>Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn.</p>
+<nav class="navigation-area header-bar-parent">
+    <div class="header-bar header-bar-blog">
+        <ul class="menu">
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+        </ul>
+    </div>
+</nav><div id="content" class="content-area">
+            
+<article>
+    <div class="content-box" itemscope itemtype="http://schema.org/Article">
+    
+        <span class="post-meta"><time datetime="2017-11-06"  itemprop="datePublished">06 Nov 17</time> on
+            
+        </span>
+    
+        <h1 class="post-title" itemprop="headline">A story about an intern and dotnet</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <p>Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn.</p>
 <p>&ldquo;It&rsquo;s your first day, and we need you to work out all this new dotnet command line stuff&rdquo;. Jack recalled the words of his new Boss, Joe. &ldquo;We are far too busy to figure this out, we have code to ship, but this should keep you busy for a few months while we ship the Widgets 2.0 interface.&rdquo; She looked very serious whenever she talked about the Widgets thing. It must be a big deal. Jack hadn&rsquo;t really understood the whole widgets thing at induction but was happy to have a job.</p>
 <p>Luckily for Jack, he had just spent the last few months at Uni learning java and python on Linux and was a pro at the command line stuff. His personal machine ran Windows too so he felt pretty comfortable now staring at the cold black shell covering most of his windows desktop.</p>
-<p>Joe had at least told him where to install dotnet from (<a href="https://www.microsoft.com/net/core" target="_blank">www.microsoft.com/net/core</a>
-) and it practically installed itself. It was no <code>apt-get install</code>, but hey, it&rsquo;s for Windows people. He had also been told to start with the command &lsquo;dotnet&rsquo; so he was all set.</p>
+<p>Joe had at least told him where to install dotnet from (<a href="https://www.microsoft.com/net/core">www.microsoft.com/net/core</a>) and it practically installed itself. It was no <code>apt-get install</code>, but hey, it&rsquo;s for Windows people. He had also been told to start with the command &lsquo;dotnet&rsquo; so he was all set.</p>
 <p>Jack started typing and looked at the results. First, he typed <code>dotnet</code> to see what it would tell him.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr<span style="color:#75715e">&gt;dotnet</span>
+<pre><code class="language-cmd">C:\Users\jackr&gt;dotnet
 
 Usage: dotnet [options]
 Usage: dotnet [path-to-application]
@@ -146,8 +148,9 @@ Options:
 path-to-application:
   The path to an application .dll file to execute.
   
-</code></pre></div><p>&ldquo;It looks like &lsquo;dotnet &ndash;help&rsquo; is the right next instruction to find out more&rdquo;, he thought to himself, &ldquo;so&hellip;&quot;:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr<span style="color:#75715e">&gt;dotnet --help</span>
+</code></pre>
+<p>&ldquo;It looks like &lsquo;dotnet &ndash;help&rsquo; is the right next instruction to find out more&rdquo;, he thought to himself, &ldquo;so&hellip;&quot;:</p>
+<pre><code class="language-cmd">C:\Users\jackr&gt;dotnet --help
 .NET Command Line Tools (2.0.0)
 Usage: dotnet [runtime-options] [path-to-application]
 Usage: dotnet [sdk-options] [command] [arguments] [command-options]
@@ -177,7 +180,7 @@ Common options:
   -v|--verbosity        Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
   -h|--help             Show help.
 
-Run &#39;dotnet COMMAND --help&#39; for more information on a command.
+Run 'dotnet COMMAND --help' for more information on a command.
 
 sdk-options:
   --version        Display .NET Core SDK version.
@@ -189,10 +192,11 @@ runtime-options:
   --fx-version &lt;version&gt;            Version of the installed Shared Framework to use to run the application.
   --roll-forward-on-no-candidate-fx Roll forward on no candidate shared framework is enabled.
   --additional-deps &lt;path&gt;          Path to additonal deps.json file.
-</code></pre></div><p>&ldquo;Well, that is a lot of information, where to start?&rdquo; The first instruction <code>new</code> seemed to jump out as a reasonable place to start. but first, somewhere to put the files:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr<span style="color:#75715e">&gt;mkdir internTest</span>
-C:\Users\jackr<span style="color:#75715e">&gt;cd internTest</span>
-C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet new</span>
+</code></pre>
+<p>&ldquo;Well, that is a lot of information, where to start?&rdquo; The first instruction <code>new</code> seemed to jump out as a reasonable place to start. but first, somewhere to put the files:</p>
+<pre><code class="language-cmd">C:\Users\jackr&gt;mkdir internTest
+C:\Users\jackr&gt;cd internTest
+C:\Users\jackr\internTest&gt;dotnet new
 Usage: new [options]
 
 Options:
@@ -202,7 +206,7 @@ Options:
   -o, --output        Location to place the generated output.
   -i, --install       Installs a source or a template pack.
   -u, --uninstall     Uninstalls a source or a template pack.
-  --type              Filters templates based on available types. Predefined values are <span style="color:#e6db74">&#34;project&#34;</span>, <span style="color:#e6db74">&#34;item&#34;</span> or <span style="color:#e6db74">&#34;other&#34;</span>.
+  --type              Filters templates based on available types. Predefined values are &quot;project&quot;, &quot;item&quot; or &quot;other&quot;.
   --force             Forces content to be generated even if it would change existing files.
   -lang, --language   Specifies the language of the template to create.
 
@@ -233,12 +237,13 @@ Examples:
     dotnet new mvc --auth Individual
     dotnet new xunit
     dotnet new --help
-</code></pre></div><p>&ldquo;Right, I have to tell it what template to use at least, and I can pick C#, F# or even VB. (what is VB?)&rdquo;  Jack had played around a bit with visual studio, so he knew that there were projects and solutions, and websites, console applications and tests. Figuring a website might be too complicated, he decided to give the Console Application option a go:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet new console</span>
-The template <span style="color:#e6db74">&#34;Console Application&#34;</span> was created successfully.
+</code></pre>
+<p>&ldquo;Right, I have to tell it what template to use at least, and I can pick C#, F# or even VB. (what is VB?)&rdquo;  Jack had played around a bit with visual studio, so he knew that there were projects and solutions, and websites, console applications and tests. Figuring a website might be too complicated, he decided to give the Console Application option a go:</p>
+<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet new console
+The template &quot;Console Application&quot; was created successfully.
 
 Processing post-creation actions...
-Running &#39;dotnet restore&#39; on C:\Users\jackr\internTest\internTest.csproj...
+Running 'dotnet restore' on C:\Users\jackr\internTest\internTest.csproj...
   Restoring packages for C:\Users\jackr\internTest\internTest.csproj...
   Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.props.
   Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.targets.
@@ -246,8 +251,9 @@ Running &#39;dotnet restore&#39; on C:\Users\jackr\internTest\internTest.csproj.
 
 
 Restore succeeded.
-</code></pre></div><p>&ldquo;What&rsquo;s it done, I wonder?&rdquo;</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr\internTest<span style="color:#75715e">&gt;tree /F /A</span>
+</code></pre>
+<p>&ldquo;What&rsquo;s it done, I wonder?&rdquo;</p>
+<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;tree /F /A
 Folder PATH listing for volume Windows
 Volume serial number is 000000D8 BC96:4BCD
 C:.
@@ -259,28 +265,32 @@ C:.
         internTest.csproj.nuget.g.props
         internTest.csproj.nuget.g.targets
         project.assets.json
-</code></pre></div><p>Jack could see a <code>Program.cs</code> which must be the console application, an <code>internTest.csproj</code> (&ldquo;which must have been named after the parent folder&rdquo;, he thought) and an <code>obj</code> folder full of other files (&quot;&lsquo;obj&rsquo; and &lsquo;bin are build outputs, from memory&rdquo;).</p>
+</code></pre>
+<p>Jack could see a <code>Program.cs</code> which must be the console application, an <code>internTest.csproj</code> (&ldquo;which must have been named after the parent folder&rdquo;, he thought) and an <code>obj</code> folder full of other files (&quot;&lsquo;obj&rsquo; and &lsquo;bin are build outputs, from memory&rdquo;).</p>
 <p>The next instruction in the original list of commands was <code>restore</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jack\internTest<span style="color:#75715e">&gt;dotnet restore</span>
+<pre><code class="language-cmd">C:\Users\jack\internTest&gt;dotnet restore
   Restore completed in 22.69 ms for C:\Users\jackr\internTest\internTest.csproj.
-</code></pre></div><p>&ldquo;&lsquo;Restore completed&rsquo;, that&rsquo;s what is said after I ran &lsquo;dotnet new&rsquo;, so it must have run that for me automatically.&rdquo; The next two options were <code>run</code> and <code>build</code>. Since Jack was following the order given, he figured he might as well use <code>run</code> first and see what happens.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet run</span>
+</code></pre>
+<p>&ldquo;&lsquo;Restore completed&rsquo;, that&rsquo;s what is said after I ran &lsquo;dotnet new&rsquo;, so it must have run that for me automatically.&rdquo; The next two options were <code>run</code> and <code>build</code>. Since Jack was following the order given, he figured he might as well use <code>run</code> first and see what happens.</p>
+<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet run
 Hello World!
-</code></pre></div><p>&ldquo;Alright, maybe?&rdquo; He figured it best to look at that <code>Program.cs</code> file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &lsquo;notepad&rsquo;.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> System;
+</code></pre>
+<p>&ldquo;Alright, maybe?&rdquo; He figured it best to look at that <code>Program.cs</code> file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &lsquo;notepad&rsquo;.</p>
+<pre><code class="language-cs">using System;
 
-<span style="color:#66d9ef">namespace</span> internTest
+namespace internTest
 {
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+    class Program
     {
-        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+        static void Main(string[] args)
         {
-            Console.WriteLine(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+            Console.WriteLine(&quot;Hello World!&quot;);
         }
     }
 }
-</code></pre></div><p>Guessing the program has worked as expected he moved onto the next command, <code>build</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet build</span>
+</code></pre>
+<p>Guessing the program has worked as expected he moved onto the next command, <code>build</code>.</p>
+<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet build
 Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
@@ -290,15 +300,16 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-<span style="color:#66d9ef">Time</span> Elapsed 00:00:05.12
-</code></pre></div><p>&ldquo;So &lsquo;build&rsquo; appears to do what you would think it does.  Moving on to &lsquo;publish&rsquo;:&rdquo;</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish</span>
+Time Elapsed 00:00:05.12
+</code></pre>
+<p>&ldquo;So &lsquo;build&rsquo; appears to do what you would think it does.  Moving on to &lsquo;publish&rsquo;:&rdquo;</p>
+<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet publish
 Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
   internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\internTest.dll
   internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\publish\
-C:\Users\jackr\internTest<span style="color:#75715e">&gt;tree /F /A</span>
+C:\Users\jackr\internTest&gt;tree /F /A
 Folder PATH listing for volume Windows
 Volume serial number is 00000093 BC96:4BCD
 C:.
@@ -334,9 +345,9 @@ C:.
                 internTest.csproj.FileListAbsolute.txt
                 internTest.dll
                 internTest.pdb
-</code></pre></div><p>&ldquo;That has made a publish folder with a &lsquo;dll&rsquo; in it, but I expected an &lsquo;exe&rsquo;. I wonder if I can find out more on publish&hellip;&rdquo;. He tried <code>dotnet help publish</code>. For a reason totally unknown to Jack, this launched a web browser window to <a href="https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x" target="_blank">https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x</a>
- displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&rsquo;t take him away from the shell, he tried <code>dotnet publish --help</code> instead.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish --help</span>
+</code></pre>
+<p>&ldquo;That has made a publish folder with a &lsquo;dll&rsquo; in it, but I expected an &lsquo;exe&rsquo;. I wonder if I can find out more on publish&hellip;&rdquo;. He tried <code>dotnet help publish</code>. For a reason totally unknown to Jack, this launched a web browser window to <a href="https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x">https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x</a> displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&rsquo;t take him away from the shell, he tried <code>dotnet publish --help</code> instead.</p>
+<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet publish --help
 Usage: dotnet publish [options]
 
 Options:
@@ -344,44 +355,43 @@ Options:
   -o, --output &lt;OUTPUT_DIR&gt;             Output directory in which to place the published artifacts.
   -f, --framework &lt;FRAMEWORK&gt;           Target framework to publish for. The target framework has to be specified in the project file.
   -r, --runtime &lt;RUNTIME_IDENTIFIER&gt;    Publish the project for a given runtime. This is used when creating self-contained deployment. Default is to publish a framework-dependent app.
-  -c, --configuration &lt;CONFIGURATION&gt;   Configuration to use for building the project.  Default for most projects is  <span style="color:#e6db74">&#34;Debug&#34;</span>.
+  -c, --configuration &lt;CONFIGURATION&gt;   Configuration to use for building the project.  Default for most projects is  &quot;Debug&quot;.
   --version-suffix &lt;VERSION_SUFFIX&gt;     Defines the value for the $(VersionSuffix) property in the project.
   --manifest &lt;manifest.xml&gt;             The path to a target manifest file that contains the list of packages to be excluded from the publish step.
-  --self-contained                      Publish the .NET Core runtime with your application so the runtime doesn&#39;t need to be installed on the target machine. Defaults to &#39;true&#39; if a runtime identifier is specified.
+  --self-contained                      Publish the .NET Core runtime with your application so the runtime doesn't need to be installed on the target machine. Defaults to 'true' if a runtime identifier is specified.
   --no-restore                          Does not do an implicit restore when executing the command.
   -v, --verbosity                       Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
   --no-dependencies                     Set this flag to ignore project to project references and only restore the root project.
   --force                               Set this flag to force all dependencies to be resolved even if the last restore was successful. This is equivalent to deleting project.assets.json.
-</code></pre></div><p>There were at least two useful finds in this bunch: <code>--output</code> or <code>-o</code> would let him choose a different location to publish to. <code>--self-contained</code> seemed like it might give him an <code>exe</code>, perhaps.  Jack tried a few combinations, which resulted in some errors. He tried to correct them as he went.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish -o C:\publish\interntestoutput --self-contained</span>
+</code></pre>
+<p>There were at least two useful finds in this bunch: <code>--output</code> or <code>-o</code> would let him choose a different location to publish to. <code>--self-contained</code> seemed like it might give him an <code>exe</code>, perhaps.  Jack tried a few combinations, which resulted in some errors. He tried to correct them as he went.</p>
+<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet publish -o C:\publish\interntestoutput --self-contained
 Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-C:\Program<span style="color:#75715e"> Files\dotnet\sdk\2.0.0\Sdks\Microsoft.NET.Sdk\build\Microsoft.NET.RuntimeIdentifierInference.targets(116,5): error : It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier.  Please either specify a RuntimeIdentifier or set SelfContained to false. [C:\Users\jackr\internTest\internTest.csproj]</span>
+C:\Program Files\dotnet\sdk\2.0.0\Sdks\Microsoft.NET.Sdk\build\Microsoft.NET.RuntimeIdentifierInference.targets(116,5): error : It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier.  Please either specify a RuntimeIdentifier or set SelfContained to false. [C:\Users\jackr\internTest\internTest.csproj]
 
-C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r windows</span>
+C:\Users\jackr\internTest&gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r windows
 Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-C:\Program<span style="color:#75715e"> Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\build\netcoreapp2.0\Microsoft.NETCore.App.targets(19,5): error : Project is targeting runtime &#39;windows&#39; but did not resolve any runtime-specific packages for the &#39;Microsoft.NETCore.App&#39; package.  This runtime may not be supported by .NET Core. [C:\Users\mclea\internTest\internTest.csproj]</span>
-</code></pre></div><p>So firstly <code>It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier</code> seems to be a thing. and <code>windows</code> as a value results in <code>Project is targeting runtime 'windows' but did not resolve any runtime-specific packages for the 'Microsoft.NETCore.App' package</code>. After going back to that web page that launched when he typed in <code>dotnet help publish</code> he found more info on that option:</p>
+C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\build\netcoreapp2.0\Microsoft.NETCore.App.targets(19,5): error : Project is targeting runtime 'windows' but did not resolve any runtime-specific packages for the 'Microsoft.NETCore.App' package.  This runtime may not be supported by .NET Core. [C:\Users\mclea\internTest\internTest.csproj]
+</code></pre>
+<p>So firstly <code>It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier</code> seems to be a thing. and <code>windows</code> as a value results in <code>Project is targeting runtime 'windows' but did not resolve any runtime-specific packages for the 'Microsoft.NETCore.App' package</code>. After going back to that web page that launched when he typed in <code>dotnet help publish</code> he found more info on that option:</p>
 <blockquote>
 <p>-r|&ndash;runtime &lt;RUNTIME_IDENTIFIER&gt;</p>
-<p>Publishes the application for a given runtime. This is used when creating a <a href="https://docs.microsoft.com/en-gb/dotnet/core/deploying/index#self-contained-deployments-scd" target="_blank">self-contained deployment (SCD)</a>
-. For a list of Runtime Identifiers (RIDs), see the <a href="https://docs.microsoft.com/en-gb/dotnet/core/rid-catalog" target="_blank">RID catalog</a>
-. Default is to publish a <a href="https://docs.microsoft.com/en-gb/dotnet/core/deploying/index#framework-dependent-deployments-fdd" target="_blank">framework-dependent deployment (FDD)</a>
-.</p>
+<p>Publishes the application for a given runtime. This is used when creating a <a href="https://docs.microsoft.com/en-gb/dotnet/core/deploying/index#self-contained-deployments-scd">self-contained deployment (SCD)</a>. For a list of Runtime Identifiers (RIDs), see the <a href="https://docs.microsoft.com/en-gb/dotnet/core/rid-catalog">RID catalog</a>. Default is to publish a <a href="https://docs.microsoft.com/en-gb/dotnet/core/deploying/index#framework-dependent-deployments-fdd">framework-dependent deployment (FDD)</a>.</p>
 </blockquote>
 <p>Clicking on the link for RID catalog found that he needed to use one of <code>linux-x64</code>, <code>ubuntu.14.04-x64</code>, <code>win7-x64</code>, or <code>osx.10.12-x64</code> as the runtime value. Must be <code>win7-x64</code>, then. Trying again:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r win7-x64</span>
+<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r win7-x64
 Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
   internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\win7-x64\internTest.dll
   internTest -&gt; C:\publish\interntestoutput\
-C:\Users\jackr\internTest<span style="color:#75715e">&gt;cd c:\publish\interntestoutput</span>
+C:\Users\jackr\internTest&gt;cd c:\publish\interntestoutput
 
-c:\publish\interntestoutput<span style="color:#75715e">&gt;tree /F /A</span>
+c:\publish\interntestoutput&gt;tree /F /A
 Folder PATH listing for volume Windows
 Volume serial number is 00000062 BC96:4BCD
 C:.
@@ -416,10 +426,12 @@ C:.
     System.*.dll &lt;-- also truncated for readability, phew!
     ucrtbase.dll
     WindowsBase.dll
-</code></pre></div><p>Finally! An <code>internTest.exe</code> as expected. Jack makes a note that this folder is a whopping <code>61.7 MB</code> in size, though! Let&rsquo;s run it for complete satisfaction:</p>
+</code></pre>
+<p>Finally! An <code>internTest.exe</code> as expected. Jack makes a note that this folder is a whopping <code>61.7 MB</code> in size, though! Let&rsquo;s run it for complete satisfaction:</p>
 <pre><code>c:\publish\interntestoutput&gt;internTest.exe
 Hello World!
-</code></pre><p>Jack remembered seeing Solution File (<code>sln</code>) back in the <code>dotnet new</code> help window.  He went back to his original project to see how he might add a solution to it. Pretty quickly he has this sussed out, too.</p>
+</code></pre>
+<p>Jack remembered seeing Solution File (<code>sln</code>) back in the <code>dotnet new</code> help window.  He went back to his original project to see how he might add a solution to it. Pretty quickly he has this sussed out, too.</p>
 <pre><code>c:\publish\interntestoutput&gt;cd c:\Users\jackr\internTest
 
 c:\Users\jackr\internTest&gt;dotnet new sln
@@ -459,87 +471,121 @@ c:\Users\jackr\internTest&gt;dir
 23/09/2017  17:30               192 Program.cs
                3 File(s)          2,061 bytes
                4 Dir(s)   2,718,973,952 bytes free
-</code></pre><p>with two simple commands, <code>dotnet new sln</code> and <code>dotnet sln add internTest.csproj</code> Jack was able to create a Visual Studio <code>sln</code> file and add the project to it. Mint.</p>
+</code></pre>
+<p>with two simple commands, <code>dotnet new sln</code> and <code>dotnet sln add internTest.csproj</code> Jack was able to create a Visual Studio <code>sln</code> file and add the project to it. Mint.</p>
 <p>In total this had only taken Jack an hour (far less time than this Author took to write this whole farce up) and he took his findings back to Joe.</p>
 <p>&ldquo;What? Done already. Dammit, Intern! You&rsquo;re not meant to be so productive! I&rsquo;ll have to get you fetching coffees and making team flight suits. How are you at working a sewing machine?  First things first though. Write up your findings and get ready to present to the entire department tomorrow, at the cross-team catchup!&rdquo;</p>
 <p>Jack left feeling a mix of achievement and pressure while wondering if she was serious about those jumpsuits&hellip;</p>
 <p>The dotnet CLI in a nutshell. If an intern can do it so can you. Plenty was left unexplored, but the Author has left plenty of breadcrumbs for you to continue the journey from where Jack left off.</p>
 <p>Stay tuned for more adventures of An Intern Named -Grack- Jack.</p>
 <p>*Any resemblance to real people is purely intentional for comedic effect as part of an in-joke. The rest is just an interesting way to look a getting started with dotnet CLI.</p>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
-  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/ghost-blog-upgrade-to-v1/">Ghost Blog Upgrade to 1.* (1.8.4 in fact)</a>
-    </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="https://csmacnzblog.github.io/post/fix-wireless-display-connection/">Couldn&#39;t Connect. Get Connected to your Wireless Display Adapter</a>
-    </div></div>
-</div></article><div class="post-comments surface row"></div></div>
-</div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container"><section class="recent-posts row surface">
-  <h4>Recent Posts</h4>
-  <ul><li><a href="https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/">Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</a></li><li><a href="https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/">Kotlin, TeamCity and reflection</a></li><li><a href="https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/">Bluetooth Devices keep disconnecting</a></li><li><a href="https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/">Nullable and notnull Serialisation Properties</a></li><li><a href="https://csmacnzblog.github.io/post/we-are-all-10x/">We are all 10x engineers, but I don&#39;t think it means what you think it means</a></li></ul>
-</section><section class="taxonomy-categories row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/categories">Categories</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/categories/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/categories/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/categories/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/categories/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/categories/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/categories/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/categories/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/categories/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/categories/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section><section class="taxonomy-tags row surface">
-      <h4>
-        <a href="https://csmacnzblog.github.io/tags">Tags</a>
-      </h4>
-      <div><a href="https://csmacnzblog.github.io/tags/c#/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="c#">
-          c# <span class="badge rounded-pill">37</span>
-        </a><a href="https://csmacnzblog.github.io/tags/dotnetcore/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dotnetcore">
-          dotnetcore <span class="badge rounded-pill">35</span>
-        </a><a href="https://csmacnzblog.github.io/tags/tips-and-tricks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Tips and Tricks">
-          Tips and Tricks <span class="badge rounded-pill">30</span>
-        </a><a href="https://csmacnzblog.github.io/tags/editorial/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Editorial">
-          Editorial <span class="badge rounded-pill">26</span>
-        </a><a href="https://csmacnzblog.github.io/tags/continuous-delivery/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Continuous Delivery">
-          Continuous Delivery <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/software-development/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="software development">
-          software development <span class="badge rounded-pill">13</span>
-        </a><a href="https://csmacnzblog.github.io/tags/projects/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Projects">
-          Projects <span class="badge rounded-pill">12</span>
-        </a><a href="https://csmacnzblog.github.io/tags/conference/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Conference">
-          Conference <span class="badge rounded-pill">9</span>
-        </a><a href="https://csmacnzblog.github.io/tags/git/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="git">
-          git <span class="badge rounded-pill">8</span>
-        </a><a href="https://csmacnzblog.github.io/tags/visual-studio/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Visual Studio">
-          Visual Studio <span class="badge rounded-pill">8</span>
-        </a></div>
-    </section></div>
-</aside>
-</div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
-<div class="copyright mb-2">
-  
-</div>
-<div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank">Bootstrap</a> theme.
-</div></footer>
-<a id="btnScrollToTop" class="btn-scroll-to-top">
-  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
-</a>
-</body>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="http://twitter.com/share?text=A%20story%20about%20an%20intern%20and%20dotnet&url=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fa-story-about-an-intern-and-dotnet%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcsmacnzblog.github.io%2fpost%2fa-story-about-an-intern-and-dotnet%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = 'A story about an intern and dotnet';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+        </div><aside class="sidebar-area">
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-twitter">Twitter</div>
+                
+                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-rss">Subscribe</div>
+                
+                <a class="email-subscribe-link" href="https://feedburner.google.com/fb/a/mailverify?uri=csmacnzBlog&amp;loc=en_US">Subscribe to csMACnz's Blog by Email</a>
+                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                <br />
+                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-xbox">Gamercard</div>
+                
+
+                <div style="margin: 0 auto; width:201px;">
+                    <iframe src="//gamercard.xbox.com/csMACnz.card" scrolling="no" frameborder="0" height="136px" width="201px">AutomatonMan</iframe>
+                </div>
+                <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="http://steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                
+            </div>
+            <div class="header-bar-parent sidebar-item">
+                <div class="header-bar header-bar-ads">Advertisement</div>
+                
+                <div>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4517187877737982"
+                         data-ad-slot="7632444699"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+            </div>
+        </aside>
+        
+        <footer class="footer-area"><p>
+    Designed and Maintained by Mark Clearwater; Last updated June 2015.
+    <br /><a class="footer-link" >Hi</a>
+</p></footer>
+    </div>
+    
+    
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script src="/js/codetoggle.js"></script> 
+
+    
+    <script>
+        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </body>
 </html>

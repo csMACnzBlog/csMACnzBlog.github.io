@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Bing Maps Control on csMacnz&#39;s Blog</title>
+    <title>Bing Maps Control on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/bing-maps-control/</link>
-    <description>Recent content in Bing Maps Control on csMacnz&#39;s Blog</description>
+    <description>Recent content in Bing Maps Control on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Wed, 16 Feb 2011 04:38:14 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/bing-maps-control/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,7 @@
       <pubDate>Wed, 16 Feb 2011 04:38:14 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</guid>
-      <description>This is part 2 of a series on using the Silverlight Bing Maps Control. If haven&amp;rsquo;t already, check out part 1.
+      <description>This is part 2 of a series on using the Silverlight Bing Maps Control. If haven&amp;rsquo;t already, check out part 1.
 So Now that you have installed the Bing Maps Silverlight Control, and got yourself a key, you need to add the control to your project. For completeness, lets start by creating a new Silverlight 4 Application Project in Visual Studio 2010, and open up the MainPage.xaml file.
 Now before we can add the control, we need a reference to it.</description>
     </item>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Testing on csMacnz&#39;s Blog</title>
+    <title>Testing on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/testing/</link>
-    <description>Recent content in Testing on csMacnz&#39;s Blog</description>
+    <description>Recent content in Testing on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Thu, 28 Dec 2017 23:41:13 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/testing/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,7 @@
       <pubDate>Thu, 28 Dec 2017 23:41:13 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/storytellerreduxsample/</guid>
-      <description>A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React + .Net Applications. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
+      <description>A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React + .Net Applications. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
 While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible.</description>
     </item>
     
@@ -34,8 +34,8 @@ Turns out, if you want tests to show up in Visual Studio you have to make sure t
       <pubDate>Tue, 25 Oct 2016 00:54:19 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnet/</guid>
-      <description>The new .Net Core CLI has the ability to use xunitor nunit. Which is great. For running tests locally.
-I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to import xml reportswhich supports junit (which is xunit-compatible) and nunit. But choosing nunit means support for the nunit2 xml format. And guess what? The new .</description>
+      <description>The new .Net Core CLI has the ability to use xunit or nunit. Which is great. For running tests locally.
+I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to import xml reports which supports junit (which is xunit-compatible) and nunit. But choosing nunit means support for the nunit2 xml format. And guess what? The new .</description>
     </item>
     
     <item>
@@ -45,7 +45,8 @@ I use TeamCity, so I like to see test results showing up, track testing count ov
       
       <guid>https://csmacnzblog.github.io/post/the-new-8060-rule-for-testing/</guid>
       <description>I was listening to a presentation on testing, and the question on coverage came up. I was asked my opinion, and this interesting thought occurred to me. So I tweeted:
- New Rule: At least 80% coverage on 60% of the app. 70% of the time, it works everytime. Mark Clearwater (me) So what do I mean by this? Well basically, 100% test coverage overall is not a good idea.</description>
+
+ New Rule: At least 80% coverage on 60% of the app. 70% of the time, it works everytime. Mark Clearwater (me) So what do I mean by this? Well basically, 100% test coverage overall is not a good idea.</description>
     </item>
     
     <item>

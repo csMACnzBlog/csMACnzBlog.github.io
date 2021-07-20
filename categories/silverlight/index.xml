@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>silverlight on csMacnz&#39;s Blog</title>
+    <title>silverlight on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/silverlight/</link>
-    <description>Recent content in silverlight on csMacnz&#39;s Blog</description>
+    <description>Recent content in silverlight on csMACnz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Wed, 16 Feb 2011 04:38:14 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/silverlight/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,7 @@
       <pubDate>Wed, 16 Feb 2011 04:38:14 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</guid>
-      <description>This is part 2 of a series on using the Silverlight Bing Maps Control. If haven&amp;rsquo;t already, check out part 1.
+      <description>This is part 2 of a series on using the Silverlight Bing Maps Control. If haven&amp;rsquo;t already, check out part 1.
 So Now that you have installed the Bing Maps Silverlight Control, and got yourself a key, you need to add the control to your project. For completeness, lets start by creating a new Silverlight 4 Application Project in Visual Studio 2010, and open up the MainPage.xaml file.
 Now before we can add the control, we need a reference to it.</description>
     </item>
@@ -54,7 +54,7 @@ I suppose before I talk about the DataTemplateSelector class, I should mention a
       
       <guid>https://csmacnzblog.github.io/post/where-can-i-find-silverlight/</guid>
       <description>I had someone ask me the other day where he could go to see silverlight in action, what sites are using silverlight, so I did a bit of searching, and found that it&amp;rsquo;s not that easy to find really. So here is my attempt to create such a list. Feel free to add anything I miss by posting comments.
-Bing maps I mentioned Twitter Maps on Bing in an earlier postbut Bing maps is actually powered by silverlight, in its most advanced version.</description>
+Bing maps I mentioned Twitter Maps on Bing in an earlier post but Bing maps is actually powered by silverlight, in its most advanced version.</description>
     </item>
     
   </channel>
