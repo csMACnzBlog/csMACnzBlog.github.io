@@ -19,23 +19,23 @@
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</guid>
-      <description><p>I&rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.</p>
-<p>Today&rsquo;s fun little problem was the error message:</p>
-<blockquote>
-<p>Runtime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found</p>
-</blockquote>
-<p>The canonical stack overflow question that (at the time of writing this) had no answer: <a href="https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou">https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou</a></p>
-<p>The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (<code>Project</code>):</p>
-<pre><code>import kotlin.reflect.full.declaredMemberProperties
+      <description>&lt;p&gt;I&amp;rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.&lt;/p&gt;
+&lt;p&gt;Today&amp;rsquo;s fun little problem was the error message:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Runtime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The canonical stack overflow question that (at the time of writing this) had no answer: &lt;a href=&#34;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&#34;&gt;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (&lt;code&gt;Project&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import kotlin.reflect.full.declaredMemberProperties
 
 val props = Project::class.declaredMemberProperties
-</code></pre>
-<p>(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)</p>
-<p>At this point in time and with some further testing, I&rsquo;ve come to the conclusion that <strong>reflection just isn&rsquo;t supported on teamcity with Kotlin</strong>. I&rsquo;ve found one or two Issue links to back that up too: <a href="https://youtrack.jetbrains.com/issue/TW-59901">https://youtrack.jetbrains.com/issue/TW-59901</a></p>
-<p>(¬_¬ )</p>
-<p>If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.</p>
-<p>For now, I have replaced the reflection with good ol' verbose fragile code.</p>
-<p>Luckily, the tests allow reflection no problem so at least the fragility of this case is covered. If someone adds a property then at least a test fails until the verbose code had been amended.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)&lt;/p&gt;
+&lt;p&gt;At this point in time and with some further testing, I&amp;rsquo;ve come to the conclusion that &lt;strong&gt;reflection just isn&amp;rsquo;t supported on teamcity with Kotlin&lt;/strong&gt;. I&amp;rsquo;ve found one or two Issue links to back that up too: &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-59901&#34;&gt;https://youtrack.jetbrains.com/issue/TW-59901&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;(¬_¬ )&lt;/p&gt;
+&lt;p&gt;If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.&lt;/p&gt;
+&lt;p&gt;For now, I have replaced the reflection with good ol&#39; verbose fragile code.&lt;/p&gt;
+&lt;p&gt;Luckily, the tests allow reflection no problem so at least the fragility of this case is covered. If someone adds a property then at least a test fails until the verbose code had been amended.&lt;/p&gt;
 </description>
     </item>
     

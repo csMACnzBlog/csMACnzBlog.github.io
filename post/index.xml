@@ -19,10 +19,10 @@
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/</guid>
-      <description><p>Recently I tried upgrading from Terraform 0.12 to 1.0.1. I think the key here is leaving 0.12.</p>
-<p>Anyway, there was a breaking change in 0.13 around how providers worked, and we got this cryptic error.</p>
-<p>(Caveat: I don&rsquo;t actually know how much of this has to do with a newrelic provider update as well or instead, but was what we got the week of 2021/07/12.)</p>
-<pre><code class="language-powershell">Initializing provider plugins...
+      <description>&lt;p&gt;Recently I tried upgrading from Terraform 0.12 to 1.0.1. I think the key here is leaving 0.12.&lt;/p&gt;
+&lt;p&gt;Anyway, there was a breaking change in 0.13 around how providers worked, and we got this cryptic error.&lt;/p&gt;
+&lt;p&gt;(Caveat: I don&amp;rsquo;t actually know how much of this has to do with a newrelic provider update as well or instead, but was what we got the week of 2021/07/12.)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;Initializing provider plugins...
 - Reusing previous version of newrelic/newrelic from the dependency lock file
 - Finding latest version of hashicorp/newrelic...
 - Using previously-installed newrelic/newrelic v2.23.0
@@ -36,41 +36,41 @@
 │ modules are currently depending on hashicorp/newrelic, run the following command:
 │     terraform providers
 |
-</code></pre>
-<p>So I&rsquo;d already added this at my root module but this error still occurred.</p>
-<pre><code class="language-hcl">terraform {
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So I&amp;rsquo;d already added this at my root module but this error still occurred.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-hcl&#34;&gt;terraform {
   required_providers {
     newrelic = {
-      source  = &quot;newrelic/newrelic&quot;
-      version = &quot;2.23.0&quot;
+      source  = &amp;quot;newrelic/newrelic&amp;quot;
+      version = &amp;quot;2.23.0&amp;quot;
     }
   }
 }
 
-provider &quot;newrelic&quot; {
-  api_key    = &quot;12345&quot;
-  account_id = &quot;12345&quot;
+provider &amp;quot;newrelic&amp;quot; {
+  api_key    = &amp;quot;12345&amp;quot;
+  account_id = &amp;quot;12345&amp;quot;
 }
-</code></pre>
-<p>It took a while to find the right docs to understand this one.</p>
-<p>The key message from above is the <code>You must specify that source address in each module which requires that provider.</code> message. We are using modules, and the breaking change to 0.13 and above is that modules can specify <code>required_providers</code>.</p>
-<p>What they don&rsquo;t tell you clearly, is that when trying to resolve &ldquo;newrelic&rdquo; provider by default, it will look for &ldquo;hashicorp/newrelic&rdquo;. However the actual provider source is &ldquo;newrelic/newrelic&rdquo;. So to make this work the optional <code>required_providers</code> is actually mandatory, and actually needs the <code>source  = &quot;newrelic/newrelic&quot;</code> property.</p>
-<pre><code class="language-hcl">terraform {
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It took a while to find the right docs to understand this one.&lt;/p&gt;
+&lt;p&gt;The key message from above is the &lt;code&gt;You must specify that source address in each module which requires that provider.&lt;/code&gt; message. We are using modules, and the breaking change to 0.13 and above is that modules can specify &lt;code&gt;required_providers&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;What they don&amp;rsquo;t tell you clearly, is that when trying to resolve &amp;ldquo;newrelic&amp;rdquo; provider by default, it will look for &amp;ldquo;hashicorp/newrelic&amp;rdquo;. However the actual provider source is &amp;ldquo;newrelic/newrelic&amp;rdquo;. So to make this work the optional &lt;code&gt;required_providers&lt;/code&gt; is actually mandatory, and actually needs the &lt;code&gt;source  = &amp;quot;newrelic/newrelic&amp;quot;&lt;/code&gt; property.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-hcl&#34;&gt;terraform {
   required_providers {
     newrelic = {
-      source = &quot;newrelic/newrelic&quot;
+      source = &amp;quot;newrelic/newrelic&amp;quot;
     }
   }
 }
-</code></pre>
-<p>Adding this to every module that uses newrelic solved the problem.</p>
-<p>If you are doing this, you might also need to migrate your state over as well. Do this after running <code>terraform init</code> from inside your config folder. This migrates the data in your state file to correctly map to the new provider.</p>
-<pre><code class="language-powershell">terraform state replace-provider newrelic newrelic/newrelic
-</code></pre>
-<p>More details here: <a href="https://www.terraform.io/docs/cli/commands/state/replace-provider.html">https://www.terraform.io/docs/cli/commands/state/replace-provider.html</a></p>
-<p>If you do migrate 0.12 to 0.13 first, instead of stupidly jumping straight to 1.0.1, you can follow a more useful migration guide and the <code>0.13upgrade</code> command instead. 🤦‍♂️</p>
-<p><a href="https://www.terraform.io/docs/cli/commands/0.13upgrade.html">https://www.terraform.io/docs/cli/commands/0.13upgrade.html</a>
-<a href="https://www.terraform.io/upgrade-guides/0-13.html">https://www.terraform.io/upgrade-guides/0-13.html</a></p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Adding this to every module that uses newrelic solved the problem.&lt;/p&gt;
+&lt;p&gt;If you are doing this, you might also need to migrate your state over as well. Do this after running &lt;code&gt;terraform init&lt;/code&gt; from inside your config folder. This migrates the data in your state file to correctly map to the new provider.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;terraform state replace-provider newrelic newrelic/newrelic
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More details here: &lt;a href=&#34;https://www.terraform.io/docs/cli/commands/state/replace-provider.html&#34;&gt;https://www.terraform.io/docs/cli/commands/state/replace-provider.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If you do migrate 0.12 to 0.13 first, instead of stupidly jumping straight to 1.0.1, you can follow a more useful migration guide and the &lt;code&gt;0.13upgrade&lt;/code&gt; command instead. 🤦‍♂️&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.terraform.io/docs/cli/commands/0.13upgrade.html&#34;&gt;https://www.terraform.io/docs/cli/commands/0.13upgrade.html&lt;/a&gt;
+&lt;a href=&#34;https://www.terraform.io/upgrade-guides/0-13.html&#34;&gt;https://www.terraform.io/upgrade-guides/0-13.html&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -80,23 +80,23 @@ provider &quot;newrelic&quot; {
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</guid>
-      <description><p>I&rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.</p>
-<p>Today&rsquo;s fun little problem was the error message:</p>
-<blockquote>
-<p>Runtime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found</p>
-</blockquote>
-<p>The canonical stack overflow question that (at the time of writing this) had no answer: <a href="https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou">https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou</a></p>
-<p>The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (<code>Project</code>):</p>
-<pre><code>import kotlin.reflect.full.declaredMemberProperties
+      <description>&lt;p&gt;I&amp;rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.&lt;/p&gt;
+&lt;p&gt;Today&amp;rsquo;s fun little problem was the error message:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Runtime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The canonical stack overflow question that (at the time of writing this) had no answer: &lt;a href=&#34;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&#34;&gt;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (&lt;code&gt;Project&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import kotlin.reflect.full.declaredMemberProperties
 
 val props = Project::class.declaredMemberProperties
-</code></pre>
-<p>(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)</p>
-<p>At this point in time and with some further testing, I&rsquo;ve come to the conclusion that <strong>reflection just isn&rsquo;t supported on teamcity with Kotlin</strong>. I&rsquo;ve found one or two Issue links to back that up too: <a href="https://youtrack.jetbrains.com/issue/TW-59901">https://youtrack.jetbrains.com/issue/TW-59901</a></p>
-<p>(¬_¬ )</p>
-<p>If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.</p>
-<p>For now, I have replaced the reflection with good ol' verbose fragile code.</p>
-<p>Luckily, the tests allow reflection no problem so at least the fragility of this case is covered. If someone adds a property then at least a test fails until the verbose code had been amended.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)&lt;/p&gt;
+&lt;p&gt;At this point in time and with some further testing, I&amp;rsquo;ve come to the conclusion that &lt;strong&gt;reflection just isn&amp;rsquo;t supported on teamcity with Kotlin&lt;/strong&gt;. I&amp;rsquo;ve found one or two Issue links to back that up too: &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-59901&#34;&gt;https://youtrack.jetbrains.com/issue/TW-59901&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;(¬_¬ )&lt;/p&gt;
+&lt;p&gt;If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.&lt;/p&gt;
+&lt;p&gt;For now, I have replaced the reflection with good ol&#39; verbose fragile code.&lt;/p&gt;
+&lt;p&gt;Luckily, the tests allow reflection no problem so at least the fragility of this case is covered. If someone adds a property then at least a test fails until the verbose code had been amended.&lt;/p&gt;
 </description>
     </item>
     
@@ -106,14 +106,14 @@ val props = Project::class.declaredMemberProperties
       <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/</guid>
-      <description><p>It all started when I installed Windows Update 20H2 in October 2020.</p>
-<p>I&rsquo;ve had a stable machine (HP ZBook laptop for reference) for months and months with the same Bluetooth hardware, no issues. But that fateful day I installed the 20H2 update from Microsoft, everything changed.</p>
-<p>Suddenly I was having disconnect issues. I have a Bluetooth keyboard and Bluetooth mouse connected (I think they are both low energy?) And I found that one of them would reconnect, and the other wouldn&rsquo;t. If I turned one-off, the other would reconnect, but the first one wouldn&rsquo;t be able to when turned back on.</p>
-<p>As a temporary fix, I was able to connect the first device, then delete and re-add the second device. After somewhere between 10 minutes and half an hour, one device would disconnect again.</p>
-<p>I tried all the solutions from googling this issue, but the only one that worked was to update the Intel Bluetooth drivers.</p>
-<p>In Device Manager on Windows, under Bluetooth, the device is listed as &ldquo;Intel(R) Wireless Bluetooth(R) and no amount of Windows Update to resolve new drivers helped.  But then I found the official driver support from intel: <a href="https://www.intel.com/content/www/us/en/support/intel-driver-support-assistant.html">Intel Driver Support Assistant</a>.</p>
-<p>I installed the tool and let it run. Lucky for me, there was a newer Bluetooth Driver for Windows 10 that I could download and install (amongst a few other Intel drivers as well).</p>
-<p>After installing the latest intel Bluetooth driver, I haven&rsquo;t noticed any other issues since. It is back to business as usual now.</p>
+      <description>&lt;p&gt;It all started when I installed Windows Update 20H2 in October 2020.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve had a stable machine (HP ZBook laptop for reference) for months and months with the same Bluetooth hardware, no issues. But that fateful day I installed the 20H2 update from Microsoft, everything changed.&lt;/p&gt;
+&lt;p&gt;Suddenly I was having disconnect issues. I have a Bluetooth keyboard and Bluetooth mouse connected (I think they are both low energy?) And I found that one of them would reconnect, and the other wouldn&amp;rsquo;t. If I turned one-off, the other would reconnect, but the first one wouldn&amp;rsquo;t be able to when turned back on.&lt;/p&gt;
+&lt;p&gt;As a temporary fix, I was able to connect the first device, then delete and re-add the second device. After somewhere between 10 minutes and half an hour, one device would disconnect again.&lt;/p&gt;
+&lt;p&gt;I tried all the solutions from googling this issue, but the only one that worked was to update the Intel Bluetooth drivers.&lt;/p&gt;
+&lt;p&gt;In Device Manager on Windows, under Bluetooth, the device is listed as &amp;ldquo;Intel(R) Wireless Bluetooth(R) and no amount of Windows Update to resolve new drivers helped.  But then I found the official driver support from intel: &lt;a href=&#34;https://www.intel.com/content/www/us/en/support/intel-driver-support-assistant.html&#34;&gt;Intel Driver Support Assistant&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I installed the tool and let it run. Lucky for me, there was a newer Bluetooth Driver for Windows 10 that I could download and install (amongst a few other Intel drivers as well).&lt;/p&gt;
+&lt;p&gt;After installing the latest intel Bluetooth driver, I haven&amp;rsquo;t noticed any other issues since. It is back to business as usual now.&lt;/p&gt;
 </description>
     </item>
     
@@ -123,17 +123,17 @@ val props = Project::class.declaredMemberProperties
       <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
-      <description><p>The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&rsquo;m not a fan of, and that is <code>= default!;</code></p>
-<h2 id="problem-definition">problem definition</h2>
-<pre><code class="language-cs">// This class is used to serialise/deserialise a payload from a server
+      <description>&lt;p&gt;The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is &lt;code&gt;= default!;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;problem-definition&#34;&gt;problem definition&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// This class is used to serialise/deserialise a payload from a server
 public class MyContractDTO
 {
     public string Value { get; set; } = default!;
 }
-</code></pre>
-<p>My codebase is now littered with this code hack to get it to compile because nullable says it can&rsquo;t guarantee that this property is not null.</p>
-<p>Let&rsquo;s take a closer look at what we are saying.</p>
-<pre><code class="language-cs">
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;My codebase is now littered with this code hack to get it to compile because nullable says it can&amp;rsquo;t guarantee that this property is not null.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take a closer look at what we are saying.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
 // With the Nullable feature enabled, I need to ensure Value is not null:
 // - either in the constructor from a notnull argument
 // - or giving it a default non-null value.
@@ -142,49 +142,49 @@ public string Value { get; set; }
 // Initialise the property to its default value (which for reference types like string is null)
 public string Value { get; set; } = default;
 
-// The '!' says to treat the value as if it is notnull, the developer knows better
+// The &#39;!&#39; says to treat the value as if it is notnull, the developer knows better
 public string Value { get; set; } = default!;
-</code></pre>
-<p>What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&rsquo;t like it.</p>
-<h2 id="normal-solutions">Normal solutions</h2>
-<p>There are two solution paths to take here:</p>
-<ul>
-<li>Acknowledge that it might be null and make it nullable.</li>
-<li>Initialise in the constructor.</li>
-</ul>
-<p>These work great with normal codebases and in some cases, one is better than the other.  If you know it certainly can be null, use the first option. If you know you never expect or want it to be null, use the second.</p>
-<p>Bonus points once you have the constructor is to make the type immutable.
-For all domain and application logic, This is what I have done successfully so far and will continue doing.</p>
-<h2 id="but-serialisation">But serialisation</h2>
-<p>Here is the problem. Serialisation.</p>
-<p>When we have a type that is going to be used to deserialise transport models we again have the same choices as above, but a few more points to consider.</p>
-<ul>
-<li>The JSON may or may not include the field</li>
-<li>The JSON may have the field set to null</li>
-<li>The Deserialiser might not support constructors</li>
-<li>The Deserialiser doesn&rsquo;t know about Nullable and can&rsquo;t ensure the safety is upheld.</li>
-</ul>
-<p>Again we can make the call to acknowledge that it might be null and make it nullable.  But there are drawbacks here. If you do this, you have to add all the error-handling for dealing with nullable checks. And if you control both server and client in this situation, then you might be writing and testing code for something you never plan to, nor may never need to ever support. Being null is an exceptional/fatal situation you don&rsquo;t want to have to constantly guard against.</p>
-<p>Which leads us back to the de-facto solution currently being advocated and used:</p>
-<pre><code class="language-cs">public string Value { get; set; } = default!;
-</code></pre>
-<p>I&rsquo;m still not happy. So why don&rsquo;t we work on that?</p>
-<h2 id="the-json-may-or-may-not-include-the-field-or-it-might-be-null">The JSON may or may not include the field or it might be null</h2>
-<p>Luckily for us, this concern is fairly easy to address. Say we are using Newtonsoft.Json and want this extra piece of reassurance.</p>
-<pre><code class="language-cs">[JsonProperty(Required = Required.Always)]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&amp;rsquo;t like it.&lt;/p&gt;
+&lt;h2 id=&#34;normal-solutions&#34;&gt;Normal solutions&lt;/h2&gt;
+&lt;p&gt;There are two solution paths to take here:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Acknowledge that it might be null and make it nullable.&lt;/li&gt;
+&lt;li&gt;Initialise in the constructor.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These work great with normal codebases and in some cases, one is better than the other.  If you know it certainly can be null, use the first option. If you know you never expect or want it to be null, use the second.&lt;/p&gt;
+&lt;p&gt;Bonus points once you have the constructor is to make the type immutable.
+For all domain and application logic, This is what I have done successfully so far and will continue doing.&lt;/p&gt;
+&lt;h2 id=&#34;but-serialisation&#34;&gt;But serialisation&lt;/h2&gt;
+&lt;p&gt;Here is the problem. Serialisation.&lt;/p&gt;
+&lt;p&gt;When we have a type that is going to be used to deserialise transport models we again have the same choices as above, but a few more points to consider.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The JSON may or may not include the field&lt;/li&gt;
+&lt;li&gt;The JSON may have the field set to null&lt;/li&gt;
+&lt;li&gt;The Deserialiser might not support constructors&lt;/li&gt;
+&lt;li&gt;The Deserialiser doesn&amp;rsquo;t know about Nullable and can&amp;rsquo;t ensure the safety is upheld.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Again we can make the call to acknowledge that it might be null and make it nullable.  But there are drawbacks here. If you do this, you have to add all the error-handling for dealing with nullable checks. And if you control both server and client in this situation, then you might be writing and testing code for something you never plan to, nor may never need to ever support. Being null is an exceptional/fatal situation you don&amp;rsquo;t want to have to constantly guard against.&lt;/p&gt;
+&lt;p&gt;Which leads us back to the de-facto solution currently being advocated and used:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public string Value { get; set; } = default!;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I&amp;rsquo;m still not happy. So why don&amp;rsquo;t we work on that?&lt;/p&gt;
+&lt;h2 id=&#34;the-json-may-or-may-not-include-the-field-or-it-might-be-null&#34;&gt;The JSON may or may not include the field or it might be null&lt;/h2&gt;
+&lt;p&gt;Luckily for us, this concern is fairly easy to address. Say we are using Newtonsoft.Json and want this extra piece of reassurance.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[JsonProperty(Required = Required.Always)]
 public string Value { get; set; } = default!;
-</code></pre>
-<p>The <code>Required</code> attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a <code>JsonSerializationException</code> for free.</p>
-<p>This ensures we:</p>
-<ul>
-<li>have minimal code doing the null checking</li>
-<li>don&rsquo;t have to guard every access to a nullable property</li>
-<li>Treat null or missing as fatal errors as part of an existing serialisation error handling process (which we should always have anyway).</li>
-</ul>
-<p>This still doesn&rsquo;t stop any other piece of code from creating an invalid object state, though. But this may be the easiest solution to add those missing guarantees alongside using <code>default!</code>.</p>
-<h2 id="use-constructors">Use Constructors</h2>
-<p>Newtonsoft.Json helps once again by supporting constructors. Make sure all the mandatory non-nullable properties are in the constructor. And as long as there is no default constructor (which when doing nullable right you can&rsquo;t anyway) and the constructor parameters have names matching the properties, this just works as expected.</p>
-<pre><code>public class MyContractDTO
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;Required&lt;/code&gt; attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a &lt;code&gt;JsonSerializationException&lt;/code&gt; for free.&lt;/p&gt;
+&lt;p&gt;This ensures we:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;have minimal code doing the null checking&lt;/li&gt;
+&lt;li&gt;don&amp;rsquo;t have to guard every access to a nullable property&lt;/li&gt;
+&lt;li&gt;Treat null or missing as fatal errors as part of an existing serialisation error handling process (which we should always have anyway).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This still doesn&amp;rsquo;t stop any other piece of code from creating an invalid object state, though. But this may be the easiest solution to add those missing guarantees alongside using &lt;code&gt;default!&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;use-constructors&#34;&gt;Use Constructors&lt;/h2&gt;
+&lt;p&gt;Newtonsoft.Json helps once again by supporting constructors. Make sure all the mandatory non-nullable properties are in the constructor. And as long as there is no default constructor (which when doing nullable right you can&amp;rsquo;t anyway) and the constructor parameters have names matching the properties, this just works as expected.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class MyContractDTO
 {
     public MyContractDTO(string value)
     {
@@ -194,16 +194,16 @@ public string Value { get; set; } = default!;
     
     public string Value { get; set; };
 }
-</code></pre>
-<p>You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.</p>
-<p>Once more, Newtonsoft.Json with constructors also means support for read-only (immutable) objects.</p>
-<h2 id="what-about-not-using-newtonsoftjson">What about not using Newtonsoft.Json?</h2>
-<p>There is a new kid on the block - <code>System.Text.Json</code>. However, this is one area where it doesn&rsquo;t shine so bright compared to Newtonsoft.Json.</p>
-<p>Pretty much none of the above works. Constructors are not supported. Required annotation is not supported. Along with many other things.</p>
-<p>More on <a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to">what does and does not translate across from Newtonsoft.Json is documented here</a>.</p>
-<p>Instead, you will need to write your own converter and manually deserialise your object with your own explicit null checks (which could be done inside the constructor).</p>
-<p>For example, given our simple type above, we might do the following:</p>
-<pre><code class="language-cs">[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.&lt;/p&gt;
+&lt;p&gt;Once more, Newtonsoft.Json with constructors also means support for read-only (immutable) objects.&lt;/p&gt;
+&lt;h2 id=&#34;what-about-not-using-newtonsoftjson&#34;&gt;What about not using Newtonsoft.Json?&lt;/h2&gt;
+&lt;p&gt;There is a new kid on the block - &lt;code&gt;System.Text.Json&lt;/code&gt;. However, this is one area where it doesn&amp;rsquo;t shine so bright compared to Newtonsoft.Json.&lt;/p&gt;
+&lt;p&gt;Pretty much none of the above works. Constructors are not supported. Required annotation is not supported. Along with many other things.&lt;/p&gt;
+&lt;p&gt;More on &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to&#34;&gt;what does and does not translate across from Newtonsoft.Json is documented here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Instead, you will need to write your own converter and manually deserialise your object with your own explicit null checks (which could be done inside the constructor).&lt;/p&gt;
+&lt;p&gt;For example, given our simple type above, we might do the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]
 public class MyContractDTO
 {
     public MyContractDTO(string value)
@@ -217,12 +217,12 @@ public class MyContractDTO
 
 // Made using the examples given at https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#required-properties
 // Your decisions may vary.
-// e.g. this only supports {&quot;value&quot;: &quot;...&quot;} format, no extra properties allowed.
+// e.g. this only supports {&amp;quot;value&amp;quot;: &amp;quot;...&amp;quot;} format, no extra properties allowed.
 // For a more complex object, you would probably be more flexible.
 // Better guides here: https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to
-public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
+public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
 {
-    private readonly JsonEncodedText ValueName = JsonEncodedText.Encode(&quot;value&quot;);
+    private readonly JsonEncodedText ValueName = JsonEncodedText.Encode(&amp;quot;value&amp;quot;);
 
     public override Implementation Read(
         ref Utf8JsonReader reader,
@@ -288,16 +288,16 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
         writer.WriteEndObject();
     }
 }
-</code></pre>
-<p>At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.</p>
-<h2 id="decisions-decisions">Decisions, Decisions</h2>
-<p>So what would I recommend?</p>
-<p>Firstly, don&rsquo;t just use <code>default!</code> on your serialised types.</p>
-<p>For maximum effect, make your classes have constructors for notnull values, and maybe even make your properties Immutable, if that makes sense. Have your constructors guard against nulls so that your compile-time assurances have runtime verifications. Especially is this is a client library you provide to others.</p>
-<p>If you are using Newtonsoft.Json you should at least apply the <code>[JsonProperty(Required = Required.Always)]</code> to all your notnull properties. But add the constructors as well because you can. If you can stick with Newtonsoft.Json, your life will be very easy.</p>
-<p>If you are using (or have to use) System.Text.Json, write custom converters for your types so that you can have those constructors mentioned above. Make sure you keep them flexible enough to ignore any extra properties you might add in the future to avoid breaking backwards compatibility.</p>
-<p>This experiment has a companion GitHub repo of tests (a mixture of proof they work, and proof they fail tests) <a href="https://github.com/csMacnzBlog/NullableSerialisationExperiments">available here</a>.</p>
-<p>Happy Null-Hunting.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.&lt;/p&gt;
+&lt;h2 id=&#34;decisions-decisions&#34;&gt;Decisions, Decisions&lt;/h2&gt;
+&lt;p&gt;So what would I recommend?&lt;/p&gt;
+&lt;p&gt;Firstly, don&amp;rsquo;t just use &lt;code&gt;default!&lt;/code&gt; on your serialised types.&lt;/p&gt;
+&lt;p&gt;For maximum effect, make your classes have constructors for notnull values, and maybe even make your properties Immutable, if that makes sense. Have your constructors guard against nulls so that your compile-time assurances have runtime verifications. Especially is this is a client library you provide to others.&lt;/p&gt;
+&lt;p&gt;If you are using Newtonsoft.Json you should at least apply the &lt;code&gt;[JsonProperty(Required = Required.Always)]&lt;/code&gt; to all your notnull properties. But add the constructors as well because you can. If you can stick with Newtonsoft.Json, your life will be very easy.&lt;/p&gt;
+&lt;p&gt;If you are using (or have to use) System.Text.Json, write custom converters for your types so that you can have those constructors mentioned above. Make sure you keep them flexible enough to ignore any extra properties you might add in the future to avoid breaking backwards compatibility.&lt;/p&gt;
+&lt;p&gt;This experiment has a companion GitHub repo of tests (a mixture of proof they work, and proof they fail tests) &lt;a href=&#34;https://github.com/csMacnzBlog/NullableSerialisationExperiments&#34;&gt;available here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Happy Null-Hunting.&lt;/p&gt;
 </description>
     </item>
     
@@ -307,56 +307,56 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
       <pubDate>Mon, 15 Jul 2019 09:50:55 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/we-are-all-10x/</guid>
-      <description><p>If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:</p>
-<!-- raw HTML omitted -->
-<p>As a developer who tries to be good at their job, I have thoughts on this. As a Human, I like to be heard. (Note that being heard is not the same thing as being agreed with, or being right.) So here I am giving my opinion on this idea of a 10x developer, and specifically these &ldquo;10 signs&rdquo; put up online.</p>
-<p>I like the idea that there are no 10x people, instead, you can strive to produce 10x teams.</p>
-<h2 id="1-meetings">1. Meetings</h2>
-<p>A lot of people don&rsquo;t like meetings. But unfortunately, communication is a big part of effective teams and businesses. While it is true that some people love meetings, and some meetings don&rsquo;t hold productivity, the key here is communication. If you can find an effective means of communication within a team that works, that is most important.  Having a team full of people that don&rsquo;t have meetings doesn&rsquo;t make a 10x team. If meetings are causing you or your team problems, it is work looking at other strategies for effective communication. There are alternatives out there.</p>
-<h2 id="2-office-hours">2. Office Hours</h2>
-<p>&ldquo;Nine to Five&rdquo; is such an old fashioned idea these days. Not only do some countries have alternative ideas like 4 day weeks, long lunch hours, &ldquo;flexitime&rdquo;, but more and more business work across locations and across timezones. We are asking people to work outside these hours for various reasons already, so why not some give and take here?</p>
-<p>Most people would love flexible work hours. It turns out that if people can work around their own schedule, they put their best work forward when they are present. I would much rather have someone contribute 100% at 9 pm at night because their kids are in bed and they can concentrate rather than pay them to sit at their desk for several hours texting and calling their family. Just a thought.</p>
-<p>We are so fortunate that in our industry is so capable and adjustable to different working hours that it is a shame not to support this. It is not that &ldquo;10x developers are the people who like this&rdquo;, it is actually that most employees want this, and it can be done.</p>
-<h2 id="3-screen-colour-and-worn-keyboards">3. Screen colour and worn keyboards</h2>
-<p>If I saw a sports star on the field/pitch/court wearing badly worn shoes, I wouldn&rsquo;t think &ldquo;This is a superstar&rdquo;, I would probably think &ldquo;he isn&rsquo;t paid enough&rdquo;.</p>
-<p>Why are you letting your developers use worn-out equipment? Buying the required hardware and software is such an important thing, just do it! In all seriousness, though, giving staff the right tools to get their job done is always a good idea.</p>
-<p>There is an interesting dichotomy with custom technical tools as well. If you have one developer that goes against the grain of the team with customisation, then it both makes it harder for them to use other machines (e.g. during pairing/mobbing) and for others to use theirs. There is some efficiency to using the out of the box defaults too. You can get up and running faster, and waste less time doing customisations every time you refresh your machine or change jobs and get new hardware.</p>
-<p>Also, if you have to have everything customised your own way, you won&rsquo;t be able to acclimatise to new situations, new tools, new teams. Not someone you want to add to your team.</p>
-<h2 id="4-good-memory">4. Good memory</h2>
-<p>One my big comparisons between my generation and the one before me (that is the one with the access to Google, but not access to iPads) was that at school we were no longer taught to memorise and recall information. Instead, we were taught, and learned, the importance of finding and referencing information. There is too much information for us all to hold in our heads. knowing where to look and what to look for is far more important that memorised information for a technology that will be obsolete in 3 years (if you are lucky), let alone memorising a dozen of them over time.</p>
-<p>Yes, it is great to get people who know the domain really well, and for some people, it really is a skill. But people can&rsquo;t know what they haven&rsquo;t seen yet, and new hires always start as a blank slate. Not to mention tomorrow will bring a new set of libraries, applications and services that need to be learned and understood.</p>
-<p>Scott Hanselman talks of the experience-groundhog-day scenario.</p>
-<!-- raw HTML omitted -->
-<h2 id="5-full-stack">5. Full Stack</h2>
-<p>Don&rsquo;t you love buzz words? FullStack. A full-stack would be from the HTML/CSS/js to the backend code, to the database. But it is also understanding how the TCP/HTTP layer works with packets and routing. How does your platform infrastructure run, do you manage and patch the servers? Database backups and data security, not to mention how the hardware scales, can you write the assembly to work with arm processors too?</p>
-<p>Jack of all trades, master of none. That is a saying that acknowledges you are spread too thin. You can&rsquo;t be an expert in everything, so instead, you can hire an expert in each thing. Yes, you want everyone to be a generalist, but make sure you have coverage with all of the specialists, too.</p>
-<p>I can&rsquo;t say I&rsquo;ve met too many people who can design and build an amazing user experience, and also optimise a large scale database, and run a datacentre. Oh and also works well with others&hellip;</p>
-<h2 id="6-wait-wat">6. Wait, WAT?</h2>
-<p>This one I just have to quote it in two parts:</p>
-<blockquote>
-<p>10x engineers can convert &ldquo;thought&rdquo; into &ldquo;code&rdquo; in their mind and write it in an iterative fashion.</p>
-</blockquote>
-<p>Just for a second, imagine with me, that you could replace the words &ldquo;10x engineer&rdquo; with &ldquo;a developer&rdquo;. Crazy idea, but it might actually work.</p>
-<blockquote>
-<p>Given a product feature, they can write that entire feature in one or two sittings of 4 to 6 hours with a caffeinated drink without distraction.</p>
-</blockquote>
-<p>We all have good days where we fire on all cylinders. Or a task or feature fits into just the right hole in a system.  Cherish the days when it happens, but realise its more about the stars aligning and less about the ability of your developer. We are all capable of this. But the rest of the time it&rsquo;s just a Monday.</p>
-<h2 id="7-good-memory-part-deux">7. Good Memory. Part Deux</h2>
-<p>We talked about this. Enough said.</p>
-<h2 id="8-learning">8. Learning</h2>
-<p>This is another one of those things with a dichotomy. If you are always learning something new, you never get to master anything. There is a benefit to having people who are masters, and people who can learn, and people who can teach and share. You need balance both as a developer and person, but also in and within a team. If you don&rsquo;t have this yet, look at hiring the capabilty, but don&rsquo;t use it to rule in or out talented people.</p>
-<h2 id="9-terrible-leaders">9. Terrible leaders</h2>
-<p>Yes. I think exactly what you want to do is hire someone who cannot teach how the system works to new staff. That will help you grow. No, not really. The team is only as strong as its weakest point. And the ability to both cover for, and teach and grow newer talent is key to growth and success.</p>
-<p>Also, while it is true that some people will be amazing on your team, but will interview poorly, I can&rsquo;t say there is a direct reverse correlation here, either. Sorry.</p>
-<h2 id="10">10. </h2>
-<blockquote>
-<p>10x engineers rarely job hunt or move out of the company. They move out because you make their life miserable with the process, meetings, training, and other non-value-added activities. If you come across them, hold on to them. Celebrate them.</p>
-</blockquote>
-<p>So close. This is the first point I almost agree with. Just go ahead and replace &ldquo;10x engineers&rdquo; again with &ldquo;developers&rdquo;, Or even just &ldquo;employees&rdquo; will do.</p>
-<h2 id="01x-developers">0.1x developers</h2>
-<p>While there are seeds in here that make for an interesting debate, they have nothing to with &ldquo;10&rdquo; or &ldquo;X&rdquo;. The best summary of the whole situation is this: The scale is off.  I think the truth of the matter is that there are developers who might contribute to failings in a team (and some warning signs appear above, under the wrong inversion, though). We can call them the 0.1x developers. They are the ones to truly watch out for.</p>
-<p>As founders and employers, you will want to be doing all the right things to attract and keep good talent, and that is more important than going after a mythical creature known as the 10x developer.</p>
-<p>What someone needs to do is follow the footsteps of Dylan Beattie&rsquo;s <a href="https://github.com/RockstarLang/rockstar">Rockstar programming language</a> and make a language or piece of hardware board and call it &ldquo;10x&rdquo;. Then we can all be Rockstar Programmers and 10x Engineers.</p>
+      <description>&lt;p&gt;If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;As a developer who tries to be good at their job, I have thoughts on this. As a Human, I like to be heard. (Note that being heard is not the same thing as being agreed with, or being right.) So here I am giving my opinion on this idea of a 10x developer, and specifically these &amp;ldquo;10 signs&amp;rdquo; put up online.&lt;/p&gt;
+&lt;p&gt;I like the idea that there are no 10x people, instead, you can strive to produce 10x teams.&lt;/p&gt;
+&lt;h2 id=&#34;1-meetings&#34;&gt;1. Meetings&lt;/h2&gt;
+&lt;p&gt;A lot of people don&amp;rsquo;t like meetings. But unfortunately, communication is a big part of effective teams and businesses. While it is true that some people love meetings, and some meetings don&amp;rsquo;t hold productivity, the key here is communication. If you can find an effective means of communication within a team that works, that is most important.  Having a team full of people that don&amp;rsquo;t have meetings doesn&amp;rsquo;t make a 10x team. If meetings are causing you or your team problems, it is work looking at other strategies for effective communication. There are alternatives out there.&lt;/p&gt;
+&lt;h2 id=&#34;2-office-hours&#34;&gt;2. Office Hours&lt;/h2&gt;
+&lt;p&gt;&amp;ldquo;Nine to Five&amp;rdquo; is such an old fashioned idea these days. Not only do some countries have alternative ideas like 4 day weeks, long lunch hours, &amp;ldquo;flexitime&amp;rdquo;, but more and more business work across locations and across timezones. We are asking people to work outside these hours for various reasons already, so why not some give and take here?&lt;/p&gt;
+&lt;p&gt;Most people would love flexible work hours. It turns out that if people can work around their own schedule, they put their best work forward when they are present. I would much rather have someone contribute 100% at 9 pm at night because their kids are in bed and they can concentrate rather than pay them to sit at their desk for several hours texting and calling their family. Just a thought.&lt;/p&gt;
+&lt;p&gt;We are so fortunate that in our industry is so capable and adjustable to different working hours that it is a shame not to support this. It is not that &amp;ldquo;10x developers are the people who like this&amp;rdquo;, it is actually that most employees want this, and it can be done.&lt;/p&gt;
+&lt;h2 id=&#34;3-screen-colour-and-worn-keyboards&#34;&gt;3. Screen colour and worn keyboards&lt;/h2&gt;
+&lt;p&gt;If I saw a sports star on the field/pitch/court wearing badly worn shoes, I wouldn&amp;rsquo;t think &amp;ldquo;This is a superstar&amp;rdquo;, I would probably think &amp;ldquo;he isn&amp;rsquo;t paid enough&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Why are you letting your developers use worn-out equipment? Buying the required hardware and software is such an important thing, just do it! In all seriousness, though, giving staff the right tools to get their job done is always a good idea.&lt;/p&gt;
+&lt;p&gt;There is an interesting dichotomy with custom technical tools as well. If you have one developer that goes against the grain of the team with customisation, then it both makes it harder for them to use other machines (e.g. during pairing/mobbing) and for others to use theirs. There is some efficiency to using the out of the box defaults too. You can get up and running faster, and waste less time doing customisations every time you refresh your machine or change jobs and get new hardware.&lt;/p&gt;
+&lt;p&gt;Also, if you have to have everything customised your own way, you won&amp;rsquo;t be able to acclimatise to new situations, new tools, new teams. Not someone you want to add to your team.&lt;/p&gt;
+&lt;h2 id=&#34;4-good-memory&#34;&gt;4. Good memory&lt;/h2&gt;
+&lt;p&gt;One my big comparisons between my generation and the one before me (that is the one with the access to Google, but not access to iPads) was that at school we were no longer taught to memorise and recall information. Instead, we were taught, and learned, the importance of finding and referencing information. There is too much information for us all to hold in our heads. knowing where to look and what to look for is far more important that memorised information for a technology that will be obsolete in 3 years (if you are lucky), let alone memorising a dozen of them over time.&lt;/p&gt;
+&lt;p&gt;Yes, it is great to get people who know the domain really well, and for some people, it really is a skill. But people can&amp;rsquo;t know what they haven&amp;rsquo;t seen yet, and new hires always start as a blank slate. Not to mention tomorrow will bring a new set of libraries, applications and services that need to be learned and understood.&lt;/p&gt;
+&lt;p&gt;Scott Hanselman talks of the experience-groundhog-day scenario.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;5-full-stack&#34;&gt;5. Full Stack&lt;/h2&gt;
+&lt;p&gt;Don&amp;rsquo;t you love buzz words? FullStack. A full-stack would be from the HTML/CSS/js to the backend code, to the database. But it is also understanding how the TCP/HTTP layer works with packets and routing. How does your platform infrastructure run, do you manage and patch the servers? Database backups and data security, not to mention how the hardware scales, can you write the assembly to work with arm processors too?&lt;/p&gt;
+&lt;p&gt;Jack of all trades, master of none. That is a saying that acknowledges you are spread too thin. You can&amp;rsquo;t be an expert in everything, so instead, you can hire an expert in each thing. Yes, you want everyone to be a generalist, but make sure you have coverage with all of the specialists, too.&lt;/p&gt;
+&lt;p&gt;I can&amp;rsquo;t say I&amp;rsquo;ve met too many people who can design and build an amazing user experience, and also optimise a large scale database, and run a datacentre. Oh and also works well with others&amp;hellip;&lt;/p&gt;
+&lt;h2 id=&#34;6-wait-wat&#34;&gt;6. Wait, WAT?&lt;/h2&gt;
+&lt;p&gt;This one I just have to quote it in two parts:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;10x engineers can convert &amp;ldquo;thought&amp;rdquo; into &amp;ldquo;code&amp;rdquo; in their mind and write it in an iterative fashion.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Just for a second, imagine with me, that you could replace the words &amp;ldquo;10x engineer&amp;rdquo; with &amp;ldquo;a developer&amp;rdquo;. Crazy idea, but it might actually work.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Given a product feature, they can write that entire feature in one or two sittings of 4 to 6 hours with a caffeinated drink without distraction.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We all have good days where we fire on all cylinders. Or a task or feature fits into just the right hole in a system.  Cherish the days when it happens, but realise its more about the stars aligning and less about the ability of your developer. We are all capable of this. But the rest of the time it&amp;rsquo;s just a Monday.&lt;/p&gt;
+&lt;h2 id=&#34;7-good-memory-part-deux&#34;&gt;7. Good Memory. Part Deux&lt;/h2&gt;
+&lt;p&gt;We talked about this. Enough said.&lt;/p&gt;
+&lt;h2 id=&#34;8-learning&#34;&gt;8. Learning&lt;/h2&gt;
+&lt;p&gt;This is another one of those things with a dichotomy. If you are always learning something new, you never get to master anything. There is a benefit to having people who are masters, and people who can learn, and people who can teach and share. You need balance both as a developer and person, but also in and within a team. If you don&amp;rsquo;t have this yet, look at hiring the capabilty, but don&amp;rsquo;t use it to rule in or out talented people.&lt;/p&gt;
+&lt;h2 id=&#34;9-terrible-leaders&#34;&gt;9. Terrible leaders&lt;/h2&gt;
+&lt;p&gt;Yes. I think exactly what you want to do is hire someone who cannot teach how the system works to new staff. That will help you grow. No, not really. The team is only as strong as its weakest point. And the ability to both cover for, and teach and grow newer talent is key to growth and success.&lt;/p&gt;
+&lt;p&gt;Also, while it is true that some people will be amazing on your team, but will interview poorly, I can&amp;rsquo;t say there is a direct reverse correlation here, either. Sorry.&lt;/p&gt;
+&lt;h2 id=&#34;10&#34;&gt;10. &lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;10x engineers rarely job hunt or move out of the company. They move out because you make their life miserable with the process, meetings, training, and other non-value-added activities. If you come across them, hold on to them. Celebrate them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So close. This is the first point I almost agree with. Just go ahead and replace &amp;ldquo;10x engineers&amp;rdquo; again with &amp;ldquo;developers&amp;rdquo;, Or even just &amp;ldquo;employees&amp;rdquo; will do.&lt;/p&gt;
+&lt;h2 id=&#34;01x-developers&#34;&gt;0.1x developers&lt;/h2&gt;
+&lt;p&gt;While there are seeds in here that make for an interesting debate, they have nothing to with &amp;ldquo;10&amp;rdquo; or &amp;ldquo;X&amp;rdquo;. The best summary of the whole situation is this: The scale is off.  I think the truth of the matter is that there are developers who might contribute to failings in a team (and some warning signs appear above, under the wrong inversion, though). We can call them the 0.1x developers. They are the ones to truly watch out for.&lt;/p&gt;
+&lt;p&gt;As founders and employers, you will want to be doing all the right things to attract and keep good talent, and that is more important than going after a mythical creature known as the 10x developer.&lt;/p&gt;
+&lt;p&gt;What someone needs to do is follow the footsteps of Dylan Beattie&amp;rsquo;s &lt;a href=&#34;https://github.com/RockstarLang/rockstar&#34;&gt;Rockstar programming language&lt;/a&gt; and make a language or piece of hardware board and call it &amp;ldquo;10x&amp;rdquo;. Then we can all be Rockstar Programmers and 10x Engineers.&lt;/p&gt;
 </description>
     </item>
     
@@ -366,17 +366,17 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
       <pubDate>Mon, 08 Jul 2019 22:54:03 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/untitled-4/</guid>
-      <description><p>Dotnet core 3.0 is about to drop, but we already have lots of information about vnext specifically that it&rsquo;s going to be dotnet 5.</p>
-<p>It wasn&rsquo;t that many years ago that Microsoft seemingly forgot how to.count. Windows 8 with all its modern UI was succeeded with not Windows 9, but instead a version named Windows 10. Not sure what the aversion to the number 9 was, buta they are up to their old tricks again with .Net.</p>
-<p>Once dotnet Core 3 drops we already know that the next version will be called .Net 5. The number 4 is getting the same treatment as 9.</p>
-<p>The reality is not just a simple arithmetic error. Instead, it is part of a larger reunification story of C# and .Net in general.</p>
-<p>For those of you still building .Net Full Framework apps for Desktop, Windows Services and IIS may be aware that the rest of the world had started moving to dotnet Core, with version 1,2 and now 3.0 dropping soon. This is not just a reimplementation, but at the same time part of a process to define a standard (a &lsquo;NetStandard&rsquo; you might say) which is a shared set of API code specifications that a runtime implementation can fulfil. These are versioned, have been growing incrementally in cspabilities., and have been implemented by these new dotnet Core implementations, as well as each new minor versioned release of the  .Net Full Framework as well.</p>
-<p>But the standard opens up nuget possibilities. We can build nuget libraries that instead of targeting a runtime, can target one of these NetStandard versions instead. This means a Reilly portable library that can be written once, and run on multiple target runtimes. This is also unbounded because any new runtime can use the library providing it also meets the required standard.</p>
-<p>And that&rsquo;s where the story gets even more interesting. Have you heard of Mono?</p>
-<p>Mono started as a cleanroom implementation of the runtime as a by specification reimplementation on Linux.  What have it legs was its evolution as part of Xamarin, which gave C# a way to run on both IOS and Android devices as well.  And by implementing .NetStandard, mono picked up support for using these new portable Niger packages.</p>
-<p>Didi</p>
-<p>&hellip;</p>
-<p>Unification of core, mono, full framework is dead.</p>
+      <description>&lt;p&gt;Dotnet core 3.0 is about to drop, but we already have lots of information about vnext specifically that it&amp;rsquo;s going to be dotnet 5.&lt;/p&gt;
+&lt;p&gt;It wasn&amp;rsquo;t that many years ago that Microsoft seemingly forgot how to.count. Windows 8 with all its modern UI was succeeded with not Windows 9, but instead a version named Windows 10. Not sure what the aversion to the number 9 was, buta they are up to their old tricks again with .Net.&lt;/p&gt;
+&lt;p&gt;Once dotnet Core 3 drops we already know that the next version will be called .Net 5. The number 4 is getting the same treatment as 9.&lt;/p&gt;
+&lt;p&gt;The reality is not just a simple arithmetic error. Instead, it is part of a larger reunification story of C# and .Net in general.&lt;/p&gt;
+&lt;p&gt;For those of you still building .Net Full Framework apps for Desktop, Windows Services and IIS may be aware that the rest of the world had started moving to dotnet Core, with version 1,2 and now 3.0 dropping soon. This is not just a reimplementation, but at the same time part of a process to define a standard (a &amp;lsquo;NetStandard&amp;rsquo; you might say) which is a shared set of API code specifications that a runtime implementation can fulfil. These are versioned, have been growing incrementally in cspabilities., and have been implemented by these new dotnet Core implementations, as well as each new minor versioned release of the  .Net Full Framework as well.&lt;/p&gt;
+&lt;p&gt;But the standard opens up nuget possibilities. We can build nuget libraries that instead of targeting a runtime, can target one of these NetStandard versions instead. This means a Reilly portable library that can be written once, and run on multiple target runtimes. This is also unbounded because any new runtime can use the library providing it also meets the required standard.&lt;/p&gt;
+&lt;p&gt;And that&amp;rsquo;s where the story gets even more interesting. Have you heard of Mono?&lt;/p&gt;
+&lt;p&gt;Mono started as a cleanroom implementation of the runtime as a by specification reimplementation on Linux.  What have it legs was its evolution as part of Xamarin, which gave C# a way to run on both IOS and Android devices as well.  And by implementing .NetStandard, mono picked up support for using these new portable Niger packages.&lt;/p&gt;
+&lt;p&gt;Didi&lt;/p&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Unification of core, mono, full framework is dead.&lt;/p&gt;
 </description>
     </item>
     
@@ -395,20 +395,20 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
       <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</guid>
-      <description><!-- raw HTML omitted -->
-<p>Sometimes naming something is the best way to start talking about a topic that lots of people do but don&rsquo;t realise or haven&rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.</p>
-<p>How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.</p>
-<p>Most developers get to a point where they see the value in having contract design up front across team boundaries, layer boundaries, reusable components, HTTP/Soap boundaries etc. An evolved design for these will never be as good as an intentional one. And on the flip side, we have all used clunky library APIs in various languages, BCL or otherwise.</p>
-<h3 id="what-is-mr-snuffleupagus">What is Mr Snuffleupagus</h3>
-<p>The name comes from Sesame Street. Muppets basically. Big Bird and Bert and Ernie, Elmo etc. There was a storyline decades ago where Big Bird kept seeing Mr Snuffleupagus and talking about him, but no one else ever saw him. They concluded it was an imaginary creature for a long time. In the show, it was very ambiguous what the truth was. Eventually, they actually saw the Snuffleupagus too and concluded it wasn&rsquo;t imaginary after all. <a href="https://www.smithsonianmag.com/smart-news/brief-history-sesame-streets-snuffleupagus-iidentity-crisis-180957351/">More here.</a></p>
-<h3 id="enter-sop">Enter SOP</h3>
-<p>The ideas from this story match an approach to building your API.</p>
-<p>First, we are going to imagine that what we want to use exists. Then we are going to write code against the API, crafting our usage case, without implementing anything.  Once we are happy that our API is usable, we implement it and make it actually exist, make it real. There may be a few tweaks once the realities and limitations of the implementation are taken into account, but the idea is to try and keep it as usable as the original usage cases as possible, usability intact.</p>
-<!-- raw HTML omitted -->
-<h3 id="tdd">TDD</h3>
-<p>This is a great candidate approach to work with TDD as well, just with more implementation code along the way to produce passing tests. Like Mr Snuffleupagus, this implementation code is imaginary until you have enough test cases to make it real, and refactor.</p>
-<h3 id="thanks">Thanks</h3>
-<p>Go forth and start sharing SOP, Snuffleupagus-Oriented Programming. Imagine, Build Usage, Make it Real.  Thanks <a href="https://twitter.com/cmuratori">Casey Muratori</a> for coining the term and making it stick. See more of his programming on <a href="https://handmadehero.org/">HandMade Hero</a> (<a href="https://www.youtube.com/handmadehero">YouTube</a>), and his company <a href="https://mollyrocket.com/nexus">Molly Rocket</a> for games and more.</p>
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.&lt;/p&gt;
+&lt;p&gt;How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.&lt;/p&gt;
+&lt;p&gt;Most developers get to a point where they see the value in having contract design up front across team boundaries, layer boundaries, reusable components, HTTP/Soap boundaries etc. An evolved design for these will never be as good as an intentional one. And on the flip side, we have all used clunky library APIs in various languages, BCL or otherwise.&lt;/p&gt;
+&lt;h3 id=&#34;what-is-mr-snuffleupagus&#34;&gt;What is Mr Snuffleupagus&lt;/h3&gt;
+&lt;p&gt;The name comes from Sesame Street. Muppets basically. Big Bird and Bert and Ernie, Elmo etc. There was a storyline decades ago where Big Bird kept seeing Mr Snuffleupagus and talking about him, but no one else ever saw him. They concluded it was an imaginary creature for a long time. In the show, it was very ambiguous what the truth was. Eventually, they actually saw the Snuffleupagus too and concluded it wasn&amp;rsquo;t imaginary after all. &lt;a href=&#34;https://www.smithsonianmag.com/smart-news/brief-history-sesame-streets-snuffleupagus-iidentity-crisis-180957351/&#34;&gt;More here.&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;enter-sop&#34;&gt;Enter SOP&lt;/h3&gt;
+&lt;p&gt;The ideas from this story match an approach to building your API.&lt;/p&gt;
+&lt;p&gt;First, we are going to imagine that what we want to use exists. Then we are going to write code against the API, crafting our usage case, without implementing anything.  Once we are happy that our API is usable, we implement it and make it actually exist, make it real. There may be a few tweaks once the realities and limitations of the implementation are taken into account, but the idea is to try and keep it as usable as the original usage cases as possible, usability intact.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h3 id=&#34;tdd&#34;&gt;TDD&lt;/h3&gt;
+&lt;p&gt;This is a great candidate approach to work with TDD as well, just with more implementation code along the way to produce passing tests. Like Mr Snuffleupagus, this implementation code is imaginary until you have enough test cases to make it real, and refactor.&lt;/p&gt;
+&lt;h3 id=&#34;thanks&#34;&gt;Thanks&lt;/h3&gt;
+&lt;p&gt;Go forth and start sharing SOP, Snuffleupagus-Oriented Programming. Imagine, Build Usage, Make it Real.  Thanks &lt;a href=&#34;https://twitter.com/cmuratori&#34;&gt;Casey Muratori&lt;/a&gt; for coining the term and making it stick. See more of his programming on &lt;a href=&#34;https://handmadehero.org/&#34;&gt;HandMade Hero&lt;/a&gt; (&lt;a href=&#34;https://www.youtube.com/handmadehero&#34;&gt;YouTube&lt;/a&gt;), and his company &lt;a href=&#34;https://mollyrocket.com/nexus&#34;&gt;Molly Rocket&lt;/a&gt; for games and more.&lt;/p&gt;
 </description>
     </item>
     
@@ -418,106 +418,106 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
       <pubDate>Mon, 01 Jul 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>Pattern matching is a powerful feature that has been unlocked against various language constructs in C#.  The idea is to take existing features like <code>case</code> from switches and <code>is</code> and extract their capabilities into a &ldquo;pattern matching&rdquo; concept over types and values. This can then be applied back to these language features, and other places in the future.</p>
-<p>Before the new concept of patterns, <code>case</code> accepted a constant as an argument, and <code>is</code> would accept a type.</p>
-<pre><code class="language-cs">// Check the type of the variable &quot;is assignable to&quot; Shape
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;Pattern matching is a powerful feature that has been unlocked against various language constructs in C#.  The idea is to take existing features like &lt;code&gt;case&lt;/code&gt; from switches and &lt;code&gt;is&lt;/code&gt; and extract their capabilities into a &amp;ldquo;pattern matching&amp;rdquo; concept over types and values. This can then be applied back to these language features, and other places in the future.&lt;/p&gt;
+&lt;p&gt;Before the new concept of patterns, &lt;code&gt;case&lt;/code&gt; accepted a constant as an argument, and &lt;code&gt;is&lt;/code&gt; would accept a type.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// Check the type of the variable &amp;quot;is assignable to&amp;quot; Shape
 if(widget is Shape)
 {
     switch ((widget as Shape).Type)
     {
-        // When value matches the constant &quot;Square&quot;
-        case &quot;Square&quot;:
+        // When value matches the constant &amp;quot;Square&amp;quot;
+        case &amp;quot;Square&amp;quot;:
             // ...
             break;
         default:
             break;
     }
 }
-</code></pre>
-<p>With the introduction of C# 7.0, both of these language features have been enhanced to use the new Pattern Matching syntax.  This is a backwards-compatible change, meaning that the pattern type can be a const or a type. As well as these existing cases, it also includes <code>when</code> clauses and var patterns as well.</p>
-<h3 id="is-expression">is Expression</h3>
-<p>Originally, <code>is</code> was able to check a type. This could create more readable code but often left casting or <code>as</code> operator usage in the aftermath.</p>
-<pre><code class="language-cs">if (widget is Shape)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the introduction of C# 7.0, both of these language features have been enhanced to use the new Pattern Matching syntax.  This is a backwards-compatible change, meaning that the pattern type can be a const or a type. As well as these existing cases, it also includes &lt;code&gt;when&lt;/code&gt; clauses and var patterns as well.&lt;/p&gt;
+&lt;h3 id=&#34;is-expression&#34;&gt;is Expression&lt;/h3&gt;
+&lt;p&gt;Originally, &lt;code&gt;is&lt;/code&gt; was able to check a type. This could create more readable code but often left casting or &lt;code&gt;as&lt;/code&gt; operator usage in the aftermath.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (widget is Shape)
 {
     var myShape = widget as Shape;
     // var myShape = (Shape)widget;
 }
-</code></pre>
-<p>This has been improved by the pattern matching. First, we have constant checking:</p>
-<pre><code class="language-cs">if (widget.Type is null)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This has been improved by the pattern matching. First, we have constant checking:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (widget.Type is null)
 {
     // ...
 }
 
-if (widget.Type is &quot;FOO&quot;)
+if (widget.Type is &amp;quot;FOO&amp;quot;)
 {
     // ...
 }
 
-</code></pre>
-<p>As well as this, the Type checking Pattern now includes support to create a scoped variable of the correct type, similar to the new out parameter functionality. This language feature is collectively known as &ldquo;expression variables&rdquo;.</p>
-<pre><code class="language-cs">if (widget is Shape shape)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As well as this, the Type checking Pattern now includes support to create a scoped variable of the correct type, similar to the new out parameter functionality. This language feature is collectively known as &amp;ldquo;expression variables&amp;rdquo;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (widget is Shape shape)
 {
     // ... use `shape`
 }
 
-</code></pre>
-<h3 id="switch-statement">Switch Statement</h3>
-<p>A switch used to only match on constants, but with the new pattern matching, we can do so much more.</p>
-<pre><code class="language-cs">void SwitchIt(object value)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;switch-statement&#34;&gt;Switch Statement&lt;/h3&gt;
+&lt;p&gt;A switch used to only match on constants, but with the new pattern matching, we can do so much more.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;void SwitchIt(object value)
 {
     var result = 0;
     switch (value)
     {
-        // We can still switch on constants, even when the types don't match
+        // We can still switch on constants, even when the types don&#39;t match
         case 0:
             break;
         // We can switch on type, and even create a scoped variable (like with `is`)
-        case IEnumerable&lt;int&gt; childSequence:
+        case IEnumerable&amp;lt;int&amp;gt; childSequence:
         {
             foreach(var item in childSequence)
-                result += (item &gt; 0) ? item : 0;
+                result += (item &amp;gt; 0) ? item : 0;
             break;
         }
         // using `when`, we can do range or bounds checking
-        case int n when n &gt; 0:
+        case int n when n &amp;gt; 0:
             result += n;
             break;
         // We can constant check against null
         case null:
-            throw new NullReferenceException(&quot;Null found in sequence&quot;);
+            throw new NullReferenceException(&amp;quot;Null found in sequence&amp;quot;);
         default:
-            throw new InvalidOperationException(&quot;Unrecognized type&quot;);
+            throw new InvalidOperationException(&amp;quot;Unrecognized type&amp;quot;);
     }
 
     return result;
 }
-</code></pre>
-<p>There is another new pattern that is useful with switch, which is the var pattern. The &ldquo;var pattern&rdquo; is similar to the type pattern, except that it always matches, but creates a variable with the assigned value.</p>
-<pre><code class="language-cs">switch(shape)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is another new pattern that is useful with switch, which is the var pattern. The &amp;ldquo;var pattern&amp;rdquo; is similar to the type pattern, except that it always matches, but creates a variable with the assigned value.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;switch(shape)
 {
     case Circle c:
-        WriteLine($&quot;circle with radius {c.Radius}&quot;);
+        WriteLine($&amp;quot;circle with radius {c.Radius}&amp;quot;);
         break;
     case Rectangle s when (s.Length == s.Height):
-        WriteLine($&quot;{s.Length} x {s.Height} square&quot;);
+        WriteLine($&amp;quot;{s.Length} x {s.Height} square&amp;quot;);
         break;
     case Rectangle r:
-        WriteLine($&quot;{r.Length} x {r.Height} rectangle&quot;);
+        WriteLine($&amp;quot;{r.Length} x {r.Height} rectangle&amp;quot;);
         break;
     case var s:
         // Always matches (similar to default) but gives access to the value as `s`
-        WriteLine($&quot;This is some kind of {s.Name} shape&quot;);
+        WriteLine($&amp;quot;This is some kind of {s.Name} shape&amp;quot;);
         break;
 }
-</code></pre>
-<p>It is worth pointing out that the order of your <code>case</code> arguments now matters. while not a logical breaking change, since it never mattered what order constants where declared, it would always match the right answer, this is a conceptual change you need to be aware of. Mixing and matching patterns in a switch mean that the order does matter, and the first pattern that matches will get executed. To repeat, when all cases are constants this wouldn&rsquo;t make any difference to the outcome but more advanced checks will.</p>
-<p>In C# 7.1, the patterns were extended to work correctly with generic variables as well. In C# 7.0, you could use these type patterns as expected by first casting the <code>T foo</code> value to an <code>Object</code> (which could cause Boxing) and then the type checking would all work. In C# 7.1, this cast is no longer necessary, and also avoids any boxing and unboxing along the way. <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch#type-pattern">The docs</a> go over this is more detail with an example comparing the two implementations, as there are a few subtle differences, especially around null/default cases.</p>
-<h3 id="pattern-matching-coming-soon">Pattern Matching coming soon</h3>
-<p>This feature is an interesting one in the sense that it is both newer and probably under-used and less known. You can program away happily in C# never needing to use it and not coming across it.</p>
-<p>But with C# 8, there is a bunch of new features that will be using this existing pattern matching coming, so you might want to get on board with this in preparation, because soon you will need to understand code using it, and probably see a lot more of it around.</p>
-<p>Bring on the Switch Expression!</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It is worth pointing out that the order of your &lt;code&gt;case&lt;/code&gt; arguments now matters. while not a logical breaking change, since it never mattered what order constants where declared, it would always match the right answer, this is a conceptual change you need to be aware of. Mixing and matching patterns in a switch mean that the order does matter, and the first pattern that matches will get executed. To repeat, when all cases are constants this wouldn&amp;rsquo;t make any difference to the outcome but more advanced checks will.&lt;/p&gt;
+&lt;p&gt;In C# 7.1, the patterns were extended to work correctly with generic variables as well. In C# 7.0, you could use these type patterns as expected by first casting the &lt;code&gt;T foo&lt;/code&gt; value to an &lt;code&gt;Object&lt;/code&gt; (which could cause Boxing) and then the type checking would all work. In C# 7.1, this cast is no longer necessary, and also avoids any boxing and unboxing along the way. &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch#type-pattern&#34;&gt;The docs&lt;/a&gt; go over this is more detail with an example comparing the two implementations, as there are a few subtle differences, especially around null/default cases.&lt;/p&gt;
+&lt;h3 id=&#34;pattern-matching-coming-soon&#34;&gt;Pattern Matching coming soon&lt;/h3&gt;
+&lt;p&gt;This feature is an interesting one in the sense that it is both newer and probably under-used and less known. You can program away happily in C# never needing to use it and not coming across it.&lt;/p&gt;
+&lt;p&gt;But with C# 8, there is a bunch of new features that will be using this existing pattern matching coming, so you might want to get on board with this in preparation, because soon you will need to understand code using it, and probably see a lot more of it around.&lt;/p&gt;
+&lt;p&gt;Bring on the Switch Expression!&lt;/p&gt;
 </description>
     </item>
     
@@ -527,15 +527,15 @@ if (widget.Type is &quot;FOO&quot;)
       <pubDate>Mon, 24 Jun 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>Multithreaded programming has always been a difficult thing to get your head around, and there are many pitfalls easily stumbled into. To help combat this, Microsoft gave us async/await in C#.</p>
-<p>Async/Await is a language feature that has been around since Visual Studio 2012 and C# 5 and hides a bunch of the boilerplate state machine code required to safely park a logical thread of execution while it waits for some work to complete or to respond from another thread, IO, or network device.  This allows code to be more logically procedural and linear, therefore easier to read and comprehend.</p>
-<p>Since it first came out there has been a raft of improvements across different versions of C#.</p>
-<h2 id="the-basics">The basics</h2>
-<p>The foundation of how it all works rests on the shoulders of a Library, the Task Parallel Library, or TPL. Tasks have been around since 2010 and were part of the .Net 4 Framework. Similar to what <a href="https://developers.google.com/web/fundamentals/primers/promises">Promises provide in javascript</a>, this library allowed a logical chain of execution across waiting for blocking or longrunning execution while releasing the UI thread from being blocked. This was the introduction of <code>TaskFactory</code> and <code>Task</code>, in a fairly similar form to what we have today.  This was a huge improvement from the days of callback chaining because it reduced heavy nesting of lambdas into more of a linear pipeline and a clear place for error handling to take place.</p>
-<p>When C# 5 introduced async/await as a first-class language feature, it was able to leverage the library and extend on it to give us more readable code. It even handled Exceptions by throwing them in the place where <code>await</code> appeared, making <code>try/catch</code> blocks useful in asynchronous code.</p>
-<p>What does async/await look like in C# 5?</p>
-<pre><code class="language-cs">// A classic synchronous method
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;Multithreaded programming has always been a difficult thing to get your head around, and there are many pitfalls easily stumbled into. To help combat this, Microsoft gave us async/await in C#.&lt;/p&gt;
+&lt;p&gt;Async/Await is a language feature that has been around since Visual Studio 2012 and C# 5 and hides a bunch of the boilerplate state machine code required to safely park a logical thread of execution while it waits for some work to complete or to respond from another thread, IO, or network device.  This allows code to be more logically procedural and linear, therefore easier to read and comprehend.&lt;/p&gt;
+&lt;p&gt;Since it first came out there has been a raft of improvements across different versions of C#.&lt;/p&gt;
+&lt;h2 id=&#34;the-basics&#34;&gt;The basics&lt;/h2&gt;
+&lt;p&gt;The foundation of how it all works rests on the shoulders of a Library, the Task Parallel Library, or TPL. Tasks have been around since 2010 and were part of the .Net 4 Framework. Similar to what &lt;a href=&#34;https://developers.google.com/web/fundamentals/primers/promises&#34;&gt;Promises provide in javascript&lt;/a&gt;, this library allowed a logical chain of execution across waiting for blocking or longrunning execution while releasing the UI thread from being blocked. This was the introduction of &lt;code&gt;TaskFactory&lt;/code&gt; and &lt;code&gt;Task&lt;/code&gt;, in a fairly similar form to what we have today.  This was a huge improvement from the days of callback chaining because it reduced heavy nesting of lambdas into more of a linear pipeline and a clear place for error handling to take place.&lt;/p&gt;
+&lt;p&gt;When C# 5 introduced async/await as a first-class language feature, it was able to leverage the library and extend on it to give us more readable code. It even handled Exceptions by throwing them in the place where &lt;code&gt;await&lt;/code&gt; appeared, making &lt;code&gt;try/catch&lt;/code&gt; blocks useful in asynchronous code.&lt;/p&gt;
+&lt;p&gt;What does async/await look like in C# 5?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// A classic synchronous method
 public string MakeAWebRequest(Uri uri)
 {
     // WebClient has synchronous methods, but it is recommended to use HttpClient for newer apps
@@ -543,22 +543,22 @@ public string MakeAWebRequest(Uri uri)
     return client.DownloadString(uri);
 }
 
-// It's async younger brother
-public async Task&lt;string&gt; MakeAWebRequestAsync(Uri uri)
+// It&#39;s async younger brother
+public async Task&amp;lt;string&amp;gt; MakeAWebRequestAsync(Uri uri)
 {
     // I use WebClient again for better comparing. Use HttpClient!
     var client = new WebClient();
     return await client.DownloadStringAsync(uri);
 }
-</code></pre>
-<p>There are two distinctive features in this comparison. The return type is wrapped in a <code>Task&lt;T&gt;</code>, and there is a keyword <code>async</code> on the method signature with <code>await</code> beside method calls that return <code>Task&lt;T&gt;</code> results. Otherwise, the linear execution flow is largely unchanged.</p>
-<p>You can easily use the return type without the keywords. In this case, the code works and operates as normal, passing object references around without any async state. The result object captures the state required for the caller to do the asynchronous work in the future, or respond to its completion.  However, if you do use <code>async</code> and <code>await</code>, then you should always return either <code>Task</code> (where usually returns void) or <code>Task&lt;T&gt;</code> (where usually returns T). (In my opinion, there are no reasons left to ever do async without Task - there used to be but not anymore.)</p>
-<p>Now we have that out of the way, let&rsquo;s move forward to C# 6 and beyond!</p>
-<h2 id="async-and-exceptions">Async and Exceptions</h2>
-<p>Exception handling was a big part of this feature on day one. You could simply wrap your async calls in a <code>try{}catch{}</code> and it would work as you would expect it to. The task you are awaiting throws an Exception, your catch triggers.</p>
-<p>But initially, this did not work inside the catch or finally blocks in any expected way. In fact, it caused a compiler error. In C# 6 await in <code>catch</code>/<code>finally</code> blocks were given proper compiler support to do the right thing.</p>
-<p>Using the example from <a href="https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6#await-in-catch-and-finally-blocks">The new language feature docs</a> directly:</p>
-<pre><code class="language-cs">Resource res = null;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are two distinctive features in this comparison. The return type is wrapped in a &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt;, and there is a keyword &lt;code&gt;async&lt;/code&gt; on the method signature with &lt;code&gt;await&lt;/code&gt; beside method calls that return &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt; results. Otherwise, the linear execution flow is largely unchanged.&lt;/p&gt;
+&lt;p&gt;You can easily use the return type without the keywords. In this case, the code works and operates as normal, passing object references around without any async state. The result object captures the state required for the caller to do the asynchronous work in the future, or respond to its completion.  However, if you do use &lt;code&gt;async&lt;/code&gt; and &lt;code&gt;await&lt;/code&gt;, then you should always return either &lt;code&gt;Task&lt;/code&gt; (where usually returns void) or &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt; (where usually returns T). (In my opinion, there are no reasons left to ever do async without Task - there used to be but not anymore.)&lt;/p&gt;
+&lt;p&gt;Now we have that out of the way, let&amp;rsquo;s move forward to C# 6 and beyond!&lt;/p&gt;
+&lt;h2 id=&#34;async-and-exceptions&#34;&gt;Async and Exceptions&lt;/h2&gt;
+&lt;p&gt;Exception handling was a big part of this feature on day one. You could simply wrap your async calls in a &lt;code&gt;try{}catch{}&lt;/code&gt; and it would work as you would expect it to. The task you are awaiting throws an Exception, your catch triggers.&lt;/p&gt;
+&lt;p&gt;But initially, this did not work inside the catch or finally blocks in any expected way. In fact, it caused a compiler error. In C# 6 await in &lt;code&gt;catch&lt;/code&gt;/&lt;code&gt;finally&lt;/code&gt; blocks were given proper compiler support to do the right thing.&lt;/p&gt;
+&lt;p&gt;Using the example from &lt;a href=&#34;https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6#await-in-catch-and-finally-blocks&#34;&gt;The new language feature docs&lt;/a&gt; directly:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;Resource res = null;
 try
 {
     res = await Resource.OpenAsync(…);       // You could do this.
@@ -572,13 +572,13 @@ finally
 {
     if (res != null) await res.CloseAsync(); // … and this.
 }
-</code></pre>
-<h2 id="async-and-console-apps">Async and Console Apps</h2>
-<p>The language version was C# 7. We had async everywhere, and the <code>NetStandard</code>s and Frameworks were full of async API calls and interfaces. It was a contagious thing, and you really had to jump through hoops to try <a href="https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">to call a red function from a blue one</a>.</p>
-<p>And then there was main. That pesky little entry point into your application. The one the compiler generates for you that kicks off all of the application execution. The one that had to call into your top-most async method to <code>RunAsync</code>. And it had to be <code>public static void Main(string[] args)</code> or <code>public static int Main()</code>. That is not an async method.</p>
-<p>Luckily, with the first ever minor language update, C# 7.1, we were given the mighty and powerful async main!</p>
-<pre><code>// You can finaly use Task&lt;int&gt;!
-public static async Task&lt;int&gt; Main()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;async-and-console-apps&#34;&gt;Async and Console Apps&lt;/h2&gt;
+&lt;p&gt;The language version was C# 7. We had async everywhere, and the &lt;code&gt;NetStandard&lt;/code&gt;s and Frameworks were full of async API calls and interfaces. It was a contagious thing, and you really had to jump through hoops to try &lt;a href=&#34;https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/&#34;&gt;to call a red function from a blue one&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;And then there was main. That pesky little entry point into your application. The one the compiler generates for you that kicks off all of the application execution. The one that had to call into your top-most async method to &lt;code&gt;RunAsync&lt;/code&gt;. And it had to be &lt;code&gt;public static void Main(string[] args)&lt;/code&gt; or &lt;code&gt;public static int Main()&lt;/code&gt;. That is not an async method.&lt;/p&gt;
+&lt;p&gt;Luckily, with the first ever minor language update, C# 7.1, we were given the mighty and powerful async main!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// You can finaly use Task&amp;lt;int&amp;gt;!
+public static async Task&amp;lt;int&amp;gt; Main()
 {
 ...
 }
@@ -589,11 +589,11 @@ public static async Task Main()
 ...
 }
 
-</code></pre>
-<h2 id="async-and-tests">Async and Tests</h2>
-<p>We have a tonne of async methods in our system. But we should also be testing that code.  And our testing frameworks were synchronous.</p>
-<p>Luckily our testing frameworks have finally caught up, and with XUnit we can write tests that return Task and are async<code>, and we also have the </code>IAsyncLifetime` interface.</p>
-<pre><code>// This is what we had to do to test async
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;async-and-tests&#34;&gt;Async and Tests&lt;/h2&gt;
+&lt;p&gt;We have a tonne of async methods in our system. But we should also be testing that code.  And our testing frameworks were synchronous.&lt;/p&gt;
+&lt;p&gt;Luckily our testing frameworks have finally caught up, and with XUnit we can write tests that return Task and are async&lt;code&gt;, and we also have the &lt;/code&gt;IAsyncLifetime` interface.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// This is what we had to do to test async
 public class MyTestCase
 {
     private readonly MyClass _systemUnderTest;
@@ -602,20 +602,20 @@ public class MyTestCase
     {
         _systemUnderTest = MyClass();
         
-        Task.Run(async () =&gt; await _systemUnderTest.Init()).GetAwaiter().GetResult();
+        Task.Run(async () =&amp;gt; await _systemUnderTest.Init()).GetAwaiter().GetResult();
     }
     
     public void CanRunSuccessfully()
     {
     
-        var result = Task.Run(async () =&gt; await _systemUnderTest.Run()).GetAwaiter().GetResult();
+        var result = Task.Run(async () =&amp;gt; await _systemUnderTest.Run()).GetAwaiter().GetResult();
         
         Assert.True(result);
     }
 }
-</code></pre>
-<p>Using <code>Task.Run</code> and <code>GetAwaiter</code> or other synchronising methods can be very error-prone, and <a href="https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html#preventing-the-deadlock">prone to deadlocks</a>. Avoiding these is the best approach always (though still not always avoidable).</p>
-<pre><code class="language-cs">The best way to tet with async
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using &lt;code&gt;Task.Run&lt;/code&gt; and &lt;code&gt;GetAwaiter&lt;/code&gt; or other synchronising methods can be very error-prone, and &lt;a href=&#34;https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html#preventing-the-deadlock&#34;&gt;prone to deadlocks&lt;/a&gt;. Avoiding these is the best approach always (though still not always avoidable).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;The best way to tet with async
 public class MyTestCase : IAsyncLifetime
 {
     private readonly MyClass _systemUnderTest;
@@ -644,16 +644,16 @@ public class MyTestCase : IAsyncLifetime
         Assert.True(result);
     }
 }
-</code></pre>
-<p>I&rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.</p>
-<h2 id="valuetask">ValueTask</h2>
-<p>The original implementation of the async/await language feature was strongly tied to the <code>Task</code> and `Task<!-- raw HTML omitted --> types.</p>
-<p>In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the <a href="/looking-back-on-csharp6-initializers/">Add for the initialiser syntax</a>). Specifically, the <code>GetAwaiter</code> method must be available on the type used with the <code>await</code> keyword.</p>
-<p>Along with this change was the introduction of a new type to leverage this pattern, <code>ValueTask</code>. A <code>ValueTask</code> is a value type (struct) that will be stack-allocated and copied by value. If your method uses caching, and most of the time returns a simple value instead of an awaited execution, the <code>ValueTask</code> may be more efficient than the <code>Task</code> type.</p>
-<p>This is because the overheads of Heap-allocation of the reference type <code>Task</code> can have an impact on performance. If you detect this as an issue, you can use the new <code>ValueTask</code> instead. This will be a stack-allocated value type containing the response value and copied around.</p>
-<p>Guidance for this: if you mostly return a value, but occasionally call an actual asynchronous IO execution, <code>ValueTask</code> will probably add value (e.g. heavy result caching). If you actually await most of the time, <code>Task</code> should be fine. As usual, measure and test before making the change arbitrarily.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Async programming is becoming the canonical way of building apps with IO in most languages. And in practice, most of the apps I write are IO-bound apps. C# and dotnet make this simple with <code>async/await</code> and the language keeps improving our experience using this successfully. This is a must-use feature that is unavoidable, but knowing the limitations and extensions available to use it well is still very important to do. Use it, but make sure you know enough about how it works to use it well.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I&amp;rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.&lt;/p&gt;
+&lt;h2 id=&#34;valuetask&#34;&gt;ValueTask&lt;/h2&gt;
+&lt;p&gt;The original implementation of the async/await language feature was strongly tied to the &lt;code&gt;Task&lt;/code&gt; and `Task&lt;!-- raw HTML omitted --&gt; types.&lt;/p&gt;
+&lt;p&gt;In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-initializers/&#34;&gt;Add for the initialiser syntax&lt;/a&gt;). Specifically, the &lt;code&gt;GetAwaiter&lt;/code&gt; method must be available on the type used with the &lt;code&gt;await&lt;/code&gt; keyword.&lt;/p&gt;
+&lt;p&gt;Along with this change was the introduction of a new type to leverage this pattern, &lt;code&gt;ValueTask&lt;/code&gt;. A &lt;code&gt;ValueTask&lt;/code&gt; is a value type (struct) that will be stack-allocated and copied by value. If your method uses caching, and most of the time returns a simple value instead of an awaited execution, the &lt;code&gt;ValueTask&lt;/code&gt; may be more efficient than the &lt;code&gt;Task&lt;/code&gt; type.&lt;/p&gt;
+&lt;p&gt;This is because the overheads of Heap-allocation of the reference type &lt;code&gt;Task&lt;/code&gt; can have an impact on performance. If you detect this as an issue, you can use the new &lt;code&gt;ValueTask&lt;/code&gt; instead. This will be a stack-allocated value type containing the response value and copied around.&lt;/p&gt;
+&lt;p&gt;Guidance for this: if you mostly return a value, but occasionally call an actual asynchronous IO execution, &lt;code&gt;ValueTask&lt;/code&gt; will probably add value (e.g. heavy result caching). If you actually await most of the time, &lt;code&gt;Task&lt;/code&gt; should be fine. As usual, measure and test before making the change arbitrarily.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Async programming is becoming the canonical way of building apps with IO in most languages. And in practice, most of the apps I write are IO-bound apps. C# and dotnet make this simple with &lt;code&gt;async/await&lt;/code&gt; and the language keeps improving our experience using this successfully. This is a must-use feature that is unavoidable, but knowing the limitations and extensions available to use it well is still very important to do. Use it, but make sure you know enough about how it works to use it well.&lt;/p&gt;
 </description>
     </item>
     
@@ -663,26 +663,26 @@ public class MyTestCase : IAsyncLifetime
       <pubDate>Mon, 17 Jun 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-refs/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>We talked about the out variables <a href="/looking-back-on-csharp7-out-variables">in the previous post in the series</a>, but there are a few other enhancements related to <code>ref</code> as well.</p>
-<p>Hopefully, the concepts of values, pointers, stacks and heaps make sense to you at a conceptual level. These are crucial concepts to using and understanding <code>ref</code> and <code>out</code>.</p>
-<p>As a quick recap, stack memory is local to a function and the function call stack. This memory is semantically &ldquo;pushed&rdquo; to for each method call, and &ldquo;popped&rdquo; from on each return (the call stack, stack overflow etc). The heap is a shared memory space where objects are allocated and stored, which is acted on by the Garbage Collector.</p>
-<p>Values are mostly stack-allocated. They are copied around so that setting a value variable does not affect any other variable. Primitive types and structs are Value types. Reference types are the classes in C#. Classes are always stored on the heap, and all variables of class types are pointers or references. Assigning a reference to a new variable will point to the same value on the heap. Changing a field value on a reference type will be reflected in both variables. (Boxing values onto the heap is another thing, too.)</p>
-<p>We already have <code>out</code> that allows the caller to declare a variable on the current stack that it passes by address (pointer, reference, or ref) that the method is contracted to set for you. This essentially gives us some of the power of reference types from a stack-allocated value. When we use <code>ref</code>, we gain all of the power of passing by reference that we have from heap allocated class types. We are essentially saying that the caller can use the existing value of the reference, and also set a new value to the stack variable if it wants to as well. Basically, all the restrictions that <code>out</code> imposes are taken off. A ref may not just be a stack variable, but could also be a field on a class that you want to access directly by reference, instead of having to constantly dereference it.</p>
-<p>Pass by <code>ref</code> has been in C# since the beginning, but like the <code>out</code> parameters, only works in method signatures. However, from the beginning, you could never declare a <code>ref</code> variable.</p>
-<p>In C# 7, <code>ref</code> has been extended to work with return types, and with variables. You can return a value by reference. And so that it the returned result can be assigned to something in a useful way, we also now have <code>ref</code> variable typing.  Like most C# language features, there is safety built in.</p>
-<ul>
-<li>You must add the <code>ref</code> keyword to the method signature and to all return statements in a method.</li>
-<li>A <code>ref</code> return may be assigned to a value variable (by copy) or a <code>ref</code> variable.</li>
-<li>You can&rsquo;t assign a standard method return value to a <code>ref</code> local variable.</li>
-<li>You can&rsquo;t return a <code>ref</code> to a variable whose lifetime doesn&rsquo;t extend beyond the execution of the method.</li>
-</ul>
-<p>These rules ensure the safety of your code and ensure readability, that it is clear about what is happening.</p>
-<p>I&rsquo;m going to blatantly steal <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#ref-locals-and-returns">the Microsoft examples</a> for this because I don&rsquo;t want to invent an example and get it wrong.</p>
-<pre><code class="language-cs">// We declare the method as returning by reference (rather than copy)
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;We talked about the out variables &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp7-out-variables&#34;&gt;in the previous post in the series&lt;/a&gt;, but there are a few other enhancements related to &lt;code&gt;ref&lt;/code&gt; as well.&lt;/p&gt;
+&lt;p&gt;Hopefully, the concepts of values, pointers, stacks and heaps make sense to you at a conceptual level. These are crucial concepts to using and understanding &lt;code&gt;ref&lt;/code&gt; and &lt;code&gt;out&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;As a quick recap, stack memory is local to a function and the function call stack. This memory is semantically &amp;ldquo;pushed&amp;rdquo; to for each method call, and &amp;ldquo;popped&amp;rdquo; from on each return (the call stack, stack overflow etc). The heap is a shared memory space where objects are allocated and stored, which is acted on by the Garbage Collector.&lt;/p&gt;
+&lt;p&gt;Values are mostly stack-allocated. They are copied around so that setting a value variable does not affect any other variable. Primitive types and structs are Value types. Reference types are the classes in C#. Classes are always stored on the heap, and all variables of class types are pointers or references. Assigning a reference to a new variable will point to the same value on the heap. Changing a field value on a reference type will be reflected in both variables. (Boxing values onto the heap is another thing, too.)&lt;/p&gt;
+&lt;p&gt;We already have &lt;code&gt;out&lt;/code&gt; that allows the caller to declare a variable on the current stack that it passes by address (pointer, reference, or ref) that the method is contracted to set for you. This essentially gives us some of the power of reference types from a stack-allocated value. When we use &lt;code&gt;ref&lt;/code&gt;, we gain all of the power of passing by reference that we have from heap allocated class types. We are essentially saying that the caller can use the existing value of the reference, and also set a new value to the stack variable if it wants to as well. Basically, all the restrictions that &lt;code&gt;out&lt;/code&gt; imposes are taken off. A ref may not just be a stack variable, but could also be a field on a class that you want to access directly by reference, instead of having to constantly dereference it.&lt;/p&gt;
+&lt;p&gt;Pass by &lt;code&gt;ref&lt;/code&gt; has been in C# since the beginning, but like the &lt;code&gt;out&lt;/code&gt; parameters, only works in method signatures. However, from the beginning, you could never declare a &lt;code&gt;ref&lt;/code&gt; variable.&lt;/p&gt;
+&lt;p&gt;In C# 7, &lt;code&gt;ref&lt;/code&gt; has been extended to work with return types, and with variables. You can return a value by reference. And so that it the returned result can be assigned to something in a useful way, we also now have &lt;code&gt;ref&lt;/code&gt; variable typing.  Like most C# language features, there is safety built in.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You must add the &lt;code&gt;ref&lt;/code&gt; keyword to the method signature and to all return statements in a method.&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;ref&lt;/code&gt; return may be assigned to a value variable (by copy) or a &lt;code&gt;ref&lt;/code&gt; variable.&lt;/li&gt;
+&lt;li&gt;You can&amp;rsquo;t assign a standard method return value to a &lt;code&gt;ref&lt;/code&gt; local variable.&lt;/li&gt;
+&lt;li&gt;You can&amp;rsquo;t return a &lt;code&gt;ref&lt;/code&gt; to a variable whose lifetime doesn&amp;rsquo;t extend beyond the execution of the method.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These rules ensure the safety of your code and ensure readability, that it is clear about what is happening.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m going to blatantly steal &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#ref-locals-and-returns&#34;&gt;the Microsoft examples&lt;/a&gt; for this because I don&amp;rsquo;t want to invent an example and get it wrong.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// We declare the method as returning by reference (rather than copy)
 public ref int Find(int number, int[] numbers)
 {
-    for (int i = 0; i &lt; numbers.Length; i++)
+    for (int i = 0; i &amp;lt; numbers.Length; i++)
     {
         if (numbers[i] == number)
         {
@@ -691,7 +691,7 @@ public ref int Find(int number, int[] numbers)
         }
     }
     // We can still throw an exception if necessary
-    throw new IndexOutOfRangeException($&quot;{nameof(number)} not found&quot;);
+    throw new IndexOutOfRangeException($&amp;quot;{nameof(number)} not found&amp;quot;);
 }
 
 // arrays are already allocated to the heap and passed by reference rather than by value
@@ -700,21 +700,21 @@ int[] array = { 1, 15, -39, 0, 7, 14, -12 };
 
 // We have to use `ref` to call the method
 // We choose to declare `place` as a reference
-ref int place = ref Find(7, array); // aliases 7's place in the array
+ref int place = ref Find(7, array); // aliases 7&#39;s place in the array
 place = 9; // replaces 7 with 9 in the array
 WriteLine(array[4]); // prints 9
-</code></pre>
-<p>In the above example, we could have chosen to declare <code>place</code> without the <code>ref</code> keyword and the value returned would be copied instead. However, in this case, the assignment of <code>place = 9;</code> would be overriding the local copy, and not modifying the original array.</p>
-<p>Why would you use these pass by reference additions? Huge performance enhancements can be achieved by avoiding stack and heap copying or dereferencing of values in certain algorithms. Performance is the name of the game here.</p>
-<p>In C# 7.2, the conditional operator (<code>isTrue ? x : y</code> syntax) can now evaluate to a reference result when both operands (<code>x</code> and <code>y</code> above) are also references.</p>
-<p><code>ref var r = ref (arr != null ? ref arr[0] : ref otherArr[0]);</code></p>
-<p>In 7.2 we also got <code>ref readonly</code>, which allows returned references to disallow modification enforced by the compiler. This may save time constantly dereferencing a child field in a scenario that you need to get the latest value, for instance in a loop. Again, performance is the target use-case.</p>
-<p>The first version of <code>ref</code> variables was immutable only. Whatever you declared them to point to was what they always referred to for their lifetime. In C# 7.3, they were updated so you can reuse a variable to point to a different reference instead.</p>
-<p>To complement the safety of the <code>out</code> restrictions compared to <code>ref</code> we also get the <code>in</code> keyword.</p>
-<p>Declaring a method parameter with <code>in</code> essentially makes it a read-only reference. the method is not allowed to modify the value passed in but gets all the benefits of being passed by reference rather than by value (copied). The <code>in</code> keyword will make the compiler ensure that the method is not allowed to modify the original passed in value. If necessary it will create a defensive shadow-copy to ensure that is true.</p>
-<p>This is well paired with another new feature, <code>readonly struct</code>.  Declaring a struct as read-only means the compiler will ensure you are indeed read-only. (It will disallow <code>public int Foo { get; private set; }</code> for example.) You can use the <code>in</code> keyword for any methods that you want to take a ref to one of these structs again to ensure clarity when reading the code, but also enforced by the compiler.</p>
-<p>I mentioned the defensive shadow copy above. The language and runtime do not guarantee that the internal implementation detail of a Property or Method is non-mutable from the contracts, so the compiler will get defensive, and make copies before calling anything that might cause a mutation. This way, the language guarantees the expectations of passing a read-only reference, but maybe doesn&rsquo;t match performance expectations in the process. As a developer, by making the type a <code>readonly struct</code> instead, the compiler can rely on the guarantees and won&rsquo;t make any copies. The struct won&rsquo;t compile if it mutates any of its internal state, so we have stronger guarantees at compile-time and run-time.</p>
-<p>These features are certainly power features, and when you need them they will be useful. But like most advanced features, you may be sacrificing readability for performance and optimisation. Use sparingly, but maybe measure first and then sprinkle in and measure again.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the above example, we could have chosen to declare &lt;code&gt;place&lt;/code&gt; without the &lt;code&gt;ref&lt;/code&gt; keyword and the value returned would be copied instead. However, in this case, the assignment of &lt;code&gt;place = 9;&lt;/code&gt; would be overriding the local copy, and not modifying the original array.&lt;/p&gt;
+&lt;p&gt;Why would you use these pass by reference additions? Huge performance enhancements can be achieved by avoiding stack and heap copying or dereferencing of values in certain algorithms. Performance is the name of the game here.&lt;/p&gt;
+&lt;p&gt;In C# 7.2, the conditional operator (&lt;code&gt;isTrue ? x : y&lt;/code&gt; syntax) can now evaluate to a reference result when both operands (&lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; above) are also references.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ref var r = ref (arr != null ? ref arr[0] : ref otherArr[0]);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In 7.2 we also got &lt;code&gt;ref readonly&lt;/code&gt;, which allows returned references to disallow modification enforced by the compiler. This may save time constantly dereferencing a child field in a scenario that you need to get the latest value, for instance in a loop. Again, performance is the target use-case.&lt;/p&gt;
+&lt;p&gt;The first version of &lt;code&gt;ref&lt;/code&gt; variables was immutable only. Whatever you declared them to point to was what they always referred to for their lifetime. In C# 7.3, they were updated so you can reuse a variable to point to a different reference instead.&lt;/p&gt;
+&lt;p&gt;To complement the safety of the &lt;code&gt;out&lt;/code&gt; restrictions compared to &lt;code&gt;ref&lt;/code&gt; we also get the &lt;code&gt;in&lt;/code&gt; keyword.&lt;/p&gt;
+&lt;p&gt;Declaring a method parameter with &lt;code&gt;in&lt;/code&gt; essentially makes it a read-only reference. the method is not allowed to modify the value passed in but gets all the benefits of being passed by reference rather than by value (copied). The &lt;code&gt;in&lt;/code&gt; keyword will make the compiler ensure that the method is not allowed to modify the original passed in value. If necessary it will create a defensive shadow-copy to ensure that is true.&lt;/p&gt;
+&lt;p&gt;This is well paired with another new feature, &lt;code&gt;readonly struct&lt;/code&gt;.  Declaring a struct as read-only means the compiler will ensure you are indeed read-only. (It will disallow &lt;code&gt;public int Foo { get; private set; }&lt;/code&gt; for example.) You can use the &lt;code&gt;in&lt;/code&gt; keyword for any methods that you want to take a ref to one of these structs again to ensure clarity when reading the code, but also enforced by the compiler.&lt;/p&gt;
+&lt;p&gt;I mentioned the defensive shadow copy above. The language and runtime do not guarantee that the internal implementation detail of a Property or Method is non-mutable from the contracts, so the compiler will get defensive, and make copies before calling anything that might cause a mutation. This way, the language guarantees the expectations of passing a read-only reference, but maybe doesn&amp;rsquo;t match performance expectations in the process. As a developer, by making the type a &lt;code&gt;readonly struct&lt;/code&gt; instead, the compiler can rely on the guarantees and won&amp;rsquo;t make any copies. The struct won&amp;rsquo;t compile if it mutates any of its internal state, so we have stronger guarantees at compile-time and run-time.&lt;/p&gt;
+&lt;p&gt;These features are certainly power features, and when you need them they will be useful. But like most advanced features, you may be sacrificing readability for performance and optimisation. Use sparingly, but maybe measure first and then sprinkle in and measure again.&lt;/p&gt;
 </description>
     </item>
     
@@ -724,53 +724,53 @@ WriteLine(array[4]); // prints 9
       <pubDate>Mon, 10 Jun 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<h3 id="what-are-out-parameters">What are out parameters?</h3>
-<p>Sometimes you want a method to pass back a value by reference. In <code>C</code> and <code>C++</code> this is done by passing the address in as an argument. In C#, we use the <code>out</code> keyword.</p>
-<pre><code class="language-cs">public bool HasCount(string str, out int length)
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;h3 id=&#34;what-are-out-parameters&#34;&gt;What are out parameters?&lt;/h3&gt;
+&lt;p&gt;Sometimes you want a method to pass back a value by reference. In &lt;code&gt;C&lt;/code&gt; and &lt;code&gt;C++&lt;/code&gt; this is done by passing the address in as an argument. In C#, we use the &lt;code&gt;out&lt;/code&gt; keyword.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public bool HasCount(string str, out int length)
 {
     length = 0;
-    if (str.Length &gt; 0)
+    if (str.Length &amp;gt; 0)
     {
         length = str.Length;
         return true;
     }
 }
 
-string myString = &quot;A String&quot;;
+string myString = &amp;quot;A String&amp;quot;;
 int length;
 if (HasCount(myString, out length))
 {
     // Do some stuff here.
 }
-</code></pre>
-<p>A method must initialise the out parameter value, but the caller doesn&rsquo;t have to initialise it first. Callers must use the <code>out</code> keyword when calling a method with an out parameter. This helps with readability making it unambiguous how it works.</p>
-<p>More details of this for those unfamiliar with the concept can be <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-parameter-modifier">found here</a>.</p>
-<p>In the libraries, there are a few methods that use this, for instance <code>Int32.TryParse</code>.</p>
-<pre><code class="language-cs">int number;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A method must initialise the out parameter value, but the caller doesn&amp;rsquo;t have to initialise it first. Callers must use the &lt;code&gt;out&lt;/code&gt; keyword when calling a method with an out parameter. This helps with readability making it unambiguous how it works.&lt;/p&gt;
+&lt;p&gt;More details of this for those unfamiliar with the concept can be &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-parameter-modifier&#34;&gt;found here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In the libraries, there are a few methods that use this, for instance &lt;code&gt;Int32.TryParse&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;int number;
 if (Int32.TryParse(numberAsString, out number))
 {
     // use `number` as an integer value. 
 }
-</code></pre>
-<p>It also comes in useful when you are building C-style interops. But not something you see very much these days.</p>
-<h3 id="new-out-variables">New out variables</h3>
-<p>This syntax always felt a bit clunky. Modern APIs would suggest using a return value over an out parameter, and the early use cases tended to be either cross-compatibility with C libraries or parse scenarios. Primarily it was discouraged for readability reasons, though there are benefits from using it in certain places.</p>
-<p>However, with C# 7, a new syntax was introduced, allowing inline declaration of out parameters.</p>
-<pre><code class="language-cs">if (Int32.TryParse(numberAsString, out int number))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It also comes in useful when you are building C-style interops. But not something you see very much these days.&lt;/p&gt;
+&lt;h3 id=&#34;new-out-variables&#34;&gt;New out variables&lt;/h3&gt;
+&lt;p&gt;This syntax always felt a bit clunky. Modern APIs would suggest using a return value over an out parameter, and the early use cases tended to be either cross-compatibility with C libraries or parse scenarios. Primarily it was discouraged for readability reasons, though there are benefits from using it in certain places.&lt;/p&gt;
+&lt;p&gt;However, with C# 7, a new syntax was introduced, allowing inline declaration of out parameters.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (Int32.TryParse(numberAsString, out int number))
 {
     // use `number` as an integer value. 
 }
-</code></pre>
-<p>You can now declare the parameter inline, without needing the empty declaration line that was essentially wasting line-count. The other benefit is you can now use <code>var</code> instead of an explicit type.</p>
-<pre><code class="language-cs">if (Int32.TryParse(numberAsString, out var number))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can now declare the parameter inline, without needing the empty declaration line that was essentially wasting line-count. The other benefit is you can now use &lt;code&gt;var&lt;/code&gt; instead of an explicit type.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (Int32.TryParse(numberAsString, out var number))
 {
     // use `number` as an integer value. 
 }
-</code></pre>
-<p>In C# 7.3, this <code>out</code> variable syntax was extended to include field initializers, property initializers, constructor initializers, and query clauses. Basically, you have the power to use this everywhere that you can use out parameters.</p>
-<p>With the new changes, readability has hugely increased, the risk of using the value before initialisation has been removed, and it is probably something worth encouraging using again in those methods that could benefit with having out parameters for clean APIs, and performance.</p>
-<p>A small but simple improvement to the language that I would replace in every place you use <code>out</code> parameters.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In C# 7.3, this &lt;code&gt;out&lt;/code&gt; variable syntax was extended to include field initializers, property initializers, constructor initializers, and query clauses. Basically, you have the power to use this everywhere that you can use out parameters.&lt;/p&gt;
+&lt;p&gt;With the new changes, readability has hugely increased, the risk of using the value before initialisation has been removed, and it is probably something worth encouraging using again in those methods that could benefit with having out parameters for clean APIs, and performance.&lt;/p&gt;
+&lt;p&gt;A small but simple improvement to the language that I would replace in every place you use &lt;code&gt;out&lt;/code&gt; parameters.&lt;/p&gt;
 </description>
     </item>
     
@@ -780,23 +780,23 @@ if (Int32.TryParse(numberAsString, out number))
       <pubDate>Mon, 03 Jun 2019 10:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<h2 id="lambdas---a-recap">Lambdas - a recap</h2>
-<p>All the way back in C# 3 we were given lambdas. These are anonymous functions that can be passed around as what are essentially function pointers.</p>
-<p>&ldquo;Anonymous&rdquo; refers to the fact that the function has no name, and is not tied to an actual class or instance. The term comes from functional programming.</p>
-<p>In terms of implementation details, there are two categories of lambdas, those which stand alone and are pure functions, and those that have a captured scope, known as a closure. Closure, again, is a functional programming term. We capture variables from the scope of the parent and encapsulate them into this anonymous function instance.</p>
-<p>Pure functions can easily be refactored into a public static function in a static class very easily, and the compilation is very similar.</p>
-<pre><code class="language-cs">
-static Action&lt;int&gt; GetRandomValueFunction()
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;h2 id=&#34;lambdas---a-recap&#34;&gt;Lambdas - a recap&lt;/h2&gt;
+&lt;p&gt;All the way back in C# 3 we were given lambdas. These are anonymous functions that can be passed around as what are essentially function pointers.&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;Anonymous&amp;rdquo; refers to the fact that the function has no name, and is not tied to an actual class or instance. The term comes from functional programming.&lt;/p&gt;
+&lt;p&gt;In terms of implementation details, there are two categories of lambdas, those which stand alone and are pure functions, and those that have a captured scope, known as a closure. Closure, again, is a functional programming term. We capture variables from the scope of the parent and encapsulate them into this anonymous function instance.&lt;/p&gt;
+&lt;p&gt;Pure functions can easily be refactored into a public static function in a static class very easily, and the compilation is very similar.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
+static Action&amp;lt;int&amp;gt; GetRandomValueFunction()
 {
-    Console.WriteLine(&quot;Use static value for counter: {0}&quot;, counter);
-    return () =&gt; 5;
+    Console.WriteLine(&amp;quot;Use static value for counter: {0}&amp;quot;, counter);
+    return () =&amp;gt; 5;
 }
 
 // These two methods are the same as the above
-static Action&lt;int&gt; GetRandomValueFunction()
+static Action&amp;lt;int&amp;gt; GetRandomValueFunction()
 {
-    Console.WriteLine(&quot;Use static value for counter: {0}&quot;, counter);
+    Console.WriteLine(&amp;quot;Use static value for counter: {0}&amp;quot;, counter);
     return StaticValueFunction;
 }
 
@@ -804,28 +804,28 @@ static int StaticValueFunction()
 {
     return 5;
 }
-</code></pre>
-<p>There is no simple construct equivalent for closures. Hopefully, by example, we can see how these transform into simple static methods anyway. (In an example stolen from <a href="https://stackoverflow.com/a/5438331/2118268">SO</a>)</p>
-<pre><code class="language-cs"> static Action CreateShowAndIncrementAction()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is no simple construct equivalent for closures. Hopefully, by example, we can see how these transform into simple static methods anyway. (In an example stolen from &lt;a href=&#34;https://stackoverflow.com/a/5438331/2118268&#34;&gt;SO&lt;/a&gt;)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt; static Action CreateShowAndIncrementAction()
 {
     Random rng = new Random();
     int counter = rng.Next(10);
-    Console.WriteLine(&quot;Initial value for counter: {0}&quot;, counter);
-    return () =&gt;
+    Console.WriteLine(&amp;quot;Initial value for counter: {0}&amp;quot;, counter);
+    return () =&amp;gt;
     {
         Console.WriteLine(counter);
         counter++;
     };
 }
-</code></pre>
-<p>Given the above C# code, the compiled code will more closely resemble the below:</p>
-<pre><code class="language-cs">
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Given the above C# code, the compiled code will more closely resemble the below:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
 static Action CreateShowAndIncrementAction()
 {
     ActionHelper helper = new ActionHelper();        
     Random rng = new Random();
     helper.counter = rng.Next(10);
-    Console.WriteLine(&quot;Initial value for counter: {0}&quot;, helper.counter);
+    Console.WriteLine(&amp;quot;Initial value for counter: {0}&amp;quot;, helper.counter);
 
     // 
     return helper.DoAction;
@@ -841,12 +841,12 @@ class ActionHelper
         counter++;
     }
 }
-</code></pre>
-<p>Because the compiler generates these, it also controls access and visibility, so that you cannot actually access it in this way from your code directly. But it does all this automatically for you, and with fewer lines of code to achieve the same logical execution. It is also clearer from the lambda version that the calling method is the owner of the function, and no one else can or should share it.</p>
-<p>Clearly, lambdas reduce our lines of code and are superior.</p>
-<h2 id="working-with-lambdas">working with lambdas</h2>
-<p>Sometimes, though, your lambdas get complicated. When you have big complicated lambdas inside LINQ pipelines, it gets messy fast.</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because the compiler generates these, it also controls access and visibility, so that you cannot actually access it in this way from your code directly. But it does all this automatically for you, and with fewer lines of code to achieve the same logical execution. It is also clearer from the lambda version that the calling method is the owner of the function, and no one else can or should share it.&lt;/p&gt;
+&lt;p&gt;Clearly, lambdas reduce our lines of code and are superior.&lt;/p&gt;
+&lt;h2 id=&#34;working-with-lambdas&#34;&gt;working with lambdas&lt;/h2&gt;
+&lt;p&gt;Sometimes, though, your lambdas get complicated. When you have big complicated lambdas inside LINQ pipelines, it gets messy fast.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
 {
     var restriction =  _store.GetRestriction(restrictionNumber);
     
@@ -854,36 +854,36 @@ class ActionHelper
     // This `where` clause is only going to get more complicated from here.
     _store
         .GetWidgets()
-        .Where(w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction)
+        .Where(w =&amp;gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction == restriction)
         .Select(Map)
         .ToList();
 }
-</code></pre>
-<p>We have a few options prior to C# 7:</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We have a few options prior to C# 7:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
 {
     var restriction =  _store.GetRestriction(restrictionNumber);
     
     _store
         .GetWidgets()
-        .Where(w =&gt; Filter(w, plumb, restriction))
+        .Where(w =&amp;gt; Filter(w, plumb, restriction))
         .Select(Map)
         .ToList();
 }
 
 private bool Filter(Widget widget, string plumb, Restriction restriction)
 {
-    return (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction &gt; restriction;
+    return (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction &amp;gt; restriction;
 }
-</code></pre>
-<p>There are a couple of problems with this. We are now passing all the parameters through to the nested function. This is fine, but from a maintenance point of view, we might add more parameters and we now end up maintaining two signatures every time we change.</p>
-<p>Also, we open up for another function to start using the &ldquo;sharable&rdquo; filter function. Now we would be coupled to that new function. We can&rsquo;t change our own filter without affecting that other new function, and that adds brittle fragility. Sometimes duplicating logic that has different reasons to change is worth the duplication, but the architecture of this code does not guard against this.</p>
-<p>Another example is to pull the lambda into a variable:</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are a couple of problems with this. We are now passing all the parameters through to the nested function. This is fine, but from a maintenance point of view, we might add more parameters and we now end up maintaining two signatures every time we change.&lt;/p&gt;
+&lt;p&gt;Also, we open up for another function to start using the &amp;ldquo;sharable&amp;rdquo; filter function. Now we would be coupled to that new function. We can&amp;rsquo;t change our own filter without affecting that other new function, and that adds brittle fragility. Sometimes duplicating logic that has different reasons to change is worth the duplication, but the architecture of this code does not guard against this.&lt;/p&gt;
+&lt;p&gt;Another example is to pull the lambda into a variable:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
 {
     var restriction =  _store.GetRestriction(restrictionNumber);
     
-    var filter = w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction);
+    var filter = w =&amp;gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction == restriction);
     
     _store
         .GetWidgets()
@@ -891,19 +891,19 @@ private bool Filter(Widget widget, string plumb, Restriction restriction)
         .Select(Map)
         .ToList();
 }
-</code></pre>
-<p>Looking at the example, it adds some simplification. Because like the original example this lambda is a closure, the lambda can match the expected signature of the <code>Where</code> LINQ Extension.</p>
-<p>However, sometimes this approach causes issues with type interpolation. That is, if you pull out into a variable, often you can&rsquo;t use <code>var</code> or need to add explicit type casting to help the compiler out, or it will not compile.</p>
-<p>I don&rsquo;t think we have actually helped with the readability as much as we would like. It may not be obvious on the first pass of reading the function that this is a lambda, not a statement. This is also a simple example, and they can get more complex fast.</p>
-<h2 id="put-functions-inside-your-functions">Put functions inside your functions!</h2>
-<p>With C# 7, we can now use a nested function. This gives us the benefits of not polluting the namespace of the class, while also making it more readable. It also makes it clearer that the function is owned by the caller as the only consumer.</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Looking at the example, it adds some simplification. Because like the original example this lambda is a closure, the lambda can match the expected signature of the &lt;code&gt;Where&lt;/code&gt; LINQ Extension.&lt;/p&gt;
+&lt;p&gt;However, sometimes this approach causes issues with type interpolation. That is, if you pull out into a variable, often you can&amp;rsquo;t use &lt;code&gt;var&lt;/code&gt; or need to add explicit type casting to help the compiler out, or it will not compile.&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t think we have actually helped with the readability as much as we would like. It may not be obvious on the first pass of reading the function that this is a lambda, not a statement. This is also a simple example, and they can get more complex fast.&lt;/p&gt;
+&lt;h2 id=&#34;put-functions-inside-your-functions&#34;&gt;Put functions inside your functions!&lt;/h2&gt;
+&lt;p&gt;With C# 7, we can now use a nested function. This gives us the benefits of not polluting the namespace of the class, while also making it more readable. It also makes it clearer that the function is owned by the caller as the only consumer.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
 {
     var restriction =  _store.GetRestriction(restrictionNumber);
     
     bool Filter(Widget widget)
     {
-        return (w.PlumbBob.StartsWith(plumb) || w.PlumbBob.EndsWith(plumb)) &amp;&amp; w.Restriction &gt; restriction;
+        return (w.PlumbBob.StartsWith(plumb) || w.PlumbBob.EndsWith(plumb)) &amp;amp;&amp;amp; w.Restriction &amp;gt; restriction;
     }
     
     _store
@@ -912,43 +912,43 @@ private bool Filter(Widget widget, string plumb, Restriction restriction)
         .Select(Map)
         .ToList();
 }
-</code></pre>
-<p>Our compiler now ensures no one else can use this function. It is only callable from this method and gives the reader the knowledge that this is a specific implementation detail for this function only and not a shared common piece of logic. (Encapsulation.)</p>
-<p>In this example it also still allows us to use the simplified <code>Where</code> call.</p>
-<p>The best example of where this is really useful is recursion.</p>
-<p>Often a recursive algorithm has a bootstrap function, that then calls the recursive part. Let&rsquo;s print a tree of items with indentations.</p>
-<pre><code class="language-cs">public static void PrintLines(TextWriter out, Tree items)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our compiler now ensures no one else can use this function. It is only callable from this method and gives the reader the knowledge that this is a specific implementation detail for this function only and not a shared common piece of logic. (Encapsulation.)&lt;/p&gt;
+&lt;p&gt;In this example it also still allows us to use the simplified &lt;code&gt;Where&lt;/code&gt; call.&lt;/p&gt;
+&lt;p&gt;The best example of where this is really useful is recursion.&lt;/p&gt;
+&lt;p&gt;Often a recursive algorithm has a bootstrap function, that then calls the recursive part. Let&amp;rsquo;s print a tree of items with indentations.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public static void PrintLines(TextWriter out, Tree items)
 {
     out.WriteLine(items.Title);
     foreach(var node in items.Children)
     {
-        Print(out, node, &quot;&quot;);
+        Print(out, node, &amp;quot;&amp;quot;);
     }
 }
 
 private void Print(TextWriter out, TreeNode node, string indent)
 {
-    out.WriteLine(&quot;{0}{1}&quot;, indent, items.Title);
+    out.WriteLine(&amp;quot;{0}{1}&amp;quot;, indent, items.Title);
     if(node.HasChildren)
     {
         foreach(var node in items.Children)
         {
-            Print(out, node indent + &quot;    &quot;);
+            Print(out, node indent + &amp;quot;    &amp;quot;);
         }
     }
 }
-</code></pre>
-<p>For simplicity you can now write this:</p>
-<pre><code class="language-cs">public static void PrintLines(TextWriter out, Tree items)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For simplicity you can now write this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public static void PrintLines(TextWriter out, Tree items)
 {
     void Print(TreeNode node, string indent)
     {
-        out.WriteLine(&quot;{0}{1}&quot;, indent, items.Title);
+        out.WriteLine(&amp;quot;{0}{1}&amp;quot;, indent, items.Title);
         if(node.HasChildren)
         {
             foreach(var node in items.Children)
             {
-                Print(out, node indent + &quot;    &quot;);
+                Print(out, node indent + &amp;quot;    &amp;quot;);
             }
         }
     }
@@ -956,14 +956,14 @@ private void Print(TextWriter out, TreeNode node, string indent)
     out.WriteLine(items.Title);
     foreach(var node in items.Children)
     {
-        Print(node, &quot;&quot;);
+        Print(node, &amp;quot;&amp;quot;);
     }
 }
 
-</code></pre>
-<p>This example may not reduce lines of code by much, but the cognitive load of the encapsulation can be hugely beneficial when in a class with more service methods as well.</p>
-<h2 id="summary">Summary</h2>
-<p>The cliché &ldquo;another tool in the toolbelt&rdquo; comes to mind but this is certainly that, and sprinkled through code strategically can really help with readability and maintainability. Not a &ldquo;use often&rdquo; but certainly something I can and have used in my dotnet apps.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This example may not reduce lines of code by much, but the cognitive load of the encapsulation can be hugely beneficial when in a class with more service methods as well.&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;The cliché &amp;ldquo;another tool in the toolbelt&amp;rdquo; comes to mind but this is certainly that, and sprinkled through code strategically can really help with readability and maintainability. Not a &amp;ldquo;use often&amp;rdquo; but certainly something I can and have used in my dotnet apps.&lt;/p&gt;
 </description>
     </item>
     
@@ -973,19 +973,19 @@ private void Print(TextWriter out, TreeNode node, string indent)
       <pubDate>Fri, 31 May 2019 10:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/mucon-2019-part2/</guid>
-      <description><p>Good morning day 3. So much to absorb already from <a href="/mucon-2019-part1/">Day 1 and 2</a> but it isn&rsquo;t over yet.</p>
-<p>This morning&rsquo;s Keynote &ldquo;Crossing the River by Feeling the Stones&rdquo; from <a href="https://twitter.com/swardley">Simon Wardley</a> is a must see. This was a very educational look at the value of maps, and the importance of knowing the landscape, looking at Evolutionary Flow and not just Process Flow when looking at optimisations. I would recommend the talk from Susanne Kaiser &ldquo;Preparing for a future Microservices journey&rdquo; from the day before as a nice companion to this keynote talk, as she used &ldquo;Wardley Maps&rdquo; to specifically look at the evolution towards microservices. (Though this keynote also shows that journey towards the end as well).</p>
-<p>&ldquo;Exploring your Microservices Architecture Through Graph Theory&rdquo; from <a href="https://twitter.com/techiewatt">Nicki Watt</a> was a great look at applying Graph Theory to distributed systems, especially with Microservices to gain insight into where architectural smells may exist using different analysis metrics.</p>
-<p>The before lunch slot was &ldquo;Awesome CI/CD Data Pipelines for Distributed Data-Sources&rdquo; from <a href="https://twitter.com/ChrisBurrell7">Chris Burrell</a>. This was a walkthrough of mining data sources (load and transform) from Microservices into RedShift in a pipeline approach.</p>
-<p>&ldquo;An Engineer&rsquo;s Guide to a Good Night&rsquo;s Sleep&rdquo; had <a href="https://twitter.com/NickyWrightson">Nicky Wrightson</a> giving a great Engineers Guide to Ops approach to building software, with 5 rules for building better systems so you don&rsquo;t have to be woken up at 3 am. Slides available here: <a href="https://speakerdeck.com/nickywrightson">https://speakerdeck.com/nickywrightson</a>.</p>
-<p><a href="https://twitter.com/matthiasnoback">Matthias Noback</a> presented &ldquo;Beyond Design Principles and Patterns: Writing Good Object-Oriented Code&rdquo; which was a great look at Object-Oriented code done right, in a nice succinctly laid out path from the ground up. I want to steal the whole thing as a blog post it was so well put together. Although there were code examples (Java?), the concepts given transcended across any OO language and presented in a nice language-agnostic way. Unfortunately, I didn&rsquo;t learn anything new, and I also had nothing to disagree with either.</p>
-<p><a href="https://twitter.com/mufridk">Mufrid Krilic</a> gave an interesting Lightning Talk: &ldquo;Domain Model in Multi-Language Environment with Examples from Healthcare&rdquo; which was a brief conversation about ubiquitous language when your code is in English but your domain is in Norwegian. This was from experience with a hospital software system.</p>
-<p>To round out the weeks Lightning Talks was &ldquo;Don&rsquo;t Rebuild your Monolith!&rdquo; by <a href="https://twitter.com/PeterAnning">Peter Anning</a>. An epic tale of transformation from Monolith, to Microservices, regrets and reaffirmations. An entertaining watch with the takeaway that processes like DevOps, Agile and Ubiquitous Langage that come out of moving to microservices must be maintained and assimilated, lest we forget and the monolith grows back.</p>
-<p>And last but not least, we have the final Keynote: &ldquo;Temporal Modelling&rdquo; from <a href="https://twitter.com/mathiasverraes">Mathias Verraes</a>. A really good overview conversation into Event-based systems, Event Storming and why modelling the Events of your system is of greater benefit than to use Entity Modelling instead. Another recommended one to expand your thinking.</p>
-<h2 id="summary">Summary</h2>
-<p>And that&rsquo;s a wrap! 2019 µCon is done and dusted. Lots to take in, lots to revisit from the recordings, and a bunch of sessions missed that need to be watched.</p>
-<p>The amazing crew doing the filming have been working away getting all the videos up as quickly as possible (on the day recorded for the most part!). You can head over to Skills Matter and watch them all from the links provided off of the <a href="https://skillsmatter.com/conferences/11982-con-london-2019-the-conference-on-microservices-ddd-and-software-architecture#program">Schedule here</a>. Take this and <a href="/mucon-2019-part1/">the previous part</a> as a guide for where to begin but continue through all the other amazing talks I didn&rsquo;t have time to attend in person as well.</p>
-<p>Happy Learning!</p>
+      <description>&lt;p&gt;Good morning day 3. So much to absorb already from &lt;a href=&#34;https://csmacnzblog.github.io/mucon-2019-part1/&#34;&gt;Day 1 and 2&lt;/a&gt; but it isn&amp;rsquo;t over yet.&lt;/p&gt;
+&lt;p&gt;This morning&amp;rsquo;s Keynote &amp;ldquo;Crossing the River by Feeling the Stones&amp;rdquo; from &lt;a href=&#34;https://twitter.com/swardley&#34;&gt;Simon Wardley&lt;/a&gt; is a must see. This was a very educational look at the value of maps, and the importance of knowing the landscape, looking at Evolutionary Flow and not just Process Flow when looking at optimisations. I would recommend the talk from Susanne Kaiser &amp;ldquo;Preparing for a future Microservices journey&amp;rdquo; from the day before as a nice companion to this keynote talk, as she used &amp;ldquo;Wardley Maps&amp;rdquo; to specifically look at the evolution towards microservices. (Though this keynote also shows that journey towards the end as well).&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;Exploring your Microservices Architecture Through Graph Theory&amp;rdquo; from &lt;a href=&#34;https://twitter.com/techiewatt&#34;&gt;Nicki Watt&lt;/a&gt; was a great look at applying Graph Theory to distributed systems, especially with Microservices to gain insight into where architectural smells may exist using different analysis metrics.&lt;/p&gt;
+&lt;p&gt;The before lunch slot was &amp;ldquo;Awesome CI/CD Data Pipelines for Distributed Data-Sources&amp;rdquo; from &lt;a href=&#34;https://twitter.com/ChrisBurrell7&#34;&gt;Chris Burrell&lt;/a&gt;. This was a walkthrough of mining data sources (load and transform) from Microservices into RedShift in a pipeline approach.&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;An Engineer&amp;rsquo;s Guide to a Good Night&amp;rsquo;s Sleep&amp;rdquo; had &lt;a href=&#34;https://twitter.com/NickyWrightson&#34;&gt;Nicky Wrightson&lt;/a&gt; giving a great Engineers Guide to Ops approach to building software, with 5 rules for building better systems so you don&amp;rsquo;t have to be woken up at 3 am. Slides available here: &lt;a href=&#34;https://speakerdeck.com/nickywrightson&#34;&gt;https://speakerdeck.com/nickywrightson&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/matthiasnoback&#34;&gt;Matthias Noback&lt;/a&gt; presented &amp;ldquo;Beyond Design Principles and Patterns: Writing Good Object-Oriented Code&amp;rdquo; which was a great look at Object-Oriented code done right, in a nice succinctly laid out path from the ground up. I want to steal the whole thing as a blog post it was so well put together. Although there were code examples (Java?), the concepts given transcended across any OO language and presented in a nice language-agnostic way. Unfortunately, I didn&amp;rsquo;t learn anything new, and I also had nothing to disagree with either.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/mufridk&#34;&gt;Mufrid Krilic&lt;/a&gt; gave an interesting Lightning Talk: &amp;ldquo;Domain Model in Multi-Language Environment with Examples from Healthcare&amp;rdquo; which was a brief conversation about ubiquitous language when your code is in English but your domain is in Norwegian. This was from experience with a hospital software system.&lt;/p&gt;
+&lt;p&gt;To round out the weeks Lightning Talks was &amp;ldquo;Don&amp;rsquo;t Rebuild your Monolith!&amp;rdquo; by &lt;a href=&#34;https://twitter.com/PeterAnning&#34;&gt;Peter Anning&lt;/a&gt;. An epic tale of transformation from Monolith, to Microservices, regrets and reaffirmations. An entertaining watch with the takeaway that processes like DevOps, Agile and Ubiquitous Langage that come out of moving to microservices must be maintained and assimilated, lest we forget and the monolith grows back.&lt;/p&gt;
+&lt;p&gt;And last but not least, we have the final Keynote: &amp;ldquo;Temporal Modelling&amp;rdquo; from &lt;a href=&#34;https://twitter.com/mathiasverraes&#34;&gt;Mathias Verraes&lt;/a&gt;. A really good overview conversation into Event-based systems, Event Storming and why modelling the Events of your system is of greater benefit than to use Entity Modelling instead. Another recommended one to expand your thinking.&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;And that&amp;rsquo;s a wrap! 2019 µCon is done and dusted. Lots to take in, lots to revisit from the recordings, and a bunch of sessions missed that need to be watched.&lt;/p&gt;
+&lt;p&gt;The amazing crew doing the filming have been working away getting all the videos up as quickly as possible (on the day recorded for the most part!). You can head over to Skills Matter and watch them all from the links provided off of the &lt;a href=&#34;https://skillsmatter.com/conferences/11982-con-london-2019-the-conference-on-microservices-ddd-and-software-architecture#program&#34;&gt;Schedule here&lt;/a&gt;. Take this and &lt;a href=&#34;https://csmacnzblog.github.io/mucon-2019-part1/&#34;&gt;the previous part&lt;/a&gt; as a guide for where to begin but continue through all the other amazing talks I didn&amp;rsquo;t have time to attend in person as well.&lt;/p&gt;
+&lt;p&gt;Happy Learning!&lt;/p&gt;
 </description>
     </item>
     
@@ -995,38 +995,38 @@ private void Print(TextWriter out, TreeNode node, string indent)
       <pubDate>Thu, 30 May 2019 20:05:21 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/mucon-2019-part1/</guid>
-      <description><p>After a restful night at a London hotel (I learned my lesson from the last time I came in for a London conference) coffee and breakfast at the Business Design Centre in London, muCon 2019 kicks off. muCon (or µCon) is a Conference on Microservices, DDD &amp; Software Architecture. From what I gather, this year for the first time it is an amalgamation of a DDD and Microservices conference into one. I&rsquo;m here for three days. At this point, I&rsquo;ve gotten into a rhythm of blogging about my Conference Experiences so here we go again!</p>
-<h2 id="day-1">Day 1</h2>
-<p>We kick off with an excellent keynote from <a href="https://twitter.com/mfeathers">Michael Feathers</a> which captures various ideologies and principles applied to team and code architecture both at the class level, microservice level and interpersonal individual and team level as well.</p>
-<!-- raw HTML omitted -->
-<p>As usual, the day is split into tracks, so I can only give experience on where I&rsquo;ve been and guidance of which speakers and talks I would look out for in the future.</p>
-<p>Following on from the keynote for me was &ldquo;Microservices from Day One&rdquo; from <a href="https://twitter.com/rjrodger">Richard Rodger</a>. First-hand experience of building Microservices on a greenfields startup after <a href="https://www.manning.com/books/the-tao-of-microservices">literally writing a book on Microservices</a> development, a chance to practice what he preached.  An interesting takeaway that I liked was to design a message-centric system of components(microservices) and then the transport/routing layer doesn&rsquo;t matter (from a technology point of view). This resonates with me because it aligns nicely with the Ports and Adapters architecture.</p>
-<!-- raw HTML omitted -->
-<p>Next up, and filling the pre-lunch slot was &ldquo;Creating an Effective Developer Experience for Cloud-Native Apps&rdquo; from <a href="https://twitter.com/danielbryantuk">Daniel Bryant</a>. A great introduction and overview of DevEx, the idea of building a great experience for developers from coding to prod and beyond in the modern world of cloud-native, Kubernetes and Serverless. Whether it is &ldquo;build or buy&rdquo;, cloud or in-house hosting, the story for developers to build, debug, test, deploy and monitor should be a first-class consideration of developing software.</p>
-<!-- raw HTML omitted -->
-<p>&ldquo;The Gordian Knot&rdquo; from <a href="https://twitter.com/ziobrando">Alberto Brandolini</a> the importance of culture and the influence architecture plays on affecting that culture. Very interesting and a nice perspective on Conway&rsquo;s Law in many ways, and thinking about affecting change.</p>
-<!-- raw HTML omitted -->
-<p>&ldquo;Strategic Domain-Driven Design Patterns&rdquo; from <a href="https://twitter.com/ntcoding">Nick Tune</a> was an interesting discussion on DDD grouping. Definitely a topic I need to read the (blue) book on, literally and figuratively. (Although I am told one does not simply &ldquo;read&rdquo; Eric Evans' Domain Drive Design&hellip;) Some very high-level patterns and approaches to help with finding groupings in your system.</p>
-<!-- raw HTML omitted -->
-<p>&ldquo;Event Driven Collaboration&rdquo; from <a href="https://twitter.com/ICooper">Ian Cooper</a> another look at the <a href="https://blog.csmac.nz/geeking-out-at-altnetbrum-2018/#referencedataarchitecture">Reference Data concept</a>, with some practical examples of what and how you might go about implementing this. A revision on the concepts of inside mutable data Vs outside immutable data, events, messages and caching.</p>
-<!-- raw HTML omitted -->
-<p>The day wound down with a couple of Lightning Talks. A standout for me was &ldquo;Continuous Visibility, No More Dashboards!&rdquo; From <a href="https://twitter.com/JBJamesBrownJB">James Brown</a> on Continuous Visibility (CV). Using Alerts and notifications more, and only selectively add trends and maybe CI statuses to a physical dashboard where space is a premium (but don&rsquo;t forget to add GIfs!).</p>
-<!-- raw HTML omitted -->
-<h2 id="day-2">Day 2</h2>
-<p>Day 2 kicks off with another leading Keynote: &ldquo;Getting to DDD: Pragmatic or Principled?&rdquo; from
-<a href="https://twitter.com/julielerman">Julie Lerman</a>. Julie gave a discussion on the DDD journey, engaging with new adopters, and how building on the concepts with a group slowly can be a great way to bring more people on board, without getting hung up on being too principled or having to be all in with everything DDD at once.</p>
-<p>&ldquo;Preparing for a future Microservices journey&rdquo;
-from <a href="https://twitter.com/suksr">Susanne Kaiser</a> presented a journey from custom build through Microservices to Serverless taking all aspects of a hosted piece of software and it&rsquo;s infrastructure concerns transitioning through Build vs Buy, to commoditization.</p>
-<!-- raw HTML omitted -->
-<p>&ldquo;Observable Microservices&rdquo; from <a href="https://twitter.com/mariascandella">Maria Gomez</a> went through the what of observability (logs, alerts and tracing) along with the &lsquo;why&rsquo; for the value it provides to you once your services are in production.</p>
-<p>After lunch, <a href="https://twitter.com/duffleit">David Leitner</a> presented &ldquo;Micro Frontends – A Strive for Fully Verticalized Systems&rdquo;. A nice definition of MicroFrontends and example architectures to add to your toolbox of &ldquo;it depends&rdquo; solutions. Very clearly outlined the when and where the different approaches are applicable. Definitely check out his work if your thinking about verticalized splitting your frontend.</p>
-<p>This led into the afternoon Workshop: &ldquo;Show me the Kubernetes&rdquo; with <a href="https://twitter.com/denhamparry">Lewis Denham-Parry</a> and <a href="https://twitter.com/SoulmanIqbal">Salman Iqbal</a>. They walked us through the demos at <a href="https://github.com/CloudNativeWales/ShowMeTheKubernetes">github.com/CloudNativeWales/ShowMeTheKubernetes</a> which worked well on a temporarily spun up cluster on Azure, or with a Minikube locally (instructions included in both cases). Further examples were promised so there might be more than the three we went through in the session.</p>
-<p>To round out the second day was a keynote from <a href="https://twitter.com/dianamontalion">Diana Montalion</a> on Making a Case for Conceptual Integrity. I&rsquo;m not too proud to admit that I didn&rsquo;t understand the term &ldquo;conceptual integrity&rdquo; at the end and couldn&rsquo;t give you the definition. However, the topic was very interesting and the steps discussed to reach the definition given were very useful and interesting in themselves that to me it didn&rsquo;t matter. Maybe I&rsquo;m lacking the experience at this stage to accurately grok this, and others with more systems consulting experience and exposure did.</p>
-<!-- raw HTML omitted -->
-<h2 id="summary">Summary</h2>
-<p>Of course, most if not all of the talks were recorded and appear online (links added where available) but as usual you have missed the hallway conversations by not being here. These are usually the best part of any conference and this has been no exception.  One great conversation leads to quoting the statement that never had anyone said or seen a system that would be described as too gold plated, or too well tested. Most systems instead suffer from not being of a good enough quality or lacking in test coverage.</p>
-<p>In other conversations being able to share structures and strategies gives insight into what is or isn&rsquo;t working for other teams and companies and gives a relative look at where they are on their journey compared to you with yours. But based on the guidance and experience of others here, we all seem to be heading in a similar direction through SOA to DDD and Microservices.</p>
-<p>Stay tuned for a summary of my day 3 experience.</p>
+      <description>&lt;p&gt;After a restful night at a London hotel (I learned my lesson from the last time I came in for a London conference) coffee and breakfast at the Business Design Centre in London, muCon 2019 kicks off. muCon (or µCon) is a Conference on Microservices, DDD &amp;amp; Software Architecture. From what I gather, this year for the first time it is an amalgamation of a DDD and Microservices conference into one. I&amp;rsquo;m here for three days. At this point, I&amp;rsquo;ve gotten into a rhythm of blogging about my Conference Experiences so here we go again!&lt;/p&gt;
+&lt;h2 id=&#34;day-1&#34;&gt;Day 1&lt;/h2&gt;
+&lt;p&gt;We kick off with an excellent keynote from &lt;a href=&#34;https://twitter.com/mfeathers&#34;&gt;Michael Feathers&lt;/a&gt; which captures various ideologies and principles applied to team and code architecture both at the class level, microservice level and interpersonal individual and team level as well.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;As usual, the day is split into tracks, so I can only give experience on where I&amp;rsquo;ve been and guidance of which speakers and talks I would look out for in the future.&lt;/p&gt;
+&lt;p&gt;Following on from the keynote for me was &amp;ldquo;Microservices from Day One&amp;rdquo; from &lt;a href=&#34;https://twitter.com/rjrodger&#34;&gt;Richard Rodger&lt;/a&gt;. First-hand experience of building Microservices on a greenfields startup after &lt;a href=&#34;https://www.manning.com/books/the-tao-of-microservices&#34;&gt;literally writing a book on Microservices&lt;/a&gt; development, a chance to practice what he preached.  An interesting takeaway that I liked was to design a message-centric system of components(microservices) and then the transport/routing layer doesn&amp;rsquo;t matter (from a technology point of view). This resonates with me because it aligns nicely with the Ports and Adapters architecture.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;Next up, and filling the pre-lunch slot was &amp;ldquo;Creating an Effective Developer Experience for Cloud-Native Apps&amp;rdquo; from &lt;a href=&#34;https://twitter.com/danielbryantuk&#34;&gt;Daniel Bryant&lt;/a&gt;. A great introduction and overview of DevEx, the idea of building a great experience for developers from coding to prod and beyond in the modern world of cloud-native, Kubernetes and Serverless. Whether it is &amp;ldquo;build or buy&amp;rdquo;, cloud or in-house hosting, the story for developers to build, debug, test, deploy and monitor should be a first-class consideration of developing software.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&amp;ldquo;The Gordian Knot&amp;rdquo; from &lt;a href=&#34;https://twitter.com/ziobrando&#34;&gt;Alberto Brandolini&lt;/a&gt; the importance of culture and the influence architecture plays on affecting that culture. Very interesting and a nice perspective on Conway&amp;rsquo;s Law in many ways, and thinking about affecting change.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&amp;ldquo;Strategic Domain-Driven Design Patterns&amp;rdquo; from &lt;a href=&#34;https://twitter.com/ntcoding&#34;&gt;Nick Tune&lt;/a&gt; was an interesting discussion on DDD grouping. Definitely a topic I need to read the (blue) book on, literally and figuratively. (Although I am told one does not simply &amp;ldquo;read&amp;rdquo; Eric Evans&#39; Domain Drive Design&amp;hellip;) Some very high-level patterns and approaches to help with finding groupings in your system.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&amp;ldquo;Event Driven Collaboration&amp;rdquo; from &lt;a href=&#34;https://twitter.com/ICooper&#34;&gt;Ian Cooper&lt;/a&gt; another look at the &lt;a href=&#34;https://blog.csmac.nz/geeking-out-at-altnetbrum-2018/#referencedataarchitecture&#34;&gt;Reference Data concept&lt;/a&gt;, with some practical examples of what and how you might go about implementing this. A revision on the concepts of inside mutable data Vs outside immutable data, events, messages and caching.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;The day wound down with a couple of Lightning Talks. A standout for me was &amp;ldquo;Continuous Visibility, No More Dashboards!&amp;rdquo; From &lt;a href=&#34;https://twitter.com/JBJamesBrownJB&#34;&gt;James Brown&lt;/a&gt; on Continuous Visibility (CV). Using Alerts and notifications more, and only selectively add trends and maybe CI statuses to a physical dashboard where space is a premium (but don&amp;rsquo;t forget to add GIfs!).&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;day-2&#34;&gt;Day 2&lt;/h2&gt;
+&lt;p&gt;Day 2 kicks off with another leading Keynote: &amp;ldquo;Getting to DDD: Pragmatic or Principled?&amp;rdquo; from
+&lt;a href=&#34;https://twitter.com/julielerman&#34;&gt;Julie Lerman&lt;/a&gt;. Julie gave a discussion on the DDD journey, engaging with new adopters, and how building on the concepts with a group slowly can be a great way to bring more people on board, without getting hung up on being too principled or having to be all in with everything DDD at once.&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;Preparing for a future Microservices journey&amp;rdquo;
+from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; presented a journey from custom build through Microservices to Serverless taking all aspects of a hosted piece of software and it&amp;rsquo;s infrastructure concerns transitioning through Build vs Buy, to commoditization.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&amp;ldquo;Observable Microservices&amp;rdquo; from &lt;a href=&#34;https://twitter.com/mariascandella&#34;&gt;Maria Gomez&lt;/a&gt; went through the what of observability (logs, alerts and tracing) along with the &amp;lsquo;why&amp;rsquo; for the value it provides to you once your services are in production.&lt;/p&gt;
+&lt;p&gt;After lunch, &lt;a href=&#34;https://twitter.com/duffleit&#34;&gt;David Leitner&lt;/a&gt; presented &amp;ldquo;Micro Frontends – A Strive for Fully Verticalized Systems&amp;rdquo;. A nice definition of MicroFrontends and example architectures to add to your toolbox of &amp;ldquo;it depends&amp;rdquo; solutions. Very clearly outlined the when and where the different approaches are applicable. Definitely check out his work if your thinking about verticalized splitting your frontend.&lt;/p&gt;
+&lt;p&gt;This led into the afternoon Workshop: &amp;ldquo;Show me the Kubernetes&amp;rdquo; with &lt;a href=&#34;https://twitter.com/denhamparry&#34;&gt;Lewis Denham-Parry&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/SoulmanIqbal&#34;&gt;Salman Iqbal&lt;/a&gt;. They walked us through the demos at &lt;a href=&#34;https://github.com/CloudNativeWales/ShowMeTheKubernetes&#34;&gt;github.com/CloudNativeWales/ShowMeTheKubernetes&lt;/a&gt; which worked well on a temporarily spun up cluster on Azure, or with a Minikube locally (instructions included in both cases). Further examples were promised so there might be more than the three we went through in the session.&lt;/p&gt;
+&lt;p&gt;To round out the second day was a keynote from &lt;a href=&#34;https://twitter.com/dianamontalion&#34;&gt;Diana Montalion&lt;/a&gt; on Making a Case for Conceptual Integrity. I&amp;rsquo;m not too proud to admit that I didn&amp;rsquo;t understand the term &amp;ldquo;conceptual integrity&amp;rdquo; at the end and couldn&amp;rsquo;t give you the definition. However, the topic was very interesting and the steps discussed to reach the definition given were very useful and interesting in themselves that to me it didn&amp;rsquo;t matter. Maybe I&amp;rsquo;m lacking the experience at this stage to accurately grok this, and others with more systems consulting experience and exposure did.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Of course, most if not all of the talks were recorded and appear online (links added where available) but as usual you have missed the hallway conversations by not being here. These are usually the best part of any conference and this has been no exception.  One great conversation leads to quoting the statement that never had anyone said or seen a system that would be described as too gold plated, or too well tested. Most systems instead suffer from not being of a good enough quality or lacking in test coverage.&lt;/p&gt;
+&lt;p&gt;In other conversations being able to share structures and strategies gives insight into what is or isn&amp;rsquo;t working for other teams and companies and gives a relative look at where they are on their journey compared to you with yours. But based on the guidance and experience of others here, we all seem to be heading in a similar direction through SOA to DDD and Microservices.&lt;/p&gt;
+&lt;p&gt;Stay tuned for a summary of my day 3 experience.&lt;/p&gt;
 </description>
     </item>
     

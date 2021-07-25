@@ -19,25 +19,25 @@
       <pubDate>Sun, 08 Mar 2015 17:34:21 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/introducing-publishcoverity/</guid>
-      <description><p>As part of my open source development tooling investigation, I came across <a href="https://scan.coverity.com/">Coverity Scan</a> Static Analysis. And thanks to <a href="http://arkfps.github.io/2015/01/07/using-coverity-scan-with-appveyor/">Arkfps' post</a> I could automate the process of submitting the results. And now <a href="http://help.appveyor.com/discussions/suggestions/497-coverity-static-analysis-support">Appveyor includes Coverity on it&rsquo;s images</a>. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.</p>
-<p><a href="https://www.nuget.org/packages/PublishCoverity">PublishCoverity</a> is available on NuGet, and has two use cases: Compress and Publish.</p>
-<p>Compress takes a directory and compresses it to produce an output zip file.</p>
-<pre><code class="language-cmd">Signature:
-    PublishCoverity compress [-o &lt;file&gt;] [-i &lt;folder&gt;] [--overwrite] [--dryrun]
+      <description>&lt;p&gt;As part of my open source development tooling investigation, I came across &lt;a href=&#34;https://scan.coverity.com/&#34;&gt;Coverity Scan&lt;/a&gt; Static Analysis. And thanks to &lt;a href=&#34;http://arkfps.github.io/2015/01/07/using-coverity-scan-with-appveyor/&#34;&gt;Arkfps&#39; post&lt;/a&gt; I could automate the process of submitting the results. And now &lt;a href=&#34;http://help.appveyor.com/discussions/suggestions/497-coverity-static-analysis-support&#34;&gt;Appveyor includes Coverity on it&amp;rsquo;s images&lt;/a&gt;. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.nuget.org/packages/PublishCoverity&#34;&gt;PublishCoverity&lt;/a&gt; is available on NuGet, and has two use cases: Compress and Publish.&lt;/p&gt;
+&lt;p&gt;Compress takes a directory and compresses it to produce an output zip file.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;Signature:
+    PublishCoverity compress [-o &amp;lt;file&amp;gt;] [-i &amp;lt;folder&amp;gt;] [--overwrite] [--dryrun]
 
 Example:
     PublishCoverity compress -o results.zip -i cov-int
-</code></pre>
-<p>Publish takes that file and some of your project data and posts it off to Coverity for you.</p>
-<pre><code class="language-cmd">Signature:
-    PublishCoverity publish -t &lt;token&gt; -e &lt;email&gt; [-r &lt;name&gt;] [-z &lt;file&gt;] [-d &lt;desc&gt;] [--codeVersion &lt;version&gt;] [--dryrun] [--nologo]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Publish takes that file and some of your project data and posts it off to Coverity for you.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;Signature:
+    PublishCoverity publish -t &amp;lt;token&amp;gt; -e &amp;lt;email&amp;gt; [-r &amp;lt;name&amp;gt;] [-z &amp;lt;file&amp;gt;] [-d &amp;lt;desc&amp;gt;] [--codeVersion &amp;lt;version&amp;gt;] [--dryrun] [--nologo]
     
 Example:
-    PublishCoverity publish -t COVERITYTOKEN -e example@example.com -r MyUser/MyProject -z results.zip -d &quot;my project&quot; --codeVersion 0.1.2.3
-</code></pre>
-<p>Although this is still evolving, the gist of what is above will be available to compress and/or publish your results to Coverity Scan. The idea is that anything that I can reasonably determine for you I will try and make optional. Such as your repository name from the AppVeyor Build Environment variables.</p>
-<p>I&rsquo;ve already had a request to add some guards around the results to ensure they are valid and complete before sending, but right now version 0.9 is available on NuGet for you to install and use, and the source is <a href="https://github.com/csMACnz/coveritypublisher">available on GitHub</a>  All feedback and features requests welcome as GitHub issues, or just comment on this post.</p>
-<p>Enjoy!</p>
+    PublishCoverity publish -t COVERITYTOKEN -e example@example.com -r MyUser/MyProject -z results.zip -d &amp;quot;my project&amp;quot; --codeVersion 0.1.2.3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Although this is still evolving, the gist of what is above will be available to compress and/or publish your results to Coverity Scan. The idea is that anything that I can reasonably determine for you I will try and make optional. Such as your repository name from the AppVeyor Build Environment variables.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve already had a request to add some guards around the results to ensure they are valid and complete before sending, but right now version 0.9 is available on NuGet for you to install and use, and the source is &lt;a href=&#34;https://github.com/csMACnz/coveritypublisher&#34;&gt;available on GitHub&lt;/a&gt;  All feedback and features requests welcome as GitHub issues, or just comment on this post.&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
 </description>
     </item>
     

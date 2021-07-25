@@ -19,92 +19,92 @@
       <pubDate>Tue, 25 Oct 2016 00:54:19 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnet/</guid>
-      <description><p>The new .Net Core CLI has the ability to use <a href="http://xunit.github.io/docs/getting-started-dotnet-core.html">xunit</a> or <a href="https://github.com/nunit/dotnet-test-nunit">nunit</a>. Which is great. For running tests locally.</p>
-<p>I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to <a href="https://confluence.jetbrains.com/display/TCD10/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-ImportingXMLReports">import xml reports</a> which supports <code>junit</code> (which is xunit-compatible) and <code>nunit</code>. But choosing <code>nunit</code> means support for the nunit2 xml format. And guess what? The new .Net Core test runner for nunit <a href="https://github.com/nunit/dotnet-test-nunit/issues/75">only outputs in nunit3 format</a>.</p>
-<p>Now, the decision makes perfect sense to me. The new format is more expressive, gives more information and is the future. And vendors need to start using it and move away from the old format. But as you can imagine, JetBrains just hasn&rsquo;t gotten around to <a href="https://youtrack.jetbrains.com/issue/TW-46195">getting it right yet</a>. (There is some support in TC 10.0.2 but it seems there might be some teething issues and many of us are still on TC 9.X anyway.)</p>
-<p>So what do I do about this? Solve it with code of course! And the solution is xslt (Hey! it gets the job done ok?)</p>
-<p>Thanks to <a href="https://issues.jenkins-ci.org/browse/JENKINS-32999">some notes on this related Jenkins issue</a> from <a href="https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=tenwit">Paul Hicks</a>, I have this xslt page (with a small tweak to fix a value casing issue):</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
-  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+      <description>&lt;p&gt;The new .Net Core CLI has the ability to use &lt;a href=&#34;http://xunit.github.io/docs/getting-started-dotnet-core.html&#34;&gt;xunit&lt;/a&gt; or &lt;a href=&#34;https://github.com/nunit/dotnet-test-nunit&#34;&gt;nunit&lt;/a&gt;. Which is great. For running tests locally.&lt;/p&gt;
+&lt;p&gt;I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to &lt;a href=&#34;https://confluence.jetbrains.com/display/TCD10/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-ImportingXMLReports&#34;&gt;import xml reports&lt;/a&gt; which supports &lt;code&gt;junit&lt;/code&gt; (which is xunit-compatible) and &lt;code&gt;nunit&lt;/code&gt;. But choosing &lt;code&gt;nunit&lt;/code&gt; means support for the nunit2 xml format. And guess what? The new .Net Core test runner for nunit &lt;a href=&#34;https://github.com/nunit/dotnet-test-nunit/issues/75&#34;&gt;only outputs in nunit3 format&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Now, the decision makes perfect sense to me. The new format is more expressive, gives more information and is the future. And vendors need to start using it and move away from the old format. But as you can imagine, JetBrains just hasn&amp;rsquo;t gotten around to &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-46195&#34;&gt;getting it right yet&lt;/a&gt;. (There is some support in TC 10.0.2 but it seems there might be some teething issues and many of us are still on TC 9.X anyway.)&lt;/p&gt;
+&lt;p&gt;So what do I do about this? Solve it with code of course! And the solution is xslt (Hey! it gets the job done ok?)&lt;/p&gt;
+&lt;p&gt;Thanks to &lt;a href=&#34;https://issues.jenkins-ci.org/browse/JENKINS-32999&#34;&gt;some notes on this related Jenkins issue&lt;/a&gt; from &lt;a href=&#34;https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=tenwit&#34;&gt;Paul Hicks&lt;/a&gt;, I have this xslt page (with a small tweak to fix a value casing issue):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
+&amp;lt;xsl:stylesheet version=&amp;quot;2.0&amp;quot; xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;&amp;gt;
+  &amp;lt;xsl:output method=&amp;quot;xml&amp;quot; indent=&amp;quot;yes&amp;quot;/&amp;gt;
 
-  &lt;xsl:template match=&quot;/test-run&quot;&gt;
-    &lt;testsuites tests=&quot;{@testcasecount}&quot; failures=&quot;{@failed}&quot; disabled=&quot;{@skipped}&quot; time=&quot;{@duration}&quot;&gt;
-      &lt;xsl:apply-templates/&gt;
-    &lt;/testsuites&gt;
-  &lt;/xsl:template&gt;
+  &amp;lt;xsl:template match=&amp;quot;/test-run&amp;quot;&amp;gt;
+    &amp;lt;testsuites tests=&amp;quot;{@testcasecount}&amp;quot; failures=&amp;quot;{@failed}&amp;quot; disabled=&amp;quot;{@skipped}&amp;quot; time=&amp;quot;{@duration}&amp;quot;&amp;gt;
+      &amp;lt;xsl:apply-templates/&amp;gt;
+    &amp;lt;/testsuites&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
 
-  &lt;xsl:template match=&quot;test-suite&quot;&gt;
-    &lt;xsl:if test=&quot;test-case&quot;&gt;
-      &lt;testsuite tests=&quot;{@testcasecount}&quot; time=&quot;{@duration}&quot; errors=&quot;{@testcasecount - @passed - @skipped - @failed}&quot; failures=&quot;{@failed}&quot; skipped=&quot;{@skipped}&quot; timestamp=&quot;{@start-time}&quot;&gt;
-        &lt;xsl:attribute name=&quot;name&quot;&gt;
-          &lt;xsl:for-each select=&quot;ancestor-or-self::test-suite/@name&quot;&gt;
-            &lt;xsl:value-of select=&quot;concat(., '.')&quot;/&gt;
-          &lt;/xsl:for-each&gt;
-        &lt;/xsl:attribute&gt;
-        &lt;xsl:apply-templates select=&quot;test-case&quot;/&gt;
-      &lt;/testsuite&gt;
-      &lt;xsl:apply-templates select=&quot;test-suite&quot;/&gt;
-    &lt;/xsl:if&gt;
-    &lt;xsl:if test=&quot;not(test-case)&quot;&gt;
-      &lt;xsl:apply-templates/&gt;
-    &lt;/xsl:if&gt;
-  &lt;/xsl:template&gt;
+  &amp;lt;xsl:template match=&amp;quot;test-suite&amp;quot;&amp;gt;
+    &amp;lt;xsl:if test=&amp;quot;test-case&amp;quot;&amp;gt;
+      &amp;lt;testsuite tests=&amp;quot;{@testcasecount}&amp;quot; time=&amp;quot;{@duration}&amp;quot; errors=&amp;quot;{@testcasecount - @passed - @skipped - @failed}&amp;quot; failures=&amp;quot;{@failed}&amp;quot; skipped=&amp;quot;{@skipped}&amp;quot; timestamp=&amp;quot;{@start-time}&amp;quot;&amp;gt;
+        &amp;lt;xsl:attribute name=&amp;quot;name&amp;quot;&amp;gt;
+          &amp;lt;xsl:for-each select=&amp;quot;ancestor-or-self::test-suite/@name&amp;quot;&amp;gt;
+            &amp;lt;xsl:value-of select=&amp;quot;concat(., &#39;.&#39;)&amp;quot;/&amp;gt;
+          &amp;lt;/xsl:for-each&amp;gt;
+        &amp;lt;/xsl:attribute&amp;gt;
+        &amp;lt;xsl:apply-templates select=&amp;quot;test-case&amp;quot;/&amp;gt;
+      &amp;lt;/testsuite&amp;gt;
+      &amp;lt;xsl:apply-templates select=&amp;quot;test-suite&amp;quot;/&amp;gt;
+    &amp;lt;/xsl:if&amp;gt;
+    &amp;lt;xsl:if test=&amp;quot;not(test-case)&amp;quot;&amp;gt;
+      &amp;lt;xsl:apply-templates/&amp;gt;
+    &amp;lt;/xsl:if&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
 
-  &lt;xsl:template match=&quot;test-case&quot;&gt;
-    &lt;xsl:variable name=&quot;lowerResult&quot; select=&quot;translate(@result,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')&quot;/&gt;
-    &lt;testcase name=&quot;{@name}&quot; assertions=&quot;{@asserts}&quot; time=&quot;{@duration}&quot; status=&quot;{$lowerResult}&quot; classname=&quot;{@classname}&quot;&gt;
-      &lt;xsl:if test=&quot;@runstate = 'Skipped' or @runstate = 'Ignored'&quot;&gt;
-        &lt;skipped/&gt;
-      &lt;/xsl:if&gt;
+  &amp;lt;xsl:template match=&amp;quot;test-case&amp;quot;&amp;gt;
+    &amp;lt;xsl:variable name=&amp;quot;lowerResult&amp;quot; select=&amp;quot;translate(@result,&#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;, &#39;abcdefghijklmnopqrstuvwxyz&#39;)&amp;quot;/&amp;gt;
+    &amp;lt;testcase name=&amp;quot;{@name}&amp;quot; assertions=&amp;quot;{@asserts}&amp;quot; time=&amp;quot;{@duration}&amp;quot; status=&amp;quot;{$lowerResult}&amp;quot; classname=&amp;quot;{@classname}&amp;quot;&amp;gt;
+      &amp;lt;xsl:if test=&amp;quot;@runstate = &#39;Skipped&#39; or @runstate = &#39;Ignored&#39;&amp;quot;&amp;gt;
+        &amp;lt;skipped/&amp;gt;
+      &amp;lt;/xsl:if&amp;gt;
       
-      &lt;xsl:apply-templates/&gt;
-    &lt;/testcase&gt;
-  &lt;/xsl:template&gt;
+      &amp;lt;xsl:apply-templates/&amp;gt;
+    &amp;lt;/testcase&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
 
-  &lt;xsl:template match=&quot;command-line&quot;/&gt;
-  &lt;xsl:template match=&quot;settings&quot;/&gt;
+  &amp;lt;xsl:template match=&amp;quot;command-line&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;quot;settings&amp;quot;/&amp;gt;
 
-  &lt;xsl:template match=&quot;output&quot;&gt;
-    &lt;system-out&gt;
-      &lt;xsl:value-of select=&quot;output&quot;/&gt;
-    &lt;/system-out&gt;
-  &lt;/xsl:template&gt;
+  &amp;lt;xsl:template match=&amp;quot;output&amp;quot;&amp;gt;
+    &amp;lt;system-out&amp;gt;
+      &amp;lt;xsl:value-of select=&amp;quot;output&amp;quot;/&amp;gt;
+    &amp;lt;/system-out&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
 
-  &lt;xsl:template match=&quot;stack-trace&quot;&gt;
-  &lt;/xsl:template&gt;
+  &amp;lt;xsl:template match=&amp;quot;stack-trace&amp;quot;&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
 
-  &lt;xsl:template match=&quot;test-case/failure&quot;&gt;
-    &lt;failure message=&quot;{./message}&quot;&gt;
-      &lt;xsl:value-of select=&quot;./stack-trace&quot;/&gt;
-    &lt;/failure&gt;
-  &lt;/xsl:template&gt;
+  &amp;lt;xsl:template match=&amp;quot;test-case/failure&amp;quot;&amp;gt;
+    &amp;lt;failure message=&amp;quot;{./message}&amp;quot;&amp;gt;
+      &amp;lt;xsl:value-of select=&amp;quot;./stack-trace&amp;quot;/&amp;gt;
+    &amp;lt;/failure&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
 
-  &lt;xsl:template match=&quot;test-suite/failure&quot;/&gt;
+  &amp;lt;xsl:template match=&amp;quot;test-suite/failure&amp;quot;/&amp;gt;
 
-  &lt;xsl:template match=&quot;test-case/reason&quot;&gt;
-    &lt;skipped message=&quot;{./message}&quot;/&gt;
-  &lt;/xsl:template&gt;
+  &amp;lt;xsl:template match=&amp;quot;test-case/reason&amp;quot;&amp;gt;
+    &amp;lt;skipped message=&amp;quot;{./message}&amp;quot;/&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
 
-  &lt;xsl:template match=&quot;test-suite/reason&quot;/&gt;
+  &amp;lt;xsl:template match=&amp;quot;test-suite/reason&amp;quot;/&amp;gt;
 
-  &lt;xsl:template match=&quot;properties&quot;/&gt;
-&lt;/xsl:stylesheet&gt;
-</code></pre>
-<p>And we can use this in a TeamCity runner:</p>
-<pre><code class="language-powershell">$xslt = new-object system.xml.xsl.xslcompiledtransform
-$xslt.load('%system.teamcity.build.workingDir%\nunit3-junit.xslt')
-$xslt.Transform('%system.teamcity.build.workingDir%\TestResult.xml', '%system.teamcity.build.workingDir%\TransformedTestResult.xml')
-Write-Host &quot;##teamcity[importData type='junit' path='TransformedTestResult.xml']&quot;
-</code></pre>
-<p>Which is PowerShell, and so this works well under windows.</p>
-<p>But our latest thing is .Net Core in Docker containers on Linux, right? (right?) So we don&rsquo;t have PowerShell available. And it also seems that <a href="https://github.com/dotnet/corefx/issues/5593">there is currently no xslt support in .Net Core</a>, so that option is out. But there is another way:</p>
-<pre><code class="language-bash">apt-get install libsaxon-java
+  &amp;lt;xsl:template match=&amp;quot;properties&amp;quot;/&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And we can use this in a TeamCity runner:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;$xslt = new-object system.xml.xsl.xslcompiledtransform
+$xslt.load(&#39;%system.teamcity.build.workingDir%\nunit3-junit.xslt&#39;)
+$xslt.Transform(&#39;%system.teamcity.build.workingDir%\TestResult.xml&#39;, &#39;%system.teamcity.build.workingDir%\TransformedTestResult.xml&#39;)
+Write-Host &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedTestResult.xml&#39;]&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which is PowerShell, and so this works well under windows.&lt;/p&gt;
+&lt;p&gt;But our latest thing is .Net Core in Docker containers on Linux, right? (right?) So we don&amp;rsquo;t have PowerShell available. And it also seems that &lt;a href=&#34;https://github.com/dotnet/corefx/issues/5593&#34;&gt;there is currently no xslt support in .Net Core&lt;/a&gt;, so that option is out. But there is another way:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;apt-get install libsaxon-java
 saxon-xslt -o TransformedTestResult.xml TestResult.xml nunit3-junit.xslt
-echo &quot;##teamcity[importData type='junit' path='TransformedTestResult.xml']&quot;
-</code></pre>
-<p>You may want to just run the <code>apt-get</code> command on all your agents, rather than putting it into your build step.</p>
-<p>And with that, we can publish our test results to TeamCity on Windows and on Linux build agents.</p>
+echo &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedTestResult.xml&#39;]&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You may want to just run the &lt;code&gt;apt-get&lt;/code&gt; command on all your agents, rather than putting it into your build step.&lt;/p&gt;
+&lt;p&gt;And with that, we can publish our test results to TeamCity on Windows and on Linux build agents.&lt;/p&gt;
 </description>
     </item>
     
@@ -114,13 +114,13 @@ echo &quot;##teamcity[importData type='junit' path='TransformedTestResult.xml']&
       <pubDate>Mon, 06 Apr 2015 12:29:27 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</guid>
-      <description><p>I&rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.</p>
-<p>It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the <a href="https://developer.github.com/v3/repos/statuses/">Statuses api on GitHub</a> for just how easy). Again it is easy to trigger a build off of the &lsquo;special&rsquo; pull request branch github uses. A guide to getting all of these links working is <a href="http://blog.jetbrains.com/teamcity/2013/02/automatically-building-pull-requests-from-github-with-teamcity/">available on the teamcity blog</a>. But triggering the git source control checking on TeamCity turned out the be the hard bit.</p>
-<p>There are Webhooks in GitHub. There are also Service Hooks. There is a <a href="https://github.com/github/github-services/blob/master/lib/services/teamcity.rb">TeamCity Service Hook</a>. Unfortunately there are issues with both that requires some third set of code to actually make it work. Here is why.</p>
-<p>You would think that the existing team city hook would be exactly what you need. In the settings of your repository, you can configure this, with credentials, to either start a build, or just check for changes on the associated VCS Root. This check may actually trigger a build, depending on how your build triggers are set up.  The problem is that only the <strong>&ldquo;push&rdquo;</strong> event will trigger this service hook to fire off.  Why is this an issue for Pull Requests? Because creating a Pull Request creates the <strong>&ldquo;pull request&rdquo;</strong> event. This means that creating a pull request does not trigger a git check for changes, and so doesn&rsquo;t trigger the Pull Request to run the build, which won&rsquo;t publish the results back to the Pull Request.</p>
-<p>Ok, lets try the custom Web Hooks. Still a no-go. GitHub Web Hooks are ultra flexible. There is <a href="https://developer.github.com/enterprise/2.1/webhooks/">great documentation</a> on setting up a Webhook. It event supports Secrets for signing, specifying specific events, and which format you want it to give you the information in.  But its a <strong>PUSH</strong>.  This means you need a particular endpoint that receives that push, and processes it&rsquo;s payload. There is nothing on TeamCity that matches that description.  You will have to write something to catch that response and trigger the behaviour you want to see happen.</p>
-<p>Now don&rsquo;t get me wrong, this is exactly what you would expect. You need to determine what the business logic to respond to the event should be. But it means to solve my Pull Request problem, I now need to actually build and host this thing to make it all work.</p>
-<p>So for anyone else wondering why the existing tutorials don&rsquo;t trigger your PR builds automatically, now you know why.  Enjoy building a middleman to make TeamCity do what you want as a result of what GitHub sends you :)  I suggest you read <a href="https://github.com/github/github-services/blob/master/lib/services/teamcity.rb">the implementation of the existing service</a> for some ideas of what your middleman might look like.  This was highlighted for us even more glaringly, since we only trigger a forced fetch on TeamCity every 24 hours, so it would only run my build on a PR if I manually triggered it (or someone else happened to accept a merge or push something directly to GitHub). I&rsquo;m sure this was also made worse by us always doing our Pull Requests between forks and trunk, so only on merging a PR would it trigger an update on TeamCity. And then there are the multiple VCS Roots, that updating one doesn&rsquo;t actually trigger all the related builds. Meh.</p>
+      <description>&lt;p&gt;I&amp;rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&amp;rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.&lt;/p&gt;
+&lt;p&gt;It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the &lt;a href=&#34;https://developer.github.com/v3/repos/statuses/&#34;&gt;Statuses api on GitHub&lt;/a&gt; for just how easy). Again it is easy to trigger a build off of the &amp;lsquo;special&amp;rsquo; pull request branch github uses. A guide to getting all of these links working is &lt;a href=&#34;http://blog.jetbrains.com/teamcity/2013/02/automatically-building-pull-requests-from-github-with-teamcity/&#34;&gt;available on the teamcity blog&lt;/a&gt;. But triggering the git source control checking on TeamCity turned out the be the hard bit.&lt;/p&gt;
+&lt;p&gt;There are Webhooks in GitHub. There are also Service Hooks. There is a &lt;a href=&#34;https://github.com/github/github-services/blob/master/lib/services/teamcity.rb&#34;&gt;TeamCity Service Hook&lt;/a&gt;. Unfortunately there are issues with both that requires some third set of code to actually make it work. Here is why.&lt;/p&gt;
+&lt;p&gt;You would think that the existing team city hook would be exactly what you need. In the settings of your repository, you can configure this, with credentials, to either start a build, or just check for changes on the associated VCS Root. This check may actually trigger a build, depending on how your build triggers are set up.  The problem is that only the &lt;strong&gt;&amp;ldquo;push&amp;rdquo;&lt;/strong&gt; event will trigger this service hook to fire off.  Why is this an issue for Pull Requests? Because creating a Pull Request creates the &lt;strong&gt;&amp;ldquo;pull request&amp;rdquo;&lt;/strong&gt; event. This means that creating a pull request does not trigger a git check for changes, and so doesn&amp;rsquo;t trigger the Pull Request to run the build, which won&amp;rsquo;t publish the results back to the Pull Request.&lt;/p&gt;
+&lt;p&gt;Ok, lets try the custom Web Hooks. Still a no-go. GitHub Web Hooks are ultra flexible. There is &lt;a href=&#34;https://developer.github.com/enterprise/2.1/webhooks/&#34;&gt;great documentation&lt;/a&gt; on setting up a Webhook. It event supports Secrets for signing, specifying specific events, and which format you want it to give you the information in.  But its a &lt;strong&gt;PUSH&lt;/strong&gt;.  This means you need a particular endpoint that receives that push, and processes it&amp;rsquo;s payload. There is nothing on TeamCity that matches that description.  You will have to write something to catch that response and trigger the behaviour you want to see happen.&lt;/p&gt;
+&lt;p&gt;Now don&amp;rsquo;t get me wrong, this is exactly what you would expect. You need to determine what the business logic to respond to the event should be. But it means to solve my Pull Request problem, I now need to actually build and host this thing to make it all work.&lt;/p&gt;
+&lt;p&gt;So for anyone else wondering why the existing tutorials don&amp;rsquo;t trigger your PR builds automatically, now you know why.  Enjoy building a middleman to make TeamCity do what you want as a result of what GitHub sends you :)  I suggest you read &lt;a href=&#34;https://github.com/github/github-services/blob/master/lib/services/teamcity.rb&#34;&gt;the implementation of the existing service&lt;/a&gt; for some ideas of what your middleman might look like.  This was highlighted for us even more glaringly, since we only trigger a forced fetch on TeamCity every 24 hours, so it would only run my build on a PR if I manually triggered it (or someone else happened to accept a merge or push something directly to GitHub). I&amp;rsquo;m sure this was also made worse by us always doing our Pull Requests between forks and trunk, so only on merging a PR would it trigger an update on TeamCity. And then there are the multiple VCS Roots, that updating one doesn&amp;rsquo;t actually trigger all the related builds. Meh.&lt;/p&gt;
 </description>
     </item>
     

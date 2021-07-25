@@ -19,24 +19,24 @@
       <pubDate>Sun, 05 Jun 2016 21:32:04 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/fork-off-with-your-branches/</guid>
-      <description><p>The nice thing about git is that branches are cheap and you can create many and varied branches for every little fix, format or feature. The annoying thing about GitHub is that every user creates many many many branches.</p>
-<p>One of my pet peeves at the moment is a large number of branches on our upstream repository. That is, the shared common one we all fork from and Pull Request into. When I started there were almost 200 branches! So many branches made it really hard to find out which branch was for what, and even harder to tell if any of the branches were not being used.</p>
-<p>These might seem like small things, but if you have a CI server <em>(I really hope you have a CI server)</em> you might set up wildcard builds that automatically build every branch that matches a certain pattern, for example, <code>feature/*</code> or <code>release/*</code>. Now every one of these branches has a build that runs every time the code changes. You probably want to ensure they are up to date with master, so a script will run on a schedule <em>(or triggered off of a merge)</em> and auto-merge master down to your branch. <em>(Why is this required? probably because you have so many branches in the first place! Investigate <a href="https://www.google.co.uk/search?q=rebase">git rebase</a>&hellip;)</em></p>
-<p>So now, every time the script runs, it triggers updates on every branch, which triggers a build. 200 branches? instant 200 builds in your CI queue. <em>(Who has 200 agents? not me.)</em> Frustration sets in when you can&rsquo;t get your normal build through because your server is busy, and will stay busy for a while.</p>
-<p>The other obvious overhead to me is a cognitive one. If an individual is tracking more than one branch or work, they have to context switch back and forward between then. I can understand 2 work streams due to external blockers on task one and be filling time with task 2, but having 3 or more branches is juggling too much work.  Taking this further, if you have a bunch of branches because the work is done and ready to release, get it shipped. It&rsquo;s not done until it&rsquo;s in production in front of customers <em>(even if only early adopter or beta users)</em>.  using branches as a release task list isn&rsquo;t sensible when everyone does it. Your branches get lost in the noise.  You may even forget to release a branch of changes until your manager chases you for something you thought was released!</p>
-<p>Let&rsquo;s apply this to teams. A team can only be focussing on so many priorities (read branches) before they start dropping balls, or wasting a lot of time on communication and overhead on tracking these different tasks <em>(bugs, features etc)</em>. The less active branches a team has to manage at once, the better. And you get a bit of a <a href="https://en.wikipedia.org/wiki/Bystander_effect">bystander effect</a> on your branches.</p>
-<p>Frustrations aside, there are some real benefits from using a <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow">git flow</a> or <a href="https://guides.github.com/introduction/flow/">GitHub Flow</a> approach where there is a single trunk of development <em>(either a develop-release-master flow or a master-master-master flow)</em> where you are subject to a continuous integration model. Things like <a href="https://en.wikipedia.org/wiki/Feature_toggle">feature flagging</a> and dark releases are great ways to handle harder features and code refactors such are renames, formatting and class extraction are much easier when there is only one branch to work in.</p>
-<p>Some rules to work by:</p>
-<ul>
-<li>keep your small change branches in your fork.</li>
-<li>Don&rsquo;t push branches upstream</li>
-<li>collaborative feature branches? Use feature toggles to maintain continuous integrations.</li>
-<li>Refactoring? incrementally, ship often.</li>
-<li>No more big bang changes, please.</li>
-<li>Branches are cheap, but you don&rsquo;t have to share them.</li>
-</ul>
-<p>Another pet peeve is naming things.  If you have to have a branch, name it after your team, your username, or the bug tracking id for the story of work it relates to. cryptic &lsquo;feature&rsquo; or &lsquo;bug&rsquo; description names don&rsquo;t help anyone. The diff says what the change is, so it is self-descriptive <em>(aka <a href="https://en.wikipedia.org/wiki/Self-documenting_code">self-documenting</a>)</em>, but I don&rsquo;t know who owns it.</p>
-<p><strong>&lt;/rant&gt;</strong></p>
+      <description>&lt;p&gt;The nice thing about git is that branches are cheap and you can create many and varied branches for every little fix, format or feature. The annoying thing about GitHub is that every user creates many many many branches.&lt;/p&gt;
+&lt;p&gt;One of my pet peeves at the moment is a large number of branches on our upstream repository. That is, the shared common one we all fork from and Pull Request into. When I started there were almost 200 branches! So many branches made it really hard to find out which branch was for what, and even harder to tell if any of the branches were not being used.&lt;/p&gt;
+&lt;p&gt;These might seem like small things, but if you have a CI server &lt;em&gt;(I really hope you have a CI server)&lt;/em&gt; you might set up wildcard builds that automatically build every branch that matches a certain pattern, for example, &lt;code&gt;feature/*&lt;/code&gt; or &lt;code&gt;release/*&lt;/code&gt;. Now every one of these branches has a build that runs every time the code changes. You probably want to ensure they are up to date with master, so a script will run on a schedule &lt;em&gt;(or triggered off of a merge)&lt;/em&gt; and auto-merge master down to your branch. &lt;em&gt;(Why is this required? probably because you have so many branches in the first place! Investigate &lt;a href=&#34;https://www.google.co.uk/search?q=rebase&#34;&gt;git rebase&lt;/a&gt;&amp;hellip;)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;So now, every time the script runs, it triggers updates on every branch, which triggers a build. 200 branches? instant 200 builds in your CI queue. &lt;em&gt;(Who has 200 agents? not me.)&lt;/em&gt; Frustration sets in when you can&amp;rsquo;t get your normal build through because your server is busy, and will stay busy for a while.&lt;/p&gt;
+&lt;p&gt;The other obvious overhead to me is a cognitive one. If an individual is tracking more than one branch or work, they have to context switch back and forward between then. I can understand 2 work streams due to external blockers on task one and be filling time with task 2, but having 3 or more branches is juggling too much work.  Taking this further, if you have a bunch of branches because the work is done and ready to release, get it shipped. It&amp;rsquo;s not done until it&amp;rsquo;s in production in front of customers &lt;em&gt;(even if only early adopter or beta users)&lt;/em&gt;.  using branches as a release task list isn&amp;rsquo;t sensible when everyone does it. Your branches get lost in the noise.  You may even forget to release a branch of changes until your manager chases you for something you thought was released!&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s apply this to teams. A team can only be focussing on so many priorities (read branches) before they start dropping balls, or wasting a lot of time on communication and overhead on tracking these different tasks &lt;em&gt;(bugs, features etc)&lt;/em&gt;. The less active branches a team has to manage at once, the better. And you get a bit of a &lt;a href=&#34;https://en.wikipedia.org/wiki/Bystander_effect&#34;&gt;bystander effect&lt;/a&gt; on your branches.&lt;/p&gt;
+&lt;p&gt;Frustrations aside, there are some real benefits from using a &lt;a href=&#34;https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow&#34;&gt;git flow&lt;/a&gt; or &lt;a href=&#34;https://guides.github.com/introduction/flow/&#34;&gt;GitHub Flow&lt;/a&gt; approach where there is a single trunk of development &lt;em&gt;(either a develop-release-master flow or a master-master-master flow)&lt;/em&gt; where you are subject to a continuous integration model. Things like &lt;a href=&#34;https://en.wikipedia.org/wiki/Feature_toggle&#34;&gt;feature flagging&lt;/a&gt; and dark releases are great ways to handle harder features and code refactors such are renames, formatting and class extraction are much easier when there is only one branch to work in.&lt;/p&gt;
+&lt;p&gt;Some rules to work by:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;keep your small change branches in your fork.&lt;/li&gt;
+&lt;li&gt;Don&amp;rsquo;t push branches upstream&lt;/li&gt;
+&lt;li&gt;collaborative feature branches? Use feature toggles to maintain continuous integrations.&lt;/li&gt;
+&lt;li&gt;Refactoring? incrementally, ship often.&lt;/li&gt;
+&lt;li&gt;No more big bang changes, please.&lt;/li&gt;
+&lt;li&gt;Branches are cheap, but you don&amp;rsquo;t have to share them.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Another pet peeve is naming things.  If you have to have a branch, name it after your team, your username, or the bug tracking id for the story of work it relates to. cryptic &amp;lsquo;feature&amp;rsquo; or &amp;lsquo;bug&amp;rsquo; description names don&amp;rsquo;t help anyone. The diff says what the change is, so it is self-descriptive &lt;em&gt;(aka &lt;a href=&#34;https://en.wikipedia.org/wiki/Self-documenting_code&#34;&gt;self-documenting&lt;/a&gt;)&lt;/em&gt;, but I don&amp;rsquo;t know who owns it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&amp;lt;/rant&amp;gt;&lt;/strong&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -46,32 +46,32 @@
       <pubDate>Sun, 22 Nov 2015 15:05:14 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/on-gitversioning-subdirectories/</guid>
-      <description><p>We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&rsquo;t it be nice if we could detect that the subdirectory hasn&rsquo;t changed and so has the same version it did last time we built it?</p>
-<p>We use <a href="https://github.com/GitTools/GitVersion">gitversion</a>, so we already have a way to get the version for the current commit.  Maybe we can use that to get the version for a subdirectories latest commit?  Sure we can!</p>
-<p>To get the version for the latest commit, we need the latest commit.  Turns out you can use</p>
-<pre><code class="language-powershell">$pathToFolder = &quot;C:\dev\MyProject\MySubfolder&quot;
-$commitHash = git log -n 1 --format=&quot;%H&quot; -- $pathToFolder
-</code></pre>
-<p>Here we run a <code>git log</code> command to get the full commit hash, which we can save into a variable <code>$commitHash</code>.  Now we have something to give to <code>gitversion</code>.</p>
-<p>There is a command in <code>gitversion</code>, <code>\c</code>, which takes a commit hash and runs for that instead of for the current commit. All we need to do is the following:</p>
-<pre><code class="language-powershell">$folderVersion = gitversion /c $commitHash | ConvertFrom-Json
-</code></pre>
-<p>and new we have an object in <code>$folderVersion</code> that we can inspect and get out all the version information, from <code>$folderVersion.SemVer</code>, <code>$folderVersion.NuGetVersionV2</code>, and even <code>$folderVersion.FullBuildMetaData</code>!</p>
-<p>What you do from here to integrate with the rest of your build scripts is up to you. One I have used is to go through that folder and replace version information, such as in *.nuspec files. Note here my *.nuspec file has a placeholder $version$ as the version number already in place.</p>
-<pre><code>$NewVersion = &quot;&quot; ## Version from some source, like gitversion
-$Sha = &quot;&quot; ## You can include the sha the version is from into the nuspec file
-$FileFullPath = &quot;&quot; ## filepath from some sort of search for *.nuspec files
-$TmpFile = $FileFullPath + &quot;.tmp&quot;
+      <description>&lt;p&gt;We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&amp;rsquo;t it be nice if we could detect that the subdirectory hasn&amp;rsquo;t changed and so has the same version it did last time we built it?&lt;/p&gt;
+&lt;p&gt;We use &lt;a href=&#34;https://github.com/GitTools/GitVersion&#34;&gt;gitversion&lt;/a&gt;, so we already have a way to get the version for the current commit.  Maybe we can use that to get the version for a subdirectories latest commit?  Sure we can!&lt;/p&gt;
+&lt;p&gt;To get the version for the latest commit, we need the latest commit.  Turns out you can use&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;$pathToFolder = &amp;quot;C:\dev\MyProject\MySubfolder&amp;quot;
+$commitHash = git log -n 1 --format=&amp;quot;%H&amp;quot; -- $pathToFolder
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here we run a &lt;code&gt;git log&lt;/code&gt; command to get the full commit hash, which we can save into a variable &lt;code&gt;$commitHash&lt;/code&gt;.  Now we have something to give to &lt;code&gt;gitversion&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;There is a command in &lt;code&gt;gitversion&lt;/code&gt;, &lt;code&gt;\c&lt;/code&gt;, which takes a commit hash and runs for that instead of for the current commit. All we need to do is the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;$folderVersion = gitversion /c $commitHash | ConvertFrom-Json
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and new we have an object in &lt;code&gt;$folderVersion&lt;/code&gt; that we can inspect and get out all the version information, from &lt;code&gt;$folderVersion.SemVer&lt;/code&gt;, &lt;code&gt;$folderVersion.NuGetVersionV2&lt;/code&gt;, and even &lt;code&gt;$folderVersion.FullBuildMetaData&lt;/code&gt;!&lt;/p&gt;
+&lt;p&gt;What you do from here to integrate with the rest of your build scripts is up to you. One I have used is to go through that folder and replace version information, such as in *.nuspec files. Note here my *.nuspec file has a placeholder $version$ as the version number already in place.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$NewVersion = &amp;quot;&amp;quot; ## Version from some source, like gitversion
+$Sha = &amp;quot;&amp;quot; ## You can include the sha the version is from into the nuspec file
+$FileFullPath = &amp;quot;&amp;quot; ## filepath from some sort of search for *.nuspec files
+$TmpFile = $FileFullPath + &amp;quot;.tmp&amp;quot;
 
 [ xml ] $fileContents = Get-Content -Path $o.FullName
 
 if ($fileContents.package.metadata.version -eq $null) {
-  $child = $fileContents.CreateElement(&quot;version&quot;, $fileContents.DocumentElement.NamespaceURI)
+  $child = $fileContents.CreateElement(&amp;quot;version&amp;quot;, $fileContents.DocumentElement.NamespaceURI)
   $fileContents.package.metadata.AppendChild($child)
-  $fileContents.package.metadata.version = &quot;$version$&quot;
+  $fileContents.package.metadata.version = &amp;quot;$version$&amp;quot;
 }
   
-$NewDescription = $fileContents.package.metadata.description + ' (' + $Sha + ')';
+$NewDescription = $fileContents.package.metadata.description + &#39; (&#39; + $Sha + &#39;)&#39;;
 $fileContents.package.metadata.description = $NewDescription
 
 if($Version) {
@@ -81,8 +81,8 @@ if($Version) {
 $fileContents.Save($TmpFile)    
      
 move-item $TmpFile $FileFullPath -force
-</code></pre>
-<p>Another useful use-case is to execute GitVersion with <code>/updateassemblyinfo .\Properties\AssemblyInfo.cs</code> as an argument, to target and update a specific project&rsquo;s assembly info version as well.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Another useful use-case is to execute GitVersion with &lt;code&gt;/updateassemblyinfo .\Properties\AssemblyInfo.cs&lt;/code&gt; as an argument, to target and update a specific project&amp;rsquo;s assembly info version as well.&lt;/p&gt;
 </description>
     </item>
     
@@ -92,28 +92,28 @@ move-item $TmpFile $FileFullPath -force
       <pubDate>Fri, 15 May 2015 13:59:24 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/code-camp-christchurch-an-introduction-to-git/</guid>
-      <description><p>I presented today at Code Camp Christchurch on git. I will try and translate some of the topics into new tutorial posts over the coming weeks, but you can find a rough transcript of the content from my presentation in my post <a href="https://blog.csmac.nz/git-is-not-scary/">git is not scary</a>.</p>
-<p>I refered to some links in my talk, and wanted to make them available here. So on with it then.</p>
-<h4 id="the-git-parable">The Git Parable</h4>
-<p>This is a nice little story that steps through the process of producing a full featured source control system that resembles git. Along the way you get a better understanding of how things work under the hood.
-<a href="http://tom.preston-werner.com/2009/05/19/the-git-parable.html">http://tom.preston-werner.com/2009/05/19/the-git-parable.html</a></p>
-<h4 id="git-koans">Git Koans</h4>
-<p>These little dialogs are base on the concept of <a href="http://en.wikipedia.org/wiki/K%C5%8Dan">Kōans</a>, and apply to git. Like I say, each time I read them, another one finally makes sense to me that used go over my head.
-<a href="http://stevelosh.com/blog/2013/04/git-koans/">http://stevelosh.com/blog/2013/04/git-koans/</a></p>
-<h4 id="git-for-ages-4-and-up">Git For Ages 4 And Up####</h4>
-<p>This presentation from Michael Schwern is a great introduction to git in a visual way. This is a good deep dive into git that goes beyond the broad overview I presented. Michael focuses on Git branching, and visualizing it with tinker toys.
-<a href="http://www.pluss.es/107770072576338242009/post/z13bf55agvawxpwxy04ccttjfsy5hnwr5qc0k/">http://www.pluss.es/107770072576338242009/post/z13bf55agvawxpwxy04ccttjfsy5hnwr5qc0k/</a></p>
-<h4 id="online-interactive-learning">Online Interactive Learning</h4>
-<p>These two resources give an interactive web experience at using git. The first presented more in a gamification style, the second is more tutorial-based.
-<a href="https://try.github.io/levels/1/challenges/1">https://try.github.io/levels/1/challenges/1</a>
-<a href="http://pcottle.github.io/learnGitBranching/">http://pcottle.github.io/learnGitBranching/</a></p>
-<h4 id="_light_-reading"><em>light</em> reading####</h4>
-<p>Lastly, here are some reference sites to start getting deeper, and more into the details of git. gitref.org is a reference style setup, where you can start from a command and look at its details. Pro Git is an open source book on Git, and is available to read online, or as a downloadable pdf, Mobi, ePub or HTML format. Lasly, think like a git is entertaining walkthrough of resources, designed for &ldquo;Advanced beginners&rdquo;. Which means if you already have a grasp of everything from my presentation then its probably for you.
-<a href="http://gitref.org/">http://gitref.org/</a>
-<a href="https://progit.org/">https://progit.org/</a>
-<a href="http://think-like-a-git.net/">http://think-like-a-git.net/</a></p>
-<h4 id="presentation-slides">presentation slides</h4>
-<p>The slides for my presentation can be found on Prezi: <a href="https://prezi.com/dvnwcvp9yavq/git-101-an-introduction/">Git 101 - An Introduction</a> for anyone interested.</p>
+      <description>&lt;p&gt;I presented today at Code Camp Christchurch on git. I will try and translate some of the topics into new tutorial posts over the coming weeks, but you can find a rough transcript of the content from my presentation in my post &lt;a href=&#34;https://blog.csmac.nz/git-is-not-scary/&#34;&gt;git is not scary&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I refered to some links in my talk, and wanted to make them available here. So on with it then.&lt;/p&gt;
+&lt;h4 id=&#34;the-git-parable&#34;&gt;The Git Parable&lt;/h4&gt;
+&lt;p&gt;This is a nice little story that steps through the process of producing a full featured source control system that resembles git. Along the way you get a better understanding of how things work under the hood.
+&lt;a href=&#34;http://tom.preston-werner.com/2009/05/19/the-git-parable.html&#34;&gt;http://tom.preston-werner.com/2009/05/19/the-git-parable.html&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;git-koans&#34;&gt;Git Koans&lt;/h4&gt;
+&lt;p&gt;These little dialogs are base on the concept of &lt;a href=&#34;http://en.wikipedia.org/wiki/K%C5%8Dan&#34;&gt;Kōans&lt;/a&gt;, and apply to git. Like I say, each time I read them, another one finally makes sense to me that used go over my head.
+&lt;a href=&#34;http://stevelosh.com/blog/2013/04/git-koans/&#34;&gt;http://stevelosh.com/blog/2013/04/git-koans/&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;git-for-ages-4-and-up&#34;&gt;Git For Ages 4 And Up####&lt;/h4&gt;
+&lt;p&gt;This presentation from Michael Schwern is a great introduction to git in a visual way. This is a good deep dive into git that goes beyond the broad overview I presented. Michael focuses on Git branching, and visualizing it with tinker toys.
+&lt;a href=&#34;http://www.pluss.es/107770072576338242009/post/z13bf55agvawxpwxy04ccttjfsy5hnwr5qc0k/&#34;&gt;http://www.pluss.es/107770072576338242009/post/z13bf55agvawxpwxy04ccttjfsy5hnwr5qc0k/&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;online-interactive-learning&#34;&gt;Online Interactive Learning&lt;/h4&gt;
+&lt;p&gt;These two resources give an interactive web experience at using git. The first presented more in a gamification style, the second is more tutorial-based.
+&lt;a href=&#34;https://try.github.io/levels/1/challenges/1&#34;&gt;https://try.github.io/levels/1/challenges/1&lt;/a&gt;
+&lt;a href=&#34;http://pcottle.github.io/learnGitBranching/&#34;&gt;http://pcottle.github.io/learnGitBranching/&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;_light_-reading&#34;&gt;&lt;em&gt;light&lt;/em&gt; reading####&lt;/h4&gt;
+&lt;p&gt;Lastly, here are some reference sites to start getting deeper, and more into the details of git. gitref.org is a reference style setup, where you can start from a command and look at its details. Pro Git is an open source book on Git, and is available to read online, or as a downloadable pdf, Mobi, ePub or HTML format. Lasly, think like a git is entertaining walkthrough of resources, designed for &amp;ldquo;Advanced beginners&amp;rdquo;. Which means if you already have a grasp of everything from my presentation then its probably for you.
+&lt;a href=&#34;http://gitref.org/&#34;&gt;http://gitref.org/&lt;/a&gt;
+&lt;a href=&#34;https://progit.org/&#34;&gt;https://progit.org/&lt;/a&gt;
+&lt;a href=&#34;http://think-like-a-git.net/&#34;&gt;http://think-like-a-git.net/&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;presentation-slides&#34;&gt;presentation slides&lt;/h4&gt;
+&lt;p&gt;The slides for my presentation can be found on Prezi: &lt;a href=&#34;https://prezi.com/dvnwcvp9yavq/git-101-an-introduction/&#34;&gt;Git 101 - An Introduction&lt;/a&gt; for anyone interested.&lt;/p&gt;
 </description>
     </item>
     
@@ -123,23 +123,23 @@ move-item $TmpFile $FileFullPath -force
       <pubDate>Sun, 10 May 2015 18:14:28 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/git-is-not-scary/</guid>
-      <description><p>It may not be simple, it may not be easy, but git is not scary. Now, I&rsquo;ve been using git for less than a year now, professionally. I had dabbled in git personal projects for the year before that. My primary Source control had mostly been TFS (Team Foundation Server), and I had been exposed to subversion on a major project before too. Full disclosure, I&rsquo;ve never used Visual SourceSafe. Just Sayin'. I hear it was pretty good. But when you compare and contrast all the source control systems out there, each of them has their own pros and cons (including git). From my experience bravely going all in, git has been a ray of light, enhancing my developer flow. At a minimum, it chases away some of those pain points I had using TFS Source Control. git is not scary.</p>
-<p>But if you&rsquo;re happy with what you&rsquo;re using, why would you change?</p>
-<p>I&rsquo;ve gone to some authoritative sources to look at some stats. Let&rsquo;s start with Stack Overflow:</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1431255279/StackOverflowTags-SourceControl_qsjrq0.png" alt="StackOverflow stats on source control"></p>
-<p>Ok, what can we take away from this graph? Well, all source control tags have &lt;1% activity per week across Stack Overflow. We see git has twice as much activity as any others. But what we can&rsquo;t tell is, does that mean more people has issues with git and need to ask questions? Or does it mean proportionally more people are using git? Hard to tell. Let&rsquo;s try the other authoritative source of everything: Google.</p>
-<p>Looking at Google Trends, It&rsquo;s clear where the people are storing their code:</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1431255278/GoogleTrends-SourceControl-withGit_cdnd53.png" alt="Google source control interest over time"></p>
-<p>I defer you onto <a href="http://en.wikipedia.org/wiki/Git_%28software%29">Wikipedia&rsquo;s Page on git</a> for history and details, but the gist of it is that git is an Open Source Distributed Version Control System (<a href="http://en.wikipedia.org/wiki/Distributed_revision_control">DVCS</a>), written by <a href="http://en.wikipedia.org/wiki/Linus_Torvalds">Linus Torvalds</a>.</p>
-<p>Distributed vs Centralised? Basically most of your traditional source control (TFS) has been centralised. There is one server, and everyone checks out from it, and commits to it. There may be an offline mode, but you will need to actively reconnect before you can commit your changes. With git, and most distributed source control tools, every copy is a source of the truth, and you can share changes amongst yourselves commit your own changes, pull in other peoples changes, in a distributed fashion. Of course, that doesn&rsquo;t mean you can&rsquo;t have a common place to centralise your changes as a team:</p>
-<p><a href="https://twitter.com/shanselman/status/576421993035083776"><img src="http://res.cloudinary.com/csmacnz/image/upload/v1431255279/shanselman-gitdistributedirony_q7jlt3.png" alt="@shanselman&rsquo;s centralised GitHub tweet"></a></p>
-<blockquote>
-<p>It&rsquo;s ironic that Git is a distributed version control system but the world now pushes all their code centrally to GitHub.
-<!-- raw HTML omitted --><a href="https://twitter.com/shanselman/status/576421993035083776">Scott Hanselman</a><!-- raw HTML omitted --></p>
-</blockquote>
-<p>With git, any copy is an entire copy of the repository, its full history, everything from everyone you have pulled in changes from. You can take any new changes you make, and share them around as differences, based on what parts of the common history has already been retrieved from anywhere so far. Sharing to another team member is no different than sharing to <a href="https://github.com/">GitHub</a>, <a href="https://about.gitlab.com/">GitLab</a>, <a href="https://bitbucket.org/">BitBucket</a>, <a href="https://www.visualstudio.com/en-us/products/what-is-visual-studio-online-vs">Visual Studio Online</a>, or any other host provider out there.  This adds a large amount of flexibility to the workflow you end up using, and the power to be truly working offline, and still commit your work.</p>
-<p>One last set of stats to finish up with is <a href="http://githut.info/">githut.info</a>. This site gives you a view on GitHub&rsquo;s statistics.  We can see from their site that the C# language is above average in all of the stats. Sure, its not right at the top, but We have do decide how we are reading this graph. Primarily, I suggest it reflects the distribution of usage of those languages relative to each other. It could also reflect the likely-hood of people who use those languages to use GitHub. It is hard to say. But what it does tell you, is that .Net programmers are using GitHub, and therefore using git. So much so, that all of <a href="https://github.com/Microsoft">Microsoft&rsquo;s Open Source Software</a> and their new <a href="https://github.com/dotnet">.NET Foundation</a> released over the last year has been made public as git repositories, through GitHub.</p>
-<p>Everyone around you is using GitHub, a precedence has even been set by Microsoft themselves through TFS and Visual Studio Online supporting git alongside Team Foundation Source Control, and now their .Net Foundation.  And even before that .Net opensource software had been migrating across from CodePlex, to take advantage of what git, especially hosted on GitHub, provided their projects.  Enlighten your mind by giving it a go, and I promise there is nothing to be afraid of. Job interviews are scary, people swarming towards PHP in droves is scary. And git, well, git is not scary.</p>
+      <description>&lt;p&gt;It may not be simple, it may not be easy, but git is not scary. Now, I&amp;rsquo;ve been using git for less than a year now, professionally. I had dabbled in git personal projects for the year before that. My primary Source control had mostly been TFS (Team Foundation Server), and I had been exposed to subversion on a major project before too. Full disclosure, I&amp;rsquo;ve never used Visual SourceSafe. Just Sayin&#39;. I hear it was pretty good. But when you compare and contrast all the source control systems out there, each of them has their own pros and cons (including git). From my experience bravely going all in, git has been a ray of light, enhancing my developer flow. At a minimum, it chases away some of those pain points I had using TFS Source Control. git is not scary.&lt;/p&gt;
+&lt;p&gt;But if you&amp;rsquo;re happy with what you&amp;rsquo;re using, why would you change?&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve gone to some authoritative sources to look at some stats. Let&amp;rsquo;s start with Stack Overflow:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1431255279/StackOverflowTags-SourceControl_qsjrq0.png&#34; alt=&#34;StackOverflow stats on source control&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Ok, what can we take away from this graph? Well, all source control tags have &amp;lt;1% activity per week across Stack Overflow. We see git has twice as much activity as any others. But what we can&amp;rsquo;t tell is, does that mean more people has issues with git and need to ask questions? Or does it mean proportionally more people are using git? Hard to tell. Let&amp;rsquo;s try the other authoritative source of everything: Google.&lt;/p&gt;
+&lt;p&gt;Looking at Google Trends, It&amp;rsquo;s clear where the people are storing their code:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1431255278/GoogleTrends-SourceControl-withGit_cdnd53.png&#34; alt=&#34;Google source control interest over time&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I defer you onto &lt;a href=&#34;http://en.wikipedia.org/wiki/Git_%28software%29&#34;&gt;Wikipedia&amp;rsquo;s Page on git&lt;/a&gt; for history and details, but the gist of it is that git is an Open Source Distributed Version Control System (&lt;a href=&#34;http://en.wikipedia.org/wiki/Distributed_revision_control&#34;&gt;DVCS&lt;/a&gt;), written by &lt;a href=&#34;http://en.wikipedia.org/wiki/Linus_Torvalds&#34;&gt;Linus Torvalds&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Distributed vs Centralised? Basically most of your traditional source control (TFS) has been centralised. There is one server, and everyone checks out from it, and commits to it. There may be an offline mode, but you will need to actively reconnect before you can commit your changes. With git, and most distributed source control tools, every copy is a source of the truth, and you can share changes amongst yourselves commit your own changes, pull in other peoples changes, in a distributed fashion. Of course, that doesn&amp;rsquo;t mean you can&amp;rsquo;t have a common place to centralise your changes as a team:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/shanselman/status/576421993035083776&#34;&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1431255279/shanselman-gitdistributedirony_q7jlt3.png&#34; alt=&#34;@shanselman&amp;rsquo;s centralised GitHub tweet&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It&amp;rsquo;s ironic that Git is a distributed version control system but the world now pushes all their code centrally to GitHub.
+&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://twitter.com/shanselman/status/576421993035083776&#34;&gt;Scott Hanselman&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;With git, any copy is an entire copy of the repository, its full history, everything from everyone you have pulled in changes from. You can take any new changes you make, and share them around as differences, based on what parts of the common history has already been retrieved from anywhere so far. Sharing to another team member is no different than sharing to &lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt;, &lt;a href=&#34;https://about.gitlab.com/&#34;&gt;GitLab&lt;/a&gt;, &lt;a href=&#34;https://bitbucket.org/&#34;&gt;BitBucket&lt;/a&gt;, &lt;a href=&#34;https://www.visualstudio.com/en-us/products/what-is-visual-studio-online-vs&#34;&gt;Visual Studio Online&lt;/a&gt;, or any other host provider out there.  This adds a large amount of flexibility to the workflow you end up using, and the power to be truly working offline, and still commit your work.&lt;/p&gt;
+&lt;p&gt;One last set of stats to finish up with is &lt;a href=&#34;http://githut.info/&#34;&gt;githut.info&lt;/a&gt;. This site gives you a view on GitHub&amp;rsquo;s statistics.  We can see from their site that the C# language is above average in all of the stats. Sure, its not right at the top, but We have do decide how we are reading this graph. Primarily, I suggest it reflects the distribution of usage of those languages relative to each other. It could also reflect the likely-hood of people who use those languages to use GitHub. It is hard to say. But what it does tell you, is that .Net programmers are using GitHub, and therefore using git. So much so, that all of &lt;a href=&#34;https://github.com/Microsoft&#34;&gt;Microsoft&amp;rsquo;s Open Source Software&lt;/a&gt; and their new &lt;a href=&#34;https://github.com/dotnet&#34;&gt;.NET Foundation&lt;/a&gt; released over the last year has been made public as git repositories, through GitHub.&lt;/p&gt;
+&lt;p&gt;Everyone around you is using GitHub, a precedence has even been set by Microsoft themselves through TFS and Visual Studio Online supporting git alongside Team Foundation Source Control, and now their .Net Foundation.  And even before that .Net opensource software had been migrating across from CodePlex, to take advantage of what git, especially hosted on GitHub, provided their projects.  Enlighten your mind by giving it a go, and I promise there is nothing to be afraid of. Job interviews are scary, people swarming towards PHP in droves is scary. And git, well, git is not scary.&lt;/p&gt;
 </description>
     </item>
     
@@ -149,56 +149,56 @@ move-item $TmpFile $FileFullPath -force
       <pubDate>Wed, 22 Apr 2015 07:33:49 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/git-lol/</guid>
-      <description><p>I saw <a href="http://scottchacon.com/">Scott Chacon</a> use <code>git lol</code> on an <a href="https://www.youtube.com/watch?v=ZDR433b0HJY">introduction to git video</a>, and thought it looked like a neat alias idea. I did some searching and came across <a href="http://uberblo.gs/2010/12/git-lol-the-other-git-log">this blog post</a> by <a href="https://twitter.com/fbettag">Franz Bettag</a>, in which he creates an alias for <code>git log</code> called <code>git lol</code>.  I&rsquo;m not sure if he came up with it, but it looks like Scott Chacon is the person from whom people seem to learn about it.  Unfortunately the gist links on Franz&rsquo;s blog post don&rsquo;t work for me, so to help me find them again in the future, I thought I would re-post his post here:</p>
-<p>He starts with:</p>
-<blockquote>
-<p>So i got tired of the git log default output, since it was simply too bloated for my Macbook Pro Terminal. It’s ok my 30&quot; Apple Cinema Display (or one of the other 22&quot; surrounding it), but even there it doesn’t show me enough for my taste.</p>
-</blockquote>
-<blockquote>
-<p>The default output looks something like this:</p>
-</blockquote>
-<p>The <a href="https://gist.github.com/fbettag/748429">missing gist code</a> for this was:</p>
-<pre><code class="language-cmd">$ git log
+      <description>&lt;p&gt;I saw &lt;a href=&#34;http://scottchacon.com/&#34;&gt;Scott Chacon&lt;/a&gt; use &lt;code&gt;git lol&lt;/code&gt; on an &lt;a href=&#34;https://www.youtube.com/watch?v=ZDR433b0HJY&#34;&gt;introduction to git video&lt;/a&gt;, and thought it looked like a neat alias idea. I did some searching and came across &lt;a href=&#34;http://uberblo.gs/2010/12/git-lol-the-other-git-log&#34;&gt;this blog post&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/fbettag&#34;&gt;Franz Bettag&lt;/a&gt;, in which he creates an alias for &lt;code&gt;git log&lt;/code&gt; called &lt;code&gt;git lol&lt;/code&gt;.  I&amp;rsquo;m not sure if he came up with it, but it looks like Scott Chacon is the person from whom people seem to learn about it.  Unfortunately the gist links on Franz&amp;rsquo;s blog post don&amp;rsquo;t work for me, so to help me find them again in the future, I thought I would re-post his post here:&lt;/p&gt;
+&lt;p&gt;He starts with:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So i got tired of the git log default output, since it was simply too bloated for my Macbook Pro Terminal. It’s ok my 30&amp;quot; Apple Cinema Display (or one of the other 22&amp;quot; surrounding it), but even there it doesn’t show me enough for my taste.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The default output looks something like this:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The &lt;a href=&#34;https://gist.github.com/fbettag/748429&#34;&gt;missing gist code&lt;/a&gt; for this was:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;$ git log
 commit 9f0349d992f1c3e7f278096d27cd13d8d990c2df
-Author: Franz Bettag &lt;franz@bett.ag&gt;
+Author: Franz Bettag &amp;lt;franz@bett.ag&amp;gt;
 Date:   Fri Nov 12 20:46:19 2010 +0100
 
     Now finally does frickin pull first.
 
 commit 1cc98b07391383addc5b998b4fcf1e5a4233faad
-Author: Franz Bettag &lt;franz@bett.ag&gt;
+Author: Franz Bettag &amp;lt;franz@bett.ag&amp;gt;
 Date:   Wed Nov 10 10:37:22 2010 +0100
 
     Added auto-update.
 
 commit 405970a3947a8fa9f2b462df78a8dcd359051c52
-Author: Franz Bettag &lt;franz@bett.ag&gt;
+Author: Franz Bettag &amp;lt;franz@bett.ag&amp;gt;
 Date:   Wed Nov 10 10:24:27 2010 +0100
 
     Initial import.
-</code></pre>
-<p>He then went on to say:</p>
-<blockquote>
-<p>Imagine this for 300+ commits, you literally will never see the end of it.</p>
-</blockquote>
-<p>He then gave <a href="https://gist.github.com/fbettag/748431">a gist for his combination of parameters</a> for the <code>git log</code> command:</p>
-<pre><code class="language-cmd">$ git log --graph --decorate --pretty=oneline --abbrev-commit --all
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;He then went on to say:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Imagine this for 300+ commits, you literally will never see the end of it.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;He then gave &lt;a href=&#34;https://gist.github.com/fbettag/748431&#34;&gt;a gist for his combination of parameters&lt;/a&gt; for the &lt;code&gt;git log&lt;/code&gt; command:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;$ git log --graph --decorate --pretty=oneline --abbrev-commit --all
 * 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
 * 1cc98b0 Added auto-update.
 * 405970a Initial import.
-</code></pre>
-<p>And lastly, the aliasing (<a href="https://gist.github.com/fbettag/748451">with gist</a>):</p>
-<blockquote>
-<p>After diddling around with git log parameters, i’ve come up with this neat constellation.</p>
-</blockquote>
-<pre><code class="language-cmd">$ git config --global --add alias.lol &quot;log --graph --decorate --pretty=oneline --abbrev-commit --all&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And lastly, the aliasing (&lt;a href=&#34;https://gist.github.com/fbettag/748451&#34;&gt;with gist&lt;/a&gt;):&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;After diddling around with git log parameters, i’ve come up with this neat constellation.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;$ git config --global --add alias.lol &amp;quot;log --graph --decorate --pretty=oneline --abbrev-commit --all&amp;quot;
 $ git lol
 * 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
 * 1cc98b0 Added auto-update.
 * 405970a Initial import.
-</code></pre>
-<p>So now I have another tool for my tool-belt (or alias of my git config) in adding <code>git lol</code> to my repertoire of git commands.</p>
-<p>For those of you new to git log, <code>up arrow</code>, <code>down arrow</code>, <code>page up</code> and <code>page down</code> move you up and down the buffer, and don&rsquo;t forget to press <code>q</code> when your done to close it out.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So now I have another tool for my tool-belt (or alias of my git config) in adding &lt;code&gt;git lol&lt;/code&gt; to my repertoire of git commands.&lt;/p&gt;
+&lt;p&gt;For those of you new to git log, &lt;code&gt;up arrow&lt;/code&gt;, &lt;code&gt;down arrow&lt;/code&gt;, &lt;code&gt;page up&lt;/code&gt; and &lt;code&gt;page down&lt;/code&gt; move you up and down the buffer, and don&amp;rsquo;t forget to press &lt;code&gt;q&lt;/code&gt; when your done to close it out.&lt;/p&gt;
 </description>
     </item>
     
@@ -208,23 +208,23 @@ $ git lol
       <pubDate>Sat, 18 Apr 2015 13:26:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/aliasing-your-git-status/</guid>
-      <description><p>Anyone else have the bad habit of typing in <code>git statsu</code> or <code>git stauts</code>? Or maybe you just end up typing <code>git status</code> all the time at the command line, and wonder if there was a better way.  Well, there is.</p>
-<h3 id="aliases">Aliases</h3>
-<p>Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an alternative way to call another command, maybe with implicit parameters baked in that you use all the time. So for me, I want to type <code>gs</code> to perform a <code>git status</code> call.</p>
-<h3 id="powershell">PowerShell</h3>
-<p>As a .Net developer, I use PowerShell as my preferred command line shell. This means when it comes to git, <a href="http://blog.csmac.nz/visual-studio-powershell/">I have PowerShell set up just so</a>, and it can give me all these nice indicators around what branch I&rsquo;m on etc.  But when It comes to aliases, PowerShell requires a native command to attach that alias to (of which <code>git status</code> isn&rsquo;t). It also doesn&rsquo;t allow default arguments when you make these aliases.  But it can be done. The trick is to wrap it in a function:</p>
-<pre><code class="language-powershell">function Get-GitStatus { &amp; git status }
+      <description>&lt;p&gt;Anyone else have the bad habit of typing in &lt;code&gt;git statsu&lt;/code&gt; or &lt;code&gt;git stauts&lt;/code&gt;? Or maybe you just end up typing &lt;code&gt;git status&lt;/code&gt; all the time at the command line, and wonder if there was a better way.  Well, there is.&lt;/p&gt;
+&lt;h3 id=&#34;aliases&#34;&gt;Aliases&lt;/h3&gt;
+&lt;p&gt;Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an alternative way to call another command, maybe with implicit parameters baked in that you use all the time. So for me, I want to type &lt;code&gt;gs&lt;/code&gt; to perform a &lt;code&gt;git status&lt;/code&gt; call.&lt;/p&gt;
+&lt;h3 id=&#34;powershell&#34;&gt;PowerShell&lt;/h3&gt;
+&lt;p&gt;As a .Net developer, I use PowerShell as my preferred command line shell. This means when it comes to git, &lt;a href=&#34;http://blog.csmac.nz/visual-studio-powershell/&#34;&gt;I have PowerShell set up just so&lt;/a&gt;, and it can give me all these nice indicators around what branch I&amp;rsquo;m on etc.  But when It comes to aliases, PowerShell requires a native command to attach that alias to (of which &lt;code&gt;git status&lt;/code&gt; isn&amp;rsquo;t). It also doesn&amp;rsquo;t allow default arguments when you make these aliases.  But it can be done. The trick is to wrap it in a function:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;function Get-GitStatus { &amp;amp; git status }
 New-Alias -Name gs -Value Get-GitStatus
-</code></pre>
-<p>First we define a function that represents the command we want to execute (<code>git status</code> in this case), then we call the New-Alias PowerShell command, and provide a name (<code>gs</code>) and the defined function as the value. Easy.</p>
-<p>As a convenience, I added these two lines to my <code>Microsoft.PowerShell_profile.ps1</code> file (you can find this using the <code>$PROFILE</code> variable in your PowerShell) so that the alias is always available when PowerShell starts.</p>
-<h3 id="bash">BASH</h3>
-<p>While Bash is not my primary shell, it is the go-to for most developers using. It is easy to get an alias set up in Bash. All you would need is to run the following command:</p>
-<pre><code class="language-powershell">alias gs='git status'
-</code></pre>
-<p>Now whenever you type <code>gs</code> it will run the <code>git status</code> command. Again, you could put this in your <a href="http://tldp.org/LDP/abs/html/sample-bashrc.html">.bashrc file</a> (or <a href="http://stackoverflow.com/questions/6883760/git-for-windows-bashrc-or-equivalent-config-files-for-git-bash-shell">windows equivalent</a> to make this available whenever you launch the shell.</p>
-<h3 id="til">TIL</h3>
-<p>So I was watching someone else give an introduction to git today, and found out that for some commands in git have built in, well established aliases already. one of these is the <code>status</code> command, using <code>st</code>. So if <code>git status</code> is giving you trouble, maybe just look at using <code>git st</code> instead. No custom aliasing required. I&rsquo;m still going to keep using my <code>gs</code> though, its still faster.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;First we define a function that represents the command we want to execute (&lt;code&gt;git status&lt;/code&gt; in this case), then we call the New-Alias PowerShell command, and provide a name (&lt;code&gt;gs&lt;/code&gt;) and the defined function as the value. Easy.&lt;/p&gt;
+&lt;p&gt;As a convenience, I added these two lines to my &lt;code&gt;Microsoft.PowerShell_profile.ps1&lt;/code&gt; file (you can find this using the &lt;code&gt;$PROFILE&lt;/code&gt; variable in your PowerShell) so that the alias is always available when PowerShell starts.&lt;/p&gt;
+&lt;h3 id=&#34;bash&#34;&gt;BASH&lt;/h3&gt;
+&lt;p&gt;While Bash is not my primary shell, it is the go-to for most developers using. It is easy to get an alias set up in Bash. All you would need is to run the following command:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;alias gs=&#39;git status&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now whenever you type &lt;code&gt;gs&lt;/code&gt; it will run the &lt;code&gt;git status&lt;/code&gt; command. Again, you could put this in your &lt;a href=&#34;http://tldp.org/LDP/abs/html/sample-bashrc.html&#34;&gt;.bashrc file&lt;/a&gt; (or &lt;a href=&#34;http://stackoverflow.com/questions/6883760/git-for-windows-bashrc-or-equivalent-config-files-for-git-bash-shell&#34;&gt;windows equivalent&lt;/a&gt; to make this available whenever you launch the shell.&lt;/p&gt;
+&lt;h3 id=&#34;til&#34;&gt;TIL&lt;/h3&gt;
+&lt;p&gt;So I was watching someone else give an introduction to git today, and found out that for some commands in git have built in, well established aliases already. one of these is the &lt;code&gt;status&lt;/code&gt; command, using &lt;code&gt;st&lt;/code&gt;. So if &lt;code&gt;git status&lt;/code&gt; is giving you trouble, maybe just look at using &lt;code&gt;git st&lt;/code&gt; instead. No custom aliasing required. I&amp;rsquo;m still going to keep using my &lt;code&gt;gs&lt;/code&gt; though, its still faster.&lt;/p&gt;
 </description>
     </item>
     
@@ -234,13 +234,13 @@ New-Alias -Name gs -Value Get-GitStatus
       <pubDate>Mon, 06 Apr 2015 12:29:27 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</guid>
-      <description><p>I&rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.</p>
-<p>It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the <a href="https://developer.github.com/v3/repos/statuses/">Statuses api on GitHub</a> for just how easy). Again it is easy to trigger a build off of the &lsquo;special&rsquo; pull request branch github uses. A guide to getting all of these links working is <a href="http://blog.jetbrains.com/teamcity/2013/02/automatically-building-pull-requests-from-github-with-teamcity/">available on the teamcity blog</a>. But triggering the git source control checking on TeamCity turned out the be the hard bit.</p>
-<p>There are Webhooks in GitHub. There are also Service Hooks. There is a <a href="https://github.com/github/github-services/blob/master/lib/services/teamcity.rb">TeamCity Service Hook</a>. Unfortunately there are issues with both that requires some third set of code to actually make it work. Here is why.</p>
-<p>You would think that the existing team city hook would be exactly what you need. In the settings of your repository, you can configure this, with credentials, to either start a build, or just check for changes on the associated VCS Root. This check may actually trigger a build, depending on how your build triggers are set up.  The problem is that only the <strong>&ldquo;push&rdquo;</strong> event will trigger this service hook to fire off.  Why is this an issue for Pull Requests? Because creating a Pull Request creates the <strong>&ldquo;pull request&rdquo;</strong> event. This means that creating a pull request does not trigger a git check for changes, and so doesn&rsquo;t trigger the Pull Request to run the build, which won&rsquo;t publish the results back to the Pull Request.</p>
-<p>Ok, lets try the custom Web Hooks. Still a no-go. GitHub Web Hooks are ultra flexible. There is <a href="https://developer.github.com/enterprise/2.1/webhooks/">great documentation</a> on setting up a Webhook. It event supports Secrets for signing, specifying specific events, and which format you want it to give you the information in.  But its a <strong>PUSH</strong>.  This means you need a particular endpoint that receives that push, and processes it&rsquo;s payload. There is nothing on TeamCity that matches that description.  You will have to write something to catch that response and trigger the behaviour you want to see happen.</p>
-<p>Now don&rsquo;t get me wrong, this is exactly what you would expect. You need to determine what the business logic to respond to the event should be. But it means to solve my Pull Request problem, I now need to actually build and host this thing to make it all work.</p>
-<p>So for anyone else wondering why the existing tutorials don&rsquo;t trigger your PR builds automatically, now you know why.  Enjoy building a middleman to make TeamCity do what you want as a result of what GitHub sends you :)  I suggest you read <a href="https://github.com/github/github-services/blob/master/lib/services/teamcity.rb">the implementation of the existing service</a> for some ideas of what your middleman might look like.  This was highlighted for us even more glaringly, since we only trigger a forced fetch on TeamCity every 24 hours, so it would only run my build on a PR if I manually triggered it (or someone else happened to accept a merge or push something directly to GitHub). I&rsquo;m sure this was also made worse by us always doing our Pull Requests between forks and trunk, so only on merging a PR would it trigger an update on TeamCity. And then there are the multiple VCS Roots, that updating one doesn&rsquo;t actually trigger all the related builds. Meh.</p>
+      <description>&lt;p&gt;I&amp;rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&amp;rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.&lt;/p&gt;
+&lt;p&gt;It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the &lt;a href=&#34;https://developer.github.com/v3/repos/statuses/&#34;&gt;Statuses api on GitHub&lt;/a&gt; for just how easy). Again it is easy to trigger a build off of the &amp;lsquo;special&amp;rsquo; pull request branch github uses. A guide to getting all of these links working is &lt;a href=&#34;http://blog.jetbrains.com/teamcity/2013/02/automatically-building-pull-requests-from-github-with-teamcity/&#34;&gt;available on the teamcity blog&lt;/a&gt;. But triggering the git source control checking on TeamCity turned out the be the hard bit.&lt;/p&gt;
+&lt;p&gt;There are Webhooks in GitHub. There are also Service Hooks. There is a &lt;a href=&#34;https://github.com/github/github-services/blob/master/lib/services/teamcity.rb&#34;&gt;TeamCity Service Hook&lt;/a&gt;. Unfortunately there are issues with both that requires some third set of code to actually make it work. Here is why.&lt;/p&gt;
+&lt;p&gt;You would think that the existing team city hook would be exactly what you need. In the settings of your repository, you can configure this, with credentials, to either start a build, or just check for changes on the associated VCS Root. This check may actually trigger a build, depending on how your build triggers are set up.  The problem is that only the &lt;strong&gt;&amp;ldquo;push&amp;rdquo;&lt;/strong&gt; event will trigger this service hook to fire off.  Why is this an issue for Pull Requests? Because creating a Pull Request creates the &lt;strong&gt;&amp;ldquo;pull request&amp;rdquo;&lt;/strong&gt; event. This means that creating a pull request does not trigger a git check for changes, and so doesn&amp;rsquo;t trigger the Pull Request to run the build, which won&amp;rsquo;t publish the results back to the Pull Request.&lt;/p&gt;
+&lt;p&gt;Ok, lets try the custom Web Hooks. Still a no-go. GitHub Web Hooks are ultra flexible. There is &lt;a href=&#34;https://developer.github.com/enterprise/2.1/webhooks/&#34;&gt;great documentation&lt;/a&gt; on setting up a Webhook. It event supports Secrets for signing, specifying specific events, and which format you want it to give you the information in.  But its a &lt;strong&gt;PUSH&lt;/strong&gt;.  This means you need a particular endpoint that receives that push, and processes it&amp;rsquo;s payload. There is nothing on TeamCity that matches that description.  You will have to write something to catch that response and trigger the behaviour you want to see happen.&lt;/p&gt;
+&lt;p&gt;Now don&amp;rsquo;t get me wrong, this is exactly what you would expect. You need to determine what the business logic to respond to the event should be. But it means to solve my Pull Request problem, I now need to actually build and host this thing to make it all work.&lt;/p&gt;
+&lt;p&gt;So for anyone else wondering why the existing tutorials don&amp;rsquo;t trigger your PR builds automatically, now you know why.  Enjoy building a middleman to make TeamCity do what you want as a result of what GitHub sends you :)  I suggest you read &lt;a href=&#34;https://github.com/github/github-services/blob/master/lib/services/teamcity.rb&#34;&gt;the implementation of the existing service&lt;/a&gt; for some ideas of what your middleman might look like.  This was highlighted for us even more glaringly, since we only trigger a forced fetch on TeamCity every 24 hours, so it would only run my build on a PR if I manually triggered it (or someone else happened to accept a merge or push something directly to GitHub). I&amp;rsquo;m sure this was also made worse by us always doing our Pull Requests between forks and trunk, so only on merging a PR would it trigger an update on TeamCity. And then there are the multiple VCS Roots, that updating one doesn&amp;rsquo;t actually trigger all the related builds. Meh.&lt;/p&gt;
 </description>
     </item>
     
@@ -250,60 +250,60 @@ New-Alias -Name gs -Value Get-GitStatus
       <pubDate>Mon, 29 Dec 2014 09:36:45 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/git-housekeeping/</guid>
-      <description><p>Those who are using Git but still new to the concept will no doubt have realised that files are treated differently to normal source control tools, and that they transition between different known states, according to git.  I am going to try and explain these states, and give commands on how to transition between them.</p>
-<p>I needed these commands recently because I wanted to reset my changes and hadn&rsquo;t really thought about how these states affect what it is that gets &lsquo;reset&rsquo;.</p>
-<p>TL;DR: you can use these commands to perform different state transitions</p>
-<ul>
-<li><code>git add &lt;file&gt;</code> - add all changes to a file to stage</li>
-<li><code>git rm --cached</code> - unstage a new file/stage a delete for an existing file, keep local filesystem copy</li>
-<li><code>git reset &lt;file&gt;</code> - unstage, keep local changes</li>
-<li><code>git checkout .</code> - reset unstaged changes, keep staged</li>
-<li><code>git reset --hard</code> - reset all staged changes, reset all unstaged changes of tracked files(new unstaged files not removed)</li>
-<li><code>git clean -f</code> (use <code>git clean -n</code> to dry run first) - removes all  untracked, unstaged changes</li>
-<li><code>git clean -f -x</code> (use <code>git clean -n -x</code> to dry run first) - as above, also removes ignored files</li>
-</ul>
-<p>Skip to summary for coverage.</p>
-<h4 id="the-details">The Details</h4>
-<p>Given a file, git will see it as one of several states: Ignored, New-Unstaged, New-PartialStaged, New-Staged, Existing-Clean, Existing-UnstagedChanges, Existing-PartialStaged, and Existing-Staged.  First I will work through the states and some of the transitions, Then ill list the commands to achieve these transitions. (There is also a Deleted-Unstaged and Deleted-Staged, but ill leave those as an exercise for the reader.)</p>
-<p>You can think or the file as having 3 versions, one commited, one on the file system, and one in a staging area. The Unstaged/PartialStaged/Staged variations just refect whether or not the file system version or staged version has changes from the commited version. Where a change from the commited version is in both the file system and the stage it is staged. When it is in the filesystem but not the stage it is unstaged. When all changes are staged, we are in the Staged state, when all changes are unstaged we are in the Unstaged State, and when it is a mix, we are in the PartialStaged State. Hopefully that helps when looking at the state transitions below.</p>
-<p>A file is in the Ignored state when it is covered by an explicit or wildcard entry in your .gitignore, as long as it isn&rsquo;t already checked in to source control.  To transition into this state, Add a new file that is covered by ignore. If you have have staged changes you need to unstage them but keep the changes on disk. If you have a checked in file, you need to delete the file from git but keep the changes on disk.</p>
-<p>When you add a new file, it will start in the New-Unstaged state, as long as it isn&rsquo;t being ignored by .gitignore. By staging the whole file, you get to the New-Staged, or you can stage some of the lines in the file to be in the New-PartialStaged state.</p>
-<p>When you have an existing file, it starts in the Existing-Clean state.  making changes puts it into the Existing-UnstagedChanges, and staging these produces the Existing-PartialStaged and Existing-Staged, depending on if some or all changes are staged.</p>
-<p>Hopefully by now you have learned how to move changes forward with <code>git add &lt;filename&gt;</code> and how to commit them with <code>git commit</code>, so next we need to get out head about these 3 commands to go the other way.</p>
-<p>So with out uncommited changes, we want to do one of 3 things: reset both stage and filesystem files to the commited version(or remove completely if new) or unstage the changes but keep them on the filesystem (or un-add if new), or with untracked files(ignored) we want to delete them completely.</p>
-<p>Lets start with the unstaging. We have a new file staged, and we want to unstage, but keep the changes on disk.  Why? well we either want to have it ignored(staged accidentally) or it isn&rsquo;t going in this commit.  Either way, we use <code>git reset &lt;file&gt;</code> or if it a new file we could also use <code>git rm --cached</code> instead. <code>--cached</code> means keep the filesystem changes. Note that if you have a new staged file that is now ignored, or a commited file that you want to become ignored, but deleted, then <code>git rm --cached</code> is the coomand for the job, as long as you already have your .gitignore updated as well.</p>
-<p>Now if have unstaged changes and we want to reset them on disk but leave staging alone? We can use the command <code>git checkout .</code>.  This keeps all staged changes but resets any unstaged changes. The only issue with this command, is that if you have new files, but not staged, they stick around, while new staged files get removed.</p>
-<p>And if we want to remove all staged and local changes of tracked(unignored, non new) files? <code>git reset --hard</code>. Note that any new unstaged files are kept here also. You could use <code>git add .</code> to stage new files, then <code>git reset --hard</code>, or you could try this next command after reset instead.</p>
-<p>To remove unstaged files, you can use <code>git clean -f</code>.  Watch out though, this cannot be undone, so best to run <code>git clean -n</code> to test it first.  This will only remove new unstaged files(basically what the above two commands miss). As a side note, if the add is staged, this won&rsquo;t revert any unstaged changes to the file.</p>
-<p>One final category is the ignored files. You know, all those artifacts, bin files, test results, .user files, package artifacts etc.  These don&rsquo;t go away in a hurry, whether its changing branches, or resetting changes, these files stick around, and some of them take up space over time.  These can be removed using <code>git clean -f -x</code>, again remembering to run <code>git clean -n -x</code> first so you don&rsquo;t lose something you didnt mean to.</p>
-<p>One last one for good measure: if you want to keep all your changes for later, but still reset your files, use <code>git stash -u</code>. The <code>-u</code> here is shorthand for the <code>--include-untracked</code> command.  This quickly gets rid of all but ignored files in your repo, making it as clean as necessary, and even keeps all your changes stored away to bring them back with <code>git stash pop</code>.  Note though that the staged status of your files might not be the same afterwards. It will collapse together the stages and unstaged changes for each file, and put them all staged or all in unstaged. (This seems to be based on whether it is new or not, but more investigation needed).</p>
-<h4 id="summary">Summary</h4>
-<p>(TL;DR continued)</p>
-<p>So lets summarize all these removals a little simpler based on the way I found it <a href="http://stackoverflow.com/questions/22620393/remove-local-git-changes">somewhere else online</a>:</p>
-<ul>
-<li>Type 1: Ignored File</li>
-<li>Type 2: Unstaged New File</li>
-<li>Type 3: Unstaged Changes (on new staged, or existing file)</li>
-<li>Type 4: Staged New File(with or without unstaged changes)</li>
-<li>Type 5: Staged Changes on Existing File</li>
-</ul>
-<p>Commands:</p>
-<ul>
-<li><code>git checkout .</code> - Undo Type 3 only</li>
-<li><code>git reset --hard</code> - Undo Types 3, 4 and 5 only</li>
-<li><code>git clean -f</code> - Undo Type 2 only</li>
-<li><code>git clean -f -x</code> - Undo Types 1 and 2 only</li>
-<li><code>git stash -u</code> - Undo Types 2,3,4,5, and creates a stash</li>
-<li><code>git stash -all</code> - Undo All types, and creates a stash(stash includes ignored)</li>
-</ul>
-<p>So to nuke it all?</p>
-<ul>
-<li><code>git reset --hard</code> then <code>git clean -f -x</code> - All, no recovery</li>
-<li><code>git reset --hard</code> then <code>git clean -f</code> - All but ignored, no recovery</li>
-<li><code>git stash -all</code> - All gone, with recovery</li>
-<li><code>git stash -u</code> - All but ignored with recovery</li>
-</ul>
-<p>Thanks to <a href="http://stackoverflow.com/users/430885/frederik-sch%c3%b8ning">Frederik Schøning</a> and others for their <a href="http://stackoverflow.com/questions/22620393/remove-local-git-changes">stackoverflow answer</a> which helped me get the commands straight to solve my problem.</p>
+      <description>&lt;p&gt;Those who are using Git but still new to the concept will no doubt have realised that files are treated differently to normal source control tools, and that they transition between different known states, according to git.  I am going to try and explain these states, and give commands on how to transition between them.&lt;/p&gt;
+&lt;p&gt;I needed these commands recently because I wanted to reset my changes and hadn&amp;rsquo;t really thought about how these states affect what it is that gets &amp;lsquo;reset&amp;rsquo;.&lt;/p&gt;
+&lt;p&gt;TL;DR: you can use these commands to perform different state transitions&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;git add &amp;lt;file&amp;gt;&lt;/code&gt; - add all changes to a file to stage&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git rm --cached&lt;/code&gt; - unstage a new file/stage a delete for an existing file, keep local filesystem copy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git reset &amp;lt;file&amp;gt;&lt;/code&gt; - unstage, keep local changes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git checkout .&lt;/code&gt; - reset unstaged changes, keep staged&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git reset --hard&lt;/code&gt; - reset all staged changes, reset all unstaged changes of tracked files(new unstaged files not removed)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git clean -f&lt;/code&gt; (use &lt;code&gt;git clean -n&lt;/code&gt; to dry run first) - removes all  untracked, unstaged changes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git clean -f -x&lt;/code&gt; (use &lt;code&gt;git clean -n -x&lt;/code&gt; to dry run first) - as above, also removes ignored files&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Skip to summary for coverage.&lt;/p&gt;
+&lt;h4 id=&#34;the-details&#34;&gt;The Details&lt;/h4&gt;
+&lt;p&gt;Given a file, git will see it as one of several states: Ignored, New-Unstaged, New-PartialStaged, New-Staged, Existing-Clean, Existing-UnstagedChanges, Existing-PartialStaged, and Existing-Staged.  First I will work through the states and some of the transitions, Then ill list the commands to achieve these transitions. (There is also a Deleted-Unstaged and Deleted-Staged, but ill leave those as an exercise for the reader.)&lt;/p&gt;
+&lt;p&gt;You can think or the file as having 3 versions, one commited, one on the file system, and one in a staging area. The Unstaged/PartialStaged/Staged variations just refect whether or not the file system version or staged version has changes from the commited version. Where a change from the commited version is in both the file system and the stage it is staged. When it is in the filesystem but not the stage it is unstaged. When all changes are staged, we are in the Staged state, when all changes are unstaged we are in the Unstaged State, and when it is a mix, we are in the PartialStaged State. Hopefully that helps when looking at the state transitions below.&lt;/p&gt;
+&lt;p&gt;A file is in the Ignored state when it is covered by an explicit or wildcard entry in your .gitignore, as long as it isn&amp;rsquo;t already checked in to source control.  To transition into this state, Add a new file that is covered by ignore. If you have have staged changes you need to unstage them but keep the changes on disk. If you have a checked in file, you need to delete the file from git but keep the changes on disk.&lt;/p&gt;
+&lt;p&gt;When you add a new file, it will start in the New-Unstaged state, as long as it isn&amp;rsquo;t being ignored by .gitignore. By staging the whole file, you get to the New-Staged, or you can stage some of the lines in the file to be in the New-PartialStaged state.&lt;/p&gt;
+&lt;p&gt;When you have an existing file, it starts in the Existing-Clean state.  making changes puts it into the Existing-UnstagedChanges, and staging these produces the Existing-PartialStaged and Existing-Staged, depending on if some or all changes are staged.&lt;/p&gt;
+&lt;p&gt;Hopefully by now you have learned how to move changes forward with &lt;code&gt;git add &amp;lt;filename&amp;gt;&lt;/code&gt; and how to commit them with &lt;code&gt;git commit&lt;/code&gt;, so next we need to get out head about these 3 commands to go the other way.&lt;/p&gt;
+&lt;p&gt;So with out uncommited changes, we want to do one of 3 things: reset both stage and filesystem files to the commited version(or remove completely if new) or unstage the changes but keep them on the filesystem (or un-add if new), or with untracked files(ignored) we want to delete them completely.&lt;/p&gt;
+&lt;p&gt;Lets start with the unstaging. We have a new file staged, and we want to unstage, but keep the changes on disk.  Why? well we either want to have it ignored(staged accidentally) or it isn&amp;rsquo;t going in this commit.  Either way, we use &lt;code&gt;git reset &amp;lt;file&amp;gt;&lt;/code&gt; or if it a new file we could also use &lt;code&gt;git rm --cached&lt;/code&gt; instead. &lt;code&gt;--cached&lt;/code&gt; means keep the filesystem changes. Note that if you have a new staged file that is now ignored, or a commited file that you want to become ignored, but deleted, then &lt;code&gt;git rm --cached&lt;/code&gt; is the coomand for the job, as long as you already have your .gitignore updated as well.&lt;/p&gt;
+&lt;p&gt;Now if have unstaged changes and we want to reset them on disk but leave staging alone? We can use the command &lt;code&gt;git checkout .&lt;/code&gt;.  This keeps all staged changes but resets any unstaged changes. The only issue with this command, is that if you have new files, but not staged, they stick around, while new staged files get removed.&lt;/p&gt;
+&lt;p&gt;And if we want to remove all staged and local changes of tracked(unignored, non new) files? &lt;code&gt;git reset --hard&lt;/code&gt;. Note that any new unstaged files are kept here also. You could use &lt;code&gt;git add .&lt;/code&gt; to stage new files, then &lt;code&gt;git reset --hard&lt;/code&gt;, or you could try this next command after reset instead.&lt;/p&gt;
+&lt;p&gt;To remove unstaged files, you can use &lt;code&gt;git clean -f&lt;/code&gt;.  Watch out though, this cannot be undone, so best to run &lt;code&gt;git clean -n&lt;/code&gt; to test it first.  This will only remove new unstaged files(basically what the above two commands miss). As a side note, if the add is staged, this won&amp;rsquo;t revert any unstaged changes to the file.&lt;/p&gt;
+&lt;p&gt;One final category is the ignored files. You know, all those artifacts, bin files, test results, .user files, package artifacts etc.  These don&amp;rsquo;t go away in a hurry, whether its changing branches, or resetting changes, these files stick around, and some of them take up space over time.  These can be removed using &lt;code&gt;git clean -f -x&lt;/code&gt;, again remembering to run &lt;code&gt;git clean -n -x&lt;/code&gt; first so you don&amp;rsquo;t lose something you didnt mean to.&lt;/p&gt;
+&lt;p&gt;One last one for good measure: if you want to keep all your changes for later, but still reset your files, use &lt;code&gt;git stash -u&lt;/code&gt;. The &lt;code&gt;-u&lt;/code&gt; here is shorthand for the &lt;code&gt;--include-untracked&lt;/code&gt; command.  This quickly gets rid of all but ignored files in your repo, making it as clean as necessary, and even keeps all your changes stored away to bring them back with &lt;code&gt;git stash pop&lt;/code&gt;.  Note though that the staged status of your files might not be the same afterwards. It will collapse together the stages and unstaged changes for each file, and put them all staged or all in unstaged. (This seems to be based on whether it is new or not, but more investigation needed).&lt;/p&gt;
+&lt;h4 id=&#34;summary&#34;&gt;Summary&lt;/h4&gt;
+&lt;p&gt;(TL;DR continued)&lt;/p&gt;
+&lt;p&gt;So lets summarize all these removals a little simpler based on the way I found it &lt;a href=&#34;http://stackoverflow.com/questions/22620393/remove-local-git-changes&#34;&gt;somewhere else online&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Type 1: Ignored File&lt;/li&gt;
+&lt;li&gt;Type 2: Unstaged New File&lt;/li&gt;
+&lt;li&gt;Type 3: Unstaged Changes (on new staged, or existing file)&lt;/li&gt;
+&lt;li&gt;Type 4: Staged New File(with or without unstaged changes)&lt;/li&gt;
+&lt;li&gt;Type 5: Staged Changes on Existing File&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Commands:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;git checkout .&lt;/code&gt; - Undo Type 3 only&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git reset --hard&lt;/code&gt; - Undo Types 3, 4 and 5 only&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git clean -f&lt;/code&gt; - Undo Type 2 only&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git clean -f -x&lt;/code&gt; - Undo Types 1 and 2 only&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git stash -u&lt;/code&gt; - Undo Types 2,3,4,5, and creates a stash&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git stash -all&lt;/code&gt; - Undo All types, and creates a stash(stash includes ignored)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So to nuke it all?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;git reset --hard&lt;/code&gt; then &lt;code&gt;git clean -f -x&lt;/code&gt; - All, no recovery&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git reset --hard&lt;/code&gt; then &lt;code&gt;git clean -f&lt;/code&gt; - All but ignored, no recovery&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git stash -all&lt;/code&gt; - All gone, with recovery&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git stash -u&lt;/code&gt; - All but ignored with recovery&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thanks to &lt;a href=&#34;http://stackoverflow.com/users/430885/frederik-sch%c3%b8ning&#34;&gt;Frederik Schøning&lt;/a&gt; and others for their &lt;a href=&#34;http://stackoverflow.com/questions/22620393/remove-local-git-changes&#34;&gt;stackoverflow answer&lt;/a&gt; which helped me get the commands straight to solve my problem.&lt;/p&gt;
 </description>
     </item>
     

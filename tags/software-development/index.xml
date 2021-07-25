@@ -19,23 +19,23 @@
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</guid>
-      <description><p>I&rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.</p>
-<p>Today&rsquo;s fun little problem was the error message:</p>
-<blockquote>
-<p>Runtime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found</p>
-</blockquote>
-<p>The canonical stack overflow question that (at the time of writing this) had no answer: <a href="https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou">https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou</a></p>
-<p>The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (<code>Project</code>):</p>
-<pre><code>import kotlin.reflect.full.declaredMemberProperties
+      <description>&lt;p&gt;I&amp;rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.&lt;/p&gt;
+&lt;p&gt;Today&amp;rsquo;s fun little problem was the error message:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Runtime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The canonical stack overflow question that (at the time of writing this) had no answer: &lt;a href=&#34;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&#34;&gt;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (&lt;code&gt;Project&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import kotlin.reflect.full.declaredMemberProperties
 
 val props = Project::class.declaredMemberProperties
-</code></pre>
-<p>(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)</p>
-<p>At this point in time and with some further testing, I&rsquo;ve come to the conclusion that <strong>reflection just isn&rsquo;t supported on teamcity with Kotlin</strong>. I&rsquo;ve found one or two Issue links to back that up too: <a href="https://youtrack.jetbrains.com/issue/TW-59901">https://youtrack.jetbrains.com/issue/TW-59901</a></p>
-<p>(¬_¬ )</p>
-<p>If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.</p>
-<p>For now, I have replaced the reflection with good ol' verbose fragile code.</p>
-<p>Luckily, the tests allow reflection no problem so at least the fragility of this case is covered. If someone adds a property then at least a test fails until the verbose code had been amended.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)&lt;/p&gt;
+&lt;p&gt;At this point in time and with some further testing, I&amp;rsquo;ve come to the conclusion that &lt;strong&gt;reflection just isn&amp;rsquo;t supported on teamcity with Kotlin&lt;/strong&gt;. I&amp;rsquo;ve found one or two Issue links to back that up too: &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-59901&#34;&gt;https://youtrack.jetbrains.com/issue/TW-59901&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;(¬_¬ )&lt;/p&gt;
+&lt;p&gt;If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.&lt;/p&gt;
+&lt;p&gt;For now, I have replaced the reflection with good ol&#39; verbose fragile code.&lt;/p&gt;
+&lt;p&gt;Luckily, the tests allow reflection no problem so at least the fragility of this case is covered. If someone adds a property then at least a test fails until the verbose code had been amended.&lt;/p&gt;
 </description>
     </item>
     
@@ -45,17 +45,17 @@ val props = Project::class.declaredMemberProperties
       <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
-      <description><p>The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&rsquo;m not a fan of, and that is <code>= default!;</code></p>
-<h2 id="problem-definition">problem definition</h2>
-<pre><code class="language-cs">// This class is used to serialise/deserialise a payload from a server
+      <description>&lt;p&gt;The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is &lt;code&gt;= default!;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;problem-definition&#34;&gt;problem definition&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// This class is used to serialise/deserialise a payload from a server
 public class MyContractDTO
 {
     public string Value { get; set; } = default!;
 }
-</code></pre>
-<p>My codebase is now littered with this code hack to get it to compile because nullable says it can&rsquo;t guarantee that this property is not null.</p>
-<p>Let&rsquo;s take a closer look at what we are saying.</p>
-<pre><code class="language-cs">
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;My codebase is now littered with this code hack to get it to compile because nullable says it can&amp;rsquo;t guarantee that this property is not null.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take a closer look at what we are saying.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
 // With the Nullable feature enabled, I need to ensure Value is not null:
 // - either in the constructor from a notnull argument
 // - or giving it a default non-null value.
@@ -64,49 +64,49 @@ public string Value { get; set; }
 // Initialise the property to its default value (which for reference types like string is null)
 public string Value { get; set; } = default;
 
-// The '!' says to treat the value as if it is notnull, the developer knows better
+// The &#39;!&#39; says to treat the value as if it is notnull, the developer knows better
 public string Value { get; set; } = default!;
-</code></pre>
-<p>What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&rsquo;t like it.</p>
-<h2 id="normal-solutions">Normal solutions</h2>
-<p>There are two solution paths to take here:</p>
-<ul>
-<li>Acknowledge that it might be null and make it nullable.</li>
-<li>Initialise in the constructor.</li>
-</ul>
-<p>These work great with normal codebases and in some cases, one is better than the other.  If you know it certainly can be null, use the first option. If you know you never expect or want it to be null, use the second.</p>
-<p>Bonus points once you have the constructor is to make the type immutable.
-For all domain and application logic, This is what I have done successfully so far and will continue doing.</p>
-<h2 id="but-serialisation">But serialisation</h2>
-<p>Here is the problem. Serialisation.</p>
-<p>When we have a type that is going to be used to deserialise transport models we again have the same choices as above, but a few more points to consider.</p>
-<ul>
-<li>The JSON may or may not include the field</li>
-<li>The JSON may have the field set to null</li>
-<li>The Deserialiser might not support constructors</li>
-<li>The Deserialiser doesn&rsquo;t know about Nullable and can&rsquo;t ensure the safety is upheld.</li>
-</ul>
-<p>Again we can make the call to acknowledge that it might be null and make it nullable.  But there are drawbacks here. If you do this, you have to add all the error-handling for dealing with nullable checks. And if you control both server and client in this situation, then you might be writing and testing code for something you never plan to, nor may never need to ever support. Being null is an exceptional/fatal situation you don&rsquo;t want to have to constantly guard against.</p>
-<p>Which leads us back to the de-facto solution currently being advocated and used:</p>
-<pre><code class="language-cs">public string Value { get; set; } = default!;
-</code></pre>
-<p>I&rsquo;m still not happy. So why don&rsquo;t we work on that?</p>
-<h2 id="the-json-may-or-may-not-include-the-field-or-it-might-be-null">The JSON may or may not include the field or it might be null</h2>
-<p>Luckily for us, this concern is fairly easy to address. Say we are using Newtonsoft.Json and want this extra piece of reassurance.</p>
-<pre><code class="language-cs">[JsonProperty(Required = Required.Always)]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&amp;rsquo;t like it.&lt;/p&gt;
+&lt;h2 id=&#34;normal-solutions&#34;&gt;Normal solutions&lt;/h2&gt;
+&lt;p&gt;There are two solution paths to take here:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Acknowledge that it might be null and make it nullable.&lt;/li&gt;
+&lt;li&gt;Initialise in the constructor.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These work great with normal codebases and in some cases, one is better than the other.  If you know it certainly can be null, use the first option. If you know you never expect or want it to be null, use the second.&lt;/p&gt;
+&lt;p&gt;Bonus points once you have the constructor is to make the type immutable.
+For all domain and application logic, This is what I have done successfully so far and will continue doing.&lt;/p&gt;
+&lt;h2 id=&#34;but-serialisation&#34;&gt;But serialisation&lt;/h2&gt;
+&lt;p&gt;Here is the problem. Serialisation.&lt;/p&gt;
+&lt;p&gt;When we have a type that is going to be used to deserialise transport models we again have the same choices as above, but a few more points to consider.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The JSON may or may not include the field&lt;/li&gt;
+&lt;li&gt;The JSON may have the field set to null&lt;/li&gt;
+&lt;li&gt;The Deserialiser might not support constructors&lt;/li&gt;
+&lt;li&gt;The Deserialiser doesn&amp;rsquo;t know about Nullable and can&amp;rsquo;t ensure the safety is upheld.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Again we can make the call to acknowledge that it might be null and make it nullable.  But there are drawbacks here. If you do this, you have to add all the error-handling for dealing with nullable checks. And if you control both server and client in this situation, then you might be writing and testing code for something you never plan to, nor may never need to ever support. Being null is an exceptional/fatal situation you don&amp;rsquo;t want to have to constantly guard against.&lt;/p&gt;
+&lt;p&gt;Which leads us back to the de-facto solution currently being advocated and used:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public string Value { get; set; } = default!;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I&amp;rsquo;m still not happy. So why don&amp;rsquo;t we work on that?&lt;/p&gt;
+&lt;h2 id=&#34;the-json-may-or-may-not-include-the-field-or-it-might-be-null&#34;&gt;The JSON may or may not include the field or it might be null&lt;/h2&gt;
+&lt;p&gt;Luckily for us, this concern is fairly easy to address. Say we are using Newtonsoft.Json and want this extra piece of reassurance.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[JsonProperty(Required = Required.Always)]
 public string Value { get; set; } = default!;
-</code></pre>
-<p>The <code>Required</code> attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a <code>JsonSerializationException</code> for free.</p>
-<p>This ensures we:</p>
-<ul>
-<li>have minimal code doing the null checking</li>
-<li>don&rsquo;t have to guard every access to a nullable property</li>
-<li>Treat null or missing as fatal errors as part of an existing serialisation error handling process (which we should always have anyway).</li>
-</ul>
-<p>This still doesn&rsquo;t stop any other piece of code from creating an invalid object state, though. But this may be the easiest solution to add those missing guarantees alongside using <code>default!</code>.</p>
-<h2 id="use-constructors">Use Constructors</h2>
-<p>Newtonsoft.Json helps once again by supporting constructors. Make sure all the mandatory non-nullable properties are in the constructor. And as long as there is no default constructor (which when doing nullable right you can&rsquo;t anyway) and the constructor parameters have names matching the properties, this just works as expected.</p>
-<pre><code>public class MyContractDTO
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;Required&lt;/code&gt; attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a &lt;code&gt;JsonSerializationException&lt;/code&gt; for free.&lt;/p&gt;
+&lt;p&gt;This ensures we:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;have minimal code doing the null checking&lt;/li&gt;
+&lt;li&gt;don&amp;rsquo;t have to guard every access to a nullable property&lt;/li&gt;
+&lt;li&gt;Treat null or missing as fatal errors as part of an existing serialisation error handling process (which we should always have anyway).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This still doesn&amp;rsquo;t stop any other piece of code from creating an invalid object state, though. But this may be the easiest solution to add those missing guarantees alongside using &lt;code&gt;default!&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;use-constructors&#34;&gt;Use Constructors&lt;/h2&gt;
+&lt;p&gt;Newtonsoft.Json helps once again by supporting constructors. Make sure all the mandatory non-nullable properties are in the constructor. And as long as there is no default constructor (which when doing nullable right you can&amp;rsquo;t anyway) and the constructor parameters have names matching the properties, this just works as expected.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class MyContractDTO
 {
     public MyContractDTO(string value)
     {
@@ -116,16 +116,16 @@ public string Value { get; set; } = default!;
     
     public string Value { get; set; };
 }
-</code></pre>
-<p>You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.</p>
-<p>Once more, Newtonsoft.Json with constructors also means support for read-only (immutable) objects.</p>
-<h2 id="what-about-not-using-newtonsoftjson">What about not using Newtonsoft.Json?</h2>
-<p>There is a new kid on the block - <code>System.Text.Json</code>. However, this is one area where it doesn&rsquo;t shine so bright compared to Newtonsoft.Json.</p>
-<p>Pretty much none of the above works. Constructors are not supported. Required annotation is not supported. Along with many other things.</p>
-<p>More on <a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to">what does and does not translate across from Newtonsoft.Json is documented here</a>.</p>
-<p>Instead, you will need to write your own converter and manually deserialise your object with your own explicit null checks (which could be done inside the constructor).</p>
-<p>For example, given our simple type above, we might do the following:</p>
-<pre><code class="language-cs">[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.&lt;/p&gt;
+&lt;p&gt;Once more, Newtonsoft.Json with constructors also means support for read-only (immutable) objects.&lt;/p&gt;
+&lt;h2 id=&#34;what-about-not-using-newtonsoftjson&#34;&gt;What about not using Newtonsoft.Json?&lt;/h2&gt;
+&lt;p&gt;There is a new kid on the block - &lt;code&gt;System.Text.Json&lt;/code&gt;. However, this is one area where it doesn&amp;rsquo;t shine so bright compared to Newtonsoft.Json.&lt;/p&gt;
+&lt;p&gt;Pretty much none of the above works. Constructors are not supported. Required annotation is not supported. Along with many other things.&lt;/p&gt;
+&lt;p&gt;More on &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to&#34;&gt;what does and does not translate across from Newtonsoft.Json is documented here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Instead, you will need to write your own converter and manually deserialise your object with your own explicit null checks (which could be done inside the constructor).&lt;/p&gt;
+&lt;p&gt;For example, given our simple type above, we might do the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]
 public class MyContractDTO
 {
     public MyContractDTO(string value)
@@ -139,12 +139,12 @@ public class MyContractDTO
 
 // Made using the examples given at https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#required-properties
 // Your decisions may vary.
-// e.g. this only supports {&quot;value&quot;: &quot;...&quot;} format, no extra properties allowed.
+// e.g. this only supports {&amp;quot;value&amp;quot;: &amp;quot;...&amp;quot;} format, no extra properties allowed.
 // For a more complex object, you would probably be more flexible.
 // Better guides here: https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to
-public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
+public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
 {
-    private readonly JsonEncodedText ValueName = JsonEncodedText.Encode(&quot;value&quot;);
+    private readonly JsonEncodedText ValueName = JsonEncodedText.Encode(&amp;quot;value&amp;quot;);
 
     public override Implementation Read(
         ref Utf8JsonReader reader,
@@ -210,16 +210,16 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
         writer.WriteEndObject();
     }
 }
-</code></pre>
-<p>At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.</p>
-<h2 id="decisions-decisions">Decisions, Decisions</h2>
-<p>So what would I recommend?</p>
-<p>Firstly, don&rsquo;t just use <code>default!</code> on your serialised types.</p>
-<p>For maximum effect, make your classes have constructors for notnull values, and maybe even make your properties Immutable, if that makes sense. Have your constructors guard against nulls so that your compile-time assurances have runtime verifications. Especially is this is a client library you provide to others.</p>
-<p>If you are using Newtonsoft.Json you should at least apply the <code>[JsonProperty(Required = Required.Always)]</code> to all your notnull properties. But add the constructors as well because you can. If you can stick with Newtonsoft.Json, your life will be very easy.</p>
-<p>If you are using (or have to use) System.Text.Json, write custom converters for your types so that you can have those constructors mentioned above. Make sure you keep them flexible enough to ignore any extra properties you might add in the future to avoid breaking backwards compatibility.</p>
-<p>This experiment has a companion GitHub repo of tests (a mixture of proof they work, and proof they fail tests) <a href="https://github.com/csMacnzBlog/NullableSerialisationExperiments">available here</a>.</p>
-<p>Happy Null-Hunting.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.&lt;/p&gt;
+&lt;h2 id=&#34;decisions-decisions&#34;&gt;Decisions, Decisions&lt;/h2&gt;
+&lt;p&gt;So what would I recommend?&lt;/p&gt;
+&lt;p&gt;Firstly, don&amp;rsquo;t just use &lt;code&gt;default!&lt;/code&gt; on your serialised types.&lt;/p&gt;
+&lt;p&gt;For maximum effect, make your classes have constructors for notnull values, and maybe even make your properties Immutable, if that makes sense. Have your constructors guard against nulls so that your compile-time assurances have runtime verifications. Especially is this is a client library you provide to others.&lt;/p&gt;
+&lt;p&gt;If you are using Newtonsoft.Json you should at least apply the &lt;code&gt;[JsonProperty(Required = Required.Always)]&lt;/code&gt; to all your notnull properties. But add the constructors as well because you can. If you can stick with Newtonsoft.Json, your life will be very easy.&lt;/p&gt;
+&lt;p&gt;If you are using (or have to use) System.Text.Json, write custom converters for your types so that you can have those constructors mentioned above. Make sure you keep them flexible enough to ignore any extra properties you might add in the future to avoid breaking backwards compatibility.&lt;/p&gt;
+&lt;p&gt;This experiment has a companion GitHub repo of tests (a mixture of proof they work, and proof they fail tests) &lt;a href=&#34;https://github.com/csMacnzBlog/NullableSerialisationExperiments&#34;&gt;available here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Happy Null-Hunting.&lt;/p&gt;
 </description>
     </item>
     
@@ -229,56 +229,56 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
       <pubDate>Mon, 15 Jul 2019 09:50:55 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/we-are-all-10x/</guid>
-      <description><p>If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:</p>
-<!-- raw HTML omitted -->
-<p>As a developer who tries to be good at their job, I have thoughts on this. As a Human, I like to be heard. (Note that being heard is not the same thing as being agreed with, or being right.) So here I am giving my opinion on this idea of a 10x developer, and specifically these &ldquo;10 signs&rdquo; put up online.</p>
-<p>I like the idea that there are no 10x people, instead, you can strive to produce 10x teams.</p>
-<h2 id="1-meetings">1. Meetings</h2>
-<p>A lot of people don&rsquo;t like meetings. But unfortunately, communication is a big part of effective teams and businesses. While it is true that some people love meetings, and some meetings don&rsquo;t hold productivity, the key here is communication. If you can find an effective means of communication within a team that works, that is most important.  Having a team full of people that don&rsquo;t have meetings doesn&rsquo;t make a 10x team. If meetings are causing you or your team problems, it is work looking at other strategies for effective communication. There are alternatives out there.</p>
-<h2 id="2-office-hours">2. Office Hours</h2>
-<p>&ldquo;Nine to Five&rdquo; is such an old fashioned idea these days. Not only do some countries have alternative ideas like 4 day weeks, long lunch hours, &ldquo;flexitime&rdquo;, but more and more business work across locations and across timezones. We are asking people to work outside these hours for various reasons already, so why not some give and take here?</p>
-<p>Most people would love flexible work hours. It turns out that if people can work around their own schedule, they put their best work forward when they are present. I would much rather have someone contribute 100% at 9 pm at night because their kids are in bed and they can concentrate rather than pay them to sit at their desk for several hours texting and calling their family. Just a thought.</p>
-<p>We are so fortunate that in our industry is so capable and adjustable to different working hours that it is a shame not to support this. It is not that &ldquo;10x developers are the people who like this&rdquo;, it is actually that most employees want this, and it can be done.</p>
-<h2 id="3-screen-colour-and-worn-keyboards">3. Screen colour and worn keyboards</h2>
-<p>If I saw a sports star on the field/pitch/court wearing badly worn shoes, I wouldn&rsquo;t think &ldquo;This is a superstar&rdquo;, I would probably think &ldquo;he isn&rsquo;t paid enough&rdquo;.</p>
-<p>Why are you letting your developers use worn-out equipment? Buying the required hardware and software is such an important thing, just do it! In all seriousness, though, giving staff the right tools to get their job done is always a good idea.</p>
-<p>There is an interesting dichotomy with custom technical tools as well. If you have one developer that goes against the grain of the team with customisation, then it both makes it harder for them to use other machines (e.g. during pairing/mobbing) and for others to use theirs. There is some efficiency to using the out of the box defaults too. You can get up and running faster, and waste less time doing customisations every time you refresh your machine or change jobs and get new hardware.</p>
-<p>Also, if you have to have everything customised your own way, you won&rsquo;t be able to acclimatise to new situations, new tools, new teams. Not someone you want to add to your team.</p>
-<h2 id="4-good-memory">4. Good memory</h2>
-<p>One my big comparisons between my generation and the one before me (that is the one with the access to Google, but not access to iPads) was that at school we were no longer taught to memorise and recall information. Instead, we were taught, and learned, the importance of finding and referencing information. There is too much information for us all to hold in our heads. knowing where to look and what to look for is far more important that memorised information for a technology that will be obsolete in 3 years (if you are lucky), let alone memorising a dozen of them over time.</p>
-<p>Yes, it is great to get people who know the domain really well, and for some people, it really is a skill. But people can&rsquo;t know what they haven&rsquo;t seen yet, and new hires always start as a blank slate. Not to mention tomorrow will bring a new set of libraries, applications and services that need to be learned and understood.</p>
-<p>Scott Hanselman talks of the experience-groundhog-day scenario.</p>
-<!-- raw HTML omitted -->
-<h2 id="5-full-stack">5. Full Stack</h2>
-<p>Don&rsquo;t you love buzz words? FullStack. A full-stack would be from the HTML/CSS/js to the backend code, to the database. But it is also understanding how the TCP/HTTP layer works with packets and routing. How does your platform infrastructure run, do you manage and patch the servers? Database backups and data security, not to mention how the hardware scales, can you write the assembly to work with arm processors too?</p>
-<p>Jack of all trades, master of none. That is a saying that acknowledges you are spread too thin. You can&rsquo;t be an expert in everything, so instead, you can hire an expert in each thing. Yes, you want everyone to be a generalist, but make sure you have coverage with all of the specialists, too.</p>
-<p>I can&rsquo;t say I&rsquo;ve met too many people who can design and build an amazing user experience, and also optimise a large scale database, and run a datacentre. Oh and also works well with others&hellip;</p>
-<h2 id="6-wait-wat">6. Wait, WAT?</h2>
-<p>This one I just have to quote it in two parts:</p>
-<blockquote>
-<p>10x engineers can convert &ldquo;thought&rdquo; into &ldquo;code&rdquo; in their mind and write it in an iterative fashion.</p>
-</blockquote>
-<p>Just for a second, imagine with me, that you could replace the words &ldquo;10x engineer&rdquo; with &ldquo;a developer&rdquo;. Crazy idea, but it might actually work.</p>
-<blockquote>
-<p>Given a product feature, they can write that entire feature in one or two sittings of 4 to 6 hours with a caffeinated drink without distraction.</p>
-</blockquote>
-<p>We all have good days where we fire on all cylinders. Or a task or feature fits into just the right hole in a system.  Cherish the days when it happens, but realise its more about the stars aligning and less about the ability of your developer. We are all capable of this. But the rest of the time it&rsquo;s just a Monday.</p>
-<h2 id="7-good-memory-part-deux">7. Good Memory. Part Deux</h2>
-<p>We talked about this. Enough said.</p>
-<h2 id="8-learning">8. Learning</h2>
-<p>This is another one of those things with a dichotomy. If you are always learning something new, you never get to master anything. There is a benefit to having people who are masters, and people who can learn, and people who can teach and share. You need balance both as a developer and person, but also in and within a team. If you don&rsquo;t have this yet, look at hiring the capabilty, but don&rsquo;t use it to rule in or out talented people.</p>
-<h2 id="9-terrible-leaders">9. Terrible leaders</h2>
-<p>Yes. I think exactly what you want to do is hire someone who cannot teach how the system works to new staff. That will help you grow. No, not really. The team is only as strong as its weakest point. And the ability to both cover for, and teach and grow newer talent is key to growth and success.</p>
-<p>Also, while it is true that some people will be amazing on your team, but will interview poorly, I can&rsquo;t say there is a direct reverse correlation here, either. Sorry.</p>
-<h2 id="10">10. </h2>
-<blockquote>
-<p>10x engineers rarely job hunt or move out of the company. They move out because you make their life miserable with the process, meetings, training, and other non-value-added activities. If you come across them, hold on to them. Celebrate them.</p>
-</blockquote>
-<p>So close. This is the first point I almost agree with. Just go ahead and replace &ldquo;10x engineers&rdquo; again with &ldquo;developers&rdquo;, Or even just &ldquo;employees&rdquo; will do.</p>
-<h2 id="01x-developers">0.1x developers</h2>
-<p>While there are seeds in here that make for an interesting debate, they have nothing to with &ldquo;10&rdquo; or &ldquo;X&rdquo;. The best summary of the whole situation is this: The scale is off.  I think the truth of the matter is that there are developers who might contribute to failings in a team (and some warning signs appear above, under the wrong inversion, though). We can call them the 0.1x developers. They are the ones to truly watch out for.</p>
-<p>As founders and employers, you will want to be doing all the right things to attract and keep good talent, and that is more important than going after a mythical creature known as the 10x developer.</p>
-<p>What someone needs to do is follow the footsteps of Dylan Beattie&rsquo;s <a href="https://github.com/RockstarLang/rockstar">Rockstar programming language</a> and make a language or piece of hardware board and call it &ldquo;10x&rdquo;. Then we can all be Rockstar Programmers and 10x Engineers.</p>
+      <description>&lt;p&gt;If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;As a developer who tries to be good at their job, I have thoughts on this. As a Human, I like to be heard. (Note that being heard is not the same thing as being agreed with, or being right.) So here I am giving my opinion on this idea of a 10x developer, and specifically these &amp;ldquo;10 signs&amp;rdquo; put up online.&lt;/p&gt;
+&lt;p&gt;I like the idea that there are no 10x people, instead, you can strive to produce 10x teams.&lt;/p&gt;
+&lt;h2 id=&#34;1-meetings&#34;&gt;1. Meetings&lt;/h2&gt;
+&lt;p&gt;A lot of people don&amp;rsquo;t like meetings. But unfortunately, communication is a big part of effective teams and businesses. While it is true that some people love meetings, and some meetings don&amp;rsquo;t hold productivity, the key here is communication. If you can find an effective means of communication within a team that works, that is most important.  Having a team full of people that don&amp;rsquo;t have meetings doesn&amp;rsquo;t make a 10x team. If meetings are causing you or your team problems, it is work looking at other strategies for effective communication. There are alternatives out there.&lt;/p&gt;
+&lt;h2 id=&#34;2-office-hours&#34;&gt;2. Office Hours&lt;/h2&gt;
+&lt;p&gt;&amp;ldquo;Nine to Five&amp;rdquo; is such an old fashioned idea these days. Not only do some countries have alternative ideas like 4 day weeks, long lunch hours, &amp;ldquo;flexitime&amp;rdquo;, but more and more business work across locations and across timezones. We are asking people to work outside these hours for various reasons already, so why not some give and take here?&lt;/p&gt;
+&lt;p&gt;Most people would love flexible work hours. It turns out that if people can work around their own schedule, they put their best work forward when they are present. I would much rather have someone contribute 100% at 9 pm at night because their kids are in bed and they can concentrate rather than pay them to sit at their desk for several hours texting and calling their family. Just a thought.&lt;/p&gt;
+&lt;p&gt;We are so fortunate that in our industry is so capable and adjustable to different working hours that it is a shame not to support this. It is not that &amp;ldquo;10x developers are the people who like this&amp;rdquo;, it is actually that most employees want this, and it can be done.&lt;/p&gt;
+&lt;h2 id=&#34;3-screen-colour-and-worn-keyboards&#34;&gt;3. Screen colour and worn keyboards&lt;/h2&gt;
+&lt;p&gt;If I saw a sports star on the field/pitch/court wearing badly worn shoes, I wouldn&amp;rsquo;t think &amp;ldquo;This is a superstar&amp;rdquo;, I would probably think &amp;ldquo;he isn&amp;rsquo;t paid enough&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Why are you letting your developers use worn-out equipment? Buying the required hardware and software is such an important thing, just do it! In all seriousness, though, giving staff the right tools to get their job done is always a good idea.&lt;/p&gt;
+&lt;p&gt;There is an interesting dichotomy with custom technical tools as well. If you have one developer that goes against the grain of the team with customisation, then it both makes it harder for them to use other machines (e.g. during pairing/mobbing) and for others to use theirs. There is some efficiency to using the out of the box defaults too. You can get up and running faster, and waste less time doing customisations every time you refresh your machine or change jobs and get new hardware.&lt;/p&gt;
+&lt;p&gt;Also, if you have to have everything customised your own way, you won&amp;rsquo;t be able to acclimatise to new situations, new tools, new teams. Not someone you want to add to your team.&lt;/p&gt;
+&lt;h2 id=&#34;4-good-memory&#34;&gt;4. Good memory&lt;/h2&gt;
+&lt;p&gt;One my big comparisons between my generation and the one before me (that is the one with the access to Google, but not access to iPads) was that at school we were no longer taught to memorise and recall information. Instead, we were taught, and learned, the importance of finding and referencing information. There is too much information for us all to hold in our heads. knowing where to look and what to look for is far more important that memorised information for a technology that will be obsolete in 3 years (if you are lucky), let alone memorising a dozen of them over time.&lt;/p&gt;
+&lt;p&gt;Yes, it is great to get people who know the domain really well, and for some people, it really is a skill. But people can&amp;rsquo;t know what they haven&amp;rsquo;t seen yet, and new hires always start as a blank slate. Not to mention tomorrow will bring a new set of libraries, applications and services that need to be learned and understood.&lt;/p&gt;
+&lt;p&gt;Scott Hanselman talks of the experience-groundhog-day scenario.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;5-full-stack&#34;&gt;5. Full Stack&lt;/h2&gt;
+&lt;p&gt;Don&amp;rsquo;t you love buzz words? FullStack. A full-stack would be from the HTML/CSS/js to the backend code, to the database. But it is also understanding how the TCP/HTTP layer works with packets and routing. How does your platform infrastructure run, do you manage and patch the servers? Database backups and data security, not to mention how the hardware scales, can you write the assembly to work with arm processors too?&lt;/p&gt;
+&lt;p&gt;Jack of all trades, master of none. That is a saying that acknowledges you are spread too thin. You can&amp;rsquo;t be an expert in everything, so instead, you can hire an expert in each thing. Yes, you want everyone to be a generalist, but make sure you have coverage with all of the specialists, too.&lt;/p&gt;
+&lt;p&gt;I can&amp;rsquo;t say I&amp;rsquo;ve met too many people who can design and build an amazing user experience, and also optimise a large scale database, and run a datacentre. Oh and also works well with others&amp;hellip;&lt;/p&gt;
+&lt;h2 id=&#34;6-wait-wat&#34;&gt;6. Wait, WAT?&lt;/h2&gt;
+&lt;p&gt;This one I just have to quote it in two parts:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;10x engineers can convert &amp;ldquo;thought&amp;rdquo; into &amp;ldquo;code&amp;rdquo; in their mind and write it in an iterative fashion.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Just for a second, imagine with me, that you could replace the words &amp;ldquo;10x engineer&amp;rdquo; with &amp;ldquo;a developer&amp;rdquo;. Crazy idea, but it might actually work.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Given a product feature, they can write that entire feature in one or two sittings of 4 to 6 hours with a caffeinated drink without distraction.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We all have good days where we fire on all cylinders. Or a task or feature fits into just the right hole in a system.  Cherish the days when it happens, but realise its more about the stars aligning and less about the ability of your developer. We are all capable of this. But the rest of the time it&amp;rsquo;s just a Monday.&lt;/p&gt;
+&lt;h2 id=&#34;7-good-memory-part-deux&#34;&gt;7. Good Memory. Part Deux&lt;/h2&gt;
+&lt;p&gt;We talked about this. Enough said.&lt;/p&gt;
+&lt;h2 id=&#34;8-learning&#34;&gt;8. Learning&lt;/h2&gt;
+&lt;p&gt;This is another one of those things with a dichotomy. If you are always learning something new, you never get to master anything. There is a benefit to having people who are masters, and people who can learn, and people who can teach and share. You need balance both as a developer and person, but also in and within a team. If you don&amp;rsquo;t have this yet, look at hiring the capabilty, but don&amp;rsquo;t use it to rule in or out talented people.&lt;/p&gt;
+&lt;h2 id=&#34;9-terrible-leaders&#34;&gt;9. Terrible leaders&lt;/h2&gt;
+&lt;p&gt;Yes. I think exactly what you want to do is hire someone who cannot teach how the system works to new staff. That will help you grow. No, not really. The team is only as strong as its weakest point. And the ability to both cover for, and teach and grow newer talent is key to growth and success.&lt;/p&gt;
+&lt;p&gt;Also, while it is true that some people will be amazing on your team, but will interview poorly, I can&amp;rsquo;t say there is a direct reverse correlation here, either. Sorry.&lt;/p&gt;
+&lt;h2 id=&#34;10&#34;&gt;10. &lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;10x engineers rarely job hunt or move out of the company. They move out because you make their life miserable with the process, meetings, training, and other non-value-added activities. If you come across them, hold on to them. Celebrate them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So close. This is the first point I almost agree with. Just go ahead and replace &amp;ldquo;10x engineers&amp;rdquo; again with &amp;ldquo;developers&amp;rdquo;, Or even just &amp;ldquo;employees&amp;rdquo; will do.&lt;/p&gt;
+&lt;h2 id=&#34;01x-developers&#34;&gt;0.1x developers&lt;/h2&gt;
+&lt;p&gt;While there are seeds in here that make for an interesting debate, they have nothing to with &amp;ldquo;10&amp;rdquo; or &amp;ldquo;X&amp;rdquo;. The best summary of the whole situation is this: The scale is off.  I think the truth of the matter is that there are developers who might contribute to failings in a team (and some warning signs appear above, under the wrong inversion, though). We can call them the 0.1x developers. They are the ones to truly watch out for.&lt;/p&gt;
+&lt;p&gt;As founders and employers, you will want to be doing all the right things to attract and keep good talent, and that is more important than going after a mythical creature known as the 10x developer.&lt;/p&gt;
+&lt;p&gt;What someone needs to do is follow the footsteps of Dylan Beattie&amp;rsquo;s &lt;a href=&#34;https://github.com/RockstarLang/rockstar&#34;&gt;Rockstar programming language&lt;/a&gt; and make a language or piece of hardware board and call it &amp;ldquo;10x&amp;rdquo;. Then we can all be Rockstar Programmers and 10x Engineers.&lt;/p&gt;
 </description>
     </item>
     
@@ -288,20 +288,20 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
       <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</guid>
-      <description><!-- raw HTML omitted -->
-<p>Sometimes naming something is the best way to start talking about a topic that lots of people do but don&rsquo;t realise or haven&rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.</p>
-<p>How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.</p>
-<p>Most developers get to a point where they see the value in having contract design up front across team boundaries, layer boundaries, reusable components, HTTP/Soap boundaries etc. An evolved design for these will never be as good as an intentional one. And on the flip side, we have all used clunky library APIs in various languages, BCL or otherwise.</p>
-<h3 id="what-is-mr-snuffleupagus">What is Mr Snuffleupagus</h3>
-<p>The name comes from Sesame Street. Muppets basically. Big Bird and Bert and Ernie, Elmo etc. There was a storyline decades ago where Big Bird kept seeing Mr Snuffleupagus and talking about him, but no one else ever saw him. They concluded it was an imaginary creature for a long time. In the show, it was very ambiguous what the truth was. Eventually, they actually saw the Snuffleupagus too and concluded it wasn&rsquo;t imaginary after all. <a href="https://www.smithsonianmag.com/smart-news/brief-history-sesame-streets-snuffleupagus-iidentity-crisis-180957351/">More here.</a></p>
-<h3 id="enter-sop">Enter SOP</h3>
-<p>The ideas from this story match an approach to building your API.</p>
-<p>First, we are going to imagine that what we want to use exists. Then we are going to write code against the API, crafting our usage case, without implementing anything.  Once we are happy that our API is usable, we implement it and make it actually exist, make it real. There may be a few tweaks once the realities and limitations of the implementation are taken into account, but the idea is to try and keep it as usable as the original usage cases as possible, usability intact.</p>
-<!-- raw HTML omitted -->
-<h3 id="tdd">TDD</h3>
-<p>This is a great candidate approach to work with TDD as well, just with more implementation code along the way to produce passing tests. Like Mr Snuffleupagus, this implementation code is imaginary until you have enough test cases to make it real, and refactor.</p>
-<h3 id="thanks">Thanks</h3>
-<p>Go forth and start sharing SOP, Snuffleupagus-Oriented Programming. Imagine, Build Usage, Make it Real.  Thanks <a href="https://twitter.com/cmuratori">Casey Muratori</a> for coining the term and making it stick. See more of his programming on <a href="https://handmadehero.org/">HandMade Hero</a> (<a href="https://www.youtube.com/handmadehero">YouTube</a>), and his company <a href="https://mollyrocket.com/nexus">Molly Rocket</a> for games and more.</p>
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.&lt;/p&gt;
+&lt;p&gt;How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.&lt;/p&gt;
+&lt;p&gt;Most developers get to a point where they see the value in having contract design up front across team boundaries, layer boundaries, reusable components, HTTP/Soap boundaries etc. An evolved design for these will never be as good as an intentional one. And on the flip side, we have all used clunky library APIs in various languages, BCL or otherwise.&lt;/p&gt;
+&lt;h3 id=&#34;what-is-mr-snuffleupagus&#34;&gt;What is Mr Snuffleupagus&lt;/h3&gt;
+&lt;p&gt;The name comes from Sesame Street. Muppets basically. Big Bird and Bert and Ernie, Elmo etc. There was a storyline decades ago where Big Bird kept seeing Mr Snuffleupagus and talking about him, but no one else ever saw him. They concluded it was an imaginary creature for a long time. In the show, it was very ambiguous what the truth was. Eventually, they actually saw the Snuffleupagus too and concluded it wasn&amp;rsquo;t imaginary after all. &lt;a href=&#34;https://www.smithsonianmag.com/smart-news/brief-history-sesame-streets-snuffleupagus-iidentity-crisis-180957351/&#34;&gt;More here.&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;enter-sop&#34;&gt;Enter SOP&lt;/h3&gt;
+&lt;p&gt;The ideas from this story match an approach to building your API.&lt;/p&gt;
+&lt;p&gt;First, we are going to imagine that what we want to use exists. Then we are going to write code against the API, crafting our usage case, without implementing anything.  Once we are happy that our API is usable, we implement it and make it actually exist, make it real. There may be a few tweaks once the realities and limitations of the implementation are taken into account, but the idea is to try and keep it as usable as the original usage cases as possible, usability intact.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h3 id=&#34;tdd&#34;&gt;TDD&lt;/h3&gt;
+&lt;p&gt;This is a great candidate approach to work with TDD as well, just with more implementation code along the way to produce passing tests. Like Mr Snuffleupagus, this implementation code is imaginary until you have enough test cases to make it real, and refactor.&lt;/p&gt;
+&lt;h3 id=&#34;thanks&#34;&gt;Thanks&lt;/h3&gt;
+&lt;p&gt;Go forth and start sharing SOP, Snuffleupagus-Oriented Programming. Imagine, Build Usage, Make it Real.  Thanks &lt;a href=&#34;https://twitter.com/cmuratori&#34;&gt;Casey Muratori&lt;/a&gt; for coining the term and making it stick. See more of his programming on &lt;a href=&#34;https://handmadehero.org/&#34;&gt;HandMade Hero&lt;/a&gt; (&lt;a href=&#34;https://www.youtube.com/handmadehero&#34;&gt;YouTube&lt;/a&gt;), and his company &lt;a href=&#34;https://mollyrocket.com/nexus&#34;&gt;Molly Rocket&lt;/a&gt; for games and more.&lt;/p&gt;
 </description>
     </item>
     
@@ -311,52 +311,52 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
       <pubDate>Mon, 10 Sep 2018 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/</guid>
-      <description><p>Way back when I was first introduced to everything agile from <a href="https://twitter.com/JezzSantos">Jezz Santos</a>,  we complemented the terminology of our &ldquo;sprint&rdquo; with that of a &ldquo;jog&rdquo;.</p>
-<h3 id="sprinting">Sprinting</h3>
-<p>Sprinting or sprints are the idea of a (usually) timeboxed length of real-world time (5 days, 3 weeks etc) that produces a cadence of focused teamwork on a particular selection of stories. Usually, these stories are prioritised, and the team should be working on the top-most unfinished work. The aim of the sprint is to take this collection of stories (tasks, work) and commit to finishing them in the sprint, and not anything else instead.  At the end of the sprint and before the next one starts, we can select a different prioritised set and repeat (this may or may not include any incomplete stories, as desired).</p>
-<p>Having a focused sprint like this gives the team a shared goal, a target, and a clear scope of what should and should not be worked on.  It also allows for a day at the start for planning the sprint, and a day at the end to report to stakeholders (review) and review your processes and policies (retrospective). (Your &lsquo;day&rsquo; may vary from an hour or two to several days depending on your team I guess.)</p>
-<p>What typically happens, from the teams I have worked in, is that sprints always start of the same weekday each sprint (e.g. Monday) and finish on the same weekday each sprint (e.g. Friday) and using weeks as length is common in this approach to complement this (1 week, three weeks etc).</p>
-<p>But there are three things to consider about the sprint.</p>
-<ul>
-<li>Burnout - can you sustain the pace of sprinting back to back to back.</li>
-<li>&ldquo;Downtime&rdquo; - what do you do with the rest of the Friday if you get all the ceremony done by 10:30 am?</li>
-<li>Other duties - your responsibilities lye outside the sprint as well as inside it, do these affect the sprint or do they get neglected?</li>
-</ul>
-<h3 id="enter-jogging">Enter Jogging</h3>
-<p>For starters, this is a name we give the time between one sprint ending and another beginning. That blank period between finishing the Retrospective and starting the next Sprint Planning.  We can put a tick on downtime, it has a name which now implies a purpose.</p>
-<p>We define our jog time as our own individual time. This is time to do administrative duties, machine upgrades, leave requests, tidy up your inbox, write a blog post, tidy up some code that is bugging you, add a new feature to the chatbot, extract a few libraries methods to shared code repositories.  Things that are not sprint related that you need to get done for your job.  This ticks of the other duties problem.</p>
-<p>If you didn&rsquo;t get all your stories done, there should be no pressure to finish them while jogging. However, there is also no hard rule that you shouldn&rsquo;t. If you personally feel that finishing up a task is best, or really want to keep working on your current story and don&rsquo;t have other tasks, that is fine. Just never start on another story from the backlog (!).</p>
-<p><code>&lt;Rant&gt;</code>
+      <description>&lt;p&gt;Way back when I was first introduced to everything agile from &lt;a href=&#34;https://twitter.com/JezzSantos&#34;&gt;Jezz Santos&lt;/a&gt;,  we complemented the terminology of our &amp;ldquo;sprint&amp;rdquo; with that of a &amp;ldquo;jog&amp;rdquo;.&lt;/p&gt;
+&lt;h3 id=&#34;sprinting&#34;&gt;Sprinting&lt;/h3&gt;
+&lt;p&gt;Sprinting or sprints are the idea of a (usually) timeboxed length of real-world time (5 days, 3 weeks etc) that produces a cadence of focused teamwork on a particular selection of stories. Usually, these stories are prioritised, and the team should be working on the top-most unfinished work. The aim of the sprint is to take this collection of stories (tasks, work) and commit to finishing them in the sprint, and not anything else instead.  At the end of the sprint and before the next one starts, we can select a different prioritised set and repeat (this may or may not include any incomplete stories, as desired).&lt;/p&gt;
+&lt;p&gt;Having a focused sprint like this gives the team a shared goal, a target, and a clear scope of what should and should not be worked on.  It also allows for a day at the start for planning the sprint, and a day at the end to report to stakeholders (review) and review your processes and policies (retrospective). (Your &amp;lsquo;day&amp;rsquo; may vary from an hour or two to several days depending on your team I guess.)&lt;/p&gt;
+&lt;p&gt;What typically happens, from the teams I have worked in, is that sprints always start of the same weekday each sprint (e.g. Monday) and finish on the same weekday each sprint (e.g. Friday) and using weeks as length is common in this approach to complement this (1 week, three weeks etc).&lt;/p&gt;
+&lt;p&gt;But there are three things to consider about the sprint.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Burnout - can you sustain the pace of sprinting back to back to back.&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;Downtime&amp;rdquo; - what do you do with the rest of the Friday if you get all the ceremony done by 10:30 am?&lt;/li&gt;
+&lt;li&gt;Other duties - your responsibilities lye outside the sprint as well as inside it, do these affect the sprint or do they get neglected?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;enter-jogging&#34;&gt;Enter Jogging&lt;/h3&gt;
+&lt;p&gt;For starters, this is a name we give the time between one sprint ending and another beginning. That blank period between finishing the Retrospective and starting the next Sprint Planning.  We can put a tick on downtime, it has a name which now implies a purpose.&lt;/p&gt;
+&lt;p&gt;We define our jog time as our own individual time. This is time to do administrative duties, machine upgrades, leave requests, tidy up your inbox, write a blog post, tidy up some code that is bugging you, add a new feature to the chatbot, extract a few libraries methods to shared code repositories.  Things that are not sprint related that you need to get done for your job.  This ticks of the other duties problem.&lt;/p&gt;
+&lt;p&gt;If you didn&amp;rsquo;t get all your stories done, there should be no pressure to finish them while jogging. However, there is also no hard rule that you shouldn&amp;rsquo;t. If you personally feel that finishing up a task is best, or really want to keep working on your current story and don&amp;rsquo;t have other tasks, that is fine. Just never start on another story from the backlog (!).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;Rant&amp;gt;&lt;/code&gt;
 I will also say something very specific of code tidy:  If the code you are working on is related to the stories in the sprint, do it as part of the story. Quality, readability, tests and testability, documentation should all be part of your Definition of Done, and never neglected as unnecessary admin to do later. Do it Now!
-<code>&lt;/Rant&gt;</code></p>
-<p>The main benefit of defining what a jog <em>is</em> is to separate them from the sprint. You now have a place and time to allocate those tasks, so you can comfortably and confidently <em>not do them</em> during a sprint.  Your sprints can be more focused, and you can go faster, knowing that there is time later to go a bit slower and get some of these other duties done (tick number 3).</p>
-<h3 id="timing">Timing</h3>
-<p>Now brings us to an interesting idea that our team has played around with: how long should you Jog?</p>
-<p>Originally my first jogging experience was only Friday afternoons. We got all the ceremonies done by 11 am Friday, and the rest of the day was yours. Monday was a full day of planning. This seems efficient, but the downside was that you never actually had enough time to get anything much done. Often the Product Owner or Scrum master would insist on senior members of the team using this time for grooming.</p>
-<p>Later, we tried something very interesting. Since Friday mornings were hard for stakeholders, we moved the review to Thursday morning instead. Then, because the grooming was easier not having a weekend in the way, and a lot of the time public holidays would fall on a Monday, Monday became grooming and Tuesday became planning. We had a 3-week cadence, so our sprints were basically 1 planning day, 11 sprinting workdays and a morning review, afternoon retro. This left two working days for &ldquo;jogging&rdquo; (and grooming for some members). This pattern survived and carried over to 4 more teams I worked on.</p>
-<p>I haven&rsquo;t talked much about it on the blog, but I work remotely in a different timezone. Different enough that my Sunday is their Monday, and their Saturday is my Friday. This leaves us with an interesting crossover effect. While initially, this seems to work alright with the above pattern (and it did for some time), it was difficult getting everyone online for the right ceremonies on the right days.  A secondary effect on our team was external factors. We had a lot of scheduled activities on Friday that meant we were not left with any time to jog. These tasks would then come back into sprint time.</p>
-<p>A compromise alternative that we came up with was the Thursday-&gt;Tuesday sprint. We also switched to a two-week cadence at the same time (from three weeks).  Thursday started with sprint planning, followed by team discussion/mobbing over the first story. This was followed by another 7 days of sprint which included a full working week, ending with a Review and Retrospective on Tuesday morning. For us, Tuesdays and Thursdays happened to be the mornings that I was &ldquo;on-the-line&rdquo; and available to attend meetings. Every other week these allow us to mob and meet, the other week is all ceremony.  This nicely left us with Tuesday afternoon and Wednesday for jogging. In most cases, this meant that jogging was always available to all team members every sprint, and never absorbed by public holidays, Friday activities, or long weekends of annual leave.</p>
-<h3 id="why-bother">Why Bother?</h3>
-<p>Why would we put so much effort into separating out these extra tasks? Surely it takes just as long to get anything done no matter when you do it right?</p>
-<ul>
-<li>
-<ol>
-<li>Task (context) switching</li>
-</ol>
-</li>
-<li>
-<ol start="2">
-<li>Cadence</li>
-</ol>
-</li>
-</ul>
-<p>A large amount of the principles you follow for agile are trying to help you avoid context switching since this is a great way to stay productive. Every time you have to switch task contexts say from interruptions or whatever, you lose some time switching your thinking to the context of the new task. staying on the same task until finished can be much more efficient and productive.  By putting distractions aside until later, you can focus on the sprint and getting it done.</p>
-<p>Cadence has a nice side effect of producing comparable data. If you have the same people working together and you measure the throughput, you can start to more accurately predict how much work can be done on each cadence. This can help project out more realistic capacity needs, and timelines of work.  In converse, if you inconsistently have extra tasks coming up, taking you away from the sprint work, sometimes none, sometimes a lot, then you can&rsquo;t make as accurate a prediction off of the data.</p>
-<h3 id="summary">Summary</h3>
-<p>Jogging is a great way to focus the sprint, by having somewhere to put the distractions and duties that pop up without compromising the focus and efficiency on the sprint tasks.</p>
-<blockquote>
-<p>The beginning of wisdom is to call things by their right names. – Chinese Proverb</p>
-</blockquote>
+&lt;code&gt;&amp;lt;/Rant&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The main benefit of defining what a jog &lt;em&gt;is&lt;/em&gt; is to separate them from the sprint. You now have a place and time to allocate those tasks, so you can comfortably and confidently &lt;em&gt;not do them&lt;/em&gt; during a sprint.  Your sprints can be more focused, and you can go faster, knowing that there is time later to go a bit slower and get some of these other duties done (tick number 3).&lt;/p&gt;
+&lt;h3 id=&#34;timing&#34;&gt;Timing&lt;/h3&gt;
+&lt;p&gt;Now brings us to an interesting idea that our team has played around with: how long should you Jog?&lt;/p&gt;
+&lt;p&gt;Originally my first jogging experience was only Friday afternoons. We got all the ceremonies done by 11 am Friday, and the rest of the day was yours. Monday was a full day of planning. This seems efficient, but the downside was that you never actually had enough time to get anything much done. Often the Product Owner or Scrum master would insist on senior members of the team using this time for grooming.&lt;/p&gt;
+&lt;p&gt;Later, we tried something very interesting. Since Friday mornings were hard for stakeholders, we moved the review to Thursday morning instead. Then, because the grooming was easier not having a weekend in the way, and a lot of the time public holidays would fall on a Monday, Monday became grooming and Tuesday became planning. We had a 3-week cadence, so our sprints were basically 1 planning day, 11 sprinting workdays and a morning review, afternoon retro. This left two working days for &amp;ldquo;jogging&amp;rdquo; (and grooming for some members). This pattern survived and carried over to 4 more teams I worked on.&lt;/p&gt;
+&lt;p&gt;I haven&amp;rsquo;t talked much about it on the blog, but I work remotely in a different timezone. Different enough that my Sunday is their Monday, and their Saturday is my Friday. This leaves us with an interesting crossover effect. While initially, this seems to work alright with the above pattern (and it did for some time), it was difficult getting everyone online for the right ceremonies on the right days.  A secondary effect on our team was external factors. We had a lot of scheduled activities on Friday that meant we were not left with any time to jog. These tasks would then come back into sprint time.&lt;/p&gt;
+&lt;p&gt;A compromise alternative that we came up with was the Thursday-&amp;gt;Tuesday sprint. We also switched to a two-week cadence at the same time (from three weeks).  Thursday started with sprint planning, followed by team discussion/mobbing over the first story. This was followed by another 7 days of sprint which included a full working week, ending with a Review and Retrospective on Tuesday morning. For us, Tuesdays and Thursdays happened to be the mornings that I was &amp;ldquo;on-the-line&amp;rdquo; and available to attend meetings. Every other week these allow us to mob and meet, the other week is all ceremony.  This nicely left us with Tuesday afternoon and Wednesday for jogging. In most cases, this meant that jogging was always available to all team members every sprint, and never absorbed by public holidays, Friday activities, or long weekends of annual leave.&lt;/p&gt;
+&lt;h3 id=&#34;why-bother&#34;&gt;Why Bother?&lt;/h3&gt;
+&lt;p&gt;Why would we put so much effort into separating out these extra tasks? Surely it takes just as long to get anything done no matter when you do it right?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;Task (context) switching&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Cadence&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A large amount of the principles you follow for agile are trying to help you avoid context switching since this is a great way to stay productive. Every time you have to switch task contexts say from interruptions or whatever, you lose some time switching your thinking to the context of the new task. staying on the same task until finished can be much more efficient and productive.  By putting distractions aside until later, you can focus on the sprint and getting it done.&lt;/p&gt;
+&lt;p&gt;Cadence has a nice side effect of producing comparable data. If you have the same people working together and you measure the throughput, you can start to more accurately predict how much work can be done on each cadence. This can help project out more realistic capacity needs, and timelines of work.  In converse, if you inconsistently have extra tasks coming up, taking you away from the sprint work, sometimes none, sometimes a lot, then you can&amp;rsquo;t make as accurate a prediction off of the data.&lt;/p&gt;
+&lt;h3 id=&#34;summary&#34;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;Jogging is a great way to focus the sprint, by having somewhere to put the distractions and duties that pop up without compromising the focus and efficiency on the sprint tasks.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The beginning of wisdom is to call things by their right names. – Chinese Proverb&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     
@@ -366,16 +366,16 @@ I will also say something very specific of code tidy:  If the code you are worki
       <pubDate>Mon, 23 Jul 2018 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/a-little-town-called-milton/</guid>
-      <description><p>There is a small town in the South Island of New Zealand called Milton. The main road runs right through the town in one side and out the other. Its a nice enough place to stop on a road trip.</p>
-<p>There is a unique feature to this main road in Miton, you see. When you get to the middle of the town and the road has a massive kink in it.  Why is this here?</p>
-<p>One story goes that two surveyors were building the road, one from the south and one from the north. A nice straight road.  The problem is that when they go their straight road to the town they realised that it didn&rsquo;t line up. So they had to use the kink to connect it up.</p>
-<p>Another story tells of a tree that didn&rsquo;t want to be removed, so when they realised it was in the way of the road it was too late. The road had to go around it.</p>
-<p>No matter which version of the story you believe, there are two very interesting and important lessons to learn here.</p>
-<p>When you are working together on a project, and there is a point where you meet and connect, it is important to define exactly how this connection is defined and then build from that agreed contract.</p>
-<p>Say you are building an API service that another team will consume. Building out the contract of that API together will help avoid any kinks later. Software refactoring might be easier than re-laying an entire stretch of Highway, but it still costs you.</p>
-<p>The other lesson is this: do some research ahead of time and understand your constraints. If you know what obsticles are in your way, you can produce a cleaner result to avoid them, rather then producing nasty work-arounds once you have already built a bunch stuff that is going to be too much effort to destroy and start over.</p>
-<p>Thanks for reading!</p>
-<p>CC Image courtesy of <a href="https://www.flickr.com/photos/johnbullas/2663355586">johnbullas on Flickr</a></p>
+      <description>&lt;p&gt;There is a small town in the South Island of New Zealand called Milton. The main road runs right through the town in one side and out the other. Its a nice enough place to stop on a road trip.&lt;/p&gt;
+&lt;p&gt;There is a unique feature to this main road in Miton, you see. When you get to the middle of the town and the road has a massive kink in it.  Why is this here?&lt;/p&gt;
+&lt;p&gt;One story goes that two surveyors were building the road, one from the south and one from the north. A nice straight road.  The problem is that when they go their straight road to the town they realised that it didn&amp;rsquo;t line up. So they had to use the kink to connect it up.&lt;/p&gt;
+&lt;p&gt;Another story tells of a tree that didn&amp;rsquo;t want to be removed, so when they realised it was in the way of the road it was too late. The road had to go around it.&lt;/p&gt;
+&lt;p&gt;No matter which version of the story you believe, there are two very interesting and important lessons to learn here.&lt;/p&gt;
+&lt;p&gt;When you are working together on a project, and there is a point where you meet and connect, it is important to define exactly how this connection is defined and then build from that agreed contract.&lt;/p&gt;
+&lt;p&gt;Say you are building an API service that another team will consume. Building out the contract of that API together will help avoid any kinks later. Software refactoring might be easier than re-laying an entire stretch of Highway, but it still costs you.&lt;/p&gt;
+&lt;p&gt;The other lesson is this: do some research ahead of time and understand your constraints. If you know what obsticles are in your way, you can produce a cleaner result to avoid them, rather then producing nasty work-arounds once you have already built a bunch stuff that is going to be too much effort to destroy and start over.&lt;/p&gt;
+&lt;p&gt;Thanks for reading!&lt;/p&gt;
+&lt;p&gt;CC Image courtesy of &lt;a href=&#34;https://www.flickr.com/photos/johnbullas/2663355586&#34;&gt;johnbullas on Flickr&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -385,13 +385,13 @@ I will also say something very specific of code tidy:  If the code you are worki
       <pubDate>Thu, 10 May 2018 20:41:55 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/you-cant-out-exercise-a-bad-diet/</guid>
-      <description><p>I heard a great quote yesterday:</p>
-<blockquote>
-<p>You can&rsquo;t out-exercise a bad diet</p>
-</blockquote>
-<p>And this is a great metaphor for technical debt.</p>
-<p>We all agree that you need to pay down your tech debt in your software. And it&rsquo;s great to commit to addressing a little technical debt during each sprint. The problem is that this is the exercise.  And if you still have a bad diet of cutting corners and taking shortcuts, your stuck with an overweight system (a monolith, if you like).</p>
-<p>If you want to get serious about the technical debt, you need to start by fixing your bad diet of shortcuts and start by doing things right while doing the right thing.  Only then can you really start paying down existing technical debt as well.</p>
+      <description>&lt;p&gt;I heard a great quote yesterday:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You can&amp;rsquo;t out-exercise a bad diet&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;And this is a great metaphor for technical debt.&lt;/p&gt;
+&lt;p&gt;We all agree that you need to pay down your tech debt in your software. And it&amp;rsquo;s great to commit to addressing a little technical debt during each sprint. The problem is that this is the exercise.  And if you still have a bad diet of cutting corners and taking shortcuts, your stuck with an overweight system (a monolith, if you like).&lt;/p&gt;
+&lt;p&gt;If you want to get serious about the technical debt, you need to start by fixing your bad diet of shortcuts and start by doing things right while doing the right thing.  Only then can you really start paying down existing technical debt as well.&lt;/p&gt;
 </description>
     </item>
     
@@ -401,62 +401,62 @@ I will also say something very specific of code tidy:  If the code you are worki
       <pubDate>Mon, 07 May 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/code-kata/</guid>
-      <description><p>Our team recently went through the <a href="http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata">Bowling Game Kata</a> (as seen on <a href="https://vimeo.com/43734265">Clean Code</a>) from Uncle Bob. Here are some interesting learnings and takeaways from the session that I picked up on.</p>
-<h3 id="practice-makes-perfect">Practice makes perfect</h3>
-<p>The only way to get good at something is to practice. The concept of doing a Code Kata is to practice the art of TDD and Red-Green-Refactor. By practising, it will become easier to do against real code in real scenarios. To re-iterate the <a href="http://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">Three Laws of TDD</a>:</p>
-<ul>
-<li>You are not allowed to write any production code unless it is to make a failing unit test pass.</li>
-<li>You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.</li>
-<li>You are not allowed to write any more production code than is sufficient to pass the one failing unit test.</li>
-</ul>
-<p>Which complement the steps Red, Green, Refactor:</p>
-<ul>
-<li>Red: Create a unit tests that fails (get to Red)</li>
-<li>Green: Write production code that makes that test pass. (get back to Green)</li>
-<li>Refactor: Clean up the mess you just made. (While Green, Refactor)</li>
-</ul>
-<p>As a group exercise, this gives members of the team a chance to question these premises, gain an understanding from others who already Grok the concept, and by doing, they will reenforce the steps themselves, and come to their own understanding of the principles and why they should want to follow them. (It can also be a good chance to stop and reflect on code, techniques, and choices made by fellow team members in a mobbing-style scenario.)</p>
-<h3 id="the-code-is-wrong-and-that-is-ok">The code is Wrong, and that is ok</h3>
-<p>After implementing the Spare Rule logic, we had the comment raised that one of the developers would have pre-emptively checked against the Strike Rule. This goes against the Red-Green-Refactor and TDD rules because you are writing more code than you need.</p>
-<p>The interesting thing about this comment was that it raised an important aspect of performing Katas. Practising helps your brain absorb the habit, and tear down existing habits. In this case, the existing habit is writing code you know you will need later, but haven&rsquo;t written tests for, yet.</p>
-<p>You need to break the habit of making sure your code is 100% bulletproof (which in reality except for the most trivial cases, it never will be, because you don&rsquo;t know what you don&rsquo;t know). Accept that it is incomplete and follow the rules.</p>
-<p>As Uncle Bob puts it, the code isn&rsquo;t wrong, it passes all the tests so it does exactly what it should do (as documented), and no more, so it is technically right.</p>
-<p>The only way to ensure it does what you expect on an edge case is to actually write the test for the edge case. This test does two things:</p>
-<ul>
-<li>Makes sure that you have documented it as a case (and automated a way to ensure it still does what is expected).</li>
-<li>Makes sure that the edge-case actually does what you expect it to do in the implementation (and that by implementing it, it doesn&rsquo;t break any existing tested cases).</li>
-</ul>
-<p>We had the great idea raised that you should make a note somewhere as you think of edge cases, and use these notes as the basis for the next tests you write.</p>
-<p>It can be hard for programmers to accept that something can be wrong and that it is ok, but without this, enlightenment may not be achieved.</p>
-<blockquote>
-<p>“If I could define enlightenment briefly, I would say it is the quiet acceptance of what is.” Wayne Dyer</p>
-</blockquote>
-<h3 id="dont-refactor-too-heavily-too-early">Don&rsquo;t refactor too heavily too early</h3>
-<p>Some refactoring may seem pertinent after every test. The temptation is to over-refactor. If you do this, you may find that the next test is harder to make pass, or that you end up reversing the refactor straight away. Try refactoring one or two test behind when you first notice the potential, in case the next test makes you change your mind. If in doubt, you will be back at the refactor step soon so just wait until the next cycle.</p>
-<p>On the other hand, refactor too much and see what happens. That is the nice thing about Katas, you can practice techniques, see them fail, feel the pain and the only consequence is your own learning opportunity. Learn from what you experienced, and apply it next time you are following TDD on your software.</p>
-<p>Some obvious examples are:</p>
-<ul>
-<li>If you have an if/else, maybe wait until you see an <code>else if</code> before refactoring to a switch, or strategy.</li>
-<li>If you see duplication, think about if factoring it out will help readability anyway (then go ahead) or is likely to be used again (seems reasonable).</li>
-<li>If removing duplication increases verbosity, and reduces readability, you may want to wait. There may be a larger chunk of duplication after a few more tests that make the refactoring more obvious and less verbose, easier to read.</li>
-</ul>
-<p>But like I say, there is no right or wrong with Katas. Like physical exercise, if you feel it, it is working.</p>
-<p>Uncle Bob says to write the simple cases first, before writing the complicated cases to help with managing the above. Also, think about writing the test that forces you to write the code that you want to write. And write specific tests to generalise the implementation.</p>
-<h3 id="more-like-guidelines">More like guidelines</h3>
-<p>As Barbossa said it, &ldquo;&hellip;the code is more what you&rsquo;d call &ldquo;guidelines&rdquo; than actual rules.&rdquo;</p>
-<p>TDD and Red-Green-Refactor and tools for the toolbelt. It is not a Silver Bullet and not a one size fits all. As you develop your software you may find that you move in and out of TDD at different stages.</p>
-<p>You may be &lsquo;experimenting&rsquo; to understand what the use-cases and requirements are. In that case, you don&rsquo;t know what the test cases are, so how could you write them.</p>
-<p>Other times you may have very specific calculations, evaluations or decision trees. In these cases, writing each case as a test case and following TDD to implement them all makes great sense.</p>
-<p>The main thing is to understand the tool, practice with it. Understand the limitations so that you can recognise the best times to use it or not use it, and use it well when you do.</p>
-<h3 id="resources">Resources</h3>
-<p>For some practical resources to practice your Katas, here is a list of resources.</p>
-<ul>
-<li><a href="http://codekata.com/">http://codekata.com/</a></li>
-<li><a href="http://exercism.io/">http://exercism.io/</a></li>
-<li><a href="https://www.codewars.com/">https://www.codewars.com/</a></li>
-<li><a href="https://github.com/asierba/Katas.CSharp">https://github.com/asierba/Katas.CSharp</a></li>
-<li><a href="https://github.com/gamontal/awesome-katas">https://github.com/gamontal/awesome-katas</a></li>
-</ul>
+      <description>&lt;p&gt;Our team recently went through the &lt;a href=&#34;http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata&#34;&gt;Bowling Game Kata&lt;/a&gt; (as seen on &lt;a href=&#34;https://vimeo.com/43734265&#34;&gt;Clean Code&lt;/a&gt;) from Uncle Bob. Here are some interesting learnings and takeaways from the session that I picked up on.&lt;/p&gt;
+&lt;h3 id=&#34;practice-makes-perfect&#34;&gt;Practice makes perfect&lt;/h3&gt;
+&lt;p&gt;The only way to get good at something is to practice. The concept of doing a Code Kata is to practice the art of TDD and Red-Green-Refactor. By practising, it will become easier to do against real code in real scenarios. To re-iterate the &lt;a href=&#34;http://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html&#34;&gt;Three Laws of TDD&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You are not allowed to write any production code unless it is to make a failing unit test pass.&lt;/li&gt;
+&lt;li&gt;You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.&lt;/li&gt;
+&lt;li&gt;You are not allowed to write any more production code than is sufficient to pass the one failing unit test.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Which complement the steps Red, Green, Refactor:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Red: Create a unit tests that fails (get to Red)&lt;/li&gt;
+&lt;li&gt;Green: Write production code that makes that test pass. (get back to Green)&lt;/li&gt;
+&lt;li&gt;Refactor: Clean up the mess you just made. (While Green, Refactor)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As a group exercise, this gives members of the team a chance to question these premises, gain an understanding from others who already Grok the concept, and by doing, they will reenforce the steps themselves, and come to their own understanding of the principles and why they should want to follow them. (It can also be a good chance to stop and reflect on code, techniques, and choices made by fellow team members in a mobbing-style scenario.)&lt;/p&gt;
+&lt;h3 id=&#34;the-code-is-wrong-and-that-is-ok&#34;&gt;The code is Wrong, and that is ok&lt;/h3&gt;
+&lt;p&gt;After implementing the Spare Rule logic, we had the comment raised that one of the developers would have pre-emptively checked against the Strike Rule. This goes against the Red-Green-Refactor and TDD rules because you are writing more code than you need.&lt;/p&gt;
+&lt;p&gt;The interesting thing about this comment was that it raised an important aspect of performing Katas. Practising helps your brain absorb the habit, and tear down existing habits. In this case, the existing habit is writing code you know you will need later, but haven&amp;rsquo;t written tests for, yet.&lt;/p&gt;
+&lt;p&gt;You need to break the habit of making sure your code is 100% bulletproof (which in reality except for the most trivial cases, it never will be, because you don&amp;rsquo;t know what you don&amp;rsquo;t know). Accept that it is incomplete and follow the rules.&lt;/p&gt;
+&lt;p&gt;As Uncle Bob puts it, the code isn&amp;rsquo;t wrong, it passes all the tests so it does exactly what it should do (as documented), and no more, so it is technically right.&lt;/p&gt;
+&lt;p&gt;The only way to ensure it does what you expect on an edge case is to actually write the test for the edge case. This test does two things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Makes sure that you have documented it as a case (and automated a way to ensure it still does what is expected).&lt;/li&gt;
+&lt;li&gt;Makes sure that the edge-case actually does what you expect it to do in the implementation (and that by implementing it, it doesn&amp;rsquo;t break any existing tested cases).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We had the great idea raised that you should make a note somewhere as you think of edge cases, and use these notes as the basis for the next tests you write.&lt;/p&gt;
+&lt;p&gt;It can be hard for programmers to accept that something can be wrong and that it is ok, but without this, enlightenment may not be achieved.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“If I could define enlightenment briefly, I would say it is the quiet acceptance of what is.” Wayne Dyer&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;dont-refactor-too-heavily-too-early&#34;&gt;Don&amp;rsquo;t refactor too heavily too early&lt;/h3&gt;
+&lt;p&gt;Some refactoring may seem pertinent after every test. The temptation is to over-refactor. If you do this, you may find that the next test is harder to make pass, or that you end up reversing the refactor straight away. Try refactoring one or two test behind when you first notice the potential, in case the next test makes you change your mind. If in doubt, you will be back at the refactor step soon so just wait until the next cycle.&lt;/p&gt;
+&lt;p&gt;On the other hand, refactor too much and see what happens. That is the nice thing about Katas, you can practice techniques, see them fail, feel the pain and the only consequence is your own learning opportunity. Learn from what you experienced, and apply it next time you are following TDD on your software.&lt;/p&gt;
+&lt;p&gt;Some obvious examples are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If you have an if/else, maybe wait until you see an &lt;code&gt;else if&lt;/code&gt; before refactoring to a switch, or strategy.&lt;/li&gt;
+&lt;li&gt;If you see duplication, think about if factoring it out will help readability anyway (then go ahead) or is likely to be used again (seems reasonable).&lt;/li&gt;
+&lt;li&gt;If removing duplication increases verbosity, and reduces readability, you may want to wait. There may be a larger chunk of duplication after a few more tests that make the refactoring more obvious and less verbose, easier to read.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;But like I say, there is no right or wrong with Katas. Like physical exercise, if you feel it, it is working.&lt;/p&gt;
+&lt;p&gt;Uncle Bob says to write the simple cases first, before writing the complicated cases to help with managing the above. Also, think about writing the test that forces you to write the code that you want to write. And write specific tests to generalise the implementation.&lt;/p&gt;
+&lt;h3 id=&#34;more-like-guidelines&#34;&gt;More like guidelines&lt;/h3&gt;
+&lt;p&gt;As Barbossa said it, &amp;ldquo;&amp;hellip;the code is more what you&amp;rsquo;d call &amp;ldquo;guidelines&amp;rdquo; than actual rules.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;TDD and Red-Green-Refactor and tools for the toolbelt. It is not a Silver Bullet and not a one size fits all. As you develop your software you may find that you move in and out of TDD at different stages.&lt;/p&gt;
+&lt;p&gt;You may be &amp;lsquo;experimenting&amp;rsquo; to understand what the use-cases and requirements are. In that case, you don&amp;rsquo;t know what the test cases are, so how could you write them.&lt;/p&gt;
+&lt;p&gt;Other times you may have very specific calculations, evaluations or decision trees. In these cases, writing each case as a test case and following TDD to implement them all makes great sense.&lt;/p&gt;
+&lt;p&gt;The main thing is to understand the tool, practice with it. Understand the limitations so that you can recognise the best times to use it or not use it, and use it well when you do.&lt;/p&gt;
+&lt;h3 id=&#34;resources&#34;&gt;Resources&lt;/h3&gt;
+&lt;p&gt;For some practical resources to practice your Katas, here is a list of resources.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://codekata.com/&#34;&gt;http://codekata.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://exercism.io/&#34;&gt;http://exercism.io/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.codewars.com/&#34;&gt;https://www.codewars.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/asierba/Katas.CSharp&#34;&gt;https://github.com/asierba/Katas.CSharp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gamontal/awesome-katas&#34;&gt;https://github.com/gamontal/awesome-katas&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
@@ -466,20 +466,20 @@ I will also say something very specific of code tidy:  If the code you are worki
       <pubDate>Mon, 16 Jan 2017 02:44:32 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/how-to-constructors/</guid>
-      <description><p>Constructors for services are a really handy way to pass in configuration, variation and dependencies. Here are some ways I have learned to use Constructors and some ideas on testing.</p>
-<h3 id="what-shouldnt-be-in-a-constructor">What shouldn&rsquo;t be in a Constructor</h3>
-<p><strong>Execution.</strong>  Any complex execution of code should not be in a constructor. This includes asynchronous method calls (which either has to block synchronously, or runs off to nowhere), web requests, and complex calculations.</p>
-<p>Why? Why not run your whole application in a constructor?  Well, when you are reading code, you wouldn&rsquo;t expect much work to be done in a constructor. So the reality wouldn&rsquo;t match your expectations. Stick with the conventions of the language so that you do not surprise the reader of your code. Another reason is that the object initialisation phase may happen outside of your application code. If you are following IOC or using a DI container, you may find you have no control over the construction of your objects, where it runs or what gets provided.</p>
-<p><strong>Parsing.</strong>
-You probably also want to keep complex parsing out of constructors too. Don&rsquo;t pass in a string and deserialise as <code>XML</code> or <code>json</code>, but instead parse first, and then pass in the resulting data object. This will make it easier to use and test parsing separate from the responsibilities of this class.</p>
-<p><strong>Constructors.</strong> What else shouldn&rsquo;t be in constructors? Well, potentially other constructors. If you want to adjust how that object is constructed, or use the <a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle">liskov substitution principle</a> to swap dependencies out for different implementations, you would be stuck. This is less of a strict rule, and I will cover the exceptions to it later on.</p>
-<h3 id="so-what-should">So what should?</h3>
-<p>Constructors work well having the general dependencies(other services) of the object passed in (if it is a service) and any settings values the object requires (or mandatory values in the case of a data object). With the services, it often helps when they are interfaces rather than concrete types, too.</p>
-<p>I said general. If there are one or two actions that need a particular service, and there are 15 others that do not, I might suggest that those one or two methods should either be part of another class, should take that dependency as a method parameter instead, or better yet, they may just need to return a calculated result, and let the caller use that result to make its own call, removing the need for the dependency at all.</p>
-<p>That last bit probably needs an example.</p>
-<h3 id="an-example">An Example</h3>
-<p>Suppose we have the following code:</p>
-<pre><code>public class WidgetService
+      <description>&lt;p&gt;Constructors for services are a really handy way to pass in configuration, variation and dependencies. Here are some ways I have learned to use Constructors and some ideas on testing.&lt;/p&gt;
+&lt;h3 id=&#34;what-shouldnt-be-in-a-constructor&#34;&gt;What shouldn&amp;rsquo;t be in a Constructor&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Execution.&lt;/strong&gt;  Any complex execution of code should not be in a constructor. This includes asynchronous method calls (which either has to block synchronously, or runs off to nowhere), web requests, and complex calculations.&lt;/p&gt;
+&lt;p&gt;Why? Why not run your whole application in a constructor?  Well, when you are reading code, you wouldn&amp;rsquo;t expect much work to be done in a constructor. So the reality wouldn&amp;rsquo;t match your expectations. Stick with the conventions of the language so that you do not surprise the reader of your code. Another reason is that the object initialisation phase may happen outside of your application code. If you are following IOC or using a DI container, you may find you have no control over the construction of your objects, where it runs or what gets provided.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Parsing.&lt;/strong&gt;
+You probably also want to keep complex parsing out of constructors too. Don&amp;rsquo;t pass in a string and deserialise as &lt;code&gt;XML&lt;/code&gt; or &lt;code&gt;json&lt;/code&gt;, but instead parse first, and then pass in the resulting data object. This will make it easier to use and test parsing separate from the responsibilities of this class.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Constructors.&lt;/strong&gt; What else shouldn&amp;rsquo;t be in constructors? Well, potentially other constructors. If you want to adjust how that object is constructed, or use the &lt;a href=&#34;https://en.wikipedia.org/wiki/Liskov_substitution_principle&#34;&gt;liskov substitution principle&lt;/a&gt; to swap dependencies out for different implementations, you would be stuck. This is less of a strict rule, and I will cover the exceptions to it later on.&lt;/p&gt;
+&lt;h3 id=&#34;so-what-should&#34;&gt;So what should?&lt;/h3&gt;
+&lt;p&gt;Constructors work well having the general dependencies(other services) of the object passed in (if it is a service) and any settings values the object requires (or mandatory values in the case of a data object). With the services, it often helps when they are interfaces rather than concrete types, too.&lt;/p&gt;
+&lt;p&gt;I said general. If there are one or two actions that need a particular service, and there are 15 others that do not, I might suggest that those one or two methods should either be part of another class, should take that dependency as a method parameter instead, or better yet, they may just need to return a calculated result, and let the caller use that result to make its own call, removing the need for the dependency at all.&lt;/p&gt;
+&lt;p&gt;That last bit probably needs an example.&lt;/p&gt;
+&lt;h3 id=&#34;an-example&#34;&gt;An Example&lt;/h3&gt;
+&lt;p&gt;Suppose we have the following code:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class WidgetService
 {
     private readonly IReviewSubmitService _rss;
     public WidgetService(IReviewSubmitService rss)
@@ -496,9 +496,9 @@ You probably also want to keep complex parsing out of constructors too. Don&rsqu
         _rss.PostReport(data);
     }
 }
-</code></pre>
-<p>A better solution would be to refactor to the following:</p>
-<pre><code>public class WidgetService
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A better solution would be to refactor to the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class WidgetService
 {
     public WidgetService()
     {
@@ -518,11 +518,11 @@ You probably also want to keep complex parsing out of constructors too. Don&rsqu
 
 var dataReport = _widgetService.GenerateUsageReport();
 _rss.PostReport(dataReport);
-</code></pre>
-<p>For those paying attention, this is also a more functional way of programming. More generally, we refactor code flow so instead of <code>A=&gt;B=&gt;C=&gt;D</code> we have <code>A=&gt;B, A=&gt;C, A=&gt;D</code>. The dependencies are much less coupled from either other.</p>
-<h3 id="the-servicelocator-pattern">The ServiceLocator Pattern</h3>
-<p>Myself (and many others) absolutely hate the ServiceLocator pattern. But it is often thrust upon us as we work on legacy applications or with mis-informed technical leads. But that is another article. In this instance, I will take the stance that you have to use ServiceLocator.  Here is a typical (in my opinion WRONG) example of a constructor:</p>
-<pre><code>public class WidgetService
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For those paying attention, this is also a more functional way of programming. More generally, we refactor code flow so instead of &lt;code&gt;A=&amp;gt;B=&amp;gt;C=&amp;gt;D&lt;/code&gt; we have &lt;code&gt;A=&amp;gt;B, A=&amp;gt;C, A=&amp;gt;D&lt;/code&gt;. The dependencies are much less coupled from either other.&lt;/p&gt;
+&lt;h3 id=&#34;the-servicelocator-pattern&#34;&gt;The ServiceLocator Pattern&lt;/h3&gt;
+&lt;p&gt;Myself (and many others) absolutely hate the ServiceLocator pattern. But it is often thrust upon us as we work on legacy applications or with mis-informed technical leads. But that is another article. In this instance, I will take the stance that you have to use ServiceLocator.  Here is a typical (in my opinion WRONG) example of a constructor:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class WidgetService
 {
     private readonly IReviewSubmitService _rss;
     private readonly IRepositoryServiceFactory _rsf;
@@ -530,14 +530,14 @@ _rss.PostReport(dataReport);
 
     public WidgetService()
     {
-        _rss = ServiceLocator.Resolve&lt;IReviewSubmitService&gt;();
-        _rsf = ServiceLocator.Resolve&lt;IRepositoryServiceFactory&gt;();
-        _omg = ServiceLocator.Resolve&lt;IOptimisedMarkupGenerator&gt;();
+        _rss = ServiceLocator.Resolve&amp;lt;IReviewSubmitService&amp;gt;();
+        _rsf = ServiceLocator.Resolve&amp;lt;IRepositoryServiceFactory&amp;gt;();
+        _omg = ServiceLocator.Resolve&amp;lt;IOptimisedMarkupGenerator&amp;gt;();
     }
 }
-</code></pre>
-<p>and now the good example:</p>
-<pre><code>public class WidgetService
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and now the good example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class WidgetService
 {
     private readonly IReviewSubmitService _reviewSubmitService;
     private readonly IRepositoryServiceFactory _repositoryServiceFactory;
@@ -545,9 +545,9 @@ _rss.PostReport(dataReport);
 
     public WidgetService()
         this(
-            ServiceLocator.Resolve&lt;IReviewSubmitService&gt;(),
-            ServiceLocator.Resolve&lt;IRepositoryServiceFactory&gt;(),
-            ServiceLocator.Resolve&lt;IOptimisedMarkupGenerator&gt;()
+            ServiceLocator.Resolve&amp;lt;IReviewSubmitService&amp;gt;(),
+            ServiceLocator.Resolve&amp;lt;IRepositoryServiceFactory&amp;gt;(),
+            ServiceLocator.Resolve&amp;lt;IOptimisedMarkupGenerator&amp;gt;()
         )
     {
     }
@@ -563,19 +563,19 @@ _rss.PostReport(dataReport);
         _optimisedMarkupGenerator= optimisedMarkupGenerator
     }
 }
-</code></pre>
-<p>(I know I need another post around that formatting too&hellip;)</p>
-<p>So what has changed? The main difference is that you <em>can</em> inject different implementations of the interfaces, without needing to configure a static ServiceLocator. <strong>Big Win.</strong> This dual constructor setup shown in this example has the following benefits:</p>
-<ul>
-<li>You can pass dependencies into the instance. For example, from Unit Tests.</li>
-<li>The ServiceLocator can be still be used at runtime to ensure the right implementation can be resolved.</li>
-<li>If you have a container that can inject instances, it will do so for you, picking the more complex constructor to use. This gives you a migration away from ServiceLocator going forward.</li>
-<li>This almost makes ServiceLocator, since you can just ignore the default constructor, and the class looks more <a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID</a>.</li>
-</ul>
-<h3 id="validation">Validation</h3>
-<p>Something that is also helpful, to avoid the dreaded latent <code>ObjectNullReferenceException</code>, is to validate your inputs. Check they are within the valid range at the first opportunity:</p>
-<p>(only showing the constructor for simplicity.)</p>
-<pre><code>    public WidgetService(
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(I know I need another post around that formatting too&amp;hellip;)&lt;/p&gt;
+&lt;p&gt;So what has changed? The main difference is that you &lt;em&gt;can&lt;/em&gt; inject different implementations of the interfaces, without needing to configure a static ServiceLocator. &lt;strong&gt;Big Win.&lt;/strong&gt; This dual constructor setup shown in this example has the following benefits:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You can pass dependencies into the instance. For example, from Unit Tests.&lt;/li&gt;
+&lt;li&gt;The ServiceLocator can be still be used at runtime to ensure the right implementation can be resolved.&lt;/li&gt;
+&lt;li&gt;If you have a container that can inject instances, it will do so for you, picking the more complex constructor to use. This gives you a migration away from ServiceLocator going forward.&lt;/li&gt;
+&lt;li&gt;This almost makes ServiceLocator, since you can just ignore the default constructor, and the class looks more &lt;a href=&#34;https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)&#34;&gt;SOLID&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;validation&#34;&gt;Validation&lt;/h3&gt;
+&lt;p&gt;Something that is also helpful, to avoid the dreaded latent &lt;code&gt;ObjectNullReferenceException&lt;/code&gt;, is to validate your inputs. Check they are within the valid range at the first opportunity:&lt;/p&gt;
+&lt;p&gt;(only showing the constructor for simplicity.)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    public WidgetService(
         IReviewSubmitService reviewSubmitService,
         IRepositoryServiceFactory repositoryServiceFactory,
         IOptimisedMarkupGenerator optimisedMarkupGenerator,
@@ -585,16 +585,16 @@ _rss.PostReport(dataReport);
         if(reviewSubmitService == null) throw new ArgumentNullException(nameof(reviewSubmitService));
         if(repositoryServiceFactory == null) throw new ArgumentNullException(nameof(repositoryServiceFactory));
         if(optimisedMarkupGenerator == null) throw new ArgumentNullException(nameof(optimisedMarkupGenerator));
-        if(someIndex &lt; 0) throw new OutOfRangeException($&quot;'{nameof(someIndex)}' must be a positive number.&quot;);
+        if(someIndex &amp;lt; 0) throw new OutOfRangeException($&amp;quot;&#39;{nameof(someIndex)}&#39; must be a positive number.&amp;quot;);
 
         _reviewSubmitService = reviewSubmitService;
         _repositoryServiceFactory = repositoryServiceFactory;
         _optimisedMarkupGenerator= optimisedMarkupGenerator
     }
-</code></pre>
-<p>Validate your arguments at construction time, and you will always find your <code>null</code> references and out of range values as soon as they appear and not deep down during a complex method execution, or worse, down the road when invalid data is read back from a database.</p>
-<h3 id="multiple-settings">Multiple Settings</h3>
-<pre><code>    public WidgetService(
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Validate your arguments at construction time, and you will always find your &lt;code&gt;null&lt;/code&gt; references and out of range values as soon as they appear and not deep down during a complex method execution, or worse, down the road when invalid data is read back from a database.&lt;/p&gt;
+&lt;h3 id=&#34;multiple-settings&#34;&gt;Multiple Settings&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;    public WidgetService(
         int index,
         int length,
         string moduleName,
@@ -606,27 +606,27 @@ _rss.PostReport(dataReport);
         _moduleName = moduleName;
         _conversion = conversion;
     }
-</code></pre>
-<p>We have several values being passed in. During development it is likely we will be adding/removing the types and numbers of variables passed in. Lets encompass these in a datatype so that it is more maintainable, since we can foresee the usefulness of this.</p>
-<pre><code>public class WidgetServiceSettings
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We have several values being passed in. During development it is likely we will be adding/removing the types and numbers of variables passed in. Lets encompass these in a datatype so that it is more maintainable, since we can foresee the usefulness of this.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class WidgetServiceSettings
 {
         public int Index { get; set; }
         public int Length { get; set; }
         public string ModuleName { get; set; }
         public decimal Conversion { get; set; }
 }
-</code></pre>
-<pre><code>    public WidgetService(
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;    public WidgetService(
         WidgetServiceSettings settings,
     )
     {
         _settings = settings;
     }
-</code></pre>
-<p>Now the constructor won&rsquo;t have to change, as we add and remove extra settings required by the service, and it&rsquo;s various related methods.  Image the benifit this has when you have a mixture of Settings values and Services passed into the constructor if we didn&rsquo;t do this?</p>
-<h3 id="wrapup">Wrapup</h3>
-<p>A brief overview of my thoughts on Constructors. Hopefully these behaviours help make your code more composable, more testable, and more readable.</p>
-<p>Did I miss something? Let me know.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now the constructor won&amp;rsquo;t have to change, as we add and remove extra settings required by the service, and it&amp;rsquo;s various related methods.  Image the benifit this has when you have a mixture of Settings values and Services passed into the constructor if we didn&amp;rsquo;t do this?&lt;/p&gt;
+&lt;h3 id=&#34;wrapup&#34;&gt;Wrapup&lt;/h3&gt;
+&lt;p&gt;A brief overview of my thoughts on Constructors. Hopefully these behaviours help make your code more composable, more testable, and more readable.&lt;/p&gt;
+&lt;p&gt;Did I miss something? Let me know.&lt;/p&gt;
 </description>
     </item>
     
@@ -636,16 +636,16 @@ _rss.PostReport(dataReport);
       <pubDate>Wed, 04 May 2016 08:08:43 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/guess-whos-back/</guid>
-      <description><p>Ok, so not that big a leap, it&rsquo;s just me. Six months later me. Moved to the UK me.</p>
-<p>I&rsquo;ve taken the plunge and moved away from Windy Wellington in little old New Zealand to a place in the UK called <a href="http://www.destinationmiltonkeynes.co.uk/">Milton Keynes</a>.  Famous for wide streets, round-a-bouts and <a href="http://www.mkcows.com/">concrete cows</a>.</p>
-<p>Why Milton Keynes? Because Xero has an office here of course! Aside from being cheaper to live here than in the middle of London, it&rsquo;s also a bit quieter and a bit of a slower pace of life for a bit, with reasonable connections to anywhere but here.  The plan is to live and work here for a while and travel around Great Britain and Europe. It makes sense when Europe is 2-3 hours aways from here when it was 26 hours of plane plus another 5-12 of airports from Wellington!</p>
-<p>So as you can imagine, planning a move takes a while, and my Wife and I had a 7 week holiday on our way over. Thus explains the 6 months of no blog posts.  But I&rsquo;m back in anger now and keen to get back into a good cadence of writing and GitHub-ing again.</p>
-<p>As I travelled for the last 7 weeks, I completely lost touch with the development community. Partly from the busy sight-seeing schedule and <a href="https://www.instagram.com/p/BEVzwZ7Fq1T/?taken-by=csmacnz">picture taking</a>, but partly because the mobile internet roaming charges were ridiculously priced, and hotel wifi was not amazing.  And I was on holiday, so no time for work. But it did have an unforeseen side effect.</p>
-<p>I spend 7 weeks around the non-geek, the computer normal, the general every-day average computer technology smart phone public. Real People. Lots of &lsquo;em.  And I noticed a few things.  People have no idea what their devices can do. The times I heard &ldquo;did you know it could do this?&rdquo; for a years-old feature that came out 3 versions ago was interesting to hear. On top of this, the amount of bad software that people can and do put up with without complaining is amazing. We in the professional developer community hold other developers to a very high standard. One which we are very vocal about, but one the general public don&rsquo;t really know to consider.  They put up with a lot, and are non-the-wiser.  Amazing.</p>
-<p>The other side of travelling was using all of the hotel websites, airport touch kiosks and information centre devices.  Wow. Touch is hard, but some of these machines could do with a bit of TLC.  (What was I saying about high standards?)  It has made me appreciate good touch software when I see it, as well as sticking to good old keyboard or mouse over touch in some cases as well. I could type my name faster or select from a few dropdowns faster than using some of the touch-designed selections and wizards.</p>
-<p>For those of you making great experiences out there for travellers - thank you. For those of you making responsive web design - bravo. For those of you who realise people do have Windows Phones, even though we are only 5%, I applaud you!  And better yet, though of you who remember that as well as iPhone and Android apps, having a responsive web-based version for everyone else still covers the other 20-30% of phone users who still want to access your resources on their phone!</p>
-<p>But now that I&rsquo;m back, I can start my XAML windows development again, get stuck into <a href="https://msdn.microsoft.com/en-us/windows/uwp/get-started/whats-a-uwp">Universal Windows Platform</a> apps, and <a href="http://dotnet.github.io/">.Net Core</a> development.</p>
-<p>Who has an idea of an app gap I could fill? Send me a tweet or put a comment below and I might give it a go.</p>
+      <description>&lt;p&gt;Ok, so not that big a leap, it&amp;rsquo;s just me. Six months later me. Moved to the UK me.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve taken the plunge and moved away from Windy Wellington in little old New Zealand to a place in the UK called &lt;a href=&#34;http://www.destinationmiltonkeynes.co.uk/&#34;&gt;Milton Keynes&lt;/a&gt;.  Famous for wide streets, round-a-bouts and &lt;a href=&#34;http://www.mkcows.com/&#34;&gt;concrete cows&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Why Milton Keynes? Because Xero has an office here of course! Aside from being cheaper to live here than in the middle of London, it&amp;rsquo;s also a bit quieter and a bit of a slower pace of life for a bit, with reasonable connections to anywhere but here.  The plan is to live and work here for a while and travel around Great Britain and Europe. It makes sense when Europe is 2-3 hours aways from here when it was 26 hours of plane plus another 5-12 of airports from Wellington!&lt;/p&gt;
+&lt;p&gt;So as you can imagine, planning a move takes a while, and my Wife and I had a 7 week holiday on our way over. Thus explains the 6 months of no blog posts.  But I&amp;rsquo;m back in anger now and keen to get back into a good cadence of writing and GitHub-ing again.&lt;/p&gt;
+&lt;p&gt;As I travelled for the last 7 weeks, I completely lost touch with the development community. Partly from the busy sight-seeing schedule and &lt;a href=&#34;https://www.instagram.com/p/BEVzwZ7Fq1T/?taken-by=csmacnz&#34;&gt;picture taking&lt;/a&gt;, but partly because the mobile internet roaming charges were ridiculously priced, and hotel wifi was not amazing.  And I was on holiday, so no time for work. But it did have an unforeseen side effect.&lt;/p&gt;
+&lt;p&gt;I spend 7 weeks around the non-geek, the computer normal, the general every-day average computer technology smart phone public. Real People. Lots of &amp;lsquo;em.  And I noticed a few things.  People have no idea what their devices can do. The times I heard &amp;ldquo;did you know it could do this?&amp;rdquo; for a years-old feature that came out 3 versions ago was interesting to hear. On top of this, the amount of bad software that people can and do put up with without complaining is amazing. We in the professional developer community hold other developers to a very high standard. One which we are very vocal about, but one the general public don&amp;rsquo;t really know to consider.  They put up with a lot, and are non-the-wiser.  Amazing.&lt;/p&gt;
+&lt;p&gt;The other side of travelling was using all of the hotel websites, airport touch kiosks and information centre devices.  Wow. Touch is hard, but some of these machines could do with a bit of TLC.  (What was I saying about high standards?)  It has made me appreciate good touch software when I see it, as well as sticking to good old keyboard or mouse over touch in some cases as well. I could type my name faster or select from a few dropdowns faster than using some of the touch-designed selections and wizards.&lt;/p&gt;
+&lt;p&gt;For those of you making great experiences out there for travellers - thank you. For those of you making responsive web design - bravo. For those of you who realise people do have Windows Phones, even though we are only 5%, I applaud you!  And better yet, though of you who remember that as well as iPhone and Android apps, having a responsive web-based version for everyone else still covers the other 20-30% of phone users who still want to access your resources on their phone!&lt;/p&gt;
+&lt;p&gt;But now that I&amp;rsquo;m back, I can start my XAML windows development again, get stuck into &lt;a href=&#34;https://msdn.microsoft.com/en-us/windows/uwp/get-started/whats-a-uwp&#34;&gt;Universal Windows Platform&lt;/a&gt; apps, and &lt;a href=&#34;http://dotnet.github.io/&#34;&gt;.Net Core&lt;/a&gt; development.&lt;/p&gt;
+&lt;p&gt;Who has an idea of an app gap I could fill? Send me a tweet or put a comment below and I might give it a go.&lt;/p&gt;
 </description>
     </item>
     
@@ -655,10 +655,10 @@ _rss.PostReport(dataReport);
       <pubDate>Sun, 08 Nov 2015 07:02:57 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/on-fixing-problems-in-existing-installations/</guid>
-      <description><p>A builder came around the other day to fix the shelf under the sink. We had a leaking tap that over time had been dripping down onto the shelf and the boards had ended up in an awful state.  From my perspective, we just simply needed to rip it out and put a new one in.</p>
-<p>Luckily, the builder was an expert and explained to me what would have to be done. First we would have to cut out the old board. Pipes were running through it and we would have to dismantle all the plumbing first otherwise. The new solution would be designed to slot in around the pipes, making it less coupled going forward. The next problem was that we wouldn&rsquo;t be able to get a replacement straight in. It was a corner cupboard with an L-shaped board, and even with the slot taken out couldn&rsquo;t be manoeuvred in.  The kitchen was a kit set and had been built in around the shelf, making it harder to pull parts out and put replacements in.</p>
-<p>His solution was simple, though, we have a shelf made of two rectangular parts. These would connect at a seam to form the L-shape. But having two parts rather than one means we need to add extra reinforcing. His experience told him that we needed to add braces to strengthen the connection between the wood. And to ensure the cupboard is still useful, extra wood would be added at the back and side walls to help support each piece. We would keep these thin so they don&rsquo;t encroach on the storage space. A sound solution that avoided a lot of novice mistakes because of his experience and expertise.</p>
-<p>When working on legacy software, the process comes across in much the same way. Sometimes we have to swap out parts of a system that are critical to its function, but are so tightly embedded because the system was built around them.  Usually, we end up cutting this out to make room for a replacement, but in doing so add more code to support this separation and decoupling.  But if we do it right and have the right support from experienced developers and architects, the solution will be simple and hold up to scrutiny. It might even still fulfil the original needs in a more maintainable and flexible way, without too much compromise.</p>
+      <description>&lt;p&gt;A builder came around the other day to fix the shelf under the sink. We had a leaking tap that over time had been dripping down onto the shelf and the boards had ended up in an awful state.  From my perspective, we just simply needed to rip it out and put a new one in.&lt;/p&gt;
+&lt;p&gt;Luckily, the builder was an expert and explained to me what would have to be done. First we would have to cut out the old board. Pipes were running through it and we would have to dismantle all the plumbing first otherwise. The new solution would be designed to slot in around the pipes, making it less coupled going forward. The next problem was that we wouldn&amp;rsquo;t be able to get a replacement straight in. It was a corner cupboard with an L-shaped board, and even with the slot taken out couldn&amp;rsquo;t be manoeuvred in.  The kitchen was a kit set and had been built in around the shelf, making it harder to pull parts out and put replacements in.&lt;/p&gt;
+&lt;p&gt;His solution was simple, though, we have a shelf made of two rectangular parts. These would connect at a seam to form the L-shape. But having two parts rather than one means we need to add extra reinforcing. His experience told him that we needed to add braces to strengthen the connection between the wood. And to ensure the cupboard is still useful, extra wood would be added at the back and side walls to help support each piece. We would keep these thin so they don&amp;rsquo;t encroach on the storage space. A sound solution that avoided a lot of novice mistakes because of his experience and expertise.&lt;/p&gt;
+&lt;p&gt;When working on legacy software, the process comes across in much the same way. Sometimes we have to swap out parts of a system that are critical to its function, but are so tightly embedded because the system was built around them.  Usually, we end up cutting this out to make room for a replacement, but in doing so add more code to support this separation and decoupling.  But if we do it right and have the right support from experienced developers and architects, the solution will be simple and hold up to scrutiny. It might even still fulfil the original needs in a more maintainable and flexible way, without too much compromise.&lt;/p&gt;
 </description>
     </item>
     
@@ -668,22 +668,22 @@ _rss.PostReport(dataReport);
       <pubDate>Sun, 07 Jun 2015 20:29:10 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/building-a-better-development-team/</guid>
-      <description><p>Last November I helped out with the <a href="http://www.meetup.com/kiwi-code-retreat/events/208940932/">Wellington contingent of the Global Day of Coderetreat</a>.  It was a great day to explore strategies and techniques to improve your code and expand your knowledge of patterns and practices.  This is a great event and I highly recommend looking out for it again later this year. I liked this concept so much, that I started my own series over the Summer (December till January is Summer here is NZ).</p>
-<h3 id="core-development-series">Core Development Series</h3>
-<p>Each fortnight, on a Friday, I would set aside a 90 minute slot to gather together.  In this period, we would look at a problem from the retreat, spend 45 minutes running through the exercise at teams of 2, then each answer the following questions:</p>
-<ul>
-<li>what, if anything, did you learn today</li>
-<li>what, if anything, surprised you about today</li>
-<li>and, what, if anything, are you going to do differently moving forward</li>
-</ul>
-<p>What did I learn from the process? Well, developers are very open to learning new techniques on how they write their code, given the opportunity to try it out. Pairing up allowed the seniors to talk through problem solving with some of the more junior team members and created an upskilling session. Discussing at the end gave us all the chance to learn and see how others came to similar or different approaches to solve the problem set out.</p>
-<p>We also emphasised how the exercise&rsquo;s limitations forced us to follow the approach to an extreme where it no longer made sense. This gave us some knowledge of when we had pushed a technique too far, and where its strengths and weaknesses to solve problems where.</p>
-<p>What surprised me about running these sessions?  People actually wanted to come and learn.  I thought that running this as an open invite session to my 2 immediate product teams would result in a couple of people coming. In fact, word of mouth meant that people in the wider teams were showing interest, and anyone I talked to wanted an invite to attend.  Given the chance, people want to better themselves.</p>
-<p>So going forward? I continued to run these sessions. They have become a monthly exercise that I have a couple of people helping me organise, and the invite list has grown to include 27 people from across 8 teams throughout the office. On the alternate Friday, I am running another session as a lunchtime event.</p>
-<h3 id="developer-cinema">Developer Cinema</h3>
-<p>Developer Cinema is a chance for people to gather together in their lunch break, and watch a session from a conference that relates back to a development framework or technique. This was a further chance to learn, but in more of a passive approach, where someone else would explain the concepts back to us. We can even pick videos and concepts that are most relevant to the problems we are working with in our current projects.</p>
-<p>The combination of the cinema and the retreat has been a great way to spread ideas and knowledge of techniques out across the team. Less time is spend upskilling other during code reviews, because we have a shared memory of learning the way to do things together during these sessions. This ties back to <a href="https://msdn.microsoft.com/en-us/library/ff647835.aspx">Design Patterns being a common vocabulary</a>, or that once we name something <a href="http://en.wikipedia.org/wiki/True_name">we gain power over it</a>.  It is much quicker to refer to the single responsibility pattern from <a href="http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29">SOLID</a>, then to stop and explain what it is and why it is useful.</p>
-<p>Do you run something similar in your company? Do you think this might help improve and empower your team? Leave a comment, I&rsquo;m interested to hear feedback of how other people are helping their teams' self improvement.</p>
+      <description>&lt;p&gt;Last November I helped out with the &lt;a href=&#34;http://www.meetup.com/kiwi-code-retreat/events/208940932/&#34;&gt;Wellington contingent of the Global Day of Coderetreat&lt;/a&gt;.  It was a great day to explore strategies and techniques to improve your code and expand your knowledge of patterns and practices.  This is a great event and I highly recommend looking out for it again later this year. I liked this concept so much, that I started my own series over the Summer (December till January is Summer here is NZ).&lt;/p&gt;
+&lt;h3 id=&#34;core-development-series&#34;&gt;Core Development Series&lt;/h3&gt;
+&lt;p&gt;Each fortnight, on a Friday, I would set aside a 90 minute slot to gather together.  In this period, we would look at a problem from the retreat, spend 45 minutes running through the exercise at teams of 2, then each answer the following questions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;what, if anything, did you learn today&lt;/li&gt;
+&lt;li&gt;what, if anything, surprised you about today&lt;/li&gt;
+&lt;li&gt;and, what, if anything, are you going to do differently moving forward&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What did I learn from the process? Well, developers are very open to learning new techniques on how they write their code, given the opportunity to try it out. Pairing up allowed the seniors to talk through problem solving with some of the more junior team members and created an upskilling session. Discussing at the end gave us all the chance to learn and see how others came to similar or different approaches to solve the problem set out.&lt;/p&gt;
+&lt;p&gt;We also emphasised how the exercise&amp;rsquo;s limitations forced us to follow the approach to an extreme where it no longer made sense. This gave us some knowledge of when we had pushed a technique too far, and where its strengths and weaknesses to solve problems where.&lt;/p&gt;
+&lt;p&gt;What surprised me about running these sessions?  People actually wanted to come and learn.  I thought that running this as an open invite session to my 2 immediate product teams would result in a couple of people coming. In fact, word of mouth meant that people in the wider teams were showing interest, and anyone I talked to wanted an invite to attend.  Given the chance, people want to better themselves.&lt;/p&gt;
+&lt;p&gt;So going forward? I continued to run these sessions. They have become a monthly exercise that I have a couple of people helping me organise, and the invite list has grown to include 27 people from across 8 teams throughout the office. On the alternate Friday, I am running another session as a lunchtime event.&lt;/p&gt;
+&lt;h3 id=&#34;developer-cinema&#34;&gt;Developer Cinema&lt;/h3&gt;
+&lt;p&gt;Developer Cinema is a chance for people to gather together in their lunch break, and watch a session from a conference that relates back to a development framework or technique. This was a further chance to learn, but in more of a passive approach, where someone else would explain the concepts back to us. We can even pick videos and concepts that are most relevant to the problems we are working with in our current projects.&lt;/p&gt;
+&lt;p&gt;The combination of the cinema and the retreat has been a great way to spread ideas and knowledge of techniques out across the team. Less time is spend upskilling other during code reviews, because we have a shared memory of learning the way to do things together during these sessions. This ties back to &lt;a href=&#34;https://msdn.microsoft.com/en-us/library/ff647835.aspx&#34;&gt;Design Patterns being a common vocabulary&lt;/a&gt;, or that once we name something &lt;a href=&#34;http://en.wikipedia.org/wiki/True_name&#34;&gt;we gain power over it&lt;/a&gt;.  It is much quicker to refer to the single responsibility pattern from &lt;a href=&#34;http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29&#34;&gt;SOLID&lt;/a&gt;, then to stop and explain what it is and why it is useful.&lt;/p&gt;
+&lt;p&gt;Do you run something similar in your company? Do you think this might help improve and empower your team? Leave a comment, I&amp;rsquo;m interested to hear feedback of how other people are helping their teams&#39; self improvement.&lt;/p&gt;
 </description>
     </item>
     
@@ -693,7 +693,7 @@ _rss.PostReport(dataReport);
       <pubDate>Sun, 28 Mar 2010 21:08:39 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/action-hero-style-software-development/</guid>
-      <description><p>I just read a really awesome post about software development using the analogy of Chuck Norris and Steven Seagal. Definately worth a read and brings forward some good points about software development. Check it out. <a href="http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/" title="Software development, action hero style">http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/</a></p>
+      <description>&lt;p&gt;I just read a really awesome post about software development using the analogy of Chuck Norris and Steven Seagal. Definately worth a read and brings forward some good points about software development. Check it out. &lt;a href=&#34;http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/&#34; title=&#34;Software development, action hero style&#34;&gt;http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

@@ -19,17 +19,17 @@
       <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
-      <description><p>The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&rsquo;m not a fan of, and that is <code>= default!;</code></p>
-<h2 id="problem-definition">problem definition</h2>
-<pre><code class="language-cs">// This class is used to serialise/deserialise a payload from a server
+      <description>&lt;p&gt;The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is &lt;code&gt;= default!;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;problem-definition&#34;&gt;problem definition&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// This class is used to serialise/deserialise a payload from a server
 public class MyContractDTO
 {
     public string Value { get; set; } = default!;
 }
-</code></pre>
-<p>My codebase is now littered with this code hack to get it to compile because nullable says it can&rsquo;t guarantee that this property is not null.</p>
-<p>Let&rsquo;s take a closer look at what we are saying.</p>
-<pre><code class="language-cs">
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;My codebase is now littered with this code hack to get it to compile because nullable says it can&amp;rsquo;t guarantee that this property is not null.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take a closer look at what we are saying.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
 // With the Nullable feature enabled, I need to ensure Value is not null:
 // - either in the constructor from a notnull argument
 // - or giving it a default non-null value.
@@ -38,49 +38,49 @@ public string Value { get; set; }
 // Initialise the property to its default value (which for reference types like string is null)
 public string Value { get; set; } = default;
 
-// The '!' says to treat the value as if it is notnull, the developer knows better
+// The &#39;!&#39; says to treat the value as if it is notnull, the developer knows better
 public string Value { get; set; } = default!;
-</code></pre>
-<p>What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&rsquo;t like it.</p>
-<h2 id="normal-solutions">Normal solutions</h2>
-<p>There are two solution paths to take here:</p>
-<ul>
-<li>Acknowledge that it might be null and make it nullable.</li>
-<li>Initialise in the constructor.</li>
-</ul>
-<p>These work great with normal codebases and in some cases, one is better than the other.  If you know it certainly can be null, use the first option. If you know you never expect or want it to be null, use the second.</p>
-<p>Bonus points once you have the constructor is to make the type immutable.
-For all domain and application logic, This is what I have done successfully so far and will continue doing.</p>
-<h2 id="but-serialisation">But serialisation</h2>
-<p>Here is the problem. Serialisation.</p>
-<p>When we have a type that is going to be used to deserialise transport models we again have the same choices as above, but a few more points to consider.</p>
-<ul>
-<li>The JSON may or may not include the field</li>
-<li>The JSON may have the field set to null</li>
-<li>The Deserialiser might not support constructors</li>
-<li>The Deserialiser doesn&rsquo;t know about Nullable and can&rsquo;t ensure the safety is upheld.</li>
-</ul>
-<p>Again we can make the call to acknowledge that it might be null and make it nullable.  But there are drawbacks here. If you do this, you have to add all the error-handling for dealing with nullable checks. And if you control both server and client in this situation, then you might be writing and testing code for something you never plan to, nor may never need to ever support. Being null is an exceptional/fatal situation you don&rsquo;t want to have to constantly guard against.</p>
-<p>Which leads us back to the de-facto solution currently being advocated and used:</p>
-<pre><code class="language-cs">public string Value { get; set; } = default!;
-</code></pre>
-<p>I&rsquo;m still not happy. So why don&rsquo;t we work on that?</p>
-<h2 id="the-json-may-or-may-not-include-the-field-or-it-might-be-null">The JSON may or may not include the field or it might be null</h2>
-<p>Luckily for us, this concern is fairly easy to address. Say we are using Newtonsoft.Json and want this extra piece of reassurance.</p>
-<pre><code class="language-cs">[JsonProperty(Required = Required.Always)]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&amp;rsquo;t like it.&lt;/p&gt;
+&lt;h2 id=&#34;normal-solutions&#34;&gt;Normal solutions&lt;/h2&gt;
+&lt;p&gt;There are two solution paths to take here:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Acknowledge that it might be null and make it nullable.&lt;/li&gt;
+&lt;li&gt;Initialise in the constructor.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These work great with normal codebases and in some cases, one is better than the other.  If you know it certainly can be null, use the first option. If you know you never expect or want it to be null, use the second.&lt;/p&gt;
+&lt;p&gt;Bonus points once you have the constructor is to make the type immutable.
+For all domain and application logic, This is what I have done successfully so far and will continue doing.&lt;/p&gt;
+&lt;h2 id=&#34;but-serialisation&#34;&gt;But serialisation&lt;/h2&gt;
+&lt;p&gt;Here is the problem. Serialisation.&lt;/p&gt;
+&lt;p&gt;When we have a type that is going to be used to deserialise transport models we again have the same choices as above, but a few more points to consider.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The JSON may or may not include the field&lt;/li&gt;
+&lt;li&gt;The JSON may have the field set to null&lt;/li&gt;
+&lt;li&gt;The Deserialiser might not support constructors&lt;/li&gt;
+&lt;li&gt;The Deserialiser doesn&amp;rsquo;t know about Nullable and can&amp;rsquo;t ensure the safety is upheld.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Again we can make the call to acknowledge that it might be null and make it nullable.  But there are drawbacks here. If you do this, you have to add all the error-handling for dealing with nullable checks. And if you control both server and client in this situation, then you might be writing and testing code for something you never plan to, nor may never need to ever support. Being null is an exceptional/fatal situation you don&amp;rsquo;t want to have to constantly guard against.&lt;/p&gt;
+&lt;p&gt;Which leads us back to the de-facto solution currently being advocated and used:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public string Value { get; set; } = default!;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I&amp;rsquo;m still not happy. So why don&amp;rsquo;t we work on that?&lt;/p&gt;
+&lt;h2 id=&#34;the-json-may-or-may-not-include-the-field-or-it-might-be-null&#34;&gt;The JSON may or may not include the field or it might be null&lt;/h2&gt;
+&lt;p&gt;Luckily for us, this concern is fairly easy to address. Say we are using Newtonsoft.Json and want this extra piece of reassurance.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[JsonProperty(Required = Required.Always)]
 public string Value { get; set; } = default!;
-</code></pre>
-<p>The <code>Required</code> attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a <code>JsonSerializationException</code> for free.</p>
-<p>This ensures we:</p>
-<ul>
-<li>have minimal code doing the null checking</li>
-<li>don&rsquo;t have to guard every access to a nullable property</li>
-<li>Treat null or missing as fatal errors as part of an existing serialisation error handling process (which we should always have anyway).</li>
-</ul>
-<p>This still doesn&rsquo;t stop any other piece of code from creating an invalid object state, though. But this may be the easiest solution to add those missing guarantees alongside using <code>default!</code>.</p>
-<h2 id="use-constructors">Use Constructors</h2>
-<p>Newtonsoft.Json helps once again by supporting constructors. Make sure all the mandatory non-nullable properties are in the constructor. And as long as there is no default constructor (which when doing nullable right you can&rsquo;t anyway) and the constructor parameters have names matching the properties, this just works as expected.</p>
-<pre><code>public class MyContractDTO
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;Required&lt;/code&gt; attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a &lt;code&gt;JsonSerializationException&lt;/code&gt; for free.&lt;/p&gt;
+&lt;p&gt;This ensures we:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;have minimal code doing the null checking&lt;/li&gt;
+&lt;li&gt;don&amp;rsquo;t have to guard every access to a nullable property&lt;/li&gt;
+&lt;li&gt;Treat null or missing as fatal errors as part of an existing serialisation error handling process (which we should always have anyway).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This still doesn&amp;rsquo;t stop any other piece of code from creating an invalid object state, though. But this may be the easiest solution to add those missing guarantees alongside using &lt;code&gt;default!&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;use-constructors&#34;&gt;Use Constructors&lt;/h2&gt;
+&lt;p&gt;Newtonsoft.Json helps once again by supporting constructors. Make sure all the mandatory non-nullable properties are in the constructor. And as long as there is no default constructor (which when doing nullable right you can&amp;rsquo;t anyway) and the constructor parameters have names matching the properties, this just works as expected.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class MyContractDTO
 {
     public MyContractDTO(string value)
     {
@@ -90,16 +90,16 @@ public string Value { get; set; } = default!;
     
     public string Value { get; set; };
 }
-</code></pre>
-<p>You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.</p>
-<p>Once more, Newtonsoft.Json with constructors also means support for read-only (immutable) objects.</p>
-<h2 id="what-about-not-using-newtonsoftjson">What about not using Newtonsoft.Json?</h2>
-<p>There is a new kid on the block - <code>System.Text.Json</code>. However, this is one area where it doesn&rsquo;t shine so bright compared to Newtonsoft.Json.</p>
-<p>Pretty much none of the above works. Constructors are not supported. Required annotation is not supported. Along with many other things.</p>
-<p>More on <a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to">what does and does not translate across from Newtonsoft.Json is documented here</a>.</p>
-<p>Instead, you will need to write your own converter and manually deserialise your object with your own explicit null checks (which could be done inside the constructor).</p>
-<p>For example, given our simple type above, we might do the following:</p>
-<pre><code class="language-cs">[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.&lt;/p&gt;
+&lt;p&gt;Once more, Newtonsoft.Json with constructors also means support for read-only (immutable) objects.&lt;/p&gt;
+&lt;h2 id=&#34;what-about-not-using-newtonsoftjson&#34;&gt;What about not using Newtonsoft.Json?&lt;/h2&gt;
+&lt;p&gt;There is a new kid on the block - &lt;code&gt;System.Text.Json&lt;/code&gt;. However, this is one area where it doesn&amp;rsquo;t shine so bright compared to Newtonsoft.Json.&lt;/p&gt;
+&lt;p&gt;Pretty much none of the above works. Constructors are not supported. Required annotation is not supported. Along with many other things.&lt;/p&gt;
+&lt;p&gt;More on &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to&#34;&gt;what does and does not translate across from Newtonsoft.Json is documented here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Instead, you will need to write your own converter and manually deserialise your object with your own explicit null checks (which could be done inside the constructor).&lt;/p&gt;
+&lt;p&gt;For example, given our simple type above, we might do the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]
 public class MyContractDTO
 {
     public MyContractDTO(string value)
@@ -113,12 +113,12 @@ public class MyContractDTO
 
 // Made using the examples given at https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#required-properties
 // Your decisions may vary.
-// e.g. this only supports {&quot;value&quot;: &quot;...&quot;} format, no extra properties allowed.
+// e.g. this only supports {&amp;quot;value&amp;quot;: &amp;quot;...&amp;quot;} format, no extra properties allowed.
 // For a more complex object, you would probably be more flexible.
 // Better guides here: https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to
-public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
+public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
 {
-    private readonly JsonEncodedText ValueName = JsonEncodedText.Encode(&quot;value&quot;);
+    private readonly JsonEncodedText ValueName = JsonEncodedText.Encode(&amp;quot;value&amp;quot;);
 
     public override Implementation Read(
         ref Utf8JsonReader reader,
@@ -184,16 +184,16 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
         writer.WriteEndObject();
     }
 }
-</code></pre>
-<p>At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.</p>
-<h2 id="decisions-decisions">Decisions, Decisions</h2>
-<p>So what would I recommend?</p>
-<p>Firstly, don&rsquo;t just use <code>default!</code> on your serialised types.</p>
-<p>For maximum effect, make your classes have constructors for notnull values, and maybe even make your properties Immutable, if that makes sense. Have your constructors guard against nulls so that your compile-time assurances have runtime verifications. Especially is this is a client library you provide to others.</p>
-<p>If you are using Newtonsoft.Json you should at least apply the <code>[JsonProperty(Required = Required.Always)]</code> to all your notnull properties. But add the constructors as well because you can. If you can stick with Newtonsoft.Json, your life will be very easy.</p>
-<p>If you are using (or have to use) System.Text.Json, write custom converters for your types so that you can have those constructors mentioned above. Make sure you keep them flexible enough to ignore any extra properties you might add in the future to avoid breaking backwards compatibility.</p>
-<p>This experiment has a companion GitHub repo of tests (a mixture of proof they work, and proof they fail tests) <a href="https://github.com/csMacnzBlog/NullableSerialisationExperiments">available here</a>.</p>
-<p>Happy Null-Hunting.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.&lt;/p&gt;
+&lt;h2 id=&#34;decisions-decisions&#34;&gt;Decisions, Decisions&lt;/h2&gt;
+&lt;p&gt;So what would I recommend?&lt;/p&gt;
+&lt;p&gt;Firstly, don&amp;rsquo;t just use &lt;code&gt;default!&lt;/code&gt; on your serialised types.&lt;/p&gt;
+&lt;p&gt;For maximum effect, make your classes have constructors for notnull values, and maybe even make your properties Immutable, if that makes sense. Have your constructors guard against nulls so that your compile-time assurances have runtime verifications. Especially is this is a client library you provide to others.&lt;/p&gt;
+&lt;p&gt;If you are using Newtonsoft.Json you should at least apply the &lt;code&gt;[JsonProperty(Required = Required.Always)]&lt;/code&gt; to all your notnull properties. But add the constructors as well because you can. If you can stick with Newtonsoft.Json, your life will be very easy.&lt;/p&gt;
+&lt;p&gt;If you are using (or have to use) System.Text.Json, write custom converters for your types so that you can have those constructors mentioned above. Make sure you keep them flexible enough to ignore any extra properties you might add in the future to avoid breaking backwards compatibility.&lt;/p&gt;
+&lt;p&gt;This experiment has a companion GitHub repo of tests (a mixture of proof they work, and proof they fail tests) &lt;a href=&#34;https://github.com/csMacnzBlog/NullableSerialisationExperiments&#34;&gt;available here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Happy Null-Hunting.&lt;/p&gt;
 </description>
     </item>
     
@@ -203,17 +203,17 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
       <pubDate>Mon, 08 Jul 2019 22:54:03 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/untitled-4/</guid>
-      <description><p>Dotnet core 3.0 is about to drop, but we already have lots of information about vnext specifically that it&rsquo;s going to be dotnet 5.</p>
-<p>It wasn&rsquo;t that many years ago that Microsoft seemingly forgot how to.count. Windows 8 with all its modern UI was succeeded with not Windows 9, but instead a version named Windows 10. Not sure what the aversion to the number 9 was, buta they are up to their old tricks again with .Net.</p>
-<p>Once dotnet Core 3 drops we already know that the next version will be called .Net 5. The number 4 is getting the same treatment as 9.</p>
-<p>The reality is not just a simple arithmetic error. Instead, it is part of a larger reunification story of C# and .Net in general.</p>
-<p>For those of you still building .Net Full Framework apps for Desktop, Windows Services and IIS may be aware that the rest of the world had started moving to dotnet Core, with version 1,2 and now 3.0 dropping soon. This is not just a reimplementation, but at the same time part of a process to define a standard (a &lsquo;NetStandard&rsquo; you might say) which is a shared set of API code specifications that a runtime implementation can fulfil. These are versioned, have been growing incrementally in cspabilities., and have been implemented by these new dotnet Core implementations, as well as each new minor versioned release of the  .Net Full Framework as well.</p>
-<p>But the standard opens up nuget possibilities. We can build nuget libraries that instead of targeting a runtime, can target one of these NetStandard versions instead. This means a Reilly portable library that can be written once, and run on multiple target runtimes. This is also unbounded because any new runtime can use the library providing it also meets the required standard.</p>
-<p>And that&rsquo;s where the story gets even more interesting. Have you heard of Mono?</p>
-<p>Mono started as a cleanroom implementation of the runtime as a by specification reimplementation on Linux.  What have it legs was its evolution as part of Xamarin, which gave C# a way to run on both IOS and Android devices as well.  And by implementing .NetStandard, mono picked up support for using these new portable Niger packages.</p>
-<p>Didi</p>
-<p>&hellip;</p>
-<p>Unification of core, mono, full framework is dead.</p>
+      <description>&lt;p&gt;Dotnet core 3.0 is about to drop, but we already have lots of information about vnext specifically that it&amp;rsquo;s going to be dotnet 5.&lt;/p&gt;
+&lt;p&gt;It wasn&amp;rsquo;t that many years ago that Microsoft seemingly forgot how to.count. Windows 8 with all its modern UI was succeeded with not Windows 9, but instead a version named Windows 10. Not sure what the aversion to the number 9 was, buta they are up to their old tricks again with .Net.&lt;/p&gt;
+&lt;p&gt;Once dotnet Core 3 drops we already know that the next version will be called .Net 5. The number 4 is getting the same treatment as 9.&lt;/p&gt;
+&lt;p&gt;The reality is not just a simple arithmetic error. Instead, it is part of a larger reunification story of C# and .Net in general.&lt;/p&gt;
+&lt;p&gt;For those of you still building .Net Full Framework apps for Desktop, Windows Services and IIS may be aware that the rest of the world had started moving to dotnet Core, with version 1,2 and now 3.0 dropping soon. This is not just a reimplementation, but at the same time part of a process to define a standard (a &amp;lsquo;NetStandard&amp;rsquo; you might say) which is a shared set of API code specifications that a runtime implementation can fulfil. These are versioned, have been growing incrementally in cspabilities., and have been implemented by these new dotnet Core implementations, as well as each new minor versioned release of the  .Net Full Framework as well.&lt;/p&gt;
+&lt;p&gt;But the standard opens up nuget possibilities. We can build nuget libraries that instead of targeting a runtime, can target one of these NetStandard versions instead. This means a Reilly portable library that can be written once, and run on multiple target runtimes. This is also unbounded because any new runtime can use the library providing it also meets the required standard.&lt;/p&gt;
+&lt;p&gt;And that&amp;rsquo;s where the story gets even more interesting. Have you heard of Mono?&lt;/p&gt;
+&lt;p&gt;Mono started as a cleanroom implementation of the runtime as a by specification reimplementation on Linux.  What have it legs was its evolution as part of Xamarin, which gave C# a way to run on both IOS and Android devices as well.  And by implementing .NetStandard, mono picked up support for using these new portable Niger packages.&lt;/p&gt;
+&lt;p&gt;Didi&lt;/p&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Unification of core, mono, full framework is dead.&lt;/p&gt;
 </description>
     </item>
     
@@ -223,106 +223,106 @@ public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
       <pubDate>Mon, 01 Jul 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>Pattern matching is a powerful feature that has been unlocked against various language constructs in C#.  The idea is to take existing features like <code>case</code> from switches and <code>is</code> and extract their capabilities into a &ldquo;pattern matching&rdquo; concept over types and values. This can then be applied back to these language features, and other places in the future.</p>
-<p>Before the new concept of patterns, <code>case</code> accepted a constant as an argument, and <code>is</code> would accept a type.</p>
-<pre><code class="language-cs">// Check the type of the variable &quot;is assignable to&quot; Shape
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;Pattern matching is a powerful feature that has been unlocked against various language constructs in C#.  The idea is to take existing features like &lt;code&gt;case&lt;/code&gt; from switches and &lt;code&gt;is&lt;/code&gt; and extract their capabilities into a &amp;ldquo;pattern matching&amp;rdquo; concept over types and values. This can then be applied back to these language features, and other places in the future.&lt;/p&gt;
+&lt;p&gt;Before the new concept of patterns, &lt;code&gt;case&lt;/code&gt; accepted a constant as an argument, and &lt;code&gt;is&lt;/code&gt; would accept a type.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// Check the type of the variable &amp;quot;is assignable to&amp;quot; Shape
 if(widget is Shape)
 {
     switch ((widget as Shape).Type)
     {
-        // When value matches the constant &quot;Square&quot;
-        case &quot;Square&quot;:
+        // When value matches the constant &amp;quot;Square&amp;quot;
+        case &amp;quot;Square&amp;quot;:
             // ...
             break;
         default:
             break;
     }
 }
-</code></pre>
-<p>With the introduction of C# 7.0, both of these language features have been enhanced to use the new Pattern Matching syntax.  This is a backwards-compatible change, meaning that the pattern type can be a const or a type. As well as these existing cases, it also includes <code>when</code> clauses and var patterns as well.</p>
-<h3 id="is-expression">is Expression</h3>
-<p>Originally, <code>is</code> was able to check a type. This could create more readable code but often left casting or <code>as</code> operator usage in the aftermath.</p>
-<pre><code class="language-cs">if (widget is Shape)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the introduction of C# 7.0, both of these language features have been enhanced to use the new Pattern Matching syntax.  This is a backwards-compatible change, meaning that the pattern type can be a const or a type. As well as these existing cases, it also includes &lt;code&gt;when&lt;/code&gt; clauses and var patterns as well.&lt;/p&gt;
+&lt;h3 id=&#34;is-expression&#34;&gt;is Expression&lt;/h3&gt;
+&lt;p&gt;Originally, &lt;code&gt;is&lt;/code&gt; was able to check a type. This could create more readable code but often left casting or &lt;code&gt;as&lt;/code&gt; operator usage in the aftermath.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (widget is Shape)
 {
     var myShape = widget as Shape;
     // var myShape = (Shape)widget;
 }
-</code></pre>
-<p>This has been improved by the pattern matching. First, we have constant checking:</p>
-<pre><code class="language-cs">if (widget.Type is null)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This has been improved by the pattern matching. First, we have constant checking:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (widget.Type is null)
 {
     // ...
 }
 
-if (widget.Type is &quot;FOO&quot;)
+if (widget.Type is &amp;quot;FOO&amp;quot;)
 {
     // ...
 }
 
-</code></pre>
-<p>As well as this, the Type checking Pattern now includes support to create a scoped variable of the correct type, similar to the new out parameter functionality. This language feature is collectively known as &ldquo;expression variables&rdquo;.</p>
-<pre><code class="language-cs">if (widget is Shape shape)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As well as this, the Type checking Pattern now includes support to create a scoped variable of the correct type, similar to the new out parameter functionality. This language feature is collectively known as &amp;ldquo;expression variables&amp;rdquo;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (widget is Shape shape)
 {
     // ... use `shape`
 }
 
-</code></pre>
-<h3 id="switch-statement">Switch Statement</h3>
-<p>A switch used to only match on constants, but with the new pattern matching, we can do so much more.</p>
-<pre><code class="language-cs">void SwitchIt(object value)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;switch-statement&#34;&gt;Switch Statement&lt;/h3&gt;
+&lt;p&gt;A switch used to only match on constants, but with the new pattern matching, we can do so much more.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;void SwitchIt(object value)
 {
     var result = 0;
     switch (value)
     {
-        // We can still switch on constants, even when the types don't match
+        // We can still switch on constants, even when the types don&#39;t match
         case 0:
             break;
         // We can switch on type, and even create a scoped variable (like with `is`)
-        case IEnumerable&lt;int&gt; childSequence:
+        case IEnumerable&amp;lt;int&amp;gt; childSequence:
         {
             foreach(var item in childSequence)
-                result += (item &gt; 0) ? item : 0;
+                result += (item &amp;gt; 0) ? item : 0;
             break;
         }
         // using `when`, we can do range or bounds checking
-        case int n when n &gt; 0:
+        case int n when n &amp;gt; 0:
             result += n;
             break;
         // We can constant check against null
         case null:
-            throw new NullReferenceException(&quot;Null found in sequence&quot;);
+            throw new NullReferenceException(&amp;quot;Null found in sequence&amp;quot;);
         default:
-            throw new InvalidOperationException(&quot;Unrecognized type&quot;);
+            throw new InvalidOperationException(&amp;quot;Unrecognized type&amp;quot;);
     }
 
     return result;
 }
-</code></pre>
-<p>There is another new pattern that is useful with switch, which is the var pattern. The &ldquo;var pattern&rdquo; is similar to the type pattern, except that it always matches, but creates a variable with the assigned value.</p>
-<pre><code class="language-cs">switch(shape)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is another new pattern that is useful with switch, which is the var pattern. The &amp;ldquo;var pattern&amp;rdquo; is similar to the type pattern, except that it always matches, but creates a variable with the assigned value.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;switch(shape)
 {
     case Circle c:
-        WriteLine($&quot;circle with radius {c.Radius}&quot;);
+        WriteLine($&amp;quot;circle with radius {c.Radius}&amp;quot;);
         break;
     case Rectangle s when (s.Length == s.Height):
-        WriteLine($&quot;{s.Length} x {s.Height} square&quot;);
+        WriteLine($&amp;quot;{s.Length} x {s.Height} square&amp;quot;);
         break;
     case Rectangle r:
-        WriteLine($&quot;{r.Length} x {r.Height} rectangle&quot;);
+        WriteLine($&amp;quot;{r.Length} x {r.Height} rectangle&amp;quot;);
         break;
     case var s:
         // Always matches (similar to default) but gives access to the value as `s`
-        WriteLine($&quot;This is some kind of {s.Name} shape&quot;);
+        WriteLine($&amp;quot;This is some kind of {s.Name} shape&amp;quot;);
         break;
 }
-</code></pre>
-<p>It is worth pointing out that the order of your <code>case</code> arguments now matters. while not a logical breaking change, since it never mattered what order constants where declared, it would always match the right answer, this is a conceptual change you need to be aware of. Mixing and matching patterns in a switch mean that the order does matter, and the first pattern that matches will get executed. To repeat, when all cases are constants this wouldn&rsquo;t make any difference to the outcome but more advanced checks will.</p>
-<p>In C# 7.1, the patterns were extended to work correctly with generic variables as well. In C# 7.0, you could use these type patterns as expected by first casting the <code>T foo</code> value to an <code>Object</code> (which could cause Boxing) and then the type checking would all work. In C# 7.1, this cast is no longer necessary, and also avoids any boxing and unboxing along the way. <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch#type-pattern">The docs</a> go over this is more detail with an example comparing the two implementations, as there are a few subtle differences, especially around null/default cases.</p>
-<h3 id="pattern-matching-coming-soon">Pattern Matching coming soon</h3>
-<p>This feature is an interesting one in the sense that it is both newer and probably under-used and less known. You can program away happily in C# never needing to use it and not coming across it.</p>
-<p>But with C# 8, there is a bunch of new features that will be using this existing pattern matching coming, so you might want to get on board with this in preparation, because soon you will need to understand code using it, and probably see a lot more of it around.</p>
-<p>Bring on the Switch Expression!</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It is worth pointing out that the order of your &lt;code&gt;case&lt;/code&gt; arguments now matters. while not a logical breaking change, since it never mattered what order constants where declared, it would always match the right answer, this is a conceptual change you need to be aware of. Mixing and matching patterns in a switch mean that the order does matter, and the first pattern that matches will get executed. To repeat, when all cases are constants this wouldn&amp;rsquo;t make any difference to the outcome but more advanced checks will.&lt;/p&gt;
+&lt;p&gt;In C# 7.1, the patterns were extended to work correctly with generic variables as well. In C# 7.0, you could use these type patterns as expected by first casting the &lt;code&gt;T foo&lt;/code&gt; value to an &lt;code&gt;Object&lt;/code&gt; (which could cause Boxing) and then the type checking would all work. In C# 7.1, this cast is no longer necessary, and also avoids any boxing and unboxing along the way. &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch#type-pattern&#34;&gt;The docs&lt;/a&gt; go over this is more detail with an example comparing the two implementations, as there are a few subtle differences, especially around null/default cases.&lt;/p&gt;
+&lt;h3 id=&#34;pattern-matching-coming-soon&#34;&gt;Pattern Matching coming soon&lt;/h3&gt;
+&lt;p&gt;This feature is an interesting one in the sense that it is both newer and probably under-used and less known. You can program away happily in C# never needing to use it and not coming across it.&lt;/p&gt;
+&lt;p&gt;But with C# 8, there is a bunch of new features that will be using this existing pattern matching coming, so you might want to get on board with this in preparation, because soon you will need to understand code using it, and probably see a lot more of it around.&lt;/p&gt;
+&lt;p&gt;Bring on the Switch Expression!&lt;/p&gt;
 </description>
     </item>
     
@@ -332,15 +332,15 @@ if (widget.Type is &quot;FOO&quot;)
       <pubDate>Mon, 24 Jun 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>Multithreaded programming has always been a difficult thing to get your head around, and there are many pitfalls easily stumbled into. To help combat this, Microsoft gave us async/await in C#.</p>
-<p>Async/Await is a language feature that has been around since Visual Studio 2012 and C# 5 and hides a bunch of the boilerplate state machine code required to safely park a logical thread of execution while it waits for some work to complete or to respond from another thread, IO, or network device.  This allows code to be more logically procedural and linear, therefore easier to read and comprehend.</p>
-<p>Since it first came out there has been a raft of improvements across different versions of C#.</p>
-<h2 id="the-basics">The basics</h2>
-<p>The foundation of how it all works rests on the shoulders of a Library, the Task Parallel Library, or TPL. Tasks have been around since 2010 and were part of the .Net 4 Framework. Similar to what <a href="https://developers.google.com/web/fundamentals/primers/promises">Promises provide in javascript</a>, this library allowed a logical chain of execution across waiting for blocking or longrunning execution while releasing the UI thread from being blocked. This was the introduction of <code>TaskFactory</code> and <code>Task</code>, in a fairly similar form to what we have today.  This was a huge improvement from the days of callback chaining because it reduced heavy nesting of lambdas into more of a linear pipeline and a clear place for error handling to take place.</p>
-<p>When C# 5 introduced async/await as a first-class language feature, it was able to leverage the library and extend on it to give us more readable code. It even handled Exceptions by throwing them in the place where <code>await</code> appeared, making <code>try/catch</code> blocks useful in asynchronous code.</p>
-<p>What does async/await look like in C# 5?</p>
-<pre><code class="language-cs">// A classic synchronous method
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;Multithreaded programming has always been a difficult thing to get your head around, and there are many pitfalls easily stumbled into. To help combat this, Microsoft gave us async/await in C#.&lt;/p&gt;
+&lt;p&gt;Async/Await is a language feature that has been around since Visual Studio 2012 and C# 5 and hides a bunch of the boilerplate state machine code required to safely park a logical thread of execution while it waits for some work to complete or to respond from another thread, IO, or network device.  This allows code to be more logically procedural and linear, therefore easier to read and comprehend.&lt;/p&gt;
+&lt;p&gt;Since it first came out there has been a raft of improvements across different versions of C#.&lt;/p&gt;
+&lt;h2 id=&#34;the-basics&#34;&gt;The basics&lt;/h2&gt;
+&lt;p&gt;The foundation of how it all works rests on the shoulders of a Library, the Task Parallel Library, or TPL. Tasks have been around since 2010 and were part of the .Net 4 Framework. Similar to what &lt;a href=&#34;https://developers.google.com/web/fundamentals/primers/promises&#34;&gt;Promises provide in javascript&lt;/a&gt;, this library allowed a logical chain of execution across waiting for blocking or longrunning execution while releasing the UI thread from being blocked. This was the introduction of &lt;code&gt;TaskFactory&lt;/code&gt; and &lt;code&gt;Task&lt;/code&gt;, in a fairly similar form to what we have today.  This was a huge improvement from the days of callback chaining because it reduced heavy nesting of lambdas into more of a linear pipeline and a clear place for error handling to take place.&lt;/p&gt;
+&lt;p&gt;When C# 5 introduced async/await as a first-class language feature, it was able to leverage the library and extend on it to give us more readable code. It even handled Exceptions by throwing them in the place where &lt;code&gt;await&lt;/code&gt; appeared, making &lt;code&gt;try/catch&lt;/code&gt; blocks useful in asynchronous code.&lt;/p&gt;
+&lt;p&gt;What does async/await look like in C# 5?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// A classic synchronous method
 public string MakeAWebRequest(Uri uri)
 {
     // WebClient has synchronous methods, but it is recommended to use HttpClient for newer apps
@@ -348,22 +348,22 @@ public string MakeAWebRequest(Uri uri)
     return client.DownloadString(uri);
 }
 
-// It's async younger brother
-public async Task&lt;string&gt; MakeAWebRequestAsync(Uri uri)
+// It&#39;s async younger brother
+public async Task&amp;lt;string&amp;gt; MakeAWebRequestAsync(Uri uri)
 {
     // I use WebClient again for better comparing. Use HttpClient!
     var client = new WebClient();
     return await client.DownloadStringAsync(uri);
 }
-</code></pre>
-<p>There are two distinctive features in this comparison. The return type is wrapped in a <code>Task&lt;T&gt;</code>, and there is a keyword <code>async</code> on the method signature with <code>await</code> beside method calls that return <code>Task&lt;T&gt;</code> results. Otherwise, the linear execution flow is largely unchanged.</p>
-<p>You can easily use the return type without the keywords. In this case, the code works and operates as normal, passing object references around without any async state. The result object captures the state required for the caller to do the asynchronous work in the future, or respond to its completion.  However, if you do use <code>async</code> and <code>await</code>, then you should always return either <code>Task</code> (where usually returns void) or <code>Task&lt;T&gt;</code> (where usually returns T). (In my opinion, there are no reasons left to ever do async without Task - there used to be but not anymore.)</p>
-<p>Now we have that out of the way, let&rsquo;s move forward to C# 6 and beyond!</p>
-<h2 id="async-and-exceptions">Async and Exceptions</h2>
-<p>Exception handling was a big part of this feature on day one. You could simply wrap your async calls in a <code>try{}catch{}</code> and it would work as you would expect it to. The task you are awaiting throws an Exception, your catch triggers.</p>
-<p>But initially, this did not work inside the catch or finally blocks in any expected way. In fact, it caused a compiler error. In C# 6 await in <code>catch</code>/<code>finally</code> blocks were given proper compiler support to do the right thing.</p>
-<p>Using the example from <a href="https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6#await-in-catch-and-finally-blocks">The new language feature docs</a> directly:</p>
-<pre><code class="language-cs">Resource res = null;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are two distinctive features in this comparison. The return type is wrapped in a &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt;, and there is a keyword &lt;code&gt;async&lt;/code&gt; on the method signature with &lt;code&gt;await&lt;/code&gt; beside method calls that return &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt; results. Otherwise, the linear execution flow is largely unchanged.&lt;/p&gt;
+&lt;p&gt;You can easily use the return type without the keywords. In this case, the code works and operates as normal, passing object references around without any async state. The result object captures the state required for the caller to do the asynchronous work in the future, or respond to its completion.  However, if you do use &lt;code&gt;async&lt;/code&gt; and &lt;code&gt;await&lt;/code&gt;, then you should always return either &lt;code&gt;Task&lt;/code&gt; (where usually returns void) or &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt; (where usually returns T). (In my opinion, there are no reasons left to ever do async without Task - there used to be but not anymore.)&lt;/p&gt;
+&lt;p&gt;Now we have that out of the way, let&amp;rsquo;s move forward to C# 6 and beyond!&lt;/p&gt;
+&lt;h2 id=&#34;async-and-exceptions&#34;&gt;Async and Exceptions&lt;/h2&gt;
+&lt;p&gt;Exception handling was a big part of this feature on day one. You could simply wrap your async calls in a &lt;code&gt;try{}catch{}&lt;/code&gt; and it would work as you would expect it to. The task you are awaiting throws an Exception, your catch triggers.&lt;/p&gt;
+&lt;p&gt;But initially, this did not work inside the catch or finally blocks in any expected way. In fact, it caused a compiler error. In C# 6 await in &lt;code&gt;catch&lt;/code&gt;/&lt;code&gt;finally&lt;/code&gt; blocks were given proper compiler support to do the right thing.&lt;/p&gt;
+&lt;p&gt;Using the example from &lt;a href=&#34;https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6#await-in-catch-and-finally-blocks&#34;&gt;The new language feature docs&lt;/a&gt; directly:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;Resource res = null;
 try
 {
     res = await Resource.OpenAsync(…);       // You could do this.
@@ -377,13 +377,13 @@ finally
 {
     if (res != null) await res.CloseAsync(); // … and this.
 }
-</code></pre>
-<h2 id="async-and-console-apps">Async and Console Apps</h2>
-<p>The language version was C# 7. We had async everywhere, and the <code>NetStandard</code>s and Frameworks were full of async API calls and interfaces. It was a contagious thing, and you really had to jump through hoops to try <a href="https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">to call a red function from a blue one</a>.</p>
-<p>And then there was main. That pesky little entry point into your application. The one the compiler generates for you that kicks off all of the application execution. The one that had to call into your top-most async method to <code>RunAsync</code>. And it had to be <code>public static void Main(string[] args)</code> or <code>public static int Main()</code>. That is not an async method.</p>
-<p>Luckily, with the first ever minor language update, C# 7.1, we were given the mighty and powerful async main!</p>
-<pre><code>// You can finaly use Task&lt;int&gt;!
-public static async Task&lt;int&gt; Main()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;async-and-console-apps&#34;&gt;Async and Console Apps&lt;/h2&gt;
+&lt;p&gt;The language version was C# 7. We had async everywhere, and the &lt;code&gt;NetStandard&lt;/code&gt;s and Frameworks were full of async API calls and interfaces. It was a contagious thing, and you really had to jump through hoops to try &lt;a href=&#34;https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/&#34;&gt;to call a red function from a blue one&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;And then there was main. That pesky little entry point into your application. The one the compiler generates for you that kicks off all of the application execution. The one that had to call into your top-most async method to &lt;code&gt;RunAsync&lt;/code&gt;. And it had to be &lt;code&gt;public static void Main(string[] args)&lt;/code&gt; or &lt;code&gt;public static int Main()&lt;/code&gt;. That is not an async method.&lt;/p&gt;
+&lt;p&gt;Luckily, with the first ever minor language update, C# 7.1, we were given the mighty and powerful async main!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// You can finaly use Task&amp;lt;int&amp;gt;!
+public static async Task&amp;lt;int&amp;gt; Main()
 {
 ...
 }
@@ -394,11 +394,11 @@ public static async Task Main()
 ...
 }
 
-</code></pre>
-<h2 id="async-and-tests">Async and Tests</h2>
-<p>We have a tonne of async methods in our system. But we should also be testing that code.  And our testing frameworks were synchronous.</p>
-<p>Luckily our testing frameworks have finally caught up, and with XUnit we can write tests that return Task and are async<code>, and we also have the </code>IAsyncLifetime` interface.</p>
-<pre><code>// This is what we had to do to test async
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;async-and-tests&#34;&gt;Async and Tests&lt;/h2&gt;
+&lt;p&gt;We have a tonne of async methods in our system. But we should also be testing that code.  And our testing frameworks were synchronous.&lt;/p&gt;
+&lt;p&gt;Luckily our testing frameworks have finally caught up, and with XUnit we can write tests that return Task and are async&lt;code&gt;, and we also have the &lt;/code&gt;IAsyncLifetime` interface.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// This is what we had to do to test async
 public class MyTestCase
 {
     private readonly MyClass _systemUnderTest;
@@ -407,20 +407,20 @@ public class MyTestCase
     {
         _systemUnderTest = MyClass();
         
-        Task.Run(async () =&gt; await _systemUnderTest.Init()).GetAwaiter().GetResult();
+        Task.Run(async () =&amp;gt; await _systemUnderTest.Init()).GetAwaiter().GetResult();
     }
     
     public void CanRunSuccessfully()
     {
     
-        var result = Task.Run(async () =&gt; await _systemUnderTest.Run()).GetAwaiter().GetResult();
+        var result = Task.Run(async () =&amp;gt; await _systemUnderTest.Run()).GetAwaiter().GetResult();
         
         Assert.True(result);
     }
 }
-</code></pre>
-<p>Using <code>Task.Run</code> and <code>GetAwaiter</code> or other synchronising methods can be very error-prone, and <a href="https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html#preventing-the-deadlock">prone to deadlocks</a>. Avoiding these is the best approach always (though still not always avoidable).</p>
-<pre><code class="language-cs">The best way to tet with async
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using &lt;code&gt;Task.Run&lt;/code&gt; and &lt;code&gt;GetAwaiter&lt;/code&gt; or other synchronising methods can be very error-prone, and &lt;a href=&#34;https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html#preventing-the-deadlock&#34;&gt;prone to deadlocks&lt;/a&gt;. Avoiding these is the best approach always (though still not always avoidable).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;The best way to tet with async
 public class MyTestCase : IAsyncLifetime
 {
     private readonly MyClass _systemUnderTest;
@@ -449,16 +449,16 @@ public class MyTestCase : IAsyncLifetime
         Assert.True(result);
     }
 }
-</code></pre>
-<p>I&rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.</p>
-<h2 id="valuetask">ValueTask</h2>
-<p>The original implementation of the async/await language feature was strongly tied to the <code>Task</code> and `Task<!-- raw HTML omitted --> types.</p>
-<p>In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the <a href="/looking-back-on-csharp6-initializers/">Add for the initialiser syntax</a>). Specifically, the <code>GetAwaiter</code> method must be available on the type used with the <code>await</code> keyword.</p>
-<p>Along with this change was the introduction of a new type to leverage this pattern, <code>ValueTask</code>. A <code>ValueTask</code> is a value type (struct) that will be stack-allocated and copied by value. If your method uses caching, and most of the time returns a simple value instead of an awaited execution, the <code>ValueTask</code> may be more efficient than the <code>Task</code> type.</p>
-<p>This is because the overheads of Heap-allocation of the reference type <code>Task</code> can have an impact on performance. If you detect this as an issue, you can use the new <code>ValueTask</code> instead. This will be a stack-allocated value type containing the response value and copied around.</p>
-<p>Guidance for this: if you mostly return a value, but occasionally call an actual asynchronous IO execution, <code>ValueTask</code> will probably add value (e.g. heavy result caching). If you actually await most of the time, <code>Task</code> should be fine. As usual, measure and test before making the change arbitrarily.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Async programming is becoming the canonical way of building apps with IO in most languages. And in practice, most of the apps I write are IO-bound apps. C# and dotnet make this simple with <code>async/await</code> and the language keeps improving our experience using this successfully. This is a must-use feature that is unavoidable, but knowing the limitations and extensions available to use it well is still very important to do. Use it, but make sure you know enough about how it works to use it well.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I&amp;rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.&lt;/p&gt;
+&lt;h2 id=&#34;valuetask&#34;&gt;ValueTask&lt;/h2&gt;
+&lt;p&gt;The original implementation of the async/await language feature was strongly tied to the &lt;code&gt;Task&lt;/code&gt; and `Task&lt;!-- raw HTML omitted --&gt; types.&lt;/p&gt;
+&lt;p&gt;In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-initializers/&#34;&gt;Add for the initialiser syntax&lt;/a&gt;). Specifically, the &lt;code&gt;GetAwaiter&lt;/code&gt; method must be available on the type used with the &lt;code&gt;await&lt;/code&gt; keyword.&lt;/p&gt;
+&lt;p&gt;Along with this change was the introduction of a new type to leverage this pattern, &lt;code&gt;ValueTask&lt;/code&gt;. A &lt;code&gt;ValueTask&lt;/code&gt; is a value type (struct) that will be stack-allocated and copied by value. If your method uses caching, and most of the time returns a simple value instead of an awaited execution, the &lt;code&gt;ValueTask&lt;/code&gt; may be more efficient than the &lt;code&gt;Task&lt;/code&gt; type.&lt;/p&gt;
+&lt;p&gt;This is because the overheads of Heap-allocation of the reference type &lt;code&gt;Task&lt;/code&gt; can have an impact on performance. If you detect this as an issue, you can use the new &lt;code&gt;ValueTask&lt;/code&gt; instead. This will be a stack-allocated value type containing the response value and copied around.&lt;/p&gt;
+&lt;p&gt;Guidance for this: if you mostly return a value, but occasionally call an actual asynchronous IO execution, &lt;code&gt;ValueTask&lt;/code&gt; will probably add value (e.g. heavy result caching). If you actually await most of the time, &lt;code&gt;Task&lt;/code&gt; should be fine. As usual, measure and test before making the change arbitrarily.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Async programming is becoming the canonical way of building apps with IO in most languages. And in practice, most of the apps I write are IO-bound apps. C# and dotnet make this simple with &lt;code&gt;async/await&lt;/code&gt; and the language keeps improving our experience using this successfully. This is a must-use feature that is unavoidable, but knowing the limitations and extensions available to use it well is still very important to do. Use it, but make sure you know enough about how it works to use it well.&lt;/p&gt;
 </description>
     </item>
     
@@ -468,26 +468,26 @@ public class MyTestCase : IAsyncLifetime
       <pubDate>Mon, 17 Jun 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-refs/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>We talked about the out variables <a href="/looking-back-on-csharp7-out-variables">in the previous post in the series</a>, but there are a few other enhancements related to <code>ref</code> as well.</p>
-<p>Hopefully, the concepts of values, pointers, stacks and heaps make sense to you at a conceptual level. These are crucial concepts to using and understanding <code>ref</code> and <code>out</code>.</p>
-<p>As a quick recap, stack memory is local to a function and the function call stack. This memory is semantically &ldquo;pushed&rdquo; to for each method call, and &ldquo;popped&rdquo; from on each return (the call stack, stack overflow etc). The heap is a shared memory space where objects are allocated and stored, which is acted on by the Garbage Collector.</p>
-<p>Values are mostly stack-allocated. They are copied around so that setting a value variable does not affect any other variable. Primitive types and structs are Value types. Reference types are the classes in C#. Classes are always stored on the heap, and all variables of class types are pointers or references. Assigning a reference to a new variable will point to the same value on the heap. Changing a field value on a reference type will be reflected in both variables. (Boxing values onto the heap is another thing, too.)</p>
-<p>We already have <code>out</code> that allows the caller to declare a variable on the current stack that it passes by address (pointer, reference, or ref) that the method is contracted to set for you. This essentially gives us some of the power of reference types from a stack-allocated value. When we use <code>ref</code>, we gain all of the power of passing by reference that we have from heap allocated class types. We are essentially saying that the caller can use the existing value of the reference, and also set a new value to the stack variable if it wants to as well. Basically, all the restrictions that <code>out</code> imposes are taken off. A ref may not just be a stack variable, but could also be a field on a class that you want to access directly by reference, instead of having to constantly dereference it.</p>
-<p>Pass by <code>ref</code> has been in C# since the beginning, but like the <code>out</code> parameters, only works in method signatures. However, from the beginning, you could never declare a <code>ref</code> variable.</p>
-<p>In C# 7, <code>ref</code> has been extended to work with return types, and with variables. You can return a value by reference. And so that it the returned result can be assigned to something in a useful way, we also now have <code>ref</code> variable typing.  Like most C# language features, there is safety built in.</p>
-<ul>
-<li>You must add the <code>ref</code> keyword to the method signature and to all return statements in a method.</li>
-<li>A <code>ref</code> return may be assigned to a value variable (by copy) or a <code>ref</code> variable.</li>
-<li>You can&rsquo;t assign a standard method return value to a <code>ref</code> local variable.</li>
-<li>You can&rsquo;t return a <code>ref</code> to a variable whose lifetime doesn&rsquo;t extend beyond the execution of the method.</li>
-</ul>
-<p>These rules ensure the safety of your code and ensure readability, that it is clear about what is happening.</p>
-<p>I&rsquo;m going to blatantly steal <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#ref-locals-and-returns">the Microsoft examples</a> for this because I don&rsquo;t want to invent an example and get it wrong.</p>
-<pre><code class="language-cs">// We declare the method as returning by reference (rather than copy)
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;We talked about the out variables &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp7-out-variables&#34;&gt;in the previous post in the series&lt;/a&gt;, but there are a few other enhancements related to &lt;code&gt;ref&lt;/code&gt; as well.&lt;/p&gt;
+&lt;p&gt;Hopefully, the concepts of values, pointers, stacks and heaps make sense to you at a conceptual level. These are crucial concepts to using and understanding &lt;code&gt;ref&lt;/code&gt; and &lt;code&gt;out&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;As a quick recap, stack memory is local to a function and the function call stack. This memory is semantically &amp;ldquo;pushed&amp;rdquo; to for each method call, and &amp;ldquo;popped&amp;rdquo; from on each return (the call stack, stack overflow etc). The heap is a shared memory space where objects are allocated and stored, which is acted on by the Garbage Collector.&lt;/p&gt;
+&lt;p&gt;Values are mostly stack-allocated. They are copied around so that setting a value variable does not affect any other variable. Primitive types and structs are Value types. Reference types are the classes in C#. Classes are always stored on the heap, and all variables of class types are pointers or references. Assigning a reference to a new variable will point to the same value on the heap. Changing a field value on a reference type will be reflected in both variables. (Boxing values onto the heap is another thing, too.)&lt;/p&gt;
+&lt;p&gt;We already have &lt;code&gt;out&lt;/code&gt; that allows the caller to declare a variable on the current stack that it passes by address (pointer, reference, or ref) that the method is contracted to set for you. This essentially gives us some of the power of reference types from a stack-allocated value. When we use &lt;code&gt;ref&lt;/code&gt;, we gain all of the power of passing by reference that we have from heap allocated class types. We are essentially saying that the caller can use the existing value of the reference, and also set a new value to the stack variable if it wants to as well. Basically, all the restrictions that &lt;code&gt;out&lt;/code&gt; imposes are taken off. A ref may not just be a stack variable, but could also be a field on a class that you want to access directly by reference, instead of having to constantly dereference it.&lt;/p&gt;
+&lt;p&gt;Pass by &lt;code&gt;ref&lt;/code&gt; has been in C# since the beginning, but like the &lt;code&gt;out&lt;/code&gt; parameters, only works in method signatures. However, from the beginning, you could never declare a &lt;code&gt;ref&lt;/code&gt; variable.&lt;/p&gt;
+&lt;p&gt;In C# 7, &lt;code&gt;ref&lt;/code&gt; has been extended to work with return types, and with variables. You can return a value by reference. And so that it the returned result can be assigned to something in a useful way, we also now have &lt;code&gt;ref&lt;/code&gt; variable typing.  Like most C# language features, there is safety built in.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You must add the &lt;code&gt;ref&lt;/code&gt; keyword to the method signature and to all return statements in a method.&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;ref&lt;/code&gt; return may be assigned to a value variable (by copy) or a &lt;code&gt;ref&lt;/code&gt; variable.&lt;/li&gt;
+&lt;li&gt;You can&amp;rsquo;t assign a standard method return value to a &lt;code&gt;ref&lt;/code&gt; local variable.&lt;/li&gt;
+&lt;li&gt;You can&amp;rsquo;t return a &lt;code&gt;ref&lt;/code&gt; to a variable whose lifetime doesn&amp;rsquo;t extend beyond the execution of the method.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These rules ensure the safety of your code and ensure readability, that it is clear about what is happening.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m going to blatantly steal &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#ref-locals-and-returns&#34;&gt;the Microsoft examples&lt;/a&gt; for this because I don&amp;rsquo;t want to invent an example and get it wrong.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// We declare the method as returning by reference (rather than copy)
 public ref int Find(int number, int[] numbers)
 {
-    for (int i = 0; i &lt; numbers.Length; i++)
+    for (int i = 0; i &amp;lt; numbers.Length; i++)
     {
         if (numbers[i] == number)
         {
@@ -496,7 +496,7 @@ public ref int Find(int number, int[] numbers)
         }
     }
     // We can still throw an exception if necessary
-    throw new IndexOutOfRangeException($&quot;{nameof(number)} not found&quot;);
+    throw new IndexOutOfRangeException($&amp;quot;{nameof(number)} not found&amp;quot;);
 }
 
 // arrays are already allocated to the heap and passed by reference rather than by value
@@ -505,21 +505,21 @@ int[] array = { 1, 15, -39, 0, 7, 14, -12 };
 
 // We have to use `ref` to call the method
 // We choose to declare `place` as a reference
-ref int place = ref Find(7, array); // aliases 7's place in the array
+ref int place = ref Find(7, array); // aliases 7&#39;s place in the array
 place = 9; // replaces 7 with 9 in the array
 WriteLine(array[4]); // prints 9
-</code></pre>
-<p>In the above example, we could have chosen to declare <code>place</code> without the <code>ref</code> keyword and the value returned would be copied instead. However, in this case, the assignment of <code>place = 9;</code> would be overriding the local copy, and not modifying the original array.</p>
-<p>Why would you use these pass by reference additions? Huge performance enhancements can be achieved by avoiding stack and heap copying or dereferencing of values in certain algorithms. Performance is the name of the game here.</p>
-<p>In C# 7.2, the conditional operator (<code>isTrue ? x : y</code> syntax) can now evaluate to a reference result when both operands (<code>x</code> and <code>y</code> above) are also references.</p>
-<p><code>ref var r = ref (arr != null ? ref arr[0] : ref otherArr[0]);</code></p>
-<p>In 7.2 we also got <code>ref readonly</code>, which allows returned references to disallow modification enforced by the compiler. This may save time constantly dereferencing a child field in a scenario that you need to get the latest value, for instance in a loop. Again, performance is the target use-case.</p>
-<p>The first version of <code>ref</code> variables was immutable only. Whatever you declared them to point to was what they always referred to for their lifetime. In C# 7.3, they were updated so you can reuse a variable to point to a different reference instead.</p>
-<p>To complement the safety of the <code>out</code> restrictions compared to <code>ref</code> we also get the <code>in</code> keyword.</p>
-<p>Declaring a method parameter with <code>in</code> essentially makes it a read-only reference. the method is not allowed to modify the value passed in but gets all the benefits of being passed by reference rather than by value (copied). The <code>in</code> keyword will make the compiler ensure that the method is not allowed to modify the original passed in value. If necessary it will create a defensive shadow-copy to ensure that is true.</p>
-<p>This is well paired with another new feature, <code>readonly struct</code>.  Declaring a struct as read-only means the compiler will ensure you are indeed read-only. (It will disallow <code>public int Foo { get; private set; }</code> for example.) You can use the <code>in</code> keyword for any methods that you want to take a ref to one of these structs again to ensure clarity when reading the code, but also enforced by the compiler.</p>
-<p>I mentioned the defensive shadow copy above. The language and runtime do not guarantee that the internal implementation detail of a Property or Method is non-mutable from the contracts, so the compiler will get defensive, and make copies before calling anything that might cause a mutation. This way, the language guarantees the expectations of passing a read-only reference, but maybe doesn&rsquo;t match performance expectations in the process. As a developer, by making the type a <code>readonly struct</code> instead, the compiler can rely on the guarantees and won&rsquo;t make any copies. The struct won&rsquo;t compile if it mutates any of its internal state, so we have stronger guarantees at compile-time and run-time.</p>
-<p>These features are certainly power features, and when you need them they will be useful. But like most advanced features, you may be sacrificing readability for performance and optimisation. Use sparingly, but maybe measure first and then sprinkle in and measure again.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the above example, we could have chosen to declare &lt;code&gt;place&lt;/code&gt; without the &lt;code&gt;ref&lt;/code&gt; keyword and the value returned would be copied instead. However, in this case, the assignment of &lt;code&gt;place = 9;&lt;/code&gt; would be overriding the local copy, and not modifying the original array.&lt;/p&gt;
+&lt;p&gt;Why would you use these pass by reference additions? Huge performance enhancements can be achieved by avoiding stack and heap copying or dereferencing of values in certain algorithms. Performance is the name of the game here.&lt;/p&gt;
+&lt;p&gt;In C# 7.2, the conditional operator (&lt;code&gt;isTrue ? x : y&lt;/code&gt; syntax) can now evaluate to a reference result when both operands (&lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; above) are also references.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ref var r = ref (arr != null ? ref arr[0] : ref otherArr[0]);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In 7.2 we also got &lt;code&gt;ref readonly&lt;/code&gt;, which allows returned references to disallow modification enforced by the compiler. This may save time constantly dereferencing a child field in a scenario that you need to get the latest value, for instance in a loop. Again, performance is the target use-case.&lt;/p&gt;
+&lt;p&gt;The first version of &lt;code&gt;ref&lt;/code&gt; variables was immutable only. Whatever you declared them to point to was what they always referred to for their lifetime. In C# 7.3, they were updated so you can reuse a variable to point to a different reference instead.&lt;/p&gt;
+&lt;p&gt;To complement the safety of the &lt;code&gt;out&lt;/code&gt; restrictions compared to &lt;code&gt;ref&lt;/code&gt; we also get the &lt;code&gt;in&lt;/code&gt; keyword.&lt;/p&gt;
+&lt;p&gt;Declaring a method parameter with &lt;code&gt;in&lt;/code&gt; essentially makes it a read-only reference. the method is not allowed to modify the value passed in but gets all the benefits of being passed by reference rather than by value (copied). The &lt;code&gt;in&lt;/code&gt; keyword will make the compiler ensure that the method is not allowed to modify the original passed in value. If necessary it will create a defensive shadow-copy to ensure that is true.&lt;/p&gt;
+&lt;p&gt;This is well paired with another new feature, &lt;code&gt;readonly struct&lt;/code&gt;.  Declaring a struct as read-only means the compiler will ensure you are indeed read-only. (It will disallow &lt;code&gt;public int Foo { get; private set; }&lt;/code&gt; for example.) You can use the &lt;code&gt;in&lt;/code&gt; keyword for any methods that you want to take a ref to one of these structs again to ensure clarity when reading the code, but also enforced by the compiler.&lt;/p&gt;
+&lt;p&gt;I mentioned the defensive shadow copy above. The language and runtime do not guarantee that the internal implementation detail of a Property or Method is non-mutable from the contracts, so the compiler will get defensive, and make copies before calling anything that might cause a mutation. This way, the language guarantees the expectations of passing a read-only reference, but maybe doesn&amp;rsquo;t match performance expectations in the process. As a developer, by making the type a &lt;code&gt;readonly struct&lt;/code&gt; instead, the compiler can rely on the guarantees and won&amp;rsquo;t make any copies. The struct won&amp;rsquo;t compile if it mutates any of its internal state, so we have stronger guarantees at compile-time and run-time.&lt;/p&gt;
+&lt;p&gt;These features are certainly power features, and when you need them they will be useful. But like most advanced features, you may be sacrificing readability for performance and optimisation. Use sparingly, but maybe measure first and then sprinkle in and measure again.&lt;/p&gt;
 </description>
     </item>
     
@@ -529,53 +529,53 @@ WriteLine(array[4]); // prints 9
       <pubDate>Mon, 10 Jun 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<h3 id="what-are-out-parameters">What are out parameters?</h3>
-<p>Sometimes you want a method to pass back a value by reference. In <code>C</code> and <code>C++</code> this is done by passing the address in as an argument. In C#, we use the <code>out</code> keyword.</p>
-<pre><code class="language-cs">public bool HasCount(string str, out int length)
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;h3 id=&#34;what-are-out-parameters&#34;&gt;What are out parameters?&lt;/h3&gt;
+&lt;p&gt;Sometimes you want a method to pass back a value by reference. In &lt;code&gt;C&lt;/code&gt; and &lt;code&gt;C++&lt;/code&gt; this is done by passing the address in as an argument. In C#, we use the &lt;code&gt;out&lt;/code&gt; keyword.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public bool HasCount(string str, out int length)
 {
     length = 0;
-    if (str.Length &gt; 0)
+    if (str.Length &amp;gt; 0)
     {
         length = str.Length;
         return true;
     }
 }
 
-string myString = &quot;A String&quot;;
+string myString = &amp;quot;A String&amp;quot;;
 int length;
 if (HasCount(myString, out length))
 {
     // Do some stuff here.
 }
-</code></pre>
-<p>A method must initialise the out parameter value, but the caller doesn&rsquo;t have to initialise it first. Callers must use the <code>out</code> keyword when calling a method with an out parameter. This helps with readability making it unambiguous how it works.</p>
-<p>More details of this for those unfamiliar with the concept can be <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-parameter-modifier">found here</a>.</p>
-<p>In the libraries, there are a few methods that use this, for instance <code>Int32.TryParse</code>.</p>
-<pre><code class="language-cs">int number;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A method must initialise the out parameter value, but the caller doesn&amp;rsquo;t have to initialise it first. Callers must use the &lt;code&gt;out&lt;/code&gt; keyword when calling a method with an out parameter. This helps with readability making it unambiguous how it works.&lt;/p&gt;
+&lt;p&gt;More details of this for those unfamiliar with the concept can be &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-parameter-modifier&#34;&gt;found here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In the libraries, there are a few methods that use this, for instance &lt;code&gt;Int32.TryParse&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;int number;
 if (Int32.TryParse(numberAsString, out number))
 {
     // use `number` as an integer value. 
 }
-</code></pre>
-<p>It also comes in useful when you are building C-style interops. But not something you see very much these days.</p>
-<h3 id="new-out-variables">New out variables</h3>
-<p>This syntax always felt a bit clunky. Modern APIs would suggest using a return value over an out parameter, and the early use cases tended to be either cross-compatibility with C libraries or parse scenarios. Primarily it was discouraged for readability reasons, though there are benefits from using it in certain places.</p>
-<p>However, with C# 7, a new syntax was introduced, allowing inline declaration of out parameters.</p>
-<pre><code class="language-cs">if (Int32.TryParse(numberAsString, out int number))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It also comes in useful when you are building C-style interops. But not something you see very much these days.&lt;/p&gt;
+&lt;h3 id=&#34;new-out-variables&#34;&gt;New out variables&lt;/h3&gt;
+&lt;p&gt;This syntax always felt a bit clunky. Modern APIs would suggest using a return value over an out parameter, and the early use cases tended to be either cross-compatibility with C libraries or parse scenarios. Primarily it was discouraged for readability reasons, though there are benefits from using it in certain places.&lt;/p&gt;
+&lt;p&gt;However, with C# 7, a new syntax was introduced, allowing inline declaration of out parameters.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (Int32.TryParse(numberAsString, out int number))
 {
     // use `number` as an integer value. 
 }
-</code></pre>
-<p>You can now declare the parameter inline, without needing the empty declaration line that was essentially wasting line-count. The other benefit is you can now use <code>var</code> instead of an explicit type.</p>
-<pre><code class="language-cs">if (Int32.TryParse(numberAsString, out var number))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can now declare the parameter inline, without needing the empty declaration line that was essentially wasting line-count. The other benefit is you can now use &lt;code&gt;var&lt;/code&gt; instead of an explicit type.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (Int32.TryParse(numberAsString, out var number))
 {
     // use `number` as an integer value. 
 }
-</code></pre>
-<p>In C# 7.3, this <code>out</code> variable syntax was extended to include field initializers, property initializers, constructor initializers, and query clauses. Basically, you have the power to use this everywhere that you can use out parameters.</p>
-<p>With the new changes, readability has hugely increased, the risk of using the value before initialisation has been removed, and it is probably something worth encouraging using again in those methods that could benefit with having out parameters for clean APIs, and performance.</p>
-<p>A small but simple improvement to the language that I would replace in every place you use <code>out</code> parameters.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In C# 7.3, this &lt;code&gt;out&lt;/code&gt; variable syntax was extended to include field initializers, property initializers, constructor initializers, and query clauses. Basically, you have the power to use this everywhere that you can use out parameters.&lt;/p&gt;
+&lt;p&gt;With the new changes, readability has hugely increased, the risk of using the value before initialisation has been removed, and it is probably something worth encouraging using again in those methods that could benefit with having out parameters for clean APIs, and performance.&lt;/p&gt;
+&lt;p&gt;A small but simple improvement to the language that I would replace in every place you use &lt;code&gt;out&lt;/code&gt; parameters.&lt;/p&gt;
 </description>
     </item>
     
@@ -585,23 +585,23 @@ if (Int32.TryParse(numberAsString, out number))
       <pubDate>Mon, 03 Jun 2019 10:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<h2 id="lambdas---a-recap">Lambdas - a recap</h2>
-<p>All the way back in C# 3 we were given lambdas. These are anonymous functions that can be passed around as what are essentially function pointers.</p>
-<p>&ldquo;Anonymous&rdquo; refers to the fact that the function has no name, and is not tied to an actual class or instance. The term comes from functional programming.</p>
-<p>In terms of implementation details, there are two categories of lambdas, those which stand alone and are pure functions, and those that have a captured scope, known as a closure. Closure, again, is a functional programming term. We capture variables from the scope of the parent and encapsulate them into this anonymous function instance.</p>
-<p>Pure functions can easily be refactored into a public static function in a static class very easily, and the compilation is very similar.</p>
-<pre><code class="language-cs">
-static Action&lt;int&gt; GetRandomValueFunction()
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;h2 id=&#34;lambdas---a-recap&#34;&gt;Lambdas - a recap&lt;/h2&gt;
+&lt;p&gt;All the way back in C# 3 we were given lambdas. These are anonymous functions that can be passed around as what are essentially function pointers.&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;Anonymous&amp;rdquo; refers to the fact that the function has no name, and is not tied to an actual class or instance. The term comes from functional programming.&lt;/p&gt;
+&lt;p&gt;In terms of implementation details, there are two categories of lambdas, those which stand alone and are pure functions, and those that have a captured scope, known as a closure. Closure, again, is a functional programming term. We capture variables from the scope of the parent and encapsulate them into this anonymous function instance.&lt;/p&gt;
+&lt;p&gt;Pure functions can easily be refactored into a public static function in a static class very easily, and the compilation is very similar.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
+static Action&amp;lt;int&amp;gt; GetRandomValueFunction()
 {
-    Console.WriteLine(&quot;Use static value for counter: {0}&quot;, counter);
-    return () =&gt; 5;
+    Console.WriteLine(&amp;quot;Use static value for counter: {0}&amp;quot;, counter);
+    return () =&amp;gt; 5;
 }
 
 // These two methods are the same as the above
-static Action&lt;int&gt; GetRandomValueFunction()
+static Action&amp;lt;int&amp;gt; GetRandomValueFunction()
 {
-    Console.WriteLine(&quot;Use static value for counter: {0}&quot;, counter);
+    Console.WriteLine(&amp;quot;Use static value for counter: {0}&amp;quot;, counter);
     return StaticValueFunction;
 }
 
@@ -609,28 +609,28 @@ static int StaticValueFunction()
 {
     return 5;
 }
-</code></pre>
-<p>There is no simple construct equivalent for closures. Hopefully, by example, we can see how these transform into simple static methods anyway. (In an example stolen from <a href="https://stackoverflow.com/a/5438331/2118268">SO</a>)</p>
-<pre><code class="language-cs"> static Action CreateShowAndIncrementAction()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is no simple construct equivalent for closures. Hopefully, by example, we can see how these transform into simple static methods anyway. (In an example stolen from &lt;a href=&#34;https://stackoverflow.com/a/5438331/2118268&#34;&gt;SO&lt;/a&gt;)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt; static Action CreateShowAndIncrementAction()
 {
     Random rng = new Random();
     int counter = rng.Next(10);
-    Console.WriteLine(&quot;Initial value for counter: {0}&quot;, counter);
-    return () =&gt;
+    Console.WriteLine(&amp;quot;Initial value for counter: {0}&amp;quot;, counter);
+    return () =&amp;gt;
     {
         Console.WriteLine(counter);
         counter++;
     };
 }
-</code></pre>
-<p>Given the above C# code, the compiled code will more closely resemble the below:</p>
-<pre><code class="language-cs">
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Given the above C# code, the compiled code will more closely resemble the below:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
 static Action CreateShowAndIncrementAction()
 {
     ActionHelper helper = new ActionHelper();        
     Random rng = new Random();
     helper.counter = rng.Next(10);
-    Console.WriteLine(&quot;Initial value for counter: {0}&quot;, helper.counter);
+    Console.WriteLine(&amp;quot;Initial value for counter: {0}&amp;quot;, helper.counter);
 
     // 
     return helper.DoAction;
@@ -646,12 +646,12 @@ class ActionHelper
         counter++;
     }
 }
-</code></pre>
-<p>Because the compiler generates these, it also controls access and visibility, so that you cannot actually access it in this way from your code directly. But it does all this automatically for you, and with fewer lines of code to achieve the same logical execution. It is also clearer from the lambda version that the calling method is the owner of the function, and no one else can or should share it.</p>
-<p>Clearly, lambdas reduce our lines of code and are superior.</p>
-<h2 id="working-with-lambdas">working with lambdas</h2>
-<p>Sometimes, though, your lambdas get complicated. When you have big complicated lambdas inside LINQ pipelines, it gets messy fast.</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because the compiler generates these, it also controls access and visibility, so that you cannot actually access it in this way from your code directly. But it does all this automatically for you, and with fewer lines of code to achieve the same logical execution. It is also clearer from the lambda version that the calling method is the owner of the function, and no one else can or should share it.&lt;/p&gt;
+&lt;p&gt;Clearly, lambdas reduce our lines of code and are superior.&lt;/p&gt;
+&lt;h2 id=&#34;working-with-lambdas&#34;&gt;working with lambdas&lt;/h2&gt;
+&lt;p&gt;Sometimes, though, your lambdas get complicated. When you have big complicated lambdas inside LINQ pipelines, it gets messy fast.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
 {
     var restriction =  _store.GetRestriction(restrictionNumber);
     
@@ -659,36 +659,36 @@ class ActionHelper
     // This `where` clause is only going to get more complicated from here.
     _store
         .GetWidgets()
-        .Where(w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction)
+        .Where(w =&amp;gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction == restriction)
         .Select(Map)
         .ToList();
 }
-</code></pre>
-<p>We have a few options prior to C# 7:</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We have a few options prior to C# 7:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
 {
     var restriction =  _store.GetRestriction(restrictionNumber);
     
     _store
         .GetWidgets()
-        .Where(w =&gt; Filter(w, plumb, restriction))
+        .Where(w =&amp;gt; Filter(w, plumb, restriction))
         .Select(Map)
         .ToList();
 }
 
 private bool Filter(Widget widget, string plumb, Restriction restriction)
 {
-    return (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction &gt; restriction;
+    return (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction &amp;gt; restriction;
 }
-</code></pre>
-<p>There are a couple of problems with this. We are now passing all the parameters through to the nested function. This is fine, but from a maintenance point of view, we might add more parameters and we now end up maintaining two signatures every time we change.</p>
-<p>Also, we open up for another function to start using the &ldquo;sharable&rdquo; filter function. Now we would be coupled to that new function. We can&rsquo;t change our own filter without affecting that other new function, and that adds brittle fragility. Sometimes duplicating logic that has different reasons to change is worth the duplication, but the architecture of this code does not guard against this.</p>
-<p>Another example is to pull the lambda into a variable:</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are a couple of problems with this. We are now passing all the parameters through to the nested function. This is fine, but from a maintenance point of view, we might add more parameters and we now end up maintaining two signatures every time we change.&lt;/p&gt;
+&lt;p&gt;Also, we open up for another function to start using the &amp;ldquo;sharable&amp;rdquo; filter function. Now we would be coupled to that new function. We can&amp;rsquo;t change our own filter without affecting that other new function, and that adds brittle fragility. Sometimes duplicating logic that has different reasons to change is worth the duplication, but the architecture of this code does not guard against this.&lt;/p&gt;
+&lt;p&gt;Another example is to pull the lambda into a variable:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
 {
     var restriction =  _store.GetRestriction(restrictionNumber);
     
-    var filter = w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction);
+    var filter = w =&amp;gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction == restriction);
     
     _store
         .GetWidgets()
@@ -696,19 +696,19 @@ private bool Filter(Widget widget, string plumb, Restriction restriction)
         .Select(Map)
         .ToList();
 }
-</code></pre>
-<p>Looking at the example, it adds some simplification. Because like the original example this lambda is a closure, the lambda can match the expected signature of the <code>Where</code> LINQ Extension.</p>
-<p>However, sometimes this approach causes issues with type interpolation. That is, if you pull out into a variable, often you can&rsquo;t use <code>var</code> or need to add explicit type casting to help the compiler out, or it will not compile.</p>
-<p>I don&rsquo;t think we have actually helped with the readability as much as we would like. It may not be obvious on the first pass of reading the function that this is a lambda, not a statement. This is also a simple example, and they can get more complex fast.</p>
-<h2 id="put-functions-inside-your-functions">Put functions inside your functions!</h2>
-<p>With C# 7, we can now use a nested function. This gives us the benefits of not polluting the namespace of the class, while also making it more readable. It also makes it clearer that the function is owned by the caller as the only consumer.</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Looking at the example, it adds some simplification. Because like the original example this lambda is a closure, the lambda can match the expected signature of the &lt;code&gt;Where&lt;/code&gt; LINQ Extension.&lt;/p&gt;
+&lt;p&gt;However, sometimes this approach causes issues with type interpolation. That is, if you pull out into a variable, often you can&amp;rsquo;t use &lt;code&gt;var&lt;/code&gt; or need to add explicit type casting to help the compiler out, or it will not compile.&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t think we have actually helped with the readability as much as we would like. It may not be obvious on the first pass of reading the function that this is a lambda, not a statement. This is also a simple example, and they can get more complex fast.&lt;/p&gt;
+&lt;h2 id=&#34;put-functions-inside-your-functions&#34;&gt;Put functions inside your functions!&lt;/h2&gt;
+&lt;p&gt;With C# 7, we can now use a nested function. This gives us the benefits of not polluting the namespace of the class, while also making it more readable. It also makes it clearer that the function is owned by the caller as the only consumer.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
 {
     var restriction =  _store.GetRestriction(restrictionNumber);
     
     bool Filter(Widget widget)
     {
-        return (w.PlumbBob.StartsWith(plumb) || w.PlumbBob.EndsWith(plumb)) &amp;&amp; w.Restriction &gt; restriction;
+        return (w.PlumbBob.StartsWith(plumb) || w.PlumbBob.EndsWith(plumb)) &amp;amp;&amp;amp; w.Restriction &amp;gt; restriction;
     }
     
     _store
@@ -717,43 +717,43 @@ private bool Filter(Widget widget, string plumb, Restriction restriction)
         .Select(Map)
         .ToList();
 }
-</code></pre>
-<p>Our compiler now ensures no one else can use this function. It is only callable from this method and gives the reader the knowledge that this is a specific implementation detail for this function only and not a shared common piece of logic. (Encapsulation.)</p>
-<p>In this example it also still allows us to use the simplified <code>Where</code> call.</p>
-<p>The best example of where this is really useful is recursion.</p>
-<p>Often a recursive algorithm has a bootstrap function, that then calls the recursive part. Let&rsquo;s print a tree of items with indentations.</p>
-<pre><code class="language-cs">public static void PrintLines(TextWriter out, Tree items)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our compiler now ensures no one else can use this function. It is only callable from this method and gives the reader the knowledge that this is a specific implementation detail for this function only and not a shared common piece of logic. (Encapsulation.)&lt;/p&gt;
+&lt;p&gt;In this example it also still allows us to use the simplified &lt;code&gt;Where&lt;/code&gt; call.&lt;/p&gt;
+&lt;p&gt;The best example of where this is really useful is recursion.&lt;/p&gt;
+&lt;p&gt;Often a recursive algorithm has a bootstrap function, that then calls the recursive part. Let&amp;rsquo;s print a tree of items with indentations.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public static void PrintLines(TextWriter out, Tree items)
 {
     out.WriteLine(items.Title);
     foreach(var node in items.Children)
     {
-        Print(out, node, &quot;&quot;);
+        Print(out, node, &amp;quot;&amp;quot;);
     }
 }
 
 private void Print(TextWriter out, TreeNode node, string indent)
 {
-    out.WriteLine(&quot;{0}{1}&quot;, indent, items.Title);
+    out.WriteLine(&amp;quot;{0}{1}&amp;quot;, indent, items.Title);
     if(node.HasChildren)
     {
         foreach(var node in items.Children)
         {
-            Print(out, node indent + &quot;    &quot;);
+            Print(out, node indent + &amp;quot;    &amp;quot;);
         }
     }
 }
-</code></pre>
-<p>For simplicity you can now write this:</p>
-<pre><code class="language-cs">public static void PrintLines(TextWriter out, Tree items)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For simplicity you can now write this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public static void PrintLines(TextWriter out, Tree items)
 {
     void Print(TreeNode node, string indent)
     {
-        out.WriteLine(&quot;{0}{1}&quot;, indent, items.Title);
+        out.WriteLine(&amp;quot;{0}{1}&amp;quot;, indent, items.Title);
         if(node.HasChildren)
         {
             foreach(var node in items.Children)
             {
-                Print(out, node indent + &quot;    &quot;);
+                Print(out, node indent + &amp;quot;    &amp;quot;);
             }
         }
     }
@@ -761,14 +761,14 @@ private void Print(TextWriter out, TreeNode node, string indent)
     out.WriteLine(items.Title);
     foreach(var node in items.Children)
     {
-        Print(node, &quot;&quot;);
+        Print(node, &amp;quot;&amp;quot;);
     }
 }
 
-</code></pre>
-<p>This example may not reduce lines of code by much, but the cognitive load of the encapsulation can be hugely beneficial when in a class with more service methods as well.</p>
-<h2 id="summary">Summary</h2>
-<p>The cliché &ldquo;another tool in the toolbelt&rdquo; comes to mind but this is certainly that, and sprinkled through code strategically can really help with readability and maintainability. Not a &ldquo;use often&rdquo; but certainly something I can and have used in my dotnet apps.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This example may not reduce lines of code by much, but the cognitive load of the encapsulation can be hugely beneficial when in a class with more service methods as well.&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;The cliché &amp;ldquo;another tool in the toolbelt&amp;rdquo; comes to mind but this is certainly that, and sprinkled through code strategically can really help with readability and maintainability. Not a &amp;ldquo;use often&amp;rdquo; but certainly something I can and have used in my dotnet apps.&lt;/p&gt;
 </description>
     </item>
     
@@ -778,11 +778,11 @@ private void Print(TextWriter out, TreeNode node, string indent)
       <pubDate>Mon, 27 May 2019 10:30:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>Throwing Exceptions is both a blessing and a curse in C#. You can throw from anywhere to unwind the stack. But adding exception throwing and handling code can cause overheads that you need to be wary of. Not to mention making the code harder to reason about with control flow.</p>
-<p>Regardless, we have them, and we use them, so the language should make that as easy as possible to do so. with C# 7 this was enhanced to support using <code>throw</code> as an expression. Up until this point, it was always a statement, which means there are places in the code that throw could not go.</p>
-<p>One new language feature that only supports expressions and not statements is the Elvis Operator (or Null Conditional Operator, which we <a href="looking-back-on-csharp6-elvis-operator/">already looked back at</a>) and another is the null coalescing operator. When it comes to validating code, these two features shine together.</p>
-<pre><code class="language-cs">public MyClass(string firstArg, string secondArg, Widget widget)
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;Throwing Exceptions is both a blessing and a curse in C#. You can throw from anywhere to unwind the stack. But adding exception throwing and handling code can cause overheads that you need to be wary of. Not to mention making the code harder to reason about with control flow.&lt;/p&gt;
+&lt;p&gt;Regardless, we have them, and we use them, so the language should make that as easy as possible to do so. with C# 7 this was enhanced to support using &lt;code&gt;throw&lt;/code&gt; as an expression. Up until this point, it was always a statement, which means there are places in the code that throw could not go.&lt;/p&gt;
+&lt;p&gt;One new language feature that only supports expressions and not statements is the Elvis Operator (or Null Conditional Operator, which we &lt;a href=&#34;looking-back-on-csharp6-elvis-operator/&#34;&gt;already looked back at&lt;/a&gt;) and another is the null coalescing operator. When it comes to validating code, these two features shine together.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public MyClass(string firstArg, string secondArg, Widget widget)
 {
     if(firstArg is null)
     {
@@ -801,36 +801,36 @@ private void Print(TextWriter out, TreeNode node, string indent)
     _secondArgLength = secondArg.Length;
     _widget = widget;
 }
-</code></pre>
-<p>So verbose! wouldn&rsquo;t it be nice to collapse it together a bit?  With throw expressions, we can.</p>
-<pre><code class="language-cs">public MyClass(string firstArg, string secondArg, Widget widget)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So verbose! wouldn&amp;rsquo;t it be nice to collapse it together a bit?  With throw expressions, we can.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public MyClass(string firstArg, string secondArg, Widget widget)
 {
     _firstArg = firstArg ?? throw new ArgumentNullException(nameof(firstArg));
     _secondArg = secondArg?.Length ?? throw new ArgumentNullException(nameof(secondArg));
     _widget = widget ?? throw new ArgumentNullException(nameof(widget));
 }
-</code></pre>
-<p>So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.</p>
-<p>Also remember how we looked at <a href="/looking-back-on-csharp6-expression-body-members">Expression body members in C# 6</a> and <a href="looking-back-on-csharp7-more-expression-body-members">more in c# 7</a>? Well as the name suggests, the body <em>is</em> an expression. Now that we have throw expressions, the bodies can use them too!</p>
-<pre><code class="language-cs">public class Widget
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.&lt;/p&gt;
+&lt;p&gt;Also remember how we looked at &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt; and &lt;a href=&#34;looking-back-on-csharp7-more-expression-body-members&#34;&gt;more in c# 7&lt;/a&gt;? Well as the name suggests, the body &lt;em&gt;is&lt;/em&gt; an expression. Now that we have throw expressions, the bodies can use them too!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Widget
 {
-    public Widget() =&gt; throw new ArgumentException(&quot;Requires arguments, none provided.&quot;);
+    public Widget() =&amp;gt; throw new ArgumentException(&amp;quot;Requires arguments, none provided.&amp;quot;);
     
-    public ~Widget() =&gt; throw new NotSupportedException(&quot;What are you building that needs a destructor, anyway? (Just curious.)&quot;);
+    public ~Widget() =&amp;gt; throw new NotSupportedException(&amp;quot;What are you building that needs a destructor, anyway? (Just curious.)&amp;quot;);
     
-    public string MyValueProperty =&gt; throw new NotImplementedException();
+    public string MyValueProperty =&amp;gt; throw new NotImplementedException();
     
-    public decimal CalculateTheAnswer() =&gt; throw new NotImplementedException();
+    public decimal CalculateTheAnswer() =&amp;gt; throw new NotImplementedException();
  
     private T[] _items = new T[100];
     public T this[int i]
     {
-        get =&gt; _items?[i] ?? throw new Exception(&quot;Not initialised somehow.&quot;);
-        set =&gt; throw new NotSupportedException(&quot;An interface made me do this.&quot;);
+        get =&amp;gt; _items?[i] ?? throw new Exception(&amp;quot;Not initialised somehow.&amp;quot;);
+        set =&amp;gt; throw new NotSupportedException(&amp;quot;An interface made me do this.&amp;quot;);
     }
 }
-</code></pre>
-<p>There are other use-cases out there, expressions are used all over the place. But I will leave that as an exercise to the reader to discover along the way.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are other use-cases out there, expressions are used all over the place. But I will leave that as an exercise to the reader to discover along the way.&lt;/p&gt;
 </description>
     </item>
     
@@ -840,10 +840,10 @@ private void Print(TextWriter out, TreeNode node, string indent)
       <pubDate>Mon, 20 May 2019 10:30:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>We already had a look at how we can use <a href="/looking-back-on-csharp6-expression-body-members">Expression body members in C# 6</a>. In C# 7.0, this has been extended further to include constructors, finalizers, and get and set accessors on properties and indexers.</p>
-<pre><code class="language-cs">// The old way:
-public class Gadget&lt;T&gt;
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;We already had a look at how we can use &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt;. In C# 7.0, this has been extended further to include constructors, finalizers, and get and set accessors on properties and indexers.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// The old way:
+public class Gadget&amp;lt;T&amp;gt;
 {    
     // A property with a custom get implementation
     private int _dateAsTicks;
@@ -884,40 +884,40 @@ public class Gadget&lt;T&gt;
         }
     }
 }
-</code></pre>
-<p>And now with lambdas:</p>
-<pre><code class="language-cs">public class Gadget&lt;T&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now with lambdas:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Gadget&amp;lt;T&amp;gt;
 { 
     private int _dateAsTicks;
     public DateTime myValue
     {
-        get = &gt; new DateTime(_dateAsTicks);
-        set =&gt; _dateAsTicks = value.Ticks;
+        get = &amp;gt; new DateTime(_dateAsTicks);
+        set =&amp;gt; _dateAsTicks = value.Ticks;
     }
     
     // A readonly prop version would look like this
-    // public DateTime myValue = &gt; new DateTime(_dateAsTicks);
+    // public DateTime myValue = &amp;gt; new DateTime(_dateAsTicks);
     
     // A standard constructor
-    public Gadget(int ticks) =&gt; _dateAsTicks = ticks
+    public Gadget(int ticks) =&amp;gt; _dateAsTicks = ticks
     
-    public ~Gadget() =&gt; _dateAsTicks = 0;
+    public ~Gadget() =&amp;gt; _dateAsTicks = 0;
  
     private T[] _items = new T[100];
     public T this[int i]
     {
-        get =&gt; _items[i];
-        set =&gt; _items[i] = value;
+        get =&amp;gt; _items[i];
+        set =&amp;gt; _items[i] = value;
     }
     
     // If it were readonly it could look like this:
-    // public T this[int i] =&gt; _items[i];
+    // public T this[int i] =&amp;gt; _items[i];
 }
-</code></pre>
-<p>Much like the last instalment, this is a pretty consistent and straight-forward transformation into lambdas, just with an increased scope of application.</p>
-<p>Also, did you know that expression body members are binary compatible?  It is worth knowing. What this means is that if you have a method, it doesn&rsquo;t matter if you compile with a method body or an expression body member, they both produce the same binary signature, and anything that links to your DLL won&rsquo;t know the difference. This means you can change your code back and forward and not have to worry about breaking binary compatibility. Code compiled against a version that used a method body will still work against it when you change it to a member body expression.</p>
-<p>Just bear in mind that changes between methods and properties, and changes of method signatures are not binary compatible changes.</p>
-<p><!-- raw HTML omitted --></p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Much like the last instalment, this is a pretty consistent and straight-forward transformation into lambdas, just with an increased scope of application.&lt;/p&gt;
+&lt;p&gt;Also, did you know that expression body members are binary compatible?  It is worth knowing. What this means is that if you have a method, it doesn&amp;rsquo;t matter if you compile with a method body or an expression body member, they both produce the same binary signature, and anything that links to your DLL won&amp;rsquo;t know the difference. This means you can change your code back and forward and not have to worry about breaking binary compatibility. Code compiled against a version that used a method body will still work against it when you change it to a member body expression.&lt;/p&gt;
+&lt;p&gt;Just bear in mind that changes between methods and properties, and changes of method signatures are not binary compatible changes.&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -927,10 +927,10 @@ public class Gadget&lt;T&gt;
       <pubDate>Sun, 19 May 2019 19:54:45 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-tuples-upgraded/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>Tuples deconstruction discards
-<a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#tuples">https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#tuples</a>
-<a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#discards">https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#discards</a></p>
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;Tuples deconstruction discards
+&lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#tuples&#34;&gt;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#tuples&lt;/a&gt;
+&lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#discards&#34;&gt;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#discards&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -940,11 +940,11 @@ public class Gadget&lt;T&gt;
       <pubDate>Sun, 12 May 2019 22:30:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp6-expression-body-members/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>Method blocks are one of the most fundamental components of C#. They get used for all class methods, for property getters and setters, constructors, destructors, so many places.</p>
-<p>Back in C# 3, we got Lambda expressions, which allowed us to generate anonymous function-like expressions that could be passed around as function pointers using <code>Func</code> and <code>Action</code>.</p>
-<p>C# 6 has taken both of these concepts and made a mashup that is really powerful.</p>
-<pre><code class="language-cs">// Once again, some older code for comparison.
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;Method blocks are one of the most fundamental components of C#. They get used for all class methods, for property getters and setters, constructors, destructors, so many places.&lt;/p&gt;
+&lt;p&gt;Back in C# 3, we got Lambda expressions, which allowed us to generate anonymous function-like expressions that could be passed around as function pointers using &lt;code&gt;Func&lt;/code&gt; and &lt;code&gt;Action&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;C# 6 has taken both of these concepts and made a mashup that is really powerful.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// Once again, some older code for comparison.
 public class Widget
 {
     // A simple AutoProperty
@@ -956,7 +956,7 @@ public class Widget
     {
         get
         {
-            return _myValueField + &quot; is Awesome!&quot;;
+            return _myValueField + &amp;quot; is Awesome!&amp;quot;;
         }
     }
     
@@ -972,9 +972,9 @@ public class Widget
         return name.Length + size * 4;
     }
 }
-</code></pre>
-<p>This is pretty standard readable good ol'  C# code. What C# 6 introduced is the ability to use lambda expressions as code bodies for methods and get-only members. So what does that look like for the example above?</p>
-<pre><code class="language-cs">// Let's do better!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is pretty standard readable good ol&#39;  C# code. What C# 6 introduced is the ability to use lambda expressions as code bodies for methods and get-only members. So what does that look like for the example above?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// Let&#39;s do better!
 public class Widget
 {
     // Again, still a simple AutoProperty
@@ -982,30 +982,30 @@ public class Widget
     
     // A property with a custom get implementation using an expression body!
     private string _myValueField;
-    public string MyValueProperty =&gt; _myValueField + &quot; is Awesome!&quot;;
+    public string MyValueProperty =&amp;gt; _myValueField + &amp;quot; is Awesome!&amp;quot;;
     
     // Lambda Lambda Llama!
-    public decimal CalculateTheAnswer() =&gt; 42;
+    public decimal CalculateTheAnswer() =&amp;gt; 42;
     
     // One more time!
-    public decimal Process(string name, int size) =&gt; name.Length + size * 4;
+    public decimal Process(string name, int size) =&amp;gt; name.Length + size * 4;
 }
-</code></pre>
-<p>Look at all those lines of code I removed! Now that we are no longer being <a href="https://www.goodreads.com/quotes/536587-measuring-programming-progress-by-lines-of-code-is-like-measuring">performance monitored based on lines of code</a>, we can work smarter not harder. Not including whitespace and comment lines, this reduced from 20 lines down to 8. That&rsquo;s over half the code removed using this one new language feature.</p>
-<p>New? No, not really. It has been around since 2015. Seriously, why are you not using this yet?</p>
-<p>Granted, this is not a one-size-fits-all technique.  But anywhere your method body is a single expression, this is just magic to add to your code, for readability and for fewer keystrokes.</p>
-<p>Speaking of readability, though, let&rsquo;s look at a few lines for comparison to help you out with what they mean or do:</p>
-<p><code>public string MyProp { get; }</code></p>
-<p>This is a read-only auto property. The backing field cannot be set and stays whatever is set in the constructor. If nothing is set in the constructor it will be the default value.</p>
-<p><code>public string MyProp { get; } = &quot;I don't change for anyone&quot;;</code></p>
-<p>This is a read-only auto property. The backing field cannot be set and stays <code>&quot;I don't change for anyone&quot;</code> forever. the right-hand-side expression is evaluated once and stored against the object instance at construction. <strong>Once</strong>.</p>
-<p><code>public string MyProp =&gt; &quot;I don't change for anyone&quot;;</code></p>
-<p>This is also a read-only auto property. It has no backing field. Whenever it is called it will evaluate the lambda expression <code>() =&gt; &quot;I don't change for anyone&quot;</code>. <strong>Every time</strong>. This could be important. If your lambda needs to be dynamically dependent on other data, this is what you want/need. Otherwise, if your expression is costly, you might want to use the previous example to make sure it only runs once.</p>
-<p><code>public string MyMethod() =&gt; &quot;I don't change for anyone&quot;;</code></p>
-<p>Gosh, it looks so similar, doesn&rsquo;t it?  Those extra <code>()</code> after the name makes all the difference. That difference is whether your public object interface is for a method (<code>public string MyMethod();</code>) or a Property (<code>public string MyProp { get; }</code>). Only you as the author can know which is more fitting. A rule of thumb to go by is that if the consumer should expect it to calculate each time, it is a method. If the consumer thinks it represents a part of the state of the object, it is a property.</p>
-<h3 id="-">&lt;/ &gt;</h3>
-<p>There you have it. One more language feature to add to your codebase, one more part of C# understood as you read the code of the world. Go forth and Lambda Lambda Llama.</p>
-<p><!-- raw HTML omitted --></p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Look at all those lines of code I removed! Now that we are no longer being &lt;a href=&#34;https://www.goodreads.com/quotes/536587-measuring-programming-progress-by-lines-of-code-is-like-measuring&#34;&gt;performance monitored based on lines of code&lt;/a&gt;, we can work smarter not harder. Not including whitespace and comment lines, this reduced from 20 lines down to 8. That&amp;rsquo;s over half the code removed using this one new language feature.&lt;/p&gt;
+&lt;p&gt;New? No, not really. It has been around since 2015. Seriously, why are you not using this yet?&lt;/p&gt;
+&lt;p&gt;Granted, this is not a one-size-fits-all technique.  But anywhere your method body is a single expression, this is just magic to add to your code, for readability and for fewer keystrokes.&lt;/p&gt;
+&lt;p&gt;Speaking of readability, though, let&amp;rsquo;s look at a few lines for comparison to help you out with what they mean or do:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;public string MyProp { get; }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This is a read-only auto property. The backing field cannot be set and stays whatever is set in the constructor. If nothing is set in the constructor it will be the default value.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;public string MyProp { get; } = &amp;quot;I don&#39;t change for anyone&amp;quot;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This is a read-only auto property. The backing field cannot be set and stays &lt;code&gt;&amp;quot;I don&#39;t change for anyone&amp;quot;&lt;/code&gt; forever. the right-hand-side expression is evaluated once and stored against the object instance at construction. &lt;strong&gt;Once&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;public string MyProp =&amp;gt; &amp;quot;I don&#39;t change for anyone&amp;quot;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This is also a read-only auto property. It has no backing field. Whenever it is called it will evaluate the lambda expression &lt;code&gt;() =&amp;gt; &amp;quot;I don&#39;t change for anyone&amp;quot;&lt;/code&gt;. &lt;strong&gt;Every time&lt;/strong&gt;. This could be important. If your lambda needs to be dynamically dependent on other data, this is what you want/need. Otherwise, if your expression is costly, you might want to use the previous example to make sure it only runs once.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;public string MyMethod() =&amp;gt; &amp;quot;I don&#39;t change for anyone&amp;quot;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Gosh, it looks so similar, doesn&amp;rsquo;t it?  Those extra &lt;code&gt;()&lt;/code&gt; after the name makes all the difference. That difference is whether your public object interface is for a method (&lt;code&gt;public string MyMethod();&lt;/code&gt;) or a Property (&lt;code&gt;public string MyProp { get; }&lt;/code&gt;). Only you as the author can know which is more fitting. A rule of thumb to go by is that if the consumer should expect it to calculate each time, it is a method. If the consumer thinks it represents a part of the state of the object, it is a property.&lt;/p&gt;
+&lt;h3 id=&#34;-&#34;&gt;&amp;lt;/ &amp;gt;&lt;/h3&gt;
+&lt;p&gt;There you have it. One more language feature to add to your codebase, one more part of C# understood as you read the code of the world. Go forth and Lambda Lambda Llama.&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -1015,17 +1015,17 @@ public class Widget
       <pubDate>Mon, 29 Apr 2019 11:30:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp6-initializers/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>Initializers have had a few upgrades since the early C# days. But before we look at more recent changes, we will review what came before.</p>
-<p>Initializers or Object Initializers is a name given to code that performs the initial setup of a piece of memory (a struct or an object). Constructors are part of this but the idea goes more towards the holistic setup of the object data for all of the state you care to set up.</p>
-<p>Taking a look at C for even more background, we have initializers like so:</p>
-<pre><code class="language-c">struct MyType { char s; int n; };
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;Initializers have had a few upgrades since the early C# days. But before we look at more recent changes, we will review what came before.&lt;/p&gt;
+&lt;p&gt;Initializers or Object Initializers is a name given to code that performs the initial setup of a piece of memory (a struct or an object). Constructors are part of this but the idea goes more towards the holistic setup of the object data for all of the state you care to set up.&lt;/p&gt;
+&lt;p&gt;Taking a look at C for even more background, we have initializers like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;struct MyType { char s; int n; };
 
 // We can initialize a variable using a curly brace syntax:
-MyType x = { 'a', 42 };
-</code></pre>
-<p>What we see above is that we are initializing our variable <code>x</code> to have its data for <code>.s</code> and <code>.n</code> set to <code>'a'</code> and <code>42</code> respectively. This is initialization. Now using C#, something more familiar:</p>
-<pre><code class="language-cs">public class Foo
+MyType x = { &#39;a&#39;, 42 };
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What we see above is that we are initializing our variable &lt;code&gt;x&lt;/code&gt; to have its data for &lt;code&gt;.s&lt;/code&gt; and &lt;code&gt;.n&lt;/code&gt; set to &lt;code&gt;&#39;a&#39;&lt;/code&gt; and &lt;code&gt;42&lt;/code&gt; respectively. This is initialization. Now using C#, something more familiar:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Foo
 {
     public string Name { get; set; }
     public int Number { get; set; }
@@ -1033,21 +1033,21 @@ MyType x = { 'a', 42 };
 
 // Without using initializers:
 Foo myFoo = new Foo();
-myFoo.Name = &quot;a&quot;;
+myFoo.Name = &amp;quot;a&amp;quot;;
 myFoo.Number = 42;
 
 // In C# we can initialize in a similar way to C.
 // This code compiles to the same instructions as above:
-Foo myFoo = new Foo() { Name = &quot;a&quot;, Number = 24 };
+Foo myFoo = new Foo() { Name = &amp;quot;a&amp;quot;, Number = 24 };
 
 // Collections also support initialization
 int[] myArray = new int[] { 1, 1, 2, 3, 5, 8 };
-</code></pre>
-<p>I won&rsquo;t go into how C has advanced its own initializers, that it a different topic. Instead, we will look at how C# has taken this simple initializer above and enhanced in C# 6 on top of this initial syntax in C# 3.</p>
-<h3 id="add-extension-support-for-collections">Add Extension support for collections</h3>
-<p>When Initializers were implemented (or not long after if my memory deceives me) there was a little magic that made this work. Namely, the code written was simpler and more concise, but the implementation transformed into something more familiar.</p>
-<p>The same is true for Collection initialization. If we review the example from above we can see this:</p>
-<pre><code class="language-cs">
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I won&amp;rsquo;t go into how C has advanced its own initializers, that it a different topic. Instead, we will look at how C# has taken this simple initializer above and enhanced in C# 6 on top of this initial syntax in C# 3.&lt;/p&gt;
+&lt;h3 id=&#34;add-extension-support-for-collections&#34;&gt;Add Extension support for collections&lt;/h3&gt;
+&lt;p&gt;When Initializers were implemented (or not long after if my memory deceives me) there was a little magic that made this work. Namely, the code written was simpler and more concise, but the implementation transformed into something more familiar.&lt;/p&gt;
+&lt;p&gt;The same is true for Collection initialization. If we review the example from above we can see this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
 // Collection initialization
 int[] myArray = new int[] { 1, 1, 2, 3, 5, 8 };
 
@@ -1059,59 +1059,59 @@ myArray.Add(2);
 myArray.Add(3);
 myArray.Add(5);
 myArray.Add(8);
-</code></pre>
-<p>Basically, the syntax is a shorthand for calling <code>Add(</code> on the collection. This allows for more complex situations where <code>Add</code> can take multiple arguments.</p>
-<pre><code class="language-cs">var myDict = new Dictionary&lt;int, string&gt;() { { 1, &quot;One&quot; }, { 2, &quot;Two&quot; } };
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Basically, the syntax is a shorthand for calling &lt;code&gt;Add(&lt;/code&gt; on the collection. This allows for more complex situations where &lt;code&gt;Add&lt;/code&gt; can take multiple arguments.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var myDict = new Dictionary&amp;lt;int, string&amp;gt;() { { 1, &amp;quot;One&amp;quot; }, { 2, &amp;quot;Two&amp;quot; } };
 
 // This worked the same way as the last example. The same code is:
-var myDict = new Dictionary&lt;int, string&gt;();
-myDict.Add(1, &quot;One&quot;);
-myDict.Add(2, &quot;Two&quot;);
-</code></pre>
-<p>Again, this is all existing syntax. With C# 6, an ability was added so that instead of needing to implement <code>Add</code> on your type, you could create extension methods as well:</p>
-<pre><code>public static void Add(this Dictionary&lt;int, string&gt; dict, Foo value)
+var myDict = new Dictionary&amp;lt;int, string&amp;gt;();
+myDict.Add(1, &amp;quot;One&amp;quot;);
+myDict.Add(2, &amp;quot;Two&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Again, this is all existing syntax. With C# 6, an ability was added so that instead of needing to implement &lt;code&gt;Add&lt;/code&gt; on your type, you could create extension methods as well:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public static void Add(this Dictionary&amp;lt;int, string&amp;gt; dict, Foo value)
 {
     dict.Add(value.Number, value.Name);
 }
 
-Foo foo1 = new Foo() { Name = &quot;One&quot;, Number = 1 };
-Foo foo2 = new Foo() { Name = &quot;Two&quot;, Number = 2 };
-var myDict = new Dictionary&lt;int, string&gt;() { foo1, foo2 };
-</code></pre>
-<p>At this point, the possibilities are endless and fully customizable to create your own Domain-Specific-Language (DSL). You don&rsquo;t even have to use Collections because anything can have an <code>Add</code> overload added via an extension.</p>
-<h3 id="index-initializer">Index Initializer</h3>
-<p>Dictionary syntax is a bit odd. Add isn&rsquo;t really the right approach. And we already have indexer syntax:</p>
-<pre><code class="language-cs">var myDict = new Dictionary&lt;int, string&gt;();
-myDict[7] = &quot;seven&quot;;
-myDict[9] = &quot;nine&quot;;
-myDict[13] = &quot;thirteen;
-</code></pre>
-<p>Why not extend Initializers to use the indexer as well? They did. C# 6 again.</p>
-<pre><code class="language-cs">
-var numbers = new Dictionary&lt;int, string&gt; {
-    [7] = &quot;seven&quot;,
-    [9] = &quot;nine&quot;,
-    [13] = &quot;thirteen&quot;
+Foo foo1 = new Foo() { Name = &amp;quot;One&amp;quot;, Number = 1 };
+Foo foo2 = new Foo() { Name = &amp;quot;Two&amp;quot;, Number = 2 };
+var myDict = new Dictionary&amp;lt;int, string&amp;gt;() { foo1, foo2 };
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At this point, the possibilities are endless and fully customizable to create your own Domain-Specific-Language (DSL). You don&amp;rsquo;t even have to use Collections because anything can have an &lt;code&gt;Add&lt;/code&gt; overload added via an extension.&lt;/p&gt;
+&lt;h3 id=&#34;index-initializer&#34;&gt;Index Initializer&lt;/h3&gt;
+&lt;p&gt;Dictionary syntax is a bit odd. Add isn&amp;rsquo;t really the right approach. And we already have indexer syntax:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var myDict = new Dictionary&amp;lt;int, string&amp;gt;();
+myDict[7] = &amp;quot;seven&amp;quot;;
+myDict[9] = &amp;quot;nine&amp;quot;;
+myDict[13] = &amp;quot;thirteen;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Why not extend Initializers to use the indexer as well? They did. C# 6 again.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
+var numbers = new Dictionary&amp;lt;int, string&amp;gt; {
+    [7] = &amp;quot;seven&amp;quot;,
+    [9] = &amp;quot;nine&amp;quot;,
+    [13] = &amp;quot;thirteen&amp;quot;
 };
-</code></pre>
-<p>Works as expected, and is the same result as the code above. This works off of the same existing indexer pattern( in a similar manner to the <code>Add</code> usage earlier), so works with any custom indexer on any custom type.</p>
-<pre><code>// Using an existing type from Newtonsoft.Json:
-var x = new JObject { [&quot;x&quot;] = 3 };
-</code></pre>
-<h3 id="auto-property-initializers">Auto property initializers</h3>
-<p>That is a bunch of consumer side initialization. There was more added behind the scenes in C# 6 as well.</p>
-<p>The humble Auto Property:</p>
-<pre><code class="language-cs">public int X { get; set; }
-</code></pre>
-<p>First, we can now give a default initialization:</p>
-<pre><code>// This is the same as `X = 4` in the constructor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Works as expected, and is the same result as the code above. This works off of the same existing indexer pattern( in a similar manner to the &lt;code&gt;Add&lt;/code&gt; usage earlier), so works with any custom indexer on any custom type.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Using an existing type from Newtonsoft.Json:
+var x = new JObject { [&amp;quot;x&amp;quot;] = 3 };
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;auto-property-initializers&#34;&gt;Auto property initializers&lt;/h3&gt;
+&lt;p&gt;That is a bunch of consumer side initialization. There was more added behind the scenes in C# 6 as well.&lt;/p&gt;
+&lt;p&gt;The humble Auto Property:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public int X { get; set; }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;First, we can now give a default initialization:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// This is the same as `X = 4` in the constructor
 public int X { get; set; } = 4;    
-</code></pre>
-<p>And to make this trick even more complete, we have the getter-only property:</p>
-<pre><code class="language-cs">public int Y { get; } = 42;    
-</code></pre>
-<p>As well as the ability to initialize this from a constructor instead:</p>
-<pre><code class="language-cs">public class MyFoo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And to make this trick even more complete, we have the getter-only property:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public int Y { get; } = 42;    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As well as the ability to initialize this from a constructor instead:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class MyFoo
 {
     public int Y { get; };    
     
@@ -1120,10 +1120,10 @@ public int X { get; set; } = 4;
         Y = 42;
     }
 }
-</code></pre>
-<p>Sometimes you may have many constructor overloads, using the property initializer is less code duplication.  Sometimes you may want to have different values for different overloads, then you can initialize in the constructor.</p>
-<p>Either way, this gives you true power over you read-only without the verbose equivalent you used to have to write:</p>
-<pre><code class="language-cs">// Same code as above in &quot;full&quot;:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Sometimes you may have many constructor overloads, using the property initializer is less code duplication.  Sometimes you may want to have different values for different overloads, then you can initialize in the constructor.&lt;/p&gt;
+&lt;p&gt;Either way, this gives you true power over you read-only without the verbose equivalent you used to have to write:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// Same code as above in &amp;quot;full&amp;quot;:
 public class MyFoo
 {
     private readonly int _y;
@@ -1140,12 +1140,12 @@ public class MyFoo
         _y = 42;
     }
 }
-</code></pre>
-<p>The newer way is much more concise, especially when there are many properties:</p>
-<pre><code class="language-cs">// Just imagine how many lines of code this would be the old way!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The newer way is much more concise, especially when there are many properties:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// Just imagine how many lines of code this would be the old way!
 public class MyFoo
 {
-    public string X { get; } = &quot;Foo&quot;;    
+    public string X { get; } = &amp;quot;Foo&amp;quot;;    
     public int Y { get; } = 42;    
     public decimal Z { get; } = 54m;
     public object Key { get; } = new object{};
@@ -1154,9 +1154,9 @@ public class MyFoo
     public int Another { get; set; }
     public bool Widgets { get; set; }
 }
-</code></pre>
-<h3 id="wrapup">Wrapup</h3>
-<p>Object initialization had a major revamp in C# 6. How many of these do you use regularly? How many do you notice in your own code bases?  These have been around for a while so expect only to see more of it. Do yourself a favour and start using it if you haven&rsquo;t already. Very readability, much fewer keystrokes. Canonical? You betcha!</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;wrapup&#34;&gt;Wrapup&lt;/h3&gt;
+&lt;p&gt;Object initialization had a major revamp in C# 6. How many of these do you use regularly? How many do you notice in your own code bases?  These have been around for a while so expect only to see more of it. Do yourself a favour and start using it if you haven&amp;rsquo;t already. Very readability, much fewer keystrokes. Canonical? You betcha!&lt;/p&gt;
 </description>
     </item>
     
@@ -1166,47 +1166,47 @@ public class MyFoo
       <pubDate>Sun, 14 Apr 2019 11:30:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp6-string-interpolation/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>String Interpolation is a great feature that I now use everywhere I can (Except logging - see below).</p>
-<p>We have efficient libraries to format strings for us, so we don&rsquo;t have to concatenate all the time. This is both convenient and performant.</p>
-<pre><code class="language-cs">var string1 = &quot;My name is &quot; + &quot;Mark&quot;;
-var string2 = String.Format(&quot;My name is {0}&quot;, &quot;Mark&quot;);
-</code></pre>
-<p>The resulting string above is equivalent but there are many benefits to the second option:</p>
-<ul>
-<li>faster internal string building for larger strings with multiple parameters</li>
-<li>Lazy execution means you can pass <code>template</code> + <code>args</code> down the stack and format later (or never as an optimisation when necessary such as Debug/Verbose logs)</li>
-<li>Potentially more readable as a template than the concatenation would be (depending on the message).</li>
-</ul>
-<p>The problem becomes we have all these index positions. It is very easy with many arguments to either get the positions wrong or to change it and make a mistake.</p>
-<h2 id="string-interpolation">String Interpolation</h2>
-<p>You can think of String Interpolation as the compiler automatically turning your string into a <code>String.Format</code> for you. (Oversimplification but useful way to conceptualise it.)  The first piece of magic is the <code>$</code> character. Adding this to the start of a string makes it into an interpolated string. This now grants special power to the braces (<code>{}</code>).  When you have a block of braces inside the string, this essentially becomes an expression. You can put whatever code you want in here, and it becomes a format argument. This gives improved readability.</p>
-<pre><code class="language-cs">var oldWay = String.Format($&quot;{0} is {1} years old.&quot;, p.Name, p.Age);
-var newWay = $&quot;{p.Name} is {p.Age} years old.&quot;;
-</code></pre>
-<ul>
-<li>Mistakes are easier to spot</li>
-<li>compile-time checks performed on the string and its format</li>
-<li>performant - same benefits of <code>String.Format</code> applied for optimisations</li>
-<li>readable - reads like a sentence with clearing understanding of where the arguments come from</li>
-</ul>
-<p>You can still use <code>{</code> in your string, you just have to escape it with another <code>{</code>:</p>
-<pre><code class="language-cs">var name = &quot;bob&quot;;
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;String Interpolation is a great feature that I now use everywhere I can (Except logging - see below).&lt;/p&gt;
+&lt;p&gt;We have efficient libraries to format strings for us, so we don&amp;rsquo;t have to concatenate all the time. This is both convenient and performant.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var string1 = &amp;quot;My name is &amp;quot; + &amp;quot;Mark&amp;quot;;
+var string2 = String.Format(&amp;quot;My name is {0}&amp;quot;, &amp;quot;Mark&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The resulting string above is equivalent but there are many benefits to the second option:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;faster internal string building for larger strings with multiple parameters&lt;/li&gt;
+&lt;li&gt;Lazy execution means you can pass &lt;code&gt;template&lt;/code&gt; + &lt;code&gt;args&lt;/code&gt; down the stack and format later (or never as an optimisation when necessary such as Debug/Verbose logs)&lt;/li&gt;
+&lt;li&gt;Potentially more readable as a template than the concatenation would be (depending on the message).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The problem becomes we have all these index positions. It is very easy with many arguments to either get the positions wrong or to change it and make a mistake.&lt;/p&gt;
+&lt;h2 id=&#34;string-interpolation&#34;&gt;String Interpolation&lt;/h2&gt;
+&lt;p&gt;You can think of String Interpolation as the compiler automatically turning your string into a &lt;code&gt;String.Format&lt;/code&gt; for you. (Oversimplification but useful way to conceptualise it.)  The first piece of magic is the &lt;code&gt;$&lt;/code&gt; character. Adding this to the start of a string makes it into an interpolated string. This now grants special power to the braces (&lt;code&gt;{}&lt;/code&gt;).  When you have a block of braces inside the string, this essentially becomes an expression. You can put whatever code you want in here, and it becomes a format argument. This gives improved readability.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var oldWay = String.Format($&amp;quot;{0} is {1} years old.&amp;quot;, p.Name, p.Age);
+var newWay = $&amp;quot;{p.Name} is {p.Age} years old.&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Mistakes are easier to spot&lt;/li&gt;
+&lt;li&gt;compile-time checks performed on the string and its format&lt;/li&gt;
+&lt;li&gt;performant - same benefits of &lt;code&gt;String.Format&lt;/code&gt; applied for optimisations&lt;/li&gt;
+&lt;li&gt;readable - reads like a sentence with clearing understanding of where the arguments come from&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can still use &lt;code&gt;{&lt;/code&gt; in your string, you just have to escape it with another &lt;code&gt;{&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var name = &amp;quot;bob&amp;quot;;
 
-// This becomes: {&quot;name&quot;:&quot;bob&quot;}
-var json = &quot;{{&quot;&quot;name&quot;&quot;:&quot;&quot;{name}&quot;&quot;}}&quot;;
-</code></pre>
-<p>This is a canonical language feature, and you will expect to see most string-related code using it. That is if you are not already yourself.</p>
-<h2 id="why-except-logging">Why &ldquo;Except Logging&rdquo;?</h2>
-<p>Turns out, there is a massively useful feature with logging using <code>Microsoft.Extensions.Logging</code> and ILogger. Semantic Logging, also known as Structured Logging.</p>
-<p>Semantic/Structured Logging supported is up to the implementor of the logging, but Serilog, Application Insights, NLog and others tend to support this feature, and it is <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-2.2#log-message-template">defined as a first-class part of the API</a>.</p>
-<p>The main difference to <code>String.Format</code> is you give named parameters in the template rather than numbered.</p>
-<pre><code class="language-cs">String.Format(&quot;My name is {0}&quot;, &quot;Mark&quot;);
-_logger.LogInformation(&quot;My name is {FirstName}&quot;, &quot;Mark&quot;);
-</code></pre>
-<p>Anyone who has actually monitored their logs knows that templates are really valuable. You can find all instances of a log message quickly with templated arguments, rather than having to do a wildcard search with inlined values because each message is a unique snowflake.  Most logging frameworks add the arguments as named metadata, using the value from the string (in the above example that would be <code>FirstName</code>).</p>
-<p>This works great. As long as you don&rsquo;t use the new and useful String Interpolation when you log. String Interpolation results in a string passed to the logger, rather than passing a template and arguments, so it&rsquo;s one or the other at this time.</p>
-<p>As you would expect, <a href="https://stackoverflow.com/questions/52200484/why-logging-doesnt-use-string-interpolation">people really want this</a> to reverse-engineer from String Interpolation into Semantic Logging automatically, but the argument is that it is both unexpected and a breaking change so you probably won&rsquo;t see that anytime soon <a href="https://github.com/NLog/NLog/issues/825">without a custom library or API involved</a>.</p>
+// This becomes: {&amp;quot;name&amp;quot;:&amp;quot;bob&amp;quot;}
+var json = &amp;quot;{{&amp;quot;&amp;quot;name&amp;quot;&amp;quot;:&amp;quot;&amp;quot;{name}&amp;quot;&amp;quot;}}&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is a canonical language feature, and you will expect to see most string-related code using it. That is if you are not already yourself.&lt;/p&gt;
+&lt;h2 id=&#34;why-except-logging&#34;&gt;Why &amp;ldquo;Except Logging&amp;rdquo;?&lt;/h2&gt;
+&lt;p&gt;Turns out, there is a massively useful feature with logging using &lt;code&gt;Microsoft.Extensions.Logging&lt;/code&gt; and ILogger. Semantic Logging, also known as Structured Logging.&lt;/p&gt;
+&lt;p&gt;Semantic/Structured Logging supported is up to the implementor of the logging, but Serilog, Application Insights, NLog and others tend to support this feature, and it is &lt;a href=&#34;https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-2.2#log-message-template&#34;&gt;defined as a first-class part of the API&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The main difference to &lt;code&gt;String.Format&lt;/code&gt; is you give named parameters in the template rather than numbered.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;String.Format(&amp;quot;My name is {0}&amp;quot;, &amp;quot;Mark&amp;quot;);
+_logger.LogInformation(&amp;quot;My name is {FirstName}&amp;quot;, &amp;quot;Mark&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Anyone who has actually monitored their logs knows that templates are really valuable. You can find all instances of a log message quickly with templated arguments, rather than having to do a wildcard search with inlined values because each message is a unique snowflake.  Most logging frameworks add the arguments as named metadata, using the value from the string (in the above example that would be &lt;code&gt;FirstName&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;This works great. As long as you don&amp;rsquo;t use the new and useful String Interpolation when you log. String Interpolation results in a string passed to the logger, rather than passing a template and arguments, so it&amp;rsquo;s one or the other at this time.&lt;/p&gt;
+&lt;p&gt;As you would expect, &lt;a href=&#34;https://stackoverflow.com/questions/52200484/why-logging-doesnt-use-string-interpolation&#34;&gt;people really want this&lt;/a&gt; to reverse-engineer from String Interpolation into Semantic Logging automatically, but the argument is that it is both unexpected and a breaking change so you probably won&amp;rsquo;t see that anytime soon &lt;a href=&#34;https://github.com/NLog/NLog/issues/825&#34;&gt;without a custom library or API involved&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
@@ -1216,13 +1216,13 @@ _logger.LogInformation(&quot;My name is {FirstName}&quot;, &quot;Mark&quot;);
       <pubDate>Mon, 18 Mar 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-back-on-c/</guid>
-      <description><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
-<p>It was back in 2016 with the release of Roslyn, a complete rewrite C# compiler platform written in C# that we started to see a ramp up on language features not seen since .Net 4.0 (probably). Most people probably remember <code>async</code> <code>await</code> and then an explosion of language features started flooding in.</p>
-<p>2016 we saw the release of C# 6 and Visual Studio 2015.  This had some great features to look forward to revisiting soon.  Visual Studio 2017 followed two years later with C# 7, and quick on its heels was 7.1, 7.2, and 7.3 alongside three of the 8 minor Visual Studio 2017 releases. That is a few features over the last 4 years to learn and know.</p>
-<p>Now we have a Preview of Visual Studio 2019 (well three actually) that give us a chance to play with C# 8 features in a Preview capacity. There are plenty of great blogs out there talking about the new stuff, so I will try and avoid duplication at this point, and probably revisit after a few months of using these features in real development life.</p>
-<p>In the meantime, I hope going over what you already have, and can start using today will be beneficial.</p>
-<p>First, up will be the Elvis Operator. Stay tuned.</p>
-<p>Have a favourite language feature you want to me to review? Leave a comment below.</p>
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;It was back in 2016 with the release of Roslyn, a complete rewrite C# compiler platform written in C# that we started to see a ramp up on language features not seen since .Net 4.0 (probably). Most people probably remember &lt;code&gt;async&lt;/code&gt; &lt;code&gt;await&lt;/code&gt; and then an explosion of language features started flooding in.&lt;/p&gt;
+&lt;p&gt;2016 we saw the release of C# 6 and Visual Studio 2015.  This had some great features to look forward to revisiting soon.  Visual Studio 2017 followed two years later with C# 7, and quick on its heels was 7.1, 7.2, and 7.3 alongside three of the 8 minor Visual Studio 2017 releases. That is a few features over the last 4 years to learn and know.&lt;/p&gt;
+&lt;p&gt;Now we have a Preview of Visual Studio 2019 (well three actually) that give us a chance to play with C# 8 features in a Preview capacity. There are plenty of great blogs out there talking about the new stuff, so I will try and avoid duplication at this point, and probably revisit after a few months of using these features in real development life.&lt;/p&gt;
+&lt;p&gt;In the meantime, I hope going over what you already have, and can start using today will be beneficial.&lt;/p&gt;
+&lt;p&gt;First, up will be the Elvis Operator. Stay tuned.&lt;/p&gt;
+&lt;p&gt;Have a favourite language feature you want to me to review? Leave a comment below.&lt;/p&gt;
 </description>
     </item>
     
@@ -1232,55 +1232,55 @@ _logger.LogInformation(&quot;My name is {FirstName}&quot;, &quot;Mark&quot;);
       <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</guid>
-      <description><p>It&rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.</p>
-<p>The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&rsquo;ve moved on.)</p>
-<h2 id="c-8">C# 8</h2>
-<p>It feels like we&rsquo;ve been talking about C# 8 for a while, with 7.1, 7.2 and 7.3 releases building towards it. (It was 2 years ago when they were talking about what&rsquo;s new in C# 7.0!). We&rsquo;ve had demos at Build, NDC and online of what is coming, with <a href="https://blogs.msdn.microsoft.com/dotnet/2018/12/05/take-c-8-0-for-a-spin/">Preview releases</a> dropping towards the end of last year. We should expect to see VS 2019 Released this Quarter (one hopes) and can get a better look at C# 8 in its final form at that point.</p>
-<p>What we do know is there are a bunch of cool features coming:</p>
-<ul>
-<li>Nullable reference types</li>
-<li>Async streams</li>
-<li>Ranges and indices</li>
-<li>Default implementations of interface members</li>
-<li>Recursive patterns</li>
-<li>Switch expressions</li>
-<li>Target-typed new-expressions</li>
-</ul>
-<p>More detailed notes and examples of what these are and how they look was published on the .Net Blog article <a href="https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/">Building C# 8.0</a>.</p>
-<p>I am seriously looking forward to the Nullable reference types (I have a few libraries to get updated to support it still), Switch expressions and recursive patterns, and also finding out where the other features start to find their use for me.</p>
-<h2 id="net-core-30">.Net Core 3.0</h2>
-<p>Once again, we have a proper Major release. This one is as important as the .Net Core 2.0 milestone was, but hopefully, the jump is much more stable. This is an umbrella for new dotnet CLI tool updates, MSBuild updates, a new 3.0 runtime, and support for all in Visual Studio as well.</p>
-<p>The big headline is Windows Desktop Coming to .NET Core. Yes, this is OS-specific and not cross-platform, but is a huge step in getting those GUI apps transferred over to the dotnet CLI and the .Net Core runtime. As part of this, they even OpenSourced all the GUI frameworks WPF, WinForms and WinUI.</p>
-<p>Things to look out for when moving to .Net Core 3.0:</p>
-<ul>
-<li>Desktop Applications support</li>
-<li>Applications now have executables by default</li>
-<li>dotnet build now copies dependencies</li>
-<li>Local dotnet tools</li>
-<li>ARM64 and updated platform support</li>
-<li>Many language and runtime improvements
-<ul>
-<li>fast in-box JSON Reader</li>
-<li>C# 8 language features support</li>
-<li>System.Buffers.SequenceReader</li>
-<li>IoT improvements</li>
-<li>TLS improvements on linux</li>
-<li>Cryptography improvements</li>
-<li>More BCL Improvements using optimized Span<!-- raw HTML omitted -->, Memory<!-- raw HTML omitted --></li>
-<li>Default implementations of interface members</li>
-<li>Tiered Compilation on by default</li>
-<li>Assembly Metadata Reading with MetadataLoadContext</li>
-</ul>
-</li>
-</ul>
-<p>To see more of the changes in detail, especially the language and runtime improvements, you can read up more yourself <a href="https://blogs.msdn.microsoft.com/dotnet/2018/12/04/announcing-net-core-3-preview-1-and-open-sourcing-windows-desktop-frameworks/">in the Announcement from December</a>.</p>
-<h2 id="netstandard21">.NetStandard2.1</h2>
-<p>The release of .Net Core 2.1 and 2.2 went by without needing to update the baseline of compatibility. The NetStandard2.0 target has stood up well as a baseline common denominator after the false start .NetStandard1.x gave some of us.</p>
-<p>Late last year Microsoft <a href="https://blogs.msdn.microsoft.com/dotnet/2018/11/05/announcing-net-standard-2-1/">Announced .NET Standard 2.1</a>, which is a new required standard that will be first implemented in .dotnet 3.0 and .Net Framework 4.8 is a foundation to allow using some of the new language features that need Runtime support, such as Async streams, indexers and ranges.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>As mentioned, you can start playing with some of this stuff today in the <a href="https://blogs.msdn.microsoft.com/dotnet/2018/12/05/take-c-8-0-for-a-spin/">Preview of Visual Studio 2019</a>.</p>
-<p>Plenty of new stuff to learn over the coming year and I can&rsquo;t wait for Release day so I can update everything I have.  First stop will be Nullable reference types.</p>
-<p>What are you looking forward to using the most?</p>
+      <description>&lt;p&gt;It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.&lt;/p&gt;
+&lt;p&gt;The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)&lt;/p&gt;
+&lt;h2 id=&#34;c-8&#34;&gt;C# 8&lt;/h2&gt;
+&lt;p&gt;It feels like we&amp;rsquo;ve been talking about C# 8 for a while, with 7.1, 7.2 and 7.3 releases building towards it. (It was 2 years ago when they were talking about what&amp;rsquo;s new in C# 7.0!). We&amp;rsquo;ve had demos at Build, NDC and online of what is coming, with &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/12/05/take-c-8-0-for-a-spin/&#34;&gt;Preview releases&lt;/a&gt; dropping towards the end of last year. We should expect to see VS 2019 Released this Quarter (one hopes) and can get a better look at C# 8 in its final form at that point.&lt;/p&gt;
+&lt;p&gt;What we do know is there are a bunch of cool features coming:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nullable reference types&lt;/li&gt;
+&lt;li&gt;Async streams&lt;/li&gt;
+&lt;li&gt;Ranges and indices&lt;/li&gt;
+&lt;li&gt;Default implementations of interface members&lt;/li&gt;
+&lt;li&gt;Recursive patterns&lt;/li&gt;
+&lt;li&gt;Switch expressions&lt;/li&gt;
+&lt;li&gt;Target-typed new-expressions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;More detailed notes and examples of what these are and how they look was published on the .Net Blog article &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/&#34;&gt;Building C# 8.0&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I am seriously looking forward to the Nullable reference types (I have a few libraries to get updated to support it still), Switch expressions and recursive patterns, and also finding out where the other features start to find their use for me.&lt;/p&gt;
+&lt;h2 id=&#34;net-core-30&#34;&gt;.Net Core 3.0&lt;/h2&gt;
+&lt;p&gt;Once again, we have a proper Major release. This one is as important as the .Net Core 2.0 milestone was, but hopefully, the jump is much more stable. This is an umbrella for new dotnet CLI tool updates, MSBuild updates, a new 3.0 runtime, and support for all in Visual Studio as well.&lt;/p&gt;
+&lt;p&gt;The big headline is Windows Desktop Coming to .NET Core. Yes, this is OS-specific and not cross-platform, but is a huge step in getting those GUI apps transferred over to the dotnet CLI and the .Net Core runtime. As part of this, they even OpenSourced all the GUI frameworks WPF, WinForms and WinUI.&lt;/p&gt;
+&lt;p&gt;Things to look out for when moving to .Net Core 3.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Desktop Applications support&lt;/li&gt;
+&lt;li&gt;Applications now have executables by default&lt;/li&gt;
+&lt;li&gt;dotnet build now copies dependencies&lt;/li&gt;
+&lt;li&gt;Local dotnet tools&lt;/li&gt;
+&lt;li&gt;ARM64 and updated platform support&lt;/li&gt;
+&lt;li&gt;Many language and runtime improvements
+&lt;ul&gt;
+&lt;li&gt;fast in-box JSON Reader&lt;/li&gt;
+&lt;li&gt;C# 8 language features support&lt;/li&gt;
+&lt;li&gt;System.Buffers.SequenceReader&lt;/li&gt;
+&lt;li&gt;IoT improvements&lt;/li&gt;
+&lt;li&gt;TLS improvements on linux&lt;/li&gt;
+&lt;li&gt;Cryptography improvements&lt;/li&gt;
+&lt;li&gt;More BCL Improvements using optimized Span&lt;!-- raw HTML omitted --&gt;, Memory&lt;!-- raw HTML omitted --&gt;&lt;/li&gt;
+&lt;li&gt;Default implementations of interface members&lt;/li&gt;
+&lt;li&gt;Tiered Compilation on by default&lt;/li&gt;
+&lt;li&gt;Assembly Metadata Reading with MetadataLoadContext&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To see more of the changes in detail, especially the language and runtime improvements, you can read up more yourself &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/12/04/announcing-net-core-3-preview-1-and-open-sourcing-windows-desktop-frameworks/&#34;&gt;in the Announcement from December&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;netstandard21&#34;&gt;.NetStandard2.1&lt;/h2&gt;
+&lt;p&gt;The release of .Net Core 2.1 and 2.2 went by without needing to update the baseline of compatibility. The NetStandard2.0 target has stood up well as a baseline common denominator after the false start .NetStandard1.x gave some of us.&lt;/p&gt;
+&lt;p&gt;Late last year Microsoft &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/11/05/announcing-net-standard-2-1/&#34;&gt;Announced .NET Standard 2.1&lt;/a&gt;, which is a new required standard that will be first implemented in .dotnet 3.0 and .Net Framework 4.8 is a foundation to allow using some of the new language features that need Runtime support, such as Async streams, indexers and ranges.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;As mentioned, you can start playing with some of this stuff today in the &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/12/05/take-c-8-0-for-a-spin/&#34;&gt;Preview of Visual Studio 2019&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Plenty of new stuff to learn over the coming year and I can&amp;rsquo;t wait for Release day so I can update everything I have.  First stop will be Nullable reference types.&lt;/p&gt;
+&lt;p&gt;What are you looking forward to using the most?&lt;/p&gt;
 </description>
     </item>
     

@@ -19,44 +19,44 @@
       <pubDate>Thu, 20 Aug 2015 07:57:16 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/keyboard-shortcuts-for-windows-10-power-users-2/</guid>
-      <description><p>When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&rsquo;ve split this into two parts.</p>
-<ul>
-<li>Part 1: <a href="/keyboard-shortcuts-for-windows-10-power-users-1">What&rsquo;s New</a></li>
-<li>Part 2: Old Classics &lt;=(We are here)</li>
-</ul>
-<h2 id="part-2-old-classics">Part 2 Old classics</h2>
-<p>If you are a Windows 7 power user, there is nothing new for you here. But you might want to skim the list anyway, in case you&rsquo;ve been missing something useful for years and didn&rsquo;t know it.  I don&rsquo;t have anything older than 7 but can confirm these do appear in that version. In Windows 10, they are still here, and can improve your productivity to use them.</p>
-<h4 id="winkey--l--lock-screen">WinKey + l =&gt; Lock screen</h4>
-<p>If you use a computer in your day job, this is a must know shortcut. Every time I get up, I instinctively use <code>WinKey + 1</code> to lock my machine. I also have a 5-minute timeout, but pranksters and inter-office practical jokes have drummed this one into me.</p>
-<h4 id="winkey--pause--system-information">WinKey + Pause =&gt; System Information</h4>
-<p>This is an old favorite of mine. Use <code>WinKey + Pause</code> to open the System information screen (usually labelled as &lsquo;System&rsquo;). It&rsquo;s a quick way to check the specs of a machine, its processors, memory, machine name, version and SKU, 64 or 32 bit.  It is also a great way to quickly get to Advanced system settings, which is usually linked off of this screen.</p>
-<h4 id="winkey--p--project-duplicate-extend-etc">WinKey + p =&gt; Project (Duplicate, extend etc)</h4>
-<p>If you use projectors and tvs a lot to present on, this is another must know shortcut. <code>WinKey + p</code> show the Project selection, and successive presses of &lsquo;p&rsquo; while holding down the <code>WinKey</code> will toggle through the options. Release <code>WinKey</code> will active the projection mode selected. You can also use the mouse once the selection screen is visible, or <code>Esc</code> to dismiss.</p>
-<h4 id="winkey--m--minimise-windows">WinKey + m =&gt; Minimise windows</h4>
-<p><code>WinKey + m</code> minimises all the applications on your screen down to the taskbar. This can be a nice way to remove the clutter from your screen, before opening back up one task to focus on, or launch something from your desktop.</p>
-<p>With Multiple Desktops in Windows 10, this only minimises the apps on the desktop you are currently on, and not any of the other ones, which is nice.</p>
-<p>As a companion to this, if you use <code>WinKey + Shift + m</code> it restores all the minimised windows.</p>
-<h4 id="winkey--d--toggle-show-desktoprestore-apps">WinKey + d =&gt; Toggle show desktop/restore apps</h4>
-<p><code>WinKey + d</code> and <code>WinKey + m</code> are very similar at first glance. What makes <code>WinKey + d</code> different is rather than just minimising everything, it toggles hiding and showing all your windows that are in focus.</p>
-<p>This is slightly less useful than it seems since all you really get to do is see the desktop, copy or paste icons from the desktop, then restore, and not much more. Anything else, like opening something from the desktop will stop you being able to restore again. However, you can still use <code>WinKey + Shift + m</code> to restore again at this stage as well.</p>
-<h4 id="winkey--r--run">WinKey + r =&gt; Run</h4>
-<p>Windows has a Run dialog. It can be launched from the start menu, searching start, or using the shortcut key <code>WinKey + r</code>. A great way to run an app from a specific name. I mostly use it to quickly run applications like notepad, or calc, since they are quick to type, or when I need to run RegEdit.</p>
-<h4 id="winkey--e--explorer">WinKey + e =&gt; Explorer</h4>
-<p>I use <code>WinKey + e</code> almost daily. If I need a file explorer, this is the way I get one open, much faster than grabbing the mouse and clicking file explorer on the taskbar.</p>
-<h4 id="winkey--t---taskbar">WinKey + t = &gt; Taskbar</h4>
-<p>Want to focus on the taskbar? <code>WinKey + t</code> gets you there, and you can use the arrow keys to navigate, and <code>Enter</code> to launch or show an app and give it focus.</p>
-<h4 id="winkey--b--system-tray-icon-area">WinKey + b =&gt; System tray icon area</h4>
-<p>Want to focus on the system tray? There is a shortcut for that too: <code>WinKey + b</code>. Again we use the arrow keys and <code>Enter</code> to navigate and select something.</p>
-<h4 id="winkey--u--ease-of-access-center">WinKey + u =&gt; Ease of access center</h4>
-<p>Something I never use, but here for completeness, <code>WinKey + u</code> launches the Ease of access center.</p>
-<h4 id="alt--f4--close">Alt + F4 =&gt; Close</h4>
-<p>I&rsquo;ve tried to focus on <code>WinKey +</code> shortcuts, but this is a great complement to all the other I have mentioned. <code>Alt + F4</code> closes the current window or Application. If you are on the desktop, this launches the <code>Shutdown Windows</code> dialog instead.</p>
-<h4 id="ctrl--alt--delete--windows-security">Ctrl + Alt + Delete =&gt; Windows Security</h4>
-<p><code>Ctrl + Alt + Delete</code> is pretty well known, and even has its own <a href="https://en.wikipedia.org/wiki/Control-Alt-Delete">Wiki page</a>. In Windows, at some point in time this launched the Task Manager directly, but these days it brings you to a full-screen menu, providing quick actions like launching the Task Manager, And allowing you to perform session actions like, log out, switch user and lock.</p>
-<h4 id="alt--tab--switch-focus">Alt + Tab =&gt; Switch Focus</h4>
-<p>I mentioned <code>Alt + Tab</code> when I talked about <code>WinKey + Tab</code> in Part 1. This launches the Task Switcher. Holding <code>Alt</code> and successively pressing <code>Tab</code> will cycle through all of the windows you can focus on and will gain focus when you release the <code>Alt</code> key.  In Windows 10, using Multiple Desktops, only the Windows in the current desktop show up in the <code>Alt + Tab</code> menu.</p>
-<h3 id="summary">Summary</h3>
-<p>I&rsquo;ve missed a lot. I know I have. But I really wanted to focus on the <code>WinKey</code> based shortcuts. Maybe I will come back for a part 3 at some point and cover a bunch of Windows conventions that work across many, but not all of the apps. For now, I hope you learned one new thing to take away with you today to start using tomorrow.</p>
+      <description>&lt;p&gt;When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Part 1: &lt;a href=&#34;https://csmacnzblog.github.io/keyboard-shortcuts-for-windows-10-power-users-1&#34;&gt;What&amp;rsquo;s New&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 2: Old Classics &amp;lt;=(We are here)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;part-2-old-classics&#34;&gt;Part 2 Old classics&lt;/h2&gt;
+&lt;p&gt;If you are a Windows 7 power user, there is nothing new for you here. But you might want to skim the list anyway, in case you&amp;rsquo;ve been missing something useful for years and didn&amp;rsquo;t know it.  I don&amp;rsquo;t have anything older than 7 but can confirm these do appear in that version. In Windows 10, they are still here, and can improve your productivity to use them.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--l--lock-screen&#34;&gt;WinKey + l =&amp;gt; Lock screen&lt;/h4&gt;
+&lt;p&gt;If you use a computer in your day job, this is a must know shortcut. Every time I get up, I instinctively use &lt;code&gt;WinKey + 1&lt;/code&gt; to lock my machine. I also have a 5-minute timeout, but pranksters and inter-office practical jokes have drummed this one into me.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--pause--system-information&#34;&gt;WinKey + Pause =&amp;gt; System Information&lt;/h4&gt;
+&lt;p&gt;This is an old favorite of mine. Use &lt;code&gt;WinKey + Pause&lt;/code&gt; to open the System information screen (usually labelled as &amp;lsquo;System&amp;rsquo;). It&amp;rsquo;s a quick way to check the specs of a machine, its processors, memory, machine name, version and SKU, 64 or 32 bit.  It is also a great way to quickly get to Advanced system settings, which is usually linked off of this screen.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--p--project-duplicate-extend-etc&#34;&gt;WinKey + p =&amp;gt; Project (Duplicate, extend etc)&lt;/h4&gt;
+&lt;p&gt;If you use projectors and tvs a lot to present on, this is another must know shortcut. &lt;code&gt;WinKey + p&lt;/code&gt; show the Project selection, and successive presses of &amp;lsquo;p&amp;rsquo; while holding down the &lt;code&gt;WinKey&lt;/code&gt; will toggle through the options. Release &lt;code&gt;WinKey&lt;/code&gt; will active the projection mode selected. You can also use the mouse once the selection screen is visible, or &lt;code&gt;Esc&lt;/code&gt; to dismiss.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--m--minimise-windows&#34;&gt;WinKey + m =&amp;gt; Minimise windows&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;WinKey + m&lt;/code&gt; minimises all the applications on your screen down to the taskbar. This can be a nice way to remove the clutter from your screen, before opening back up one task to focus on, or launch something from your desktop.&lt;/p&gt;
+&lt;p&gt;With Multiple Desktops in Windows 10, this only minimises the apps on the desktop you are currently on, and not any of the other ones, which is nice.&lt;/p&gt;
+&lt;p&gt;As a companion to this, if you use &lt;code&gt;WinKey + Shift + m&lt;/code&gt; it restores all the minimised windows.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--d--toggle-show-desktoprestore-apps&#34;&gt;WinKey + d =&amp;gt; Toggle show desktop/restore apps&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;WinKey + d&lt;/code&gt; and &lt;code&gt;WinKey + m&lt;/code&gt; are very similar at first glance. What makes &lt;code&gt;WinKey + d&lt;/code&gt; different is rather than just minimising everything, it toggles hiding and showing all your windows that are in focus.&lt;/p&gt;
+&lt;p&gt;This is slightly less useful than it seems since all you really get to do is see the desktop, copy or paste icons from the desktop, then restore, and not much more. Anything else, like opening something from the desktop will stop you being able to restore again. However, you can still use &lt;code&gt;WinKey + Shift + m&lt;/code&gt; to restore again at this stage as well.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--r--run&#34;&gt;WinKey + r =&amp;gt; Run&lt;/h4&gt;
+&lt;p&gt;Windows has a Run dialog. It can be launched from the start menu, searching start, or using the shortcut key &lt;code&gt;WinKey + r&lt;/code&gt;. A great way to run an app from a specific name. I mostly use it to quickly run applications like notepad, or calc, since they are quick to type, or when I need to run RegEdit.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--e--explorer&#34;&gt;WinKey + e =&amp;gt; Explorer&lt;/h4&gt;
+&lt;p&gt;I use &lt;code&gt;WinKey + e&lt;/code&gt; almost daily. If I need a file explorer, this is the way I get one open, much faster than grabbing the mouse and clicking file explorer on the taskbar.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--t---taskbar&#34;&gt;WinKey + t = &amp;gt; Taskbar&lt;/h4&gt;
+&lt;p&gt;Want to focus on the taskbar? &lt;code&gt;WinKey + t&lt;/code&gt; gets you there, and you can use the arrow keys to navigate, and &lt;code&gt;Enter&lt;/code&gt; to launch or show an app and give it focus.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--b--system-tray-icon-area&#34;&gt;WinKey + b =&amp;gt; System tray icon area&lt;/h4&gt;
+&lt;p&gt;Want to focus on the system tray? There is a shortcut for that too: &lt;code&gt;WinKey + b&lt;/code&gt;. Again we use the arrow keys and &lt;code&gt;Enter&lt;/code&gt; to navigate and select something.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--u--ease-of-access-center&#34;&gt;WinKey + u =&amp;gt; Ease of access center&lt;/h4&gt;
+&lt;p&gt;Something I never use, but here for completeness, &lt;code&gt;WinKey + u&lt;/code&gt; launches the Ease of access center.&lt;/p&gt;
+&lt;h4 id=&#34;alt--f4--close&#34;&gt;Alt + F4 =&amp;gt; Close&lt;/h4&gt;
+&lt;p&gt;I&amp;rsquo;ve tried to focus on &lt;code&gt;WinKey +&lt;/code&gt; shortcuts, but this is a great complement to all the other I have mentioned. &lt;code&gt;Alt + F4&lt;/code&gt; closes the current window or Application. If you are on the desktop, this launches the &lt;code&gt;Shutdown Windows&lt;/code&gt; dialog instead.&lt;/p&gt;
+&lt;h4 id=&#34;ctrl--alt--delete--windows-security&#34;&gt;Ctrl + Alt + Delete =&amp;gt; Windows Security&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Ctrl + Alt + Delete&lt;/code&gt; is pretty well known, and even has its own &lt;a href=&#34;https://en.wikipedia.org/wiki/Control-Alt-Delete&#34;&gt;Wiki page&lt;/a&gt;. In Windows, at some point in time this launched the Task Manager directly, but these days it brings you to a full-screen menu, providing quick actions like launching the Task Manager, And allowing you to perform session actions like, log out, switch user and lock.&lt;/p&gt;
+&lt;h4 id=&#34;alt--tab--switch-focus&#34;&gt;Alt + Tab =&amp;gt; Switch Focus&lt;/h4&gt;
+&lt;p&gt;I mentioned &lt;code&gt;Alt + Tab&lt;/code&gt; when I talked about &lt;code&gt;WinKey + Tab&lt;/code&gt; in Part 1. This launches the Task Switcher. Holding &lt;code&gt;Alt&lt;/code&gt; and successively pressing &lt;code&gt;Tab&lt;/code&gt; will cycle through all of the windows you can focus on and will gain focus when you release the &lt;code&gt;Alt&lt;/code&gt; key.  In Windows 10, using Multiple Desktops, only the Windows in the current desktop show up in the &lt;code&gt;Alt + Tab&lt;/code&gt; menu.&lt;/p&gt;
+&lt;h3 id=&#34;summary&#34;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ve missed a lot. I know I have. But I really wanted to focus on the &lt;code&gt;WinKey&lt;/code&gt; based shortcuts. Maybe I will come back for a part 3 at some point and cover a bunch of Windows conventions that work across many, but not all of the apps. For now, I hope you learned one new thing to take away with you today to start using tomorrow.&lt;/p&gt;
 </description>
     </item>
     
@@ -66,56 +66,56 @@
       <pubDate>Sun, 16 Aug 2015 07:46:39 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/keyboard-shortcuts-for-windows-10-power-users-1/</guid>
-      <description><p>When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&rsquo;ve split this into two parts.</p>
-<ul>
-<li>Part 1: What&rsquo;s New &lt;=(We are here)</li>
-<li>Part 2: <a href="/keyboard-shortcuts-for-windows-10-power-users-2">Old Classics</a></li>
-</ul>
-<h2 id="part-1-whats-new">Part 1: Whats new?</h2>
-<p>Let&rsquo;s focus on what is new to Windows 7 users. Some of these are completely new to Windows 10, and some have been around since 8, but they might not do exactly what they used to.</p>
-<ul>
-<li>New to Windows 10</li>
-<li>Changed in Windows 10</li>
-<li>Added in Windows 8</li>
-</ul>
-<h3 id="new-to-windows-10">New to Windows 10</h3>
-<p>With the new Multiple Desktops feature comes a few new shortcuts for you to learn. Using the task view you can perform all these actions with the mouse, but keyboard junkies will love these new keyboard commands. (See <code>WinKey + Tab</code> further down for more on the Task View.)</p>
-<h4 id="winkey--ctrl--d--add-new-desktop">WinKey + Ctrl + d =&gt; Add new desktop</h4>
-<p>As well as using your mouse with Task View, you can quickly add a new desktop using the new <code>WinKey + Ctrl + d</code> shortcut.  This creates a new desktop at the far right of all existing ones and takes you to it.</p>
-<h4 id="winkey--ctrl--f4--close-a-desktop">WinKey + Ctrl + F4 =&gt; Close a desktop</h4>
-<p>Finished with a desktop? <code>WinKey + Ctrl + F4</code> will close it and take you, and any open apps to the desktop on your left. If you&rsquo;re at the left-most screen, it will take everything to the new left-most screen.</p>
-<h4 id="winkey--ctrl--leftright--switch-desktops">WinKey + Ctrl + left/right =&gt; Switch desktops</h4>
-<p>Using <code>Ctrl + WinKey + left arrow</code> will navigate you to the Desktop to your left. <code>Ctrl + WinKey + right arrow</code> will navigate you to the Desktop to your right. These desktops don&rsquo;t wrap, so when you are at the right-most or left-most, the shortcut for that direction does nothing.</p>
-<h4 id="a-note-about-multiple-monitors">A note about multiple monitors</h4>
-<p>If you use a multi-monitor setup, you will find that each desktop contains all of your monitors. This is best explained with an example.  If you have two monitors and one desktop everything will be familiar. When you add a new desktop, both your screens transition to that desktop. As you switch between Desktop 1 and Desktop 2, both of your monitors will change back and forward.  Basically what I am trying to say is that it is an all or nothing transition, you can&rsquo;t have different numbers of Desktops per monitor, or transition separately per monitor.</p>
-<h3 id="changed-in-windows-10">Changed in Windows 10</h3>
-<p>Windows 10 is a bit of a sweet spot between 7 and 8. Because of that, some of the edgy features from 8 have gone, or transformed to be a bit more pared back and so the shortcuts have had to change a bit too.</p>
-<h4 id="winkey--sor-q--search">WinKey + s(or q) =&gt; Search</h4>
-<p>Windows 8 introduced <code>WinKey + s</code> and <code>WinKey + q</code>. From memory, they used to do different things, possible app vs global search, but since 8.1 Update they both just bring up the Windows search menu.  With Windows 10, these both do the same thing, and that is to open and focus windows search, or Cortana if that is available and enabled.</p>
-<p>Also, note that <code>WinKey + w</code>, and <code>WinKey + f</code>, which used to bring up settings search and files search have been removed. Windows Search finds anything and everything in one place now.</p>
-<h4 id="winkey--i--settings">WinKey + i =&gt; Settings</h4>
-<p>In Windows 8, <code>WinKey + i</code> brought up the settings sidebar. This would be the running Windows Store Application&rsquo;s Settings page. If you were on the desktop it had a Desktop Settings page instead. In Windows 10 this brings up the Windows Settings App. This &lsquo;app&rsquo; is the new way to interact with most of the functionality that used to belong to the Control Panel. (This is what evolved out of Windows 8&rsquo;s PC Settings App.)</p>
-<h4 id="winkey--c--microphone-search">WinKey + c =&gt; Microphone search</h4>
-<p>In Windows 8, there was the concept of the Charms bar on the right hand side. Now in Windows 10, since that is no longer a thing, the shortcut <code>WinKey + c</code> has been reused to launch microphone/Cortana speech to text search instead.</p>
-<h4 id="winkey--tab--task-view">WinKey + Tab =&gt; Task View</h4>
-<p>I believe this came in with Vista as part of the Aero visual theming for windows. Using <code>WinKey + Tab</code> rather than <code>Alt + Tab</code> gave you a 3d visualisation carousel of sorts, that cycled through live views of the running windows.  Windows 8 re-used this for app switching, opening a bar at the right-hand side with your Windows Store apps.</p>
-<p>Now with Windows 10, it launches Task View. Task View can also be launched from the button located on your taskbar that looks like a box with wings.  It is here that you get access to the Multiple Desktop feature, to add a new desktop or navigate between, and transfer windows between them using the mouse.</p>
-<h4 id="winkey--arrows--snap-windows">WinKey + Arrows =&gt; Snap Windows</h4>
-<p>Another one that has been around a while is the window snapping feature. Not sure if this was a Vista or a 7 thing, but it too has been enhanced with Windows 10.  The old functionality snaps your focused application.  <code>WinKey + up</code> would make your app full screen. From there you can use <code>WinKey + down</code> to restore the window as a window. One more <code>WinKey + down</code> would minimise the windows. <code>WinKey + left</code> would snap the app to take the entire left side of the screen, and <code>WinKey + right</code> would snap the app to take the entire right side of the screen.</p>
-<p>In Windows 10 we have two new features. When you <code>WinKey + left</code> to snap your window, you get an app picker on the right-hand side, to quickly snap another app into the rest of the space. <code>Esc</code> cancels that new selection menu. Again <code>WinKey + right</code> is the opposite.</p>
-<p>The other new feature is that you can do all 4 quarters of your screen.  <code>WinKey + up</code> from a left or right snapped app will shrink it to half the size again into the respective corner. Playing around with the arrow keys gets your app moving around all over the place, and as you start filling up the screen, if you have enough other apps running you will get the space fill window picker show up in the gaps you create.</p>
-<h3 id="added-in-windows-8">Added in Windows 8</h3>
-<p>Windows 8 users will be familiar with these, but for Windows 7 users coming to 10, here is something else that is new.</p>
-<h4 id="winkey--h--share">WinKey + h =&gt; Share</h4>
-<p>Sharing was a feature that Windows 8 introduced for Windows Store Apps.  Apps could provide code to handle producing shareable text, images and other structured data, or to handle consuming different types of data.  The idea here is that using these loose contracts different apps could share in a very generic way.  <code>WinKey + h</code> launches the Share page on the right-hand side.  As well as the shares from the app, there is a built in &ldquo;Share a Screenshot of&rdquo; default, which is always there no matter what application you are running.</p>
-<h4 id="winkey--k--connect-devices">WinKey + k =&gt; Connect devices</h4>
-<p>Windows 8 introduced Connect as a quick way to connect to devices. This included Play to, Print, and Project. Now in windows 10, it is where we scan to connect to  wireless displays and audio devices. Using <code>WinKey + k</code> launches this page.</p>
-<h4 id="winkey--x--quick-actions">WinKey + x =&gt; Quick actions</h4>
-<p>The quick actions shortcut <code>WinKey + x</code> seems to be new since Windows 8 (although on HP machines this shortcut seems to launch the Windows Mobility Center). It launches the menu you get when you right-click on the start button. In Windows 8 and 10 we have actions like Shutdown/restart, launch a command-line or PowerShell window, get to System, Device Manager, Event Viewer and others.  This is a great quick way to get to advanced system screens quickly and easily.</p>
-<h4 id="winkey--print-screen">WinKey + Print Screen</h4>
-<p>The Print Screen key (sometimes labelled <code>PrtScn</code> or <code>prt sc</code>) has always had modifiers when you take screenshots with it. In Windows 8 we were introduced <code>WinKey + Print Screen</code> to screenshot the whole desktop and same the image straight to your picture folder. Phones and tablets usually also have this feature using a combination of hardware buttons pressed at the same time (often <code>Volume Up + Power</code>).</p>
-<h3 id="summary">Summary</h3>
-<p>There you have it. Multiple Desktops, App Snapping, Share, Connect and Quick actions.  That is what is new, and I hope you find one or two that you will start using tomorrow, even if you still on Windows 8.  If you are still on 7 or haven&rsquo;t really got stuck into using shortcuts on windows, there are plenty more out there, and I will run through the in Part 2: Old Classics.</p>
+      <description>&lt;p&gt;When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Part 1: What&amp;rsquo;s New &amp;lt;=(We are here)&lt;/li&gt;
+&lt;li&gt;Part 2: &lt;a href=&#34;https://csmacnzblog.github.io/keyboard-shortcuts-for-windows-10-power-users-2&#34;&gt;Old Classics&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;part-1-whats-new&#34;&gt;Part 1: Whats new?&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s focus on what is new to Windows 7 users. Some of these are completely new to Windows 10, and some have been around since 8, but they might not do exactly what they used to.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;New to Windows 10&lt;/li&gt;
+&lt;li&gt;Changed in Windows 10&lt;/li&gt;
+&lt;li&gt;Added in Windows 8&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;new-to-windows-10&#34;&gt;New to Windows 10&lt;/h3&gt;
+&lt;p&gt;With the new Multiple Desktops feature comes a few new shortcuts for you to learn. Using the task view you can perform all these actions with the mouse, but keyboard junkies will love these new keyboard commands. (See &lt;code&gt;WinKey + Tab&lt;/code&gt; further down for more on the Task View.)&lt;/p&gt;
+&lt;h4 id=&#34;winkey--ctrl--d--add-new-desktop&#34;&gt;WinKey + Ctrl + d =&amp;gt; Add new desktop&lt;/h4&gt;
+&lt;p&gt;As well as using your mouse with Task View, you can quickly add a new desktop using the new &lt;code&gt;WinKey + Ctrl + d&lt;/code&gt; shortcut.  This creates a new desktop at the far right of all existing ones and takes you to it.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--ctrl--f4--close-a-desktop&#34;&gt;WinKey + Ctrl + F4 =&amp;gt; Close a desktop&lt;/h4&gt;
+&lt;p&gt;Finished with a desktop? &lt;code&gt;WinKey + Ctrl + F4&lt;/code&gt; will close it and take you, and any open apps to the desktop on your left. If you&amp;rsquo;re at the left-most screen, it will take everything to the new left-most screen.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--ctrl--leftright--switch-desktops&#34;&gt;WinKey + Ctrl + left/right =&amp;gt; Switch desktops&lt;/h4&gt;
+&lt;p&gt;Using &lt;code&gt;Ctrl + WinKey + left arrow&lt;/code&gt; will navigate you to the Desktop to your left. &lt;code&gt;Ctrl + WinKey + right arrow&lt;/code&gt; will navigate you to the Desktop to your right. These desktops don&amp;rsquo;t wrap, so when you are at the right-most or left-most, the shortcut for that direction does nothing.&lt;/p&gt;
+&lt;h4 id=&#34;a-note-about-multiple-monitors&#34;&gt;A note about multiple monitors&lt;/h4&gt;
+&lt;p&gt;If you use a multi-monitor setup, you will find that each desktop contains all of your monitors. This is best explained with an example.  If you have two monitors and one desktop everything will be familiar. When you add a new desktop, both your screens transition to that desktop. As you switch between Desktop 1 and Desktop 2, both of your monitors will change back and forward.  Basically what I am trying to say is that it is an all or nothing transition, you can&amp;rsquo;t have different numbers of Desktops per monitor, or transition separately per monitor.&lt;/p&gt;
+&lt;h3 id=&#34;changed-in-windows-10&#34;&gt;Changed in Windows 10&lt;/h3&gt;
+&lt;p&gt;Windows 10 is a bit of a sweet spot between 7 and 8. Because of that, some of the edgy features from 8 have gone, or transformed to be a bit more pared back and so the shortcuts have had to change a bit too.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--sor-q--search&#34;&gt;WinKey + s(or q) =&amp;gt; Search&lt;/h4&gt;
+&lt;p&gt;Windows 8 introduced &lt;code&gt;WinKey + s&lt;/code&gt; and &lt;code&gt;WinKey + q&lt;/code&gt;. From memory, they used to do different things, possible app vs global search, but since 8.1 Update they both just bring up the Windows search menu.  With Windows 10, these both do the same thing, and that is to open and focus windows search, or Cortana if that is available and enabled.&lt;/p&gt;
+&lt;p&gt;Also, note that &lt;code&gt;WinKey + w&lt;/code&gt;, and &lt;code&gt;WinKey + f&lt;/code&gt;, which used to bring up settings search and files search have been removed. Windows Search finds anything and everything in one place now.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--i--settings&#34;&gt;WinKey + i =&amp;gt; Settings&lt;/h4&gt;
+&lt;p&gt;In Windows 8, &lt;code&gt;WinKey + i&lt;/code&gt; brought up the settings sidebar. This would be the running Windows Store Application&amp;rsquo;s Settings page. If you were on the desktop it had a Desktop Settings page instead. In Windows 10 this brings up the Windows Settings App. This &amp;lsquo;app&amp;rsquo; is the new way to interact with most of the functionality that used to belong to the Control Panel. (This is what evolved out of Windows 8&amp;rsquo;s PC Settings App.)&lt;/p&gt;
+&lt;h4 id=&#34;winkey--c--microphone-search&#34;&gt;WinKey + c =&amp;gt; Microphone search&lt;/h4&gt;
+&lt;p&gt;In Windows 8, there was the concept of the Charms bar on the right hand side. Now in Windows 10, since that is no longer a thing, the shortcut &lt;code&gt;WinKey + c&lt;/code&gt; has been reused to launch microphone/Cortana speech to text search instead.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--tab--task-view&#34;&gt;WinKey + Tab =&amp;gt; Task View&lt;/h4&gt;
+&lt;p&gt;I believe this came in with Vista as part of the Aero visual theming for windows. Using &lt;code&gt;WinKey + Tab&lt;/code&gt; rather than &lt;code&gt;Alt + Tab&lt;/code&gt; gave you a 3d visualisation carousel of sorts, that cycled through live views of the running windows.  Windows 8 re-used this for app switching, opening a bar at the right-hand side with your Windows Store apps.&lt;/p&gt;
+&lt;p&gt;Now with Windows 10, it launches Task View. Task View can also be launched from the button located on your taskbar that looks like a box with wings.  It is here that you get access to the Multiple Desktop feature, to add a new desktop or navigate between, and transfer windows between them using the mouse.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--arrows--snap-windows&#34;&gt;WinKey + Arrows =&amp;gt; Snap Windows&lt;/h4&gt;
+&lt;p&gt;Another one that has been around a while is the window snapping feature. Not sure if this was a Vista or a 7 thing, but it too has been enhanced with Windows 10.  The old functionality snaps your focused application.  &lt;code&gt;WinKey + up&lt;/code&gt; would make your app full screen. From there you can use &lt;code&gt;WinKey + down&lt;/code&gt; to restore the window as a window. One more &lt;code&gt;WinKey + down&lt;/code&gt; would minimise the windows. &lt;code&gt;WinKey + left&lt;/code&gt; would snap the app to take the entire left side of the screen, and &lt;code&gt;WinKey + right&lt;/code&gt; would snap the app to take the entire right side of the screen.&lt;/p&gt;
+&lt;p&gt;In Windows 10 we have two new features. When you &lt;code&gt;WinKey + left&lt;/code&gt; to snap your window, you get an app picker on the right-hand side, to quickly snap another app into the rest of the space. &lt;code&gt;Esc&lt;/code&gt; cancels that new selection menu. Again &lt;code&gt;WinKey + right&lt;/code&gt; is the opposite.&lt;/p&gt;
+&lt;p&gt;The other new feature is that you can do all 4 quarters of your screen.  &lt;code&gt;WinKey + up&lt;/code&gt; from a left or right snapped app will shrink it to half the size again into the respective corner. Playing around with the arrow keys gets your app moving around all over the place, and as you start filling up the screen, if you have enough other apps running you will get the space fill window picker show up in the gaps you create.&lt;/p&gt;
+&lt;h3 id=&#34;added-in-windows-8&#34;&gt;Added in Windows 8&lt;/h3&gt;
+&lt;p&gt;Windows 8 users will be familiar with these, but for Windows 7 users coming to 10, here is something else that is new.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--h--share&#34;&gt;WinKey + h =&amp;gt; Share&lt;/h4&gt;
+&lt;p&gt;Sharing was a feature that Windows 8 introduced for Windows Store Apps.  Apps could provide code to handle producing shareable text, images and other structured data, or to handle consuming different types of data.  The idea here is that using these loose contracts different apps could share in a very generic way.  &lt;code&gt;WinKey + h&lt;/code&gt; launches the Share page on the right-hand side.  As well as the shares from the app, there is a built in &amp;ldquo;Share a Screenshot of&amp;rdquo; default, which is always there no matter what application you are running.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--k--connect-devices&#34;&gt;WinKey + k =&amp;gt; Connect devices&lt;/h4&gt;
+&lt;p&gt;Windows 8 introduced Connect as a quick way to connect to devices. This included Play to, Print, and Project. Now in windows 10, it is where we scan to connect to  wireless displays and audio devices. Using &lt;code&gt;WinKey + k&lt;/code&gt; launches this page.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--x--quick-actions&#34;&gt;WinKey + x =&amp;gt; Quick actions&lt;/h4&gt;
+&lt;p&gt;The quick actions shortcut &lt;code&gt;WinKey + x&lt;/code&gt; seems to be new since Windows 8 (although on HP machines this shortcut seems to launch the Windows Mobility Center). It launches the menu you get when you right-click on the start button. In Windows 8 and 10 we have actions like Shutdown/restart, launch a command-line or PowerShell window, get to System, Device Manager, Event Viewer and others.  This is a great quick way to get to advanced system screens quickly and easily.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--print-screen&#34;&gt;WinKey + Print Screen&lt;/h4&gt;
+&lt;p&gt;The Print Screen key (sometimes labelled &lt;code&gt;PrtScn&lt;/code&gt; or &lt;code&gt;prt sc&lt;/code&gt;) has always had modifiers when you take screenshots with it. In Windows 8 we were introduced &lt;code&gt;WinKey + Print Screen&lt;/code&gt; to screenshot the whole desktop and same the image straight to your picture folder. Phones and tablets usually also have this feature using a combination of hardware buttons pressed at the same time (often &lt;code&gt;Volume Up + Power&lt;/code&gt;).&lt;/p&gt;
+&lt;h3 id=&#34;summary&#34;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;There you have it. Multiple Desktops, App Snapping, Share, Connect and Quick actions.  That is what is new, and I hope you find one or two that you will start using tomorrow, even if you still on Windows 8.  If you are still on 7 or haven&amp;rsquo;t really got stuck into using shortcuts on windows, there are plenty more out there, and I will run through the in Part 2: Old Classics.&lt;/p&gt;
 </description>
     </item>
     
@@ -125,27 +125,27 @@
       <pubDate>Sun, 02 Aug 2015 17:18:45 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/windows-10-animations/</guid>
-      <description><p>You&rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?</p>
-<p>Since <a href="https://en.wikipedia.org/wiki/Windows_Aero">Aero</a> came onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects.  With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View.</p>
-<p>Luckily there has also always been a way to customise how little, or how much of the animations you want to see or use.</p>
-<h3 id="where-are-the-settings">Where are the settings?</h3>
-<p>To find the settings related to the animations, first you need to open <code>System Information</code>.  This can be done by typing <code>System</code> into search.</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10searchsystem_tluume.png" alt="Search for System Information using Windows Search."></p>
-<p>Or more simply, use the keyboard shortcut Winkey + Pause  (Pause is found near the Print Screen or scroll lock buttons on most keyboard I have used).</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10SystemInformation_fwvamw.png" alt="The System Information dialog."></p>
-<p>From here, simply click on the <code>Advanced system settings</code> button on the left. This opens the <code>System Properties</code> dialog. Navigate to the <code>Advanced</code> tab.</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10systemproperties_qyzvak.png" alt="The System Properties dialog."></p>
-<p>Click on <code>Settings</code> in the <code>Performance</code> section. This is where we can customise the <code>Visual Effects</code> of Windows.</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10performanceoptions_iicexg.png" alt="The Performance Options dialog."></p>
-<h3 id="caveat">Caveat</h3>
-<p>Windows might think it knows best and have turned off settings that your graphics setup cannot handle. Either setting could be completely unavailable to you, or you might start getting performance issues by turning some of these on. There, I&rsquo;ve warned you. Tweak the settings to your hearts content.</p>
-<h3 id="i-dont-currently-see-animations">I don&rsquo;t currently see animations</h3>
-<p>You really want to see the animations, but they don&rsquo;t seem to be currently on? You might have <code>Adjust for best performance</code> or <code>Let Windows choose what's best for my computer</code> selected.  Choose <code>Adjust for best appearance</code> and animations will be turned on.  Still not happy with this, you can use <code>Custom</code> and selectively turn on the ones you want.</p>
-<h3 id="the-animations-annoy-me">The animations annoy me</h3>
-<p>If you sincerely despise the animations windows throws at you, you are in luck. This is configurable. You may currently see <code>Adjust for best appearance</code>, or <code>Let Windows choose what's best for my computer</code>.  Just change this to <code>Adjust for best performance</code> and there is a good chance all the check boxes become unticked. All your animations will now be turned off.</p>
-<p>You may want to choose <code>Custom</code> and start selectively turning off the ones that really annoy you, and leave the rest on that make sense to you.</p>
-<h3 id="i-want-to-pick-and-choose">I want to pick and choose</h3>
-<p>As mentioned above, there is an option <code>Custom</code>. This lets your turn on and off specific OS animations. For instance <code>Animate windows when minimizing and maximizing</code> will turn on the transition for windows as you minimise and maximise them to the system tray, but also controls the multiple desktop transition left and right.  For the best balance, you can turn on the ones that work for you, and turn off the ones that don&rsquo;t. Customising these will give you the best experience for you and your machine to balance the power of the machine, against your tolerance or preference to the animations and transitions.</p>
+      <description>&lt;p&gt;You&amp;rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?&lt;/p&gt;
+&lt;p&gt;Since &lt;a href=&#34;https://en.wikipedia.org/wiki/Windows_Aero&#34;&gt;Aero&lt;/a&gt; came onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects.  With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View.&lt;/p&gt;
+&lt;p&gt;Luckily there has also always been a way to customise how little, or how much of the animations you want to see or use.&lt;/p&gt;
+&lt;h3 id=&#34;where-are-the-settings&#34;&gt;Where are the settings?&lt;/h3&gt;
+&lt;p&gt;To find the settings related to the animations, first you need to open &lt;code&gt;System Information&lt;/code&gt;.  This can be done by typing &lt;code&gt;System&lt;/code&gt; into search.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10searchsystem_tluume.png&#34; alt=&#34;Search for System Information using Windows Search.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Or more simply, use the keyboard shortcut Winkey + Pause  (Pause is found near the Print Screen or scroll lock buttons on most keyboard I have used).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10SystemInformation_fwvamw.png&#34; alt=&#34;The System Information dialog.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;From here, simply click on the &lt;code&gt;Advanced system settings&lt;/code&gt; button on the left. This opens the &lt;code&gt;System Properties&lt;/code&gt; dialog. Navigate to the &lt;code&gt;Advanced&lt;/code&gt; tab.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10systemproperties_qyzvak.png&#34; alt=&#34;The System Properties dialog.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Click on &lt;code&gt;Settings&lt;/code&gt; in the &lt;code&gt;Performance&lt;/code&gt; section. This is where we can customise the &lt;code&gt;Visual Effects&lt;/code&gt; of Windows.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10performanceoptions_iicexg.png&#34; alt=&#34;The Performance Options dialog.&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;caveat&#34;&gt;Caveat&lt;/h3&gt;
+&lt;p&gt;Windows might think it knows best and have turned off settings that your graphics setup cannot handle. Either setting could be completely unavailable to you, or you might start getting performance issues by turning some of these on. There, I&amp;rsquo;ve warned you. Tweak the settings to your hearts content.&lt;/p&gt;
+&lt;h3 id=&#34;i-dont-currently-see-animations&#34;&gt;I don&amp;rsquo;t currently see animations&lt;/h3&gt;
+&lt;p&gt;You really want to see the animations, but they don&amp;rsquo;t seem to be currently on? You might have &lt;code&gt;Adjust for best performance&lt;/code&gt; or &lt;code&gt;Let Windows choose what&#39;s best for my computer&lt;/code&gt; selected.  Choose &lt;code&gt;Adjust for best appearance&lt;/code&gt; and animations will be turned on.  Still not happy with this, you can use &lt;code&gt;Custom&lt;/code&gt; and selectively turn on the ones you want.&lt;/p&gt;
+&lt;h3 id=&#34;the-animations-annoy-me&#34;&gt;The animations annoy me&lt;/h3&gt;
+&lt;p&gt;If you sincerely despise the animations windows throws at you, you are in luck. This is configurable. You may currently see &lt;code&gt;Adjust for best appearance&lt;/code&gt;, or &lt;code&gt;Let Windows choose what&#39;s best for my computer&lt;/code&gt;.  Just change this to &lt;code&gt;Adjust for best performance&lt;/code&gt; and there is a good chance all the check boxes become unticked. All your animations will now be turned off.&lt;/p&gt;
+&lt;p&gt;You may want to choose &lt;code&gt;Custom&lt;/code&gt; and start selectively turning off the ones that really annoy you, and leave the rest on that make sense to you.&lt;/p&gt;
+&lt;h3 id=&#34;i-want-to-pick-and-choose&#34;&gt;I want to pick and choose&lt;/h3&gt;
+&lt;p&gt;As mentioned above, there is an option &lt;code&gt;Custom&lt;/code&gt;. This lets your turn on and off specific OS animations. For instance &lt;code&gt;Animate windows when minimizing and maximizing&lt;/code&gt; will turn on the transition for windows as you minimise and maximise them to the system tray, but also controls the multiple desktop transition left and right.  For the best balance, you can turn on the ones that work for you, and turn off the ones that don&amp;rsquo;t. Customising these will give you the best experience for you and your machine to balance the power of the machine, against your tolerance or preference to the animations and transitions.&lt;/p&gt;
 </description>
     </item>
     
@@ -155,32 +155,32 @@
       <pubDate>Wed, 01 Jul 2015 20:35:13 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/windows-10-phantom-text-fix/</guid>
-      <description><p>I&rsquo;ve been using the Windows 10 Insider Previews on my <a href="http://www.dell.com/us/dfb/p/latitude-10-st2e/pd">Dell Latitude ST2E Tablet</a> for a few months and It has been a bit hit and miss.  I&rsquo;ve really enjoyed the experience of previewing what&rsquo;s coming, but it has been quite buggy up until the 10158/10159 builds leading up to the July 29th RTM.  But there is one bug that has survived for me that, through wishful thinking I had expected to just go away after a while. That is, the phantom text, invisible text, or missing text bug, depending on what you want to call it.</p>
-<h3 id="exhibit-a">Exhibit A</h3>
-<p>This is a symptom I&rsquo;ve been seeing on one Windows 8 app in particular while using windows 10, the <a href="http://apps.microsoft.com/windows/en-nz/app/comics/39c58b6e-8b89-4127-a7a3-914cc7918b98">Comixology App</a>. Almost all of the buttons, links and text descriptions were completely missing, except maybe becoming visible when you press down on a button.  As of the 10158 release, I have started seeing this also happen on the new Windows 10 Store app as well. It makes it kind of tricky to use the apps when the content is blank.</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824524/the_bug_tj8c7h.png" alt="Screenshot showing missing text in apps on Windows 10"></p>
-<h3 id="research">Research</h3>
-<p>I came across <a href="http://kb.parallels.com/en/122856">some early bugs</a> that indicated it might be driver related. As Hard as I looked, the obscure Intel Atom Z2760 processor just did not have any new Windows 10 drivers, and the 2013 drivers that dell provided barely differed from the ones Windows Update had given me.</p>
-<h3 id="the-fix">The Fix</h3>
-<p>Out of pure frustration, I tried resetting my drivers to the Microsoft Basic Display Adapter, and wouldn&rsquo;t you know it, It actually solved the problem!</p>
-<p>To do this yourself, just follow these simple steps:</p>
-<ul>
-<li>Open Device Manager</li>
-<li>Find your Display Adapter under the Display adapters group</li>
-<li>Right-Click your adapter and select Update Driver Software</li>
-<li>Select the &ldquo;Browse my Computer for driver software&rdquo; option</li>
-<li>Select &ldquo;Let me pick from a list of device drivers on my computer&rdquo;</li>
-<li>Select &ldquo;Microsoft Basic Display Adapter&rdquo; from the list</li>
-<li>Click Next and you&rsquo;re done</li>
-<li>Click Close to close the window</li>
-</ul>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824521/basicdriver_zqaz7l.png" alt="Update your driver selecting the Microsoft Basic Display Adapter."></p>
-<p>When I did this, it didn&rsquo;t require a restart, but it will prompt you if you do.</p>
-<p>Straight away, I was able to see all the missing text, and can finally start using the system again without the missing text bug.</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824526/fixed_uyfg9e.png" alt="After the fix, the text is visible again."></p>
-<h3 id="conclusion">Conclusion</h3>
-<p>And that&rsquo;s basically it. I searched for ages and didn&rsquo;t find a solution, so hopefully this helps someone else out who is having similar problems.</p>
-<p>I don&rsquo;t know the extent of the issue across the OS since until recently it only happened on one app. Now that It happens in the Store it might become more common. I&rsquo;m hoping that come August, this will no longer be an issue for the RTM, but if it is, This might save a few people some pain until Intel, Dell or Microsoft get around to correcting the issue for the general Windows 10 user, without the need for this workaround.</p>
+      <description>&lt;p&gt;I&amp;rsquo;ve been using the Windows 10 Insider Previews on my &lt;a href=&#34;http://www.dell.com/us/dfb/p/latitude-10-st2e/pd&#34;&gt;Dell Latitude ST2E Tablet&lt;/a&gt; for a few months and It has been a bit hit and miss.  I&amp;rsquo;ve really enjoyed the experience of previewing what&amp;rsquo;s coming, but it has been quite buggy up until the 10158/10159 builds leading up to the July 29th RTM.  But there is one bug that has survived for me that, through wishful thinking I had expected to just go away after a while. That is, the phantom text, invisible text, or missing text bug, depending on what you want to call it.&lt;/p&gt;
+&lt;h3 id=&#34;exhibit-a&#34;&gt;Exhibit A&lt;/h3&gt;
+&lt;p&gt;This is a symptom I&amp;rsquo;ve been seeing on one Windows 8 app in particular while using windows 10, the &lt;a href=&#34;http://apps.microsoft.com/windows/en-nz/app/comics/39c58b6e-8b89-4127-a7a3-914cc7918b98&#34;&gt;Comixology App&lt;/a&gt;. Almost all of the buttons, links and text descriptions were completely missing, except maybe becoming visible when you press down on a button.  As of the 10158 release, I have started seeing this also happen on the new Windows 10 Store app as well. It makes it kind of tricky to use the apps when the content is blank.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824524/the_bug_tj8c7h.png&#34; alt=&#34;Screenshot showing missing text in apps on Windows 10&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;research&#34;&gt;Research&lt;/h3&gt;
+&lt;p&gt;I came across &lt;a href=&#34;http://kb.parallels.com/en/122856&#34;&gt;some early bugs&lt;/a&gt; that indicated it might be driver related. As Hard as I looked, the obscure Intel Atom Z2760 processor just did not have any new Windows 10 drivers, and the 2013 drivers that dell provided barely differed from the ones Windows Update had given me.&lt;/p&gt;
+&lt;h3 id=&#34;the-fix&#34;&gt;The Fix&lt;/h3&gt;
+&lt;p&gt;Out of pure frustration, I tried resetting my drivers to the Microsoft Basic Display Adapter, and wouldn&amp;rsquo;t you know it, It actually solved the problem!&lt;/p&gt;
+&lt;p&gt;To do this yourself, just follow these simple steps:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open Device Manager&lt;/li&gt;
+&lt;li&gt;Find your Display Adapter under the Display adapters group&lt;/li&gt;
+&lt;li&gt;Right-Click your adapter and select Update Driver Software&lt;/li&gt;
+&lt;li&gt;Select the &amp;ldquo;Browse my Computer for driver software&amp;rdquo; option&lt;/li&gt;
+&lt;li&gt;Select &amp;ldquo;Let me pick from a list of device drivers on my computer&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Select &amp;ldquo;Microsoft Basic Display Adapter&amp;rdquo; from the list&lt;/li&gt;
+&lt;li&gt;Click Next and you&amp;rsquo;re done&lt;/li&gt;
+&lt;li&gt;Click Close to close the window&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824521/basicdriver_zqaz7l.png&#34; alt=&#34;Update your driver selecting the Microsoft Basic Display Adapter.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;When I did this, it didn&amp;rsquo;t require a restart, but it will prompt you if you do.&lt;/p&gt;
+&lt;p&gt;Straight away, I was able to see all the missing text, and can finally start using the system again without the missing text bug.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824526/fixed_uyfg9e.png&#34; alt=&#34;After the fix, the text is visible again.&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;And that&amp;rsquo;s basically it. I searched for ages and didn&amp;rsquo;t find a solution, so hopefully this helps someone else out who is having similar problems.&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t know the extent of the issue across the OS since until recently it only happened on one app. Now that It happens in the Store it might become more common. I&amp;rsquo;m hoping that come August, this will no longer be an issue for the RTM, but if it is, This might save a few people some pain until Intel, Dell or Microsoft get around to correcting the issue for the general Windows 10 user, without the need for this workaround.&lt;/p&gt;
 </description>
     </item>
     

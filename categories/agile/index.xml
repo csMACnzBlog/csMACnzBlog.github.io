@@ -19,52 +19,52 @@
       <pubDate>Mon, 10 Sep 2018 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/</guid>
-      <description><p>Way back when I was first introduced to everything agile from <a href="https://twitter.com/JezzSantos">Jezz Santos</a>,  we complemented the terminology of our &ldquo;sprint&rdquo; with that of a &ldquo;jog&rdquo;.</p>
-<h3 id="sprinting">Sprinting</h3>
-<p>Sprinting or sprints are the idea of a (usually) timeboxed length of real-world time (5 days, 3 weeks etc) that produces a cadence of focused teamwork on a particular selection of stories. Usually, these stories are prioritised, and the team should be working on the top-most unfinished work. The aim of the sprint is to take this collection of stories (tasks, work) and commit to finishing them in the sprint, and not anything else instead.  At the end of the sprint and before the next one starts, we can select a different prioritised set and repeat (this may or may not include any incomplete stories, as desired).</p>
-<p>Having a focused sprint like this gives the team a shared goal, a target, and a clear scope of what should and should not be worked on.  It also allows for a day at the start for planning the sprint, and a day at the end to report to stakeholders (review) and review your processes and policies (retrospective). (Your &lsquo;day&rsquo; may vary from an hour or two to several days depending on your team I guess.)</p>
-<p>What typically happens, from the teams I have worked in, is that sprints always start of the same weekday each sprint (e.g. Monday) and finish on the same weekday each sprint (e.g. Friday) and using weeks as length is common in this approach to complement this (1 week, three weeks etc).</p>
-<p>But there are three things to consider about the sprint.</p>
-<ul>
-<li>Burnout - can you sustain the pace of sprinting back to back to back.</li>
-<li>&ldquo;Downtime&rdquo; - what do you do with the rest of the Friday if you get all the ceremony done by 10:30 am?</li>
-<li>Other duties - your responsibilities lye outside the sprint as well as inside it, do these affect the sprint or do they get neglected?</li>
-</ul>
-<h3 id="enter-jogging">Enter Jogging</h3>
-<p>For starters, this is a name we give the time between one sprint ending and another beginning. That blank period between finishing the Retrospective and starting the next Sprint Planning.  We can put a tick on downtime, it has a name which now implies a purpose.</p>
-<p>We define our jog time as our own individual time. This is time to do administrative duties, machine upgrades, leave requests, tidy up your inbox, write a blog post, tidy up some code that is bugging you, add a new feature to the chatbot, extract a few libraries methods to shared code repositories.  Things that are not sprint related that you need to get done for your job.  This ticks of the other duties problem.</p>
-<p>If you didn&rsquo;t get all your stories done, there should be no pressure to finish them while jogging. However, there is also no hard rule that you shouldn&rsquo;t. If you personally feel that finishing up a task is best, or really want to keep working on your current story and don&rsquo;t have other tasks, that is fine. Just never start on another story from the backlog (!).</p>
-<p><code>&lt;Rant&gt;</code>
+      <description>&lt;p&gt;Way back when I was first introduced to everything agile from &lt;a href=&#34;https://twitter.com/JezzSantos&#34;&gt;Jezz Santos&lt;/a&gt;,  we complemented the terminology of our &amp;ldquo;sprint&amp;rdquo; with that of a &amp;ldquo;jog&amp;rdquo;.&lt;/p&gt;
+&lt;h3 id=&#34;sprinting&#34;&gt;Sprinting&lt;/h3&gt;
+&lt;p&gt;Sprinting or sprints are the idea of a (usually) timeboxed length of real-world time (5 days, 3 weeks etc) that produces a cadence of focused teamwork on a particular selection of stories. Usually, these stories are prioritised, and the team should be working on the top-most unfinished work. The aim of the sprint is to take this collection of stories (tasks, work) and commit to finishing them in the sprint, and not anything else instead.  At the end of the sprint and before the next one starts, we can select a different prioritised set and repeat (this may or may not include any incomplete stories, as desired).&lt;/p&gt;
+&lt;p&gt;Having a focused sprint like this gives the team a shared goal, a target, and a clear scope of what should and should not be worked on.  It also allows for a day at the start for planning the sprint, and a day at the end to report to stakeholders (review) and review your processes and policies (retrospective). (Your &amp;lsquo;day&amp;rsquo; may vary from an hour or two to several days depending on your team I guess.)&lt;/p&gt;
+&lt;p&gt;What typically happens, from the teams I have worked in, is that sprints always start of the same weekday each sprint (e.g. Monday) and finish on the same weekday each sprint (e.g. Friday) and using weeks as length is common in this approach to complement this (1 week, three weeks etc).&lt;/p&gt;
+&lt;p&gt;But there are three things to consider about the sprint.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Burnout - can you sustain the pace of sprinting back to back to back.&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;Downtime&amp;rdquo; - what do you do with the rest of the Friday if you get all the ceremony done by 10:30 am?&lt;/li&gt;
+&lt;li&gt;Other duties - your responsibilities lye outside the sprint as well as inside it, do these affect the sprint or do they get neglected?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;enter-jogging&#34;&gt;Enter Jogging&lt;/h3&gt;
+&lt;p&gt;For starters, this is a name we give the time between one sprint ending and another beginning. That blank period between finishing the Retrospective and starting the next Sprint Planning.  We can put a tick on downtime, it has a name which now implies a purpose.&lt;/p&gt;
+&lt;p&gt;We define our jog time as our own individual time. This is time to do administrative duties, machine upgrades, leave requests, tidy up your inbox, write a blog post, tidy up some code that is bugging you, add a new feature to the chatbot, extract a few libraries methods to shared code repositories.  Things that are not sprint related that you need to get done for your job.  This ticks of the other duties problem.&lt;/p&gt;
+&lt;p&gt;If you didn&amp;rsquo;t get all your stories done, there should be no pressure to finish them while jogging. However, there is also no hard rule that you shouldn&amp;rsquo;t. If you personally feel that finishing up a task is best, or really want to keep working on your current story and don&amp;rsquo;t have other tasks, that is fine. Just never start on another story from the backlog (!).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;Rant&amp;gt;&lt;/code&gt;
 I will also say something very specific of code tidy:  If the code you are working on is related to the stories in the sprint, do it as part of the story. Quality, readability, tests and testability, documentation should all be part of your Definition of Done, and never neglected as unnecessary admin to do later. Do it Now!
-<code>&lt;/Rant&gt;</code></p>
-<p>The main benefit of defining what a jog <em>is</em> is to separate them from the sprint. You now have a place and time to allocate those tasks, so you can comfortably and confidently <em>not do them</em> during a sprint.  Your sprints can be more focused, and you can go faster, knowing that there is time later to go a bit slower and get some of these other duties done (tick number 3).</p>
-<h3 id="timing">Timing</h3>
-<p>Now brings us to an interesting idea that our team has played around with: how long should you Jog?</p>
-<p>Originally my first jogging experience was only Friday afternoons. We got all the ceremonies done by 11 am Friday, and the rest of the day was yours. Monday was a full day of planning. This seems efficient, but the downside was that you never actually had enough time to get anything much done. Often the Product Owner or Scrum master would insist on senior members of the team using this time for grooming.</p>
-<p>Later, we tried something very interesting. Since Friday mornings were hard for stakeholders, we moved the review to Thursday morning instead. Then, because the grooming was easier not having a weekend in the way, and a lot of the time public holidays would fall on a Monday, Monday became grooming and Tuesday became planning. We had a 3-week cadence, so our sprints were basically 1 planning day, 11 sprinting workdays and a morning review, afternoon retro. This left two working days for &ldquo;jogging&rdquo; (and grooming for some members). This pattern survived and carried over to 4 more teams I worked on.</p>
-<p>I haven&rsquo;t talked much about it on the blog, but I work remotely in a different timezone. Different enough that my Sunday is their Monday, and their Saturday is my Friday. This leaves us with an interesting crossover effect. While initially, this seems to work alright with the above pattern (and it did for some time), it was difficult getting everyone online for the right ceremonies on the right days.  A secondary effect on our team was external factors. We had a lot of scheduled activities on Friday that meant we were not left with any time to jog. These tasks would then come back into sprint time.</p>
-<p>A compromise alternative that we came up with was the Thursday-&gt;Tuesday sprint. We also switched to a two-week cadence at the same time (from three weeks).  Thursday started with sprint planning, followed by team discussion/mobbing over the first story. This was followed by another 7 days of sprint which included a full working week, ending with a Review and Retrospective on Tuesday morning. For us, Tuesdays and Thursdays happened to be the mornings that I was &ldquo;on-the-line&rdquo; and available to attend meetings. Every other week these allow us to mob and meet, the other week is all ceremony.  This nicely left us with Tuesday afternoon and Wednesday for jogging. In most cases, this meant that jogging was always available to all team members every sprint, and never absorbed by public holidays, Friday activities, or long weekends of annual leave.</p>
-<h3 id="why-bother">Why Bother?</h3>
-<p>Why would we put so much effort into separating out these extra tasks? Surely it takes just as long to get anything done no matter when you do it right?</p>
-<ul>
-<li>
-<ol>
-<li>Task (context) switching</li>
-</ol>
-</li>
-<li>
-<ol start="2">
-<li>Cadence</li>
-</ol>
-</li>
-</ul>
-<p>A large amount of the principles you follow for agile are trying to help you avoid context switching since this is a great way to stay productive. Every time you have to switch task contexts say from interruptions or whatever, you lose some time switching your thinking to the context of the new task. staying on the same task until finished can be much more efficient and productive.  By putting distractions aside until later, you can focus on the sprint and getting it done.</p>
-<p>Cadence has a nice side effect of producing comparable data. If you have the same people working together and you measure the throughput, you can start to more accurately predict how much work can be done on each cadence. This can help project out more realistic capacity needs, and timelines of work.  In converse, if you inconsistently have extra tasks coming up, taking you away from the sprint work, sometimes none, sometimes a lot, then you can&rsquo;t make as accurate a prediction off of the data.</p>
-<h3 id="summary">Summary</h3>
-<p>Jogging is a great way to focus the sprint, by having somewhere to put the distractions and duties that pop up without compromising the focus and efficiency on the sprint tasks.</p>
-<blockquote>
-<p>The beginning of wisdom is to call things by their right names. – Chinese Proverb</p>
-</blockquote>
+&lt;code&gt;&amp;lt;/Rant&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The main benefit of defining what a jog &lt;em&gt;is&lt;/em&gt; is to separate them from the sprint. You now have a place and time to allocate those tasks, so you can comfortably and confidently &lt;em&gt;not do them&lt;/em&gt; during a sprint.  Your sprints can be more focused, and you can go faster, knowing that there is time later to go a bit slower and get some of these other duties done (tick number 3).&lt;/p&gt;
+&lt;h3 id=&#34;timing&#34;&gt;Timing&lt;/h3&gt;
+&lt;p&gt;Now brings us to an interesting idea that our team has played around with: how long should you Jog?&lt;/p&gt;
+&lt;p&gt;Originally my first jogging experience was only Friday afternoons. We got all the ceremonies done by 11 am Friday, and the rest of the day was yours. Monday was a full day of planning. This seems efficient, but the downside was that you never actually had enough time to get anything much done. Often the Product Owner or Scrum master would insist on senior members of the team using this time for grooming.&lt;/p&gt;
+&lt;p&gt;Later, we tried something very interesting. Since Friday mornings were hard for stakeholders, we moved the review to Thursday morning instead. Then, because the grooming was easier not having a weekend in the way, and a lot of the time public holidays would fall on a Monday, Monday became grooming and Tuesday became planning. We had a 3-week cadence, so our sprints were basically 1 planning day, 11 sprinting workdays and a morning review, afternoon retro. This left two working days for &amp;ldquo;jogging&amp;rdquo; (and grooming for some members). This pattern survived and carried over to 4 more teams I worked on.&lt;/p&gt;
+&lt;p&gt;I haven&amp;rsquo;t talked much about it on the blog, but I work remotely in a different timezone. Different enough that my Sunday is their Monday, and their Saturday is my Friday. This leaves us with an interesting crossover effect. While initially, this seems to work alright with the above pattern (and it did for some time), it was difficult getting everyone online for the right ceremonies on the right days.  A secondary effect on our team was external factors. We had a lot of scheduled activities on Friday that meant we were not left with any time to jog. These tasks would then come back into sprint time.&lt;/p&gt;
+&lt;p&gt;A compromise alternative that we came up with was the Thursday-&amp;gt;Tuesday sprint. We also switched to a two-week cadence at the same time (from three weeks).  Thursday started with sprint planning, followed by team discussion/mobbing over the first story. This was followed by another 7 days of sprint which included a full working week, ending with a Review and Retrospective on Tuesday morning. For us, Tuesdays and Thursdays happened to be the mornings that I was &amp;ldquo;on-the-line&amp;rdquo; and available to attend meetings. Every other week these allow us to mob and meet, the other week is all ceremony.  This nicely left us with Tuesday afternoon and Wednesday for jogging. In most cases, this meant that jogging was always available to all team members every sprint, and never absorbed by public holidays, Friday activities, or long weekends of annual leave.&lt;/p&gt;
+&lt;h3 id=&#34;why-bother&#34;&gt;Why Bother?&lt;/h3&gt;
+&lt;p&gt;Why would we put so much effort into separating out these extra tasks? Surely it takes just as long to get anything done no matter when you do it right?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;Task (context) switching&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Cadence&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A large amount of the principles you follow for agile are trying to help you avoid context switching since this is a great way to stay productive. Every time you have to switch task contexts say from interruptions or whatever, you lose some time switching your thinking to the context of the new task. staying on the same task until finished can be much more efficient and productive.  By putting distractions aside until later, you can focus on the sprint and getting it done.&lt;/p&gt;
+&lt;p&gt;Cadence has a nice side effect of producing comparable data. If you have the same people working together and you measure the throughput, you can start to more accurately predict how much work can be done on each cadence. This can help project out more realistic capacity needs, and timelines of work.  In converse, if you inconsistently have extra tasks coming up, taking you away from the sprint work, sometimes none, sometimes a lot, then you can&amp;rsquo;t make as accurate a prediction off of the data.&lt;/p&gt;
+&lt;h3 id=&#34;summary&#34;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;Jogging is a great way to focus the sprint, by having somewhere to put the distractions and duties that pop up without compromising the focus and efficiency on the sprint tasks.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The beginning of wisdom is to call things by their right names. – Chinese Proverb&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     

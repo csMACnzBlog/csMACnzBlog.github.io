@@ -19,24 +19,24 @@
       <pubDate>Sun, 07 Dec 2014 17:41:40 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/gulp-vs-net/</guid>
-      <description><p>I wanted to add continuous code coverage to my <a href="https://github.com/csmacnz/BCLExtensions">little extension library project</a>, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!</p>
-<p>Because I&rsquo;m started to learn more about this nodejs thing as a .Net developer, I figured I should give one of the build automation projects from there a go, even though my project is a .Net library and I dont need node (even if it is a PCL).</p>
-<h4 id="a-few-hurdles">A Few Hurdles</h4>
-<p>So the first major problem is node itself. not a current dependancy from any of the project, so that needed to be installed. Not a big deal, i did have to hack around with powershell to set up node so that npm was recognised, but thats a once off per machine. Then I had to add a package.json file, that was that.</p>
-<p>Next up was gulp, again, not too bad except that I did have issues getting gulp recognised as a command, but a few powershell restarts and some new PATH variables and that was fine too.</p>
-<p>Now to get gulp to build and run my tests. Luckily there is a <a href="https://www.npmjs.org/package/gulp-msbuild">gulp-msbuild</a> task that I could install, which works without much trouble. Unfortunately, there was no gulp-mstest. after much trial and error, I found and used the node package <a href="https://www.npmjs.org/package/mstest">mstest</a>, and jumped some extra hoops to do a manual gulp task for that. I notice that there is a <a href="https://www.npmjs.org/package/grunt-mstest">grunt-mstest</a> available, and a <a href="https://www.npmjs.org/package/gulp-nunit">gulp-nunit</a>, so not too big a deal for others that might be following a similar path.</p>
-<p>I even managed to get a AssemblyInfo rewritter build step as well, which was a nice, but unnecessary bonus at this stage.</p>
-<p>About now, after several hours mucking about, I realised that I had achieved the following:</p>
-<ul>
-<li>Introduced an unnecessary dependancy on nodeJS</li>
-<li>Added new node-module dependancies to the setup of my build tasks that need downloading</li>
-<li>Require you to spin up an entire node environment, just to shell out to command line applications to build and test my .Net project.</li>
-</ul>
-<p>I haven&rsquo;t even got to code coverage and already feel I&rsquo;m breaking ground, and will need to build my own node libraries for gulp to run my tests and code coverage.  At this point I also realise since ive been doing the whole thing in powershell, I should just install psake and be done with it.</p>
-<h4 id="conclusion">Conclusion</h4>
-<p>If you&rsquo;ve got a web application in .Net and you will need a pipeline for less/sass/typescript/coffeescript/javascript , gulp is a nice way to go, and can even do the build, run the test, package to a zip and/or deploy to your environments for you.  But if all you have is a .Net library with no web requirements whatsoever, I recommend psake, with a little chocolatey for environment dependancies thrown in.</p>
-<h4 id="for-your-interest">For your interest</h4>
-<p>You can check out the changes in the following <a href="https://github.com/csmacnz/BCLExtensions/tree/d04a6a311f78f0fd52b8900af375ee1a15746eee">Commit</a> (I&rsquo;m pretty sure it&rsquo;s going to become psake pretty soon.)</p>
+      <description>&lt;p&gt;I wanted to add continuous code coverage to my &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions&#34;&gt;little extension library project&lt;/a&gt;, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!&lt;/p&gt;
+&lt;p&gt;Because I&amp;rsquo;m started to learn more about this nodejs thing as a .Net developer, I figured I should give one of the build automation projects from there a go, even though my project is a .Net library and I dont need node (even if it is a PCL).&lt;/p&gt;
+&lt;h4 id=&#34;a-few-hurdles&#34;&gt;A Few Hurdles&lt;/h4&gt;
+&lt;p&gt;So the first major problem is node itself. not a current dependancy from any of the project, so that needed to be installed. Not a big deal, i did have to hack around with powershell to set up node so that npm was recognised, but thats a once off per machine. Then I had to add a package.json file, that was that.&lt;/p&gt;
+&lt;p&gt;Next up was gulp, again, not too bad except that I did have issues getting gulp recognised as a command, but a few powershell restarts and some new PATH variables and that was fine too.&lt;/p&gt;
+&lt;p&gt;Now to get gulp to build and run my tests. Luckily there is a &lt;a href=&#34;https://www.npmjs.org/package/gulp-msbuild&#34;&gt;gulp-msbuild&lt;/a&gt; task that I could install, which works without much trouble. Unfortunately, there was no gulp-mstest. after much trial and error, I found and used the node package &lt;a href=&#34;https://www.npmjs.org/package/mstest&#34;&gt;mstest&lt;/a&gt;, and jumped some extra hoops to do a manual gulp task for that. I notice that there is a &lt;a href=&#34;https://www.npmjs.org/package/grunt-mstest&#34;&gt;grunt-mstest&lt;/a&gt; available, and a &lt;a href=&#34;https://www.npmjs.org/package/gulp-nunit&#34;&gt;gulp-nunit&lt;/a&gt;, so not too big a deal for others that might be following a similar path.&lt;/p&gt;
+&lt;p&gt;I even managed to get a AssemblyInfo rewritter build step as well, which was a nice, but unnecessary bonus at this stage.&lt;/p&gt;
+&lt;p&gt;About now, after several hours mucking about, I realised that I had achieved the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Introduced an unnecessary dependancy on nodeJS&lt;/li&gt;
+&lt;li&gt;Added new node-module dependancies to the setup of my build tasks that need downloading&lt;/li&gt;
+&lt;li&gt;Require you to spin up an entire node environment, just to shell out to command line applications to build and test my .Net project.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I haven&amp;rsquo;t even got to code coverage and already feel I&amp;rsquo;m breaking ground, and will need to build my own node libraries for gulp to run my tests and code coverage.  At this point I also realise since ive been doing the whole thing in powershell, I should just install psake and be done with it.&lt;/p&gt;
+&lt;h4 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h4&gt;
+&lt;p&gt;If you&amp;rsquo;ve got a web application in .Net and you will need a pipeline for less/sass/typescript/coffeescript/javascript , gulp is a nice way to go, and can even do the build, run the test, package to a zip and/or deploy to your environments for you.  But if all you have is a .Net library with no web requirements whatsoever, I recommend psake, with a little chocolatey for environment dependancies thrown in.&lt;/p&gt;
+&lt;h4 id=&#34;for-your-interest&#34;&gt;For your interest&lt;/h4&gt;
+&lt;p&gt;You can check out the changes in the following &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions/tree/d04a6a311f78f0fd52b8900af375ee1a15746eee&#34;&gt;Commit&lt;/a&gt; (I&amp;rsquo;m pretty sure it&amp;rsquo;s going to become psake pretty soon.)&lt;/p&gt;
 </description>
     </item>
     

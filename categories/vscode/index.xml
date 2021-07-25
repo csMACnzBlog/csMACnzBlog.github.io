@@ -19,23 +19,23 @@
       <pubDate>Tue, 03 Jan 2017 21:26:42 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/firacode-my-new-favorite-vscode-font/</guid>
-      <description><p>I&rsquo;ve been using Fira Code as my new dev font. And I&rsquo;m sticking with it.</p>
-<p><a href="https://github.com/tonsky/FiraCode">FiraCode</a> is available on GitHub, and is a based on the concept of ligatures, targeting at programming symbols.</p>
-<p>In short, ligatures are where two or more actual characters are printed as a single printable character, originating in print where certain letters in certain orders would have a special stamp to use in the printing press to represent them. This gives a font a nicer flow and feel.</p>
-<p>Applying this concept to programming symbols, we get Fira Code. The name comes from the original font, Fira Mono. (A good mono font should be the basis of any programmers font based on today&rsquo;s most popular languages).</p>
-<p>Probably the best way to see what I mean is through the picture shown on GitHub:</p>
-<p><img src="https://github.com/tonsky/FiraCode/raw/master/showcases/all_ligatures.png" alt="Fira Code vs Fire Mono"></p>
-<p>And luckily installation into your favorite editor is simple. I will <a href="https://github.com/tonsky/FiraCode/wiki">link to all the installation instructions</a> but give you the simple gist of getting it working in Visual Studio Code.</p>
-<p>First you need to download and install. The <a href="https://github.com/tonsky/FiraCode/releases/download/1.204/FiraCode_1.204.zip">download link (currently v1.204)</a> is available on the <a href="https://github.com/tonsky/FiraCode#solution"><code>README.md</code> page of the repository</a> and installation on Windows is as easy as opening the zip file, open each <code>.ttf</code> file in the <code>ttf</code> folder and clicking install.</p>
-<p>For VS Code, you just need to open the editor settings (<code>File</code>-&gt;<code>Preferences</code>-&gt;<code>User Settings</code> will open the settings file) and then add the following lines to the <code>json</code> file (inside the curly braces) and save:</p>
-<pre><code>    &quot;editor.fontFamily&quot;: &quot;Fira Code&quot;,
-    &quot;editor.fontSize&quot;: 14,
-    &quot;editor.fontLigatures&quot;: true
-</code></pre>
-<p>If Code was already open when you installed the fonts, you might see everything change to a font that isn&rsquo;t even mono-space. Just restart Code and the correct Fira Code font should take affect.</p>
-<p>The biggest difference is that you will notice as you add and remove symbols from symbol pairs the characters on screen will drift a little left and right to be closer, and in many cases the characters actually link up.</p>
-<p>These instructions are <a href="https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions">listed on GitHub as well</a>.</p>
-<p>If you are not as bold as me, I still recommend checking out <a href="https://en.wikipedia.org/wiki/Consolas">Consolas</a> as a good mono-space developer font as standard. But I recommend trying Fira Code before ruling it out completely.</p>
+      <description>&lt;p&gt;I&amp;rsquo;ve been using Fira Code as my new dev font. And I&amp;rsquo;m sticking with it.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/tonsky/FiraCode&#34;&gt;FiraCode&lt;/a&gt; is available on GitHub, and is a based on the concept of ligatures, targeting at programming symbols.&lt;/p&gt;
+&lt;p&gt;In short, ligatures are where two or more actual characters are printed as a single printable character, originating in print where certain letters in certain orders would have a special stamp to use in the printing press to represent them. This gives a font a nicer flow and feel.&lt;/p&gt;
+&lt;p&gt;Applying this concept to programming symbols, we get Fira Code. The name comes from the original font, Fira Mono. (A good mono font should be the basis of any programmers font based on today&amp;rsquo;s most popular languages).&lt;/p&gt;
+&lt;p&gt;Probably the best way to see what I mean is through the picture shown on GitHub:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/tonsky/FiraCode/raw/master/showcases/all_ligatures.png&#34; alt=&#34;Fira Code vs Fire Mono&#34;&gt;&lt;/p&gt;
+&lt;p&gt;And luckily installation into your favorite editor is simple. I will &lt;a href=&#34;https://github.com/tonsky/FiraCode/wiki&#34;&gt;link to all the installation instructions&lt;/a&gt; but give you the simple gist of getting it working in Visual Studio Code.&lt;/p&gt;
+&lt;p&gt;First you need to download and install. The &lt;a href=&#34;https://github.com/tonsky/FiraCode/releases/download/1.204/FiraCode_1.204.zip&#34;&gt;download link (currently v1.204)&lt;/a&gt; is available on the &lt;a href=&#34;https://github.com/tonsky/FiraCode#solution&#34;&gt;&lt;code&gt;README.md&lt;/code&gt; page of the repository&lt;/a&gt; and installation on Windows is as easy as opening the zip file, open each &lt;code&gt;.ttf&lt;/code&gt; file in the &lt;code&gt;ttf&lt;/code&gt; folder and clicking install.&lt;/p&gt;
+&lt;p&gt;For VS Code, you just need to open the editor settings (&lt;code&gt;File&lt;/code&gt;-&amp;gt;&lt;code&gt;Preferences&lt;/code&gt;-&amp;gt;&lt;code&gt;User Settings&lt;/code&gt; will open the settings file) and then add the following lines to the &lt;code&gt;json&lt;/code&gt; file (inside the curly braces) and save:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    &amp;quot;editor.fontFamily&amp;quot;: &amp;quot;Fira Code&amp;quot;,
+    &amp;quot;editor.fontSize&amp;quot;: 14,
+    &amp;quot;editor.fontLigatures&amp;quot;: true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If Code was already open when you installed the fonts, you might see everything change to a font that isn&amp;rsquo;t even mono-space. Just restart Code and the correct Fira Code font should take affect.&lt;/p&gt;
+&lt;p&gt;The biggest difference is that you will notice as you add and remove symbols from symbol pairs the characters on screen will drift a little left and right to be closer, and in many cases the characters actually link up.&lt;/p&gt;
+&lt;p&gt;These instructions are &lt;a href=&#34;https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions&#34;&gt;listed on GitHub as well&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you are not as bold as me, I still recommend checking out &lt;a href=&#34;https://en.wikipedia.org/wiki/Consolas&#34;&gt;Consolas&lt;/a&gt; as a good mono-space developer font as standard. But I recommend trying Fira Code before ruling it out completely.&lt;/p&gt;
 </description>
     </item>
     
@@ -45,38 +45,38 @@
       <pubDate>Sun, 03 Jul 2016 04:34:30 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/</guid>
-      <description><p>Getting Started with Visual Studio Code? Me too. Let&rsquo;s see what it takes to get going. This is a bit of a companion piece alongside my <a href="https://blog.csmac.nz/dotnetcore-getting-started/">.Net Core Series</a> I am writing at the moment. Hopefully as well as .Net Core, I will have a play with writing TypeScript, Rust and maybe C++ inside Visual Studio Code. I might have to focus on the interface in another article as well.</p>
-<p>After downloading and installing Visual Studio Code from <a href="https://code.visualstudio.com/">code.visualstudio.com</a>, or installing using <code>choco install visualstudiocode</code> from the command line, there are few things missing.</p>
-<p>It seems that, by default, Code is <a href="https://en.wikipedia.org/wiki/Out_of_the_box_(feature)">OOTB</a> ready for JavaScript. But .Net support needs to be installed.</p>
-<h3 id="installing-c-support">Installing C# Support</h3>
-<p>From inside Visual Studio Code, press <code>Ctrl + p</code> to bring up the Quick Open bar, and type in <code>ext install csharp</code>. This installs the extension
-C# for Visual Studio Code (<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp">Details for the extension here</a>). This includes the OmniSharp tooling as well as support for .Net Core (as of version 1.2, RC1 and RC2 versions are no longer supported and this tooling Supports the 1.0.0 release build.), and support for <code>csproj</code> files (which is probably highly in flux, and currently doesn&rsquo;t work on Linux or OS X, apparently).</p>
-<h3 id="build-and-run-a-project">Build and Run a Project</h3>
-<p>Now that we have our environment set up, we can open a folder with a .Net Core Console Application project in it.  (If you haven&rsquo;t already, check out my <a href="https://blog.csmac.nz/dotnetcore-getting-started/">Getting Started post</a> on creating a new .Net Core application.)</p>
-<p>Choose <code>File -&gt; Open Folder...</code> and navigate into or select the folder for your project. This is the one you initialised with the <code>dotnet new</code> command already (<a href="https://blog.csmac.nz/dotnetcore-getting-started/">didn&rsquo;t you?</a>).</p>
-<p>If you are lucky, you will see a banner at the top of the screen appear suggesting <code>Required assets to build and debug are missing from your project. Add them?</code>.</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467488141/RequiredBuildAssetsMissing_tawlgc.png" alt="Required assets to build and debug are missing from your project. Add them?"></p>
-<p>If so, click <code>Yes</code> and skip to <a href="#thenextstep">the next step</a>. If not, you will need to initialise this manually.</p>
-<h4 id="initialise-manually">Initialise manually</h4>
-<p>Press F1 to bring up the Command Palette. This is where you can exercise commands against Visual Studio Code. A helpful suggestion menu will pop up, but we want to type in <code>tasks</code>.</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467488343/CommandPaletteTasks_td24bk.png" alt="Enter tasks into the Command Palette."></p>
-<p>Highlight the <code>Tasks: Configure Task Runner</code> option and press enter. The UI will change to display <code>Select a task runner</code> in the prompt. Select the option <code>.Net Core</code> from the options and press enter.</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467488344/CommandPaletteSelectTaskRunner_vymepv.png" alt="Select .Net Core from the options."></p>
-<h4 id="the-next-step">The next step</h4>
-<p>Now you should see that we have created a <code>tasks.json</code> file inside a <code>.vscode</code> folder.  This configures all the tasks that you can run inside VS code such as build, test, run etc.</p>
-<p>To run this task, press <code>Ctrl + p</code> to bring up the <code>Quick Open</code> menu, and type in <code>task </code>.  As soon as you add that last space, the hint menu should now show our task <code>build</code>. Either select this and press enter or type in <code>build</code> so that the command bar now says <code>task build</code> and press enter.</p>
-<p>Apart from a spinner at the bottom right, there isn&rsquo;t much to see. We should open the Output window using either <code>Ctrl + Shift + U</code> or from the menu <code>View -&gt; Toggle Output</code>. Now we can see the output produced from our build.</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467488343/dotnetCoreBuildOutput_p9wcnt.png" alt="Output showing a successful build."></p>
-<p>To add a run command, we just need to modify our task runner. Add the following json below the <code>build</code> command:</p>
-<pre><code>,
+      <description>&lt;p&gt;Getting Started with Visual Studio Code? Me too. Let&amp;rsquo;s see what it takes to get going. This is a bit of a companion piece alongside my &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started/&#34;&gt;.Net Core Series&lt;/a&gt; I am writing at the moment. Hopefully as well as .Net Core, I will have a play with writing TypeScript, Rust and maybe C++ inside Visual Studio Code. I might have to focus on the interface in another article as well.&lt;/p&gt;
+&lt;p&gt;After downloading and installing Visual Studio Code from &lt;a href=&#34;https://code.visualstudio.com/&#34;&gt;code.visualstudio.com&lt;/a&gt;, or installing using &lt;code&gt;choco install visualstudiocode&lt;/code&gt; from the command line, there are few things missing.&lt;/p&gt;
+&lt;p&gt;It seems that, by default, Code is &lt;a href=&#34;https://en.wikipedia.org/wiki/Out_of_the_box_(feature)&#34;&gt;OOTB&lt;/a&gt; ready for JavaScript. But .Net support needs to be installed.&lt;/p&gt;
+&lt;h3 id=&#34;installing-c-support&#34;&gt;Installing C# Support&lt;/h3&gt;
+&lt;p&gt;From inside Visual Studio Code, press &lt;code&gt;Ctrl + p&lt;/code&gt; to bring up the Quick Open bar, and type in &lt;code&gt;ext install csharp&lt;/code&gt;. This installs the extension
+C# for Visual Studio Code (&lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp&#34;&gt;Details for the extension here&lt;/a&gt;). This includes the OmniSharp tooling as well as support for .Net Core (as of version 1.2, RC1 and RC2 versions are no longer supported and this tooling Supports the 1.0.0 release build.), and support for &lt;code&gt;csproj&lt;/code&gt; files (which is probably highly in flux, and currently doesn&amp;rsquo;t work on Linux or OS X, apparently).&lt;/p&gt;
+&lt;h3 id=&#34;build-and-run-a-project&#34;&gt;Build and Run a Project&lt;/h3&gt;
+&lt;p&gt;Now that we have our environment set up, we can open a folder with a .Net Core Console Application project in it.  (If you haven&amp;rsquo;t already, check out my &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started/&#34;&gt;Getting Started post&lt;/a&gt; on creating a new .Net Core application.)&lt;/p&gt;
+&lt;p&gt;Choose &lt;code&gt;File -&amp;gt; Open Folder...&lt;/code&gt; and navigate into or select the folder for your project. This is the one you initialised with the &lt;code&gt;dotnet new&lt;/code&gt; command already (&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started/&#34;&gt;didn&amp;rsquo;t you?&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;If you are lucky, you will see a banner at the top of the screen appear suggesting &lt;code&gt;Required assets to build and debug are missing from your project. Add them?&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1467488141/RequiredBuildAssetsMissing_tawlgc.png&#34; alt=&#34;Required assets to build and debug are missing from your project. Add them?&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If so, click &lt;code&gt;Yes&lt;/code&gt; and skip to &lt;a href=&#34;#thenextstep&#34;&gt;the next step&lt;/a&gt;. If not, you will need to initialise this manually.&lt;/p&gt;
+&lt;h4 id=&#34;initialise-manually&#34;&gt;Initialise manually&lt;/h4&gt;
+&lt;p&gt;Press F1 to bring up the Command Palette. This is where you can exercise commands against Visual Studio Code. A helpful suggestion menu will pop up, but we want to type in &lt;code&gt;tasks&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1467488343/CommandPaletteTasks_td24bk.png&#34; alt=&#34;Enter tasks into the Command Palette.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Highlight the &lt;code&gt;Tasks: Configure Task Runner&lt;/code&gt; option and press enter. The UI will change to display &lt;code&gt;Select a task runner&lt;/code&gt; in the prompt. Select the option &lt;code&gt;.Net Core&lt;/code&gt; from the options and press enter.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1467488344/CommandPaletteSelectTaskRunner_vymepv.png&#34; alt=&#34;Select .Net Core from the options.&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;the-next-step&#34;&gt;The next step&lt;/h4&gt;
+&lt;p&gt;Now you should see that we have created a &lt;code&gt;tasks.json&lt;/code&gt; file inside a &lt;code&gt;.vscode&lt;/code&gt; folder.  This configures all the tasks that you can run inside VS code such as build, test, run etc.&lt;/p&gt;
+&lt;p&gt;To run this task, press &lt;code&gt;Ctrl + p&lt;/code&gt; to bring up the &lt;code&gt;Quick Open&lt;/code&gt; menu, and type in &lt;code&gt;task &lt;/code&gt;.  As soon as you add that last space, the hint menu should now show our task &lt;code&gt;build&lt;/code&gt;. Either select this and press enter or type in &lt;code&gt;build&lt;/code&gt; so that the command bar now says &lt;code&gt;task build&lt;/code&gt; and press enter.&lt;/p&gt;
+&lt;p&gt;Apart from a spinner at the bottom right, there isn&amp;rsquo;t much to see. We should open the Output window using either &lt;code&gt;Ctrl + Shift + U&lt;/code&gt; or from the menu &lt;code&gt;View -&amp;gt; Toggle Output&lt;/code&gt;. Now we can see the output produced from our build.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1467488343/dotnetCoreBuildOutput_p9wcnt.png&#34; alt=&#34;Output showing a successful build.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;To add a run command, we just need to modify our task runner. Add the following json below the &lt;code&gt;build&lt;/code&gt; command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;,
         {
-            &quot;taskName&quot;: &quot;run&quot;,
-            &quot;args&quot;: [ ],
-            &quot;showOutput&quot;: &quot;always&quot;
+            &amp;quot;taskName&amp;quot;: &amp;quot;run&amp;quot;,
+            &amp;quot;args&amp;quot;: [ ],
+            &amp;quot;showOutput&amp;quot;: &amp;quot;always&amp;quot;
         }
-</code></pre>
-<p>Now use <code>Ctrl + p</code>, type <code>task run</code> and press enter. You should now see the following output in the Output window:</p>
-<pre><code>Project MyNewApp (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now use &lt;code&gt;Ctrl + p&lt;/code&gt;, type &lt;code&gt;task run&lt;/code&gt; and press enter. You should now see the following output in the Output window:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Project MyNewApp (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified
 Compiling MyNewApp for .NETCoreApp,Version=v1.0
 Compilation succeeded.
     0 Warning(s)
@@ -84,161 +84,161 @@ Compilation succeeded.
 Time elapsed 00:00:01.4849643
  
 Hello World!
-</code></pre>
-<p>Now we have a .Net Core application successfully running inside Visual Studio Code.</p>
-<h3 id="debug">Debug</h3>
-<p>Of course, we probably want to be able to debug as well as run the application, so let&rsquo;s look at that next.</p>
-<p>Switching to debug mode can be done using the Bug icon tab on the left-hand side, by using the menu <code>View -&gt; Debug</code> or by using the shortcut key <code>Ctrl + Shift + D</code>. (<code>Ctrl + Shift + E</code> gets you back to the <strong>E</strong>xplorer View where the files are).</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467488343/VSCodeDebugView_cur5uc.png" alt="Visual Studio Code Debug View."></p>
-<p>There is a familiar debug play button in the top of this panel. There is a dropdown beside it that says <code>No Configurations</code>. When we press play for the first time, we will see the Command Palette open again with a selection list. Select the <code>.Net Core</code> option and press enter (or just click on it, both work). Now we will have a <code>launch.json</code> file added into the .vscode folder as well.</p>
-<p>When we look back at the dropdown beside the green Debugger button we see it has 3 options in it: <code>.NET Core Launch (console)</code>, <code>.NET Core Launch (web)</code> and <code>.NET Core Attach</code>. These match the names of the three Configurations in the <code>launch.json</code> file.</p>
-<p>One thing we need to change is the path in the program variable.</p>
-<pre><code>&quot;program&quot;: &quot;${workspaceRoot}/bin/Debug/&lt;target-framework&gt;/&lt;project-name.dll&gt;&quot;,
-</code></pre>
-<p>Needs to be replaced with:</p>
-<pre><code>&quot;program&quot;: &quot;${workspaceRoot}/bin/Debug/netcoreapp1.0/MyNewApp.dll&quot;,
-</code></pre>
-<p>With the <code>.NET Core Launch (console)</code> option selected in the Configurations dropdown, press the Debugger green play button.</p>
-<p>Two things might happen here, depending on If you used Visual studio to create your project, or if you used the <code>dotnet new</code> command.</p>
-<h4 id="because-i-used-an-xproj">Because I used an xproj&hellip;</h4>
-<p>When we pressed play, we might see it successfully produce output similar to the one below.</p>
-<pre><code>Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll'. Cannot find or open the symbol file.
-WARNING: Could not load symbols for 'MyNewApp.dll'. 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb' is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
-Loaded 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll'. Cannot find or open the symbol file.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we have a .Net Core application successfully running inside Visual Studio Code.&lt;/p&gt;
+&lt;h3 id=&#34;debug&#34;&gt;Debug&lt;/h3&gt;
+&lt;p&gt;Of course, we probably want to be able to debug as well as run the application, so let&amp;rsquo;s look at that next.&lt;/p&gt;
+&lt;p&gt;Switching to debug mode can be done using the Bug icon tab on the left-hand side, by using the menu &lt;code&gt;View -&amp;gt; Debug&lt;/code&gt; or by using the shortcut key &lt;code&gt;Ctrl + Shift + D&lt;/code&gt;. (&lt;code&gt;Ctrl + Shift + E&lt;/code&gt; gets you back to the &lt;strong&gt;E&lt;/strong&gt;xplorer View where the files are).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1467488343/VSCodeDebugView_cur5uc.png&#34; alt=&#34;Visual Studio Code Debug View.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;There is a familiar debug play button in the top of this panel. There is a dropdown beside it that says &lt;code&gt;No Configurations&lt;/code&gt;. When we press play for the first time, we will see the Command Palette open again with a selection list. Select the &lt;code&gt;.Net Core&lt;/code&gt; option and press enter (or just click on it, both work). Now we will have a &lt;code&gt;launch.json&lt;/code&gt; file added into the .vscode folder as well.&lt;/p&gt;
+&lt;p&gt;When we look back at the dropdown beside the green Debugger button we see it has 3 options in it: &lt;code&gt;.NET Core Launch (console)&lt;/code&gt;, &lt;code&gt;.NET Core Launch (web)&lt;/code&gt; and &lt;code&gt;.NET Core Attach&lt;/code&gt;. These match the names of the three Configurations in the &lt;code&gt;launch.json&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;One thing we need to change is the path in the program variable.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;program&amp;quot;: &amp;quot;${workspaceRoot}/bin/Debug/&amp;lt;target-framework&amp;gt;/&amp;lt;project-name.dll&amp;gt;&amp;quot;,
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Needs to be replaced with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;program&amp;quot;: &amp;quot;${workspaceRoot}/bin/Debug/netcoreapp1.0/MyNewApp.dll&amp;quot;,
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the &lt;code&gt;.NET Core Launch (console)&lt;/code&gt; option selected in the Configurations dropdown, press the Debugger green play button.&lt;/p&gt;
+&lt;p&gt;Two things might happen here, depending on If you used Visual studio to create your project, or if you used the &lt;code&gt;dotnet new&lt;/code&gt; command.&lt;/p&gt;
+&lt;h4 id=&#34;because-i-used-an-xproj&#34;&gt;Because I used an xproj&amp;hellip;&lt;/h4&gt;
+&lt;p&gt;When we pressed play, we might see it successfully produce output similar to the one below.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll&#39;. Cannot find or open the symbol file.
+WARNING: Could not load symbols for &#39;MyNewApp.dll&#39;. &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb&#39; is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
+Loaded &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll&#39;. Cannot find or open the symbol file.
 Hello World!
-The program 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll' has exited with code 0 (0x00000000).
+The program &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll&#39; has exited with code 0 (0x00000000).
 
-</code></pre>
-<p>It turns out that this is <em>WARNING</em> near the start is important:</p>
-<pre><code>WARNING: Could not load symbols for 'MyNewApp.dll'. 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb' is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
-</code></pre>
-<p>If you don&rsquo;t actually see this warning in your output, just skip ahead to the next <a href="#debugworking">Debug Working</a> section.</p>
-<p>If we try to debug at the moment, the breakpoint doesn&rsquo;t get hit. We are missing a setting in our <code>project.json</code> file. The <code>buildOptions</code> section needs a <code>debugType</code> value of <code>portable</code> added, to correctly produce the right kind of <code>pdb</code> files for debugging with Visual Studio Code. Modify your <code>project.json</code> file as below to add <code>&quot;debugType&quot;: &quot;portable&quot;</code> to <code>buildOptions</code></p>
-<pre><code>{
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It turns out that this is &lt;em&gt;WARNING&lt;/em&gt; near the start is important:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;WARNING: Could not load symbols for &#39;MyNewApp.dll&#39;. &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb&#39; is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you don&amp;rsquo;t actually see this warning in your output, just skip ahead to the next &lt;a href=&#34;#debugworking&#34;&gt;Debug Working&lt;/a&gt; section.&lt;/p&gt;
+&lt;p&gt;If we try to debug at the moment, the breakpoint doesn&amp;rsquo;t get hit. We are missing a setting in our &lt;code&gt;project.json&lt;/code&gt; file. The &lt;code&gt;buildOptions&lt;/code&gt; section needs a &lt;code&gt;debugType&lt;/code&gt; value of &lt;code&gt;portable&lt;/code&gt; added, to correctly produce the right kind of &lt;code&gt;pdb&lt;/code&gt; files for debugging with Visual Studio Code. Modify your &lt;code&gt;project.json&lt;/code&gt; file as below to add &lt;code&gt;&amp;quot;debugType&amp;quot;: &amp;quot;portable&amp;quot;&lt;/code&gt; to &lt;code&gt;buildOptions&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
   ...
-  &quot;buildOptions&quot;: {
+  &amp;quot;buildOptions&amp;quot;: {
     ...
-    &quot;debugType&quot;: &quot;portable&quot;
+    &amp;quot;debugType&amp;quot;: &amp;quot;portable&amp;quot;
   },
   ...
 }
-</code></pre>
-<p>Now we can continue and we should no longer see the warning.</p>
-<h4 id="debug-working">Debug Working</h4>
-<p>When we run the debugger now we should see the following output:</p>
-<pre><code>Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll'. Cannot find or open the symbol file.
-Loaded 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll'. Symbols loaded.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll'. Cannot find or open the symbol file.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can continue and we should no longer see the warning.&lt;/p&gt;
+&lt;h4 id=&#34;debug-working&#34;&gt;Debug Working&lt;/h4&gt;
+&lt;p&gt;When we run the debugger now we should see the following output:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll&#39;. Symbols loaded.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll&#39;. Cannot find or open the symbol file.
 Hello World!
-The program 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll' has exited with code 0 (0x00000000).
-</code></pre>
-<p>As we can see, apart from some issues loading framework symbols, our app has run correctly.</p>
-<p>We can now go into our <code>Program.cs</code> file, add a breakpoint, and successfully break inside our code. Yay!</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467551946/VSCodeDebuggerAttached_yoxcwb.png" alt="Breakpoint hit during debugging on Visual Studio Code."></p>
-<p>Thanks to <a href="http://codeclimber.net.nz/archive/2016/05/20/How-to-debug-NET-Core-RC2-app-with-Visual-Studio.aspx">CodeClimber</a> for getting me out when I got stuck in places, too.</p>
-<h3 id="solution-level-configuration">Solution Level Configuration</h3>
-<p>Now I want to try something harder. I want to find out if we can get something a bit more like what we are used to in Visual Studio instead, with a Solution-level build and run.</p>
-<h4 id="caveat">Caveat</h4>
-<p>I have no idea if this is possible or sensible, I have not had a chance to see what happens when I have multiple projects that depend on each other, and only one open in code. This is an experiment. What will happen?</p>
-<h4 id="open-the-solution">Open the solution</h4>
-<p>Choose <code>File -&gt; Open Folder...</code> and navigate into or select the folder for your solution. In my case I have a Visual Studio folder structure like this:</p>
-<ul>
-<li>MyNewApp
-<ul>
-<li>src
-<ul>
-<li>MyNewApp
-<ul>
-<li>Properties
-<ul>
-<li>AssemblyInfo.cs</li>
-</ul>
-</li>
-<li>MyNewApp.xproj</li>
-<li>Program.cs</li>
-<li>project.json</li>
-<li>project.lock.json</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>global.json</li>
-<li>MyNewApp.sln</li>
-</ul>
-</li>
-</ul>
-<p>(Note: I have excluded some unimportant build artifact files and folders you might see in your directories, such as <code>bin</code>, <code>obj</code> and <code>.vs</code>)</p>
-<p>On my machine, I have opened the MyNewApp folder containing the src folder and MyNewApp.sln. What happens next might vary for you if you choose a different location to open.</p>
-<p>The first thing that we need to do is set up build tasks. We can start with the default ones and then modify them as needed. As before:</p>
-<ul>
-<li>F1 launch Command Palette</li>
-<li>type tasks</li>
-<li>Select <code>Tasks: Configure Task Runner</code></li>
-</ul>
-<p>This time from the options we will select <code>msbuild</code>. We want to be able to build and run our solution, rather than use the dotnet CLI on a single project.</p>
-<p>As earlier, we should now have a <code>tasks.json</code> file inside a <code>.vscode</code> folder inside the top-level folder you Opened earlier. This time, however, it is set up to run MSBuild.</p>
-<p>Now we can run it again as we did last time with <code>Ctrl + p</code>, type <code>task build</code> and Enter.</p>
-<pre><code>Failed to launch external program msbuild /property:GenerateFullPaths=true.
+The program &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll&#39; has exited with code 0 (0x00000000).
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As we can see, apart from some issues loading framework symbols, our app has run correctly.&lt;/p&gt;
+&lt;p&gt;We can now go into our &lt;code&gt;Program.cs&lt;/code&gt; file, add a breakpoint, and successfully break inside our code. Yay!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1467551946/VSCodeDebuggerAttached_yoxcwb.png&#34; alt=&#34;Breakpoint hit during debugging on Visual Studio Code.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Thanks to &lt;a href=&#34;http://codeclimber.net.nz/archive/2016/05/20/How-to-debug-NET-Core-RC2-app-with-Visual-Studio.aspx&#34;&gt;CodeClimber&lt;/a&gt; for getting me out when I got stuck in places, too.&lt;/p&gt;
+&lt;h3 id=&#34;solution-level-configuration&#34;&gt;Solution Level Configuration&lt;/h3&gt;
+&lt;p&gt;Now I want to try something harder. I want to find out if we can get something a bit more like what we are used to in Visual Studio instead, with a Solution-level build and run.&lt;/p&gt;
+&lt;h4 id=&#34;caveat&#34;&gt;Caveat&lt;/h4&gt;
+&lt;p&gt;I have no idea if this is possible or sensible, I have not had a chance to see what happens when I have multiple projects that depend on each other, and only one open in code. This is an experiment. What will happen?&lt;/p&gt;
+&lt;h4 id=&#34;open-the-solution&#34;&gt;Open the solution&lt;/h4&gt;
+&lt;p&gt;Choose &lt;code&gt;File -&amp;gt; Open Folder...&lt;/code&gt; and navigate into or select the folder for your solution. In my case I have a Visual Studio folder structure like this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MyNewApp
+&lt;ul&gt;
+&lt;li&gt;src
+&lt;ul&gt;
+&lt;li&gt;MyNewApp
+&lt;ul&gt;
+&lt;li&gt;Properties
+&lt;ul&gt;
+&lt;li&gt;AssemblyInfo.cs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;MyNewApp.xproj&lt;/li&gt;
+&lt;li&gt;Program.cs&lt;/li&gt;
+&lt;li&gt;project.json&lt;/li&gt;
+&lt;li&gt;project.lock.json&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;global.json&lt;/li&gt;
+&lt;li&gt;MyNewApp.sln&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(Note: I have excluded some unimportant build artifact files and folders you might see in your directories, such as &lt;code&gt;bin&lt;/code&gt;, &lt;code&gt;obj&lt;/code&gt; and &lt;code&gt;.vs&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;On my machine, I have opened the MyNewApp folder containing the src folder and MyNewApp.sln. What happens next might vary for you if you choose a different location to open.&lt;/p&gt;
+&lt;p&gt;The first thing that we need to do is set up build tasks. We can start with the default ones and then modify them as needed. As before:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;F1 launch Command Palette&lt;/li&gt;
+&lt;li&gt;type tasks&lt;/li&gt;
+&lt;li&gt;Select &lt;code&gt;Tasks: Configure Task Runner&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This time from the options we will select &lt;code&gt;msbuild&lt;/code&gt;. We want to be able to build and run our solution, rather than use the dotnet CLI on a single project.&lt;/p&gt;
+&lt;p&gt;As earlier, we should now have a &lt;code&gt;tasks.json&lt;/code&gt; file inside a &lt;code&gt;.vscode&lt;/code&gt; folder inside the top-level folder you Opened earlier. This time, however, it is set up to run MSBuild.&lt;/p&gt;
+&lt;p&gt;Now we can run it again as we did last time with &lt;code&gt;Ctrl + p&lt;/code&gt;, type &lt;code&gt;task build&lt;/code&gt; and Enter.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Failed to launch external program msbuild /property:GenerateFullPaths=true.
 spawn msbuild ENOENT
-</code></pre>
-<p>On my machine, it looks like <code>msbuild.exe</code> is not in the path. In my case I am going to add the MSBuild version 14.0 that came with Visual Studio 2015 into my %PATH% environment variable:</p>
-<pre><code>C:\Program Files (x86)\MSBuild\14.0\Bin
-</code></pre>
-<p>And restart Visual Studio Code. (It is nice that it remembers the last folder I had open, too.)</p>
-<p>One more <code>Ctrl + Shift + B</code> (or &lsquo;Ctrl + p&rsquo;, <code>task build</code>, Enter) and It looks successful:</p>
-<pre><code>Microsoft (R) Build Engine version 14.0.25420.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;On my machine, it looks like &lt;code&gt;msbuild.exe&lt;/code&gt; is not in the path. In my case I am going to add the MSBuild version 14.0 that came with Visual Studio 2015 into my %PATH% environment variable:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;C:\Program Files (x86)\MSBuild\14.0\Bin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And restart Visual Studio Code. (It is nice that it remembers the last folder I had open, too.)&lt;/p&gt;
+&lt;p&gt;One more &lt;code&gt;Ctrl + Shift + B&lt;/code&gt; (or &amp;lsquo;Ctrl + p&amp;rsquo;, &lt;code&gt;task build&lt;/code&gt;, Enter) and It looks successful:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Microsoft (R) Build Engine version 14.0.25420.1
 Copyright (C) Microsoft Corporation. All rights reserved.
-Building the projects in this solution one at a time. To enable parallel build, please add the &quot;/m&quot; switch.
+Building the projects in this solution one at a time. To enable parallel build, please add the &amp;quot;/m&amp;quot; switch.
 Build started 03/07/2016 16:44:02.
-Project &quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&quot; on node 1 (build target(s)).
+Project &amp;quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&amp;quot; on node 1 (build target(s)).
 ValidateSolutionConfiguration:
-  Building solution configuration &quot;Debug|Any CPU&quot;.
-Project &quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&quot; (1) is building &quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&quot; (2) on node 1 (default targets).
+  Building solution configuration &amp;quot;Debug|Any CPU&amp;quot;.
+Project &amp;quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&amp;quot; (1) is building &amp;quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&amp;quot; (2) on node 1 (default targets).
 CoreCompile:
-  C:\Program Files\dotnet\dotnet.exe build &quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp&quot; --configuration Debug --no-dependencies
+  C:\Program Files\dotnet\dotnet.exe build &amp;quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp&amp;quot; --configuration Debug --no-dependencies
   Project MyNewApp (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
-Done Building Project &quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&quot; (default targets).
-Done Building Project &quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&quot; (build target(s)).
+Done Building Project &amp;quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&amp;quot; (default targets).
+Done Building Project &amp;quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&amp;quot; (build target(s)).
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 Time Elapsed 00:00:02.08
-</code></pre>
-<p>So now I can build my Visual Studio <code>xproj</code> using MSBuild inside Visual Studio Code.</p>
-<h4 id="debug-1">Debug</h4>
-<p>Just like before, we can set up Debugging with just a few changes:</p>
-<ul>
-<li>Press the Debugger play button</li>
-<li>The Command Palette will open again</li>
-<li>Select the <code>.Net Core</code> option and press enter</li>
-<li>The <code>launch.json</code> file will be created</li>
-<li>Change the path in the program variable.</li>
-</ul>
-<p>This time, though, we change the path to be a bit longer since we are in a different root directory.</p>
-<pre><code>&quot;program&quot;: &quot;${workspaceRoot}/src/MyNewApp/bin/Debug/netcoreapp1.0/MyNewApp.dll&quot;,
-</code></pre>
-<p>Now we should be ready to place a breakpoint and debug our code.  If you already <a href="#becauseiusedanxproj">followed the earlier instructions</a> with the same project, (or you created it using <code>dotnet new</code>), the <code>&quot;debugType&quot;: &quot;portable&quot;</code> fix should already be there, otherwise, you can apply that now.</p>
-<p>Place a breakpoint into <code>Program.cs</code> and hit the green Debug play button. Alternatively, you can use the familiar <code>F5</code> shortcut key to start debugging.  Success!</p>
-<h3 id="whats-next">Whats Next?</h3>
-<p>So now we can build and debug our application using Visual Studio Code either at the Solution-level or at the project-level.  Going forward we will want to start thinking about tests and running those as well. But I want to go a bit further into how to test using .Net Core from the command-line for a bit before I double back and tackle it in Visual Studio Code.</p>
-<p>This has been fun, though probably the longest way to write a blog post. Yes it&rsquo;s a long one too, so I think I&rsquo;ll have to look at breaking things down into small achievable chunks if I do this again.  Thanks for sticking with me and getting to the end.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So now I can build my Visual Studio &lt;code&gt;xproj&lt;/code&gt; using MSBuild inside Visual Studio Code.&lt;/p&gt;
+&lt;h4 id=&#34;debug-1&#34;&gt;Debug&lt;/h4&gt;
+&lt;p&gt;Just like before, we can set up Debugging with just a few changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Press the Debugger play button&lt;/li&gt;
+&lt;li&gt;The Command Palette will open again&lt;/li&gt;
+&lt;li&gt;Select the &lt;code&gt;.Net Core&lt;/code&gt; option and press enter&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;launch.json&lt;/code&gt; file will be created&lt;/li&gt;
+&lt;li&gt;Change the path in the program variable.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This time, though, we change the path to be a bit longer since we are in a different root directory.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;program&amp;quot;: &amp;quot;${workspaceRoot}/src/MyNewApp/bin/Debug/netcoreapp1.0/MyNewApp.dll&amp;quot;,
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we should be ready to place a breakpoint and debug our code.  If you already &lt;a href=&#34;#becauseiusedanxproj&#34;&gt;followed the earlier instructions&lt;/a&gt; with the same project, (or you created it using &lt;code&gt;dotnet new&lt;/code&gt;), the &lt;code&gt;&amp;quot;debugType&amp;quot;: &amp;quot;portable&amp;quot;&lt;/code&gt; fix should already be there, otherwise, you can apply that now.&lt;/p&gt;
+&lt;p&gt;Place a breakpoint into &lt;code&gt;Program.cs&lt;/code&gt; and hit the green Debug play button. Alternatively, you can use the familiar &lt;code&gt;F5&lt;/code&gt; shortcut key to start debugging.  Success!&lt;/p&gt;
+&lt;h3 id=&#34;whats-next&#34;&gt;Whats Next?&lt;/h3&gt;
+&lt;p&gt;So now we can build and debug our application using Visual Studio Code either at the Solution-level or at the project-level.  Going forward we will want to start thinking about tests and running those as well. But I want to go a bit further into how to test using .Net Core from the command-line for a bit before I double back and tackle it in Visual Studio Code.&lt;/p&gt;
+&lt;p&gt;This has been fun, though probably the longest way to write a blog post. Yes it&amp;rsquo;s a long one too, so I think I&amp;rsquo;ll have to look at breaking things down into small achievable chunks if I do this again.  Thanks for sticking with me and getting to the end.&lt;/p&gt;
 </description>
     </item>
     

@@ -19,35 +19,35 @@
       <pubDate>Tue, 23 Dec 2014 10:10:46 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</guid>
-      <description><p>As any good library should do, I&rsquo;m building my <a href="http://github.com/csmacnz/bclextensions">BCLExtensions project</a>(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact).  It works great on my <a href="https://ci.appveyor.com/project/MarkClearwater/bclextensions">AppVeyor CI builds</a>, which is a great .Net windows build server.</p>
-<p>I recently discovered <a href="http://docs.travis-ci.com/user/languages/csharp/">Travis-CI has added beta C# support</a> so I connected it up with my <a href="http://github.com/csmacnz/bclextensions">GitHub prooject</a>, which is designed to eventually work with mono anyway, and gave it a go. But no, that&rsquo;s a no go.  The awesome error I was getting was this cryptic thing:</p>
-<pre><code class="language-sh">	Target GetReferenceAssemblyPaths:
-		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets:  warning : Unable to find framework corresponding to the target framework moniker '.NETPortable,Version=v4.0,Profile=Profile328'. Framework assembly references will be resolved from the GAC, which might not be the intended behavior.
+      <description>&lt;p&gt;As any good library should do, I&amp;rsquo;m building my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;BCLExtensions project&lt;/a&gt;(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact).  It works great on my &lt;a href=&#34;https://ci.appveyor.com/project/MarkClearwater/bclextensions&#34;&gt;AppVeyor CI builds&lt;/a&gt;, which is a great .Net windows build server.&lt;/p&gt;
+&lt;p&gt;I recently discovered &lt;a href=&#34;http://docs.travis-ci.com/user/languages/csharp/&#34;&gt;Travis-CI has added beta C# support&lt;/a&gt; so I connected it up with my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;GitHub prooject&lt;/a&gt;, which is designed to eventually work with mono anyway, and gave it a go. But no, that&amp;rsquo;s a no go.  The awesome error I was getting was this cryptic thing:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;	Target GetReferenceAssemblyPaths:
+		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets:  warning : Unable to find framework corresponding to the target framework moniker &#39;.NETPortable,Version=v4.0,Profile=Profile328&#39;. Framework assembly references will be resolved from the GAC, which might not be the intended behavior.
 		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets: error : PCL Reference Assemblies not installed.
-	Task &quot;GetReferenceAssemblyPaths&quot; execution -- FAILED
-</code></pre>
-<p>Turns out since I&rsquo;m using PCL (remember how i said i was using PCL), which the Xamarin mono bits on linux don&rsquo;t come with, and there are no debian packages that contain these PCL frameworks, the bits I need are not there on the Travis build vm.  It wont compile without them. Damn.</p>
-<p>Luckily for me, thanks to some fast work from the Travis-CI guys, I got the following added to my .travis.yml file:</p>
-<pre><code class="language-yaml">	install:
-		- curl -sS http://storage.bos.xamarin.com/bot-provisioning/PortableReferenceAssemblies-2014-04-14.zip &gt; /tmp/pcl-assemblies.zip
-		- unzip /tmp/pcl-assemblies.zip -d /tmp/pcl-assemblies &amp;&amp; mv /tmp/pcl-assemblies/PortableReferenceAssemblies-2014-04-14 /tmp/pcl-assemblies/.NETPortable
+	Task &amp;quot;GetReferenceAssemblyPaths&amp;quot; execution -- FAILED
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Turns out since I&amp;rsquo;m using PCL (remember how i said i was using PCL), which the Xamarin mono bits on linux don&amp;rsquo;t come with, and there are no debian packages that contain these PCL frameworks, the bits I need are not there on the Travis build vm.  It wont compile without them. Damn.&lt;/p&gt;
+&lt;p&gt;Luckily for me, thanks to some fast work from the Travis-CI guys, I got the following added to my .travis.yml file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;	install:
+		- curl -sS http://storage.bos.xamarin.com/bot-provisioning/PortableReferenceAssemblies-2014-04-14.zip &amp;gt; /tmp/pcl-assemblies.zip
+		- unzip /tmp/pcl-assemblies.zip -d /tmp/pcl-assemblies &amp;amp;&amp;amp; mv /tmp/pcl-assemblies/PortableReferenceAssemblies-2014-04-14 /tmp/pcl-assemblies/.NETPortable
 		- export XBUILD_FRAMEWORK_FOLDERS_PATH=/tmp/pcl-assemblies/
-</code></pre>
-<p>They even put it in a <a href="https://github.com/csmacnz/BCLExtensions/pull/2">nice PR</a> for me.  This allowed the build server to download the PCL references from Xamarin, set the environment variable for the location of the assemblies (well done xbuild for including that little gem in their source, and all my builds came to life.</p>
-<p>The only other hurdle i had was my mstest projects wouldn&rsquo;t compile, no mstest on mono.  This was easily fixed by changing to xUnit, which is cross platform, and I&rsquo;m loving as a test framework so far. easy to add using nuget packages and this in your .yml:</p>
-<pre><code class="language-yaml">    install:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;They even put it in a &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions/pull/2&#34;&gt;nice PR&lt;/a&gt; for me.  This allowed the build server to download the PCL references from Xamarin, set the environment variable for the location of the assemblies (well done xbuild for including that little gem in their source, and all my builds came to life.&lt;/p&gt;
+&lt;p&gt;The only other hurdle i had was my mstest projects wouldn&amp;rsquo;t compile, no mstest on mono.  This was easily fixed by changing to xUnit, which is cross platform, and I&amp;rsquo;m loving as a test framework so far. easy to add using nuget packages and this in your .yml:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;    install:
         - nuget restore MySolution.sln
         - chmod +x ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe
     script:
         - xbuild /p:Configuration=Release ./MySolution.sln
         - mono ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./MyProject.Tests/bin/Release/MyProject.Tests.dll
-</code></pre>
-<p>And now today I got an <a href="https://github.com/csmacnz/BCLExtensions/pull/2#issuecomment-67963660">update from the guys at Travis</a>:</p>
-<blockquote>
-<p><a href="https://github.com/akoeplinger">@akoeplinger</a> commented</p>
-<p><a href="https://github.com/csmacnz">@csmacnz</a> just FYI, we are now installing the new referenceassemblies-pcl Debian package from Xamarin in the Travis C# support, so this workaround shouldn&rsquo;t be necessary any longer :)</p>
-</blockquote>
-<p>So I will be able to remove all this and pretend it never happened. At least I&rsquo;ve documented it in the mean-time, and know it is here if a similar issue crops up in the future.</p>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now today I got an &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions/pull/2#issuecomment-67963660&#34;&gt;update from the guys at Travis&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/akoeplinger&#34;&gt;@akoeplinger&lt;/a&gt; commented&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/csmacnz&#34;&gt;@csmacnz&lt;/a&gt; just FYI, we are now installing the new referenceassemblies-pcl Debian package from Xamarin in the Travis C# support, so this workaround shouldn&amp;rsquo;t be necessary any longer :)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So I will be able to remove all this and pretend it never happened. At least I&amp;rsquo;ve documented it in the mean-time, and know it is here if a similar issue crops up in the future.&lt;/p&gt;
 </description>
     </item>
     

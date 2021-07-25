@@ -19,25 +19,25 @@
       <pubDate>Wed, 05 Aug 2015 11:13:12 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/visual-studio-2015-vs-visual-studio-2013/</guid>
-      <description><p>I&rsquo;ve been running some numbers over our solution to try and make things more efficient. While I was at it, I figured I would put 2013 head to head with 2015.</p>
-<p>The main test I ran was to take a solution open in Visual Studio and make sure it builds. I then ran Clean Solution.  Using a stopwatch (so accuracy +- 1-second values) I recorded how long it took to build. I repeated this 5 times, over three machines, once each with 2013 and 2015.  So first, the raw numbers (in seconds):</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>The average results from this looks like so:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>And for completeness, I thought I would graph the data as well:</p>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1438810998/VSBuildGraph_gsk2nx.png" alt="Visual Studio Build times comparing 2013 to 2015 across devices."></p>
-<h3 id="conclusions">Conclusions</h3>
-<p>Across the board, we have significate improvements. Visual Studio 2015 is just faster. And since nothing obvious breaks for my solution, at this stage I will be using it as the faster choice going forward.</p>
-<p>This test only ran across one solution with 30 C# projects, across 3 very similar machines, only 5 times each. For a more conclusive answer, you would want to run this across a whole range of extra solutions and machines. But from this limited view, I&rsquo;m really impressed by the perf increase of builds that 2015 provides me, for my particular code base, at this point in time.</p>
-<h3 id="other-findings">Other Findings</h3>
-<p>During this exercise of measuring I can across one other nice conclusion as well. Restoring NuGet packages on a large solution with a complex dependency graph is much faster when using the command line, rather than letting visual studio load them on demand right before a build.  I didn&rsquo;t get any hard numbers yet, but it feels significant. It took 2-4 minutes for VS to finish loading NuGet packages before it started building, versus the same dependencies loaded from the command line in 20 or 30 seconds.</p>
-<pre><code class="language-powershell">nuget restore src\mySolution.sln
-</code></pre>
-<p>It is true that I am using a locally hosted NuGet 2 server, and that could be a factor, so your mileage may vary. But I usually find that command line tasks do come out faster compared to GUI ones, and this is one I will change my habits over.</p>
+      <description>&lt;p&gt;I&amp;rsquo;ve been running some numbers over our solution to try and make things more efficient. While I was at it, I figured I would put 2013 head to head with 2015.&lt;/p&gt;
+&lt;p&gt;The main test I ran was to take a solution open in Visual Studio and make sure it builds. I then ran Clean Solution.  Using a stopwatch (so accuracy +- 1-second values) I recorded how long it took to build. I repeated this 5 times, over three machines, once each with 2013 and 2015.  So first, the raw numbers (in seconds):&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;The average results from this looks like so:&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;And for completeness, I thought I would graph the data as well:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1438810998/VSBuildGraph_gsk2nx.png&#34; alt=&#34;Visual Studio Build times comparing 2013 to 2015 across devices.&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;conclusions&#34;&gt;Conclusions&lt;/h3&gt;
+&lt;p&gt;Across the board, we have significate improvements. Visual Studio 2015 is just faster. And since nothing obvious breaks for my solution, at this stage I will be using it as the faster choice going forward.&lt;/p&gt;
+&lt;p&gt;This test only ran across one solution with 30 C# projects, across 3 very similar machines, only 5 times each. For a more conclusive answer, you would want to run this across a whole range of extra solutions and machines. But from this limited view, I&amp;rsquo;m really impressed by the perf increase of builds that 2015 provides me, for my particular code base, at this point in time.&lt;/p&gt;
+&lt;h3 id=&#34;other-findings&#34;&gt;Other Findings&lt;/h3&gt;
+&lt;p&gt;During this exercise of measuring I can across one other nice conclusion as well. Restoring NuGet packages on a large solution with a complex dependency graph is much faster when using the command line, rather than letting visual studio load them on demand right before a build.  I didn&amp;rsquo;t get any hard numbers yet, but it feels significant. It took 2-4 minutes for VS to finish loading NuGet packages before it started building, versus the same dependencies loaded from the command line in 20 or 30 seconds.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;nuget restore src\mySolution.sln
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It is true that I am using a locally hosted NuGet 2 server, and that could be a factor, so your mileage may vary. But I usually find that command line tasks do come out faster compared to GUI ones, and this is one I will change my habits over.&lt;/p&gt;
 </description>
     </item>
     
