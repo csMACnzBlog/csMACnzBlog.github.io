@@ -4,6 +4,12 @@
     <title>Rust on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/rust/</link>
     <description>Recent content in Rust on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 14 May 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
@@ -13,9 +19,78 @@
       <pubDate>Mon, 14 May 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/develop-your-rust-in-docker/</guid>
-      <description>I decided a while ago that the next language I would try to learn is Rust. I don&amp;rsquo;t want to go too much into Rust other than to repeat its own summary:
- Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. &amp;ndash; https://www.rust-lang.org/
- But like all things, there are bits that need to be installed. I want to get started, I don&amp;rsquo;t want to muck around with installers.</description>
+      <description><p>I decided a while ago that the next language I would try to learn is Rust.  I don&rsquo;t want to go too much into Rust other than to repeat its own summary:</p>
+<blockquote>
+<p>Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.
+&ndash; <a href="https://www.rust-lang.org/">https://www.rust-lang.org/</a></p>
+</blockquote>
+<p>But like all things, there are bits that need to be installed. I want to get started, I don&rsquo;t want to muck around with installers.</p>
+<h3 id="online-playground">Online playground</h3>
+<p>The Rust docs online include <a href="https://doc.rust-lang.org/rust-by-example/">Rust By Example</a>, which is interactive documentation that you can edit and execute from inside the browser.</p>
+<p>There is also the <a href="https://play.rust-lang.org/">Rust Playground</a> which lets you write, compile, run, decompile Rust, and even generate intermediate representations of it in several formats.</p>
+<p>Many modern languages now have playgrounds like this including C# (<a href="https://dotnetfiddle.net/">.Net Fiddle</a> or <a href="https://csharppad.com/">C# Pad</a>), JavaScript (<a href="https://jsbin.com/">JS Bin</a>, <a href="https://jsfiddle.net/">JS Fiddle</a> or <a href="https://javascriptplayground.com/">The Javascript Playground</a>) and F# (<a href="http://www.tryfsharp.org/">Try F#</a>) (as well as many others).</p>
+<p>Ok for playing around, but not sufficient, especially if you want to write custom <a href="https://en.wikipedia.org/wiki/Intellectual_property">IP</a>, or start doing IO for instance.</p>
+<h3 id="why-not-docker">Why not docker?</h3>
+<p>On windows, I can build and run Rust on Docker, without installing Rust. Since I already have Docker installed, this is the fastest way to get going.</p>
+<pre><code class="language-powershell">docker run -it -v &quot;$(pwd):/usr/src/myapp&quot; -w /usr/src/myapp --rm rust:latest cargo test
+</code></pre>
+<p>This PowerShell-compatible command launches and tests my application in docker. Breaking it down:</p>
+<ul>
+<li><code>docker run</code> says we are executing a container from an image</li>
+<li><code>-it</code> specifies we want it to be an interactive session (show me the console logs)</li>
+<li><code>-v &quot;$(pwd):/usr/src/myapp&quot;</code> I want to map (share) my current local folder inside the container at the path &ldquo;/usr/src/myapp&rdquo;</li>
+<li><code>-w /usr/src/myapp</code> start the session inside the working directory as the one we just mapped from our local system</li>
+<li><code>--rm</code> clean up the instance when we exit</li>
+<li><code>rust:latest</code> use the latest rust container image</li>
+<li><code>cargo test</code> run the rust command cargo test (a bit like dotnet test)</li>
+</ul>
+<h3 id="an-example">An Example</h3>
+<p>Let&rsquo;s work this a step at a time. I want to:</p>
+<ul>
+<li>Create a new rust project</li>
+<li>Build it</li>
+</ul>
+<p>We had a look at the rust command to build in detail, so we can now quickly look at the commands to create a new rust project and then build it.</p>
+<h4 id="file-new-project">File New Project</h4>
+<p>In Rust, there is a tool called Cargo, which works a lot like <code>dotnet</code> for C#.  There is also a compiler <code>rustc</code> that will compile a single file. You could just run the above command with <code>rustc main.rs</code> instead of <code>cargo test</code> and it will build the <code>main.rs</code> file from inside the container.</p>
+<p>Instead, we will use cargo.</p>
+<p>(As a caveat, we need to declare a <code>$USER</code> environment variable for cargo new since this appears to be unset on this Docker container image.)</p>
+<pre><code class="language-powershell">mkdir rustroot
+cd rustroot
+docker run -e USER=MyUser -it -v &quot;$(pwd):/usr/src&quot; -w /usr/src --rm rust:latest cargo new --bin myApp
+</code></pre>
+<p>If everything went well, you should now have a local file structure on your machine:</p>
+<pre><code>rustroot
++-- myApp
+    |-- Cargo.toml
+    +-- src
+        \-- main.rs
+</code></pre>
+<p>Let&rsquo;s move into the newly created directory.</p>
+<pre><code>cd myApp
+</code></pre>
+<h4 id="build-and-test">build and test</h4>
+<p>From inside the <code>myApp</code> folder, we can once again launch a docker instance to perform our build and test:</p>
+<pre><code class="language-powershell">docker run -it -v &quot;$(pwd):/usr/src/myapp&quot; -w /usr/src/myapp --rm rust:latest cargo test
+</code></pre>
+<p>You should now see the following successful output:</p>
+<pre><code class="language-bash">&gt; docker run -it -v &quot;$(pwd):/usr/src/myapp&quot; -w /usr/src/myapp --rm rust:latest cargo test
+   Compiling myApp v0.1.0 (file:///usr/src/myapp)
+warning: crate `myApp` should have a snake case name such as `my_app`
+  |
+  = note: #[warn(non_snake_case)] on by default
+
+    Finished dev [unoptimized + debuginfo] target(s) in 1.4 secs
+     Running target/debug/deps/myApp-f7629208065f5316
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>At some point, I had an error trying to run this a second time. I used <code>rm -r ./target</code> to fix it, possibly because of some sort of locking? I&rsquo;m not sure. All I knew at the time was that if I didn&rsquo;t remove it, it didn&rsquo;t build a second time. It seems to work fine now though. <em>shrug</em></p>
+<h3 id="the-end">The End</h3>
+<p>Long term I will still want to install a development environment for Rust, but to get going fast and for just learning the syntax and libraries, this is a nice quick way to get started. (And if you want to run a Rust workshop/lesson, it may be easier to get certain groups up and running if you know they already have docker - like your team at work, perhaps.)</p>
+</description>
     </item>
     
   </channel>

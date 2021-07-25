@@ -4,6 +4,12 @@
     <title>Patterns on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/patterns/</link>
     <description>Recent content in Patterns on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 08 Jul 2019 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/patterns/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +19,21 @@
       <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</guid>
-      <description>Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.
-How do you build out a new API? Here we are meaning programming contracts effectively. You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.</description>
+      <description><!-- raw HTML omitted -->
+<p>Sometimes naming something is the best way to start talking about a topic that lots of people do but don&rsquo;t realise or haven&rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.</p>
+<p>How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.</p>
+<p>Most developers get to a point where they see the value in having contract design up front across team boundaries, layer boundaries, reusable components, HTTP/Soap boundaries etc. An evolved design for these will never be as good as an intentional one. And on the flip side, we have all used clunky library APIs in various languages, BCL or otherwise.</p>
+<h3 id="what-is-mr-snuffleupagus">What is Mr Snuffleupagus</h3>
+<p>The name comes from Sesame Street. Muppets basically. Big Bird and Bert and Ernie, Elmo etc. There was a storyline decades ago where Big Bird kept seeing Mr Snuffleupagus and talking about him, but no one else ever saw him. They concluded it was an imaginary creature for a long time. In the show, it was very ambiguous what the truth was. Eventually, they actually saw the Snuffleupagus too and concluded it wasn&rsquo;t imaginary after all. <a href="https://www.smithsonianmag.com/smart-news/brief-history-sesame-streets-snuffleupagus-iidentity-crisis-180957351/">More here.</a></p>
+<h3 id="enter-sop">Enter SOP</h3>
+<p>The ideas from this story match an approach to building your API.</p>
+<p>First, we are going to imagine that what we want to use exists. Then we are going to write code against the API, crafting our usage case, without implementing anything.  Once we are happy that our API is usable, we implement it and make it actually exist, make it real. There may be a few tweaks once the realities and limitations of the implementation are taken into account, but the idea is to try and keep it as usable as the original usage cases as possible, usability intact.</p>
+<!-- raw HTML omitted -->
+<h3 id="tdd">TDD</h3>
+<p>This is a great candidate approach to work with TDD as well, just with more implementation code along the way to produce passing tests. Like Mr Snuffleupagus, this implementation code is imaginary until you have enough test cases to make it real, and refactor.</p>
+<h3 id="thanks">Thanks</h3>
+<p>Go forth and start sharing SOP, Snuffleupagus-Oriented Programming. Imagine, Build Usage, Make it Real.  Thanks <a href="https://twitter.com/cmuratori">Casey Muratori</a> for coining the term and making it stick. See more of his programming on <a href="https://handmadehero.org/">HandMade Hero</a> (<a href="https://www.youtube.com/handmadehero">YouTube</a>), and his company <a href="https://mollyrocket.com/nexus">Molly Rocket</a> for games and more.</p>
+</description>
     </item>
     
     <item>
@@ -23,8 +42,240 @@ How do you build out a new API? Here we are meaning programming contracts effect
       <pubDate>Sun, 05 Jul 2015 18:04:40 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/the-service-locator-base-class-antipattern/</guid>
-      <description>Something I have seen a lot of over the last few years is a lot of service location, particularly in base classes, particularly in Controllers. But not limited to there, it can happen anywhere we see base classes.
-Short rant about inheritance The longer I do this, the more I find that base classes are not meant to be overused. I find that if we are pumping base classes full of code, we should probably be breaking them out into smaller classes, and including them in the derived versions that actually use that functionality.</description>
+      <description><p>Something I have seen a lot of over the last few years is a lot of service location, particularly in base classes, particularly in Controllers. But not limited to there, it can happen anywhere we see base classes.</p>
+<h2 id="short-rant-about-inheritance">Short rant about inheritance</h2>
+<p>The longer I do this, the more I find that base classes are not meant to be overused. I find that if we are pumping base classes full of code, we should probably be breaking them out into smaller classes, and including them in the derived versions that actually use that functionality. If it is a cross-cutting concern, probably using attributes would be a cleaner solution.  Composition over Inheritance makes testing much simpler IMHO.</p>
+<h2 id="short-rant-about-service-location">Short rant about service location</h2>
+<p>Containers have no place in Unit Tests. Let me clarify. The application&rsquo;s IOC container has no place in the unit tests. (AutoFixture can be a helpful tool, but is also a smell). The fact that you use a service locator couples your code to <em>that</em> service locator, and now it is required in your tests to get things to run. Using a service locator hides from you, the consumer of that object, the dependencies that your object requires. If these are hidden in a base class or extension method, you have no way to discover that the dependency is there until your tests (or worst case, your application) comes crashing down around you.</p>
+<p><strong>&lt;<em>/Rant</em>&gt;</strong></p>
+<h2 id="the-antipattern">The antipattern</h2>
+<p>So the antipattern goes like this: We have N classes, with N types of functionality. They derive from a base class, which contains many services that are used across all N derived classes. These services are <strong>Service Located</strong>.</p>
+<pre><code class="language-cs">public class BaseController : Controller
+{
+    public ICustomerService CustomerService
+    {
+        get
+        {
+            return Service.Locate&lt;ICustomerService&gt;();
+        }
+    }
+    
+    public IOrderService OrderService
+    {
+        get
+        {
+            return Service.Locate&lt;IOrderService&gt;();
+        }
+    }
+}
+
+public class OrderController : BaseController 
+{
+    public Order Get(int orderId)
+    {
+        return OrderService.GetOrderById(orderId);
+    }
+}
+
+public class CustomerController : BaseController 
+{
+    public Customer Get(int customerId)
+    {
+        return CustomerService.GetOrderById(orderId);
+    }
+}
+
+</code></pre>
+<p>This is a representative sample of services and controllers. You can imagine that the real number of services in the base class could be anywhere between 5 and 20 services, or more, and that there could be 5 to 20, or more, controllers as well.</p>
+<p>Also, I have intentionally used Service.Locate because there are many ways to do this approach. You could use some generic <em>Global Static Method</em> or some container specific <em>Global Static variable</em>. It doesn&rsquo;t matter which, both are just as bad as each other.</p>
+<p>So Why is this so bad? Well, when It comes to testing, your Controller now has hidden dependencies. We can no longer tell from the constructor what it requires to be provided to get work done.  But they aren&rsquo;t required right, it is able to resolve them itself?  No, not really.</p>
+<p>There is a dependency on the Service Locator class <code>Service</code> that has to be configured just right for the actual dependencies to show up. And what&rsquo;s worse than hidden dependencies? Singleton dependencies that break your ability to run your tests in parallel.  If you try and run two tests against two controller instances (or any other type that shares the singleton dependency) then your test may periodically fail, from a race condition with the other test. It is never fun to have false negatives in your test suite, you lose all trust and won&rsquo;t see a true negative as a real problem.</p>
+<h3 id="incorrect-solution-1">(Incorrect) Solution 1</h3>
+<p>Ok, so we see the problems, how should we solve them? Let&rsquo;s try fixing the singleton problem with dependency injection through the constructor:</p>
+<pre><code class="language-cs">public class BaseController : Controller
+{
+    private ICustomerService _customerService;
+    public ICustomerService CustomerService
+    {
+        get
+        {
+            return _customerService;
+        }
+    }
+    
+    private IOrderService _orderService;
+    public IOrderService OrderService
+    {
+        get
+        {
+            return _orderService;
+        }
+    }
+    
+    protected BaseController(
+        ICustomerService customerService,
+        IOrderService orderService)
+    {
+        _customerService = customerService;
+        _orderService = orderService;
+    }
+}
+
+public class OrderController : BaseController 
+{
+    public OrderController(
+        ICustomerService customerService,
+        IOrderService orderService)
+        : base(customerService, orderService)
+    {
+    }
+    
+    public Order Get(int orderId)
+    {
+        return OrderService.GetOrderById(orderId);
+    }
+}
+
+public class CustomerController : BaseController 
+{
+    public CustomerController(
+        ICustomerService customerService,
+        IOrderService orderService)
+        : base(customerService, orderService)
+    {
+    }
+    
+    public Customer Get(int customerId)
+    {
+        return CustomerService.GetOrderById(orderId);
+    }
+}
+</code></pre>
+<p>By my rough estimate, we doubled the code, but we did expose our dependencies through the constructor right? Again, not really.</p>
+<p>If we take a closer look, we have a dependency on the BaseController for the <code>IOrderService</code>, but we never actually use it on the derived CustomerController. With more and more services loaded up on the base class, the worse this gets. The more likely we are that more of the dependencies the base class requires are not used by any particular controller.</p>
+<p>If you are using a DI Container, you won&rsquo;t feel the pain of creating one of these either, but the pain is still there. This is one of my Pet Peeves with Containers, they hide a lot of the pain from bad usages that only get worse over time, instead of annoying you enough to fix the problem fast.</p>
+<p>And what if we need to add a new dependency?  Well, if we add it to the base class, we have to add it to all (5, or maybe 20) Controllers' constructors so that it will compile.  You might not see this as an issue, you just add it to the one that uses the dependency right? Not so. The base class has become a gravity well, all services go there, whether needed by all, or not. It&rsquo;s only logical that the next person along will put their new service there as well.  If there is code in the base class, it may be the only place to add it to surface the functionality to that code.</p>
+<p>This brings me to the next reason base class dependencies are bad.  Not every derived class will use it. So why do they all have it available at all, in the first instance, and have a dependency in their constructor for it in the second instance, if it is not actually a dependency?</p>
+<p>This leads into a huge con for this approach over the previous one: <a href="http://stackoverflow.com/questions/1299374/what-is-eager-loading">Over-eager loading</a>.  At least with the service locator, the instance and all of its dependencies are only loaded when you ask for the service.  With this approach, all dependencies are loaded before they are injected in, which could add a large amount of overhead to creating your controller. And like we said, not every instance is actually even used in this controller at all!  No, don&rsquo;t do this approach if you can help it. (by that I usually mean as a stop-gap solution to a larger refactoring effort. See <a href="#reality">Reality</a>.)</p>
+<h3 id="the-way-things-should-have-been">The way things should have been</h3>
+<p>Let&rsquo;s try to implement this solution again, with all of this in mind.  We want our classes to only take dependencies on what they actually use:</p>
+<pre><code class="language-cs">public class OrderController : Controller 
+{
+    private IOrderService _orderService;
+
+    public OrderController(IOrderService orderService)
+    {
+        _orderService = orderService;
+    }
+    
+    public Order Get(int orderId)
+    {
+        return _orderService.GetOrderById(orderId);
+    }
+}
+
+public class CustomerController : Controller 
+{
+    private ICustomerService _customerService;
+
+    public CustomerController(ICustomerService customerService)
+    {
+         _customerService = customerService;
+    }
+    
+    public Customer Get(int customerId)
+    {
+        return _customerService.GetOrderById(orderId);
+    }
+}
+</code></pre>
+<p>We can&rsquo;t get away from inheritance completely because of MVC, but we now have one less class to worry about. And in this trivial example, we have the same amount of code. Of course, that bit doesn&rsquo;t necessarily scale, but that&rsquo;s not a problem, really. Have we fixed all our problems? I think so.</p>
+<p>Our controller now takes only the dependencies it needs. We don&rsquo;t need to pass so many things to any particular controller, and It is clear what it actually depends on.  In reality, we might have had to pass the same services to multiple controllers, but that&rsquo;s what composition is all about.</p>
+<p>We no longer have hidden dependencies. Everything a controller needs is passed in. Much easier for testing. You can even run your tests concurrently without the shared static singleton service locator.</p>
+<p>Now since we got rid of the base class, what about any cross-cutting concerns or common code?  Well, it should now become clear that some of that code might need to be a dependency passed into the subset of all controllers that actually use it.  And it that code still needs context-specific knowledge that you can&rsquo;t or don&rsquo;t want to pass in? I suggest looking into Aspect Oriented approaches such as the <a href="https://msdn.microsoft.com/en-us/library/system.web.mvc.filterattribute(v=vs.118).aspx">MVC FilterAttribute</a>.</p>
+<p>But we still have far too many dependencies per controller with this approach right? Well, that depends. I&rsquo;ll hopefully cover this off from the next two sections, but at a high level, you may have mixed concerns in your controller if it still requires many different services. Or perhaps you need to encapsulate some of your business logic out into a new service instead of having it in amongst your MVC logic.  The other option, which is hard to achieve in the existing MVC framework but worth mentioning, is the idea of service injection into methods, as discussed under <a href="#advancedtopics">advanced topics</a>.</p>
+<h2 id="reality">Reality</h2>
+<p>In reality, this type of code is probably already in your legacy applications, and It isn&rsquo;t simple to unravel them. It could take several attempts to transform your code to resemble this type of approach.</p>
+<p>If you do want to tackle this type of refactoring, you would first want to pick one controller, and transform that one first.  This will require code duplication to move your dependencies in, but you should find that not all of them need to be copied over.</p>
+<p>As you refactor out code into attributes and new service classes, think about adding usages from your base class and other controllers at the same time, if the change is small enough to do so.</p>
+<p>Another real-world solution to the Service Location problem, especially for testing is to pass these dependencies in a second constructor and use <em>service location</em> from the default constructor instead.</p>
+<pre><code class="language-cs">public class BaseController : Controller
+{
+    ...
+    
+    protected BaseController()
+    : this(Service.Locate&lt;ICustomerService&gt;(),Service.Locate&lt;IOrderService&gt;())
+    {
+    }
+    
+    protected BaseController(
+        ICustomerService customerService,
+        IOrderService orderService)
+    {
+        _customerService = customerService;
+        _orderService = orderService;
+    }
+}
+
+public class OrderController : BaseController 
+{
+    public OrderController(
+        ICustomerService customerService,
+        IOrderService orderService)
+        : base(customerService, orderService)
+    {
+    }
+    
+    public OrderController() : base()
+    {
+    }
+    
+    ...
+}
+</code></pre>
+<p>This approach allows you to fix your concurrent testing issues, even if you can&rsquo;t fix all of your problems straight away.</p>
+<p>If you can&rsquo;t get rid of the base class at all, look for candidates that are only used in some places, and pull these down, so at least new dependencies added will see this approach, and you have a new gravity well approach for others to follow.</p>
+<h2 id="advanced-topics">Advanced Topics</h2>
+<p>I said I would mention is service injection into methods.  This is something that containers won&rsquo;t do for you, but there are approaches available in other frameworks and libraries that could allow you to follow a similar pattern. Worst-case an <a href="https://en.wikipedia.org/wiki/Adapter_pattern">Adapter</a> could be used to achieve this as another layer in your MVC, or use Lazy objects to at least simulate the run-time benefits this creates.</p>
+<p>The implementation of the method looks as follows:</p>
+<pre><code class="language-cs">
+public class CustomerController : Controller 
+{   
+    public Customer Get(int customerId, ICustomerService customerService)
+    {
+        return CustomerService.GetOrderById(orderId);
+    }
+}
+</code></pre>
+<p>As well as our parameters, we pass the services along here as well. This way, our controller method only requires the services it really uses, not all the services for all methods in this controller. As I said, you <em>should</em> only have services that most of your actions need anyway, of you have a solid single responsibility in this controller.</p>
+<p>The way to simulate some of these benefits, as mentioned before, would look something like this:</p>
+<pre><code class="language-cs">public class CustomerController : Controller 
+{
+    private Lazy&lt;ICustomerService&gt; _customerService;
+
+    public CustomerController(Lazy&lt;ICustomerService&gt; customerService)
+    {
+         _customerService = customerService;
+    }
+    
+    public Customer Get(int customerId)
+    {
+        return _customerService.Value.GetOrderById(orderId);
+    }
+}
+</code></pre>
+<p>Given we have a container, we now we only actually create a service and all of its dependencies in the method where we actually use it, and not anywhere else.  Slight gain, but if you are trying to tidy up your controllers, this little trick could come in useful.</p>
+<h3 id="parting-words">Parting words</h3>
+<p>If you&rsquo;ve made it this far, thanks for sticking with me, I know it has been a long one.  What might render this discussion moot, or highly important is this small piece of advice:</p>
+<blockquote>
+<p>Separate your rendering/routing/MVC style concerns from your implementation details.</p>
+</blockquote>
+<p>Try to keep your controllers void of logic and stick with transforming user data to a payload, passing the payload to a service, and rendering the results from the service. Authorisation and validation might fit better here as well, but not your actual business logic.  This will serve you well for simplifying testing, and less fighting with the framework to make it handle injection, dependencies, inheritance and HTTP concerns within your business rules.</p>
+<p>There are no silver bullets, but if your system is complex, this approach does make testing easier, overall.</p>
+<p>I would like to code up a bigger solution showing all three approaches to stick up on GitHub. We will see if time permits later in the month.</p>
+<h2 id="update">Update</h2>
+<p>The mentioned GitHub solution is now available: <a href="https://github.com/csMacnzBlog/BaseClassAntiPattern">https://github.com/csMacnzBlog/BaseClassAntiPattern</a></p>
+</description>
     </item>
     
     <item>
@@ -33,8 +284,119 @@ Short rant about inheritance The longer I do this, the more I find that base cla
       <pubDate>Sun, 21 Jun 2015 08:49:59 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/more-small-classes/</guid>
-      <description>Its a pretty common rule of thumb to avoid monoliths and write more small classes. Think about the solid principles.
- Single responsibility per class. This implies less in it. Smaller. Open for extension closed for modification. Take out the things that will change. Smaller. Liskov substitution principle says substitutability is the way to go. Easier to ensure when your class is smaller. Interface segregation. Smaller interfaces. Dependencies being passed in means less surface area accessible or exposed.</description>
+      <description><p>Its a pretty common rule of thumb to avoid monoliths and write more small classes. Think about the solid principles.</p>
+<ul>
+<li>Single responsibility per class. This implies less in it. Smaller.</li>
+<li>Open for extension closed for modification. Take out the things that will change. Smaller.</li>
+<li>Liskov substitution principle says substitutability is the way to go. Easier to ensure when your class is smaller.</li>
+<li>Interface segregation. Smaller interfaces.</li>
+<li>Dependencies being passed in means less surface area accessible or exposed. Smaller.</li>
+</ul>
+<p>Ok, some of that might be a stretch, but as a stand-alone rule of thumb, <strong>more small classes</strong> is a key tenant that helps you meet most if not all of the above principles.</p>
+<p>Here is an example from work today that I think shows the simplicity of this principle, that is often missed or overlooked.</p>
+<h3 id="the-problem">The Problem</h3>
+<p>We have a class FooService. Now this class is responsible for getting us some Foo. (really need to find a picture of what a Foo actually looks like, the internet thinks it looks like <a href="http://images.google.com/search?tbm=isch&amp;q=Foo">a Dave Grohl</a>).</p>
+<pre><code class="language-cs">public class FooService : IFooService
+{
+    public Foo GetFoo(CustomerId id)
+    {
+        Foo foo;
+        ... //Actual implementation logic
+        return foo
+    }
+}
+</code></pre>
+<p>The implementation is not important. It might be a database call, or a restful call, a reading from a hardware device, whatever.</p>
+<p>Now we have this requirement that we are calling the Service from several places (properly injected and scoped of course) but we realise that we are calling it several times per request scope (lets assume this is MVC). We want to be able to reuse the result across the request scope, but not any wider.</p>
+<h3 id="solution-decision">Solution Decision</h3>
+<p>One thing we could do, is make a call at the start of the scope, and pass the result along to where it is needed. The problem there would be that we are a modular system and we have 4-5 calls between us and the place we need the value. Also they are down two different use case paths, and everything is constructor injected.  Lets try another approach. Caching.</p>
+<p>Caching is a great way to reuse a result temporarily. In fact I would argue that&rsquo;s exactly what its for. So let&rsquo;s start with the naive version.</p>
+<h3 id="solution-implementation-the-wrong-way">Solution Implementation: the wrong way</h3>
+<p>Lets add caching to our class. Should be fairly simple, something like this:</p>
+<pre><code class="language-cs">public class FooService : IFooService
+{
+    Dictionary&lt;CustomerId, Foo&gt; _cache = new Dictionary&lt;CustomerId, Foo&gt;();
+    public Foo GetFoo(CustomerId id)
+    {
+        Foo foo;
+
+        if(_cache.ContainsKey(id){
+            return _cache[id];
+        }
+
+        ... //Actual implementation logic
+
+        _cache[id] = foo;
+
+        return foo
+    }
+}
+</code></pre>
+<p>Looks fine right? Sure thing, but we should take care of the scope in our container so it gets correctly set to request scope.</p>
+<pre><code class="language-cs">Bind&lt;IFooService&gt;().To&lt;FooService&gt;().InRequestScope();
+</code></pre>
+<p>Something resembling a container setup. Cool.</p>
+<p>Why is this the wrong approach?  I have two specific issues with this code.</p>
+<ul>
+<li>We have two concerns to our class now. <em>Retrieving</em> and <em>Caching</em>.</li>
+<li>We separated two parts of our cache configuration, the <em>Where</em> from the <em>Scope</em>, across the system.</li>
+</ul>
+<p>The first concern is the main point of the article. Subtle violations occur without even realising it (I&rsquo;m guilty of this as much as anyone). We need to constantly ask ourselves what the concerns of a class are, to slowing build up a knowledge of known cases to be on the lookout for. This class has two concerns. We <em>can</em> separate them, and Ill show how easy that is to do next.</p>
+<p>The second is almost more subtle though. Here, we are separating the same concern, caching, into different places. because the cache logic is internal, you can&rsquo;t see it from where it is used. That is fine, since that is not your concern where you use it. But to configure it, you rely on the container for your IOC framework to be configured correctly. It is not clear from the cache code what the lifetime is, and not clear from the lifetime that it relates to caching.  We need to bring these two pieces of information closer together. Luckily, by pulling out the cache concern from the service, we almost get that for fee. Lets see how.</p>
+<h3 id="solution-implementation-the-right-way">Solution Implementation: the right way</h3>
+<p>We start by going back to our original implementation.</p>
+<pre><code class="language-cs">public class FooService : IFooService
+{
+    public Foo GetFoo(CustomerId id)
+    {
+        Foo foo;
+        ... //Actual implementation logic
+        return foo
+    }
+}
+</code></pre>
+<p>Instead of writing the caching inside the existing class, we create a new <em>wrapper</em> class instead.</p>
+<pre><code class="language-cs">public class FooServiceCacheWrapper : IFooService
+{
+    private IFooService _actual;
+
+    public FooServiceCacheWrapper(IFooService actual)
+    {
+    	_actual = actual;
+    }
+
+    public Foo GetFoo(CustomerId id)
+    {
+        Foo foo;
+
+        if(_cache.ContainsKey(id){
+            return _cache[id];
+        }
+
+        foo = _actual.GetFoo(id);
+
+        _cache[id] = foo;
+
+        return foo
+    }
+}
+</code></pre>
+<p>There are three key parts to point out in this implementation. It adds almost exactly the same code as we were going to add (no extra work was required to go this alternate root). We didn&rsquo;t have to change the existing code to do it. And third, we are implementing the same interface as the original, and wrapping around it a sort of caching layer. This is almost <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">AOP</a>, and is making use of the <a href="https://en.wikipedia.org/?title=Proxy_pattern">Proxy Pattern</a>.</p>
+<p>The second part is in our IOC config:</p>
+<pre><code class="language-cs">Bind&lt;IFooService&gt;()
+    .To&lt;FooServiceCacheWrapper&gt;()
+    .UsingConstructorParameter&lt;FooService&gt;()
+    .InRequestScope();
+</code></pre>
+<p>or</p>
+<pre><code class="language-cs">Bind&lt;IFooService&gt;()
+    .To(c=&gt; new FooServiceCacheWrapper(c.Resolve&lt;FooService&gt;))
+    .InRequestScope();
+</code></pre>
+<p>The syntaxes are made up, but the concept is there, and hopefully one looks familiar enough for you to implement in your IOC of choice. We Resolve our existing interface to our new Wrapper class instead. And part of resolving our wrapper class, is to use the concrete version of the service that will do the actual work. This is a simplistic approach similar to the idea of the <a href="https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Chain of responsibility pattern</a>. We are now composing together our classes to achieve the desired result.</p>
+<p>As a bonus, we see now that the place where we configure our caching around the service, we also define the scope of the cache class. Much nicer to see these two concepts in the same place now, don&rsquo;t you think?</p>
+<p>Hopefully this opens your eyes and starts you thinking. Keep looking out for places where you have been ignoring the single responsibility pattern, and make <strong>more small classes</strong>.</p>
+</description>
     </item>
     
     <item>
@@ -43,8 +405,25 @@ Short rant about inheritance The longer I do this, the more I find that base cla
       <pubDate>Sun, 03 May 2015 09:45:09 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/ports-and-adapters/</guid>
-      <description>It feels like everywhere I turn (in my circles anyway), people are talking about Ports and Adapters, and I thought I would jump on the bandwagon. You may have also heard this architecture called Onion Architecture, or Hexagonal Architecture. All of these are essentially the same idea, under a different name.
-Brief History When we started solving our problems with a 3 tier architecture, we were trying to solve the problem of isolating our business logic from our persistence and from our presentation.</description>
+      <description><p>It feels like everywhere I turn (in my circles anyway), people are talking about Ports and Adapters, and I thought I would jump on the bandwagon. You may have also heard this architecture called Onion Architecture, or Hexagonal Architecture. All of these are essentially the same idea, under a different name.</p>
+<h3 id="brief-history">Brief History</h3>
+<p>When we started solving our problems with a 3 tier architecture, we were trying to solve the problem of isolating our business logic from our persistence and from our presentation. But it wasn&rsquo;t a silver bullet, due to coupling back up the stack of implementation concerns, and the idea has been refined over the last decade or so. The TDD/BDD movement lead us down a more prescriptive approach, as well as <a href="http://martinfowler.com/bliki/CQRS.html">CQRS</a> patterns, and basically more and more abstractions. But those who were implementing TDD/BDD had lost the core of the messaging. Specifically, isolate your tests from each other, not your methods from their required dependencies.</p>
+<h3 id="isolation">Isolation</h3>
+<p>Mocking frameworks allowed us to test our code with heavy white-box testing, but by coupling our tests to our implementation and making them volatile to change. The intention of TDD was to isolate tests from each other, and be implementation agnostic, not to test isolated chunks of code. We might want to test that our system spits something out into a persistence layer, but we should be more concerned that given valid input, we get the correct success response, and a subsequent request returns the expected values back to us. We also want to focus on business logic, complex rules and interactions, and not presentation or persistence concerns.</p>
+<p>What we ended up with was - at worst-case - a test that checked the tested 2 lines of code did what the two lines of code did (often though duplication of the logic in the test itself) or a test with 90% of it&rsquo;s code there to mock out all 8 (or 20) dependencies. Worse, we would be mocking <code>FooFactory</code> and <code>BarBuilder</code>, <code>BazService</code>, <code>FizzMapper</code>, and other core parts of the behaviour we are looking at testing. The net result is we test the plumbing and mock the implementation details out. Your experience may vary, but I have seen more than one code base heading into or already in a state similar to this.</p>
+<h3 id="the-silver-bullet">The Silver Bullet</h3>
+<p>Ok, there is no such thing, but there is certainly the reverse, a Blunt Knife if you will. Some techniques, once other techniques are learned, often fall into the bad idea category, the &lsquo;doing it this way is almost always the wrong way&rsquo; type of approaches, and I&rsquo;m thinking the mock everything approach falls into this category. But until you see another way, it is hard to see the light.</p>
+<p>This is where Ports and Adapters comes in. The idea here is that we define our system and its behaviours at the centre of our architecture. We then expose ports (think DTOs and interfaces, in a loose shared .DLL sense of the terms) that are the places where we can build user experience on top of the system functionality. We define adapters that fit into these ports, such as our UI. We can even have multiple versions of the adapters we plug in, such as an MVC front-end, and a WPF Desktop or Windows Store application adapter, or perhaps a developer Rest API adapter.</p>
+<p>These ports and the only place we plug anything(as adapters) into our system, so we only need to write our unit tests to test our system for specific behaviours by calling into these ports. Our test methods now become adapters themselves.</p>
+<p>The other side of the Ports and Adapters conversation is the persistence, or outgoing communications, such as logging, external service calls and your database repositories. Where these services plug in are also defined as ports, but instead of your adapter calling into a specified interface, your adapter is an implementation of it. These ports now become the ones you need to <a href="http://blog.8thlight.com/uncle-bob/2014/05/14/TheLittleMocker.html">Fake ,Stub or Mock</a> in your tests, not internal components used by a specific class, such as mappers or builders. Think about how this approach actually isolates your persistence layer implementation details from your domain specific logic?</p>
+<h3 id="testing">Testing</h3>
+<p>So how do we test? Well, lets redefine what we mean by Unit Test, and write Unit Tests for our architecture. Unit Test, means testing a Unit of Behaviour in isolation from other tests. This means we need to not use the real implementations of your database adapters and logging frameworks and third party APIs, we can stub or fake these as required. We also won&rsquo;t include our presentation adapters since our test is acting as this type of adapter and calling the ports where the behaviour lives.</p>
+<p>You can still do your traditional black-box testing on internal components, especially some of your purely functional ones, the same way you have been. Ill call these developer tests. In theory these can be useful for TDD, but can be easily deleted later on once unit tests have been written.</p>
+<p>You will also want to make sure you are testing your adapters. You know what your system expects from your adapter, what their interface is for use, so test that when your application calls out to functionality, that it works as expected.</p>
+<p>You will also want to continue with your existing Integration and Automated UI testing as you do now, although hopefully you can see that since you will have more confidence in the business logic being tested, the breadth of these two types of tests can be simpler and more generalised. Think about <a href="http://martinfowler.com/bliki/TestPyramid.html">Martin Fowler&rsquo;s Test Pyramid</a> and avoiding the <a href="http://watirmelon.com/2012/01/31/introducing-the-software-testing-ice-cream-cone/">Ice Cream Cone anti-pattern</a></p>
+<p>There is a more detailed write-up on the <a href="http://alistair.cockburn.us/Hexagonal+architecture">Hexagonal Architecture Pattern</a> by Alistair Cockburn for you to read, and searching around for Ports and Adapters, Hexagonal Architecture or Onion Architecture will find a multitude of resources out there.</p>
+<p>Lastly, for a good introduction to this pattern in an iterative example, and very funny talk, check out the video <a href="https://www.youtube.com/watch?v=WpkDN78P884">Architecture the Lost Years</a> by Robert Martin (Uncle Bob), and also his <a href="http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html">Clean Architecture</a> article for more details across this pattern.</p>
+</description>
     </item>
     
     <item>
@@ -53,7 +432,129 @@ Brief History When we started solving our problems with a 3 tier architecture, w
       <pubDate>Sun, 11 Jan 2015 16:36:29 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/semantics-vs-implementation-detail/</guid>
-      <description>When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&amp;rsquo;t call it firstNameString, or cfnString, and we have also lost the bad habit of firstNameStr or strFirstName. The implementation detail simply doesn&amp;rsquo;t matter. Semantically, it represents the customer&amp;rsquo;s first name, so we use customerFirstName. Or if we are clearly in the context of the customer we can simply use firstName or customer.</description>
+      <description><p>When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&rsquo;t call it <code>firstNameString</code>, or <code>cfnString</code>, and we have also lost the bad habit of <code>firstNameStr</code> or <code>strFirstName</code>.  The implementation detail simply doesn&rsquo;t matter. Semantically, it represents the customer&rsquo;s first name, so we use <code>customerFirstName</code>. Or if we are clearly in the context of the customer we can simply use <code>firstName</code> or <code>customer.FirstName</code>.</p>
+<p>By describing things by what they represent and not how they are represented, we make them more resistant to implementation changes, and we also make it clearer what it is we expect from their use. Why then do we not treat types the same way?</p>
+<p>Well we do, you might say. Sure we name our classes well. We have <code>Customer</code>, which is an class which has a name that matches it&rsquo;s semantic meaning. But why does it have a constructor signature like this?</p>
+<pre><code class="language-cs">public Customer(string firstName, string surname, string preferredName, int age, decimal weight, decimal height) {...}
+</code></pre>
+<p>Can you tell from this constructor what each positional parameter represents? What if we did the following, is it still obvious?</p>
+<pre><code class="language-cs">public Customer(string a, string b, string c, int d, decimal e, decimal f) {...}
+</code></pre>
+<p>Ok so my example is contrived, but my point is simple. Positional parameters of value types are indistinguishable to the compiler, which neither knows nor cares what they mean, just that the types match so it can compile.  If you called this method using <code>new Customer(&quot;Jones&quot;, &quot;Bobby&quot;, &quot;Robert&quot;, 24, 1.68m, 91.3m)</code> the compiler doesn&rsquo;t care that you created the lightest giant in the world called Jones Bobby with a nickname of Robert, how is it to know that&rsquo;s not what you meant?  What we need is a way to add semantic meaning to the positional parameters, which adds extra meaning to the data being passed around, and helps us avoid this transposition of errors, among other things.</p>
+<p>I have come across several names for this technique, <em>Tiny Types</em>, <em>Value Types</em>, <em>Micro Types</em> and <em>Semantic Types</em>.  I think my favourite is Semantic Types personally, but in discussion with others you may come across all of these and more.  The point is that we create new types in our system that might be domain specific, or may be valid across various disparate systems.  These types encapsulate the implementation types used to represent the data and stand in their place as an immutable value object.</p>
+<p>It is worth noting that Enumerations are a kind of tiny type, but you do get some interesting behaviour with these sometimes when the int implementation leaks out, especially when casting and serialisation is involved.</p>
+<p>Lets go back to our example and see what the end result looks like, and work backwards with an implementation. Here is our constructor in more detail this time.</p>
+<pre><code class="language-cs">public Customer
+{
+    ... [Auto properties probably here]
+    
+    public Customer(FirstName firstName, FamilyName familyName, PreferredName preferredName, 
+                    Age age, Weight weight, Height height)
+    {
+    ...
+    }
+}
+</code></pre>
+<p>Ok now lets look at what we have here.  The types of the parameters are objects that encapsulate the data they represent. Now whether you split your names like this or have a <em>Name</em> type that represents this as a whole is up to you, but the point is that you can&rsquo;t mix us the height with the weight since the types won&rsquo;t match, and it won&rsquo;t compile.</p>
+<p>There are other benefits other then transposing parameters.  Overloads that expect different types of data can be created instead of having unique names just for overloading what string represents. If you use calculations on the data, you won&rsquo;t add or subtract things that are not compatible accidentally, like our height and our weight.  Even something as simple as wrapping your entity keys in semantic types means you can&rsquo;t pass a <code>CustomerKey</code> into a method like <code>public Document[] GetForms(AccountKey key)</code> because the compiler will catch it for you.  If you need to change your representation, this is also easy, without having to update all references to the implementation type everywhere, say if you need to add precision to your int by using decimal.</p>
+<p>Lets take a look now at what implementing a tiny type might look like.  Basically its an object. It will have a property to expose the primitive implementation, since at some point this will have to interface with something outside your control (see suggested exercises for more on this).  You will also need to overload the equality operations to ensure you can compare these objects without any issue.</p>
+<pre><code class="language-cs">public class Height: IEquatable&lt;Height&gt;
+{
+    private readonly decimal _value;
+
+    public Height(decimal dataValue)
+    {
+        _value = dataValue;
+    }
+
+    public decimal Value { get { return _value; } }
+
+    public override bool Equals(System.Object obj)
+    {
+        // If parameter is null return false.
+        if (obj == null)
+        {
+            return false;
+        }
+
+        // If parameter cannot be cast to Height return false.
+        Height h = obj as Height;
+        if ((System.Object)h == null)
+        {
+            return false;
+        }
+
+        // Return true if the fields match:
+        return Value == h.Value;
+    }
+
+    public bool Equals(Height h)
+    {
+        // If parameter is null return false:
+        if ((object)h == null)
+        {
+            return false;
+        }
+
+        // Return true if the fields match:
+        return Value == h.Value;
+    }
+
+    public override int GetHashCode()
+    {
+        return Value.GetHashCode();
+    }
+
+    public static bool operator ==(Height a, Height b)
+    {
+        // If both are null, or both are same instance, return true.
+        if (System.Object.ReferenceEquals(a, b))
+        {
+            return true;
+        }
+
+        // If one is null, but not both, return false.
+        if (((object)a == null) || ((object)b == null))
+        {
+            return false;
+        }
+
+        // Return true if the fields match:
+        return a.Value == b.Value;
+    }
+
+    public static bool operator !=(Height a, Height b)
+    {
+        return !(a == b);
+    }
+}
+</code></pre>
+<p>(If your interest, my implementation is based on <a href="http://msdn.microsoft.com/en-us/library/ms173147%28v=vs.80%29.aspx">this msdn guide</a>.)</p>
+<p>There&rsquo;s a lot of code here, so lets look at it in pieces. First its a class with a property value that we can set in the constructor.  We make it a getter only with a read only backing field, making it immutable.</p>
+<pre><code class="language-cs">public class Height: IEquatable&lt;Height&gt;
+{
+    private readonly decimal _value;
+
+    public Height(decimal dataValue)
+    {
+        _value = dataValue;
+    }
+
+    public decimal Value { get { return _value; } }
+    ...
+</code></pre>
+<p>To make sure we can compare our tiny types in a standard way, we implement a bunch of the comparable implementation details. Specifically we override GetHashCode and Equals.  We also overload the == and != operator to make it even easier to use correctly, and lastly we implement IEquatable&lt;Height&gt; so we can compare two instances of the same type without all the object reference stuff all the time.</p>
+<p>Obviously you could take this approach and build out a generic base class with most of the common logic.  Here is a list of things you might want to try out to get your head around the approach of building these types of objects on your own.</p>
+<ul>
+<li>Implement a generic base class representing a single primitive value wrapped in a Semantic Type.</li>
+<li>Create a T4 template that can read in settings about the name and type and produce classes like these without generics.</li>
+<li>Implement domain specific validations, so your semantic types only support a sub-set of the valid value types (think about email addresses and the string type for instance)</li>
+<li>Make a more complex Semantic Type that has more than one backing field (represent a fraction, or a Point in 3d space for instance)</li>
+<li>Can you get your object to automatically expose it&rsquo;s internal value for you using custom cast operators, instead of using a Value property?</li>
+</ul>
+<p>I may look at creating demos on these points, but for now enjoy playing with how these things come together and I hope to see more people using these in projects in the future.</p>
+<p>(See it compare <a href="https://dotnetfiddle.net/wvpxGJ">here</a>)</p>
+</description>
     </item>
     
   </channel>

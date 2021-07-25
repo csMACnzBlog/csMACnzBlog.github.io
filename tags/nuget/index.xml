@@ -4,6 +4,12 @@
     <title>NuGet on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/nuget/</link>
     <description>Recent content in NuGet on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 08 Oct 2018 05:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/nuget/index.xml" rel="self" type="application/rss+xml" />
@@ -13,9 +19,81 @@
       <pubDate>Mon, 08 Oct 2018 05:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/speciality-nuget-packing/</guid>
-      <description>I recently wrote about NuGet packing on linux specifically, and want to continue the theme with other things you can do with NuGet packaging.
-As a quick recap you can use a .Net Core *.csproj as a wrapper around a *.nuspec file and use dotnet pack to pack it, cross-platform, without needing nuget.exe.
-&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;&amp;lt;PropertyGroup&amp;gt;&amp;lt;TargetFramework&amp;gt;netstandard2.0&amp;lt;/TargetFramework&amp;gt;&amp;lt;NuspecFile&amp;gt;mynewapp.nuspec&amp;lt;/NuspecFile&amp;gt;&amp;lt;GeneratePackageOnBuild&amp;gt;true&amp;lt;/GeneratePackageOnBuild&amp;gt;&amp;lt;SkipCompilerExecution&amp;gt;true&amp;lt;/SkipCompilerExecution&amp;gt;&amp;lt;CopyBuildOutputToOutputDirectory&amp;gt;false&amp;lt;/CopyBuildOutputToOutputDirectory&amp;gt;&amp;lt;/PropertyGroup&amp;gt;&amp;lt;/Project&amp;gt; (See the other article for more detailed analysis of these properties.</description>
+      <description><p>I recently wrote about <a href="/nuget-packing-on-linux/">NuGet packing on linux</a> specifically, and want to continue the theme with other things you can do with NuGet packaging.</p>
+<p>As a quick recap you can use a .Net Core <code>*.csproj</code> as a wrapper around a <code>*.nuspec</code> file and use <code>dotnet pack</code> to pack it, cross-platform, without needing <code>nuget.exe</code>.</p>
+<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
+    &lt;NuspecFile&gt;mynewapp.nuspec&lt;/NuspecFile&gt;
+    &lt;GeneratePackageOnBuild&gt;true&lt;/GeneratePackageOnBuild&gt;
+    &lt;SkipCompilerExecution&gt;true&lt;/SkipCompilerExecution&gt;
+    &lt;CopyBuildOutputToOutputDirectory&gt;false&lt;/CopyBuildOutputToOutputDirectory&gt;
+  &lt;/PropertyGroup&gt;
+
+&lt;/Project&gt;
+
+</code></pre>
+<p>(See the <a href="/nuget-packing-on-linux/">other article</a> for more detailed analysis of these properties.)</p>
+<p>Now for something new.</p>
+<h3 id="contentfiles">ContentFiles</h3>
+<p>Do you remember Content files? There was(is?) this feature in NuGet files where you can include files, and have those files automatically added to your .Net Framework applications when the Package is Installed. Some libraries used this to distribute code that could be embedded into your application instead of linking to a library dependency.  Dapper was one example that did this, and I think some logging frameworks also distributed some code this way.</p>
+<p>There were a tonne of downsides to this approach. The files were editable, they were put into source control, and they didn&rsquo;t update automatically when you updated the NuGet package.  These might sound like upsides, and they were probably best practice given the circumstances. But from a distributer&rsquo;s point of view, these were downsides.</p>
+<p>There were other issues as well, especially now we have dotnet core cli, and we have cross-platform builds. This approach is no longer viable in most situations.</p>
+<p>Luckily, there is a replacement to <code>Content</code> files, and that is <code>ContentFiles</code>. <a href="https://blog.nuget.org/20160126/nuget-contentFiles-demystified.html">NuGet ContentFiles Demystified
+</a> seems to be the canonical reference post on what these are and how they work, and if you want to read the spec for how to use these with <code>nuspec</code>, that is <a href="https://docs.microsoft.com/en-us/nuget/reference/nuspec#contentfiles">documented here</a>.</p>
+<p>How do we make this work with <code>dotnet pack</code> without using the <code>nuspec</code> trick above? Say you are already packaging a DLL, and want to add an extra file to the mix?  Here is the answer:</p>
+<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
+  &lt;/PropertyGroup&gt;
+
+  &lt;ItemGroup&gt;
+    &lt;Compile Remove=&quot;IncludedFile.cs&quot; /&gt;
+    &lt;Content Include=&quot;IncludedFile.cs&quot; BuildAction=&quot;Compile&quot; /&gt;
+  &lt;/ItemGroup&gt;
+
+&lt;/Project&gt;
+</code></pre>
+<p>Let&rsquo;s say this is an application with a bunch of source files. We have one source file that rather than compile it in, we want to include into the project that uses the package at compile time.  First, we remove our file from compiling inside our app, then we make it <code>Content</code>.  By default, any <code>Content</code> files will become <code>contentFiles</code> in the NuGet package.  It is that easy.</p>
+<p>There is one cool trick you can do here, too. if you call your file <code>*.cs.pp</code>, you can run transforms over it. The most (and only) useful one for us is the namespace placeholder. Anywhere in the file you write <code>$rootnamespace$</code> it will be replaced by the namespace of the project that imports the package, before that library compiles this file. Very handy to ensure that the user&rsquo;s own namespace is used when compiling this file.</p>
+<p>A few notes:</p>
+<ul>
+<li>If the code in that file doesn&rsquo;t compile, consumers will not be able to compile their application (maybe look at using <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives/">preprocessor directives</a> for different framework targets.</li>
+<li>Clients need to include <code>contentfiles</code> Assets when they reference the library or they won&rsquo;t get the files, and they can also use that feature to explicitly turn that off. Document this for them. (specifically <code>&lt;IncludeAssets&gt;contentfiles;&lt;/IncludeAssets&gt;</code>, but <code>IncludeAssets</code> is set to include all asset types by default anyway.)</li>
+<li>The <code>contentFiles</code> are included per language, per framework, based on the <code>TargetFramework</code> you are building against (the same way the DLLs do). This means the files will only work with the same language as the project (by default) and the same target frameworks by default. My understanding is that this still follows the usual highest compatible resolution.</li>
+<li>If you don&rsquo;t want your NuGet to pack content files, you can use the <code>&lt;IncludeContentInPack&gt;false&lt;/IncludeContentInPack&gt;</code> setting to turn that feature off completely.</li>
+<li>you can set <code>Pack=&quot;false&quot;</code> onto a Content element to exclude it from packaging as one of the contentFiles. You can also set <code>Pack=&quot;true&quot;</code> on None and Compile elements as well for them to be included the same way.
+As well as BuildAction <code>Compile</code>, there are a couple of others: <code>Content</code>, <code>None</code>, <code>Embedded Resource</code>. The same way you can define a file to be one of these in your <code>csproj</code>, the project that includes your <code>contentFiles</code> will have them set to that specified item type.  <code>Content</code> might be useful if you want a file to be copied to their build output folder for some reason. I can&rsquo;t seem to think of a valid reason for <code>None</code>, though.</li>
+</ul>
+<p>It turns out it is that simple to do <code>contentFiles</code> out of the box.</p>
+<h3 id="build-props-and-targets">build props and targets</h3>
+<p>You can arbitrarily include any file into any location in the NuGet package if you like. There is a special folder called <code>build</code> that contains props and targets to extend MSBuild. For instance, we might want to have a props file</p>
+<pre><code>&lt;None Include=&quot;MyNewApp.props&quot; PackagePath=&quot;build/$(TargetFramework)&quot; Pack=&quot;true&quot; /&gt;
+</code></pre>
+<p>If you wanted the same file to work for all targets, you could simply just use <code>PackagePath=&quot;build&quot;</code>.</p>
+<p>When using props and targets, you want your entry file to be the same name as the project/package, so that it will get loaded by the project that consumes your NuGet package.</p>
+<p>More about how the <code>nuspec</code> file is supposed to look for props and targets <a href="https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#including-msbuild-props-and-targets-in-a-package">can be found here</a>.</p>
+<p>Note they recommend using a min client version to let clients know you are using this feature:</p>
+<pre><code>&lt;PropertyGroup&gt;
+    &lt;MinClientVersion&gt;2.5&lt;/MinClientVersion&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+<p>And with that, you can now augment the build props and tasks in your consumers' projects, and use this approach to include any arbitrary files into your NuGet package.</p>
+<h3 id="metadata-properties">Metadata properties</h3>
+<p>The nice thing about using a <code>csproj</code>, is that with this one file you can set all your assembly metadata, as well as NuGet package metadata.</p>
+<p>The <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties">Additions to the csproj format</a> page gives a great overview of (among other things) all the possible properties you can put into your <code>csproj</code> files, and where exactly these will go into your file NuGet package metadata. This is the final piece that ensures you don&rsquo;t actually have to hand-craft a <code>nuspec</code> file at all and can keep all your pack information inside the <code>csproj</code> file instead.</p>
+<h3 id="summary">Summary</h3>
+<p>If you follow everything here, you should get a <code>csproj</code> file that:</p>
+<ul>
+<li>Contains all your project and package metadata</li>
+<li>Can include, or exclude a compiled DLL from source code</li>
+<li>Can include <code>contentFiles</code> including <code>Compile</code> sources, and <code>EmbeddedResource</code> files</li>
+<li>Can include build props and targets to condition how the consumer&rsquo;s build will run</li>
+</ul>
+<p>Happy Hacking those NuGet packages!</p>
+</description>
     </item>
     
     <item>
@@ -24,8 +102,62 @@ As a quick recap you can use a .Net Core *.csproj as a wrapper around a *.nuspec
       <pubDate>Mon, 01 Oct 2018 05:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/nuget-packing-on-linux/</guid>
-      <description>For anyone who has been cutting-edge with .Net for a while will know that the nuget.exe runs under mono. And that you can use nuget.exe to package *.nuspec files into *.nupkg files.
-Anyone who has been doing dotnet cross-platform will also know that you can use dotnet pack on both Windows and Linux to package your project into a NuGet package containing the dll. It even does references and multi-targeting correctly out of the box.</description>
+      <description><p>For anyone who has been cutting-edge with .Net for a while will know that the nuget.exe runs under mono. And that you can use nuget.exe to package <code>*.nuspec</code> files into <code>*.nupkg</code> files.</p>
+<p>Anyone who has been doing dotnet cross-platform will also know that you can use <code>dotnet pack</code> on both Windows and Linux to package your project into a NuGet package containing the <code>dll</code>. It even does references and multi-targeting correctly out of the box.</p>
+<p>But did you know that you can also use dotnet pack to package any arbitrary <code>nuspec</code> file as well?</p>
+<p>First, let&rsquo;s look at a simple <code>nuspec</code> file that only has package references (an aggregate package).</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;package xmlns=&quot;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&quot;&gt;
+  &lt;metadata&gt;
+    &lt;id&gt;MyNewApp&lt;/id&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+    &lt;authors&gt;csMACnz&lt;/authors&gt;
+    &lt;description&gt;An aggregate package example&lt;/description&gt;
+    &lt;tags&gt;utils example&lt;/tags&gt;
+
+    &lt;dependencies&gt;
+      &lt;dependency id=&quot;Newtonsoft.Json&quot; version=&quot;11.0.2&quot; /&gt;
+      &lt;dependency id=&quot;Beefeater&quot; version=&quot;0.5.0&quot; /&gt;
+    &lt;/dependencies&gt;
+  &lt;/metadata&gt;
+  &lt;files&gt;
+    &lt;!-- empty files tag avoids copying all files --&gt;
+  &lt;/files&gt;
+&lt;/package&gt;
+</code></pre>
+<p>We could use <code>nuget.exe pack</code> but that wouldn&rsquo;t work on Linux. Instead, we create a csproj file designed to do the pack for us in a standard <code>dotnet pack</code> kind of way.</p>
+<pre><code class="language-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
+    &lt;NuspecFile&gt;newapp.nuspec&lt;/NuspecFile&gt;
+    &lt;NuspecProperties&gt;&lt;/NuspecProperties&gt;
+    &lt;NuspecBasePath&gt;&lt;/NuspecBasePath&gt;
+  &lt;/PropertyGroup&gt;
+
+&lt;/Project&gt;
+</code></pre>
+<p>The magic is these three properties (only one required, really):</p>
+<ul>
+<li><code>&lt;NuspecFile&gt;</code> - Required to tell dotnet to use the hand-crafted <code>nuspec</code> file</li>
+<li><code>&lt;NuspecProperties&gt;</code> - (Optional) ability to generate and send <code>nuspec</code> <a href="https://docs.microsoft.com/en-us/nuget/reference/nuspec#replacement-tokens">replacement tokens</a></li>
+<li><code>&lt;NuspecBasePath&gt;</code> - (Optional) relative base path to use for pack files (defaults to project folder)</li>
+</ul>
+<p>For more details on all the things you can put into a <code>nuspec</code> file, check out the docs: <a href="https://docs.microsoft.com/en-us/nuget/reference/nuspec">https://docs.microsoft.com/en-us/nuget/reference/nuspec</a></p>
+<p>But we don&rsquo;t stop there. If you run this you will see that we are still building our empty project. We can do a couple of things here.</p>
+<ul>
+<li><code>&lt;NoBuild&gt;true&lt;/NoBuild&gt;</code> - Adding this will stop the build step being run during pack</li>
+<li><code>&lt;GeneratePackageOnBuild&gt;true&lt;/GeneratePackageOnBuild&gt;</code> - We can instead tell <code>dotnet build</code> to run the pack as well.</li>
+</ul>
+<p>One of these two scenarios may suit you better. It depends.</p>
+<p>Using the above settings, you can basically produce any kind of NuGet package you want.</p>
+<p>For one last piece of tidy-up, you can disable the compile and remove the dll from the build output entirely:</p>
+<ul>
+<li><code>&lt;SkipCompilerExecution&gt;true&lt;/SkipCompilerExecution&gt;</code> - (Optional) disable compile entirely</li>
+<li><code>&lt;CopyBuildOutputToOutputDirectory&gt;false&lt;/CopyBuildOutputToOutputDirectory&gt;</code> - stop the dll output to the output folder.</li>
+</ul>
+<p>Unfortunately, at this stage I am still yet to find a reasonable way to remove the need for <code>&lt;TargetFramework&gt;</code>, but something I am still experimenting with. There is a chance that if you are really customising your MSBuild commands, you would end up leveraging the <code>dotnet restore</code>, and that requires a TargetFramework anyway, so not a big deal.</p>
+</description>
     </item>
     
     <item>
@@ -34,10 +166,131 @@ Anyone who has been doing dotnet cross-platform will also know that you can use 
       <pubDate>Mon, 01 Aug 2016 08:18:33 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnetcore-nuget/</guid>
-      <description>This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?
- Getting Started What&amp;rsquo;s in the box Using Multiple Projects Testing NuGet &amp;lt;=(We are here) Multi-targeting Publishing Portable Applications Self-contained Applications  Let&amp;rsquo;s set aside Application packing for later, and focus our attention on NuGet.
-Our Demo library Again we will quickly whip up a library to use:
-mkdir mynewpackagecd mynewpackagedotnet new -t Libdotnet restoredotnet build Some quick touch-ups to make it more interesting.</description>
+      <description><p>This is a series on the .Net Core 1.0 bits. Looking for <a href="/dotnetcore2-getting-started">.Net Core 2 Series</a>?</p>
+<ul>
+<li><a href="/dotnetcore-getting-started">Getting Started</a></li>
+<li><a href="/dotnetcore-whats-in-the-box">What&rsquo;s in the box</a></li>
+<li><a href="/dotnetcore-testing">Using Multiple Projects</a></li>
+<li><a href="/dotnetcore-testing">Testing</a></li>
+<li>NuGet &lt;=(We are here)</li>
+<li><a href="/dotnetcore-multi-targeting">Multi-targeting</a></li>
+<li><a href="/dotnetcore-publishing-portable-applications">Publishing Portable Applications</a></li>
+<li><a href="/dotnetcore-self-contained-applications">Self-contained Applications</a></li>
+</ul>
+<p>Let&rsquo;s set aside Application packing for later, and focus our attention on NuGet.</p>
+<h3 id="our-demo-library">Our Demo library</h3>
+<p>Again we will quickly whip up a library to use:</p>
+<pre><code>mkdir mynewpackage
+cd mynewpackage
+dotnet new -t Lib
+dotnet restore
+dotnet build
+</code></pre>
+<p>Some quick touch-ups to make it more interesting. Replace Library.cs with this again:</p>
+<pre><code>namespace mynewpackage
+{
+    public class Calculator
+    {
+        public int Add(int first, int second)
+        {
+            return first + second;
+        }
+    }
+}
+</code></pre>
+<p>At least now our package contains something interesting.</p>
+<h3 id="simple-packing">Simple Packing</h3>
+<p>It isn&rsquo;t very difficult to turn our library into a <code>nupkg</code> (pronounced <a href="https://twitter.com/csharpfritz/status/519927456191758336">NUP-KEG</a>, of course).</p>
+<pre><code>dotnet pack
+</code></pre>
+<p>This leaves us with a directory structure like so:</p>
+<pre><code>mynewpackage  
+|-- Library.cs
+|-- project.json
+|-- project.lock.json
++-- bin
+     +-- Debug
+          |-- mynewpackage.1.0.0.nupkg
+          |-- mynewpackage.1.0.0.symbols.nupkg
+          +-- netstandard1.6
+               |-- mynewpackage.deps.json
+               |-- mynewpackage.dll
+               +-- mynewpackage.pdb
+</code></pre>
+<p>(Note that I have left out the <code>obj</code> folder), we can see two new files have been created under <code>/bin/Debug</code>: <code>mynewpackage.1.0.0.nupkg</code> and <code>mynewpackage.1.0.0.symbols.nupkg</code>.</p>
+<p>These are the NuGet packages. Pretty easy huh?  The version number comes from the <code>project.json</code> file:</p>
+<pre><code>{
+  &quot;version&quot;: &quot;1.0.0-*&quot;,
+  &quot;buildOptions&quot;: {
+    &quot;debugType&quot;: &quot;portable&quot;
+  },
+  &quot;dependencies&quot;: {},
+  &quot;frameworks&quot;: {
+    &quot;netstandard1.6&quot;: {
+      &quot;dependencies&quot;: {
+        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<p>But that was a <code>Debug</code> build. To produce a release build instead:</p>
+<pre><code>dotnet pack -c Release
+</code></pre>
+<p>Now we have some new files:</p>
+<pre><code>mynewpackage  
+|-- Library.cs
+|-- project.json
+|-- project.lock.json
++-- bin
+     +-- Debug
+     |    |-- mynewpackage.1.0.0.nupkg
+     |    |-- mynewpackage.1.0.0.symbols.nupkg
+     |    +-- netstandard1.6
+     |         |-- mynewpackage.deps.json
+     |         |-- mynewpackage.dll
+     |         +-- mynewpackage.pdb
+     +-- Release
+          |   mynewpackage.2.0.0.nupkg
+          |   mynewpackage.2.0.0.symbols.nupkg
+          +-- netstandard1.6
+               |-- mynewpackage.deps.json
+               |-- mynewpackage.dll
+               |-- mynewpackage.pdb
+</code></pre>
+<p>We can see that we now have a <code>Release</code> folder (containing a <code>netstandard1.6</code> folder, thanks to an automatic build before the pack) and in the <code>Release</code> folder, we again have <code>mynewpackage.1.0.0.nupkg</code> and <code>mynewpackage.1.0.0.symbols.nupkg</code> files.</p>
+<h3 id="crack-open-a-nupkg">Crack open a nupkg</h3>
+<p>What do these <code>nupkg</code> files look like on the inside? Using a tool like <a href="https://github.com/NuGetPackageExplorer/NuGetPackageExplorer">NuGet Package Explorer</a> we can take a look. The Release version looks like this:</p>
+<pre><code>mynewpackage.1.0.0.nupkg
+|-- mynewpackage.nuspec
++-- lib
+     +-- netstandard1.6
+          +-- mynewpackage.dll
+</code></pre>
+<p>Some things to observe. We only have a lib file for <code>netstandard1.6</code> target profile. This means that our NuGet package only works with new .Net Core applications targeting NetStandard1.6 (and the upcoming 4.6.3).</p>
+<p>Changing our attention to the contents of the <code>nuspec</code> file:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;package xmlns=&quot;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&quot;&gt;
+    &lt;metadata&gt;
+        &lt;id&gt;mynewpackage&lt;/id&gt;
+        &lt;version&gt;1.0.0&lt;/version&gt;
+        &lt;authors&gt;mynewpackage&lt;/authors&gt;
+        &lt;owners&gt;mynewpackage&lt;/owners&gt;
+        &lt;requireLicenseAcceptance&gt;false&lt;/requireLicenseAcceptance&gt;
+        &lt;description&gt;mynewpackage&lt;/description&gt;
+        &lt;dependencies&gt;
+            &lt;group targetFramework=&quot;.NETStandard1.6&quot;&gt;
+                &lt;dependency id=&quot;NETStandard.Library&quot; version=&quot;1.6.0&quot; /&gt;
+            &lt;/group&gt;
+        &lt;/dependencies&gt;
+    &lt;/metadata&gt;
+&lt;/package&gt;
+</code></pre>
+<p>We didn&rsquo;t override any properties in our <code>project.json</code> file. But we can see here that the project folder name <code>mynewpackage</code> is used to populate the package <code>id</code>, <code>authors</code>, <code>owners</code> and <code>description</code>. Play around for yourself at setting the correct properties in the <code>project.json</code> to produce your desired <code>nupkg</code> values.</p>
+<p>We also see that under dependencies there is a <code>targetFramework=&quot;.NETStandard1.6&quot;</code> group, with a dependency on <code>NETStandard.Library</code> version <code>1.6.0</code>.</p>
+<h3 id="and-the-next-time">And the next time&hellip;</h3>
+<p>We can build packages to be used by new .Net Core applications. But we probably want to build libraries that can be used from our .Net 4.0, Windows Phone and UWP applications as well.  Next up, we see how to extend our package to handle just these situations.</p>
+</description>
     </item>
     
     <item>
@@ -46,7 +299,62 @@ mkdir mynewpackagecd mynewpackagedotnet new -t Libdotnet restoredotnet build
       <pubDate>Mon, 27 Apr 2015 07:54:17 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/solid-ifying-your-nuget-packaging/</guid>
-      <description>The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to DLL Hell. But I had this slight epiphany from another comment, where it was observed that our X.Common package had &amp;lsquo;helper code&amp;rsquo; for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc).</description>
+      <description><p>The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to <strong>DLL Hell</strong>. But I had this slight epiphany from another comment, where it was observed that our <strong>X.Common package</strong> had <em>&lsquo;helper code&rsquo;</em> for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc).</p>
+<p>The second part of this problem, was that other packages pulled in this large common package for one small part, and ended up with all of it&rsquo;s dependencies as well. The applications, once put together had packages that it had no necessity for, and dependency trees that where deep, intertwined, and prone to break when versions of common third-party libraries had breaking changes.</p>
+<p><em>&ldquo;We should be building our packages with a single responsibility, or split them up until they do&rdquo;</em> was my statement. At hearing this back out of my own mouth, my brain instantly started thinking about the <a href="http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)"><strong>SOLID Principles</strong></a> and the concept of <a href="http://en.wikipedia.org/wiki/Composition_over_inheritance"><strong>Composition  over Inheritance</strong></a>.</p>
+<p>My mind was racing ahead of itself thinking through how applicable these OO concepts were to assembly and package architecture. And It looks like these principles apply at whatever scale you are looking at, where you have units of functionality, and composability.</p>
+<p>So here are my thoughts put into writing. Agree? Disagree? Have a read and please leave your thoughts in the comments.</p>
+<ul>
+<li>Single responsibility</li>
+<li>Open-closed</li>
+<li>Liskov substitution</li>
+<li>Interface segregation</li>
+<li>Dependency inversion</li>
+<li><strong>BONUS ROUND</strong> - Composition over Inheritance</li>
+</ul>
+<h3 id="single-responsibility">Single responsibility</h3>
+<p>Each NuGet package should have one, and only one reason to change.  It should do one thing, and one thing well. Just like having a class called <code>'Manager'</code> is a code smell, a package called <code>'Common'</code> is also a smell. Maybe you have a <code>Core.Math</code>, a <code>Core.Formatting</code> and a <code>Core.NHibernateExtensions</code> package that can be pulled out of your <code>'Common'</code> and be much clearer what they are for, and which one you would add new code to when the need arises.</p>
+<h3 id="open-closed">Open-closed</h3>
+<p>I struggle a little with how this directly applies, but I can see one example that kind of makes sense.  If you have a requirement for your package component to log out information, you might think about including NLog so that you have defined that functionality. But now you are closed to extension, someone can&rsquo;t come in and use entlib logging, or you would have to open it up and modify it to now support both of these, as required. But this doesn&rsquo;t scale to a third, or fourth logging platform.</p>
+<p>Instead, have the Logging capabilities defined as a pluggable part of your package. Even supply a NO-OP implementation (or <a href="http://en.wikipedia.org/wiki/Null_Object_pattern">Null Object</a>) so that this is now an opt-in function. You can then leave your component closed for modification, and open to extension by you, or anyone else building an adapter package, a <code>'Feature.Logging.NLog'</code> and <code>'Feature.Logging.EntLibLogging'</code> series of other small single-purpose adapter packages that their application can pull in when it wants to use your library with their particular logging framework. This doesn&rsquo;t even need to be a package, since they could implement their adaptation directly in their application code if they want to.</p>
+<p>Extend this out from logging, to all the other cross-cutting concerns a large scale application might want your component to have the ability to instrument in, and there are many opportunities for this principle to be applied.</p>
+<h3 id="liskov-substitution">Liskov substitution</h3>
+<p>This is another hard one, but maybe we should look at this in terms of semantic versioning?  <a href="http://semver.org/">Semantic Versioning</a> defines the major version number as breaking changes, the minor as new features that are backwards compatible, and patch as backwards compatible bug fixes. So we say base class is a Major release (2.0.0), and it&rsquo;s subclass(derived class) is the next Minor (2.1.0) or Patch (2.0.1) release.  Does this mean that this holds true?</p>
+<blockquote>
+<p>&ldquo;<strong>NuGet Dependencies</strong> in a program should be replaceable with instances of <strong>new Minor or Patch versions of those packages</strong> without altering the correctness of that program&rdquo;</p>
+</blockquote>
+<p>and extending from this:</p>
+<blockquote>
+<p>&ldquo;<strong>NuGet Dependencies</strong> in a <em><strong>NuGet Package</strong></em> should be replaceable with instances of <strong>new Minor or Patch versions of those packages</strong> without altering the correctness of that <em><strong>Package</strong></em>&rdquo;</p>
+</blockquote>
+<p>I think this is a fair substitution right? Exactly what Semantic Versioning has been defined to allow.  If some third party library has updated, my app should be able to consume a newer minor or patch version, without needing to modify the original application (even compilation of sed program).  And updating a third party library in the application, should not affect any of it&rsquo;s other NuGet packages, even ones which were compiled with the compatible Major version that we updated.</p>
+<h3 id="interface-segregation">Interface segregation</h3>
+<blockquote>
+<p>“many client-specific interfaces are better than one general-purpose interface.”</p>
+</blockquote>
+<p>Well, should we say lets have lots of smaller packages, because that&rsquo;s going to be better than one giant common package?  Maybe we want to take that even further? We may have a framework NuGet Package that solves 5 different problems. But we may want to only use one of these 5. If we create 5 interface projects, and depend on only the one we want, either someone else could implement a faster, or more efficient version of this one interface, and we can swap between them. If that new faster thing also had to implement all the other parts, we couldn&rsquo;t do this.</p>
+<p>Yeah, this just sounds like the original pattern, but explicitly separating the interface of a packages functionality, from the implementation packages does sound valuable, and this even allows version independence that is much stronger to detect changes for. (This is sounding more like Liskov again, hmmm&hellip;)</p>
+<p>That&rsquo;s the problem with trying to define precise examples with solid I think, I feel like Interface segregation is less of a concern when you are already following Single responsibility and Liskov substitution.</p>
+<h3 id="dependency-inversion">Dependency inversion</h3>
+<p>Ok, this one sounds the most obvious one right? In fact, I kind of covered this in my Open-Closed example. And kind of almost touched on it with Interface segregation as well.</p>
+<blockquote>
+<p>one should “Depend upon Abstractions. Do not depend upon concretions.”</p>
+</blockquote>
+<h3 id="composition-over-inheritance">Composition over Inheritance</h3>
+<p>We all get told we should compose our objects from other components, instead of deriving and deriving from base classes for behaviour inheritance. Packages are the same. Lets take dependencies on 50 <strong>small packages</strong> and compose these into our application, and tie them together as required. These small packages are small because they follow all the above patterns, and their dependency tree is flat. at most they take only one or two (non-framework) packages as dependencies, which have no dependencies of their own. Definitely nothing too much more deeply nested then this if you can help it.</p>
+<p>This is much better that the alternative, of 100 packages, intertwined like the most spaghetti of code that you might have ever seen, with no way in sight of decoupling and de-tangling the mess.  The benefits of a flat structure and allowing the application to compose, is that you can get the maximum of reuse from any of these projects, they are truly independent components, and you can make the decision at the app level, if done well, about which logging framework your use, which ORM, or data access you choose, which database you use, how you host your code, and even what front-end technology you want to use, without any of these concerns having to be consistent across all your packages. These concerns are just more packages and tie-in code that you compose in.</p>
+<h3 id="summary">Summary</h3>
+<p>So where does that put us? Well here are some general rules and observations I would try to follow, if the packages are only just starting to take shape, or you are looking at tidying up your packaging scenarios.</p>
+<ul>
+<li>Have a flat dependency structure, like you would a class hierarchy.</li>
+<li>Keep your packages small and single purpose.</li>
+<li>Use Semantic versioning properly, to help anyone who consumes your package.</li>
+<li>Don&rsquo;t take dependencies on anything large, or that you don&rsquo;t need to from inside a package.</li>
+<li>provide extension hooks from inside your package so that others can extend the functionality or swap out implementations of common concerns like data access and logging.</li>
+<li>Don&rsquo;t force a hard dependency on your functionality, if an interface package would do, especially for version compatibility.</li>
+</ul>
+<p>Did I get it wrong? Do you Agree? Anything I missed? Leave a comment and let me know.</p>
+</description>
     </item>
     
   </channel>

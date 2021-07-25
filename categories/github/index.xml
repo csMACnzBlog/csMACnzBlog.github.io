@@ -4,6 +4,12 @@
     <title>GitHub on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/github/</link>
     <description>Recent content in GitHub on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Sun, 14 Aug 2016 21:51:20 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/github/index.xml" rel="self" type="application/rss+xml" />
@@ -13,9 +19,28 @@
       <pubDate>Sun, 14 Aug 2016 21:51:20 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/new-projects-consolable-concurrentconsole-t4tinytypes/</guid>
-      <description>I&amp;rsquo;ve been working on some new projects, so thought I would do a quick elevator pitch for each.
-Consolable I was having an issue with environment variables as arguments, and with PowerShell replacing &amp;quot;text&amp;quot; with text (stripping double-quotes) and how these interacted with my command line arguments. Especially when the environment variable was empty, the error messages were just not clear enough.
-So I&amp;rsquo;m building yet another CLI parsing library, but with a primary focus on error messaging.</description>
+      <description><p>I&rsquo;ve been working on some new projects, so thought I would do a quick elevator pitch for each.</p>
+<h3 id="consolable">Consolable</h3>
+<p>I was having an issue with environment variables as arguments, and with PowerShell replacing <code>&quot;text&quot;</code> with <code>text</code> (stripping double-quotes) and how these interacted with my command line arguments. Especially when the environment variable was empty, the error messages were just not clear enough.</p>
+<p>So I&rsquo;m building yet another CLI parsing library, but with a primary focus on error messaging. It should work well to provide the developer the arguments from the user, but should also provide the user with better help on where the mistake they have made is.</p>
+<p>Follow my progress <a href="https://github.com/csMACnz/consolable">here on GitHub</a>.</p>
+<h3 id="concurrentconsole">ConcurrentConsole</h3>
+<p>I was wanting to build a chatbot. So naturally as a test harness I need a console app to test with. But it turns out my bot is asynchronous (I can keep talking, while it keeps thinking and returning new messages to an existing thread).  It turns out that concurrently printing text and allowing text entry is not an Out-Of-The-Box feature.</p>
+<p>Introducing ConcurrentConsole, a wrapper over System.Console to allow multithreaded writes while a thread is still reading from the user. Maintain your existing typed text, and even define your own prompt text (which can also be dynamically updated at runtime).</p>
+<p>Check it out <a href="https://github.com/csMACnz/ConcurrentConsole">on GitHub</a> and <a href="https://www.nuget.org/packages/csMACnz.ConcurrentConsole/">NuGet</a>.</p>
+<h3 id="t4tinytypes">t4tinytypes</h3>
+<p>Something I have been meaning to do for a while was to automate my <a href="http://blog.csmac.nz/semantics-vs-implementation-detail/">tiny types</a>. It can get tedious to build and maintain many small wrapper types, and creating the right definition while in the flow of building out your code can be distracting.</p>
+<p>t4tinytypes is a NuGet package of t4 templates that can be used with Visual Studio or the command-line (for dotnet cli) to generate and regenerate tiny types, simply, easily and flexibly (not to mention extensible).  I&rsquo;m still working on testing samples to show all the ways it can be used, but it should be published as an early alpha release soon.</p>
+<h3 id="while-youre-at-it">While you&rsquo;re at it&hellip;</h3>
+<p>That&rsquo;s what&rsquo;s new, feel free to influence me on what the think you would find valuable to have me finish first. But don&rsquo;t forget the other little projects I&rsquo;ve already put out there and would love feedback on, too.</p>
+<ul>
+<li><a href="https://github.com/csMACnz/Beefeater">Beefeater</a> - &ldquo;Guard your methods' Ins and Outs.&rdquo; - return and optionality semantics helper library</li>
+<li><a href="https://github.com/csMACnz/coveralls.net">coveralls.net</a> - a publisher for .Net code coverage to <a href="https://coveralls.io/">coveralls.io</a></li>
+<li><a href="https://github.com/csMACnz/BCLExtensions">BCLExtensions</a> - extensive extensions and helpers for primative types</li>
+<li><a href="https://github.com/csMACnz/coveritypublisher">coveritypublisher</a> - a publisher for <a href="https://scan.coverity.com/">Coverity Scan</a> static analysis results</li>
+</ul>
+<p>Feedback appreciated :)</p>
+</description>
     </item>
     
     <item>
@@ -24,8 +49,25 @@ So I&amp;rsquo;m building yet another CLI parsing library, but with a primary fo
       <pubDate>Sun, 05 Jun 2016 21:32:04 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/fork-off-with-your-branches/</guid>
-      <description>The nice thing about git is that branches are cheap and you can create many and varied branches for every little fix, format or feature. The annoying thing about GitHub is that every user creates many many many branches.
-One of my pet peeves at the moment is a large number of branches on our upstream repository. That is, the shared common one we all fork from and Pull Request into.</description>
+      <description><p>The nice thing about git is that branches are cheap and you can create many and varied branches for every little fix, format or feature. The annoying thing about GitHub is that every user creates many many many branches.</p>
+<p>One of my pet peeves at the moment is a large number of branches on our upstream repository. That is, the shared common one we all fork from and Pull Request into. When I started there were almost 200 branches! So many branches made it really hard to find out which branch was for what, and even harder to tell if any of the branches were not being used.</p>
+<p>These might seem like small things, but if you have a CI server <em>(I really hope you have a CI server)</em> you might set up wildcard builds that automatically build every branch that matches a certain pattern, for example, <code>feature/*</code> or <code>release/*</code>. Now every one of these branches has a build that runs every time the code changes. You probably want to ensure they are up to date with master, so a script will run on a schedule <em>(or triggered off of a merge)</em> and auto-merge master down to your branch. <em>(Why is this required? probably because you have so many branches in the first place! Investigate <a href="https://www.google.co.uk/search?q=rebase">git rebase</a>&hellip;)</em></p>
+<p>So now, every time the script runs, it triggers updates on every branch, which triggers a build. 200 branches? instant 200 builds in your CI queue. <em>(Who has 200 agents? not me.)</em> Frustration sets in when you can&rsquo;t get your normal build through because your server is busy, and will stay busy for a while.</p>
+<p>The other obvious overhead to me is a cognitive one. If an individual is tracking more than one branch or work, they have to context switch back and forward between then. I can understand 2 work streams due to external blockers on task one and be filling time with task 2, but having 3 or more branches is juggling too much work.  Taking this further, if you have a bunch of branches because the work is done and ready to release, get it shipped. It&rsquo;s not done until it&rsquo;s in production in front of customers <em>(even if only early adopter or beta users)</em>.  using branches as a release task list isn&rsquo;t sensible when everyone does it. Your branches get lost in the noise.  You may even forget to release a branch of changes until your manager chases you for something you thought was released!</p>
+<p>Let&rsquo;s apply this to teams. A team can only be focussing on so many priorities (read branches) before they start dropping balls, or wasting a lot of time on communication and overhead on tracking these different tasks <em>(bugs, features etc)</em>. The less active branches a team has to manage at once, the better. And you get a bit of a <a href="https://en.wikipedia.org/wiki/Bystander_effect">bystander effect</a> on your branches.</p>
+<p>Frustrations aside, there are some real benefits from using a <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow">git flow</a> or <a href="https://guides.github.com/introduction/flow/">GitHub Flow</a> approach where there is a single trunk of development <em>(either a develop-release-master flow or a master-master-master flow)</em> where you are subject to a continuous integration model. Things like <a href="https://en.wikipedia.org/wiki/Feature_toggle">feature flagging</a> and dark releases are great ways to handle harder features and code refactors such are renames, formatting and class extraction are much easier when there is only one branch to work in.</p>
+<p>Some rules to work by:</p>
+<ul>
+<li>keep your small change branches in your fork.</li>
+<li>Don&rsquo;t push branches upstream</li>
+<li>collaborative feature branches? Use feature toggles to maintain continuous integrations.</li>
+<li>Refactoring? incrementally, ship often.</li>
+<li>No more big bang changes, please.</li>
+<li>Branches are cheap, but you don&rsquo;t have to share them.</li>
+</ul>
+<p>Another pet peeve is naming things.  If you have to have a branch, name it after your team, your username, or the bug tracking id for the story of work it relates to. cryptic &lsquo;feature&rsquo; or &lsquo;bug&rsquo; description names don&rsquo;t help anyone. The diff says what the change is, so it is self-descriptive <em>(aka <a href="https://en.wikipedia.org/wiki/Self-documenting_code">self-documenting</a>)</em>, but I don&rsquo;t know who owns it.</p>
+<p><strong>&lt;/rant&gt;</strong></p>
+</description>
     </item>
     
     <item>
@@ -34,8 +76,14 @@ One of my pet peeves at the moment is a large number of branches on our upstream
       <pubDate>Mon, 06 Apr 2015 12:29:27 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</guid>
-      <description>I&amp;rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&amp;rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.
-It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the Statuses api on GitHub for just how easy).</description>
+      <description><p>I&rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.</p>
+<p>It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the <a href="https://developer.github.com/v3/repos/statuses/">Statuses api on GitHub</a> for just how easy). Again it is easy to trigger a build off of the &lsquo;special&rsquo; pull request branch github uses. A guide to getting all of these links working is <a href="http://blog.jetbrains.com/teamcity/2013/02/automatically-building-pull-requests-from-github-with-teamcity/">available on the teamcity blog</a>. But triggering the git source control checking on TeamCity turned out the be the hard bit.</p>
+<p>There are Webhooks in GitHub. There are also Service Hooks. There is a <a href="https://github.com/github/github-services/blob/master/lib/services/teamcity.rb">TeamCity Service Hook</a>. Unfortunately there are issues with both that requires some third set of code to actually make it work. Here is why.</p>
+<p>You would think that the existing team city hook would be exactly what you need. In the settings of your repository, you can configure this, with credentials, to either start a build, or just check for changes on the associated VCS Root. This check may actually trigger a build, depending on how your build triggers are set up.  The problem is that only the <strong>&ldquo;push&rdquo;</strong> event will trigger this service hook to fire off.  Why is this an issue for Pull Requests? Because creating a Pull Request creates the <strong>&ldquo;pull request&rdquo;</strong> event. This means that creating a pull request does not trigger a git check for changes, and so doesn&rsquo;t trigger the Pull Request to run the build, which won&rsquo;t publish the results back to the Pull Request.</p>
+<p>Ok, lets try the custom Web Hooks. Still a no-go. GitHub Web Hooks are ultra flexible. There is <a href="https://developer.github.com/enterprise/2.1/webhooks/">great documentation</a> on setting up a Webhook. It event supports Secrets for signing, specifying specific events, and which format you want it to give you the information in.  But its a <strong>PUSH</strong>.  This means you need a particular endpoint that receives that push, and processes it&rsquo;s payload. There is nothing on TeamCity that matches that description.  You will have to write something to catch that response and trigger the behaviour you want to see happen.</p>
+<p>Now don&rsquo;t get me wrong, this is exactly what you would expect. You need to determine what the business logic to respond to the event should be. But it means to solve my Pull Request problem, I now need to actually build and host this thing to make it all work.</p>
+<p>So for anyone else wondering why the existing tutorials don&rsquo;t trigger your PR builds automatically, now you know why.  Enjoy building a middleman to make TeamCity do what you want as a result of what GitHub sends you :)  I suggest you read <a href="https://github.com/github/github-services/blob/master/lib/services/teamcity.rb">the implementation of the existing service</a> for some ideas of what your middleman might look like.  This was highlighted for us even more glaringly, since we only trigger a forced fetch on TeamCity every 24 hours, so it would only run my build on a PR if I manually triggered it (or someone else happened to accept a merge or push something directly to GitHub). I&rsquo;m sure this was also made worse by us always doing our Pull Requests between forks and trunk, so only on merging a PR would it trigger an update on TeamCity. And then there are the multiple VCS Roots, that updating one doesn&rsquo;t actually trigger all the related builds. Meh.</p>
+</description>
     </item>
     
   </channel>

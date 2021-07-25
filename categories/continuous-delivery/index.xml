@@ -4,6 +4,12 @@
     <title>Continuous Delivery on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/continuous-delivery/</link>
     <description>Recent content in Continuous Delivery on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Sun, 22 Nov 2015 15:05:14 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/continuous-delivery/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +19,44 @@
       <pubDate>Sun, 22 Nov 2015 15:05:14 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/on-gitversioning-subdirectories/</guid>
-      <description>We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&amp;rsquo;t it be nice if we could detect that the subdirectory hasn&amp;rsquo;t changed and so has the same version it did last time we built it?
-We use gitversion, so we already have a way to get the version for the current commit.</description>
+      <description><p>We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&rsquo;t it be nice if we could detect that the subdirectory hasn&rsquo;t changed and so has the same version it did last time we built it?</p>
+<p>We use <a href="https://github.com/GitTools/GitVersion">gitversion</a>, so we already have a way to get the version for the current commit.  Maybe we can use that to get the version for a subdirectories latest commit?  Sure we can!</p>
+<p>To get the version for the latest commit, we need the latest commit.  Turns out you can use</p>
+<pre><code class="language-powershell">$pathToFolder = &quot;C:\dev\MyProject\MySubfolder&quot;
+$commitHash = git log -n 1 --format=&quot;%H&quot; -- $pathToFolder
+</code></pre>
+<p>Here we run a <code>git log</code> command to get the full commit hash, which we can save into a variable <code>$commitHash</code>.  Now we have something to give to <code>gitversion</code>.</p>
+<p>There is a command in <code>gitversion</code>, <code>\c</code>, which takes a commit hash and runs for that instead of for the current commit. All we need to do is the following:</p>
+<pre><code class="language-powershell">$folderVersion = gitversion /c $commitHash | ConvertFrom-Json
+</code></pre>
+<p>and new we have an object in <code>$folderVersion</code> that we can inspect and get out all the version information, from <code>$folderVersion.SemVer</code>, <code>$folderVersion.NuGetVersionV2</code>, and even <code>$folderVersion.FullBuildMetaData</code>!</p>
+<p>What you do from here to integrate with the rest of your build scripts is up to you. One I have used is to go through that folder and replace version information, such as in *.nuspec files. Note here my *.nuspec file has a placeholder $version$ as the version number already in place.</p>
+<pre><code>$NewVersion = &quot;&quot; ## Version from some source, like gitversion
+$Sha = &quot;&quot; ## You can include the sha the version is from into the nuspec file
+$FileFullPath = &quot;&quot; ## filepath from some sort of search for *.nuspec files
+$TmpFile = $FileFullPath + &quot;.tmp&quot;
+
+[ xml ] $fileContents = Get-Content -Path $o.FullName
+
+if ($fileContents.package.metadata.version -eq $null) {
+  $child = $fileContents.CreateElement(&quot;version&quot;, $fileContents.DocumentElement.NamespaceURI)
+  $fileContents.package.metadata.AppendChild($child)
+  $fileContents.package.metadata.version = &quot;$version$&quot;
+}
+  
+$NewDescription = $fileContents.package.metadata.description + ' (' + $Sha + ')';
+$fileContents.package.metadata.description = $NewDescription
+
+if($Version) {
+  $fileContents.package.metadata.version = $NewVersion
+}
+
+$fileContents.Save($TmpFile)    
+     
+move-item $TmpFile $FileFullPath -force
+</code></pre>
+<p>Another useful use-case is to execute GitVersion with <code>/updateassemblyinfo .\Properties\AssemblyInfo.cs</code> as an argument, to target and update a specific project&rsquo;s assembly info version as well.</p>
+</description>
     </item>
     
     <item>
@@ -23,8 +65,13 @@ We use gitversion, so we already have a way to get the version for the current c
       <pubDate>Sat, 15 Aug 2015 17:16:08 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/resharper-on-appveyor/</guid>
-      <description>JetBrains have some great tools. One I am particularly fond of is Resharper. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as CodeRush and JustCode.
-If you are using TeamCity, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&amp;rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.</description>
+      <description><p>JetBrains have some great tools. One I am particularly fond of is <a href="https://www.jetbrains.com/resharper/">Resharper</a>. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as <a href="https://www.devexpress.com/products/coderush/">CodeRush</a> and <a href="http://www.telerik.com/products/justcode.aspx">JustCode</a>.</p>
+<p>If you are using <a href="https://www.jetbrains.com/teamcity/">TeamCity</a>, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.</p>
+<p>But my open source projects don&rsquo;t run on TeamCity, they run on AppVeyor. I get all the benefit out of my ReSharper License on my PC with Visual Studio, but the build server sees none of that. Enter the <a href="https://www.jetbrains.com/resharper/features/command-line.html">Resharper Command Line Tools</a>.</p>
+<p>I mentioned the command line tools <a href="/-net-os-6-metrics/#resharpercli">during my open source CI tools series</a> and so thought I would outline how it can be used, and how I&rsquo;ve come to use it with <a href="http://appveyor.com/">AppVeyor</a>, my CI server of choice.</p>
+<p>Gotchas</p>
+<p>I get this fascinating error intermitently : <a href="https://youtrack.jetbrains.com/issue/RSRP-429298">issue RSRP-429298</a></p>
+</description>
     </item>
     
     <item>
@@ -33,8 +80,14 @@ If you are using TeamCity, which is the Continuous Integration server from JetBr
       <pubDate>Mon, 06 Apr 2015 12:29:27 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</guid>
-      <description>I&amp;rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&amp;rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.
-It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the Statuses api on GitHub for just how easy).</description>
+      <description><p>I&rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.</p>
+<p>It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the <a href="https://developer.github.com/v3/repos/statuses/">Statuses api on GitHub</a> for just how easy). Again it is easy to trigger a build off of the &lsquo;special&rsquo; pull request branch github uses. A guide to getting all of these links working is <a href="http://blog.jetbrains.com/teamcity/2013/02/automatically-building-pull-requests-from-github-with-teamcity/">available on the teamcity blog</a>. But triggering the git source control checking on TeamCity turned out the be the hard bit.</p>
+<p>There are Webhooks in GitHub. There are also Service Hooks. There is a <a href="https://github.com/github/github-services/blob/master/lib/services/teamcity.rb">TeamCity Service Hook</a>. Unfortunately there are issues with both that requires some third set of code to actually make it work. Here is why.</p>
+<p>You would think that the existing team city hook would be exactly what you need. In the settings of your repository, you can configure this, with credentials, to either start a build, or just check for changes on the associated VCS Root. This check may actually trigger a build, depending on how your build triggers are set up.  The problem is that only the <strong>&ldquo;push&rdquo;</strong> event will trigger this service hook to fire off.  Why is this an issue for Pull Requests? Because creating a Pull Request creates the <strong>&ldquo;pull request&rdquo;</strong> event. This means that creating a pull request does not trigger a git check for changes, and so doesn&rsquo;t trigger the Pull Request to run the build, which won&rsquo;t publish the results back to the Pull Request.</p>
+<p>Ok, lets try the custom Web Hooks. Still a no-go. GitHub Web Hooks are ultra flexible. There is <a href="https://developer.github.com/enterprise/2.1/webhooks/">great documentation</a> on setting up a Webhook. It event supports Secrets for signing, specifying specific events, and which format you want it to give you the information in.  But its a <strong>PUSH</strong>.  This means you need a particular endpoint that receives that push, and processes it&rsquo;s payload. There is nothing on TeamCity that matches that description.  You will have to write something to catch that response and trigger the behaviour you want to see happen.</p>
+<p>Now don&rsquo;t get me wrong, this is exactly what you would expect. You need to determine what the business logic to respond to the event should be. But it means to solve my Pull Request problem, I now need to actually build and host this thing to make it all work.</p>
+<p>So for anyone else wondering why the existing tutorials don&rsquo;t trigger your PR builds automatically, now you know why.  Enjoy building a middleman to make TeamCity do what you want as a result of what GitHub sends you :)  I suggest you read <a href="https://github.com/github/github-services/blob/master/lib/services/teamcity.rb">the implementation of the existing service</a> for some ideas of what your middleman might look like.  This was highlighted for us even more glaringly, since we only trigger a forced fetch on TeamCity every 24 hours, so it would only run my build on a PR if I manually triggered it (or someone else happened to accept a merge or push something directly to GitHub). I&rsquo;m sure this was also made worse by us always doing our Pull Requests between forks and trunk, so only on merging a PR would it trigger an update on TeamCity. And then there are the multiple VCS Roots, that updating one doesn&rsquo;t actually trigger all the related builds. Meh.</p>
+</description>
     </item>
     
     <item>
@@ -43,7 +96,54 @@ It is really easy to set up a build task that runs PowerShell as its build step.
       <pubDate>Tue, 03 Mar 2015 19:42:16 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/net-os-7-lifecycle-management/</guid>
-      <description>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</description>
+      <description><p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
+<ol>
+<li><a href="/-net-os-1-source-control">Source Control</a></li>
+</ol>
+<ul>
+<li><a href="/-net-os-2-build">Build</a></li>
+<li><a href="/-net-os-3-test/">Test</a></li>
+<li><a href="/-net-os-4-publish-deploy/">Publish &amp; Deploy</a></li>
+<li><a href="/-net-os-5-documentation/">Documentation</a></li>
+<li><a href="/-net-os-6-metrics/">Metrics</a></li>
+<li>Lifecycle Management &lt;=(We are here)</li>
+</ul>
+<h2 id="lifecycle-management">Lifecycle Management</h2>
+<p>If all your development is done with GitHub, then here are some ALM tools that integration well to surface different views into your lifecycle. But don&rsquo;t think you are limited to GitHub, as some of this will integrate with most source control systems.</p>
+<ul>
+<li>Waffle</li>
+<li>Trello</li>
+<li>Issue Stats</li>
+<li>Sourcegraph</li>
+<li>Open HUB</li>
+<li>Bountysource</li>
+<li>Gratipay</li>
+<li>Tip4Commit</li>
+<li>Dash</li>
+<li>Shields.io</li>
+</ul>
+<h3 id="waffle">Waffle</h3>
+<p><a href="https://waffle.io/">Waffle</a> is an issue tracking board. But not as a stand along system, no no. They use your issues on GitHub as their database, surfacing the information based on conventions.  They also use webhooks to automatically create, update and close your issues based on pull requests and labels. Each of your issues is a card, and interacting with Waffle you can move your cards around, edit the details and add labels and comments to track them easier.  A nice feature is you can point Waffle at anyone&rsquo;s repository, even if they don&rsquo;t use it, to see their issues displayed as cards. Very cool. I have been <a href="https://waffle.io/csmacnz/coveralls.net">using it with Coveralls.net</a>, and you can also <a href="https://waffle.io/dotnet/roslyn">see it working with the Roslyn repository</a>.</p>
+<h3 id="trello">Trello</h3>
+<p><a href="https://trello.com/">Trello</a> is a Kanban style card board, which is feature rich, and free to use. Collaborate with others in a private board. This is a modern web application, and works well in what it does. Cards support drag and drop and it keeps track of the history as changes are made. You can make your board public or keep it private. The only issue with using this for your public open source repository is the duplication between here, and issues in GitHub. For private projects, this could be a great Kanban tracking solution (though I suggest for that purpose you also check out <a href="http://kanbanflow.com/">KanbanFlow</a>)</p>
+<h3 id="issue-stats">Issue Stats</h3>
+<p><a href="http://www.issuestats.com/">Issue Stats</a> is kind of meta. Its designed to analyse and compare your issues and pull requests in GitHub, and tell you hoy long it takes to close them. It also provides a simple graph of the distribution of time to close, as well as <a href="http://www.issuestats.com/analysis">graphs and status</a> across all the repositories to see interesting stats comparing languages. Simple but effective. Again check out how the <a href="http://www.issuestats.com/github/dotnet/roslyn">Roslyn Repository</a> looks via Issue Stats.</p>
+<h3 id="sourcegraph">Sourcegraph</h3>
+<p><a href="https://sourcegraph.com/">Sourcegraph</a> is another service that integrates with GitHub repositories. It provides a code search engine on top of your repository. The unique twist is it can then search all the other repositories it knows about to find usages of your methods, giving you real code examples of how it is used. A really cool premise. Sourcegraph supports Java (Maven), Python, JavaScript (Node.js), Go, and Ruby, but I will continue to hassle them about their lack of C# support.</p>
+<h3 id="open-hub">Open HUB</h3>
+<p><a href="https://www.openhub.net/">Open HUB</a> is another project comparison system. It allows you to claim your contributions to open source projects, as well as showing statistics on the projects that it has in its system. I have my <a href="https://www.openhub.net/p/coverallsdotnet">Coveralls.Net</a> and <a href="https://www.openhub.net/p/BCLExtensions-dotnet">BCLExtensions</a> libraries on here.</p>
+<h3 id="bountysource">Bountysource</h3>
+<p><a href="https://www.bountysource.com/">Bountysource</a> puts developers and funding together. Roughly speaking, someone puts up a bounty on an issue or feature and whoever fulfils it gets the bounty. If you have an issue on an open source project that isn&rsquo;t being fixed, you can put up some money to encourage it to be fixed faster. An interesting concept, and looks like it works for some projects, but not for others.</p>
+<h3 id="gratipay">Gratipay</h3>
+<p><a href="http://gratipay.com">Gratipay</a> is a pure and simple donation system. You have an account, and you can add and withdraw money. Then you can pledge an amount per week to an individual or team, and others can do the same back. You may end up with a net profit, or net spend, as you see fit.</p>
+<h3 id="tip4commit">Tip4Commit</h3>
+<p><a href="https://tip4commit.com/">Tip4Commit</a> is another donation service for open source projects. This one works in Bitcoins.</p>
+<h3 id="dash">Dash</h3>
+<p><a href="https://www.thedash.com/">Dash</a> gives you Dashboard As A Service. Add all the widgets to track the metrics that matter to you in a dashboard you can look at to track your progress.  There is a nice <a href="https://www.thedash.com/dashboard/eevIT7ceUO">Example Fitness Dashboard</a> that shows you what can be done. The only gripe I have with this is the lack of development platforms that work out of the box.  You can create custom results, but they require you to host and run your own proxy to transform the data into a format it can display. Otherwise a nice dashboard service.</p>
+<h3 id="shieldsio">Shields.io</h3>
+<p>Most projects online, especially the ones above, provide badges for you to display on your projects to show off their service, give you visibility on your coverage number, your build success or failure status, and other useful information <a href="http://shields.io/">Shields.io</a> is not so much a tool, as it is Badges As A Service (BAAS? I should stop making these up I think). Using their service, you can unify all your badges to look nice together, and even theme them with a few options like flat, rounded and such.  More and more services are being exposed through Shields.io every time I go back, and you can even DIY with special urls that take the display text, style and colour as query parameters like this: <img src="https://img.shields.io/badge/FOSS-7/7-FF00FF.svg" alt="A Sample Custom Badge "></p>
+<p>For a good list of a whole bunch of places to get free for open source things, check out <a href="http://ossperks.com/">OSS Perks</a>. And that&rsquo;s all she wrote. This is the last post in the series, that was designed to be a companion to my <a href="http://www.meetup.com/WelliDotNet/events/219398813">.Net User Group Talk</a>. The slides from my talk are <a href="http://prezi.com/y1v19jvfgel1">available on prezi</a>.</p>
+</description>
     </item>
     
     <item>
@@ -52,7 +152,41 @@ It is really easy to set up a build task that runs PowerShell as its build step.
       <pubDate>Sun, 01 Mar 2015 18:37:27 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/net-os-6-metrics/</guid>
-      <description>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</description>
+      <description><p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
+<ol>
+<li><a href="/-net-os-1-source-control">Source Control</a></li>
+</ol>
+<ul>
+<li><a href="/-net-os-2-build">Build</a></li>
+<li><a href="/-net-os-3-test/">Test</a></li>
+<li><a href="/-net-os-4-publish-deploy/">Publish &amp; Deploy</a></li>
+<li><a href="/-net-os-5-documentation/">Documentation</a></li>
+<li>Metrics &lt;=(We are here)</li>
+<li><a href="/-net-os-7-lifecycle-management/">Lifecycle Management</a></li>
+</ul>
+<h2 id="metrics">Metrics</h2>
+<p>Cyclomatic Complexity, Coverage and Static Analysis are all processes you should regularly expose your code base to, even as far as every build, if not at least nightly.  Here are a few services that offer to give you this insight into your code base.</p>
+<ul>
+<li>Coveralls</li>
+<li>Coverity Scan</li>
+<li>Resharper CLI</li>
+<li>Nemo (SonarQube)</li>
+<li>Nitriq</li>
+</ul>
+<h3 id="coveralls">Coveralls</h3>
+<p><a href="https://coveralls.io/">Coveralls</a> gives you a place to publish your Continuous Coverage results.  On each build, for each branch, you can push your coverage results up to Coveralls, and see coverage for each source file, as well as changes in coverage over time in each branch of development. They integrate with various source control to pull in the original source files, including GitHub, which is free to use for public GitHub repositories. They have even released an enterprise version. Coveralls has an open API, so there are many languages that are supported. I took that as a challange, so now they have .Net support as well.  Check out my <a href="https://github.com/csmacnz/coveralls.net">Coveralls.Net</a> (available on <a href="https://www.nuget.org/packages/coveralls.net">NuGet</a>) to get your .Net coverage pushed up to their service.</p>
+<h3 id="coverity-scan">Coverity Scan</h3>
+<p><a href="https://scan.coverity.com/">Coverity Scan</a> gives your free (for open source) Static Analysis of your .Net code base. You can run this up to several times a day to analyse your code for memory leaks, releasing resources, and other potential defects, and track these results over time. As of a few days ago their tools are <a href="https://github.com/appveyor/ci/issues/144">now available on AppVeyor VMs</a> and I have a <a href="https://github.com/csMACnz/coveritypublisher">CoverityPublisher</a> tool you can use to get your results zipped up and submitted to Coverity.</p>
+<h3 id="resharper-cli">Resharper CLI</h3>
+<p>Not a service per se, but <a href="https://www.jetbrains.com/resharper/features/command-line.html">ReSharper Command Line Tools</a> give you the power of resharper for your build scripts. Since this is <a href="https://chocolatey.org/packages/resharper-clt.portable">available via Chocolatey</a> it is easy to integrate with your build scripts, which <a href="https://github.com/csMACnz/coveralls.net/blob/master/build.tasks.ps1#L143">I have done for Coveralls.Net</a>. The two main utilities are dupfinder, and inspectcode. Inspect code is able to use your solution&rsquo;s .DotSettings file, and run your configuration over your code base, the same as ReSharper does, and provide the results as xml. If you look at <a href="https://github.com/csMACnz/coveralls.net/blob/master/build.tasks.ps1#L148">my usage</a> you will see this is easy to integrate into your build server, and get it to trigger build failures if thresholds are reached, to help maintain the quality and consistency of your code.</p>
+<h3 id="nemo-sonarqube">Nemo (SonarQube)</h3>
+<p><a href="http://www.sonarqube.org/">SonarQube</a> is a hosted . <a href="http://nemo.sonarqube.org/">Nemo</a> is a cloud hosted instance of SonarQube for open source projects (like <a href="teamcity.codebetter.com">teamcity.codebetter.com</a> is for TeamCity). This is something I need to investigate further, but the gist of this is an Open Source set of tools to give you a large amount of insight into your code base via static analysis. Using the Nemo tools, you can get this over your Open Source project on GitHub and identify issues and concerns you want to get fixed up. I have had trouble finding guides to get added by if you want to get on it I suggest getting in touch with <a href="https://www.cloudbees.com/">CloudBees</a>, who seem to be hosting it.</p>
+<h3 id="nitriq">Nitriq</h3>
+<p><a href="http://www.nitriq.com/">Nitriq</a> is another console app and GUI tool to perform Static Analysis on your .Net applications. This is a free tool. This is a free alternative to a tool like <a href="http://www.ndepend.com/">NDepend</a>. Another tool on my list of things to have a play with, integrating this into my build scripts would add value that paying for something like NDepend would add. If you were wanting to start a new SAAS, this is type of dashboarding would be a great one to look into starting. Just make sure it is free for open source projects. (<a href="https://scrutinizer-ci.com/">They already exist</a> but don&rsquo;t support .Net)</p>
+<h3 id="honourable-mention">Honourable Mention</h3>
+<p><a href="https://codeclimate.com/">Code Climate</a> (Ruby, Javascript, PHP) and <a href="https://www.codacy.com/">Codacy</a> (Scala, Javascript, Python, PHP, CSS) are two more analysis tools, But unfortunately do not support .Net.</p>
+<p>With Code Analysis out of the way, we only have Lifecycle Management left, but it&rsquo;s a biggie.</p>
+</description>
     </item>
     
     <item>
@@ -61,7 +195,36 @@ It is really easy to set up a build task that runs PowerShell as its build step.
       <pubDate>Sun, 01 Mar 2015 16:56:24 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/net-os-5-documentation/</guid>
-      <description>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</description>
+      <description><p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
+<ol>
+<li><a href="/-net-os-1-source-control">Source Control</a></li>
+</ol>
+<ul>
+<li><a href="/-net-os-2-build">Build</a></li>
+<li><a href="/-net-os-3-test/">Test</a></li>
+<li><a href="/-net-os-4-publish-deploy/">Publish &amp; Deploy</a></li>
+<li>Documentation &lt;=(We are here)</li>
+<li><a href="/-net-os-6-metrics/">Metrics</a></li>
+<li><a href="/-net-os-7-lifecycle-management/">Lifecycle Management</a></li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<p>Whether you had a console app, a GUI, or an <a href="https://www.nuget.org/packages/BCLExtensions">Extension Library</a> (shameless plug, oh well), you will want, if not need, documentation. People need to know how to get started and what gotchas to look out for.  So here are a few ways to share with your users how to use your awesome tool/app/library.</p>
+<ul>
+<li>Read the Docs</li>
+<li>apiary</li>
+<li>readme</li>
+<li><a href="https://pages.github.com/">https://pages.github.com/</a></li>
+</ul>
+<h3 id="read-the-docs">Read the Docs</h3>
+<p><a href="https://readthedocs.org/">Read The Docs</a> is a documentation service, that can produce Continuous Documentation, by building off of webhooks in your source control, based on a conventional folder of <a href="http://daringfireball.net/projects/markdown/">Markdown</a>   via <a href="http://www.mkdocs.org/">MkDocs</a> or <a href="http://en.wikipedia.org/wiki/ReStructuredText">reStructuredText</a> with <a href="http://sphinx-doc.org/">Sphinx</a>, a python documentation engine. They even <a href="http://read-the-docs.readthedocs.org/en/latest/index.html">dogfood their own documentation</a> on their site. You can have active documentation available pointing at stable and latest, as well as versioned from each release using tags. As a bonus, this service is free.</p>
+<h3 id="apiary">apiary</h3>
+<p><a href="http://apiary.io/">apiary</a> focuses on API documentation for your services. As well as documenting your contracts, you can show examples of how to use it as well. They also have a mock service based on your definition that anyone using your service can use a test harness, even if you haven&rsquo;t written your service yet. A DSL called the API Blueprint Language is an adaptation of markdown with some specific mark-up constraints to produce the documentation. apiary is free for one admin + unlimited users, but if you want some of the more advanced features like custom templates, user and role management and other advanced features, you will need to pay $100 a month for up to 50 users, at a minimum. You can even use GitHub at a backing store for your documentation.</p>
+<h3 id="readme">readme</h3>
+<p><a href="https://readme.io/">readme</a> is another hosted documentation service. This one is only free until you go live, but if your looking for something free for your open source projects, they offer to upgrade you to a Developer Hub tier plan for free (normally $59 a month), which gives you 5 versions, 10 admins, and custom html/css support. Otherwise at $15 a month you get 3 versions and 1 user, and a few less features.  readme includes a Markdown editor, crowd-sourcing using User suggestions, GitHub sync and like apiary, it also has the ability for in-line code samples, and an API explorer for users to test your rest APIs.</p>
+<h3 id="github-pages">GitHub Pages</h3>
+<p>I already mentioned this is terms of a deployment location, but <a href="https://pages.github.com/">GitHub Pages</a> probably fits better in the documentation section. Using a branch called gh-pages in your repository, you can host the source your documentation in your repository, and have it rendered and hosted by GitHub itself.  There are various rendering engines and approaches for this including an automated generator and Jekyll., as well as manually checking in html files.</p>
+<p>So there you have a few different options to host different types of documentation. Luckily documentation is pretty language agnostic, so there are plenty of options for .Net Open Source (although I did exclude <a href="http://inch-ci.org/">Inch CI</a> for its lack of .Net support, primarily Ruby, but now with Javascript support).  Next up we will look at capturing code metrics to analyse your quality and complexity of your code.</p>
+</description>
     </item>
     
     <item>
@@ -70,7 +233,57 @@ It is really easy to set up a build task that runs PowerShell as its build step.
       <pubDate>Sat, 28 Feb 2015 21:43:34 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/net-os-4-publish-deploy/</guid>
-      <description>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</description>
+      <description><p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
+<ol>
+<li><a href="/-net-os-1-source-control">Source Control</a></li>
+</ol>
+<ul>
+<li><a href="/-net-os-2-build">Build</a></li>
+<li><a href="/-net-os-3-test/">Test</a></li>
+<li>Publish &amp; Deploy &lt;=(We are here)</li>
+<li><a href="/-net-os-5-documentation/">Documentation</a></li>
+<li><a href="/-net-os-6-metrics/">Metrics</a></li>
+<li><a href="/-net-os-7-lifecycle-management/">Lifecycle Management</a></li>
+</ul>
+<h2 id="publish--deploy">Publish &amp; Deploy</h2>
+<p>Once we are happy with our code, had it tested and happy with what we have, we need a way to distribute it to our customers.  For Websites and Web applications, we want to deploy it onto the web somewhere where it can run.  I will cover a few choices available to .Net developers that I have come across.</p>
+<ul>
+<li>Appveyor</li>
+<li>OnCheckin</li>
+<li>Azure</li>
+<li>AppHarbor.com</li>
+<li>GitHub Pages</li>
+</ul>
+<p>If your code is a library, or a utility or console application, then you may want to distribute it to other developers and IT Pros to use and enjoy.  There are several ways to make these available through direct downloads and package managers.</p>
+<ul>
+<li>NuGet</li>
+<li>Chocolatey</li>
+<li>PsGet</li>
+<li>Github Releases</li>
+</ul>
+<h3 id="appveyor">AppVeyor</h3>
+<p><a href="http://www.appveyor.com/">AppVeyor</a> is my go-to build server. For some extra information in AppVeyor, there is <a href="http://www.hanselman.com/blog/AppVeyorAGoodContinuousIntegrationSystemIsAJoyToBehold.aspx">this great article from scott hanselman</a> and it also <a href="/-net-os-2-build/#appveyor">features in the build section</a> of this series.  In terms of publishing and deploying applications, AppVeyor has a very detailed <a href="http://www.appveyor.com/docs/deployment">Deployment</a> documentation, and can take your build artifacts and push them almost anywhere you can think of. FTP, Amazon, Azure, to SQL, GitHub Releases (mentioned below) and custom scripts for when you have an API available to publish to.  You can publish from artifacts after a successful build manually, or add it as the final build step on every build, or with conditions.  They even provide their own NuGet feed if you want to use the build outputs as in-house betas during development.</p>
+<h3 id="oncheckin">OnCheckin</h3>
+<p><a href="https://oncheckin.com/">OnCheckin</a> is an Australian company that provides continuous delivery from check to deployment, and manages all the steps in between for you.  It looks to be very customisable, and provides one site for free. It supports config transforms for the deployment side, and Bitbucket and GitHub for source control, as well as private SVN and git, and Team Foundation Server. You can set up your host provider manually or using a publish profile, such as connecting to an Azure website, or any private host you may have.</p>
+<h3 id="azure">Azure</h3>
+<p>You can host just about anything in <a href="http://azure.microsoft.com/en-us/">Azure</a> these days. From compute, to websites, Linux or windows VMs, even backing stores for your mobile apps.  In terms of places to deploy to, Azure is a great option, easy to use, flashy dashboards and plenty of configuration tweaking to be had, If that&rsquo;s your thing.  Publishing a website to Azure with visual studio deploy couldn&rsquo;t be simpler. There are even a bunch of ways to get Azure to pull in changes when you commit to your source control, <a href="http://azure.microsoft.com/blog/2013/03/19/new-deploy-to-windows-azure-web-sites-from-dropbox/">deploy from Dropbox</a> and heaps of other options. And its not too expensive either, depending on your load and traffic, and how many peripheral services you need.</p>
+<h3 id="appharbor">AppHarbor</h3>
+<p><a href="https://appharbor.com/">AppHarbor</a> is a Platform As A Service (PAAS) for .Net applications. I haven&rsquo;t had a chance to use this myself, but it does look like a nice offering. For their free plan, you get a single web worker, with a domain of <em>myapp</em>.apphb.com. For $10 a month you can add unlimited custom domains, and SSL for another $10.If you want load balanced across two web workers, or one web and one background worker, it $50 a month. But you can basically scale up and out and pay for the privilege in any configuration you choose. As well as integration into the likes of GitHub, CodePlex and Bitbucket, it has an ecosystem of add-ons available (free and paid services) to extend your application.</p>
+<h3 id="github-pages">GitHub Pages</h3>
+<p>For the ultimate in continuous deployment there is <a href="https://pages.github.com/">GitHub Pages</a>.  Just push changes to your git repository on GitHub and your changes go live.  Each GitHub user gets one user site using a repository called <em>username</em>.github.io where <em>username</em> is the user or organisation name of the GitHub account.  As well as this, you can have one per project, and this is done using a branch names gh-pages inside your project&rsquo;s repository.  Since this is hosted by GitHub it makes it easy and free to not only have a site for each of your projects, but your own personal site or blog at no cost to you. That is as long as you don&rsquo;t mind the whole thing being open source (or at least source open).</p>
+<h3 id="nuget">NuGet</h3>
+<p><a href="https://www.nuget.org/">NuGet</a> is Microsoft&rsquo;s package manager for Visual Studio Projects. It is where you can find code files/snippets to install in your project, dll dependencies to link to, utility applications, and more recently plugins/extensions into extensibility points in Visual Studio. Going Forward, NuGet will be the way all dependencies are installed and resolved.  As well as the main public repository of packages at <a href="https://www.nuget.org/">www.nuget.org</a>, The software is open source and free to use so you can host your own repository, or user other providers available such as <a href="https://www.myget.org/">www.myget.org</a>.  The Visual Studio tooling even supports pointing at a folder or network share to resolve packages.</p>
+<h3 id="chocolatey">Chocolatey</h3>
+<p><a href="https://chocolatey.org/">Chocolatey</a> is a twist on NuGet. Rather than being for your code, it is for your machine.  Easily installed from cmd or PowerShell, you can use the command choco install <em>foo</em> to install applications you want to be able to use on the machine. Two flavours of apps are available, though not all are available in both. There is the portable packages, that run from their own folder and do not require installing. Then there is the usual installed application, usually based on msi or other windows installers.  A Typical package looks like a NuGet package, and contains scripts and instructions to download installers and run them on the machine.  Some of them do require human intervention to click through wizards.  On a build machine, Chocolatey has been very useful for me to install utilities, such as PSake, GitVersion and Nuget. The bonus is I can run the same script on a new development machine or VM, and get all the required utilities installed and ready to go automatically.  Chocolately <a href="https://www.kickstarter.com/projects/ferventcoder/chocolatey-the-alternative-windows-store-like-yum">ran a Kickstarter</a> late last year to get funding for a new 2.0 approach under the name &lsquo;The Chocolatey Experience&rsquo;.  I also use it regularly now on windows to install tools like paint.net, Inkscape, notepad++ and other tools like that, without having to find and download the latest installers myself. Very cool.</p>
+<h3 id="psget">PsGet</h3>
+<p><a href="http://psget.net/">PsGet</a> is a package manager for PowerShell. Pretty simple and easy to use. Allows you to pull down and install PowerShell Modules from PowerShell. Their directory list of packages <a href="https://github.com/psget/psget">is just a GitHub Repository</a> and it is easy <a href="https://github.com/psget/psget/wiki/How-to-add-your-module-to-the-directory">to add your packages</a> to it.  I use this mainly to <a href="http://haacked.com/archive/2011/12/13/better-git-with-powershell.aspx/">get Posh-Git installed</a>, but there are other great PowerShell packages in there as well.</p>
+<h3 id="github-releases">GitHub Releases</h3>
+<p>Each repository on GitHub has the ability to set up <a href="https://help.github.com/categories/releases/">GitHub Releases</a> based off of tags. These can have files attached, and are a simple as easy way to host the downloadable source and executables or libraries for each specific release version.  As mentioned above you can even publish to here from a release build on AppVeyor either manually or automatically.</p>
+<p>So that&rsquo;s what I&rsquo;ve got for publishing and deployments. Again this is nowhere near definitive, but a good cross section to get you a little more aware.  Next up we move onto other tools to help with developing you code further, starting with Documentation.</p>
+<h2 id="updates">Updates</h2>
+<p>Obviously I am going to keep finding tools I&rsquo;ve missed, bit it looks like I should mention <a href="https://octopusdeploy.com/">Octopus Deploy</a>, a deployment engine to automate your environment deployments. As well as the expensive paid versions, there is a Community Edition that lets you deploy 5 projects to up to 10 &lsquo;Tentacles&rsquo; for up to 5 users. Might be worth checking out as well.</p>
+<p>Another CI Service you might want to looks at is <a href="https://buildhive.cloudbees.com/">BuildHive</a> from CloudBees, Who provide hosted Jenkins build server. They also have some <a href="https://www.cloudbees.com/resources/foss">open source offerings</a>.</p>
+</description>
     </item>
     
     <item>
@@ -79,7 +292,61 @@ It is really easy to set up a build task that runs PowerShell as its build step.
       <pubDate>Wed, 25 Feb 2015 20:55:52 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/net-os-3-test/</guid>
-      <description>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</description>
+      <description><p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
+<ol>
+<li><a href="/-net-os-1-source-control">Source Control</a></li>
+</ol>
+<ul>
+<li><a href="/-net-os-2-build">Build</a></li>
+<li>Test &lt;=(We are here)</li>
+<li><a href="/-net-os-4-publish-deploy/">Publish &amp; Deploy</a></li>
+<li><a href="/-net-os-5-documentation/">Documentation</a></li>
+<li><a href="/-net-os-6-metrics/">Metrics</a></li>
+<li><a href="/-net-os-7-lifecycle-management/">Lifecycle Management</a></li>
+</ul>
+<h2 id="test">Test</h2>
+<p>Once we Have our <a href="/-net-os-1-source-control">Build Server</a> and <a href="/-net-os-2-build">Build Scripts</a> all chosen and set up, we can add value by running our tests to check the integrity of our code.  Once we have these tests running every build for every check-in, we can monitor the health of our code base, of our features and branches.  There are plenty of options to choose from for test frameworks so lets have a quick look at a few specifically.</p>
+<ul>
+<li>MSTest</li>
+<li>NUnit</li>
+<li>xUnit</li>
+<li>Fixie</li>
+<li>SpecFlow</li>
+</ul>
+<p>And as a secondary to test, usually we execute our test runs in the context of a coverage application, so we can capture and report on the metrics from how much of our code is covered by our tests. There is plenty of discussion about the value of this, but most people would agree that knowing you have low coverage and that encouraging the writing of more tests is better than not knowing your coverage at all.</p>
+<ul>
+<li>OpenCover</li>
+<li>SharpCover</li>
+<li>monocov</li>
+<li>XR.Mono.Cover</li>
+<li>Visual Studio</li>
+</ul>
+<h3 id="mstest">MSTest</h3>
+<p><a href="https://msdn.microsoft.com/en-us/library/ms182489.aspx">MSTest</a> is the de facto, ships with Visual Studio out-of-the-box test framework most people use.  It has the built in templates, a basic set of features that gets you most of the way there, and just works.  That is until you move to mono.  The is a slight coupling to visual studio if you decide to base your tests on this test framework, which means if you want to go cross platform you need to rewrite all your tests.  Maybe a good starting point, but you will eventually want to move off this either for compatibility or features. Having said that, you will still get a long way with MSTest.</p>
+<h3 id="nunit">NUnit</h3>
+<p><a href="http://www.nunit.org/">NUnit</a> is a popular open source alternative to MSTest. The framework takes the basic principles of MSTest and extends them in a few ways to enhance the flexibility of its use. It basically gives you the ultimate in flexibility in how you wish to organise your tests, including parameterised test case attribution to your tests, all the setup and teardown options and all the runners and integration to tools you need. Version 3.0 (a complete rewrite) is currently in alpha.</p>
+<h3 id="xunit">xUnit</h3>
+<p>Another slightly less popular but rising test framework is <a href="http://xunit.github.io/">xUnit</a>. This one is a bit more opinionated, and tries to cut the scope of available features compared to NUnit and MSTest around Setup and Teardown, opting for constructor and destructor as a more native approach. However it replaces per method Setup and Teardown with a slightly different dependency model using Fixtures (implementing IUseFixture<!-- raw HTML omitted --> and/or IClassFixture<!-- raw HTML omitted --> in your test class).  This has become my go-to test framework, with NuGet packages, visual studio and Resharper runners and command line tools available. Works on mono as well as .Net.  Version 2.0 is in RC3 at the time of this writing(although it did take 2 years to get out of alpha, there has been steady progress over the last few months).</p>
+<h3 id="fixie">Fixie</h3>
+<p><a href="http://fixie.github.io/">Fixie</a> is something I&rsquo;ve only come across in passing. It looks to be a very promising test framework, and I encourage you to take it for a test drive if your looking for something to try. My understanding is it is the bare minimum scaffolding to run tests. You are then left to write your conventions for defining and finding what is a test, and defining your own assertion library (or just pick one from NuGet). It allows you to write your own expressions to wrap test methods with classes (for Setup and Teardown) and defining your own parameter injection resolution.</p>
+<p>If you find your highly opinionated in how you want your tests to work, and don&rsquo;t quite like some small parts of your chosen framework, this might be the one to use to get things exactly right.</p>
+<h3 id="specflow">SpecFlow</h3>
+<p><a href="http://www.specflow.org/">SpecFlow</a> is a Specification by Example, Behaviour driven development style test framework.  It uses natural language text files to produce and consume methods containing partial test steps that a developer can implement. this approach means that someone can write up the acceptances tests as tests and not have to write code. They can even compose the existing methods from previous tests into new acceptance tests my chaining them together in new ways using the <a href="https://cukes.info/gherkin.html">Gherkin DSL</a>. If you buy into this approach then it might be worth giving this one a go. Usually these test are used with User Automation Testing, where you can describe use actions in plain English and be able to test this behaviour.</p>
+<h3 id="opencover">OpenCover</h3>
+<p>This appears to be the best open source coverage tool available. <a href="https://github.com/OpenCover/opencover/">OpenCover</a> works with most if not all of the test frameworks, and even has a <a href="https://github.com/OpenCoverUI/OpenCover.UI">OpenCover.UI</a> extension for visual studio being actively worked on. The only downside I have found is it uses C++ COM to communicate with .Net, and so does not work with mono.</p>
+<h3 id="sharpcover">SharpCover</h3>
+<p><a href="https://github.com/gaillard/SharpCover">SharpCover</a> is another alternative open source coverage tool. This one is built on mono.cecil and works cross platform. I am yet to actually try this one out, so cannot give much feedback other than that it is cross platform, and hasn&rsquo;t had a release in over a year. But I did get a quick response from the <a href="https://github.com/gaillard/SharpCover/issues/8">issue I raise recently</a>.</p>
+<h3 id="xrmonocover">XR.Mono.Cover</h3>
+<p><a href="https://github.com/inorton/XR.Baboon">XR.Mono.Cover</a> looks really promising. This appears to be a mono-only coverage, but claims to work on mono on windows as well. Again I have no experience to share here. It does have a GUI component and stores its data in a SQLite database for easier data analysis later on. It is a bit light on updates, so either it doesn&rsquo;t have any issues, or no ones really using it.</p>
+<h3 id="monocov">monocov</h3>
+<p><a href="https://github.com/mono/monocov">Monocov</a> is an open source coverage tool for mono.  I <a href="/monocov-travis-ci-winning/">managed to get this working</a> despite it being several years unmaintained, and it is pretty broken.  If you really want to do coverage on mono I would look into <a href="https://github.com/inorton/XR.Baboon">XR.Mono.Cover</a> and <a href="https://github.com/gaillard/SharpCover">SharpCover</a>.</p>
+<h3 id="visual-studio">Visual Studio</h3>
+<p>Visual Studio has had coverage capabilities is some of its higher SKUs for a while. And as well as the GUI coverage you can use in the test runner, it also has command line tooling you can use. you can even produce a coverage report using a flag on the vstest.console runner.  Not really open source, but a nice option if you have it available.</p>
+<h3 id="and-more">And More</h3>
+<p>As usual this is just a cross section of Frameworks and coverage out there. For a reference list there is the <a href="http://en.wikipedia.org/wiki/List_of_unit_testing_frameworks#.NET_programming_languages">List of unit testing frameworks, .Net</a> section on Wikipedia that lists a few, as well as the various runners available. Before picking the one to go with, I suggest verifying it fits into your preferred way of running tests. Most have a pretty good command-line option, integration points into CI Servers, and the Resharper and Visual Studio test runners. it is worth checking out <a href="https://www.jetbrains.com/dotcover/">dotcover</a> and <a href="https://www.ncover.com/">NCover</a> because they have available <a href="https://www.jetbrains.com/dotcover/buy/license_opensource.html">free licensing for open source</a> projects.</p>
+<p>And as one last optional extra, there is a tool to generate coverage reports from most of the coverage tools I mentioned above called <a href="https://github.com/danielpalme/ReportGenerator">ReportGenerator</a>.</p>
+<p>Next up is how we publish and deploy our newly built and tested applications!</p>
+</description>
     </item>
     
     <item>
@@ -88,7 +355,61 @@ It is really easy to set up a build task that runs PowerShell as its build step.
       <pubDate>Tue, 24 Feb 2015 20:30:15 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/net-os-2-build/</guid>
-      <description>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</description>
+      <description><p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
+<ol>
+<li><a href="/-net-os-1-source-control">Source Control</a></li>
+</ol>
+<ul>
+<li>Build &lt;=(We are here)</li>
+<li><a href="/-net-os-3-test/">Test</a></li>
+<li><a href="/-net-os-4-publish-deploy/">Publish &amp; Deploy</a></li>
+<li><a href="/-net-os-5-documentation/">Documentation</a></li>
+<li><a href="/-net-os-6-metrics/">Metrics</a></li>
+<li><a href="/-net-os-7-lifecycle-management/">Lifecycle Management</a></li>
+</ul>
+<h2 id="build">Build</h2>
+<p>So not we have our source control sorted (and if you don&rsquo;t check back on <a href="/-net-os-1-source-control/">part 1</a>) We can start writing code. And once we have some code together we need a way to build it.  If your a Visual Studio developer like me, you might think &lsquo;I have foo.csproj, and it builds just fine!&rsquo;.  Well that&rsquo;s great, if your wanting to depend on a visual studio GUI. But if you want to reach Continuous * Nirvana, you need a build server, and it needs to run autonomously.  As well as needing this build server, we probably want scripts to automate our build process. And over time we can add to these scripts with other steps, like running tests, packaging deployables, and running static analysis.</p>
+<p>I will quickly run through a few build script options I&rsquo;ve used, and although not definitive, are plenty powerful to get the job done. These are:</p>
+<ul>
+<li>MSBuild</li>
+<li>bat/sh</li>
+<li>psake(/PowerShell)</li>
+<li>FAKE</li>
+<li>Node.js (Grunt/gulp)</li>
+</ul>
+<p>And as far as builder servers go, (skipping over the self-hosted servers like <a href="https://www.jetbrains.com/teamcity/">TeamCity</a> and <a href="http://jenkins-ci.org/">Jenkins</a> Build Servers), there are some great Build Server as a Service (BSAAS) options that you can use to host your public open source repositories.</p>
+<ul>
+<li>Travis-CI</li>
+<li>AppVeyor</li>
+<li>Atlassian Bamboo</li>
+<li>TeamCity.CodeBetter</li>
+</ul>
+<h3 id="msbuild">MSBuild</h3>
+<p>Unless you&rsquo;ve been blinding using Visual Studio like magic, you will be aware that this is the way *.csproj files get turned into dlls and assemblies. And all of this can be done on command line as well, either with devenv.exe, or with the MSBuild tool itself. A good baseline in absence of anything else.</p>
+<h3 id="batsh">bat/sh</h3>
+<p>the simple cmd.exe command shell is the most basic place to start stringing simple commands one after the other. If all you need is to run devenv.exe or MSBuild.exe with the &lsquo;build my solution&rsquo; command, followed by a call to something else to &lsquo;run my tests&rsquo;, then maybe you can get away with something as simple as a .bat file.  If your more into mono, then the shell capabilities of Linux and probably all too familiar.  You can even get some powerful behaviour out of <a href="http://ss64.com/nt/syntax.html">batch scripting</a> if you want to go down that road.</p>
+<h3 id="psake--powershell">psake (+ PowerShell)</h3>
+<p>I used <a href="https://github.com/psake/psake">psake</a> about 3 years ago with a project and it did seem quite heavy handed. It was also already established when I got there. After being if TFS build script land for a while I came back to try psake again on my <a href="https://github.com/csMACnz">own projects</a> and when starting from scratch I finally see the power and simplicity this has.  Not only is is just PowerShell, so I can run any arbitrary command line, PowerShell or .net code I need, but its also a simple yet powerful task orchestration system.  I think I&rsquo;m going to be more than happy having all my projects using this as their build system.</p>
+<h3 id="fake">FAKE</h3>
+<p><a href="http://fsharp.github.io/FAKE/">FAKE</a> follows the tradition of other *ake build tools (<a href="http://www.gnu.org/software/make/">make</a>, <a href="http://www.cmake.org/">cmake</a>, <a href="http://docs.seattlerb.org/rake/">rake</a> etc) but uses the F# language to do it. If you have ever wanted to learn F#, or are already using it, this is a nice choice to write your build scripts in. There are plenty of projects using this, and since its all just IL, people are using it with their mono builds too.  I haven&rsquo;t used this myself but it does seem like a nice way to write your build scripts.</p>
+<h3 id="nodejs-gruntgulp">Node.js (Grunt/gulp)</h3>
+<p><a href="http://nodejs.org/">Node.js</a> is all the rage, and using one of the popular task runners like <a href="http://gruntjs.com/">Grunt</a> or <a href="http://gulpjs.com/">gulp</a> gives you powerful pipe lining capabilities to get your projects put together. These are especially useful if your project includes a lot of Javascript and css, and you want to be able to bundle it all together, to compile it from a language like CoffeeScript, Less or Sass.  I have <a href="http://blog.csmac.nz/gulp--net/">an article I wrote last year</a> on gulp, although have since switched to psake, due to lack of web technologies in the project.  But worth looking into if your solution is more web-focused.</p>
+<p>And on to the build servers.</p>
+<h3 id="appveyor">AppVeyor</h3>
+<p>Ever since Scott Hanselman did <a href="http://www.hanselman.com/blog/AppVeyorAGoodContinuousIntegrationSystemIsAJoyToBehold.aspx">this great write-up on AppVeyor</a> I&rsquo;ve started using it with my open source projects.  For .Net developers, <a href="http://www.appveyor.com/">AppVeyor</a> is the simplest, most powerful Build Server experience I&rsquo;ve seen for a C# project, that just works out of the box.  On top of that, you can configure it to do just about anything with extra scripting, on top of the configuration extensions they already have available to configure in their settings GUI. This is my go-to Solution for my CI, and I can&rsquo;t see myself being easily swayed towards anything else in the short term.</p>
+<h3 id="travis-ci">Travis-CI</h3>
+<p><a href="https://travis-ci.org">Travis-CI</a> only just opened up beta support for .Net back in December 2014 (less than 3 months ago at the time of this writing) and already they have support to build and test Xamarin, portable class libraries and anything that will run against the mono runtime.  This is a great way to ensure your open source library will actually build and run on mono and that your not doing anything that will break for your mono users, without knowing about it.  I even have my integration tests running against one of my projects on .Net and mono with AppVeyor, and again with mono on Travis-CI on every commit, which really neat to see.</p>
+<h3 id="atlassian-bamboo">Atlassian Bamboo</h3>
+<p>Atlassian, not to be left out from a ALM opportunity, have a build server called <a href="https://www.atlassian.com/software/bamboo">Bamboo</a>. In fact keep an eye out in almost every most I think I&rsquo;ll be finding an Atlassian product to call out.  They seem to be <a href="https://www.atlassian.com/opensource/overview">right behind open source</a> and it is great to see. Although I use their products at work, I haven&rsquo;t really had the chance to use Bamboo with any projects, so If your interested you will have to follow this one on your own.  But I would be keen to hear back from anyone who has used it on how they found it.</p>
+<h3 id="teamcitycodebetter">TeamCity.CodeBetter</h3>
+<p>Just when you thought you couldn&rsquo;t keep using your beloved TeamCity, the team at CodeBetter have <a href="http://codebetter.com/codebetter-ci/">collaborated with JetBrains on this hosted version</a>, <a href="http://teamcity.codebetter.com/">TeamCity.CodeBetter.com</a> and its free for open source projects to register and get their CI running here.  Personally it is a few hoops to just through, and AppVeyor is much simpler so I don&rsquo;t think I will make the leap. But its an open available if you want it.</p>
+<h3 id="so-there-it-is">So there it is</h3>
+<p>I&rsquo;m sure there are more out there (I know there are but the others I found don&rsquo;t support .Net), and would love to hear about them if you find them.</p>
+<p>In conclusion, I find AppVeyor is the one I&rsquo;ll keep using, because its got a great range of features, and I&rsquo;ve managed to see and make change on what comes in the build VM when it boots, which is awesome.  For mono I will keep using Travis-CI and see how it goes, and hopefully help them extend their support for C# along the way too.</p>
+<p>Now the have source control, and a place for continuous integration, next up is testing!</p>
+<h2 id="updates">Updates</h2>
+<p>I totally forgot to mention one other awesome tool for CI builds -  <a href="https://github.com/ParticularLabs/GitVersion/wiki/GitFlowExamples#major-release">GitVersion</a>! This awesome library (available as a <a href="https://chocolatey.org/packages/GitVersion.Portable/2.0.1">Chocolatey Package</a>) determines the ideal version number for your current build, and gives you various permutations so you can use it exactly how you want to inside your build scripts. It integrates with various build servers, and (mostly) just works.  There is plenty of guidance on their wiki on github, and they support Git Flow and GitHub Flow branching strategies. Recommended.</p>
+</description>
     </item>
     
     <item>
@@ -97,7 +418,56 @@ It is really easy to set up a build task that runs PowerShell as its build step.
       <pubDate>Sun, 22 Feb 2015 21:13:07 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/net-os-1-source-control/</guid>
-      <description>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects. But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</description>
+      <description><p>This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.</p>
+<ol>
+<li>Source Control  &lt;=(We are here)</li>
+</ol>
+<ul>
+<li><a href="/-net-os-2-build/">Build</a></li>
+<li><a href="/-net-os-3-test/">Test</a></li>
+<li><a href="/-net-os-4-publish-deploy/">Publish &amp; Deploy</a></li>
+<li><a href="/-net-os-5-documentation/">Documentation</a></li>
+<li><a href="/-net-os-6-metrics/">Metrics</a></li>
+<li><a href="/-net-os-7-lifecycle-management/">Lifecycle Management</a></li>
+</ul>
+<h2 id="source-control">Source Control</h2>
+<p>There are lots of different ways to host your source control online, and source control isn&rsquo;t really language specific, so we dont have any options ruled out in this.  I&rsquo;m sure this is nothing new to most people, but I will list off a few options with a little bit of detail.</p>
+<ul>
+<li>CodePlex</li>
+<li>BitBucket</li>
+<li>Visual Studio Online</li>
+<li>Assembla</li>
+<li>Github</li>
+</ul>
+<h3 id="codeplex">CodePlex</h3>
+<p><a href="http://www.codeplex.com/">www.codeplex.com</a> is Microsoft&rsquo;s attempt at open source hosting of source control. It started back in 2006 and has been a very Microsoft-centric place to go find the source code for your favorite open source project. As well as the source, there are usually hosted downloads of the latest and historical versions, as well as documentation, and raising issues. For instance, this is where you would find <a href="https://nuget.codeplex.com/">nuget</a> (although they too are on <a href="https://github.com/NuGet">Github</a>). They provide hosting of Git, Team Foundation Server, or Mercurial repositories (although git is recommended over Mercurial because it is faster, more reliable and has better tooling).</p>
+<p>As best I can tell, the only hosting option is a free public repository, but it also doesn&rsquo;t cost anything to do so, either.</p>
+<p>This seems to have lost traction over the last while, with a large number of projects seemingly having <a href="https://json.codeplex.com/">moved to Github</a>. And with their <a href="http://blogs.msdn.com/b/codeplex/">last blog post</a> being over two years old, the place looks <a href="https://codeplex.codeplex.com/workitem/27634">rather dorment</a>. Having said that, you can still create a repository if you like.</p>
+<h3 id="bitbucket">BitBucket</h3>
+<p><a href="https://bitbucket.org">bitbucket.org</a> is the offering of ALM company <a href="https://www.atlassian.com/">Atlassian</a> (the ones who do <a href="https://www.atlassian.com/software/jira">Jira</a>, <a href="https://www.atlassian.com/software/confluence">Confluence</a>, and <a href="https://www.atlassian.com/software/hipchat">HipChat</a>). You can choose between Git and Mercurial as your source control, and your repositories can either be public or private as you choos, and give you access to issue tracking, wiki, and chat capabilities.</p>
+<p>In Terms of <a href="https://bitbucket.org/plans">pricing</a>, BitBucket gives you unlimited repositories. The catch is instead you pay per user. For instance, up to 5 users is free, then you pay $10 a month for up to 10 users, all the way up to $100 for 100 users, or Unlimited users at a price of $200 a month.</p>
+<p>BitBucket does have integrations with different tools, other than Atlassians own offerings. If you care about integration with other tools then things like <a href="https://www.flowdock.com/">Flowdock</a>, <a href="https://trello.com/">Trello</a> and others have capabilities to integrate.</p>
+<p>It is also worth noting that Atlassian also offer a product called <a href="https://www.atlassian.com/software/stash">Stash</a> which is a self-hosted source control platform option.</p>
+<h3 id="visual-studio-online">Visual Studio Online</h3>
+<p><a href="http://www.visualstudio.com/">www.visualstudio.com</a> is Microsoft&rsquo;s TFS in the cloud. But it is more then that, since the cadence is much faster for Visual Studio Online that it gets features about 6 months ahead of it&rsquo;s on-premise older brother.</p>
+<p>As well as the obvious Team Foundation Version Control support, you can also create a git repository, which is compatible with the rest of the Visual Studio ecosystem these days as well.</p>
+<p>Like BitBucket, <a href="http://www.visualstudio.com/pricing/visual-studio-online-pricing-vs">the pricing</a> is on a per user basis, and like BitBucket, the free limit is 5. The key here is that they offer private repositories. If you are an MSDN subscriber, you also get to be added to repositories, without affecting this user limit. So that means 5 + Unlimited MSDN users. You also get unlimited stakeholders, 60 minutes a month of build time, as well as 20k virtual user minutes a month for load testing. These benefits are thanks to the Azure platform that runs the associated build server environments. After the 5 users, you pay $20, $45 or $60 per month per user for basic, professional (includes a professional visual studio license) or advanced (extra testing benefits).</p>
+<p>Although this is a great option for a small development shop or an indie develop, this probably isn&rsquo;t the right fit for your open source development. But for everything else, this plus <a href="http://www.visualstudio.com/products/visual-studio-community-vs">Visual Studio Community 2013</a> is a great combination for an indie developer, building free or paid apps.</p>
+<h3 id="assembla">Assembla</h3>
+<p><a href="https://www.assembla.com/">www.assembla.com</a> is another ALM solution like Atlassian. But as well as all their paid solutions, they have a free plan which gives you a basic repository hosting solution with unlimited users, but none of the ALM style offerings they have. They also limit you to a 1Gb sized repository. They offer Git, SVN or <a href="http://www.perforce.com/">Perforce</a> hosting.</p>
+<p>As with Visual Studio Online, these guys are a private repository hosting solution. Their <a href="https://www.assembla.com/plans">paid plans</a> range from $24-$200 a month, and scale up your storage and user limit the more you pay.</p>
+<p>This is another one of those great for private stuff, and enterprise stuff, not so much for the open source kinda deals.</p>
+<h3 id="github">Github</h3>
+<p><a href="www.github.com">www.github.com</a> is git as a service. As a distributed source control, git itself doesn&rsquo;t do a central repository per se, but with their concept of pull requests and easy to create forks, its a great place to backup your repositories to as a hub for sharing and collaboration.</p>
+<p>Public repositories are free, and <a href="https://github.com/pricing">their priceing</a> for personal plans ranges from $7 a month for up to 5 private repositories, to $50 a month for up to 50 repositories. They also have a organisational tier which gets up to $200 for 125 repositories.</p>
+<p>The nice thing about Github, is that it is popular. Its the new hotness, and everyone is using it.  And because everyone is using it, everyone is integrating with it.  If you want to pick the source control provider with the most integration points available to you, Github is probably the right choice.</p>
+<p>Github also offer an <a href="https://enterprise.github.com/">Enterprise</a>, self-hosted solution.</p>
+<h3 id="and-more">And More</h3>
+<p>This is only a handful of repository hosts out there, mainly ones I&rsquo;ve had anything to do with over the last 5 years. But there are a ton more source control hosters out there, at varying levels of &lsquo;free&rsquo; and for more information on these there is a page on Wikipedia -
+<a href="http://en.wikipedia.org/wiki/Comparison_of_source_code_software_hosting_facilities">Comparison of source code software hosting facilities</a>.  Since I haven&rsquo;t really had anything to do with the rest I&rsquo;ll leave the investigation up to the reader.</p>
+<p>My picks from the above: I use Visual Studio Online for all my apps, websites and other private work, and github for everything else.</p>
+<p>So thats it for Source Control. Next up is <a href="/-net-os-2-build/">Building your hosted Source</a>.</p>
+</description>
     </item>
     
     <item>
@@ -106,9 +476,68 @@ It is really easy to set up a build task that runs PowerShell as its build step.
       <pubDate>Sun, 08 Feb 2015 15:29:13 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/monocov-travis-ci-winning/</guid>
-      <description>After much frustration, I now have monocov running on my Travis-CI build, and I&amp;rsquo;m going to share with you how I did it.
-TL;DR The coverage results don&amp;rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.
-As I mentioned in a previous post, I am building a coveralls.io publisher for .Net code coverage. This means (to me any way) that I need to support mono coverage as well.</description>
+      <description><p>After much frustration, I now have <a href="https://github.com/mono/monocov">monocov</a> running on my Travis-CI build, and I&rsquo;m going to share with you how I did it.</p>
+<p>TL;DR
+The coverage results don&rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.</p>
+<p>As I mentioned in a <a href="http://blog.csmac.nz/introducing-coveralls-net">previous post</a>, I am building a <a href="https://coveralls.io">coveralls.io</a> publisher for .Net code coverage.  This means (to me any way) that I need to support mono coverage as well.  The best suggested coverage tool <a href="http://www.mono-project.com/docs/debug+profile/profile/code-coverage/">mentioned online</a> for mono is monocov, despite being officially unmaintained since May 2011.  But I stuck with it.</p>
+<p>So I started building a <a href="https://github.com/csMACnz/Coveralls.net-Samples">sample library</a> with CI on github and very easily got examples working for AppVeyor on windows.  But I wanted to get monocov working as a sample with Travis-CI before I built support for it.  I found pretty quickly that monocov is not installed on Travis-ci, and in fact there is no package available to install it either that I could find.</p>
+<p>Thanks to github forks, I found someone else had forked and updated the source for monocov to work with a newer Xamarin version of the mono installation.  So naturally I forked this fork so I could make my own changes if necessary.</p>
+<p>Using a few tricks I was able to get my Travis-CI build to clone down the git fork, build it and install it on the build server.  I did have to change a compile setting and set a variable based on <a href="http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13">this blog post</a>, and I had to pull down the <a href="https://www.nuget.org/packages/Mono.Cecil/">mono.cecil nuget package</a> so I had the Mono.Cecil.dll file required by the C# side of monocov. I also made to install gtk-sharp2 for the GUI library to build with make, although I don&rsquo;t use it. After all these steps I finally got it to a point where it was installed.  The Travis-CI code ended up using these instructions in the install section:</p>
+<pre><code class="language-yaml">- sudo apt-get install gtk-sharp2
+- curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip
+- unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil
+- cp /tmp/cecil/lib/net40/Mono.Cecil.dll .
+- cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/
+- git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov
+- cd ../../csMACnz/monocov
+- cp /tmp/cecil/Mono.Cecil.dll .
+- ./configure
+- make
+- sudo make install
+- cd ../../csMACnz/Coveralls.net-Samples 
+</code></pre>
+<p>Note I changed directories a few times, and pulled monocov into a directory beside my actual repo build folder.</p>
+<p>To get it to run over my tests, I had to use a couple of options:</p>
+<ul>
+<li>set the load library path as seen in the <a href="http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13">blog post</a> I mentioned earlier.</li>
+<li>&ndash;profile=monocov:outfile=monocovCoverage.cov to get monocov to run and output to a specified file</li>
+<li>,+[GameOfLife],+[GameOfLife.xUnit.Tests] as part of the coverage to specify which assemblies to record coverage for</li>
+<li>/noshadow so it didn&rsquo;t use a temp directory for the results, since it has to locate the dll in step 2</li>
+<li>run a second step afterwards to convert the *.cov file into a folder of detailed xml files</li>
+</ul>
+<p>The resulting code for this looked like this:</p>
+<pre><code class="language-yaml">- export LD_LIBRARY_PATH=/usr/local/lib
+- mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow
+- monocov --export-xml=monocovCoverage monocovCoverage.cov
+</code></pre>
+<p>So whats the next steps? Well now I have actual results I will get <a href="https://github.com/csMACnz/coveralls.net">coveralls.net</a> support written and get it published to nuget and usable on my Travis-CI build, so it is passing.  After that I will look at the accuracy of the existing code, since my initial results haven&rsquo;t really looked that accurate.</p>
+<p>In summary, and If you just skipped to the end, my full <code>travis.yml</code> file running monocov over my .net project on Travis-CI looks like this:</p>
+<pre><code class="language-yaml">language: csharp
+solution: ./src/GameOfLife.sln
+install:
+  - nuget restore ./src/GameOfLife.sln
+  - chmod +x ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe
+  - sudo apt-get install nunit-console
+  - sudo apt-get install gtk-sharp2
+  - curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip
+  - unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil
+  - cp /tmp/cecil/lib/net40/Mono.Cecil.dll .
+  - cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/
+  - git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov
+  - cd ../../csMACnz/monocov
+  - cp /tmp/cecil/Mono.Cecil.dll .
+  - ./configure
+  - make
+  - sudo make install
+  - cd ../../csMACnz/Coveralls.net-Samples
+script:
+  - xbuild /p:Configuration=Release ./src/GameOfLife.sln
+  - export LD_LIBRARY_PATH=/usr/local/lib
+  - mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow
+  - monocov --export-xml=monocovCoverage monocovCoverage.cov
+</code></pre>
+<p>Hope someone finds this useful, and stay tuned for the coveralls.io update.</p>
+</description>
     </item>
     
     <item>
@@ -117,8 +546,36 @@ As I mentioned in a previous post, I am building a coveralls.io publisher for .N
       <pubDate>Tue, 23 Dec 2014 10:10:46 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</guid>
-      <description>As any good library should do, I&amp;rsquo;m building my BCLExtensions project(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact). It works great on my AppVeyor CI builds, which is a great .Net windows build server.
-I recently discovered Travis-CI has added beta C# support so I connected it up with my GitHub prooject, which is designed to eventually work with mono anyway, and gave it a go.</description>
+      <description><p>As any good library should do, I&rsquo;m building my <a href="http://github.com/csmacnz/bclextensions">BCLExtensions project</a>(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact).  It works great on my <a href="https://ci.appveyor.com/project/MarkClearwater/bclextensions">AppVeyor CI builds</a>, which is a great .Net windows build server.</p>
+<p>I recently discovered <a href="http://docs.travis-ci.com/user/languages/csharp/">Travis-CI has added beta C# support</a> so I connected it up with my <a href="http://github.com/csmacnz/bclextensions">GitHub prooject</a>, which is designed to eventually work with mono anyway, and gave it a go. But no, that&rsquo;s a no go.  The awesome error I was getting was this cryptic thing:</p>
+<pre><code class="language-sh">	Target GetReferenceAssemblyPaths:
+		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets:  warning : Unable to find framework corresponding to the target framework moniker '.NETPortable,Version=v4.0,Profile=Profile328'. Framework assembly references will be resolved from the GAC, which might not be the intended behavior.
+		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets: error : PCL Reference Assemblies not installed.
+	Task &quot;GetReferenceAssemblyPaths&quot; execution -- FAILED
+</code></pre>
+<p>Turns out since I&rsquo;m using PCL (remember how i said i was using PCL), which the Xamarin mono bits on linux don&rsquo;t come with, and there are no debian packages that contain these PCL frameworks, the bits I need are not there on the Travis build vm.  It wont compile without them. Damn.</p>
+<p>Luckily for me, thanks to some fast work from the Travis-CI guys, I got the following added to my .travis.yml file:</p>
+<pre><code class="language-yaml">	install:
+		- curl -sS http://storage.bos.xamarin.com/bot-provisioning/PortableReferenceAssemblies-2014-04-14.zip &gt; /tmp/pcl-assemblies.zip
+		- unzip /tmp/pcl-assemblies.zip -d /tmp/pcl-assemblies &amp;&amp; mv /tmp/pcl-assemblies/PortableReferenceAssemblies-2014-04-14 /tmp/pcl-assemblies/.NETPortable
+		- export XBUILD_FRAMEWORK_FOLDERS_PATH=/tmp/pcl-assemblies/
+</code></pre>
+<p>They even put it in a <a href="https://github.com/csmacnz/BCLExtensions/pull/2">nice PR</a> for me.  This allowed the build server to download the PCL references from Xamarin, set the environment variable for the location of the assemblies (well done xbuild for including that little gem in their source, and all my builds came to life.</p>
+<p>The only other hurdle i had was my mstest projects wouldn&rsquo;t compile, no mstest on mono.  This was easily fixed by changing to xUnit, which is cross platform, and I&rsquo;m loving as a test framework so far. easy to add using nuget packages and this in your .yml:</p>
+<pre><code class="language-yaml">    install:
+        - nuget restore MySolution.sln
+        - chmod +x ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe
+    script:
+        - xbuild /p:Configuration=Release ./MySolution.sln
+        - mono ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./MyProject.Tests/bin/Release/MyProject.Tests.dll
+</code></pre>
+<p>And now today I got an <a href="https://github.com/csmacnz/BCLExtensions/pull/2#issuecomment-67963660">update from the guys at Travis</a>:</p>
+<blockquote>
+<p><a href="https://github.com/akoeplinger">@akoeplinger</a> commented</p>
+<p><a href="https://github.com/csmacnz">@csmacnz</a> just FYI, we are now installing the new referenceassemblies-pcl Debian package from Xamarin in the Travis C# support, so this workaround shouldn&rsquo;t be necessary any longer :)</p>
+</blockquote>
+<p>So I will be able to remove all this and pretend it never happened. At least I&rsquo;ve documented it in the mean-time, and know it is here if a similar issue crops up in the future.</p>
+</description>
     </item>
     
     <item>
@@ -127,7 +584,17 @@ I recently discovered Travis-CI has added beta C# support so I connected it up w
       <pubDate>Sun, 14 Dec 2014 19:50:47 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/</guid>
-      <description>In my pursuit to find a build task runner for my code coverage I stumbled on this whole other side of the internet I didn&amp;rsquo;t know about (from a .Net developer&amp;rsquo;s perspective). I&amp;rsquo;ve been using AppVeyor.com for my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!</description>
+      <description><p>In my pursuit to <a href="//blog.csmac.nz/gulp-vs-net/">find a build task runner for my code coverage</a> I stumbled on this whole other side of the internet I didn&rsquo;t know about (from a .Net developer&rsquo;s perspective). I&rsquo;ve been using <a href="http://www.appveyor.com/">AppVeyor.com</a> for my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!</p>
+<p>I&rsquo;m aware this isn&rsquo;t new, and there are others like <a href="http://travis-ci.org/">Travis-CI.org</a> which run all the other platforms, but I didn&rsquo;t realise how prolific it really was! Especially how exclusive of microsoft languages they all are. Travis-CI for instance, doesn&rsquo;t seem to support .Net by looking on their <a href="http://docs.travis-ci.com/">docs page</a>, though there does seem to be <a href="http://docs.travis-ci.com/user/languages/csharp/">mono support in beta</a> (and that didnt exist when i looked a week ago, so will keep an eye on this).</p>
+<p>But my main reason for this post, is that I found this cool new (to me any way) Continuous Code Coverage host called <a href="https://coveralls.io/">coveralls.io</a>. With a cool name like that, and a badge for my project, I&rsquo;m sold. But wait, lets check <a href="https://coveralls.zendesk.com/hc/en-us">those docs</a> again.  Yip as I thought, no C# support.  They even have C/C++, this is wrong!</p>
+<p>Ah but whats this? They have an api? And they want you to add missing support? I think I have to help with this. So now I have looked at the java and python implementations, a little bit of the api documentation, and I now have a project placeholder to support C# from various Code Coverage xml output formats to post that data up to coveralls, at <a href="https://github.com/csmacnz/coveralls.net">coveralls.net on github</a>.  I&rsquo;ve even got my badges, for coveralls.io ready to go.</p>
+<p>So fastforward another week and I have a working prototype done. It&rsquo;s even showing <a href="https://coveralls.io/r/csMACnz/coveralls.net">coverage on coveralls.io</a>, supporting opencover xml format.</p>
+<p>So whats left now? finish building it to be reusable by my other projects, publish it to nuget and chocolately and wherever else I need to, and start getting people integrating it into their .Net builds. Probably build out other C# coverage report formats as well, so your not forced to use opencover. Wish me luck!</p>
+<h6 id="small-side-note">small side note</h6>
+<p>So I also found this other continuous code quality metrics thing for python called <a href="https://landscape.io/">landscape.io</a>. When will we see this type of thing available for .Net as well? Turns out right now. Check out
+<a href="https://scan.coverity.com/projects/3696">Coverity Scan Static Analysis</a> (<a href="https://scan.coverity.com/projects/3696">mine</a> needs you to create an account to use, but no permissions to view.)</p>
+<p>And two more for fun: <a href="https://waffle.io/">waffle.io</a> &amp; <a href="https://readthedocs.org/">readthedocs.org</a></p>
+</description>
     </item>
     
   </channel>

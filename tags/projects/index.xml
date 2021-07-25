@@ -4,6 +4,12 @@
     <title>Projects on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/projects/</link>
     <description>Recent content in Projects on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 27 Aug 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/projects/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +19,126 @@
       <pubDate>Mon, 27 Aug 2018 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/time-tracking-analysis/</guid>
-      <description>As a remote worker, I need to keep myself honest. This is as much &amp;ldquo;Make sure I do my hours&amp;rdquo; as it is &amp;ldquo;Don&amp;rsquo;t overwork!&amp;rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.
-To monitor this, I use Toggl. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop.</description>
+      <description><p>As a remote worker, I need to keep myself honest. This is as much &ldquo;Make sure I do my hours&rdquo; as it is &ldquo;Don&rsquo;t overwork!&rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.</p>
+<p>To monitor this, I use <a href="https://www.toggl.com">Toggl</a>. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop. Tracking is even done server side so you can start your timer on one device, and stop it from another. As I say, you can annotate your time with Client, Project, even custom tags.</p>
+<p>Toggl has a bunch of advanced time-coding features to produce reports against different projects. If you pay for their starter plan, it can even handle Billable Time. I don&rsquo;t use any of that. I use their Windows Desktop client (which includes idle time detection to easily clear <a href="https://www.grammarly.com/blog/afk-meaning/">AFK</a> time) and their online data storage, to hold onto my data for me.</p>
+<p>I created this little tool to help me visualise my work patterns as a bit of a heatmap. This was a way for me to answer the question &ldquo;What are my &lsquo;office hours&rsquo;&rdquo; as well as an indication of my work patterns for my team.</p>
+<h3 id="the-instructions">The instructions</h3>
+<h4 id="exporting-data">Exporting Data</h4>
+<p>Using the Toggl Reports, I can select a time period of data I want to have access to. (Instructions <a href="https://support.toggl.com/tag/export/">here</a>.) I select a range, say the last year, and then export as CSV.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1534489912/TogglExport_wzkiix.png" alt="Export Toggl Report data using detailed."></p>
+<p>Make sure that you are Exporting a Detailed report. Your file will be named like &ldquo;Toggl_time_entries_2016-01-01_to_2016-12-31.csv&rdquo;.</p>
+<p>The format of this file should be like this:</p>
+<pre><code>User,Email,Client,Project,Task,Description,Billable,Start date,Start time,End date,End time,Duration,Tags,Amount ()
+First Last,first.last@email.address,,,,&quot;&quot;,No,2016-05-04,10:00:00,2016-05-04,13:00:00,03:00:00,,
+First Last,first.last@email.address,,,,&quot;&quot;,No,2016-05-04,14:00:00,2016-05-04,16:00:00,02:00:00,,
+</code></pre>
+<p>In theory, anyone could create a CSV in this format and this tool will work just fine for them too. I only use the <code>Start date,Start time,End date,End time,Duration</code> fields anyway.</p>
+<h4 id="process-the-data">Process the data</h4>
+<p>Now that I have a local CSV file, I can process it through my application.</p>
+<p>I have made this available as a dotnet tool, so you can easily install it globally and run it from anywhere.</p>
+<pre><code class="language-cmd"># install globally
+dotnet tool install -g TogglHeatmap
+
+# if installed globally, this should just be available on your path
+TogglHeatmap &lt;args&gt;
+
+# install into a local folder
+dotnet tool install TogglHeatmap --tools-path tools
+
+# if installed into a tools path, you can run it from there.
+.\tools\TogglHeatmap &lt;args&gt;
+</code></pre>
+<p>For those new to tools, there is also an update option if newer versions come available, as well as a version parameter if you require a specific version:</p>
+<pre><code class="language-cmd">dotnet tool install -g TogglHeatmap --version 1.0.0
+# update doesn't support version but instead gets the latest
+dotnet tool update -g TogglHeatmap
+# to replace with a specific version, first uninstall, then install with specific version required specified.
+</code></pre>
+<p>At this stage, the args for the application are as follows (subject to change, check <code>TogglHeatmap --help</code> for latest):</p>
+<pre><code class="language-cmd"># Start and End dates
+TogglHeatmap dataFile.csv 2018-01-01 2018-06-01
+
+# Start and week count
+TogglHeatmap dataFile.csv 2018-01-01 26
+</code></pre>
+<p>This should produce a nice report of numbers to the console output:</p>
+<pre><code>&gt; TogglHeatmap Toggl_time_entries_2017-08-15_to_2018-08-15.csv 2018-1-1 2018-08-15
+Data from 1/1/18 0:00:00 to 15/8/18 0:00:00
+First day: Monday
+Number of weeks: 32
+----
+Time,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
+00:00,0,13,0,11,0,0,0
+00:30,0,8,0,8,0,0,0
+01:00,0,4,0,5,0,0,0
+01:30,0,2,0,2,0,0,0
+02:00,0,0,0,0,0,0,0
+02:30,0,0,0,0,0,0,0
+03:00,0,0,0,0,0,0,0
+03:30,0,0,0,0,0,0,0
+04:00,0,0,0,0,0,0,0
+04:30,0,0,0,0,0,0,0
+05:00,0,0,0,0,0,0,0
+05:30,0,0,0,0,0,0,0
+06:00,0,0,0,0,0,0,0
+06:30,0,0,0,0,0,0,0
+07:00,0,0,0,0,0,0,0
+07:30,0,0,4,0,0,0,0
+08:00,0,0,5,3,4,0,0
+08:30,3,5,10,7,6,0,0
+09:00,4,10,12,13,6,0,0
+09:30,8,17,16,18,10,0,0
+10:00,19,22,27,23,26,0,0
+10:30,24,20,27,24,23,0,0
+11:00,24,21,28,28,22,0,1
+11:30,24,20,29,28,22,0,0
+12:00,23,22,28,27,21,0,0
+12:30,21,20,27,27,21,0,0
+13:00,23,20,25,23,21,0,0
+13:30,23,21,26,23,23,0,0
+14:00,23,23,28,24,22,0,0
+14:30,24,24,25,25,24,0,0
+15:00,22,25,27,23,25,0,0
+15:30,22,24,26,26,24,0,0
+16:00,23,27,27,26,24,0,0
+16:30,22,25,27,24,24,0,0
+17:00,19,21,20,21,16,0,0
+17:30,11,18,16,16,7,0,0
+18:00,11,19,10,13,6,0,0
+18:30,9,13,3,12,5,0,0
+19:00,3,9,2,6,5,0,0
+19:30,2,9,4,3,3,0,0
+20:00,7,4,9,5,2,0,0
+20:30,8,7,12,6,2,0,0
+21:00,11,6,15,6,2,0,0
+21:30,22,6,18,5,1,0,1
+22:00,22,4,21,3,1,0,1
+22:30,19,1,21,1,1,0,1
+23:00,18,1,19,0,0,0,0
+23:30,13,1,14,0,0,0,0
+----
+
+Copy the data above into a CSV file to make it pretty in a spreadsheet
+</code></pre>
+<p>We have our heatmap data, and we can copy and save it to a CSV file. Now we can do whatever makes sense to us to present it.</p>
+<h4 id="spreadsheet-ui">Spreadsheet UI</h4>
+<p>For instance, you may want to pull it into a Google Sheet. This should be similar for Excel if that is your office suite of choice instead.</p>
+<p>First, create a new Sheet.</p>
+<p>Take your CSV file of data you created before from the output. You can import that file into Sheets. Simply go to <code>File-&gt;Import...</code> menu, and in the popup and locate your file. Once you have located, uploaded and selected your file, you will get the second dialogue. In this dialogue Select where you want the data to go (for example <code>Insert new sheet</code>, or <code>Replace current sheet</code>) and choose <code>Comma</code> for the Separator type.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_200/v1534489034/SheetsImportFileDialog_izktyl.png" alt="Import Sheet dialogue"></p>
+<p>Once imported, you may want to conditionally colour the numbers. Select cell range from <code>B2</code> to <code>H49</code>, Select <code>Format-&gt;Conditional Formatting...</code> from the menu. In the sidebar that opens on the right, select the <code>Color scale</code> from the tab at the top, ensure <code>Apply to range</code> is set to <code>B2:H49</code> as selected before, And select the colours you want from the drop-down labelled <code>Preview</code>.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_200/v1534491621/GoogleSheetsColorFormating_nzeuba.png" alt="Use Color scale Conditional formatting on cells"></p>
+<p>Click done to finish and enjoy your pretty picture.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1534492505/HeatmapResult_alnhio.png" alt="A calendar view with heatmap data on each cell"></p>
+<h3 id="analysis">Analysis</h3>
+<p>For me, this &lsquo;graph&rsquo; above gives me interesting insights, such as that my day is 10am-5pm then Monday nights and Wednesday nights 9:30 pm until 1 am, But I am really working anytime from 8:30 am till midnight early in the week, 8 am till 11 pm later in the week. There is also no correlation for when I take lunch, but dinner break is some time between 6:30 pm and 8 pm.</p>
+<p>These insights are easier to presume from the visual graph, and I can compare these graphs for different periods of the year to see how these insights change.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>I&rsquo;ve got a bunch of ideas to improve the CLI interface for TogglHeatmap. Including just using all the data as the date range without requiring entry. It might happen at some point, who knows? One of my other projects is working on an <a href="https://github.com/csMACnz/consolable">args parser library</a> so this might be just another testbed for that at some point.</p>
+<p>The source code is on Github at <a href="https://github.com/csMACnz/TogglHeatmap">github.com/csMACnz/TogglHeatmap</a>. Issues welcome.</p>
+<p>Hopefully, someone other than me finds this useful. If not, I have found it useful to document the evolution of my working hours.</p>
+</description>
     </item>
     
     <item>
@@ -23,7 +147,56 @@ To monitor this, I use Toggl. Toggl is time-tracking as a service, which include
       <pubDate>Mon, 04 Jun 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/</guid>
-      <description>Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a Series of Blog Posts. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first. This has continued at a slow pace for the last 3 years.</description>
+      <description><p>Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a <a href="https://blog.csmac.nz/-net-os-1-source-control/">Series of Blog Posts</a>. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first.  This has continued at a slow pace for the last 3 years.</p>
+<p>Back in January 2015 I <a href="https://blog.csmac.nz/introducing-coveralls-net/">Announced Coveralls.Net</a>. This is a code coverage publisher for publishing your coverage results to the coveralls.io API. Coveralls.io is a coverage tracking service, which is free for open source projects, with a paid service for private use, and now an Enterprise version as well. There was a bunch of python and ruby versions, but I wanted fewer dependencies on those runtimes so built my own.  I even managed to get it listed as one of the two <a href="https://docs.coveralls.io/dot-net">recommended .Net coverage integrations</a> on the coveralls.io docs.</p>
+<p>While development has been a slow work of labour over the last three years, the announcement of dotnet CLI tools (proper npm-style tools, not the weird interim dotnet-tool stuff&hellip;) with dotnet SDK 2.1, I had to jump in and get on board.</p>
+<h3 id="announcing-100">Announcing 1.0.0</h3>
+<p>Which brings me to announcing Coveralls.Net 1.0.0. This is a dotnet CLI tools compatible version of <code>csmacnz.Coveralls</code>. Easier to install. Easier to update. And a whole bunch new features, including more coverage options, and better autodetection processes in AppVeyor.</p>
+<pre><code># install globally
+dotnet tool install -g coveralls.net --version 1.0.0
+
+# if installed globally, this should just be available on your path
+csmacnz.coveralls &lt;args&gt;
+
+# install into a local folder
+dotnet tool install coveralls.net --version 1.0.0 --tools-path tools
+
+# if installed into a tools path, you can run it from there.
+.\tools\csmacnz.Coveralls &lt;args&gt;
+</code></pre>
+<p>Now, I&rsquo;ve been struggling a bit with beta 0.8.0. It hasn&rsquo;t been easy to find time to test the new stuff I added, get others to test, and be happy to call it a stable release. But there was a bunch of new stuff and fixes in there. These have all rolled forward into the 1.0.0 Release now. (I might go back and call 0.8.0 stable now since it still works the old way. But for now the old way still works with stable <code>0.7.0</code> and <code>0.8.0-beta003</code>.)</p>
+<p>Still not happy/comfortable with using CLI tools? Not using 2.1? That&rsquo;s ok. I&rsquo;ve used the power of the <a href="https://blog.csmac.nz/dotnetcore2-self-contained-applications/">self-contained app</a> to provide a <code>windows</code>, <code>linux</code> and <code>osx</code> native version (Linux targets the cross-compat Linux target) in a zip file under <a href="https://github.com/csMACnz/coveralls.net/releases/tag/1.0.0">the Releases folder on GitHub</a>.</p>
+<p>For windows in PowerShell you would use it something like this:</p>
+<pre><code># The TLS change was necessary on my development machine
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+$zipDownloadPath=&quot;https://github.com/csMACnz/coveralls.net/releases/download/1.0.0/coveralls.net.1.0.0-windows.zip&quot;
+Invoke-WebRequest -UseBasicParsing $zipDownloadPath -OutFile coveralls-windows.zip
+mkdir coveralls-windows
+Expand-Archive .\coveralls-windows.zip coveralls-windows
+
+.\coveralls-windows\csmacnz.Coveralls.exe
+</code></pre>
+<p>I hope to get more details added on the GitHub Wiki for linux and mac usage of the self-contained app, as well as updating all the samples over at <a href="https://github.com/csMACnz/Coveralls.net-Samples/">Coveralls.net-Samples</a>.</p>
+<h3 id="more-targets">More targets</h3>
+<p>Since the first release, targeting OpenCover coverage files (the most popular at the time), this has been expanded to include Visual Studio Coverage, monocov, Report Generator, Chutzpah javascript coverage, lcov, NCover and <a href="https://github.com/tonerdo/coverlet">Coverlet</a> cross-platform .Net coverage (via its opencover file format).</p>
+<h3 id="whats-next">What&rsquo;s Next?</h3>
+<p>I&rsquo;ve already started working on 1.1.0 while the dotnet 2.1 tools have been working towards stable.</p>
+<ul>
+<li>Better autodetection functionality (including Travis and TeamCity)</li>
+<li>dotcover support</li>
+<li>parallel build support</li>
+<li>add native coverlet support</li>
+<li>Bug fixes that didn&rsquo;t make it to 1.0.0</li>
+<li>Complete and test Enterprise support</li>
+</ul>
+<p>Hopefully, it won&rsquo;t be soon before long that you will see an Announcing 1.1.0 Post.</p>
+<p>Interested in following progress on this? I have a twitter account <a href="https://twitter.com/coverallsdotnet">@coverallsdotnet</a> That I am trying to be more proactive with.  You can also track progress on the <a href="https://github.com/csMACnz/coveralls.net">GitHub Project</a>.  Contributions welcome, though I hear I&rsquo;m a bit of a stickler for quality and such. C&rsquo;est la vie.</p>
+<p>The irony of a coverage publishing tool only having 42% coverage wasn&rsquo;t lost on me, so I got it up to 74%. Soon enough I should get that to 100%. Probably just in time for a version 2.0.0.</p>
+<h3 id="need-more">Need more?</h3>
+<p>Issues, feature requests or feedback? Just write up an issue on GitHub. I would love to hear your experience of using the tool, and I would love to expand the supported coverage formats to include your favourite tool.</p>
+<p>Thanks for using it! It makes me more inclined to make it awesome.</p>
+</description>
     </item>
     
     <item>
@@ -32,9 +205,28 @@ To monitor this, I use Toggl. Toggl is time-tracking as a service, which include
       <pubDate>Sun, 14 Aug 2016 21:51:20 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/new-projects-consolable-concurrentconsole-t4tinytypes/</guid>
-      <description>I&amp;rsquo;ve been working on some new projects, so thought I would do a quick elevator pitch for each.
-Consolable I was having an issue with environment variables as arguments, and with PowerShell replacing &amp;quot;text&amp;quot; with text (stripping double-quotes) and how these interacted with my command line arguments. Especially when the environment variable was empty, the error messages were just not clear enough.
-So I&amp;rsquo;m building yet another CLI parsing library, but with a primary focus on error messaging.</description>
+      <description><p>I&rsquo;ve been working on some new projects, so thought I would do a quick elevator pitch for each.</p>
+<h3 id="consolable">Consolable</h3>
+<p>I was having an issue with environment variables as arguments, and with PowerShell replacing <code>&quot;text&quot;</code> with <code>text</code> (stripping double-quotes) and how these interacted with my command line arguments. Especially when the environment variable was empty, the error messages were just not clear enough.</p>
+<p>So I&rsquo;m building yet another CLI parsing library, but with a primary focus on error messaging. It should work well to provide the developer the arguments from the user, but should also provide the user with better help on where the mistake they have made is.</p>
+<p>Follow my progress <a href="https://github.com/csMACnz/consolable">here on GitHub</a>.</p>
+<h3 id="concurrentconsole">ConcurrentConsole</h3>
+<p>I was wanting to build a chatbot. So naturally as a test harness I need a console app to test with. But it turns out my bot is asynchronous (I can keep talking, while it keeps thinking and returning new messages to an existing thread).  It turns out that concurrently printing text and allowing text entry is not an Out-Of-The-Box feature.</p>
+<p>Introducing ConcurrentConsole, a wrapper over System.Console to allow multithreaded writes while a thread is still reading from the user. Maintain your existing typed text, and even define your own prompt text (which can also be dynamically updated at runtime).</p>
+<p>Check it out <a href="https://github.com/csMACnz/ConcurrentConsole">on GitHub</a> and <a href="https://www.nuget.org/packages/csMACnz.ConcurrentConsole/">NuGet</a>.</p>
+<h3 id="t4tinytypes">t4tinytypes</h3>
+<p>Something I have been meaning to do for a while was to automate my <a href="http://blog.csmac.nz/semantics-vs-implementation-detail/">tiny types</a>. It can get tedious to build and maintain many small wrapper types, and creating the right definition while in the flow of building out your code can be distracting.</p>
+<p>t4tinytypes is a NuGet package of t4 templates that can be used with Visual Studio or the command-line (for dotnet cli) to generate and regenerate tiny types, simply, easily and flexibly (not to mention extensible).  I&rsquo;m still working on testing samples to show all the ways it can be used, but it should be published as an early alpha release soon.</p>
+<h3 id="while-youre-at-it">While you&rsquo;re at it&hellip;</h3>
+<p>That&rsquo;s what&rsquo;s new, feel free to influence me on what the think you would find valuable to have me finish first. But don&rsquo;t forget the other little projects I&rsquo;ve already put out there and would love feedback on, too.</p>
+<ul>
+<li><a href="https://github.com/csMACnz/Beefeater">Beefeater</a> - &ldquo;Guard your methods' Ins and Outs.&rdquo; - return and optionality semantics helper library</li>
+<li><a href="https://github.com/csMACnz/coveralls.net">coveralls.net</a> - a publisher for .Net code coverage to <a href="https://coveralls.io/">coveralls.io</a></li>
+<li><a href="https://github.com/csMACnz/BCLExtensions">BCLExtensions</a> - extensive extensions and helpers for primative types</li>
+<li><a href="https://github.com/csMACnz/coveritypublisher">coveritypublisher</a> - a publisher for <a href="https://scan.coverity.com/">Coverity Scan</a> static analysis results</li>
+</ul>
+<p>Feedback appreciated :)</p>
+</description>
     </item>
     
     <item>
@@ -43,8 +235,47 @@ So I&amp;rsquo;m building yet another CLI parsing library, but with a primary fo
       <pubDate>Thu, 26 May 2016 23:36:57 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/you-cant-handle-the-jandal/</guid>
-      <description>Notes: https://bytes.com/topic/c-sharp/answers/490586-exceptions-cannot-caught http://www.abhisheksur.com/2011/01/internals-of-exception-handling.html http://stackoverflow.com/questions/3341534/partly-crashing-application-how-can-i-catch-uncatchable-exceptions http://forums.asp.net/t/1975718.aspx?Exception+not+caught+using+catch+block https://netfxharmonics.com/2006/10/uncatchable-exception
-public class JandleException : Exception { [DebuggerHidden] public JandleException() { Environment.FailFast(&amp;quot;You can&#39;t handle the jandal!&amp;quot;, this); } }  public class Program { static void Main(string[] args) { try { doStuff(); } catch { Console.WriteLine(&amp;quot;Exception Caught&amp;quot;); } finally { Console.WriteLine(&amp;quot;Finally was executed&amp;quot;); } Console.ReadKey(); } private static void doStuff() { throw new JandleException(); } }  </description>
+      <description><p>Notes:
+<a href="https://bytes.com/topic/c-sharp/answers/490586-exceptions-cannot-caught">https://bytes.com/topic/c-sharp/answers/490586-exceptions-cannot-caught</a>
+<a href="http://www.abhisheksur.com/2011/01/internals-of-exception-handling.html">http://www.abhisheksur.com/2011/01/internals-of-exception-handling.html</a>
+<a href="http://stackoverflow.com/questions/3341534/partly-crashing-application-how-can-i-catch-uncatchable-exceptions">http://stackoverflow.com/questions/3341534/partly-crashing-application-how-can-i-catch-uncatchable-exceptions</a>
+<a href="http://forums.asp.net/t/1975718.aspx?Exception+not+caught+using+catch+block">http://forums.asp.net/t/1975718.aspx?Exception+not+caught+using+catch+block</a>
+<a href="https://netfxharmonics.com/2006/10/uncatchable-exception">https://netfxharmonics.com/2006/10/uncatchable-exception</a></p>
+<pre><code>public class JandleException : Exception
+{
+    [DebuggerHidden]
+    public JandleException()
+    {
+        Environment.FailFast(&quot;You can't handle the jandal!&quot;, this);
+    }
+}
+</code></pre>
+<pre><code>public class Program
+{
+    static void Main(string[] args)
+    {
+        try
+        {
+            doStuff();
+        }
+        catch
+        {
+            Console.WriteLine(&quot;Exception Caught&quot;);
+        }
+        finally
+        {
+            Console.WriteLine(&quot;Finally was executed&quot;);
+        }
+        Console.ReadKey();
+    }
+
+    private static void doStuff()
+    {
+        throw new JandleException();
+    }
+}
+</code></pre>
+</description>
     </item>
     
     <item>
@@ -53,8 +284,13 @@ public class JandleException : Exception { [DebuggerHidden] public JandleExcepti
       <pubDate>Sat, 15 Aug 2015 17:16:08 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/resharper-on-appveyor/</guid>
-      <description>JetBrains have some great tools. One I am particularly fond of is Resharper. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as CodeRush and JustCode.
-If you are using TeamCity, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&amp;rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.</description>
+      <description><p>JetBrains have some great tools. One I am particularly fond of is <a href="https://www.jetbrains.com/resharper/">Resharper</a>. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as <a href="https://www.devexpress.com/products/coderush/">CodeRush</a> and <a href="http://www.telerik.com/products/justcode.aspx">JustCode</a>.</p>
+<p>If you are using <a href="https://www.jetbrains.com/teamcity/">TeamCity</a>, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.</p>
+<p>But my open source projects don&rsquo;t run on TeamCity, they run on AppVeyor. I get all the benefit out of my ReSharper License on my PC with Visual Studio, but the build server sees none of that. Enter the <a href="https://www.jetbrains.com/resharper/features/command-line.html">Resharper Command Line Tools</a>.</p>
+<p>I mentioned the command line tools <a href="/-net-os-6-metrics/#resharpercli">during my open source CI tools series</a> and so thought I would outline how it can be used, and how I&rsquo;ve come to use it with <a href="http://appveyor.com/">AppVeyor</a>, my CI server of choice.</p>
+<p>Gotchas</p>
+<p>I get this fascinating error intermitently : <a href="https://youtrack.jetbrains.com/issue/RSRP-429298">issue RSRP-429298</a></p>
+</description>
     </item>
     
     <item>
@@ -63,8 +299,26 @@ If you are using TeamCity, which is the Continuous Integration server from JetBr
       <pubDate>Sun, 08 Mar 2015 17:34:21 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/introducing-publishcoverity/</guid>
-      <description>As part of my open source development tooling investigation, I came across Coverity Scan Static Analysis. And thanks to Arkfps&#39; post I could automate the process of submitting the results. And now Appveyor includes Coverity on it&amp;rsquo;s images. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.
-PublishCoverity is available on NuGet, and has two use cases: Compress and Publish.</description>
+      <description><p>As part of my open source development tooling investigation, I came across <a href="https://scan.coverity.com/">Coverity Scan</a> Static Analysis. And thanks to <a href="http://arkfps.github.io/2015/01/07/using-coverity-scan-with-appveyor/">Arkfps' post</a> I could automate the process of submitting the results. And now <a href="http://help.appveyor.com/discussions/suggestions/497-coverity-static-analysis-support">Appveyor includes Coverity on it&rsquo;s images</a>. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.</p>
+<p><a href="https://www.nuget.org/packages/PublishCoverity">PublishCoverity</a> is available on NuGet, and has two use cases: Compress and Publish.</p>
+<p>Compress takes a directory and compresses it to produce an output zip file.</p>
+<pre><code class="language-cmd">Signature:
+    PublishCoverity compress [-o &lt;file&gt;] [-i &lt;folder&gt;] [--overwrite] [--dryrun]
+
+Example:
+    PublishCoverity compress -o results.zip -i cov-int
+</code></pre>
+<p>Publish takes that file and some of your project data and posts it off to Coverity for you.</p>
+<pre><code class="language-cmd">Signature:
+    PublishCoverity publish -t &lt;token&gt; -e &lt;email&gt; [-r &lt;name&gt;] [-z &lt;file&gt;] [-d &lt;desc&gt;] [--codeVersion &lt;version&gt;] [--dryrun] [--nologo]
+    
+Example:
+    PublishCoverity publish -t COVERITYTOKEN -e example@example.com -r MyUser/MyProject -z results.zip -d &quot;my project&quot; --codeVersion 0.1.2.3
+</code></pre>
+<p>Although this is still evolving, the gist of what is above will be available to compress and/or publish your results to Coverity Scan. The idea is that anything that I can reasonably determine for you I will try and make optional. Such as your repository name from the AppVeyor Build Environment variables.</p>
+<p>I&rsquo;ve already had a request to add some guards around the results to ensure they are valid and complete before sending, but right now version 0.9 is available on NuGet for you to install and use, and the source is <a href="https://github.com/csMACnz/coveritypublisher">available on GitHub</a>  All feedback and features requests welcome as GitHub issues, or just comment on this post.</p>
+<p>Enjoy!</p>
+</description>
     </item>
     
     <item>
@@ -73,7 +327,12 @@ PublishCoverity is available on NuGet, and has two use cases: Compress and Publi
       <pubDate>Sun, 15 Feb 2015 15:25:45 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/introducing-bclextensions/</guid>
-      <description>It has been a pipe-dream of mine for a while to have my very own C# extensions library. Well now I do. I&amp;rsquo;ve been chipping away at a library on github for ages (my init commit was 15 Sep 2012!) and it is finally a real thing! I&amp;rsquo;ve got a V1.0.0, a Nuget package, and even 100% coverage. I even have the coverity report running, although it&amp;rsquo;s taken so long that I don&amp;rsquo;t have anything to worry about right now.</description>
+      <description><p>It has been a pipe-dream of mine for a while to have my very own C# extensions library. Well now I do.  I&rsquo;ve been chipping away at a library on github for ages (my init commit was <strong>15 Sep 2012!</strong>) and it is finally a real thing! I&rsquo;ve got a V1.0.0, a Nuget package, and even 100% coverage. I even have the <a href="https://scan.coverity.com/projects/3770">coverity report</a> running, although it&rsquo;s taken so long that I don&rsquo;t have anything to worry about right now.  So far there are 24 Extensions available to use.</p>
+<p>As a bonus, my library is a PCL using profile 328, which pretty much means it will work with any C# application you are writting.  I even have it building and running all my test on <a href="https://travis-ci.org/csMACnz/BCLExtensions">Travis-CI</a> (252 tests and counting).</p>
+<p>Please feel free to grab the nuget at <a href="https://www.nuget.org/packages/BCLExtensions">nuget.org/packages/BCLExtensions</a> and check the source as <a href="https://github.com/csMACnz/BCLExtensions">github.com/csMACnz/BCLExtensions</a>.</p>
+<p>Next steps: keep knocking out the extensions from my wishlist, get resharper&rsquo;s inspectcode.exe command-line tool running, and tidy up all the documentation onto the wiki and maybe on of the docs services.</p>
+<p>Have suggestions? Or are there extensions on my list that you want me to prioritise? Open an issue and let me know.</p>
+</description>
     </item>
     
     <item>
@@ -82,8 +341,16 @@ PublishCoverity is available on NuGet, and has two use cases: Compress and Publi
       <pubDate>Sat, 24 Jan 2015 14:33:48 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/introducing-coveralls-net/</guid>
-      <description>So I&amp;rsquo;ve built an (almost MVP) code coverage publisher for coveralls.io from C# code, using opencover coverage results. Checkout the github repo and nuget packages if you want to use it. I&amp;rsquo;m even dogfooding it on appveyor as part of my psake build tasks.
-So how do you use it? Well luckily I used docopts.net to give you a bit of a command line experience while you use it, but the gist is this:</description>
+      <description><p>So I&rsquo;ve built an (almost MVP) code coverage publisher for <a href="http://coveralls.io">coveralls.io</a> from C# code, using opencover coverage results.  Checkout the <a href="https://github.com/csmacnz/coveralls.net">github repo</a> and <a href="https://www.nuget.org/packages/coveralls.net/">nuget packages</a> if you want to use it.  I&rsquo;m even dogfooding it on appveyor as part of my <a href="https://github.com/csmacnz/coveralls.net/blob/master/build.tasks.ps1#L81">psake build tasks</a>.</p>
+<p>So how do you use it?  Well luckily I used <a href="https://github.com/docopt/docopt.net">docopts.net</a> to give you a bit of a command line experience while you use it, but the gist is this:</p>
+<pre><code class="language-powershell">csmacnz.Coveralls.exe --opencover -i opencovertests.xml --repoToken &quot;abcdefghijklmnopqrstuvwxyz&quot; --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
+</code></pre>
+<p>This will locate the xml file opencovertests.xml as a result from running opencover on your c# project, and publish it to your coveralls project based on the repoToken &ldquo;abcdefghijklmnopqrstuvwxyz&rdquo; (using your repo token found on your coveralls.io project page) along with the git commit and branch details pulled out of appveyor.</p>
+<p>So what does this mean to you? How will you use it? Well you can replace the appveyor environment variables above with the actual values found in your build server, get your repo token from coveralls.io, and plus this in on top of your existing opencover coverage CI.</p>
+<p>If you don&rsquo;t currently have opencover hooked up, there are tutorials all over the place for your specific build server, I&rsquo;ll leave you to figure out the best way to get this running.</p>
+<p>Don&rsquo;t use/want to use opencover? The next steps for me is to get other coverage reports working with coveralls.net so stay tuned, or go +1 some of my features listed in the <a href="https://github.com/csmacnz/coveralls.net/issues">repository issues</a>.</p>
+<p>For me, the next steps is to test this works on my other projects so that I will be in the same situation as anyone else who wants to use it.</p>
+</description>
     </item>
     
     <item>
@@ -92,8 +359,36 @@ So how do you use it? Well luckily I used docopts.net to give you a bit of a com
       <pubDate>Tue, 23 Dec 2014 10:10:46 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</guid>
-      <description>As any good library should do, I&amp;rsquo;m building my BCLExtensions project(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact). It works great on my AppVeyor CI builds, which is a great .Net windows build server.
-I recently discovered Travis-CI has added beta C# support so I connected it up with my GitHub prooject, which is designed to eventually work with mono anyway, and gave it a go.</description>
+      <description><p>As any good library should do, I&rsquo;m building my <a href="http://github.com/csmacnz/bclextensions">BCLExtensions project</a>(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact).  It works great on my <a href="https://ci.appveyor.com/project/MarkClearwater/bclextensions">AppVeyor CI builds</a>, which is a great .Net windows build server.</p>
+<p>I recently discovered <a href="http://docs.travis-ci.com/user/languages/csharp/">Travis-CI has added beta C# support</a> so I connected it up with my <a href="http://github.com/csmacnz/bclextensions">GitHub prooject</a>, which is designed to eventually work with mono anyway, and gave it a go. But no, that&rsquo;s a no go.  The awesome error I was getting was this cryptic thing:</p>
+<pre><code class="language-sh">	Target GetReferenceAssemblyPaths:
+		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets:  warning : Unable to find framework corresponding to the target framework moniker '.NETPortable,Version=v4.0,Profile=Profile328'. Framework assembly references will be resolved from the GAC, which might not be the intended behavior.
+		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets: error : PCL Reference Assemblies not installed.
+	Task &quot;GetReferenceAssemblyPaths&quot; execution -- FAILED
+</code></pre>
+<p>Turns out since I&rsquo;m using PCL (remember how i said i was using PCL), which the Xamarin mono bits on linux don&rsquo;t come with, and there are no debian packages that contain these PCL frameworks, the bits I need are not there on the Travis build vm.  It wont compile without them. Damn.</p>
+<p>Luckily for me, thanks to some fast work from the Travis-CI guys, I got the following added to my .travis.yml file:</p>
+<pre><code class="language-yaml">	install:
+		- curl -sS http://storage.bos.xamarin.com/bot-provisioning/PortableReferenceAssemblies-2014-04-14.zip &gt; /tmp/pcl-assemblies.zip
+		- unzip /tmp/pcl-assemblies.zip -d /tmp/pcl-assemblies &amp;&amp; mv /tmp/pcl-assemblies/PortableReferenceAssemblies-2014-04-14 /tmp/pcl-assemblies/.NETPortable
+		- export XBUILD_FRAMEWORK_FOLDERS_PATH=/tmp/pcl-assemblies/
+</code></pre>
+<p>They even put it in a <a href="https://github.com/csmacnz/BCLExtensions/pull/2">nice PR</a> for me.  This allowed the build server to download the PCL references from Xamarin, set the environment variable for the location of the assemblies (well done xbuild for including that little gem in their source, and all my builds came to life.</p>
+<p>The only other hurdle i had was my mstest projects wouldn&rsquo;t compile, no mstest on mono.  This was easily fixed by changing to xUnit, which is cross platform, and I&rsquo;m loving as a test framework so far. easy to add using nuget packages and this in your .yml:</p>
+<pre><code class="language-yaml">    install:
+        - nuget restore MySolution.sln
+        - chmod +x ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe
+    script:
+        - xbuild /p:Configuration=Release ./MySolution.sln
+        - mono ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./MyProject.Tests/bin/Release/MyProject.Tests.dll
+</code></pre>
+<p>And now today I got an <a href="https://github.com/csmacnz/BCLExtensions/pull/2#issuecomment-67963660">update from the guys at Travis</a>:</p>
+<blockquote>
+<p><a href="https://github.com/akoeplinger">@akoeplinger</a> commented</p>
+<p><a href="https://github.com/csmacnz">@csmacnz</a> just FYI, we are now installing the new referenceassemblies-pcl Debian package from Xamarin in the Travis C# support, so this workaround shouldn&rsquo;t be necessary any longer :)</p>
+</blockquote>
+<p>So I will be able to remove all this and pretend it never happened. At least I&rsquo;ve documented it in the mean-time, and know it is here if a similar issue crops up in the future.</p>
+</description>
     </item>
     
     <item>
@@ -102,7 +397,17 @@ I recently discovered Travis-CI has added beta C# support so I connected it up w
       <pubDate>Sun, 14 Dec 2014 19:50:47 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/</guid>
-      <description>In my pursuit to find a build task runner for my code coverage I stumbled on this whole other side of the internet I didn&amp;rsquo;t know about (from a .Net developer&amp;rsquo;s perspective). I&amp;rsquo;ve been using AppVeyor.com for my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!</description>
+      <description><p>In my pursuit to <a href="//blog.csmac.nz/gulp-vs-net/">find a build task runner for my code coverage</a> I stumbled on this whole other side of the internet I didn&rsquo;t know about (from a .Net developer&rsquo;s perspective). I&rsquo;ve been using <a href="http://www.appveyor.com/">AppVeyor.com</a> for my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!</p>
+<p>I&rsquo;m aware this isn&rsquo;t new, and there are others like <a href="http://travis-ci.org/">Travis-CI.org</a> which run all the other platforms, but I didn&rsquo;t realise how prolific it really was! Especially how exclusive of microsoft languages they all are. Travis-CI for instance, doesn&rsquo;t seem to support .Net by looking on their <a href="http://docs.travis-ci.com/">docs page</a>, though there does seem to be <a href="http://docs.travis-ci.com/user/languages/csharp/">mono support in beta</a> (and that didnt exist when i looked a week ago, so will keep an eye on this).</p>
+<p>But my main reason for this post, is that I found this cool new (to me any way) Continuous Code Coverage host called <a href="https://coveralls.io/">coveralls.io</a>. With a cool name like that, and a badge for my project, I&rsquo;m sold. But wait, lets check <a href="https://coveralls.zendesk.com/hc/en-us">those docs</a> again.  Yip as I thought, no C# support.  They even have C/C++, this is wrong!</p>
+<p>Ah but whats this? They have an api? And they want you to add missing support? I think I have to help with this. So now I have looked at the java and python implementations, a little bit of the api documentation, and I now have a project placeholder to support C# from various Code Coverage xml output formats to post that data up to coveralls, at <a href="https://github.com/csmacnz/coveralls.net">coveralls.net on github</a>.  I&rsquo;ve even got my badges, for coveralls.io ready to go.</p>
+<p>So fastforward another week and I have a working prototype done. It&rsquo;s even showing <a href="https://coveralls.io/r/csMACnz/coveralls.net">coverage on coveralls.io</a>, supporting opencover xml format.</p>
+<p>So whats left now? finish building it to be reusable by my other projects, publish it to nuget and chocolately and wherever else I need to, and start getting people integrating it into their .Net builds. Probably build out other C# coverage report formats as well, so your not forced to use opencover. Wish me luck!</p>
+<h6 id="small-side-note">small side note</h6>
+<p>So I also found this other continuous code quality metrics thing for python called <a href="https://landscape.io/">landscape.io</a>. When will we see this type of thing available for .Net as well? Turns out right now. Check out
+<a href="https://scan.coverity.com/projects/3696">Coverity Scan Static Analysis</a> (<a href="https://scan.coverity.com/projects/3696">mine</a> needs you to create an account to use, but no permissions to view.)</p>
+<p>And two more for fun: <a href="https://waffle.io/">waffle.io</a> &amp; <a href="https://readthedocs.org/">readthedocs.org</a></p>
+</description>
     </item>
     
     <item>
@@ -111,8 +416,25 @@ I recently discovered Travis-CI has added beta C# support so I connected it up w
       <pubDate>Sun, 07 Dec 2014 17:41:40 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/gulp-vs-net/</guid>
-      <description>I wanted to add continuous code coverage to my little extension library project, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!
-Because I&amp;rsquo;m started to learn more about this nodejs thing as a .Net developer, I figured I should give one of the build automation projects from there a go, even though my project is a .</description>
+      <description><p>I wanted to add continuous code coverage to my <a href="https://github.com/csmacnz/BCLExtensions">little extension library project</a>, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!</p>
+<p>Because I&rsquo;m started to learn more about this nodejs thing as a .Net developer, I figured I should give one of the build automation projects from there a go, even though my project is a .Net library and I dont need node (even if it is a PCL).</p>
+<h4 id="a-few-hurdles">A Few Hurdles</h4>
+<p>So the first major problem is node itself. not a current dependancy from any of the project, so that needed to be installed. Not a big deal, i did have to hack around with powershell to set up node so that npm was recognised, but thats a once off per machine. Then I had to add a package.json file, that was that.</p>
+<p>Next up was gulp, again, not too bad except that I did have issues getting gulp recognised as a command, but a few powershell restarts and some new PATH variables and that was fine too.</p>
+<p>Now to get gulp to build and run my tests. Luckily there is a <a href="https://www.npmjs.org/package/gulp-msbuild">gulp-msbuild</a> task that I could install, which works without much trouble. Unfortunately, there was no gulp-mstest. after much trial and error, I found and used the node package <a href="https://www.npmjs.org/package/mstest">mstest</a>, and jumped some extra hoops to do a manual gulp task for that. I notice that there is a <a href="https://www.npmjs.org/package/grunt-mstest">grunt-mstest</a> available, and a <a href="https://www.npmjs.org/package/gulp-nunit">gulp-nunit</a>, so not too big a deal for others that might be following a similar path.</p>
+<p>I even managed to get a AssemblyInfo rewritter build step as well, which was a nice, but unnecessary bonus at this stage.</p>
+<p>About now, after several hours mucking about, I realised that I had achieved the following:</p>
+<ul>
+<li>Introduced an unnecessary dependancy on nodeJS</li>
+<li>Added new node-module dependancies to the setup of my build tasks that need downloading</li>
+<li>Require you to spin up an entire node environment, just to shell out to command line applications to build and test my .Net project.</li>
+</ul>
+<p>I haven&rsquo;t even got to code coverage and already feel I&rsquo;m breaking ground, and will need to build my own node libraries for gulp to run my tests and code coverage.  At this point I also realise since ive been doing the whole thing in powershell, I should just install psake and be done with it.</p>
+<h4 id="conclusion">Conclusion</h4>
+<p>If you&rsquo;ve got a web application in .Net and you will need a pipeline for less/sass/typescript/coffeescript/javascript , gulp is a nice way to go, and can even do the build, run the test, package to a zip and/or deploy to your environments for you.  But if all you have is a .Net library with no web requirements whatsoever, I recommend psake, with a little chocolatey for environment dependancies thrown in.</p>
+<h4 id="for-your-interest">For your interest</h4>
+<p>You can check out the changes in the following <a href="https://github.com/csmacnz/BCLExtensions/tree/d04a6a311f78f0fd52b8900af375ee1a15746eee">Commit</a> (I&rsquo;m pretty sure it&rsquo;s going to become psake pretty soon.)</p>
+</description>
     </item>
     
     <item>
@@ -121,8 +443,34 @@ Because I&amp;rsquo;m started to learn more about this nodejs thing as a .Net de
       <pubDate>Tue, 05 Jul 2011 18:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/7-lessons-from-building-a-wp7-game-in-7-days/</guid>
-      <description>This is a companion post for my talk at Wellington&amp;rsquo;s SLAMD user group on 6 July 2011.
-Recently I took part in Nigel Parker&amp;rsquo;s &amp;ldquo;Release an App for Windows Phone 7 in 7 Days for a Chance to Win a New HTC 7 Trophy Phone&amp;rdquo; competition, with the intent of winning a Windows Phone 7 device. Although I didn&amp;rsquo;t manage to win the device, I did get a free 1 year subscription to the App Hub, allowing me to develop and submit apps that I build, had fun doing it, and learned a few lessons along the way.</description>
+      <description><p>This is a companion post for my talk at Wellington&rsquo;s SLAMD user group on 6 July 2011.</p>
+<p>Recently I took part in <a href="http://blogs.msdn.com/b/nigel/">Nigel Parker</a>&rsquo;s &ldquo;<a href="http://blogs.msdn.com/b/nigel/archive/2011/05/16/release-an-app-for-windows-phone-7-in-7-days-to-win-a-phone.aspx">Release an App for Windows Phone 7 in 7 Days for a Chance to Win a New HTC 7 Trophy Phone</a>&rdquo; competition, with the intent of winning a Windows Phone 7 device. Although I didn&rsquo;t manage to win the device, I did get a free 1 year subscription to the App Hub, allowing me to develop and submit apps that I build, had fun doing it, and learned a few lessons along the way. This was my first exposure to the WP7 development ecosystem, as well as my first excursion onto a mobile platform in general.</p>
+<p>So what follows is a few lessons that I would like to pass on about developing a windows phone application. First though, I will give a quick overview of what exactly I built. The brief was simple, build an application, and have it live on the marketplace by the 6th of June. Not that big of a task, really. The point of this exercise was to both boost awareness of the new development tools, and to increase the footprint of New Zealand-built apps on the marketplace.</p>
+<p>&lsquo;7 days&rsquo; was a bit of a guideline really, as the competition ran from the 16th May, but this gave time after your 7 days to get it through the approval process, get your account validated and active, and still have time to fix anything that stopped it getting approved first time around. So I came up with a great idea, for a spacies-type game where the main character was a bottle of sauce, defending his kitchen against an invasion of bacon. Bacon Vaders was born. With an idea in hand, the very next thing to do, of course, was to grab all of the developer tools and sdk. This brings me to Lesson number 1.</p>
+<h3 id="1-tools-only-work-on-windows-vista-and-windows-7">1) Tools only work on Windows Vista and Windows 7</h3>
+<p>This was a bit of a problem for two reasons. The first is that my primary portable solution is my EeePC. It is perfectly practical for taking my development with me, and has been my PC of choice for presentations. The only catch is that it is running Windows XP. I am keen to find out if it can handle windows 7 and still be a functional dev machine, but the cost of upgrading when XP works perfectly fine has held me back. Lucky for me, my girlfriend also has a Netbook, a newer one, and it has Windows 7. Portability problem solved. Problem 2, this restriction means that it also doesn&rsquo;t work on Windows Server 2008 R2. If anyone was wondering, that is the OS running on my office machine.</p>
+<p>Hmm, so can&rsquo;t do any dev at work either in my lunch break or before I head home. I&rsquo;m sure I&rsquo;m not the only developer who thinks that developing on a Server makes heaps of sense, but I guess they don&rsquo;t expect that developers of web applications, deskop applications and web services ( + any database solutions) will want to develop for the WP7. Well its lucky that my gaming machine is running Windows 7 then, so I can use that for the majority of my coding and testing.</p>
+<p>So with the environment set up I was ready to start coding. With the help of my sister creating the graphical images and characters, I had a playable version of the game working by the end of 5 days made up of a weekend, and a couple of late nights after work. But as with anything new, there were a few bugs and oddities that had to be worked through to make it presentable for the marketplace.</p>
+<h3 id="2-tombstoning">2) Tombstoning</h3>
+<p>If you had been following any development blog or message boards around Windows Phone 7, you would have heard the term &lsquo;Tombstoning&rsquo;. This is the way Window Phone 7 handles not having multitasking (at least for the first release, Mango improves upon this model). There are several scenarios where this occurs. The simplest way to demonstrate the tombstoning behavior is to press the windows key on the device while your application is running. This puts it into an out of processor state. If memory is needed, then your application will be closed completely. This is tombstoning. If you come back before this happens, everything is exactly were you left it. If you come back after tombstoning, you get to come back to the same page or screen, but you will have to do some work to continue where you left off.</p>
+<p>Luckily, you can be notified when your application is tombstoned, and write code to save any important information, that you might need to use to bring it back up again. After much trial and error, I was able to get my game to behave how I wanted it to. rather than rely of specific Tombstoning information, I decided that if you were playing the game, and you left the in game screen in anyway, the current level state would be saved. Then, whenever you return to the page, either with resume from the menu, or using the back button, the level would resume itself. Even if tombstoning hadn&rsquo;t occurred, the same code can be used to refresh the page, and then resume the game.</p>
+<p>After tombstoning, the rest of the application came together pretty easily, since it was simply Silverlight, and I have plenty of experience building silverlight apps. I wasn&rsquo;t using any networking, any complex configuration, saving or loading. I wasn&rsquo;t even doing anything overly complex with the game loop. The next lesson didn&rsquo;t crop up until closer to the end of the project.</p>
+<h3 id="3-games-vs-apps">3) Games vs Apps</h3>
+<p>As you might know, the phone allows for two categorisations of Applications, apps, and games. Both can be pinned to the tiles screen, but the first appears in the applications list (to the right of the tiles screen) and the latter is on the Games Hub. So how do we get it there? Here comes a three part lesson learned.</p>
+<p>Part 1, how to set where your application ends up? In the solution, when you create a new Silverlight project, the file WMAppManifest.xml is created in the Properties folder with the setting Genre=&ldquo;apps.Normal&rdquo;. If you set this to apps.games, your application will be place inside the games hub. Alternatively, when you create a WP7 XNA application, you will have apps.games, and by changing to apps.normal, you will no longer be placing you xna application in the games hub. One thing to note here, is that this does not affect the categorisation of you application, this is done during the submission process.</p>
+<p>This brings me to part 2 of the apps verses game lesson: <strong>icons</strong>. When you create a silverlight wp7 application, you get an image in the project called ApplicationIcon.png, with a resolution of 62x62. This is the size of the icon in the applications list. However, when you create an xna application, you get a GameThumbnail.png, which is 173x173. There is a really good reason for this: in the Game Hub, games get bigger icons. This means that if you start with a silverlight application, and change its genre to apps.games, you get a distorted icon, as the phone tries to stretch the 62x62 icon to the 173x173 size. So you need to make sure that you make the image for the icon a 173x173 image, if its a game.</p>
+<p>A side note here is that a separate image is used for the tile background, but this too is 173x173. What makes this a bit of a problem is part 3 of the lesson. In the emulator, you only get a subset of the phones functionality. The emulator doesn&rsquo;t include the Games Hub for instance. This means that once you set the application to become a game, you can no longer launch it from the phone, without starting it through Visual Studio. This relates to the last bit, because without looking on an actual device, you might not notice you need to change the icon size. This is what happened to me before I tested it on an actual device. The next lesson is also as a result of finally testing on an actual device.</p>
+<h3 id="4-performance">4) Performance</h3>
+<p>There are a few things to know about the emulator. 1, it performs better on the cpu then the actual device will. 2) sometime graphics processing will be better on the device then on the emulator. This all comes down to a very simple lesson, always test on a real device. I noticed that my application was not running smoothly on a real device, and made a few enhancement to improve this.</p>
+<p>I was ready to submit. I filled out all the details, had a activated account, sent through all my verification details, and submitted my first draft of Bacon Vaders. After a few days I had my response and my next lesson. I failed validation.</p>
+<h3 id="5-contrast">5) Contrast</h3>
+<p>If you have played with the phone, or the emulator, you would see that there are two basic themes to the device, light and dark. From silverlight, this theme is used for the font color, and backgrounds. many theme resources are available to use when you need to set the colour of something, including the accent colour. Unfortunately, I didn&rsquo;t use these. I failed the validation because when you put the phone in light mode, you couldn&rsquo;t read some of the text, since I had made a few rectangles with either black or white translucent colours, instead of using the provided theme resources. So I quickly fixed this up, and got my application resubmitted. This time it passed, and now my app is available on the marketplace. For more information about the specifications that are tested against, <a href="http://msdn.microsoft.com/en-us/library/hh184843(v=VS.92).aspx">check here</a>.</p>
+<h3 id="6-silverlight-for-games">6) Silverlight for Games</h3>
+<p>There are a few issues with the current version of my game. I have some performance issues with my game loop. This brings me to my second to last lesson, building games in silverlight. If you are building a simple game, without any real-time processing, or a nominal gameloop, you can build games in silverlight, especially if you want to rely on the animations, UI dynamic layouts and simple 2D graphics that it provides in a nice API . If you need a gameloop, however, XNA can do all the heavy lifting for you. And if you want to do 3D on the phone, you will certainly want to use XNA. Of course, now you can get the best of both world with using XNA and silverlight together on WP7 Mango. If I built this again, I would most likely use XNA to do it, but for this short build-time project, I had to go with what I knew.</p>
+<h3 id="7-tasks-on-the-emulator">7) Tasks on the emulator</h3>
+<p>Some things I have come across since finishing, while trying to add a few tasks to my application, such as rating, links to my website, and integrated sending feedback/bug reports, have been interesting discoveries. This relates to the Tasks in the API, and to the hubs and built in applications. I wont go into too much detail, but you can basically use the tasks as a backdoor to access the hidden hubs. From there, you can set up an email account or two, as well as a few other settings, and then get a lot more functionality out of the tasks. More about this can be seen on <a href="http://dotnet.dzone.com/articles/real-email-accounts-inside">this blog post</a>.</p>
+<p>So there you have it. 7 lessons from 7 days developing an application for Windows Phone 7.</p>
+</description>
     </item>
     
   </channel>

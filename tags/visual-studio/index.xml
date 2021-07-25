@@ -4,6 +4,12 @@
     <title>Visual Studio on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/visual-studio/</link>
     <description>Recent content in Visual Studio on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Thu, 17 Jan 2019 20:40:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/visual-studio/index.xml" rel="self" type="application/rss+xml" />
@@ -13,9 +19,56 @@
       <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</guid>
-      <description>It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.
-The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)
-C# 8 It feels like we&amp;rsquo;ve been talking about C# 8 for a while, with 7.</description>
+      <description><p>It&rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.</p>
+<p>The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&rsquo;ve moved on.)</p>
+<h2 id="c-8">C# 8</h2>
+<p>It feels like we&rsquo;ve been talking about C# 8 for a while, with 7.1, 7.2 and 7.3 releases building towards it. (It was 2 years ago when they were talking about what&rsquo;s new in C# 7.0!). We&rsquo;ve had demos at Build, NDC and online of what is coming, with <a href="https://blogs.msdn.microsoft.com/dotnet/2018/12/05/take-c-8-0-for-a-spin/">Preview releases</a> dropping towards the end of last year. We should expect to see VS 2019 Released this Quarter (one hopes) and can get a better look at C# 8 in its final form at that point.</p>
+<p>What we do know is there are a bunch of cool features coming:</p>
+<ul>
+<li>Nullable reference types</li>
+<li>Async streams</li>
+<li>Ranges and indices</li>
+<li>Default implementations of interface members</li>
+<li>Recursive patterns</li>
+<li>Switch expressions</li>
+<li>Target-typed new-expressions</li>
+</ul>
+<p>More detailed notes and examples of what these are and how they look was published on the .Net Blog article <a href="https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/">Building C# 8.0</a>.</p>
+<p>I am seriously looking forward to the Nullable reference types (I have a few libraries to get updated to support it still), Switch expressions and recursive patterns, and also finding out where the other features start to find their use for me.</p>
+<h2 id="net-core-30">.Net Core 3.0</h2>
+<p>Once again, we have a proper Major release. This one is as important as the .Net Core 2.0 milestone was, but hopefully, the jump is much more stable. This is an umbrella for new dotnet CLI tool updates, MSBuild updates, a new 3.0 runtime, and support for all in Visual Studio as well.</p>
+<p>The big headline is Windows Desktop Coming to .NET Core. Yes, this is OS-specific and not cross-platform, but is a huge step in getting those GUI apps transferred over to the dotnet CLI and the .Net Core runtime. As part of this, they even OpenSourced all the GUI frameworks WPF, WinForms and WinUI.</p>
+<p>Things to look out for when moving to .Net Core 3.0:</p>
+<ul>
+<li>Desktop Applications support</li>
+<li>Applications now have executables by default</li>
+<li>dotnet build now copies dependencies</li>
+<li>Local dotnet tools</li>
+<li>ARM64 and updated platform support</li>
+<li>Many language and runtime improvements
+<ul>
+<li>fast in-box JSON Reader</li>
+<li>C# 8 language features support</li>
+<li>System.Buffers.SequenceReader</li>
+<li>IoT improvements</li>
+<li>TLS improvements on linux</li>
+<li>Cryptography improvements</li>
+<li>More BCL Improvements using optimized Span<!-- raw HTML omitted -->, Memory<!-- raw HTML omitted --></li>
+<li>Default implementations of interface members</li>
+<li>Tiered Compilation on by default</li>
+<li>Assembly Metadata Reading with MetadataLoadContext</li>
+</ul>
+</li>
+</ul>
+<p>To see more of the changes in detail, especially the language and runtime improvements, you can read up more yourself <a href="https://blogs.msdn.microsoft.com/dotnet/2018/12/04/announcing-net-core-3-preview-1-and-open-sourcing-windows-desktop-frameworks/">in the Announcement from December</a>.</p>
+<h2 id="netstandard21">.NetStandard2.1</h2>
+<p>The release of .Net Core 2.1 and 2.2 went by without needing to update the baseline of compatibility. The NetStandard2.0 target has stood up well as a baseline common denominator after the false start .NetStandard1.x gave some of us.</p>
+<p>Late last year Microsoft <a href="https://blogs.msdn.microsoft.com/dotnet/2018/11/05/announcing-net-standard-2-1/">Announced .NET Standard 2.1</a>, which is a new required standard that will be first implemented in .dotnet 3.0 and .Net Framework 4.8 is a foundation to allow using some of the new language features that need Runtime support, such as Async streams, indexers and ranges.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>As mentioned, you can start playing with some of this stuff today in the <a href="https://blogs.msdn.microsoft.com/dotnet/2018/12/05/take-c-8-0-for-a-spin/">Preview of Visual Studio 2019</a>.</p>
+<p>Plenty of new stuff to learn over the coming year and I can&rsquo;t wait for Release day so I can update everything I have.  First stop will be Nullable reference types.</p>
+<p>What are you looking forward to using the most?</p>
+</description>
     </item>
     
     <item>
@@ -24,8 +77,126 @@ C# 8 It feels like we&amp;rsquo;ve been talking about C# 8 for a while, with 7.<
       <pubDate>Mon, 16 Jul 2018 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</guid>
-      <description>I&amp;rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
-Start with the defaults Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.</description>
+      <description><p>I&rsquo;ve started getting into building Docker Containers as deployment packages.  These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.</p>
+<h3 id="start-with-the-defaults">Start with the defaults</h3>
+<p>Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.</p>
+<p>In Visual Studio 2017 (I&rsquo;m using 15.7.3, so at least that version if not earlier) You can select a project from the Solution Explorer, <code>right-click =&gt; Add</code> and you will see options for <code>Docker Support</code> and <code>Container Orchestrator Support</code>.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_387/v1531727131/DockerSupport_l16dry.png" alt="Visual Studio Project context menu showing Docker commands."></p>
+<p>Docker Support will create a <code>Dockerfile</code> for your project, that follows some conventions and best practices, including separate <code>build</code>/<code>publish</code> steps. (This may be limited to <code>NetCoreApp</code> projects, I haven&rsquo;t thoroughly tested this function yet outside if that scope. You can even choose between Windows and Linux Containers. This might also create the docker-compose, and <code>.dockerignore</code> files as well.</p>
+<p>Container Orchestrator Support creates a new <code>*.dcproj</code> project in your solution that orchestrates a docker-compose file which includes your selected project. If you already have an orchestrator project, the selected project will be added to it.</p>
+<p>You can also find <a href="https://docs.docker.com/engine/examples/dotnetcore/">instructions on docs.docker.com for .Net Core apps</a> which covers some of the basics and recommendations too.</p>
+<h3 id="proximity-is-key">Proximity is key</h3>
+<p>Put your <code>Dockerfile</code> in the same folder as the csproj file. At some point in the future (or if someone really digs into the MSBuild files and finds a hack) this should be able to go anywhere. But for now, putting it at the root of the project with the <code>*.csproj</code> project file lets it work correctly with Visual Studio.</p>
+<p>By default, you also usually have everything relative to a parent directory, such as the source or repository root. This becomes the context you use.  The context can be anywhere you like, but I find shared configs from root as well as the solution file being available is handy. You may even have build scripts here that you include.</p>
+<h3 id="minimum-vs-default">Minimum vs default</h3>
+<p>Let&rsquo;s start with the minimum valid <code>Dockerfile</code> to build our NetCoreApp2.1 application. The application itself doesn&rsquo;t matter, only that it builds.</p>
+<pre><code>FROM microsoft/dotnet:2.1-sdk
+WORKDIR /src
+COPY . .
+RUN dotnet publish MyApp.csproj -c Release -o /app
+WORKDIR /app
+COPY /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+</code></pre>
+<p>That&rsquo;s the least you need, but we can do better.</p>
+<ul>
+<li>This only works if you run build in the context of the project folder</li>
+<li>This will copy over local bin/obj folders (unless you have a <code>.dockerignore</code> file already - Visual Studio may add one for you.)</li>
+<li>Our final container is large because it includes all of the dotnet CLI build tools</li>
+<li>Our final container has all the build artifacts in it, making it larger again</li>
+</ul>
+<p>Most of this is solved by following the <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">Best practices</a> which you get for free if you create using Visual Studio.</p>
+<pre><code>FROM microsoft/dotnet:2.1-runtime AS base
+WORKDIR /app
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+COPY MyApp/MyApp.csproj MyApp/
+RUN dotnet restore MyApp/MyApp.csproj
+COPY . .
+WORKDIR /src/MyApp
+RUN dotnet build MyApp.csproj -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish MyApp.csproj -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+
+</code></pre>
+<h3 id="multiple-stages">Multiple Stages</h3>
+<p>Talking through this file a bit, we have a multi-stage build, that has three parts.
+Note that the actual container instance that matches the tag, is the one that starts with the base container defined in the <code>FROM</code> command, and has run all the instructions up until the next <code>FROM</code> command, or the end of the file.</p>
+<p>First, we have a <code>base </code>(<code>FROM microsoft/dotnet:2.1-runtime AS base</code>) that serves two purposes: it defines the final result container base up front and also gets used by Visual Studio when performing a special debug build. Visual Studio will build just this target in a multi-stage build, and copy in the build results to debug with. We can declare anything here that we might want in our final output container, and also need during debugging.</p>
+<p>Next, we have a <code>build</code> (<code>FROM microsoft/dotnet:2.1-sdk AS build</code>) which is the container the app is built in. This is where we copy over all our source files (<code>COPY . .</code>).</p>
+<p>Next, a <code>publish</code>(<code>FROM build AS publish</code>) which starts from our earlier <code>build</code>, and is used to produce the final binaries.</p>
+<p>And finally, a <code>final</code> (<code>FROM base AS final</code>) that starts with our <code>base</code> from earlier and produces the container we consider the resulting application. This container is also configured with any ports we want to expose (possibly done in <code>base</code>) and our application entry point (<code>ENTRYPOINT [&quot;dotnet&quot;, &quot;/app/GitHubTagAndRelease.dll&quot;]</code>).</p>
+<p>Using multistage in this way solves the large container size concerns from earlier, and even if we copy too much</p>
+<p>Briefly about caching. Each build step will cache the results if all previous steps are cached, and with <code>COPY</code> commands, if the hash of the source files hasn&rsquo;t changed.  For this reason, we selectively copy over the project first, run a <code>dotnet restore</code>, and then pull in everything else. This caches the NuGet restore step so we don&rsquo;t have to redownload these every time.</p>
+<h3 id="ignore">Ignore</h3>
+<p>We still have the issue of the bin/obj files being copied in from the source folder. Luckily, Visual Studio would add a <code>.gitignore</code> file to solve this. If you add your own, the ignore lines you want are:</p>
+<pre><code>*/bin
+*/obj
+</code></pre>
+<p>This is relative to the base path, so will match <code>MyApp/bin</code> and <code>MyApp.Tests/bin</code> but not <code>src/MyOtherProject/bin</code>. If you want a more comprehensive version, VS gives you this:</p>
+<pre><code>.dockerignore
+.env
+.git
+.gitignore
+.vs
+.vscode
+docker-compose.yml
+docker-compose.*.yml
+*/bin
+*/obj
+</code></pre>
+<p>Note that we don&rsquo;t ignore the <code>Dockerfile</code>, which means changes to the <code>Dockerfile</code> also cache-bust at the <code>COPY</code> step.</p>
+<h3 id="build-with-testing-in-mind">Build with testing in mind</h3>
+<p>Like the default conventions, I build in a <code>build</code> container, then publish to a <code>publish</code> container. This means the final container has minimal dependencies. But I add a twist.</p>
+<p>When the script does the <code>COPY</code> of the project before the restore (a nice caching enhancement I really like) I also copy the test project file at the same time. This gets restored with the project in another restore. Then after doing the project build, I also run the project Tests. Now I know that my container passed all tests before it built because it has to.</p>
+<pre><code>ARG DOCKER_SKIP_TESTS=
+
+FROM microsoft/dotnet:2.1-runtime AS base
+WORKDIR /app
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+COPY MyApp/MyApp.csproj MyApp/
+COPY MyApp.Tests/MyApp.Tests.csproj MyApp.Tests/
+RUN dotnet restore ./MyApp/MyApp.csproj /p:Configuration=Release
+RUN dotnet restore ./MyApp.Tests/MyApp.Tests.csproj /p:Configuration=Release
+COPY . .
+RUN dotnet build ./MyApp/MyApp.csproj --no-restore -c Release -o /app
+
+FROM build as test
+ARG DOCKER_SKIP_TESTS
+
+WORKDIR /src
+RUN [ ! -z &quot;$DOCKER_SKIP_TESTS&quot; ] &amp;&amp; : || dotnet build ./MyApp.Tests/MyApp.Tests.csproj --no-restore -c Release
+RUN [ ! -z &quot;$DOCKER_SKIP_TESTS&quot; ] &amp;&amp; : || dotnet test ./MyApp.Tests/MyApp.Tests.csproj --no-restore --no-build -v normal -c Release
+
+FROM build AS publish
+WORKDIR /src/MyApp
+RUN dotnet publish MyApp.csproj -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+
+</code></pre>
+<p>When running build and release against the target project, I also tell it to skip the restore. This avoids any restore invalidation that may occur from doing the <code>COPY</code>, for whatever reason.  Also during the release, I skip the build, so it reuses the build result from the previous step. Splitting up these steps just saves that little bit of rebuild time and duplication along the way.</p>
+<p>I use bash conditional logic to be able to disable the tests from running (to go faster during dev build cycles) as well. The build-arg <code>DOCKER_SKIP_TESTS</code> is unset, and the test commands are run. If I declare this, it will skip running the tests.</p>
+<pre><code>docker build --build-arg DOCKER_SKIP_TESTS=1 -f .\MyApp\Dockerfile .
+</code></pre>
+<p>Having <code>DOCKER_SKIP_TESTS=</code> declared on the first line means the cache is invalidated whenever I switch this setting on and off, so I get a clean build with, or without tests, and not somewhere in between.</p>
+<p>I&rsquo;ve even managed to convince my <code>Dockerfile</code> it is a ci agent, and it publishes coverage and test results to TeamCity&hellip; but that is for another article I think.</p>
+<h3 id="wrap-up">Wrap up</h3>
+<p>These are some of the tricks that I make use of in my <code>Dockerfile</code>.  Next time, we will take a look at some more advanced features, using an AspNetCore application running in docker and Visual Studio debugging.</p>
+<p>For an example of this working in practice, I&rsquo;ve set up an example project on GitHub. <a href="https://github.com/csMACnzBlog/DockerDotnetDemo">github.com/csMACnzBlog/DockerDotnetDemo</a></p>
+</description>
     </item>
     
     <item>
@@ -34,9 +205,17 @@ Start with the defaults Use the built-in tools in Visual Studio to docker-ify an
       <pubDate>Sun, 15 Jul 2018 22:02:30 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</guid>
-      <description>Last time we covered some basics of Dockerfile with a console application. Let&amp;rsquo;s continue our journal with AspNet Core.
-Develop-time dependencies We are using React and the .Net WebPack Hot Reloader. While at development time this requires node, at runtime it doesn&amp;rsquo;t. Here is a couple of fun facts about Visual Studio debugging I combine in an interesting way.
-Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&amp;rsquo;t actually use or do what your Dockerfile says.</description>
+      <description><p><a href="/dotnet-docker-tips-and-tricks/">Last time</a> we covered some basics of <code>Dockerfile</code> with a console application. Let&rsquo;s continue our journal with AspNet Core.</p>
+<h3 id="develop-time-dependencies">Develop-time dependencies</h3>
+<p>We are using React and the .Net WebPack Hot Reloader. While at development time this requires node, at runtime it doesn&rsquo;t.  Here is a couple of fun facts about Visual Studio debugging I combine in an interesting way.</p>
+<p>Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&rsquo;t actually use or do what your <code>Dockerfile</code> says. Instead, it takes the first (and only first) defined named USE from your <code>Dockerfile</code>, and builds that.</p>
+<p>Fact number 2, Once built, it will launch an instance, and attach (volume mount) the application and run it.</p>
+<p>Fact number 3 is docker-compose.yml.  Your docker-compose project uses several docker-compose files stacked together. First, your <code>docker-compose.yml</code> file, then if you have one, the <code>docker-compose.override.yml</code> file. This is followed by some generated ones by visual studio, that will override most of the details if it detects the referenced <code>Dockerfile</code> has a <code>*.csproj</code> beside it.  You can then create a <code>docker-compose.vs.debug.yml</code> or <code>docker-compose.vs.release.yml</code> (depending on <code>debug</code> or <code>release</code> build selection) that will allow you to override anything extra you want on for debugging.  This lets you set environment variables for your container to use (such as <code>ASPNETCORE_ENVIRONMENT</code> to Development) if different from the default or override you use.</p>
+<p>Putting this all together: In my <code>Dockerfile</code>, I make sure the first <code>USE</code> sets up a docker image that has the node runtime dependencies to make the Hot Reloading work. And because the source is a Volume Mount, local changes reflect inside the container, too. My build and publish <code>USE</code> containers in my multi-stage build don&rsquo;t depend on this debug one, and instead the debug container is thrown away, except when used during debugging in Visual Studio.</p>
+<p>I then make sure the <code>docker-compose.yml</code> is going to use a non-Development build by default. This should build as a <code>Production</code> Environment instead. The <code>docker-compose.debug.yml</code> sets back to <code>Development</code> during debug. I configure my Hot Reloading to only configure and run when <code>IsDevelopment()</code> is true.</p>
+<p>Now when I debug Run the docker-compose project, my application is attached to the debugger, with node available in the container, in DevelopmentMode using Hot Reloading of my React app.</p>
+<p>When I build the real docker container, the publish result has no node installed, saving me a few <code>Mbs</code>, and one less moving part it doesn&rsquo;t need. (If you tried to use it in Debug mode, it would even crash because node is missing, a bonus as-designed feature.)</p>
+</description>
     </item>
     
     <item>
@@ -45,9 +224,12 @@ Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&a
       <pubDate>Tue, 01 Nov 2016 01:38:35 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</guid>
-      <description>I&amp;rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use dotnet test, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp;amp; netcoreapp1.0).
-But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.
-Turns out, if you want tests to show up in Visual Studio you have to make sure that in your project.</description>
+      <description><p>I&rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use <code>dotnet test</code>, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp; netcoreapp1.0).</p>
+<p>But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.</p>
+<p>Turns out, if you want tests to show up in Visual Studio you have to make sure that in your <code>project.json</code>, <code>netcoreapp1.0</code> needs to be the first framework in the <code>frameworks</code> section. Otherwise it don&rsquo;t work right.</p>
+<p>Moving <code>netcoreapp1.0</code> from being the last framework to the first solved all my problems. Now I have tests showing and passing in Visual Studio.</p>
+<p>Done.</p>
+</description>
     </item>
     
     <item>
@@ -56,8 +238,59 @@ Turns out, if you want tests to show up in Visual Studio you have to make sure t
       <pubDate>Mon, 09 May 2016 08:30:59 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
-      <description>There is this great feature in Visual Studio that lets you really dial up the quality of your code. It has been there forever it seems, but very few people use it.
-The compiler spits out errors, which stop your app compiling. You fix your errors and move on. But the compiler also spits out a lot of warnings too. And many of these are to do with the quality of your code, and possible code errors you have introduced that could cause you issues later on.</description>
+      <description><p>There is this great feature in Visual Studio that lets you really dial up the quality of your code. It has been there forever it seems, but very few people use it.</p>
+<p>The compiler spits out errors, which stop your app compiling. You fix your errors and move on.  But the compiler also spits out a lot of warnings too. And many of these are to do with the quality of your code, and possible code errors you have introduced that could cause you issues later on.</p>
+<p>Did you know you can get the builds to actually fail to compile from these warnings?</p>
+<h3 id="treat-warnings-as-errors">Treat Warnings As Errors</h3>
+<p>If you head to the properties dialog of a project, you will see the following under the Build menu.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1462825696/TreatWarningsAsErrors_vzev9g.png" alt="Visual Studio Build Config Settings"></p>
+<p>See that radio button? Treat warnings as errors. You wanna set that baby to All. Do it now! While you are in here, set the Warning level to 4 as well.</p>
+<p>That&rsquo;s it! You are all set to start failing your builds, for this project anyway. In fact, go ahead and try to build. There is a better than normal chance that you probably already have some warnings and now have a failing build. Well done.</p>
+<p>Actually, you probably only turned that on for Debug builds, so go repeat those steps after changing the Configuration dropdown to Release. And any others you have where this applies.</p>
+<p>The nice thing about <code>TreatWarningsAsErrors</code> is that it is in the *.csproj file XML, and is actually an MSBuild command.  This means that it will use the same settings when you build at command line using either devenv or MSBuild tools.  So your CI server will apply this too.</p>
+<p>As well as the <code>TreatWarningsAsErrors</code> command, there is this <code>WarningLevel</code>. Just turn it up to <code>4</code> and move on, it is the option you want, trust me.</p>
+<h3 id="-one-weird-trick">&hellip; One weird trick</h3>
+<p>So, I mentioned one weird script right?</p>
+<p>If you have an existing solution with lots of projects, you won&rsquo;t want to turn these all on one by one manually. You also don&rsquo;t want to fuss around making sure that if you or someone else has added a bunch of new projects, that these rules are turned on correctly.</p>
+<p>To solve these issues, I have a PowerShell script that runs over a directory, finds all the *.csproj files, and updates their Debug and Release configurations with <code>TreatWarningsAsErrors</code> set to <code>true</code>, and <code>WarningLevel</code> to `4'.</p>
+<pre><code class="language-powershell">get-childitem . -include *.csproj -recurse -ErrorAction SilentlyContinue | %{
+    $_.FullName
+    [xml]$proj = get-content $_.FullName
+    $modified = 0
+    $proj.Project.PropertyGroup | 
+    where-object { $_.Condition -match 'Configuration.*Platform.*(Debug|Release)' } | %{
+        if (-not $_.TreatWarningsAsErrors) {
+            $node = $proj.CreateElement('TreatWarningsAsErrors', $proj.Project.NamespaceURI)
+            $node.InnerText = 'true'
+            $node = $_.AppendChild($node)
+            $modified = 1
+        }
+        if ($_.TreatWarningsAsErrors -ne 'true') {
+            $_.TreatWarningsAsErrors = 'true'
+            $modified = 1
+        }
+        if (-not $_.WarningLevel) {
+            $node = $proj.CreateElement('WarningLevel', $proj.Project.NamespaceURI)
+            $node.InnerText = &quot;4&quot;
+            $node = $_.AppendChild($node)
+            $modified = 1
+        }
+        if ($_.WarningLevel -ne &quot;4&quot;) {
+            $_.WarningLevel.InnerText = &quot;4&quot;
+            $modified = 1
+        }
+    }
+    if ($modified -eq 1) {
+        $proj.Save($_.FullName)
+    }
+}
+</code></pre>
+<p>This is also up on <a href="https://gist.github.com/csMACnz/6b736c9109023af4c09f6f0b9405081b">a gist</a> if you prefer.</p>
+<p>That is it. Run that in your solution directory and you should be sorted.  Don&rsquo;t forget to fix the compiler errors before checking your changes back in though.</p>
+<h3 id="caveats">Caveats</h3>
+<p>There is always one project that disobeys with the strict rules. That&rsquo;s ok, just leave it off and come back and fix the issues when you have a spare few moments. Perhaps in a quiet Friday afternoon, or the day after ship day while you wait for those bug reports to come in. Once the problem is fixed, run the script again and hey presto it will be turned on again.</p>
+<p>There are other ways to filter and ignore specific issues but I will leave that as an exercise for the reader if they really want to go down that path.</p>
+</description>
     </item>
     
     <item>
@@ -66,8 +299,26 @@ The compiler spits out errors, which stop your app compiling. You fix your error
       <pubDate>Wed, 05 Aug 2015 11:13:12 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/visual-studio-2015-vs-visual-studio-2013/</guid>
-      <description>I&amp;rsquo;ve been running some numbers over our solution to try and make things more efficient. While I was at it, I figured I would put 2013 head to head with 2015.
-The main test I ran was to take a solution open in Visual Studio and make sure it builds. I then ran Clean Solution. Using a stopwatch (so accuracy +- 1-second values) I recorded how long it took to build.</description>
+      <description><p>I&rsquo;ve been running some numbers over our solution to try and make things more efficient. While I was at it, I figured I would put 2013 head to head with 2015.</p>
+<p>The main test I ran was to take a solution open in Visual Studio and make sure it builds. I then ran Clean Solution.  Using a stopwatch (so accuracy +- 1-second values) I recorded how long it took to build. I repeated this 5 times, over three machines, once each with 2013 and 2015.  So first, the raw numbers (in seconds):</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>The average results from this looks like so:</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>And for completeness, I thought I would graph the data as well:</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1438810998/VSBuildGraph_gsk2nx.png" alt="Visual Studio Build times comparing 2013 to 2015 across devices."></p>
+<h3 id="conclusions">Conclusions</h3>
+<p>Across the board, we have significate improvements. Visual Studio 2015 is just faster. And since nothing obvious breaks for my solution, at this stage I will be using it as the faster choice going forward.</p>
+<p>This test only ran across one solution with 30 C# projects, across 3 very similar machines, only 5 times each. For a more conclusive answer, you would want to run this across a whole range of extra solutions and machines. But from this limited view, I&rsquo;m really impressed by the perf increase of builds that 2015 provides me, for my particular code base, at this point in time.</p>
+<h3 id="other-findings">Other Findings</h3>
+<p>During this exercise of measuring I can across one other nice conclusion as well. Restoring NuGet packages on a large solution with a complex dependency graph is much faster when using the command line, rather than letting visual studio load them on demand right before a build.  I didn&rsquo;t get any hard numbers yet, but it feels significant. It took 2-4 minutes for VS to finish loading NuGet packages before it started building, versus the same dependencies loaded from the command line in 20 or 30 seconds.</p>
+<pre><code class="language-powershell">nuget restore src\mySolution.sln
+</code></pre>
+<p>It is true that I am using a locally hosted NuGet 2 server, and that could be a factor, so your mileage may vary. But I usually find that command line tasks do come out faster compared to GUI ones, and this is one I will change my habits over.</p>
+</description>
     </item>
     
     <item>
@@ -76,8 +327,24 @@ The main test I ran was to take a solution open in Visual Studio and make sure i
       <pubDate>Sun, 26 Jul 2015 07:46:16 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</guid>
-      <description>Visual Studio 2015 is out and brings us the new C# 6 language features. We also have the new .Net 4.6 Runtime. But what does that mean?
-Well, the framework version and language version are two separate concerns. You can practically pick any framework, with any language, and it will work. This means that If you want to use C# 6 features on your .Net 4.0 application, you can. Ok, so some language features require specific framework libraries, like generics, and async, but most features tend to be syntactic sugar.</description>
+      <description><p>Visual Studio 2015 is out and brings us the new C# 6 language features. We also have the new .Net 4.6 Runtime. But what does that mean?</p>
+<p>Well, the framework version and language version are two separate concerns. You can practically pick any framework, with any language, and it will work. This means that If you want to use C# 6 features on your .Net 4.0 application, you can. Ok, so some language features require specific framework libraries, like generics, and async, but most features tend to be <a href="https://en.wikipedia.org/wiki/Syntactic_sugar">syntactic sugar</a>. You have to use VS 2015 to have a compiler with the C# 6 features, but you can also use .Net 4.6 in Visual Studio 2013 with C# 5 and older language versions.</p>
+<p>There is no reason I can think of to not upgrade to Visual Studio 2015 for your application development. But maybe there is some obscure edge case or policy that stops you, or some of your team, from upgrading. By default, projects will use the latest language version when built in Visual Studio, and so early adopters will start seeing hints and suggestions to use these new features. How can we stop ourselves and our team from breaking compilation in VS 2013?</p>
+<p>Like I said, by default a project will use the latest version that Visual Studio supports. If you want to lock in down to a specific version, 5 in this case, you can add the following to your <code>*.csproj</code> file:</p>
+<pre><code class="language-xml">&lt;PropertyGroup ...&gt;
+  ...
+  &lt;LangVersion&gt;5&lt;/LangVersion&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+<p>But really, who would do this by hand? From Visual Studio, you right-click on your project in <code>Solution Explorer</code>, and select <code>Properties</code> from the context menu. From the project settings window, select the <code>Build</code> tab from the left, and click the <code>Advanced...</code> button in the bottom right of the settings window.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1437873253/VSAdvancedProperties_gzghuy.png" alt=""></p>
+<p>In the dialog that opens, you will see the Language Version setting at the top. Change this from default to the version you want to use (in this case C# 5.0).  Repeat with each configuration you want this to apply to (Release, Debug, any custom configuration you might have) and then with each project you want to apply it to. This is what adds the <code>LangVersion</code> XML I showed you before.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1437873252/VSAdvancedBuildVersion_rxqukh.png" alt=""></p>
+<p>One more thing, If you use ReSharper.  With your project selected in Solution Explorer, view the Properties window.  You will see ReSharper&rsquo;s C# Language Level. This is what drives ReSharper hints.  This also has a default which matches the version selected in the project, and a way to force a specific language version. Select C# 5.0 here and ReSharper will stop suggesting the new features to you, even if you have the project set to default on VS 2015, or set to C# 6.0 specifically. You may want to use this setting locally just to turn of the new features without changing the <code>*.csproj</code>, since this setting is part of ReSharper&rsquo;s <code>*.dotsettings</code> file (and usually not checked into Source Control).</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1437873253/VSReSharperLanguageProperties_kbtkml.png" alt=""></p>
+<p>Set this up if you need it, and your team won&rsquo;t complain at you for using new features that break their flow while they are stuck in VS 2012 or 2013, while you race ahead with the productivity features build into the new VS 2015 IDE.</p>
+<p>Your mileage may vary, and the ReSharper settings may be enough for you. But if you have a wider team and only a minority using older versions, or if you are the only guy stuck on the old IDE, then forcing compile time errors on the rest of the team when they try and use the new feature will save time for everyone in the long run.</p>
+</description>
     </item>
     
     <item>
@@ -86,8 +353,25 @@ Well, the framework version and language version are two separate concerns. You 
       <pubDate>Sun, 24 May 2015 08:24:28 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/</guid>
-      <description>I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.
-Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called Productivity Power Tools 2013. Specifically, the built in presentation feature.</description>
+      <description><p>I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.</p>
+<p>Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called <a href="https://visualstudiogallery.msdn.microsoft.com/dbcb8670-889e-4a54-a226-a48a15e4cace">Productivity Power Tools 2013</a>.  Specifically, the built in presentation feature.</p>
+<p>Productivity Power Tools 2013 is a Visual Studio extension I use for numerous reasons. One being this awesome present mode feature, but others include coloured tabs, and squiggles for Error visualisations.</p>
+<p>So how does the present mode work?  Pretty straight forward. There are three tasks: <code>PresentOn</code> <code>PresentOff</code> and <code>PresentEdit</code>.  These tasks can be found in the Quick Launch bar, in the top right of Visual Studio. You can focus the cursor in the Quick Launch bar but using the <code>Ctrl + Q</code> keyboard shortcut.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1432098704/Quicklaunch_cprcam.png" alt="Visual Studio&rsquo;s Quick Launch feature."></p>
+<p>You type <code>Present</code> and it will show you the three options, with descriptions for you to choose from.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1432098704/PresentQuickLaunch_ezg9xl.png" alt="Present search results in Quick Launch"></p>
+<p>So what do each of the options do? Well if it is currently off, you can use <code>PresentOn</code>  to turn on presentation mode. When on, using <code>PresentOff</code> turns it off again.  <code>PresentEdit</code> allows you to quickly open the settings xml file for presenter mode, and change the fonts and sizes of text used in visual studio, when you turn presentation mode on.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1432098966/PresentEditSettings_cheawe.png" alt="Your presenter mode settings configuration"></p>
+<p>The EnvironmentFont* settings change the font size for things like the menu and labels, while TextEditorFont* affects the editor text. You can emphasise your code or the IDE, depending on what you are trying to demo.</p>
+<p>Here you can see I have made the text editor bigger, and the environment smaller.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1432099978/OverTheTopPresent_ghcuev.png" alt="Extreme font sizing for effect."></p>
+<p>For most of what I present, I find putting the Environment up just a little, and the font to about 16 works well for most demonstrations, at whatever resolution projectors seem to put my machine into.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1432099979/DefaultPresentSettings_n1l5es.png" alt="My default presentation mode font settings."></p>
+<p>If you have more hi-res monitors such as televisions or lcd screens, you might want to dial up the font a bit bigger. The default fonts work fine for me, but you can change these to whatever makes sense for you as well.</p>
+<p>When your all done with your presentation, you can easily use <code>PresentOff</code> to get back to a reasonable working surface without having to change your fonts back manually, and this avoids the constant scroll-zoom every time you open a file during a demo.</p>
+<h4 id="update-2015-05-29">Update: 2015-05-29</h4>
+<p>I just found out about <a href="http://www.codepp.net/">Code Presenter Pro</a> for presenting code in PowerPoint. This is available as a <a href="https://store.office.com/code-presenter-pro-WA104379263.aspx">PowerPoint Addin</a> and makes your code look much clearing and more usable from inside your slides. Worth a look.</p>
+</description>
     </item>
     
   </channel>

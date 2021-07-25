@@ -4,6 +4,12 @@
     <title>intergen on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/intergen/</link>
     <description>Recent content in intergen on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Sun, 28 Mar 2010 21:08:39 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/intergen/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +19,8 @@
       <pubDate>Sun, 28 Mar 2010 21:08:39 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/action-hero-style-software-development/</guid>
-      <description>I just read a really awesome post about software development using the analogy of Chuck Norris and Steven Seagal. Definately worth a read and brings forward some good points about software development. Check it out. http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/</description>
+      <description><p>I just read a really awesome post about software development using the analogy of Chuck Norris and Steven Seagal. Definately worth a read and brings forward some good points about software development. Check it out. <a href="http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/" title="Software development, action hero style">http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/</a></p>
+</description>
     </item>
     
   </channel>

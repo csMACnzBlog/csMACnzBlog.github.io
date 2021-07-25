@@ -4,6 +4,12 @@
     <title>Tools on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/tools/</link>
     <description>Recent content in Tools on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 04 Jun 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +19,56 @@
       <pubDate>Mon, 04 Jun 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/</guid>
-      <description>Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a Series of Blog Posts. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first. This has continued at a slow pace for the last 3 years.</description>
+      <description><p>Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a <a href="https://blog.csmac.nz/-net-os-1-source-control/">Series of Blog Posts</a>. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first.  This has continued at a slow pace for the last 3 years.</p>
+<p>Back in January 2015 I <a href="https://blog.csmac.nz/introducing-coveralls-net/">Announced Coveralls.Net</a>. This is a code coverage publisher for publishing your coverage results to the coveralls.io API. Coveralls.io is a coverage tracking service, which is free for open source projects, with a paid service for private use, and now an Enterprise version as well. There was a bunch of python and ruby versions, but I wanted fewer dependencies on those runtimes so built my own.  I even managed to get it listed as one of the two <a href="https://docs.coveralls.io/dot-net">recommended .Net coverage integrations</a> on the coveralls.io docs.</p>
+<p>While development has been a slow work of labour over the last three years, the announcement of dotnet CLI tools (proper npm-style tools, not the weird interim dotnet-tool stuff&hellip;) with dotnet SDK 2.1, I had to jump in and get on board.</p>
+<h3 id="announcing-100">Announcing 1.0.0</h3>
+<p>Which brings me to announcing Coveralls.Net 1.0.0. This is a dotnet CLI tools compatible version of <code>csmacnz.Coveralls</code>. Easier to install. Easier to update. And a whole bunch new features, including more coverage options, and better autodetection processes in AppVeyor.</p>
+<pre><code># install globally
+dotnet tool install -g coveralls.net --version 1.0.0
+
+# if installed globally, this should just be available on your path
+csmacnz.coveralls &lt;args&gt;
+
+# install into a local folder
+dotnet tool install coveralls.net --version 1.0.0 --tools-path tools
+
+# if installed into a tools path, you can run it from there.
+.\tools\csmacnz.Coveralls &lt;args&gt;
+</code></pre>
+<p>Now, I&rsquo;ve been struggling a bit with beta 0.8.0. It hasn&rsquo;t been easy to find time to test the new stuff I added, get others to test, and be happy to call it a stable release. But there was a bunch of new stuff and fixes in there. These have all rolled forward into the 1.0.0 Release now. (I might go back and call 0.8.0 stable now since it still works the old way. But for now the old way still works with stable <code>0.7.0</code> and <code>0.8.0-beta003</code>.)</p>
+<p>Still not happy/comfortable with using CLI tools? Not using 2.1? That&rsquo;s ok. I&rsquo;ve used the power of the <a href="https://blog.csmac.nz/dotnetcore2-self-contained-applications/">self-contained app</a> to provide a <code>windows</code>, <code>linux</code> and <code>osx</code> native version (Linux targets the cross-compat Linux target) in a zip file under <a href="https://github.com/csMACnz/coveralls.net/releases/tag/1.0.0">the Releases folder on GitHub</a>.</p>
+<p>For windows in PowerShell you would use it something like this:</p>
+<pre><code># The TLS change was necessary on my development machine
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+$zipDownloadPath=&quot;https://github.com/csMACnz/coveralls.net/releases/download/1.0.0/coveralls.net.1.0.0-windows.zip&quot;
+Invoke-WebRequest -UseBasicParsing $zipDownloadPath -OutFile coveralls-windows.zip
+mkdir coveralls-windows
+Expand-Archive .\coveralls-windows.zip coveralls-windows
+
+.\coveralls-windows\csmacnz.Coveralls.exe
+</code></pre>
+<p>I hope to get more details added on the GitHub Wiki for linux and mac usage of the self-contained app, as well as updating all the samples over at <a href="https://github.com/csMACnz/Coveralls.net-Samples/">Coveralls.net-Samples</a>.</p>
+<h3 id="more-targets">More targets</h3>
+<p>Since the first release, targeting OpenCover coverage files (the most popular at the time), this has been expanded to include Visual Studio Coverage, monocov, Report Generator, Chutzpah javascript coverage, lcov, NCover and <a href="https://github.com/tonerdo/coverlet">Coverlet</a> cross-platform .Net coverage (via its opencover file format).</p>
+<h3 id="whats-next">What&rsquo;s Next?</h3>
+<p>I&rsquo;ve already started working on 1.1.0 while the dotnet 2.1 tools have been working towards stable.</p>
+<ul>
+<li>Better autodetection functionality (including Travis and TeamCity)</li>
+<li>dotcover support</li>
+<li>parallel build support</li>
+<li>add native coverlet support</li>
+<li>Bug fixes that didn&rsquo;t make it to 1.0.0</li>
+<li>Complete and test Enterprise support</li>
+</ul>
+<p>Hopefully, it won&rsquo;t be soon before long that you will see an Announcing 1.1.0 Post.</p>
+<p>Interested in following progress on this? I have a twitter account <a href="https://twitter.com/coverallsdotnet">@coverallsdotnet</a> That I am trying to be more proactive with.  You can also track progress on the <a href="https://github.com/csMACnz/coveralls.net">GitHub Project</a>.  Contributions welcome, though I hear I&rsquo;m a bit of a stickler for quality and such. C&rsquo;est la vie.</p>
+<p>The irony of a coverage publishing tool only having 42% coverage wasn&rsquo;t lost on me, so I got it up to 74%. Soon enough I should get that to 100%. Probably just in time for a version 2.0.0.</p>
+<h3 id="need-more">Need more?</h3>
+<p>Issues, feature requests or feedback? Just write up an issue on GitHub. I would love to hear your experience of using the tool, and I would love to expand the supported coverage formats to include your favourite tool.</p>
+<p>Thanks for using it! It makes me more inclined to make it awesome.</p>
+</description>
     </item>
     
     <item>
@@ -22,9 +77,54 @@
       <pubDate>Wed, 02 May 2012 09:25:39 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/mockups-and-sketches-overview/</guid>
-      <description>This is part of a wireframing series
- Overview First Draft Balsamiq Blend with Sketchflow  This is a companion post to my talk at welliDotNet, Wellington&amp;rsquo;s .Net User Group on Wednesday 4th April 2012. The slides can be downloaded here.
-I want to give you a brief introduction to creating designs and mockups for applications from a developers point-of-view, to enlighten other developers on the cool tools available and to inform designers that there are tools out there that can create great UX prototypes for clients, that you don&amp;rsquo;t have to be a developer to use.</description>
+      <description><p>This is part of a wireframing series</p>
+<ul>
+<li><strong>Overview</strong></li>
+<li>First Draft</li>
+<li>Balsamiq</li>
+<li>Blend with Sketchflow</li>
+</ul>
+<p>This is a companion post to my talk at <a href="http://www.welli.net.nz/" title="Welli.Net">welliDotNet</a>, Wellington&rsquo;s .Net User Group on Wednesday 4th April 2012. The slides can be <a href="http://res.cloudinary.com/csmacnz/image/upload/v1414477193/welliDotNet_MockupsAndSketches_qbs7gj.pdf">downloaded here</a>.</p>
+<p>I want to give you a brief introduction to creating designs and mockups for applications from a developers point-of-view, to enlighten other developers on the cool tools available and to inform designers that there are tools out there that can create great UX prototypes for clients, that you don&rsquo;t have to be a developer to use. I will focus on two tools, Balsamiq&rsquo;s Mockups, and Microsoft&rsquo;s Expression Blend with Sketchflow.  Both of these are paid tools, and both have time limited trials available to use. I will also put some resources down that make mocking up a bit more fun.</p>
+<h2 id="balsamiq-mockups">Balsamiq Mockups</h2>
+<p>Balsamiq is a <a href="http://www.balsamiq.com/company" title="Balsamiq Company info">small distributed company</a>, that make a neat piece of wireframing software called Mockups. There are a few flavours of this; a web based online version, a desktop version and a <a href="http://www.balsamiq.com/products/mockups/fogbugz" title="Balsamiq plugin for fogbugs">few plugin versions for SAAS products like fogbugs</a>. I haven&rsquo;t had much to do with their web version but have been using the desktop one a lot recently while design new screens for my current client. <a href="http://res.cloudinary.com/csmacnz/image/upload/v1414277563/balsamiq1_r9nppm.png"><img src="http://res.cloudinary.com/csmacnz/image/upload/v1414277563/balsamiq1_r9nppm.png" alt="Balsamiq Mockups" title="balsamiq"></a></p>
+<p>Some of the great features of Mockups I have seen so far are:</p>
+<ul>
+<li><a href="http://support.balsamiq.com/customer/portal/articles/110121" title="Working with Text ">Text Markup</a></li>
+<li>add italics, strikeouts and hyperlink styles and more to your text</li>
+<li>Tab Controls, Button lists</li>
+<li>UI Chrome such as Browser navigation etc.</li>
+<li>Icons</li>
+<li><a href="http://blogs.balsamiq.com/ux/2010/07/15/mockup-tips-datagrids-and-specifying-interaction/" title="Mockups Datagrid">Datagrid Control</a> - create quick simple data grids with advanced markup options</li>
+<li><a href="http://support.balsamiq.com/customer/portal/articles/117785-using-dropbox-for-near-real-time-collaboration" title="Dropbox Collaboration">Dropbox Integration</a> -collaborate on wireframes by leveraging the power of Dropbox</li>
+<li><a href="http://blogs.balsamiq.com/product/2009/03/01/iphone-controls-new-icons-and-much-more/" title="iPhone Support">iPhone Support</a> - make your iPhone wireframes look awesome and iPhone like with sketch keyboards and outlines</li>
+</ul>
+<p>And that&rsquo;s just to name a few.  I&rsquo;ve found that there is a great variety of controls available, and I could build most of the UI I needed from controls out of the box.</p>
+<p>As well as UI, there are Markup elements that can be used to annotate your wireframes, and these can be turned on or off when viewing, or generating images.  On the side of generating, you can generate pngs, or inter-linked pdf files from your mockups, which include clickable parts of the UI that will link to other screens.  You can also go into full screen presentation mode and show off your designs.</p>
+<p>I could go on and on, there is so much it can do, and it will be sure to do even more as new versions are released.  There are trials for both the online and desktop versions so I would recommend <a href="http://www.balsamiq.com/products/mockups" title="Balsamiq Mockups">giving them a go</a>.  I will follow this quick informational session with a post dedicated to using Balsamiq Mockups soon. If you can&rsquo;t find the control you need, I found these great resources and plenty more on <a href="https://mockupstogo.mybalsamiq.com/projects" title="Mockups To Go">Mockups To Go</a>, including WP7 templates and templates for other mobile platforms.  If you the price seems a bit steep, maybe <a href="http://speckyboy.com/2011/02/23/10-completely-free-wireframing-and-mockup-tools/" title="10 Free wireframing tools">check out this post</a> that lists a few free alternative products.</p>
+<h2 id="microsoft-expression-blend">Microsoft Expression Blend</h2>
+<p>Microsoft Produced a suite of tools to go with their Xaml/UI/UX offerings collectively known as Expression Studio, that includes Expression Design, Expression Web(more for html), Expression Media Encoder(more for streaming video) and Expression Blend.  Expression Blend is the main xaml development tool, and is essentially attempting to be Visual Studio for designers/<a href="http://stackoverflow.com/questions/1428734/where-can-i-find-one-of-these-devigners-or-developer-designers" title="Devigner">devigners</a> which supports solutions and most projects, but presents a designer-centric view for building and maintaining the xaml UI files for your applications.  This includes support for WPF, Silverlight and Silverlight for Windows Phone (and windows 8&rsquo;s WinRT UI stuff).  One thing that was added to Blend around version 3 was Sketchflow. <a href="http://res.cloudinary.com/csmacnz/image/upload/v1414277566/sketchflow_eo4ybx.png"><img src="http://res.cloudinary.com/csmacnz/image/upload/v1414277566/sketchflow_eo4ybx.png" alt="Microsoft Expression Blend with Sketchflow" title="sketchflow"></a></p>
+<p>Sketchflow is a plugin/extension style framework that builds wireframing into blend. Essentially you create a Sketchflow project which sets up all the things you need to have to build a Sketchflow application, and the UI gets a few extra panels, options for navigation, as well as a theme the sketch styles. These styles make your application look like it is hand drawn, instead of the usual polished controls. And thats where most of the hard work is. Apart from navigation and the sketchy look, you just appear to be in a development environment like any other Xaml based application. You have code behind, behaviours, xaml, drag and drop, and the full properties options and visual tree and the rest.</p>
+<p>The only other difference comes when you run it. Running your sketchflow app gives you the sketchflow player. This adds a left-hand-side to your application with a few cool options, and can be used for navigation (shows the links of where this page goes) and a feedback system which is pretty sweet. More on feedback later. Sketchflow has 2 flavours: WPF and Silverlight.  This has no reflection whatsoever on what the application you are designing is (although for reuse this could be important) but more of how you wish to distribute it.  If you go with a WPF Sketchflow Project, you get a desktop sketchflow application, that can be distributed in a zip file and runs on any machine with the correct version of .Net installed.  Easy enough to share if you don&rsquo;t mind helping the odd person get .Net installed, if necessary.</p>
+<p>However, if you go with the Silverlight Sketchflow Project, you get a fully functional Silverlight Xap and html file.  Why this is cool, is that you can host this on your website. You could even take the xap and host it inside a blog post for a demo if you wanted to (and in fact I might when I go into depth with Sketchflow).  Users can go to your site (or other designated area, such as intranet) check out your wireframes, create some feedback, and save the feedback and send it to you in an email(or file share, or upload form etc).  Its a pretty neat way to distribute your wireframes for feedback I must say.</p>
+<p>Being a full fledged xaml application, you can build and use custom behaviours, write code-behind to perform other actions, and script sweet UX animations. As a developer, you can build up your own library of behaviours to speed up prototyping in your domain, or company, and make these available to the  rest of the team, developer and designer alike, to speed up prototyping, as well and being able to use them in your production build. This is the power of Sketchflow over something like Balsamiq Mockups. Your application becomes heavily interactive. How interactive is up to you. you can have something as simple as navigation links between screens, to a full fledged UI that has carousels, pivots, scrollbar areas, double-click support, complex transition animations, and be a full fledge prototype of your user experience, without the look and feel of being &lsquo;complete&rsquo;. It will continue to look like a hand drawn application but will live and breathe like a real application. Pretty swish and hot to impress your next client I reckon.</p>
+<p>I will also be following this section with at least one dedicated post with a quick demo and sample files.</p>
+<h2 id="fun-tools">Fun Tools</h2>
+<p>I stumbled on this great post for some cool placeholder image generation tools for putting fake images into your mockups. I had come across <a href="http://placekitten.com" title="placekitten.com">placekitten.com</a> which I thought was a great addition to the <a href="http://placehold.it/">placehold.it</a> idea, as is <a href="http://flickholdr.com" title="FlickHolder">flickholdr.com</a>, pulling images off of <a href="http://www.flickr.com/" title="flickr photo sharing.">flickr</a>.  Here are some posts that list a few in greater detail.  There a few different ones that can be a bit of fun, and perhaps meet your own personal tastes.</p>
+<ul>
+<li><a href="http://www.learnphponline.net/the-top-8-placeholder-services-for-web-designers/">http://www.learnphponline.net/the-top-8-placeholder-services-for-web-designers/</a></li>
+<li><a href="http://net.tutsplus.com/articles/web-roundups/the-top-8-placeholders-for-web-designers/">http://net.tutsplus.com/articles/web-roundups/the-top-8-placeholders-for-web-designers/</a></li>
+</ul>
+<p>Another fun thing to play with is generated text. <a href="http://www.lipsum.com/" title="lorum ipsum generator">Lorum ipsum</a> is the standard for generated text, and there are plenty of generaters on the web to choose from. But why not mix it up and try <a href="http://baconipsum.com/" title="bacon ipsum">bacon ipsum</a>, <a href="http://slipsum.com/" title="samual l. ipsum">samual l. ipsum</a> or <a href="http://lorizzle.nl/" title="gansta lorum ipsum">gansta lorum ipsum</a>? There are heaps more to choose from, and a few sites that have listed them are below.</p>
+<ul>
+<li><a href="http://www.queness.com/post/9327/13-funny-and-useful-lorem-ipsum-generators">http://www.queness.com/post/9327/13-funny-and-useful-lorem-ipsum-generators</a></li>
+<li><a href="http://mashable.com/2011/07/15/lorem-ipsum-generators/">http://mashable.com/2011/07/15/lorem-ipsum-generators/</a></li>
+<li><a href="http://designshack.net/articles/inspiration/30-useful-and-hilarious-lorem-ipsum-generators/">http://designshack.net/articles/inspiration/30-useful-and-hilarious-lorem-ipsum-generators/</a></li>
+</ul>
+<p>Bacon ipsum dolor sit amet est venison consectetur, ham hock sint cow voluptate deserunt hamburger sunt officia. Adipisicing pariatur dolore dolore filet mignon. Pig tail tenderloin pancetta. Et eu ham incididunt, leberkas ground round rump culpa proident beef ribs. Biltong capicola speck, eu aute culpa pork loin ball tip fugiat laborum jowl swine. Aliqua dolore in, quis duis eu ut shankle biltong brisket. Voluptate minim ut dolore, do adipisicing fatback. {Sorry, couldn&rsquo;t resist}</p>
+<p>Slightly related to the whole mockups theme, I found this link for great Windows Phone 7 mockups and wireframing tools that you might find useful if you are doing any of that sort of thing like me. - <a href="http://inspirationfeed.com/graphics/freebies/20-free-windows-phone-7-mockup-and-wireframing-resources/">http://inspirationfeed.com/graphics/freebies/20-free-windows-phone-7-mockup-and-wireframing-resources/</a></p>
+<p>So that is what I have on mockups and sketches, and a few ways to add some life to your samples. As I said, I will follow this up with some demos on both Mockups and Blend with Sketchflow soon.</p>
+</description>
     </item>
     
   </channel>

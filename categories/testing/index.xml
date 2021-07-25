@@ -4,6 +4,12 @@
     <title>Testing on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/testing/</link>
     <description>Recent content in Testing on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Thu, 28 Dec 2017 23:41:13 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/testing/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +19,244 @@
       <pubDate>Thu, 28 Dec 2017 23:41:13 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/storytellerreduxsample/</guid>
-      <description>A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React + .Net Applications. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
-While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible.</description>
+      <description><p>A week or two ago Jeremy Miller posted an article <a href="https://jeremydmiller.com/2017/12/19/subcutaneous-testing-against-react-net-applications/">Subcutaneous Testing against React + .Net Applications</a>. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.</p>
+<p>While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned.  So I figured I would pull on that thread and see what is actually possible.</p>
+<h3 id="first-hurdle">First Hurdle</h3>
+<p>My first hurdle was that the code in question was part of Storyteller 5. This does not run on my machine (for various reasons) and so to test anything I needed to backport Storyteller.Redux onto Storyteller 4. (Storyteller.Redux is also only an alpha release currently, anyway).</p>
+<p>So I copied the <a href="https://github.com/storyteller/Storyteller/tree/master/src/Storyteller.Redux">Storyteller.Redux</a> and <a href="https://github.com/storyteller/Storyteller/tree/master/src/ReduxSamples">ReduxSamples</a> into a new solution, and changed the project references to NuGet package references for Storyteller 4. So far so good.</p>
+<h3 id="an-aspnetcore-app">An AspNetCore app</h3>
+<p>I created another folder (<code>myapp</code>) next to these projects and used the <code>dotnet new reactredux</code> to create a default sample AspNetCore app using react and redux. This would be my test application. This comes with a few pages, and a couple of stores and commands to play with as test targets.</p>
+<h3 id="launching-aspnetcore-from-storyteller">Launching AspNetCore from Storyteller</h3>
+<p>I couldn&rsquo;t use the <a href="https://www.nuget.org/packages/Storyteller.AspNetCore/">Storyteller.AspNetCore</a> package because it actually creates an in-memory server (which is great for some kinds of testing) but to test React, I actually have to launch a browser to point to the app, so a real running instance is required.</p>
+<p>Instead, I created a new System that could launch the WebApp using Startup but still hosted on a port that a browser can talk to. I can then use Selenium (again not directly using Storyteller.Selenium for reasons) to launch and host the running page. This required a few custom classes:</p>
+<ul>
+<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/BrowserDriver.cs">BrowserDriver.cs</a></li>
+<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/SeleniumReduxSagaExtension.cs">SeleniumReduxSagaExtension.cs</a></li>
+<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs">Program.cs (+ReduxSampleSystem)</a></li>
+</ul>
+<pre><code class="language-cs">    public class BrowserDriver: IDisposable
+    {
+        private object _browserLock = new object();
+
+        private ChromeDriverService _driverService;
+        private ChromeOptions _options;
+        private ChromeDriver _driver;
+
+        public BrowserDriver()
+        {
+            _driverService = ChromeDriverService.CreateDefaultService(PlatformServices.Default.Application.ApplicationBasePath, &quot;chromedriver.exe&quot;);
+            _options = new ChromeOptions();
+            //_options.AddAdditionalCapability(&quot;IsJavaScriptEnabled&quot;, true);
+        }
+
+        public void LaunchUrl(string targetURL)
+        {
+            if (_driver != null)
+            {
+                Close();
+            }
+
+            _driver = new ChromeDriver(_driverService, _options);
+
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+
+            _driver.Navigate().GoToUrl(targetURL);
+
+            wait.Until(driver =&gt; driver.FindElement(By.TagName(&quot;body&quot;)));
+            wait.Until(driver =&gt; ((IJavaScriptExecutor)driver).ExecuteScript(&quot;return document.readyState&quot;).Equals(&quot;complete&quot;));
+
+            IEnumerable&lt;LogEntry&gt; logs = _driver.Manage().Logs.GetLog(&quot;browser&quot;);
+
+            if (logs.Any(l =&gt; l.Level == LogLevel.Warning || l.Level == LogLevel.Severe))
+            {
+                throw new Exception($&quot;Warnings/Errors logged: \n{string.Join(&quot;/n&quot;, logs.Select(l =&gt; l.Timestamp + &quot;:::&quot; + l.Message))}&quot;);
+            }
+        }
+
+        public void Close()
+        {
+            if (_driver != null)
+            {
+                _driver.Quit();
+                _driver = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _driverService?.Dispose();
+                _driverService = null;
+            }
+        }
+    }
+</code></pre>
+<pre><code>    public class SeleniumReduxSagaExtension : IExtension
+    {
+        public string Url { get; }
+
+        private Lazy&lt;BrowserDriver&gt; _browserDriver = new Lazy&lt;BrowserDriver&gt;(() =&gt; new BrowserDriver());
+
+        public SeleniumReduxSagaExtension(string url)
+        {
+            Url = url;
+            Server = new WebSocketServer();
+        }
+
+        public WebSocketServer Server { get; set; }
+
+        public void Dispose()
+        {
+            Server.SendCloseMessage();
+            Server.Dispose();
+            _browserDriver.Value.Dispose();
+        }
+
+        public Task Start()
+        {
+            return Task.Factory.StartNew(() =&gt;
+            {
+                Server.Start();
+            });
+        }
+
+        private void LaunchPage()
+        {
+            var url = Url.Contains(&quot;?&quot;)
+                ? Url + $&quot;&amp;StorytellerPort={Server.Port}&quot;
+                : $&quot;{Url}?StorytellerPort={Server.Port}&quot;;
+            _browserDriver.Value.LaunchUrl(url);
+        }
+
+        public void BeforeEach(ISpecContext context)
+        {
+            Server.SendCloseMessage();
+            Server.ClearAll();
+
+            LaunchPage();
+
+            var reduxContext = new ReduxSpecContext(context);
+            Server.CurrentContext = reduxContext;
+
+            context.State.Store(reduxContext);
+            context.State.Store(Server);
+
+            Server.WaitForConnection(15.Seconds()).Wait();
+        }
+
+        public void AfterEach(ISpecContext context)
+        {
+
+        }
+    }
+</code></pre>
+<pre><code>    public class ReduxSampleSystem : SimpleSystem
+    {
+        private const string WebHostUrl = &quot;http://localhost:5050&quot;;
+        private IWebHost _host;
+
+        public ReduxSampleSystem()
+        {
+            // No request should take longer than 250 milliseconds
+            PerformancePolicies.PerfLimit(250, r =&gt; r.Type == &quot;Http Request&quot;);
+        }
+        protected override void configureCellHandling(CellHandling handling)
+        {
+            handling.Extensions.Add(new SeleniumReduxSagaExtension($&quot;{WebHostUrl}/counter&quot;));
+        }
+
+        public override Task Warmup()
+        {
+            Startup.TestDriver = true;
+            _host = WebHost.CreateDefaultBuilder()
+                    .UseContentRoot(CalculateRelativeContentRootPath())
+                    .UseStartup&lt;Startup&gt;()
+                    .UseUrls(WebHostUrl)
+                    .Build();
+
+            _host.Start();
+            
+            string CalculateRelativeContentRootPath() =&gt;
+              Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+                 @&quot;..\..\..\..\myapp&quot;);
+
+            return base.Warmup();
+        }
+
+        public override void Dispose()
+        {
+            if(_host != null)
+            {
+                _host.SafeDispose();
+            }
+            base.Dispose();
+        }
+    }
+</code></pre>
+<p>Here is some explaination of the interesting parts of this that make it work. To use a startup in a test project, where you are using MVC views and <code>aspx</code> pages, you need a few tweaks.</p>
+<ul>
+<li>In the csproj there <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/ReduxSamples.csproj#L30-L36">is some extra code required</a> to copy over the reference dependencies for the view page on-demand parsing of MVC.</li>
+<li>You also need to <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs#L50">set the Content Root correctly</a> (<code>CalculateRelativeContentRootPath</code> above)</li>
+<li>I make use of the Selenium drivers (In this case, ChromeDriver) <a href="https://www.nuget.org/packages/Selenium.WebDriver.ChromeDriver">Selenium.WebDriver.ChromeDriver</a> &amp; <a href="https://www.nuget.org/packages/Selenium.WebDriver">Selenium.WebDriver</a></li>
+</ul>
+<p>To finish making the connection work, I had to make a couple of changes to <code>myapp</code> as well:</p>
+<ul>
+<li>Add a flag to ensure webpack is always used, but without the hotreload feature on (<a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/Startup.cs#L23">Flag</a> + <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/Startup.cs#L34-L43">Changes</a>)</li>
+<li>Add the reduxharness.js and typescript-ify as <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/reduxharness.ts">reduxharness.ts</a></li>
+<li>use <code>reduxharness.ts</code> in <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/boot-client.tsx">boot-client.tsx</a> <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/boot-client.tsx#L23">here</a></li>
+</ul>
+<p>At this stage, when I run a test, it launches chrome through chromedriver, and the WebSocket connection should start. Storyteller is connected.</p>
+<h3 id="tests">Tests</h3>
+<p>My simplest test:</p>
+<pre><code># Simple sending and value checking
+
+-&gt; id = ab11ba6a-2181-4901-a389-2ef8daff4ee4
+-&gt; lifecycle = Acceptance
+-&gt; max-retries = 0
+-&gt; last-updated = 2017-12-22T13:03:39.1937541Z
+-&gt; tags = 
+
+[Calculator]
+|&gt; Increment
+|&gt; CheckValue number=1
+~~~
+</code></pre>
+<p>Which is based on this feature (not too dissimilar to the original sample):</p>
+<pre><code>    public class CalculatorFixture : ReduxFixture
+    {
+        public void GetInitialState()
+        {
+            this.ForceRefetchOfState().Wait();
+        }
+
+        [SendJson(&quot;INCREMENT_COUNT&quot;)]
+        public void Increment()
+        {
+            
+        }
+
+        // SAMPLE: CheckJsonValue
+        public IGrammar CheckValue()
+        {
+            return CheckJsonValue&lt;int&gt;(&quot;$.counter.count&quot;, &quot;The current counter should be {number}&quot;);
+        }
+        // ENDSAMPLE
+    }
+</code></pre>
+<p>To make life easier, there is also an added feature to be able to <code>ForceRefetchOfState</code>, because this isn&rsquo;t currently populated when first connected, you had to issue your first command for it to trigger a refresh of state. (Feature request?) Adding this allows me to forcibly request the initial state. ReduxSamples aside, I think this was the only functional change I actually made to the original Storyteller.Redux project (apart from pulling in a copy of WebSocketsHandler from StorytellerRunner, and switching references to NuGets to make it run).</p>
+<p>With this setup, every test first launches a fresh browser window to the target URL. (It also closes any open window first - makes it nice seeing the results of the last run test still open, but that still cleans up after itself.) It may be beneficial to extend this example to also have the navigation ability in a fixture, too.</p>
+<h3 id="results">Results</h3>
+<p>Have a look at my GitHub repository at <a href="https://github.com/csMACnz/StorytellerReduxSample">github.com/csMACnz/StorytellerReduxSample</a> for a working example of the solution outlined above. At some point, I should feedback the tweaks to Storyteller.Redux (or <a href="https://github.com/jeremydmiller">@jeremydmiller</a> can just steal them&hellip;) but until Storyteller 5 is stable, I would keep using my copy, anyway.</p>
+<p>Now that selenium is connected, there is also no reason I can&rsquo;t drive UI interaction with the rest of React this way, too. (Although perhaps thorough testing of React is best left up to Jasmine tests&hellip;)</p>
+<p>Still to do to make this more production ready: add some flags to conditionally compile in or out the <code>reduxharness</code> (WebPack maybe?) so that it is only available in development builds, and not production builds.</p>
+</description>
     </item>
     
     <item>
@@ -23,9 +265,12 @@ While he had a proven way of communicating between React/Redux and Storyteller, 
       <pubDate>Tue, 01 Nov 2016 01:38:35 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</guid>
-      <description>I&amp;rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use dotnet test, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp;amp; netcoreapp1.0).
-But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.
-Turns out, if you want tests to show up in Visual Studio you have to make sure that in your project.</description>
+      <description><p>I&rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use <code>dotnet test</code>, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp; netcoreapp1.0).</p>
+<p>But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.</p>
+<p>Turns out, if you want tests to show up in Visual Studio you have to make sure that in your <code>project.json</code>, <code>netcoreapp1.0</code> needs to be the first framework in the <code>frameworks</code> section. Otherwise it don&rsquo;t work right.</p>
+<p>Moving <code>netcoreapp1.0</code> from being the last framework to the first solved all my problems. Now I have tests showing and passing in Visual Studio.</p>
+<p>Done.</p>
+</description>
     </item>
     
     <item>
@@ -34,8 +279,93 @@ Turns out, if you want tests to show up in Visual Studio you have to make sure t
       <pubDate>Tue, 25 Oct 2016 00:54:19 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnet/</guid>
-      <description>The new .Net Core CLI has the ability to use xunit or nunit. Which is great. For running tests locally.
-I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to import xml reports which supports junit (which is xunit-compatible) and nunit. But choosing nunit means support for the nunit2 xml format. And guess what? The new .</description>
+      <description><p>The new .Net Core CLI has the ability to use <a href="http://xunit.github.io/docs/getting-started-dotnet-core.html">xunit</a> or <a href="https://github.com/nunit/dotnet-test-nunit">nunit</a>. Which is great. For running tests locally.</p>
+<p>I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to <a href="https://confluence.jetbrains.com/display/TCD10/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-ImportingXMLReports">import xml reports</a> which supports <code>junit</code> (which is xunit-compatible) and <code>nunit</code>. But choosing <code>nunit</code> means support for the nunit2 xml format. And guess what? The new .Net Core test runner for nunit <a href="https://github.com/nunit/dotnet-test-nunit/issues/75">only outputs in nunit3 format</a>.</p>
+<p>Now, the decision makes perfect sense to me. The new format is more expressive, gives more information and is the future. And vendors need to start using it and move away from the old format. But as you can imagine, JetBrains just hasn&rsquo;t gotten around to <a href="https://youtrack.jetbrains.com/issue/TW-46195">getting it right yet</a>. (There is some support in TC 10.0.2 but it seems there might be some teething issues and many of us are still on TC 9.X anyway.)</p>
+<p>So what do I do about this? Solve it with code of course! And the solution is xslt (Hey! it gets the job done ok?)</p>
+<p>Thanks to <a href="https://issues.jenkins-ci.org/browse/JENKINS-32999">some notes on this related Jenkins issue</a> from <a href="https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=tenwit">Paul Hicks</a>, I have this xslt page (with a small tweak to fix a value casing issue):</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+
+  &lt;xsl:template match=&quot;/test-run&quot;&gt;
+    &lt;testsuites tests=&quot;{@testcasecount}&quot; failures=&quot;{@failed}&quot; disabled=&quot;{@skipped}&quot; time=&quot;{@duration}&quot;&gt;
+      &lt;xsl:apply-templates/&gt;
+    &lt;/testsuites&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template match=&quot;test-suite&quot;&gt;
+    &lt;xsl:if test=&quot;test-case&quot;&gt;
+      &lt;testsuite tests=&quot;{@testcasecount}&quot; time=&quot;{@duration}&quot; errors=&quot;{@testcasecount - @passed - @skipped - @failed}&quot; failures=&quot;{@failed}&quot; skipped=&quot;{@skipped}&quot; timestamp=&quot;{@start-time}&quot;&gt;
+        &lt;xsl:attribute name=&quot;name&quot;&gt;
+          &lt;xsl:for-each select=&quot;ancestor-or-self::test-suite/@name&quot;&gt;
+            &lt;xsl:value-of select=&quot;concat(., '.')&quot;/&gt;
+          &lt;/xsl:for-each&gt;
+        &lt;/xsl:attribute&gt;
+        &lt;xsl:apply-templates select=&quot;test-case&quot;/&gt;
+      &lt;/testsuite&gt;
+      &lt;xsl:apply-templates select=&quot;test-suite&quot;/&gt;
+    &lt;/xsl:if&gt;
+    &lt;xsl:if test=&quot;not(test-case)&quot;&gt;
+      &lt;xsl:apply-templates/&gt;
+    &lt;/xsl:if&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template match=&quot;test-case&quot;&gt;
+    &lt;xsl:variable name=&quot;lowerResult&quot; select=&quot;translate(@result,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')&quot;/&gt;
+    &lt;testcase name=&quot;{@name}&quot; assertions=&quot;{@asserts}&quot; time=&quot;{@duration}&quot; status=&quot;{$lowerResult}&quot; classname=&quot;{@classname}&quot;&gt;
+      &lt;xsl:if test=&quot;@runstate = 'Skipped' or @runstate = 'Ignored'&quot;&gt;
+        &lt;skipped/&gt;
+      &lt;/xsl:if&gt;
+      
+      &lt;xsl:apply-templates/&gt;
+    &lt;/testcase&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template match=&quot;command-line&quot;/&gt;
+  &lt;xsl:template match=&quot;settings&quot;/&gt;
+
+  &lt;xsl:template match=&quot;output&quot;&gt;
+    &lt;system-out&gt;
+      &lt;xsl:value-of select=&quot;output&quot;/&gt;
+    &lt;/system-out&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template match=&quot;stack-trace&quot;&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template match=&quot;test-case/failure&quot;&gt;
+    &lt;failure message=&quot;{./message}&quot;&gt;
+      &lt;xsl:value-of select=&quot;./stack-trace&quot;/&gt;
+    &lt;/failure&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template match=&quot;test-suite/failure&quot;/&gt;
+
+  &lt;xsl:template match=&quot;test-case/reason&quot;&gt;
+    &lt;skipped message=&quot;{./message}&quot;/&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template match=&quot;test-suite/reason&quot;/&gt;
+
+  &lt;xsl:template match=&quot;properties&quot;/&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>And we can use this in a TeamCity runner:</p>
+<pre><code class="language-powershell">$xslt = new-object system.xml.xsl.xslcompiledtransform
+$xslt.load('%system.teamcity.build.workingDir%\nunit3-junit.xslt')
+$xslt.Transform('%system.teamcity.build.workingDir%\TestResult.xml', '%system.teamcity.build.workingDir%\TransformedTestResult.xml')
+Write-Host &quot;##teamcity[importData type='junit' path='TransformedTestResult.xml']&quot;
+</code></pre>
+<p>Which is PowerShell, and so this works well under windows.</p>
+<p>But our latest thing is .Net Core in Docker containers on Linux, right? (right?) So we don&rsquo;t have PowerShell available. And it also seems that <a href="https://github.com/dotnet/corefx/issues/5593">there is currently no xslt support in .Net Core</a>, so that option is out. But there is another way:</p>
+<pre><code class="language-bash">apt-get install libsaxon-java
+saxon-xslt -o TransformedTestResult.xml TestResult.xml nunit3-junit.xslt
+echo &quot;##teamcity[importData type='junit' path='TransformedTestResult.xml']&quot;
+</code></pre>
+<p>You may want to just run the <code>apt-get</code> command on all your agents, rather than putting it into your build step.</p>
+<p>And with that, we can publish our test results to TeamCity on Windows and on Linux build agents.</p>
+</description>
     </item>
     
     <item>
@@ -44,9 +374,18 @@ I use TeamCity, so I like to see test results showing up, track testing count ov
       <pubDate>Mon, 30 Nov 2015 06:24:46 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/the-new-8060-rule-for-testing/</guid>
-      <description>I was listening to a presentation on testing, and the question on coverage came up. I was asked my opinion, and this interesting thought occurred to me. So I tweeted:
-
- New Rule: At least 80% coverage on 60% of the app. 70% of the time, it works everytime. Mark Clearwater (me) So what do I mean by this? Well basically, 100% test coverage overall is not a good idea.</description>
+      <description><p>I was listening to a presentation on testing, and the question on coverage came up. I was asked my opinion, and this interesting thought occurred to me. So I tweeted:</p>
+<p><a href="https://twitter.com/csMACnz/status/667046640797126657"><img src="http://res.cloudinary.com/csmacnz/image/upload/v1448433043/testratiotweet_f6co7x.png" alt="@csMACnz&rsquo;s test ratio tweet"></a></p>
+<blockquote>
+<p>New Rule: At least 80% coverage on 60% of the app. 70% of the time, it works everytime.
+<!-- raw HTML omitted --><a href="https://twitter.com/csMACnz/status/667046640797126657">Mark Clearwater (me)</a><!-- raw HTML omitted --></p>
+</blockquote>
+<p>So what do I mean by this? Well basically, 100% test coverage overall is not a good idea. Trust me, <a href="https://github.com/csMACnz/BCLExtensions">I&rsquo;ve tried</a>, and the diminishing returns of achieving such high coverage is very clear. On top of that, the meaningfulness of that last few percent is ridiculous. It is barely coverage testing at all, more like box ticking.</p>
+<p>Having said that, there are key parts of the code base that should clearly have very high, or complete 100% coverage. Your business rules, complex logic, control flow logic, you kind of want to make sure you get verification over this stuff. You probably want to get to a comfortable 80%+ on these parts of the system, firstly to ensure you have enough coverage for the success cases, and second, to ensure you don&rsquo;t aim for a time-wasting 100%.</p>
+<p>From experience, and just pulling a nice round number, I would say that kind of code makes up about 60% of your application code. The other 40% is around plumbing, wiring up, framework integration, networking or OS integration, database infrastructure, and other, hard to test functionality.</p>
+<p>So that&rsquo;s why I think we should all aim for the 80/60 rule. 80% coverage, over 60% of the application. And what about the other 40%? Realistically, you&rsquo;re probably best off leaving that for the integration and user acceptance tests.</p>
+<p>Remember, there are two main reasons for writing tests: verifying complex logic actually works, and providing working use cases and examples of how the code should be or is actually used. The goal of testing is not coverage, it is just another metric in your <a href="http://alistair.cockburn.us/Information+radiator">Information Radiator</a> for tracking the quality and accuracy of your system.</p>
+</description>
     </item>
     
     <item>
@@ -55,8 +394,100 @@ I use TeamCity, so I like to see test results showing up, track testing count ov
       <pubDate>Sun, 04 Jan 2015 19:57:02 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/thoughts-on-testing/</guid>
-      <description>I&amp;rsquo;ve gone through the regular evolution when it comes to writing tests. At first there was no time, didnt bother. This was mostly down to the fact I was building demo apps and samples that got less use than it took to build them, working with senior devs who had made their name making said apps.
-The next stage is reluctant acceptance. The team I was put on wrote tests, so I guess I should too.</description>
+      <description><p>I&rsquo;ve gone through the regular evolution when it comes to writing tests.  At first there was no time, didnt bother. This was mostly down to the fact I was building demo apps and samples that got less use than it took to build them, working with senior devs who had made their name making said apps.</p>
+<p>The next stage is reluctant acceptance. The team I was put on wrote tests, so I guess I should too. In fact, it was more of a requirement, with code coverage metrics driving how many tests we write.  The tests written at this stage were horrible, too many dependancies, lots of mocks, lots of setup, and code deplication. Very fragile tests, some even depended on databases, real-world time, all that crazy stuff.</p>
+<p>Finally after a while the penny dropped, and testing is making sense.  Some of the big lessons that had to be realised where the following:</p>
+<ul>
+<li>Tests need to assert one atomic thing.</li>
+<li>Test names need to explain what is being tested.</li>
+<li>Arrange, Act, Assert.</li>
+<li>Tests are code. Refactor it, remove duplication.</li>
+<li>Unit Tests have no external dependancies.</li>
+<li>Integration Tests compliment unit tests.</li>
+<li>User Automation tests are valuable and catch different issues.</li>
+<li>TDD is not about writing tests.</li>
+</ul>
+<p>So let&rsquo;s take a look at some of these points in details.</p>
+<h4 id="what-is-a-unit-test">What is a &lsquo;unit&rsquo; test?</h4>
+<p>At first, I thought out tests were too big, they seemed to be testing a lot in one test. Then I realised most of the code in the test class in question was mocking, setup and preparation.  Why?  Well the main reason is the object we are testing has several dependencies, and they all needed to be mocked and faked, so that we could test this class as a unit.</p>
+<p>for example, lets say we have a class, and it takes 4 services (should be enough to make a point).</p>
+<pre><code class="language-cs">public class CustomerService {
+    ...
+    public CustomerService(IEmployeeRepository employeeRepository,
+                           ICustomerRepository customerRepository,
+                           ISecurityProvider securityProvider,
+                           IInternationalisationProvider internationalisationProvider)
+    {
+    ...
+    }
+
+    public void Process(Customer newCustomer) {
+    ...
+    }
+}
+</code></pre>
+<p>We want to test this method, with mocking, we might end up with a setup like:</p>
+<pre><code class="language-cs">[TestInitialise]
+public void Setup() 
+{
+    _employeeRepositoryMock = new Mock&lt;IEmployeeRepository&gt;();
+    _employeeRepositoryMock
+        .Setup(er =&gt; er.FindEmployeeRecord(It.Is&lt;Guid&gt;(TEST_USER_ID)))
+        .Returns(CreateTestCustomerEmployeeRecord());
+	_employeeRepositoryMock
+        .Setup(er =&gt; er.LoadEmployeeTypes())
+        .Returns(CreateEmployeeTypeData());
+	_employeeRepositoryMock
+        .Setup(er =&gt; er.CreateNewEmployeeRecord(It.Is&lt;Guid&gt;(TEST_USER_ID), It.IsAny&lt;CustomerEmployeeRecord&gt;()))
+        .Returns(CreateDefaultSuccessResultForCreateEmployeeRecord());
+
+    _customerRepositoryMock = new Mock&lt;ICustomerRepository&gt;();
+    _customerRepositoryMock
+        .Setup(er =&gt; er.GetCustomer(It.Is&lt;Guid&gt;(TEST_USER_ID)))
+        .Returns(CreateTestCustomer());
+     ...        
+    _customerServiceMock = new Mock&lt;ISecurityProvider&gt;();
+     ...
+    _internationalisationProviderMock = new Mock&lt;IInternationalisationProvider&gt;()
+     ...
+}
+</code></pre>
+<p>And you could imagine with more dependencies what else could crop up, not to mention the code that appears inside the tests themselves.</p>
+<p>This is where the lesson is. Well, two lessons:</p>
+<ul>
+<li>Try to minimise your dependencies so they are easier to mock, stub and fake.</li>
+<li>If several classes are heavily dependent for testing, they might make up a single unit.</li>
+</ul>
+<p>The trick seems to be defining the size of testable units, and clearly defining the unit dependency boundaries.  Sometimes the bulk of the actual logic can pull pulled out completely and tested in a more functional way, with data passed in, data returned. A lot less of these internal dependencies that you have to mock, the retrieval of data is all through the inputs of the function or class instead.</p>
+<h4 id="the-three-as">The three A&rsquo;s</h4>
+<p>Tests need to be made up of three steps. each step should try and be only one or two actions.</p>
+<p><em>Arrange</em>: coordinate some setup for your test. This might be in the test method itself, creating an instance of the unit under test. This might be in the constructor, or per-test setup method. Having a lot of setup for a test is a code smell.</p>
+<p><em>Act</em>: perform the task that is being tested. Maybe a static method, or method on your unit under test. This should be a single atomic action, from your system code would be expected.</p>
+<p><em>Assert</em>: confirm that the state of play after acting is what is expected. Check the result of the method has the correct state, or check the state of the unit under test has been modified correctly.  Again, assert one thing. It might take multiple assert statements, but they should represent a single atomic state.</p>
+<pre><code class="language-cs">[Test]
+public void CustomerService_CreateNewCalledWithValidCustomer_NoProblemsOccur()
+{
+    //Arrange
+    var sut = CreateService();
+    var newCustomer = GetValidCustomer();
+    
+    //Act
+    var saveResponse = sut.CreateNew(newCustomer);
+    
+    //Assert
+    Assert.True(saveResponse.Successful);
+    Assert.Empty(saveResponse.Warnings);
+}
+</code></pre>
+<p>Personally I don&rsquo;t like having the comments in there, but spacing my test methods into the three sections make it much clearer to read what is happening at each stage, and what is the Act part.</p>
+<h4 id="test-code-is-code">Test code is code</h4>
+<p>The quality of test code is appalling.  Yeah, this is an over-generalisation. I should be clearer and say, the quality of the code people write when they start writing tests is appalling.  I&rsquo;m guilty of it, and I&rsquo;ve seen it with other people when they start out writing tests.  Now this could be a localised issue and be related to the testing and mocking frameworks &lsquo;éxperienced&rsquo; testers use in .Net, and the inherent complexity they introduce. The other thing it could be, and the one I&rsquo;m conscious of, is that people don&rsquo;t seem to treat test code with the same respect they do the rest of the code in their application.  Quality, standards and best practice goes out the window, it seems, when they write their test code. Follow the rules and everything gets better fast. SOLID anyone?</p>
+<h4 id="automated-ui-testing">Automated UI Testing</h4>
+<p>This is a whole topic in itself, so I will have to post something more in depth about this later, but the punchline is Automated UI Tests abstract functionality from implementation detail.  Yes, we couple to design decisions still, but done right UI test can abstract over the design and still focus on the functionality.  This makes these tests less fragile and prone to change based on refactoring implementations.  Something that unit and integration tests often struggle with (albeit because of the way we probably architect that test code in the first place). Having these tests in place gives you the most bang for your buck, since we know that the UI does (or doesn&rsquo;t if the tests fail) allow the user to perform the operation/task the test runs through. This covers all the moving parts involved in that action from client application code all the way to persistence.  Yes, these are integration tests in a way, but the Black-Box nature gives them their most value, not to mention they do exactly what the user does, not an approximation of it. Of course you should still complement this with unit tests over logic and integration tests at other points in your system as well (APIs, modules/components etc).</p>
+<h4 id="conclusion">Conclusion</h4>
+<p>So what have I learned? Well, the main thing is that there is much more to learn.  And like becoming a better developer in general, it&rsquo;s all about practice, observe, improve. Everyone takes their own journey, but the lessons learned take us all to a similar destination in the end:  write more tests, improve the quality of your code and applications.</p>
+<p>Thanks <a href="https://twitter.com/saramgsilva">@saramgsilva</a> for <a href="https://twitter.com/saramgsilva/status/552031440607920129">suggesting I add some code samples</a> to this post.</p>
+</description>
     </item>
     
   </channel>

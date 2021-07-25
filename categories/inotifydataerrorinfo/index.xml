@@ -4,6 +4,12 @@
     <title>INotifyDataErrorInfo on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/inotifydataerrorinfo/</link>
     <description>Recent content in INotifyDataErrorInfo on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Wed, 17 Nov 2010 20:52:11 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/inotifydataerrorinfo/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +19,15 @@
       <pubDate>Wed, 17 Nov 2010 20:52:11 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/custom-control-validation-in-silverlight/</guid>
-      <description>So you&amp;rsquo;ve built up your nice new fancy custom control, and some Dependency Properties for your users to bind there data to, what else could you want? How about validation? Turns out that the control base class is all ready set up for this exact scenario. There is only one step required: Create the Visual states. Just add a visualstategroup called ValidationStates and a state for each of Valid, InvalidUnfocused and InvalidFocused corresponding to how you want your control to behave when in each of those states.</description>
+      <description><p>So you&rsquo;ve built up your nice new fancy custom control, and some Dependency Properties for your users to bind there data to, what else could you want? How about validation? Turns out that the control base class is all ready set up for this exact scenario. There is only one step required: Create the Visual states. Just add a visualstategroup called <code>ValidationStates</code> and a state for each of <code>Valid</code>, <code>InvalidUnfocused</code> and <code>InvalidFocused</code> corresponding to how you want your control to behave when in each of those states. You can even add these attributes into your class cs file to aid in blending your control:</p>
+<pre><code class="language-cs">[TemplateVisualState(GroupName = &quot;ValidationStates&quot;, Name = &quot;Valid&quot;)]`
+[TemplateVisualState(GroupName = &quot;ValidationStates&quot;, Name = &quot;InvalidUnfocused&quot;)]
+[TemplateVisualState(GroupName = &quot;ValidationStates&quot;, Name = &quot;InvalidFocused&quot;)]
+</code></pre>
+<p>I suggest checking out how some of your favourite controls are templated for validation, such as CheckBox and TextBox, to build a default template that would fit in with the existing control validation states. This supports Exception Validation, <code>IDataErrorInfo</code>, <code>INotifyDataErrorInfo</code> including using <code>INotifyDataErrorInfo</code> asynchronously. Of course you need to set up your bindings correctly using the <code>ValidatesOnExceptions=true</code>, <code>NotifyOnValidationError=true</code> binding properties.</p>
+<p>One quick Gotcha, that I found when testing this: make sure that you are binding on the property that reports the errors, especially when using the <code>INotifydataErrorInfo</code>. You need to explicitly bind the datacontext to your validation object to get class level validation to trigger the control&rsquo;s validation. This may be true for textboxes and other built-in controls as well, but I haven&rsquo;t verified this theory yet.</p>
+<p>There is an excellent Whitepaper on validation using <code>INotifyDataErrorInfo</code> at <a href="http://www.silverlight.net/learn/whitepapers/introducing-new-inotifydataerrorinfo-interface/">silverlight.net/learn/whitepapers</a> as well as lots of posts around the web, if you take the time to look (or search). Jesse Liberty also has a <a href="http://jesseliberty.com/2010/07/25/data-validation-and-templating/">validation blog</a> as part of a templates and visual states series on his blog, which i referred to when building up my own validation controls and viewmodels using <code>INotifyDataErrorInfo</code>.</p>
+</description>
     </item>
     
   </channel>

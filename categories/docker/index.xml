@@ -4,6 +4,12 @@
     <title>docker on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/docker/</link>
     <description>Recent content in docker on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 16 Jul 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +19,126 @@
       <pubDate>Mon, 16 Jul 2018 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</guid>
-      <description>I&amp;rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
-Start with the defaults Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.</description>
+      <description><p>I&rsquo;ve started getting into building Docker Containers as deployment packages.  These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.</p>
+<h3 id="start-with-the-defaults">Start with the defaults</h3>
+<p>Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.</p>
+<p>In Visual Studio 2017 (I&rsquo;m using 15.7.3, so at least that version if not earlier) You can select a project from the Solution Explorer, <code>right-click =&gt; Add</code> and you will see options for <code>Docker Support</code> and <code>Container Orchestrator Support</code>.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_387/v1531727131/DockerSupport_l16dry.png" alt="Visual Studio Project context menu showing Docker commands."></p>
+<p>Docker Support will create a <code>Dockerfile</code> for your project, that follows some conventions and best practices, including separate <code>build</code>/<code>publish</code> steps. (This may be limited to <code>NetCoreApp</code> projects, I haven&rsquo;t thoroughly tested this function yet outside if that scope. You can even choose between Windows and Linux Containers. This might also create the docker-compose, and <code>.dockerignore</code> files as well.</p>
+<p>Container Orchestrator Support creates a new <code>*.dcproj</code> project in your solution that orchestrates a docker-compose file which includes your selected project. If you already have an orchestrator project, the selected project will be added to it.</p>
+<p>You can also find <a href="https://docs.docker.com/engine/examples/dotnetcore/">instructions on docs.docker.com for .Net Core apps</a> which covers some of the basics and recommendations too.</p>
+<h3 id="proximity-is-key">Proximity is key</h3>
+<p>Put your <code>Dockerfile</code> in the same folder as the csproj file. At some point in the future (or if someone really digs into the MSBuild files and finds a hack) this should be able to go anywhere. But for now, putting it at the root of the project with the <code>*.csproj</code> project file lets it work correctly with Visual Studio.</p>
+<p>By default, you also usually have everything relative to a parent directory, such as the source or repository root. This becomes the context you use.  The context can be anywhere you like, but I find shared configs from root as well as the solution file being available is handy. You may even have build scripts here that you include.</p>
+<h3 id="minimum-vs-default">Minimum vs default</h3>
+<p>Let&rsquo;s start with the minimum valid <code>Dockerfile</code> to build our NetCoreApp2.1 application. The application itself doesn&rsquo;t matter, only that it builds.</p>
+<pre><code>FROM microsoft/dotnet:2.1-sdk
+WORKDIR /src
+COPY . .
+RUN dotnet publish MyApp.csproj -c Release -o /app
+WORKDIR /app
+COPY /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+</code></pre>
+<p>That&rsquo;s the least you need, but we can do better.</p>
+<ul>
+<li>This only works if you run build in the context of the project folder</li>
+<li>This will copy over local bin/obj folders (unless you have a <code>.dockerignore</code> file already - Visual Studio may add one for you.)</li>
+<li>Our final container is large because it includes all of the dotnet CLI build tools</li>
+<li>Our final container has all the build artifacts in it, making it larger again</li>
+</ul>
+<p>Most of this is solved by following the <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">Best practices</a> which you get for free if you create using Visual Studio.</p>
+<pre><code>FROM microsoft/dotnet:2.1-runtime AS base
+WORKDIR /app
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+COPY MyApp/MyApp.csproj MyApp/
+RUN dotnet restore MyApp/MyApp.csproj
+COPY . .
+WORKDIR /src/MyApp
+RUN dotnet build MyApp.csproj -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish MyApp.csproj -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+
+</code></pre>
+<h3 id="multiple-stages">Multiple Stages</h3>
+<p>Talking through this file a bit, we have a multi-stage build, that has three parts.
+Note that the actual container instance that matches the tag, is the one that starts with the base container defined in the <code>FROM</code> command, and has run all the instructions up until the next <code>FROM</code> command, or the end of the file.</p>
+<p>First, we have a <code>base </code>(<code>FROM microsoft/dotnet:2.1-runtime AS base</code>) that serves two purposes: it defines the final result container base up front and also gets used by Visual Studio when performing a special debug build. Visual Studio will build just this target in a multi-stage build, and copy in the build results to debug with. We can declare anything here that we might want in our final output container, and also need during debugging.</p>
+<p>Next, we have a <code>build</code> (<code>FROM microsoft/dotnet:2.1-sdk AS build</code>) which is the container the app is built in. This is where we copy over all our source files (<code>COPY . .</code>).</p>
+<p>Next, a <code>publish</code>(<code>FROM build AS publish</code>) which starts from our earlier <code>build</code>, and is used to produce the final binaries.</p>
+<p>And finally, a <code>final</code> (<code>FROM base AS final</code>) that starts with our <code>base</code> from earlier and produces the container we consider the resulting application. This container is also configured with any ports we want to expose (possibly done in <code>base</code>) and our application entry point (<code>ENTRYPOINT [&quot;dotnet&quot;, &quot;/app/GitHubTagAndRelease.dll&quot;]</code>).</p>
+<p>Using multistage in this way solves the large container size concerns from earlier, and even if we copy too much</p>
+<p>Briefly about caching. Each build step will cache the results if all previous steps are cached, and with <code>COPY</code> commands, if the hash of the source files hasn&rsquo;t changed.  For this reason, we selectively copy over the project first, run a <code>dotnet restore</code>, and then pull in everything else. This caches the NuGet restore step so we don&rsquo;t have to redownload these every time.</p>
+<h3 id="ignore">Ignore</h3>
+<p>We still have the issue of the bin/obj files being copied in from the source folder. Luckily, Visual Studio would add a <code>.gitignore</code> file to solve this. If you add your own, the ignore lines you want are:</p>
+<pre><code>*/bin
+*/obj
+</code></pre>
+<p>This is relative to the base path, so will match <code>MyApp/bin</code> and <code>MyApp.Tests/bin</code> but not <code>src/MyOtherProject/bin</code>. If you want a more comprehensive version, VS gives you this:</p>
+<pre><code>.dockerignore
+.env
+.git
+.gitignore
+.vs
+.vscode
+docker-compose.yml
+docker-compose.*.yml
+*/bin
+*/obj
+</code></pre>
+<p>Note that we don&rsquo;t ignore the <code>Dockerfile</code>, which means changes to the <code>Dockerfile</code> also cache-bust at the <code>COPY</code> step.</p>
+<h3 id="build-with-testing-in-mind">Build with testing in mind</h3>
+<p>Like the default conventions, I build in a <code>build</code> container, then publish to a <code>publish</code> container. This means the final container has minimal dependencies. But I add a twist.</p>
+<p>When the script does the <code>COPY</code> of the project before the restore (a nice caching enhancement I really like) I also copy the test project file at the same time. This gets restored with the project in another restore. Then after doing the project build, I also run the project Tests. Now I know that my container passed all tests before it built because it has to.</p>
+<pre><code>ARG DOCKER_SKIP_TESTS=
+
+FROM microsoft/dotnet:2.1-runtime AS base
+WORKDIR /app
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+COPY MyApp/MyApp.csproj MyApp/
+COPY MyApp.Tests/MyApp.Tests.csproj MyApp.Tests/
+RUN dotnet restore ./MyApp/MyApp.csproj /p:Configuration=Release
+RUN dotnet restore ./MyApp.Tests/MyApp.Tests.csproj /p:Configuration=Release
+COPY . .
+RUN dotnet build ./MyApp/MyApp.csproj --no-restore -c Release -o /app
+
+FROM build as test
+ARG DOCKER_SKIP_TESTS
+
+WORKDIR /src
+RUN [ ! -z &quot;$DOCKER_SKIP_TESTS&quot; ] &amp;&amp; : || dotnet build ./MyApp.Tests/MyApp.Tests.csproj --no-restore -c Release
+RUN [ ! -z &quot;$DOCKER_SKIP_TESTS&quot; ] &amp;&amp; : || dotnet test ./MyApp.Tests/MyApp.Tests.csproj --no-restore --no-build -v normal -c Release
+
+FROM build AS publish
+WORKDIR /src/MyApp
+RUN dotnet publish MyApp.csproj -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+
+</code></pre>
+<p>When running build and release against the target project, I also tell it to skip the restore. This avoids any restore invalidation that may occur from doing the <code>COPY</code>, for whatever reason.  Also during the release, I skip the build, so it reuses the build result from the previous step. Splitting up these steps just saves that little bit of rebuild time and duplication along the way.</p>
+<p>I use bash conditional logic to be able to disable the tests from running (to go faster during dev build cycles) as well. The build-arg <code>DOCKER_SKIP_TESTS</code> is unset, and the test commands are run. If I declare this, it will skip running the tests.</p>
+<pre><code>docker build --build-arg DOCKER_SKIP_TESTS=1 -f .\MyApp\Dockerfile .
+</code></pre>
+<p>Having <code>DOCKER_SKIP_TESTS=</code> declared on the first line means the cache is invalidated whenever I switch this setting on and off, so I get a clean build with, or without tests, and not somewhere in between.</p>
+<p>I&rsquo;ve even managed to convince my <code>Dockerfile</code> it is a ci agent, and it publishes coverage and test results to TeamCity&hellip; but that is for another article I think.</p>
+<h3 id="wrap-up">Wrap up</h3>
+<p>These are some of the tricks that I make use of in my <code>Dockerfile</code>.  Next time, we will take a look at some more advanced features, using an AspNetCore application running in docker and Visual Studio debugging.</p>
+<p>For an example of this working in practice, I&rsquo;ve set up an example project on GitHub. <a href="https://github.com/csMACnzBlog/DockerDotnetDemo">github.com/csMACnzBlog/DockerDotnetDemo</a></p>
+</description>
     </item>
     
     <item>
@@ -23,9 +147,17 @@ Start with the defaults Use the built-in tools in Visual Studio to docker-ify an
       <pubDate>Sun, 15 Jul 2018 22:02:30 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</guid>
-      <description>Last time we covered some basics of Dockerfile with a console application. Let&amp;rsquo;s continue our journal with AspNet Core.
-Develop-time dependencies We are using React and the .Net WebPack Hot Reloader. While at development time this requires node, at runtime it doesn&amp;rsquo;t. Here is a couple of fun facts about Visual Studio debugging I combine in an interesting way.
-Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&amp;rsquo;t actually use or do what your Dockerfile says.</description>
+      <description><p><a href="/dotnet-docker-tips-and-tricks/">Last time</a> we covered some basics of <code>Dockerfile</code> with a console application. Let&rsquo;s continue our journal with AspNet Core.</p>
+<h3 id="develop-time-dependencies">Develop-time dependencies</h3>
+<p>We are using React and the .Net WebPack Hot Reloader. While at development time this requires node, at runtime it doesn&rsquo;t.  Here is a couple of fun facts about Visual Studio debugging I combine in an interesting way.</p>
+<p>Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&rsquo;t actually use or do what your <code>Dockerfile</code> says. Instead, it takes the first (and only first) defined named USE from your <code>Dockerfile</code>, and builds that.</p>
+<p>Fact number 2, Once built, it will launch an instance, and attach (volume mount) the application and run it.</p>
+<p>Fact number 3 is docker-compose.yml.  Your docker-compose project uses several docker-compose files stacked together. First, your <code>docker-compose.yml</code> file, then if you have one, the <code>docker-compose.override.yml</code> file. This is followed by some generated ones by visual studio, that will override most of the details if it detects the referenced <code>Dockerfile</code> has a <code>*.csproj</code> beside it.  You can then create a <code>docker-compose.vs.debug.yml</code> or <code>docker-compose.vs.release.yml</code> (depending on <code>debug</code> or <code>release</code> build selection) that will allow you to override anything extra you want on for debugging.  This lets you set environment variables for your container to use (such as <code>ASPNETCORE_ENVIRONMENT</code> to Development) if different from the default or override you use.</p>
+<p>Putting this all together: In my <code>Dockerfile</code>, I make sure the first <code>USE</code> sets up a docker image that has the node runtime dependencies to make the Hot Reloading work. And because the source is a Volume Mount, local changes reflect inside the container, too. My build and publish <code>USE</code> containers in my multi-stage build don&rsquo;t depend on this debug one, and instead the debug container is thrown away, except when used during debugging in Visual Studio.</p>
+<p>I then make sure the <code>docker-compose.yml</code> is going to use a non-Development build by default. This should build as a <code>Production</code> Environment instead. The <code>docker-compose.debug.yml</code> sets back to <code>Development</code> during debug. I configure my Hot Reloading to only configure and run when <code>IsDevelopment()</code> is true.</p>
+<p>Now when I debug Run the docker-compose project, my application is attached to the debugger, with node available in the container, in DevelopmentMode using Hot Reloading of my React app.</p>
+<p>When I build the real docker container, the publish result has no node installed, saving me a few <code>Mbs</code>, and one less moving part it doesn&rsquo;t need. (If you tried to use it in Debug mode, it would even crash because node is missing, a bonus as-designed feature.)</p>
+</description>
     </item>
     
     <item>
@@ -34,9 +166,78 @@ Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&a
       <pubDate>Mon, 14 May 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/develop-your-rust-in-docker/</guid>
-      <description>I decided a while ago that the next language I would try to learn is Rust. I don&amp;rsquo;t want to go too much into Rust other than to repeat its own summary:
- Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. &amp;ndash; https://www.rust-lang.org/
- But like all things, there are bits that need to be installed. I want to get started, I don&amp;rsquo;t want to muck around with installers.</description>
+      <description><p>I decided a while ago that the next language I would try to learn is Rust.  I don&rsquo;t want to go too much into Rust other than to repeat its own summary:</p>
+<blockquote>
+<p>Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.
+&ndash; <a href="https://www.rust-lang.org/">https://www.rust-lang.org/</a></p>
+</blockquote>
+<p>But like all things, there are bits that need to be installed. I want to get started, I don&rsquo;t want to muck around with installers.</p>
+<h3 id="online-playground">Online playground</h3>
+<p>The Rust docs online include <a href="https://doc.rust-lang.org/rust-by-example/">Rust By Example</a>, which is interactive documentation that you can edit and execute from inside the browser.</p>
+<p>There is also the <a href="https://play.rust-lang.org/">Rust Playground</a> which lets you write, compile, run, decompile Rust, and even generate intermediate representations of it in several formats.</p>
+<p>Many modern languages now have playgrounds like this including C# (<a href="https://dotnetfiddle.net/">.Net Fiddle</a> or <a href="https://csharppad.com/">C# Pad</a>), JavaScript (<a href="https://jsbin.com/">JS Bin</a>, <a href="https://jsfiddle.net/">JS Fiddle</a> or <a href="https://javascriptplayground.com/">The Javascript Playground</a>) and F# (<a href="http://www.tryfsharp.org/">Try F#</a>) (as well as many others).</p>
+<p>Ok for playing around, but not sufficient, especially if you want to write custom <a href="https://en.wikipedia.org/wiki/Intellectual_property">IP</a>, or start doing IO for instance.</p>
+<h3 id="why-not-docker">Why not docker?</h3>
+<p>On windows, I can build and run Rust on Docker, without installing Rust. Since I already have Docker installed, this is the fastest way to get going.</p>
+<pre><code class="language-powershell">docker run -it -v &quot;$(pwd):/usr/src/myapp&quot; -w /usr/src/myapp --rm rust:latest cargo test
+</code></pre>
+<p>This PowerShell-compatible command launches and tests my application in docker. Breaking it down:</p>
+<ul>
+<li><code>docker run</code> says we are executing a container from an image</li>
+<li><code>-it</code> specifies we want it to be an interactive session (show me the console logs)</li>
+<li><code>-v &quot;$(pwd):/usr/src/myapp&quot;</code> I want to map (share) my current local folder inside the container at the path &ldquo;/usr/src/myapp&rdquo;</li>
+<li><code>-w /usr/src/myapp</code> start the session inside the working directory as the one we just mapped from our local system</li>
+<li><code>--rm</code> clean up the instance when we exit</li>
+<li><code>rust:latest</code> use the latest rust container image</li>
+<li><code>cargo test</code> run the rust command cargo test (a bit like dotnet test)</li>
+</ul>
+<h3 id="an-example">An Example</h3>
+<p>Let&rsquo;s work this a step at a time. I want to:</p>
+<ul>
+<li>Create a new rust project</li>
+<li>Build it</li>
+</ul>
+<p>We had a look at the rust command to build in detail, so we can now quickly look at the commands to create a new rust project and then build it.</p>
+<h4 id="file-new-project">File New Project</h4>
+<p>In Rust, there is a tool called Cargo, which works a lot like <code>dotnet</code> for C#.  There is also a compiler <code>rustc</code> that will compile a single file. You could just run the above command with <code>rustc main.rs</code> instead of <code>cargo test</code> and it will build the <code>main.rs</code> file from inside the container.</p>
+<p>Instead, we will use cargo.</p>
+<p>(As a caveat, we need to declare a <code>$USER</code> environment variable for cargo new since this appears to be unset on this Docker container image.)</p>
+<pre><code class="language-powershell">mkdir rustroot
+cd rustroot
+docker run -e USER=MyUser -it -v &quot;$(pwd):/usr/src&quot; -w /usr/src --rm rust:latest cargo new --bin myApp
+</code></pre>
+<p>If everything went well, you should now have a local file structure on your machine:</p>
+<pre><code>rustroot
++-- myApp
+    |-- Cargo.toml
+    +-- src
+        \-- main.rs
+</code></pre>
+<p>Let&rsquo;s move into the newly created directory.</p>
+<pre><code>cd myApp
+</code></pre>
+<h4 id="build-and-test">build and test</h4>
+<p>From inside the <code>myApp</code> folder, we can once again launch a docker instance to perform our build and test:</p>
+<pre><code class="language-powershell">docker run -it -v &quot;$(pwd):/usr/src/myapp&quot; -w /usr/src/myapp --rm rust:latest cargo test
+</code></pre>
+<p>You should now see the following successful output:</p>
+<pre><code class="language-bash">&gt; docker run -it -v &quot;$(pwd):/usr/src/myapp&quot; -w /usr/src/myapp --rm rust:latest cargo test
+   Compiling myApp v0.1.0 (file:///usr/src/myapp)
+warning: crate `myApp` should have a snake case name such as `my_app`
+  |
+  = note: #[warn(non_snake_case)] on by default
+
+    Finished dev [unoptimized + debuginfo] target(s) in 1.4 secs
+     Running target/debug/deps/myApp-f7629208065f5316
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>At some point, I had an error trying to run this a second time. I used <code>rm -r ./target</code> to fix it, possibly because of some sort of locking? I&rsquo;m not sure. All I knew at the time was that if I didn&rsquo;t remove it, it didn&rsquo;t build a second time. It seems to work fine now though. <em>shrug</em></p>
+<h3 id="the-end">The End</h3>
+<p>Long term I will still want to install a development environment for Rust, but to get going fast and for just learning the syntax and libraries, this is a nice quick way to get started. (And if you want to run a Rust workshop/lesson, it may be easier to get certain groups up and running if you know they already have docker - like your team at work, perhaps.)</p>
+</description>
     </item>
     
     <item>
@@ -45,7 +246,399 @@ Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&a
       <pubDate>Sun, 22 Apr 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</guid>
-      <description>I wrote Building a Windows Service with .Net Core and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application. Technically the title is still valid, it was a windows service, and I built it using .Net Core tools. But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.</description>
+      <description><p>I wrote <a href="/building-a-windows-service-with-net-core/">Building a Windows Service with .Net Core</a> and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application.  Technically the title is still valid, it was a windows service, and I built it using .Net Core tools.  But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.</p>
+<p>Note that since windows Service logic and hooks are Windows-specific, this solution doesn&rsquo;t work for Mac or Linux.  However I will try to maintain a working Console application, that should satisfy the requirements there.</p>
+<h2 id="just-target-net-full-framework">Just target .Net Full framework</h2>
+<p>Everything you already have working in your services using <code>System.ServiceProcess.ServiceBase</code> and other classes from the <code>System.ServiceProcess</code> full framework assemblies work fine when compiled with .Net Core. Since you can&rsquo;t run a Windows Service on non-windows platforms, there is no reason not to just target the Windows-only full framework 4.6.2 or 4.7.1 or whichever your stable .Net version of choice is. None of the <code>System.ServiceProcess</code> code can run on Linux or Mac anyway, and neither can any Windows Service specific code. This is probably going to be the path of least resistance.</p>
+<p>But that was the subject of the <a href="/building-a-windows-service-with-net-core/">other article</a>, I assume you are here for something different.</p>
+<h2 id="cross-platform-solution">Cross Platform solution</h2>
+<p>We will now take a look at what we can do to make an application that a) can install and run as a windows service, and b) still runs as a console app on Linux, ignoring the unused service code.  This application is going to be a portable <code>netcoreapp2.0</code> application, so we can only reference <code>netstandard</code> or <code>netcoreapp</code> libraries.</p>
+<p><a href="https://github.com/dasMulli/dotnet-win32-service">dasMulli/dotnet-win32-service</a> is a project that has created a win32 interop layer over the Windows Service API.  Much like the way the original .Net code probably works, but compiled as a dotnet standard library (<code>netstandard1.3</code> and <code>netstandard2.0</code> compatible versions).  On top of this, there is another library <a href="https://github.com/PeterKottas/DotNetCore.WindowsService">PeterKottas/DotNetCore.WindowsService</a> which also targets <code>netstandard2.0</code> that we will use to give us a nicer install/uninstall interface into our application.</p>
+<h3 id="the-application">The &lsquo;Application&rsquo;</h3>
+<p>Let&rsquo;s use something pretty dumb. Our app will sleep for 1 second, Then try to generate the next number in the Fibonacci Sequence.</p>
+<pre><code class="language-cs">using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace MyApp
+{
+    public class MyApp
+    {
+        private static readonly AutoResetEvent _closeRequested = new AutoResetEvent(false);
+        private long _last = 0;
+        private long _current = 0;
+        private Task _work;
+
+        public MyApp()
+        {
+        }
+
+        public void Start()
+        {
+            _work = Task.Run(() =&gt; DoWorkLoop());
+        }
+
+        public void Stop()
+        {
+            _closeRequested.Set();
+            if (_work != null)
+            {
+                _work.Wait();
+                _work = null;
+            }
+        }
+
+        public void DoWorkLoop()
+        {
+            while (!_closeRequested.WaitOne(1000))
+            {
+                var last = _current;
+                var next = _last + _current;
+                if (next == 0)
+                {
+                    next = 1;
+                }
+                _last = _current;
+                _current = next;
+                Console.WriteLine(next);
+            }
+        }
+    }
+}
+</code></pre>
+<p>I&rsquo;ve added some boiler-plate start/stop logic including a mutex to release the app and wait for it to finish in the stop command.</p>
+<p>To run as a console app, I could simply wait for a keypress:</p>
+<pre><code class="language-cs">var app = new MyApp();
+app.Start();
+Console.ReadKey();
+Console.WriteLine(&quot;Stopping&quot;);
+app.Stop();
+</code></pre>
+<p>or I could make use of requiring ctrl+c to exit instead:</p>
+<pre><code class="language-cs">private static readonly AutoResetEvent _closing = new AutoResetEvent(false);
+
+static void Main(string[] args)
+{
+    Console.WriteLine(&quot;Hello World!&quot;);
+    var app = new MyApp();
+    app.Start();
+    Console.CancelKeyPress += new ConsoleCancelEventHandler(OnExit);
+    _closing.WaitOne();
+    Console.WriteLine(&quot;Stopping&quot;);
+    app.Stop();
+}
+
+protected static void OnExit(object sender, ConsoleCancelEventArgs args)
+{
+    Console.WriteLine(&quot;Exit Requested&quot;);
+    _closing.Set();
+    args.Cancel = true;
+    Console.CancelKeyPress -= new ConsoleCancelEventHandler(OnExit);
+}
+</code></pre>
+<p>Either way, we now have a functioning console app, in a format that is compatible with a Windows Service.</p>
+<h3 id="install-the-libraries">Install the libraries</h3>
+<p>As mentioned, we will use <a href="https://github.com/PeterKottas/DotNetCore.WindowsService">PeterKottas/DotNetCore.WindowsService</a> nuget package <a href="https://www.nuget.org/packages/PeterKottas.DotNetCore.WindowsService/">PeterKottas.DotNetCore.WindowsService</a> to make our life easier. (<code>dotnet add package PeterKottas.DotNetCore.WindowsService</code>)</p>
+<h3 id="the-program">The Program</h3>
+<p>Now we can change our program to start using the code from the library, instead of our code:</p>
+<pre><code class="language-cs">using System;
+using System.Threading;
+using PeterKottas.DotNetCore.WindowsService;
+
+namespace MyApp
+{
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            ServiceRunner&lt;MyApp&gt;.Run(config =&gt;
+            {
+                var name = config.GetDefaultName();
+                config.SetName(&quot;MyAppService&quot;);
+                config.SetDescription(&quot;An example application&quot;);
+                config.SetDisplayName(&quot;MyApp As A Service&quot;);
+                config.Service(serviceConfig =&gt;
+                {
+                    serviceConfig.ServiceFactory((extraArguments, serviceController) =&gt;
+                    {
+                        return new MyApp();
+                    });
+                    serviceConfig.OnStart((service, extraArguments) =&gt;
+                    {
+                        Console.WriteLine(&quot;Service {0} started&quot;, name);
+                        service.Start();
+                    });
+
+                    serviceConfig.OnStop(service =&gt;
+                    {
+                        Console.WriteLine(&quot;Service {0} stopped&quot;, name);
+                        service.Stop();
+                    });
+
+                    serviceConfig.OnInstall(service =&gt;
+                    {
+                        Console.WriteLine(&quot;Service {0} installed&quot;, name);
+                    });
+
+                    serviceConfig.OnUnInstall(service =&gt;
+                    {
+                        Console.WriteLine(&quot;Service {0} uninstalled&quot;, name);
+                    });
+
+                    serviceConfig.OnPause(service =&gt;
+                    {
+                        Console.WriteLine(&quot;Service {0} paused&quot;, name);
+                    });
+
+                    serviceConfig.OnContinue(service =&gt;
+                    {
+                        Console.WriteLine(&quot;Service {0} continued&quot;, name);
+                    });
+
+                    serviceConfig.OnError(e =&gt;
+                    {
+                        Console.WriteLine(&quot;Service {0} errored with exception : {1}&quot;, name, e.Message);
+                    });
+                });
+            });
+        }
+    }
+}
+</code></pre>
+<p>I also had to add the <code>IMicroService</code> interface to <code>MyApp</code>, but otherwise it stayed the same since I already implemented the <code>Start</code>/<code>Stop</code> methods. Yes, it is a tonne more code, but thats just me logging state transitions, your app may not want or need to implement every event handler.</p>
+<p>Now the app runs two ways:</p>
+<pre><code class="language-powershell">dotnet run
+</code></pre>
+<pre><code class="language-shell">Starting up as a console service host
+Service MyApp.MyApp started
+The MyAppService service is now running, press Control+C to exit.
+1
+1
+2
+3
+5
+8
+13
+21
+Control+C detected, attempting to stop service.
+Service MyApp.MyApp stopped
+The MyAppService service has stopped.
+</code></pre>
+<p>And also installed as a service:</p>
+<pre><code class="language-powershell">dotnet run action:install
+</code></pre>
+<pre><code class="language-shell">Successfully registered and started service &quot;MyAppService&quot; (&quot;An example application&quot;)
+</code></pre>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1523006256/MyAppService_rtae5s.png" alt="MyApp running as a Service"></p>
+<h3 id="on-linux">On Linux</h3>
+<p>In theory, we can take this app as written and build and run it as a console app on Linux.  This is because all our code is portable dotnet core <code>netstandard</code> and <code>netcoreapp</code> cross-platform code.  Yes, we have some interop code that expects some windows APIs, but in theory, if we never execute that code, it won&rsquo;t cause any issues.  Let&rsquo;s find out.</p>
+<p>The easiest way to run Linux on windows is probably docker, so we can test using that.
+(This assumes you have Docker installed and set up, otherwise, just follow along on any Linux environment you have.)</p>
+<p>I am going to run the <code>Microsoft/aspnetcore-build</code> image, so that the tools are available, and map the dev folder I was already using. I will just start a <code>bash</code> shell so that I basically simulate working on my folder from a Linux machine. (Your networking may vary.)</p>
+<pre><code class="language-powershell"> docker run --rm -it -v &quot;$(pwd):/app&quot; -w /app microsoft/aspnetcore-build bash
+</code></pre>
+<p>This will likely spend some time pulling down the image if you haven&rsquo;t used it before. Once that is done you will be dropped into a bash shell inside an instance of a <code>Microsoft/aspnetcore-build</code> Linux container with the windows folder directory containing out application mapped to the <code>/app</code> folder.</p>
+<p>(As mentioned, if you don&rsquo;t have docker, or would rather use a Linux environment you already have, the rest of the instructions should work much the same.)</p>
+<p>All you need to do is build and run, and you should get a working application.</p>
+<pre><code class="language-shell">root@2683f31d537c:/app# ls
+MyApp.cs  MyApp.csproj  Program.cs  bin  obj
+root@2683f31d537c:/app# dotnet build
+Microsoft (R) Build Engine version 15.6.84.34536 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restoring packages for /app/MyApp.csproj...
+  Installing System.ServiceProcess.ServiceController 4.4.0.
+  Installing DasMulli.Win32.ServiceUtils 1.0.1.
+  Installing PeterKottas.DotNetCore.CmdArgParser 1.0.5.
+  Installing PeterKottas.DotNetCore.WindowsService 2.0.6.
+  Generating MSBuild file /app/obj/MyApp.csproj.nuget.g.props.
+  Generating MSBuild file /app/obj/MyApp.csproj.nuget.g.targets.
+  Restore completed in 3.08 sec for /app/MyApp.csproj.
+  MyApp -&gt; /app/bin/Debug/netcoreapp2.0/MyApp.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:06.79
+root@2683f31d537c:/app# dotnet run
+Starting up as a console service host
+Service MyApp.MyApp started
+The MyAppService service is now running, press Control+C to exit.
+1
+1
+2
+3
+5
+^CControl+C detected, attempting to stop service.
+Service MyApp.MyApp stopped
+The MyAppService service has stopped.
+</code></pre>
+<p>And that&rsquo;s it, the same code compiles on Linux as well, and runs successfully.</p>
+<p>I&rsquo;m not currently a Linux user and haven&rsquo;t set up services or daemons for a while, so I will defer to others on the topic of <a href="http://pmcgrath.net/running-a-simple-dotnet-core-linux-daemon">Running a dotnet Core app as a Linux daemon</a></p>
+<h3 id="on-docker">On Docker</h3>
+<p>Let&rsquo;s whip up a Dockerfile to round it off, that will build and pack a new docker image, that we can then start and see it running our task.</p>
+<p>First the docker file (Dockerfile). This is a basic minimalist version, you will likely want to do optimisation steps yourself.</p>
+<pre><code class="language-dockerfile">FROM microsoft/dotnet:2.0-runtime AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM microsoft/aspnetcore-build:2.0 AS build
+WORKDIR /src
+COPY . .
+RUN dotnet build -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+</code></pre>
+<p>This will use the <code>Microsoft/aspnetcore-build:2.0</code> container image as the build container, publish the results and produce a packed container based on the <code>Microsoft/dotnet:2.0-runtime</code> container image. We are also setting the container with an entry point to start the application process as the main container process. This means that if/when the process stops, the container terminates.</p>
+<p>We run the build command, asking it to tag the created image as <code>myapptestcontainer:latest</code> so we can refer to it again in a moment.</p>
+<pre><code class="language-powershell">docker build -t myapptestcontainer:latest .
+</code></pre>
+<pre><code class="language-shell">Sending build context to Docker daemon  136.7kB
+Step 1/13 : FROM microsoft/dotnet:2.0-runtime AS base
+ ---&gt; 26314e3adaec
+Step 2/13 : WORKDIR /app
+Removing intermediate container 9296d10905ce
+ ---&gt; 8794c7aca866
+Step 3/13 : EXPOSE 80
+ ---&gt; Running in 6554f663146f
+Removing intermediate container 6554f663146f
+ ---&gt; ad881b2a405e
+Step 4/13 : FROM microsoft/aspnetcore-build:2.0 AS build
+ ---&gt; 244f6193d21a
+Step 5/13 : WORKDIR /src
+Removing intermediate container a38fb58535b6
+ ---&gt; 5ed2a92fda93
+Step 6/13 : COPY . .
+ ---&gt; 8ffd3faa7bc9
+Step 7/13 : RUN dotnet build -c Release -o /app
+ ---&gt; Running in 39d44616ea2d
+Microsoft (R) Build Engine version 15.6.82.30579 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restoring packages for /src/MyApp.csproj...
+  Installing System.ServiceProcess.ServiceController 4.4.0.
+  Installing PeterKottas.DotNetCore.CmdArgParser 1.0.5.
+  Installing DasMulli.Win32.ServiceUtils 1.0.1.
+  Installing PeterKottas.DotNetCore.WindowsService 2.0.6.
+  Generating MSBuild file /src/obj/MyApp.csproj.nuget.g.props.
+  Restore completed in 2.72 sec for /src/MyApp.csproj.
+  MyApp -&gt; /app/MyApp.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:06.14
+Removing intermediate container 39d44616ea2d
+ ---&gt; 56b58883d64b
+Step 8/13 : FROM build AS publish
+ ---&gt; 56b58883d64b
+Step 9/13 : RUN dotnet publish -c Release -o /app
+ ---&gt; Running in 552eb703a748
+Microsoft (R) Build Engine version 15.6.82.30579 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restore completed in 131.4 ms for /src/MyApp.csproj.
+  MyApp -&gt; /src/bin/Release/netcoreapp2.0/MyApp.dll
+  MyApp -&gt; /app/
+Removing intermediate container 552eb703a748
+ ---&gt; 474498c42be3
+Step 10/13 : FROM base AS final
+ ---&gt; ad881b2a405e
+Step 11/13 : WORKDIR /app
+Removing intermediate container c3c0dd6ac31c
+ ---&gt; 02c236862201
+Step 12/13 : COPY --from=publish /app .
+ ---&gt; 33509849efe0
+Step 13/13 : ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
+ ---&gt; Running in 25b373135eb6
+Removing intermediate container 25b373135eb6
+ ---&gt; 511aa92712d1
+Successfully built 511aa92712d1
+Successfully tagged myapptestcontainer:latest
+</code></pre>
+<p>Now that we have a successful image for our app, we can start and run instances of it on docker, as well. We do this using the <code>docker run</code> command.</p>
+<p>As before, we can run this interactively using the -it command:</p>
+<pre><code class="language-powershell">docker run --rm -it myapptestcontainer:latest
+</code></pre>
+<pre><code class="language-shell">Starting up as a console service host
+Service MyApp.MyApp started
+The MyAppService service is now running, press Control+C to exit.
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+89
+^CControl+C detected, attempting to stop service.
+Service MyApp.MyApp stopped
+The MyAppService service has stopped.
+</code></pre>
+<p>And Control+C still works as expected. The real proof is launching it and checking the processes. We will:</p>
+<ul>
+<li>Run an instance from our image, detached (<code>docker run -d myapptestcontainer:latest</code>)</li>
+<li>See that it is running using list process (<code>docker ps</code>)</li>
+<li>Stop the process (<code>docker stop &lt;pid&gt;</code>)</li>
+<li>Print the logs (<code>docker logs &lt;pid&gt;</code>)</li>
+<li>Clean up the process (<code>docker rm &lt;pid&gt;</code>)</li>
+</ul>
+<pre><code class="language-shell">&gt; docker run -d myapptestcontainer:latest
+5a11b3ee222d35196f7d7549d634cd8b8c9220bfb4f9dd9f7fd577b094b2bccb
+
+&gt; docker ps
+CONTAINER ID        IMAGE                       COMMAND              CREATED             STATUS              PORTS               NAMES
+5a11b3ee222d        myapptestcontainer:latest   &quot;dotnet MyApp.dll&quot;   2 seconds ago       Up 1 second         80/tcp              musing_montalcini
+
+&gt; docker stop 5a11b
+5a11b
+
+&gt; docker logs 5a11b
+Starting up as a console service host
+Service MyApp.MyApp started
+The MyAppService service is now running, press Control+C to exit.
+1
+1
+2
+3
+5
+
+&gt; docker rm 5a11b
+5a11b
+</code></pre>
+<p>As we can see, the only difference is the termination. Linux is sending the termination message correctly, but the library we are using doesn&rsquo;t subscribe to the correct callback (<code>AppDomain.CurrentDomain.ProcessExit</code> perhaps) and so instead the process is just terminated.</p>
+<p>Now I started raising this as a bug against the library, but had to stop myself and ask &ldquo;Do I really need this?&rdquo;  There are a bunch of reasons and ways your container could get terminated. You need to build in resilience for this termination.  For that reason, you need to allow for you process to die in the middle of any part of your code and figure out ways to gracefully recover as needed. (Think about how SQL Server recovers after a termination to avoid data loss.) For this reason, I don&rsquo;t see the fact that <code>OnShutdown</code> doesn&rsquo;t get called as a bug, but instead an opportunity to write a better process.</p>
+<p>Of course, if you absolutely want this behaviour, you could do something like <a href="https://github.com/PeterKottas/DotNetCore.WindowsService/issues/52#issuecomment-344853011">this stack overflow comment suggests</a> and connect the handler yourself, calling into the appropriate function. Like replacing the Service factory with the following:</p>
+<pre><code class="language-cs">serviceConfig.ServiceFactory((extraArguments, serviceController) =&gt;
+{
+    var myApp = new MyApp();
+    EventHandler handler = null;
+    handler = (sender, _) =&gt;
+    {
+        AppDomain.CurrentDomain.ProcessExit -= handler;
+        Console.WriteLine(&quot;Process Exit triggered&quot;, name);
+        myApp.Stop();
+    };
+    AppDomain.CurrentDomain.ProcessExit += handler;
+    return myApp;
+});
+</code></pre>
+<p>Just make sure if you do decide to use this, that your stop function is <a href="https://en.wikipedia.org/wiki/Idempotence">idempotent</a> and only runs once.</p>
+<h3 id="the-end">The End</h3>
+<p>I hope this article helps others coming to find out how to create cross-platform services with .Net Core. Also hopefully it redeems me for confusing so many people who landed on my <a href="/building-a-windows-service-with-net-core/">Building a Windows Service with .Net Core</a> article as well.</p>
+<p>Simple. Easy. Works<a href="https://blog.codinghorror.com/the-works-on-my-machine-certification-program/">.</a></p>
+</description>
     </item>
     
     <item>
@@ -54,9 +647,53 @@ Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&a
       <pubDate>Fri, 31 Mar 2017 01:18:07 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</guid>
-      <description>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
-Basically I was trying this:
-docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This maps the current repository directory to a folder called work on the container, and runs the build inside it. This approach means:</description>
+      <description><p>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.</p>
+<p>Basically I was trying this:</p>
+<pre><code>docker run -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1
+</code></pre>
+<p>This maps the current repository directory to a folder called <code>work</code> on the container, and runs the build inside it. This approach means:</p>
+<ul>
+<li>a) All software dependencies are isolated inside the container (including which version of the dotnet cli tools are installed); and</li>
+<li>b) All resulting files are available on the host machine afterwards.</li>
+</ul>
+<p>The problem is this:</p>
+<pre><code>C:\Program Files\dotnet\sdk\1.0.1\Microsoft.Common.CurrentVersion.targets(1111,5): error MSB3644: The reference assemblies for framework &quot;.NETFramework,Version=v4.5&quot; were not found. To resolve this, install the SDK or Targeting Pack for this framework version or retarget your application to a version of the framework for which you have the SDK or Targeting Pack installed. Note that assemblies will be resolved from the Global Assembly Cache (GAC) and will be used in place of reference assemblies. Therefore your assembly may not be correctly targeted for the framework you intend. [C:\work\project\MyProject\MyProject.csproj]
+</code></pre>
+<p>Basically, this docker image is &ldquo;microsoft/dotnet:1.1.1-sdk-nanoserver&rdquo;, which is docker image targeting windows NanoServer and contains the dotnet core 1.1.1 tools (current latest, first with <code>*.csproj</code> capability).  This image does not contain the full .Net framework (among other things).</p>
+<p>Now I could have decided to use <code>microsoft/dotnet-framework</code> which is built on <code>microsoft/windowsservercore</code> and includes full <code>.Net</code>. However, that is a 4GB base image with another 1Gb image applied on top. Very large.</p>
+<p>This lead me to try a few different things to fix the error on this image, eventually finding the magic combo I needed:</p>
+<pre><code>-e &quot;ReferenceAssemblyRoot=C:\NetReference&quot; -v &quot;C:/Program Files (x86)/Reference Assemblies\Microsoft\Framework:C:/NetReference&quot;
+</code></pre>
+<p>Essentially I map the Reference Assemblies folder to the container as well. Then I use the (rather undiscoverable) Environment Variable <code>ReferenceAssemblyRoot</code> to point to that folder. That folder on my machine looks like:</p>
+<pre><code>Framework
+ |-- .NETCore
+ |    +-- ...
+ |-- .NETFramework
+ |    |-- v3.5
+ |    |   +-- ...
+ |    |-- v4.0
+ |    |   +-- ...
+ |    |-- v4.5
+ |    |   +-- ...
+ |    |-- v4.5.1
+ |    |   +-- ...
+ |    |-- ...
+ |-- .NETPortable
+ |    +-- ...
+ |-- Silverlight
+ |    +-- ...
+ |-- v3.0
+ |    +-- ...
+ +-- v3.5
+      +-- ...
+</code></pre>
+<p>Basically, every target framework sdk I have installed on the machine.</p>
+<p>And for building libraries, this is all you need.</p>
+<p>The full final command is:</p>
+<pre><code>docker run -e &quot;ReferenceAssemblyRoot=C:\NetReference&quot; -v &quot;C:/Program Files (x86)/Reference Assemblies\Microsoft\Framework:C:/NetReference&quot; -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1
+</code></pre>
+<p>Just make sure that you have the required frameworks on your machine already (which might be your laptop or (in my case) a TeamCity Agent with Windows Docker installed and configured.</p>
+</description>
     </item>
     
     <item>
@@ -65,10 +702,23 @@ docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/d
       <pubDate>Tue, 29 Nov 2016 04:12:29 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</guid>
-      <description>The docker guidance says you can run docker build piping the dockerfile:
-#On linux$ docker build - &amp;lt; Dockerfile and on Windows it says to do this:
-#PowerShellGet-Content Dockerfile | docker build - Nice. But I&amp;rsquo;ve been getting this error all day&amp;hellip;
-&amp;gt; Get-Content Dockerfile | docker build -unable to prepare context: failed to peek context header from STDIN: Incorrect function. WAT After much pain, I figured out the error is because I was running inside conemu.</description>
+      <description><p>The <a href="https://docs.docker.com/engine/reference/commandline/build/#/text-files">docker guidance says</a> you can run docker build piping the dockerfile:</p>
+<pre><code>#On linux
+$ docker build - &lt; Dockerfile
+</code></pre>
+<p>and on Windows it says to do this:</p>
+<pre><code>#PowerShell
+Get-Content Dockerfile | docker build -
+</code></pre>
+<p>Nice. But I&rsquo;ve been getting this error all day&hellip;</p>
+<pre><code>&gt; Get-Content Dockerfile | docker build -
+unable to prepare context: failed to peek context header from STDIN: Incorrect function.
+</code></pre>
+<h3 id="wat">WAT</h3>
+<p>After much pain, I figured out the error is because I was running inside <a href="http://conemu.github.io/">conemu</a>. *<em>Sigh</em>*</p>
+<p>Sorry to say I don&rsquo;t know how to fix the problem. But at least I know the cause. The solution for now is to run this command in a Regular PowerShell window and avoid conemu for this command.</p>
+<p>Since I searched this error in google and found nothing, I hope this helps the next person who looks.</p>
+</description>
     </item>
     
   </channel>

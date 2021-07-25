@@ -4,6 +4,12 @@
     <title>IIS on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/iis/</link>
     <description>Recent content in IIS on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Tue, 31 May 2016 04:25:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/iis/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +19,16 @@
       <pubDate>Tue, 31 May 2016 04:25:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/manage-your-hosts-entries-better/</guid>
-      <description>If you are working with a lot of sites in IIS then you will be familiar with the hosts file on your computer. %SystemRoot%\System32\drivers\etc\hosts, usually found in C:\Windows\System32\drivers\etc\hosts. This file acts as a DNS mapping table used by your computer. As a developer, you will often want to tinker with this table. For example, you have a site running locally and you want to run it with a URL in your browser.</description>
+      <description><p>If you are working with a lot of sites in IIS then you will be familiar with the hosts file on your computer. <code>%SystemRoot%\System32\drivers\etc\hosts</code>, usually found in <code>C:\Windows\System32\drivers\etc\hosts</code>.  This file acts as a DNS mapping table used by your computer.  As a developer, you will often want to tinker with this table. For example, you have a site running locally and you want to run it with a URL in your browser. You can map <code>www.mysite.local</code> to the IP address of your machine, or the local loopback address <code>127.0.0.1</code></p>
+<pre><code>127.0.0.1    www.mysite.local    #comments are supported too
+</code></pre>
+<p>You can even use line comments at the end of your config using the &lsquo;#&rsquo; character, or comment out lines by placing a &lsquo;#&rsquo; at the start of the file.</p>
+<p>Managing this can get really annoying. It&rsquo;s a text file, its owned by the system, and you usually need to be running your editor as admin to save it.  It is also located so deeply into the windows directory that it is bothersome to deal with at times.</p>
+<p>Luckily, a nice GUI has been built for it that you can pull down off of CodePlex. The best thing is that it plugs into IIS directly. It is called IIS Hosts File Manager Module. Check it out at <a href="https://iishostsmgr.codeplex.com/">https://iishostsmgr.codeplex.com/</a></p>
+<p><img src="http://i3.codeplex.com/Download?ProjectName=iishostsmgr&amp;DownloadId=364495" alt="Host Manager in action - image from https://iishostsmgr.codeplex.com/"></p>
+<p>The UI is very simple and easy to use. It means that you can add or update host entries directly inside IIS without having to go hunting for the file. A huge productivity boost.</p>
+<p>Recommended.</p>
+</description>
     </item>
     
   </channel>

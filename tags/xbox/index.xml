@@ -4,6 +4,12 @@
     <title>Xbox on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/xbox/</link>
     <description>Recent content in Xbox on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Sun, 18 May 2008 04:21:14 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/xbox/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +19,12 @@
       <pubDate>Sun, 18 May 2008 04:21:14 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/xbox-360-a-new-use-for-my-tversity/</guid>
-      <description>About a month back I finally had enough cash to buy myself an xbox 360. I even managed to get three games with it which was a bonus, since it would be a while before I could afford more. Viva Pinata, Forza Motorsport 2 and Assassin&amp;rsquo;s Creed were the three games I got with it, and within a week I also had a copy of Halo 3, the main reason why anyone would get an xbox over a playstation (right?</description>
+      <description><p>About a month back I finally had enough cash to buy myself an xbox 360. I even managed to get three games with it which was a bonus, since it would be a while before I could afford more. Viva Pinata, Forza Motorsport 2 and Assassin&rsquo;s Creed were the three games I got with it, and within a week I also had a copy of Halo 3, the main reason why anyone would get an xbox over a playstation (right?). Ok, maybe that last sentence is a bit too controversial for both camps, and is something I usually do my best to avoid. The main point of this isn&rsquo;t to compare one with the other, but to give my opinion on what I have experienced. Anyway, on to the features.</p>
+<p>The xbox 360 supports 4 controllers, which can be of the wired or wireless variety. With two usb ports on the front, and one on the back, it is obviously designed to be used wirelessly, which makes sense when you look at the price of 32 inch+ sized TVs being so affordable to those who can also afford to buy a console, you wouldn&rsquo;t want to have to sit really close because your bound by your controller cord. My package even came with a remote control. That comes as a real bonus for playing movies and music, because you don&rsquo;t have to remember whether the trigger was skip chapter or the bumper was, when trying to use your controller.</p>
+<p>The reason I wrote this post, as you can tell by the title, is that I now have a new device for tversity to stream to.  This was actually really easy to get going.  On the 360, actively connected to the flat&rsquo;s local network, I just went find file sharing pc, and it instantly found my tversity machine. Navigating through the menus was a breeze. It used the same hierarchy as the web interface does, but through its own menus.  I just navigated into my music, into the artists list and went play all of whatever I felt like listening to.  The movies worked just as well, and I was away laughing.</p>
+<p>So now I can sit in my living room, and watch movies on my xbox from my pc, without having to have them on dvd or stored on the 360. very handy when you have a large hard-drive full of videos and music, and only a 20-gig 360, which to be honest, will only ever contain games and save files.</p>
+<p>Another cool feature is that you can plug any (havent actually tested usb hard drives) usb storage device device (such as mp3 playe, or flash drive) with music on it, into the 360&rsquo;s usb port and you instantly have a portable music device to play music from in the 360 dashboard.  Really handy when the network goes down or I break my vmware virtual machines that host tversity by upgrading to hardy (shouldn&rsquo;t have upgraded, it always breaks stuff).</p>
+</description>
     </item>
     
   </channel>

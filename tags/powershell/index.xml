@@ -4,6 +4,12 @@
     <title>PowerShell on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/powershell/</link>
     <description>Recent content in PowerShell on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 09 Jul 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/powershell/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +19,33 @@
       <pubDate>Mon, 09 Jul 2018 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/some-cool-tricks-with-your-windows-shell/</guid>
-      <description>I&amp;rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (Windows Subsystem for Linux). There are a few of the tricks I have learned recently that help me every day.
-F8 searches history! That&amp;rsquo;s right! When you type into the command line (this work in cmd and PowerShell) and then press F8, it will do a back-in-time search for a historical command that begins with what you typed.</description>
+      <description><p>I&rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a>).  There are a few of the tricks I have learned recently that help me every day.</p>
+<h3 id="f8-searches-history">F8 searches history!</h3>
+<p>That&rsquo;s right! When you type into the command line (this work in cmd and PowerShell) and then press F8, it will do a back-in-time search for a historical command that begins with what you typed. This is a nice way to auto-complete an entire command with complex arguments quickly and easily.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1531122887/F8_Demo_lewuak.gif" alt="F8 cmd history demo"></p>
+<h3 id="windows-explorer-open-shell-here">Windows Explorer &ldquo;Open Shell Here&rdquo;</h3>
+<p>This works for WSL, PowerShell, and cmd.  From any folder in Windows Explorer, you can type into the address bar either <code>wsl</code>, <code>powershell</code> or <code>cmd</code> and it will launch the respective shell opened at the same directory.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1531123505/ShellOpen_Demo_krpbpz.gif" alt="Open Shell Here Demo"></p>
+<h3 id="profile">$PROFILE</h3>
+<p>Powershell has a configuration file that you can add startup scripts to.  This file exists at a path specified by the variable <code>$PROFILE</code>. You can quickly get to it from PowerShell using <code>notepad++ $PROFILE</code> (or use whatever text editor appeals).</p>
+<p>You can add all sorts in here, from defining functions to be available, setting environment variables and more.  Some ideas I&rsquo;ve used it for before are:</p>
+<ul>
+<li><a href="https://blog.csmac.nz/make-me-a-sandwich/">Emulating sudo</a></li>
+<li><a href="https://blog.csmac.nz/aliasing-your-git-status/"><code>git status</code> command aliasing</a></li>
+<li><a href="https://blog.csmac.nz/a-powershell-watch-command/">Define your own Watch command</a></li>
+<li><a href="https://blog.csmac.nz/visual-studio-powershell/">Load the VS Developer Command Prompt dependencies</a></li>
+</ul>
+<h3 id="wsl">WSL</h3>
+<p>Windows Subsystem for Linux (wsl) is an interesting new development. With this, I can install Ubuntu and have a bash shell I can run Linux commands in. This is what Cygwin always wanted to grow up to be.</p>
+<p>The neat thing is you can pass commands back and forward from Powershell and wsl.</p>
+<p>In powershell, you can type a command such as:</p>
+<pre><code class="language-powershell">wsl find . -name *.csproj | % { cat $_ | wsl grep Framework }
+</code></pre>
+<p>This command will execute the command <code>wsl find . -name *.csproj</code> from the current directory in Linux, pass list of file paths generated back to Powershell, then for each path, execute a <code>grep</code> search on Linux again. We could now take the collection of results and pipe them once more through PowerShell, or another Linux command for further processing. Clever.</p>
+<p>If you are already a Linux Shell Pro, you will probably find this ability a true PowerUser feature for you.</p>
+<h3 id="wrap-up">Wrap up</h3>
+<p>These are just a few of the Shell features I have been loving to use lately. There are so many more cool tips and tricks out there. What are your favourites?</p>
+</description>
     </item>
     
     <item>
@@ -23,9 +54,54 @@ F8 searches history! That&amp;rsquo;s right! When you type into the command line
       <pubDate>Tue, 30 Jan 2018 19:36:30 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/a-powershell-watch-command/</guid>
-      <description>I use dotnet-watch a bunch and have used a version via grunt/gulp a little in the past as well.
-In front of me, I had some TypeScript, tsc and an app.ts file. I wanted to watch it and trigger tsc automatically. But there was no csproj, no NuGet, and no npm in sight.
-I went searching far and wide for solutions, and some clever people have some insight to add to the quest:</description>
+      <description><p>I use dotnet-watch a bunch and have used a version via grunt/gulp a little in the past as well.</p>
+<p>In front of me, I had some TypeScript, <code>tsc</code> and an <code>app.ts</code> file. I wanted to watch it and trigger <code>tsc</code> automatically. But there was no csproj, no NuGet, and no npm in sight.</p>
+<p>I went searching far and wide for solutions, and some clever people have some insight to add to the quest:</p>
+<ul>
+<li><a href="https://www.reddit.com/r/usefulscripts/comments/4y46kl/powershell_since_theres_no_native_watch_command/">https://www.reddit.com/r/usefulscripts/comments/4y46kl/powershell_since_theres_no_native_watch_command/</a></li>
+<li><a href="https://stackoverflow.com/questions/29066742/watch-file-for-changes-and-run-command-with-powershell">https://stackoverflow.com/questions/29066742/watch-file-for-changes-and-run-command-with-powershell</a></li>
+<li><a href="https://nightroman.wordpress.com/2006/09/26/watch-command-ps1-watch-commands-output-repeatedly/">https://nightroman.wordpress.com/2006/09/26/watch-command-ps1-watch-commands-output-repeatedly/</a></li>
+</ul>
+<p>From these, I cobbled together what is now in my <code>Microsoft.PowerShell_profile.ps1</code> file:</p>
+<pre><code># Watch in Powershell
+function Invoke-Watch {
+    param(
+        [string]$Folder,
+        [string]$Filter = &quot;*.*&quot;,
+        [scriptblock]$Action,
+        [Switch]$IncludeSubdirectories = $true
+    )
+    $watcher = New-Object IO.FileSystemWatcher $folder, $filter -Property @{ 
+        IncludeSubdirectories = $IncludeSubdirectories
+        EnableRaisingEvents = $true
+    }
+
+    Write-Host &quot;Now Watching (ctrl+c to stop)&quot;
+    $global:PSWatchFileChanged = $false
+    $onChange = Register-ObjectEvent $Watcher Changed -Action {$global:PSWatchFileChanged = $true}
+    try{
+        
+        while($true) {
+            &amp; $Action
+            while($global:PSWatchFileChanged -eq $false) {
+                Start-Sleep -Milliseconds 100
+            }
+            $global:PSWatchFileChanged = $false
+        }
+    }
+    finally{
+        Unregister-Event -SubscriptionId $onChange.Id
+    }
+}
+New-Alias -Name watch -Value Invoke-Watch
+</code></pre>
+<p>To use it, You pass a few parameters to the script:</p>
+<pre><code># Watch tsc compile my ts files
+watch -Folder &quot;${PWD}&quot; =Filter &quot;*.ts&quot; -Action { tsc }
+</code></pre>
+<p>At some point, the parameters will change, and I might make it prettier, or more intuitive. (There is also a nasty global in there, so running more than one at a time is either a feature or a bug, depending on how you use it&hellip;)</p>
+<p>I will probably gist this at some point and keep it up to date with those changes.</p>
+</description>
     </item>
     
     <item>
@@ -34,9 +110,42 @@ I went searching far and wide for solutions, and some clever people have some in
       <pubDate>Mon, 27 Jun 2016 03:57:16 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/formpost-with-powershell/</guid>
-      <description>This article is based on an answer found and updated on StackOverflow.
-I&amp;rsquo;f you have used PowerShell for much at all, you are probably familiar with Invoke-WebRequest. But did you know you can carry around a session and have it automatically add and update cookies for you?
-The Scenario I had an API I wanted to consume, but it was a private one. That is, It was designed and used for a SPA app to consume.</description>
+      <description><p>This article is based on an answer found and updated on <a href="http://stackoverflow.com/a/37729623/2118268">StackOverflow</a>.</p>
+<p>I&rsquo;f you have used PowerShell for much at all, you are probably familiar with <code>Invoke-WebRequest</code>. But did you know you can carry around a session and have it automatically add and update cookies for you?</p>
+<h3 id="the-scenario">The Scenario</h3>
+<p>I had an API I wanted to consume, but it was a private one. That is, It was designed and used for a SPA app to consume. The auth for this API (for the write endpoints anyway) had two requirements: It authorised against cookies and required a csrf token in the requests.  Don&rsquo;t get hung up on the why or who wrote it, but my plan was to call it without having to change it.</p>
+<h3 id="sessionvariable">SessionVariable</h3>
+<p>It turns out that the command <code>Invoke-WebRequest</code> has an argument <code>-SessionVariable</code> where you can provide an object to store session state.  On subsequent requests, you can pass it along again using the argument <code>-WebSession</code>.</p>
+<p>So we know how to store the session, how do we post a form? Well, clearly you get the page with the form on it, then post that form back. If you have a proper classic HTML page with a <code>Form</code> on it, you can do a <code>GET</code> to that page and use it by filling it out and executing the provided command.</p>
+<pre><code>$myUrl = &quot;http://mydomain.url&quot;  
+
+$response = Invoke-WebRequest -Uri $myUrl -Method GET -SessionVariable mySession
+
+$form = $response.Forms[0]
+$form.Fields[&quot;username&quot;] = &quot;username&quot;
+$form.Fields[&quot;password&quot;] = &quot;password&quot;
+
+$response = Invoke-WebRequest -Uri ($myUrl + $form.Action) -WebSession $mySession -Method POST 
+$response.StatusDescription #should be OK
+</code></pre>
+<p>You may have to check exactly what format <code>$form.Action</code> takes to see if it is absolute or relative URL, or if it includes the domain or not.</p>
+<p>Also, check what your form fields are called. I have a mistake in mine where the field was called <code>user</code> rather than <code>username</code> on one page.</p>
+<p>Note that in the first request when you use the <code>-SessionVariable</code> argument, you just provide the name of the variable, and not a variable itself. That is, use <code>mySession</code> rather than <code>$mySession</code>.</p>
+<p>If you complete this correctly you should have all the correct cookies passed around. This means that both:</p>
+<ol>
+<li>The post will work if there is any cookie verification across the get and post and</li>
+<li>The resulting <code>$mySession</code> will contain an authenticated cookie for further authenticated requests.</li>
+</ol>
+<h3 id="csrf">CSRF</h3>
+<p>Part two is that I had to parse out csrf. I am still not sure why the requests require the csrf token, probably because it&rsquo;s a <a href="samnewman.io/patterns/architectural/bff/">BFF</a> API.</p>
+<p>Luckily, the login form had a token in the original form, so I was able to just provide that in subsequent requests.</p>
+<pre><code>$payload = @{_csrf = $form.Fields[&quot;_csrf&quot;]; data = &quot;more data&quot;}
+</code></pre>
+<p>and then can just use the payload as normal:</p>
+<pre><code>$response = Invoke-WebRequest -Uri ($myUrl + $form.Action) -WebSession $mySession -Method POST -Body $payload
+</code></pre>
+<p>Of course, your mileage may vary. But this worked for me. The other option would have been to parse out the value from the page, from cookies, or actually, just fix the service to not need it I guess?</p>
+</description>
     </item>
     
     <item>
@@ -45,8 +154,59 @@ The Scenario I had an API I wanted to consume, but it was a private one. That is
       <pubDate>Mon, 09 May 2016 08:30:59 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
-      <description>There is this great feature in Visual Studio that lets you really dial up the quality of your code. It has been there forever it seems, but very few people use it.
-The compiler spits out errors, which stop your app compiling. You fix your errors and move on. But the compiler also spits out a lot of warnings too. And many of these are to do with the quality of your code, and possible code errors you have introduced that could cause you issues later on.</description>
+      <description><p>There is this great feature in Visual Studio that lets you really dial up the quality of your code. It has been there forever it seems, but very few people use it.</p>
+<p>The compiler spits out errors, which stop your app compiling. You fix your errors and move on.  But the compiler also spits out a lot of warnings too. And many of these are to do with the quality of your code, and possible code errors you have introduced that could cause you issues later on.</p>
+<p>Did you know you can get the builds to actually fail to compile from these warnings?</p>
+<h3 id="treat-warnings-as-errors">Treat Warnings As Errors</h3>
+<p>If you head to the properties dialog of a project, you will see the following under the Build menu.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1462825696/TreatWarningsAsErrors_vzev9g.png" alt="Visual Studio Build Config Settings"></p>
+<p>See that radio button? Treat warnings as errors. You wanna set that baby to All. Do it now! While you are in here, set the Warning level to 4 as well.</p>
+<p>That&rsquo;s it! You are all set to start failing your builds, for this project anyway. In fact, go ahead and try to build. There is a better than normal chance that you probably already have some warnings and now have a failing build. Well done.</p>
+<p>Actually, you probably only turned that on for Debug builds, so go repeat those steps after changing the Configuration dropdown to Release. And any others you have where this applies.</p>
+<p>The nice thing about <code>TreatWarningsAsErrors</code> is that it is in the *.csproj file XML, and is actually an MSBuild command.  This means that it will use the same settings when you build at command line using either devenv or MSBuild tools.  So your CI server will apply this too.</p>
+<p>As well as the <code>TreatWarningsAsErrors</code> command, there is this <code>WarningLevel</code>. Just turn it up to <code>4</code> and move on, it is the option you want, trust me.</p>
+<h3 id="-one-weird-trick">&hellip; One weird trick</h3>
+<p>So, I mentioned one weird script right?</p>
+<p>If you have an existing solution with lots of projects, you won&rsquo;t want to turn these all on one by one manually. You also don&rsquo;t want to fuss around making sure that if you or someone else has added a bunch of new projects, that these rules are turned on correctly.</p>
+<p>To solve these issues, I have a PowerShell script that runs over a directory, finds all the *.csproj files, and updates their Debug and Release configurations with <code>TreatWarningsAsErrors</code> set to <code>true</code>, and <code>WarningLevel</code> to `4'.</p>
+<pre><code class="language-powershell">get-childitem . -include *.csproj -recurse -ErrorAction SilentlyContinue | %{
+    $_.FullName
+    [xml]$proj = get-content $_.FullName
+    $modified = 0
+    $proj.Project.PropertyGroup | 
+    where-object { $_.Condition -match 'Configuration.*Platform.*(Debug|Release)' } | %{
+        if (-not $_.TreatWarningsAsErrors) {
+            $node = $proj.CreateElement('TreatWarningsAsErrors', $proj.Project.NamespaceURI)
+            $node.InnerText = 'true'
+            $node = $_.AppendChild($node)
+            $modified = 1
+        }
+        if ($_.TreatWarningsAsErrors -ne 'true') {
+            $_.TreatWarningsAsErrors = 'true'
+            $modified = 1
+        }
+        if (-not $_.WarningLevel) {
+            $node = $proj.CreateElement('WarningLevel', $proj.Project.NamespaceURI)
+            $node.InnerText = &quot;4&quot;
+            $node = $_.AppendChild($node)
+            $modified = 1
+        }
+        if ($_.WarningLevel -ne &quot;4&quot;) {
+            $_.WarningLevel.InnerText = &quot;4&quot;
+            $modified = 1
+        }
+    }
+    if ($modified -eq 1) {
+        $proj.Save($_.FullName)
+    }
+}
+</code></pre>
+<p>This is also up on <a href="https://gist.github.com/csMACnz/6b736c9109023af4c09f6f0b9405081b">a gist</a> if you prefer.</p>
+<p>That is it. Run that in your solution directory and you should be sorted.  Don&rsquo;t forget to fix the compiler errors before checking your changes back in though.</p>
+<h3 id="caveats">Caveats</h3>
+<p>There is always one project that disobeys with the strict rules. That&rsquo;s ok, just leave it off and come back and fix the issues when you have a spare few moments. Perhaps in a quiet Friday afternoon, or the day after ship day while you wait for those bug reports to come in. Once the problem is fixed, run the script again and hey presto it will be turned on again.</p>
+<p>There are other ways to filter and ignore specific issues but I will leave that as an exercise for the reader if they really want to go down that path.</p>
+</description>
     </item>
     
     <item>
@@ -55,13 +215,39 @@ The compiler spits out errors, which stop your app compiling. You fix your error
       <pubDate>Sun, 11 Oct 2015 15:57:06 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/make-me-a-sandwich/</guid>
-      <description>A lesson in powershell.
-I typed this:
-&amp;gt; iisreset  Which responded with this:
-Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group.  So I typed this:
-&amp;gt; sudo iisreset  I was thinking this: 
-But got this:
-sudo : The term &#39;sudo&#39; is not recognized as the name of a cmdlet, function, script file, or operable program.</description>
+      <description><p>A lesson in powershell.</p>
+<p>I typed this:</p>
+<pre><code class="language-powershell">&gt; iisreset
+</code></pre>
+<p>Which responded with this:</p>
+<pre><code class="language-powershell">Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group.
+</code></pre>
+<p>So I typed this:</p>
+<pre><code class="language-powershell">&gt; sudo iisreset
+</code></pre>
+<p>I was thinking this:
+<a href="https://xkcd.com/149/"><img src="https://imgs.xkcd.com/comics/sandwich.png" alt=""></a></p>
+<p>But got this:</p>
+<pre><code class="language-powershell">sudo : The term 'sudo' is not recognized as the name of a cmdlet, function,  
+script file, or operable program. Check the spelling of the name, or if a    
+path was included, verify that the path is correct and try again.            
+At line:1 char:1                                                             
++ sudo import-module webadministration                                       
++ ~~~~                                                                       
+    + CategoryInfo          : ObjectNotFound: (sudo:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+                                                                             
+</code></pre>
+<p>So I added to my $PROFILE:</p>
+<pre><code class="language-powershell">function invoke-assuperuser { Start-Process powershell -Verb runAs $args }
+set-alias sudo invoke-assuperuser
+</code></pre>
+<p>Now I can:</p>
+<pre><code class="language-powershell">&gt; sudo iisreset
+</code></pre>
+<p>And it works (In a new window, via UAC)</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1444625794/yayanimated_syyjd8.gif" alt=""></p>
+</description>
     </item>
     
     <item>
@@ -70,8 +256,24 @@ sudo : The term &#39;sudo&#39; is not recognized as the name of a cmdlet, functi
       <pubDate>Sat, 18 Apr 2015 13:26:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/aliasing-your-git-status/</guid>
-      <description>Anyone else have the bad habit of typing in git statsu or git stauts? Or maybe you just end up typing git status all the time at the command line, and wonder if there was a better way. Well, there is.
-Aliases Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an alternative way to call another command, maybe with implicit parameters baked in that you use all the time.</description>
+      <description><p>Anyone else have the bad habit of typing in <code>git statsu</code> or <code>git stauts</code>? Or maybe you just end up typing <code>git status</code> all the time at the command line, and wonder if there was a better way.  Well, there is.</p>
+<h3 id="aliases">Aliases</h3>
+<p>Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an alternative way to call another command, maybe with implicit parameters baked in that you use all the time. So for me, I want to type <code>gs</code> to perform a <code>git status</code> call.</p>
+<h3 id="powershell">PowerShell</h3>
+<p>As a .Net developer, I use PowerShell as my preferred command line shell. This means when it comes to git, <a href="http://blog.csmac.nz/visual-studio-powershell/">I have PowerShell set up just so</a>, and it can give me all these nice indicators around what branch I&rsquo;m on etc.  But when It comes to aliases, PowerShell requires a native command to attach that alias to (of which <code>git status</code> isn&rsquo;t). It also doesn&rsquo;t allow default arguments when you make these aliases.  But it can be done. The trick is to wrap it in a function:</p>
+<pre><code class="language-powershell">function Get-GitStatus { &amp; git status }
+New-Alias -Name gs -Value Get-GitStatus
+</code></pre>
+<p>First we define a function that represents the command we want to execute (<code>git status</code> in this case), then we call the New-Alias PowerShell command, and provide a name (<code>gs</code>) and the defined function as the value. Easy.</p>
+<p>As a convenience, I added these two lines to my <code>Microsoft.PowerShell_profile.ps1</code> file (you can find this using the <code>$PROFILE</code> variable in your PowerShell) so that the alias is always available when PowerShell starts.</p>
+<h3 id="bash">BASH</h3>
+<p>While Bash is not my primary shell, it is the go-to for most developers using. It is easy to get an alias set up in Bash. All you would need is to run the following command:</p>
+<pre><code class="language-powershell">alias gs='git status'
+</code></pre>
+<p>Now whenever you type <code>gs</code> it will run the <code>git status</code> command. Again, you could put this in your <a href="http://tldp.org/LDP/abs/html/sample-bashrc.html">.bashrc file</a> (or <a href="http://stackoverflow.com/questions/6883760/git-for-windows-bashrc-or-equivalent-config-files-for-git-bash-shell">windows equivalent</a> to make this available whenever you launch the shell.</p>
+<h3 id="til">TIL</h3>
+<p>So I was watching someone else give an introduction to git today, and found out that for some commands in git have built in, well established aliases already. one of these is the <code>status</code> command, using <code>st</code>. So if <code>git status</code> is giving you trouble, maybe just look at using <code>git st</code> instead. No custom aliasing required. I&rsquo;m still going to keep using my <code>gs</code> though, its still faster.</p>
+</description>
     </item>
     
     <item>
@@ -80,8 +282,70 @@ Aliases Most command-line shells have the concept of aliasing. This means you ty
       <pubDate>Thu, 29 Jan 2015 17:54:54 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/visual-studio-powershell/</guid>
-      <description>I&amp;rsquo;ve been using psake as my build tool and running my builds on Appveyor. Now Appveyor runs with all the visual studio commands available on the path. When you install visual studio, It gives you a special cmd shell shortcut that loads you an environment with all the visual studio stuff available, which is cool. But not for PowerShell.
-DISCLAIMER: I originally found this solution on this msdn blog, but tweaked it to work with Visual Studio 2013, and 64bit versions of windows.</description>
+      <description><p>I&rsquo;ve been using psake as my build tool and running my builds on Appveyor.  Now Appveyor runs with all the visual studio commands available on the path.  When you install visual studio, It gives you a special cmd shell shortcut that loads you an environment with all the visual studio stuff available, which is cool. But not for PowerShell.</p>
+<p><strong>DISCLAIMER</strong>:  I originally found this solution on this <a href="http://blogs.msdn.com/b/domgreen/archive/2009/05/03/visual-studio-command-prompt-via-powershell.aspx">msdn blog</a>, but tweaked it to work with Visual Studio 2013, and 64bit versions of windows.  Since I kept changing machines and loosing my scripts I decided to blog about it so I knew where to look to find the code again.</p>
+<p>With that out of the way, here is the code I add to my PowerShell $PROFILE:</p>
+<pre><code class="language-powershell">#### Functions Used to Load VS Command Prompt #####
+ 
+function Get-Batchfile ($file) {
+    $cmd = &quot;`&quot;$file`&quot; &amp; set&quot;
+    cmd /c $cmd | Foreach-Object {
+        $p, $v = $_.split('=')
+        Set-Item -path env:$p -value $v
+    }
+}
+ 
+function VisualStudioVars()
+{
+    $version = &quot;12.0&quot;
+    $key = &quot;HKLM:SOFTWARE\Wow6432Node\Microsoft\VisualStudio\&quot; + $version
+    $VsKey = Get-ItemProperty $key
+    $VsInstallPath = [System.IO.Path]::GetDirectoryName($VsKey.InstallDir)
+    $VsInstallDir = [System.IO.Path]::GetDirectoryName($VsInstallPath)
+    $VsToolsDir = [System.IO.Path]::Combine($VsInstallDir, &quot;Tools&quot;)
+    $vs120comntools = (Get-ChildItem env:VS120COMNTOOLS).Value    
+    $batchFile = [System.IO.Path]::Combine($vs120comntools, &quot;vsvars32.bat&quot;)
+    Get-Batchfile $batchFile
+}
+ 
+###### Run at startup ######
+VisualStudioVars
+</code></pre>
+<p>This basically finds the cmd file vsvars32.bat for visual studio 2013(VS12.0) and loads the specified files to the environment path for this session. Now I have access to devenv.exe and other visual studio tools from PowerShell.  For new versions of Visual Studio, just update the version number references and you&rsquo;re golden.  Note that if you are using a 32bit version of windows, remove the <code>Wow6432Node</code> from the key path, making it:</p>
+<pre><code class="language-powershell">$key = &quot;HKLM:SOFTWARE\Microsoft\VisualStudio\&quot; + $version
+</code></pre>
+<p>Bonus content:</p>
+<pre><code class="language-powershell">$env:path += &quot;;&quot; + (Get-Item &quot;Env:ProgramFiles&quot;).Value + &quot;\Git\bin&quot;
+$env:path += &quot;;&quot; + (Get-Item &quot;Env:ProgramFiles&quot;).Value + &quot;\nodejs&quot;
+</code></pre>
+<p>This is a quick addition of git and node to my PowerShell so I can run these as well.  Extend these as needed for other installed executables.</p>
+<p>When setting up a new machine I also install ps-get and posh-git based on <a href="http://haacked.com/archive/2011/12/13/better-git-with-powershell.aspx/">Phil Haack&rsquo;s blog post</a>.  Check it out for the full instructions of what you need to do, but for my own reference and your second, third and twentieth time, use the following commands</p>
+<pre><code class="language-powershell"># Set the execution policy to allow random scripts from the web
+Set-ExecutionPolicy RemoteSigned
+# install ps-get
+(new-object Net.WebClient).DownloadString(&quot;http://psget.net/GetPsGet.ps1&quot;) | iex
+# install posh-git
+install-module posh-git
+</code></pre>
+<p>And that&rsquo;s my PowerShell $PROFLE information. Hope this helps someone other than just me next time I set up a new development machine, or reinstall Windows.</p>
+<h4 id="2015-05-12-update">2015-05-12 Update:</h4>
+<p>I use chocolatey to install other helpful components to my shell.</p>
+<pre><code class="language-powershell">iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+</code></pre>
+<p>Some common tools I like to have installed are:</p>
+<pre><code class="language-powershell">choco install -y paint.net
+choco install -y autohotkey
+choco install -y git
+choco install -y gitpad
+choco install -y gitextensions
+choco install -y nuget.CommandLine
+choco install -y github
+choco install -y atom
+choco install -y colorcop
+choco install -y console2
+choco install -y f.lux
+</code></pre>
+</description>
     </item>
     
   </channel>

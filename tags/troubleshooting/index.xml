@@ -4,6 +4,12 @@
     <title>troubleshooting on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/troubleshooting/</link>
     <description>Recent content in troubleshooting on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 13 Nov 2017 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/troubleshooting/index.xml" rel="self" type="application/rss+xml" />
@@ -13,10 +19,19 @@
       <pubDate>Mon, 13 Nov 2017 06:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/fix-wireless-display-connection/</guid>
-      <description>I was having trouble with connecting my laptops to a remote display with Miricast.
-Specifically, I was trying to use the functionality built into Windows 10 to connect to a wireless display and had a Microsoft Wireless Display Adapter V2 plugged into my TV.
-It would say Connecting to ... for a while and then fail with a message Couldn&#39;t connect.
-I managed to find a support article from Microsoft, which has some great troubleshooting steps to follow.</description>
+      <description><p>I was having trouble with connecting my laptops to a remote display with Miricast.</p>
+<p>Specifically, I was trying to use the functionality built into Windows 10 to connect to a wireless display and had a Microsoft Wireless Display Adapter V2 plugged into my TV.</p>
+<p>It would say <code>Connecting to ...</code> for a while and then fail with a message <code>Couldn't connect</code>.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_400/v1510561847/CouldntConnect_dcn7xf.png" alt="Windows says Couldn&rsquo;t Connect"></p>
+<p>I managed to find a support article from Microsoft, which has some great troubleshooting steps to follow.</p>
+<p><a href="https://support.microsoft.com/en-gb/help/4023497#solution-6--allow-the-adapter-to-communicate-through-windows-firewall">https://support.microsoft.com/en-gb/help/4023497#solution-6--allow-the-adapter-to-communicate-through-windows-firewall</a></p>
+<p>Turns out in my case it is a networking firewall issue.  If you suspect you have this problem, try turning your Windows Firewall off, and then connect. If it works, this might be your issue, too. (Please turn the firewall back on now!!)</p>
+<p>However, these instructions by themselves were not enough. In the Windows Firewall, there is configuration around Blocking incoming connections. A little checkbox says &ldquo;Block all incoming connections, including those in the list of allowed applications&rdquo;.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1510561847/BlockIncommingConnections_hkp01v.png" alt="Customise Firewall settings to allow applications through."></p>
+<p>If you want to be able to connect to a Wireless Display, this needs to be <strong>Unchecked</strong>, so that the device can communicate back to establish the connection. Depending on your situation, you may need to do this for Both Public and private networks.</p>
+<p><strong>SECURITY WARNING</strong>  If you are using your laptop against public network connections, you probably want to turn this back on again when you have finished so that your machine is protected on public networks such as wifi hotspots at Cafes and Airports.  Just turn this off while you are connected to your remote displays, at your home or office on the trusted Private networks.</p>
+<p>There may be a way to establish a trusted Display Adapter as a private network instead, to avoid this issue. I just haven&rsquo;t found one yet. If you do, please let me know!</p>
+</description>
     </item>
     
     <item>
@@ -25,7 +40,33 @@ I managed to find a support article from Microsoft, which has some great trouble
       <pubDate>Wed, 01 Jul 2015 20:35:13 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/windows-10-phantom-text-fix/</guid>
-      <description>I&amp;rsquo;ve been using the Windows 10 Insider Previews on my Dell Latitude ST2E Tablet for a few months and It has been a bit hit and miss. I&amp;rsquo;ve really enjoyed the experience of previewing what&amp;rsquo;s coming, but it has been quite buggy up until the 10158/10159 builds leading up to the July 29th RTM. But there is one bug that has survived for me that, through wishful thinking I had expected to just go away after a while.</description>
+      <description><p>I&rsquo;ve been using the Windows 10 Insider Previews on my <a href="http://www.dell.com/us/dfb/p/latitude-10-st2e/pd">Dell Latitude ST2E Tablet</a> for a few months and It has been a bit hit and miss.  I&rsquo;ve really enjoyed the experience of previewing what&rsquo;s coming, but it has been quite buggy up until the 10158/10159 builds leading up to the July 29th RTM.  But there is one bug that has survived for me that, through wishful thinking I had expected to just go away after a while. That is, the phantom text, invisible text, or missing text bug, depending on what you want to call it.</p>
+<h3 id="exhibit-a">Exhibit A</h3>
+<p>This is a symptom I&rsquo;ve been seeing on one Windows 8 app in particular while using windows 10, the <a href="http://apps.microsoft.com/windows/en-nz/app/comics/39c58b6e-8b89-4127-a7a3-914cc7918b98">Comixology App</a>. Almost all of the buttons, links and text descriptions were completely missing, except maybe becoming visible when you press down on a button.  As of the 10158 release, I have started seeing this also happen on the new Windows 10 Store app as well. It makes it kind of tricky to use the apps when the content is blank.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824524/the_bug_tj8c7h.png" alt="Screenshot showing missing text in apps on Windows 10"></p>
+<h3 id="research">Research</h3>
+<p>I came across <a href="http://kb.parallels.com/en/122856">some early bugs</a> that indicated it might be driver related. As Hard as I looked, the obscure Intel Atom Z2760 processor just did not have any new Windows 10 drivers, and the 2013 drivers that dell provided barely differed from the ones Windows Update had given me.</p>
+<h3 id="the-fix">The Fix</h3>
+<p>Out of pure frustration, I tried resetting my drivers to the Microsoft Basic Display Adapter, and wouldn&rsquo;t you know it, It actually solved the problem!</p>
+<p>To do this yourself, just follow these simple steps:</p>
+<ul>
+<li>Open Device Manager</li>
+<li>Find your Display Adapter under the Display adapters group</li>
+<li>Right-Click your adapter and select Update Driver Software</li>
+<li>Select the &ldquo;Browse my Computer for driver software&rdquo; option</li>
+<li>Select &ldquo;Let me pick from a list of device drivers on my computer&rdquo;</li>
+<li>Select &ldquo;Microsoft Basic Display Adapter&rdquo; from the list</li>
+<li>Click Next and you&rsquo;re done</li>
+<li>Click Close to close the window</li>
+</ul>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824521/basicdriver_zqaz7l.png" alt="Update your driver selecting the Microsoft Basic Display Adapter."></p>
+<p>When I did this, it didn&rsquo;t require a restart, but it will prompt you if you do.</p>
+<p>Straight away, I was able to see all the missing text, and can finally start using the system again without the missing text bug.</p>
+<p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824526/fixed_uyfg9e.png" alt="After the fix, the text is visible again."></p>
+<h3 id="conclusion">Conclusion</h3>
+<p>And that&rsquo;s basically it. I searched for ages and didn&rsquo;t find a solution, so hopefully this helps someone else out who is having similar problems.</p>
+<p>I don&rsquo;t know the extent of the issue across the OS since until recently it only happened on one app. Now that It happens in the Store it might become more common. I&rsquo;m hoping that come August, this will no longer be an issue for the RTM, but if it is, This might save a few people some pain until Intel, Dell or Microsoft get around to correcting the issue for the general Windows 10 user, without the need for this workaround.</p>
+</description>
     </item>
     
     <item>
@@ -34,8 +75,17 @@ I managed to find a support article from Microsoft, which has some great trouble
       <pubDate>Thu, 12 Feb 2009 22:35:24 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/strange-monitor-issues/</guid>
-      <description>Just a little backstory to put this in context. I have a dual-boot Vista/Ubuntu machine. I updated my hardware and vista needed to re-register, but my internet connection was down. Fine, I&amp;rsquo;ll use Ubuntu till my internets back.
-All is well until I finally reboot into Vista and re-active my licence online, download all the latest updates and reboot. All of a sudden my LCD screen no longer works. Fortunately, I have two screens but the LCD no longer detects as UPnP and won&amp;rsquo;t take a resolution higher than 1024x768.</description>
+      <description><p>Just a little backstory to put this in context. I have a dual-boot Vista/Ubuntu machine. I updated my hardware and vista needed to re-register, but my internet connection was down. Fine, I&rsquo;ll use Ubuntu till my internets back.</p>
+<p>All is well until I finally reboot into Vista and re-active my licence online, download all the latest updates and reboot. All of a sudden my LCD screen no longer works. Fortunately, I have two screens but the LCD no longer detects as UPnP and won&rsquo;t take a resolution higher than 1024x768.This is really bad and so I figured it was vista being stupid. So I rebooted into ubuntu and guess what? the screen still doesn&rsquo;t work and the resolution is caped at a rediculous 640x480.</p>
+<p>This really frustrated me and I tried everything I could think of, let the video card cool down, reset the bios, monitor, x11 setup, everything. Nothing worked.</p>
+<p>Finally I found <a href="http://forums.nvidia.com/lofiversion/index.php?t48178.html">this forum</a> that had a post with everyone having the same problem, same monitor, similar graphics card, same vista. About halfway down the page <a href="https://forums.geforce.com/default/topic/369603/geforce-drivers/no-signal-blank-screen-vista-please-post-here-if-you-have-this-issue/post/2648803/#2648803">umop3pl5dn had posted</a> the solution and it was ridiculously simple.</p>
+<blockquote>
+<p>You guys seriously will not BELIEVE this&hellip;</p>
+<p>No Signal Problems /yes.gif' class=&lsquo;bbc_emoticon&rsquo; alt=':yes:' /&gt;</p>
+<p>I&rsquo;m running an 8800GTS evga card w/ a chimei 22inch LCD(cmv221D) and I&rsquo;ve been up all night / all day yesterday trying to figure out why my monitor randomly wouldnt go over 1024x768 randomly&hellip;well I was reading around and read somewhere to just UNPLUG the power and dvi cable for a few mins&hellip;i did it for about 5 or so.and when i plugged it back in, mind you my PC was still running and i had this very forum open the whole time..i plug it back in and everything is working again like normal as if the monitor reset itself somehow?? i have no idea why this worked, ive tried EVERYTHING else&hellip;it&rsquo;s a shot in the dark, at least it was for me and i happen to hit the bullseye&hellip;try it out!? haha.gif haha.gif</p>
+</blockquote>
+<p>Unplug the monitor from the power, wait a minute, reconnect the monitor, and bingo it all works again. So if any of you vista users of with a Chimei monitor using an NVidia 8xxx series card have this problem in te future, unplug the monitor power, wait, replace and away you go.</p>
+</description>
     </item>
     
   </channel>

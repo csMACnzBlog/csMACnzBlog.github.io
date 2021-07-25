@@ -4,6 +4,12 @@
     <title>Storyteller on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/storyteller/</link>
     <description>Recent content in Storyteller on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Thu, 28 Dec 2017 23:41:13 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/storyteller/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +19,244 @@
       <pubDate>Thu, 28 Dec 2017 23:41:13 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/storytellerreduxsample/</guid>
-      <description>A week or two ago Jeremy Miller posted an article Subcutaneous Testing against React + .Net Applications. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.
-While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned. So I figured I would pull on that thread and see what is actually possible.</description>
+      <description><p>A week or two ago Jeremy Miller posted an article <a href="https://jeremydmiller.com/2017/12/19/subcutaneous-testing-against-react-net-applications/">Subcutaneous Testing against React + .Net Applications</a>. It outlined some early R&amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.</p>
+<p>While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned.  So I figured I would pull on that thread and see what is actually possible.</p>
+<h3 id="first-hurdle">First Hurdle</h3>
+<p>My first hurdle was that the code in question was part of Storyteller 5. This does not run on my machine (for various reasons) and so to test anything I needed to backport Storyteller.Redux onto Storyteller 4. (Storyteller.Redux is also only an alpha release currently, anyway).</p>
+<p>So I copied the <a href="https://github.com/storyteller/Storyteller/tree/master/src/Storyteller.Redux">Storyteller.Redux</a> and <a href="https://github.com/storyteller/Storyteller/tree/master/src/ReduxSamples">ReduxSamples</a> into a new solution, and changed the project references to NuGet package references for Storyteller 4. So far so good.</p>
+<h3 id="an-aspnetcore-app">An AspNetCore app</h3>
+<p>I created another folder (<code>myapp</code>) next to these projects and used the <code>dotnet new reactredux</code> to create a default sample AspNetCore app using react and redux. This would be my test application. This comes with a few pages, and a couple of stores and commands to play with as test targets.</p>
+<h3 id="launching-aspnetcore-from-storyteller">Launching AspNetCore from Storyteller</h3>
+<p>I couldn&rsquo;t use the <a href="https://www.nuget.org/packages/Storyteller.AspNetCore/">Storyteller.AspNetCore</a> package because it actually creates an in-memory server (which is great for some kinds of testing) but to test React, I actually have to launch a browser to point to the app, so a real running instance is required.</p>
+<p>Instead, I created a new System that could launch the WebApp using Startup but still hosted on a port that a browser can talk to. I can then use Selenium (again not directly using Storyteller.Selenium for reasons) to launch and host the running page. This required a few custom classes:</p>
+<ul>
+<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/BrowserDriver.cs">BrowserDriver.cs</a></li>
+<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/SeleniumReduxSagaExtension.cs">SeleniumReduxSagaExtension.cs</a></li>
+<li><a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs">Program.cs (+ReduxSampleSystem)</a></li>
+</ul>
+<pre><code class="language-cs">    public class BrowserDriver: IDisposable
+    {
+        private object _browserLock = new object();
+
+        private ChromeDriverService _driverService;
+        private ChromeOptions _options;
+        private ChromeDriver _driver;
+
+        public BrowserDriver()
+        {
+            _driverService = ChromeDriverService.CreateDefaultService(PlatformServices.Default.Application.ApplicationBasePath, &quot;chromedriver.exe&quot;);
+            _options = new ChromeOptions();
+            //_options.AddAdditionalCapability(&quot;IsJavaScriptEnabled&quot;, true);
+        }
+
+        public void LaunchUrl(string targetURL)
+        {
+            if (_driver != null)
+            {
+                Close();
+            }
+
+            _driver = new ChromeDriver(_driverService, _options);
+
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+
+            _driver.Navigate().GoToUrl(targetURL);
+
+            wait.Until(driver =&gt; driver.FindElement(By.TagName(&quot;body&quot;)));
+            wait.Until(driver =&gt; ((IJavaScriptExecutor)driver).ExecuteScript(&quot;return document.readyState&quot;).Equals(&quot;complete&quot;));
+
+            IEnumerable&lt;LogEntry&gt; logs = _driver.Manage().Logs.GetLog(&quot;browser&quot;);
+
+            if (logs.Any(l =&gt; l.Level == LogLevel.Warning || l.Level == LogLevel.Severe))
+            {
+                throw new Exception($&quot;Warnings/Errors logged: \n{string.Join(&quot;/n&quot;, logs.Select(l =&gt; l.Timestamp + &quot;:::&quot; + l.Message))}&quot;);
+            }
+        }
+
+        public void Close()
+        {
+            if (_driver != null)
+            {
+                _driver.Quit();
+                _driver = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _driverService?.Dispose();
+                _driverService = null;
+            }
+        }
+    }
+</code></pre>
+<pre><code>    public class SeleniumReduxSagaExtension : IExtension
+    {
+        public string Url { get; }
+
+        private Lazy&lt;BrowserDriver&gt; _browserDriver = new Lazy&lt;BrowserDriver&gt;(() =&gt; new BrowserDriver());
+
+        public SeleniumReduxSagaExtension(string url)
+        {
+            Url = url;
+            Server = new WebSocketServer();
+        }
+
+        public WebSocketServer Server { get; set; }
+
+        public void Dispose()
+        {
+            Server.SendCloseMessage();
+            Server.Dispose();
+            _browserDriver.Value.Dispose();
+        }
+
+        public Task Start()
+        {
+            return Task.Factory.StartNew(() =&gt;
+            {
+                Server.Start();
+            });
+        }
+
+        private void LaunchPage()
+        {
+            var url = Url.Contains(&quot;?&quot;)
+                ? Url + $&quot;&amp;StorytellerPort={Server.Port}&quot;
+                : $&quot;{Url}?StorytellerPort={Server.Port}&quot;;
+            _browserDriver.Value.LaunchUrl(url);
+        }
+
+        public void BeforeEach(ISpecContext context)
+        {
+            Server.SendCloseMessage();
+            Server.ClearAll();
+
+            LaunchPage();
+
+            var reduxContext = new ReduxSpecContext(context);
+            Server.CurrentContext = reduxContext;
+
+            context.State.Store(reduxContext);
+            context.State.Store(Server);
+
+            Server.WaitForConnection(15.Seconds()).Wait();
+        }
+
+        public void AfterEach(ISpecContext context)
+        {
+
+        }
+    }
+</code></pre>
+<pre><code>    public class ReduxSampleSystem : SimpleSystem
+    {
+        private const string WebHostUrl = &quot;http://localhost:5050&quot;;
+        private IWebHost _host;
+
+        public ReduxSampleSystem()
+        {
+            // No request should take longer than 250 milliseconds
+            PerformancePolicies.PerfLimit(250, r =&gt; r.Type == &quot;Http Request&quot;);
+        }
+        protected override void configureCellHandling(CellHandling handling)
+        {
+            handling.Extensions.Add(new SeleniumReduxSagaExtension($&quot;{WebHostUrl}/counter&quot;));
+        }
+
+        public override Task Warmup()
+        {
+            Startup.TestDriver = true;
+            _host = WebHost.CreateDefaultBuilder()
+                    .UseContentRoot(CalculateRelativeContentRootPath())
+                    .UseStartup&lt;Startup&gt;()
+                    .UseUrls(WebHostUrl)
+                    .Build();
+
+            _host.Start();
+            
+            string CalculateRelativeContentRootPath() =&gt;
+              Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+                 @&quot;..\..\..\..\myapp&quot;);
+
+            return base.Warmup();
+        }
+
+        public override void Dispose()
+        {
+            if(_host != null)
+            {
+                _host.SafeDispose();
+            }
+            base.Dispose();
+        }
+    }
+</code></pre>
+<p>Here is some explaination of the interesting parts of this that make it work. To use a startup in a test project, where you are using MVC views and <code>aspx</code> pages, you need a few tweaks.</p>
+<ul>
+<li>In the csproj there <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/ReduxSamples.csproj#L30-L36">is some extra code required</a> to copy over the reference dependencies for the view page on-demand parsing of MVC.</li>
+<li>You also need to <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs#L50">set the Content Root correctly</a> (<code>CalculateRelativeContentRootPath</code> above)</li>
+<li>I make use of the Selenium drivers (In this case, ChromeDriver) <a href="https://www.nuget.org/packages/Selenium.WebDriver.ChromeDriver">Selenium.WebDriver.ChromeDriver</a> &amp; <a href="https://www.nuget.org/packages/Selenium.WebDriver">Selenium.WebDriver</a></li>
+</ul>
+<p>To finish making the connection work, I had to make a couple of changes to <code>myapp</code> as well:</p>
+<ul>
+<li>Add a flag to ensure webpack is always used, but without the hotreload feature on (<a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/Startup.cs#L23">Flag</a> + <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/Startup.cs#L34-L43">Changes</a>)</li>
+<li>Add the reduxharness.js and typescript-ify as <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/reduxharness.ts">reduxharness.ts</a></li>
+<li>use <code>reduxharness.ts</code> in <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/boot-client.tsx">boot-client.tsx</a> <a href="https://github.com/csMACnz/StorytellerReduxSample/blob/master/myapp/ClientApp/boot-client.tsx#L23">here</a></li>
+</ul>
+<p>At this stage, when I run a test, it launches chrome through chromedriver, and the WebSocket connection should start. Storyteller is connected.</p>
+<h3 id="tests">Tests</h3>
+<p>My simplest test:</p>
+<pre><code># Simple sending and value checking
+
+-&gt; id = ab11ba6a-2181-4901-a389-2ef8daff4ee4
+-&gt; lifecycle = Acceptance
+-&gt; max-retries = 0
+-&gt; last-updated = 2017-12-22T13:03:39.1937541Z
+-&gt; tags = 
+
+[Calculator]
+|&gt; Increment
+|&gt; CheckValue number=1
+~~~
+</code></pre>
+<p>Which is based on this feature (not too dissimilar to the original sample):</p>
+<pre><code>    public class CalculatorFixture : ReduxFixture
+    {
+        public void GetInitialState()
+        {
+            this.ForceRefetchOfState().Wait();
+        }
+
+        [SendJson(&quot;INCREMENT_COUNT&quot;)]
+        public void Increment()
+        {
+            
+        }
+
+        // SAMPLE: CheckJsonValue
+        public IGrammar CheckValue()
+        {
+            return CheckJsonValue&lt;int&gt;(&quot;$.counter.count&quot;, &quot;The current counter should be {number}&quot;);
+        }
+        // ENDSAMPLE
+    }
+</code></pre>
+<p>To make life easier, there is also an added feature to be able to <code>ForceRefetchOfState</code>, because this isn&rsquo;t currently populated when first connected, you had to issue your first command for it to trigger a refresh of state. (Feature request?) Adding this allows me to forcibly request the initial state. ReduxSamples aside, I think this was the only functional change I actually made to the original Storyteller.Redux project (apart from pulling in a copy of WebSocketsHandler from StorytellerRunner, and switching references to NuGets to make it run).</p>
+<p>With this setup, every test first launches a fresh browser window to the target URL. (It also closes any open window first - makes it nice seeing the results of the last run test still open, but that still cleans up after itself.) It may be beneficial to extend this example to also have the navigation ability in a fixture, too.</p>
+<h3 id="results">Results</h3>
+<p>Have a look at my GitHub repository at <a href="https://github.com/csMACnz/StorytellerReduxSample">github.com/csMACnz/StorytellerReduxSample</a> for a working example of the solution outlined above. At some point, I should feedback the tweaks to Storyteller.Redux (or <a href="https://github.com/jeremydmiller">@jeremydmiller</a> can just steal them&hellip;) but until Storyteller 5 is stable, I would keep using my copy, anyway.</p>
+<p>Now that selenium is connected, there is also no reason I can&rsquo;t drive UI interaction with the rest of React this way, too. (Although perhaps thorough testing of React is best left up to Jasmine tests&hellip;)</p>
+<p>Still to do to make this more production ready: add some flags to conditionally compile in or out the <code>reduxharness</code> (WebPack maybe?) so that it is only available in development builds, and not production builds.</p>
+</description>
     </item>
     
   </channel>

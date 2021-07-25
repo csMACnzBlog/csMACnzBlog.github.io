@@ -4,6 +4,12 @@
     <title>TypeScript on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/typescript/</link>
     <description>Recent content in TypeScript on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 11 Dec 2017 22:49:19 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
@@ -13,9 +19,207 @@
       <pubDate>Mon, 11 Dec 2017 22:49:19 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/typescript-over-javascript-always/</guid>
-      <description>Prelude As a developer, JavaScript is inevitable. Unless you&amp;rsquo;re a dba or mobile app developer I suppose, but I digress.
-When working with JavaScript applications, you certainly have to be using a build pipeline of some description. If you are not at least bundling and minifying you are certainly doing it wrong, and if that process isn&amp;rsquo;t automated somehow then your not doing it right.
-Using new language features makes JavaScript palatable, so you are already using ES6 (or newer) features, and because compatibility on the web is hard, you have a transpiler step already to convert all your code to ES5 (or ES3, I don&amp;rsquo;t judge compatibility decisions).</description>
+      <description><h2 id="prelude">Prelude</h2>
+<p>As a developer, JavaScript is inevitable. Unless you&rsquo;re a dba or mobile app developer I suppose, but I digress.</p>
+<p>When working with JavaScript applications, you certainly have to be using a build pipeline of some description. If you are not at least bundling and minifying you are certainly doing it wrong, and if that process isn&rsquo;t automated somehow then your not doing it right.</p>
+<p>Using new language features makes JavaScript palatable, so you are already using ES6 (or newer) features, and because compatibility on the web is hard, you have a transpiler step already to convert all your code to ES5 (or ES3, I don&rsquo;t judge compatibility decisions). It stands to reason that Yet Another Transpiler is no big thing. Enter TypeScript and <code>tsc</code>.</p>
+<p>I set this out up front so you can attack my premise alone, without throwing the baby out with the bathwater as you read the rest.</p>
+<p>(All Examples below convert TypeScript into ES2015 (ES6) JavaScript ).</p>
+<h2 id="fun-with-typescript">Fun with TypeScript</h2>
+<p>Let&rsquo;s look at some basic TypeScript. This is going to blow your mind!</p>
+<p>First, you can initialise variables with  <code>let</code> (which means mutable) or <code>const</code>(immutable) values! What a concept!</p>
+<pre><code class="language-typescript">const x = 10;
+let y = &quot;string&quot;;
+</code></pre>
+<p>[^^^]TS compiles into [vvv]JS</p>
+<pre><code class="language-javascript">const x = 10;
+let y = &quot;string&quot;;
+</code></pre>
+<p>Huh? Well, I guess that&rsquo;s just ES6, not actually Typescript.</p>
+<p>But this will really blow your mind, Lambdas! This is a special syntax for functions. Here is both a regular function and a lambda function:</p>
+<pre><code class="language-typescript">function Foo(a, b, c) {
+    //Do Stuff
+}
+
+const LambdaFoo = (a, b, c) =&gt; {
+    //Do Stuff
+}
+</code></pre>
+<p>[^^^]TS compiles into [vvv]JS</p>
+<pre><code class="language-javascript">function Foo(a, b, c) {
+    //Do Stuff
+}
+const LambdaFoo = (a, b, c) =&gt; {
+    //Do Stuff
+};
+</code></pre>
+<p>Yeah! Wait, Huh? Ok, you got me again, Lambdas are just ES6 features too&hellip;</p>
+<p>But in TypeScript, we have these cool language features. Like rest (<code>...rest</code>) to capture remaining arguments explicitly, destructuring (<code>{name}</code>, <code>[value]</code>) which unboxes array values &amp; object properties, a spread (<code>...values</code>) operator, and, and&hellip;</p>
+<pre><code class="language-typescript">const Greet = (...rest)=&gt; {
+
+}
+
+const Process = ({name}, [firstOption]) =&gt;{
+    const [...rest] = [...[,1, 2, 3, 4, 5]];    
+}
+</code></pre>
+<p>[^^^]TS compiles into [vvv]JS</p>
+<pre><code class="language-javascript">const Greet = (...rest) =&gt; {
+};
+const Process = ({ name }, [firstOption]) =&gt; {
+    const [...rest] = [...[, 1, 2, 3, 4, 5]];
+};
+</code></pre>
+<p>Yeah but, but, but&hellip;</p>
+<p>Objects! Classes! These are going to be awesome! Do you like C# classes? You will love this TypeScript Feature. You can have constructors, getters and setters, private fields, methods!</p>
+<pre><code class="language-typescript">class Person {
+    constructor(firstName, lastName) {
+        this._firstName = firstName;
+        this._lastName = lastName;
+    }
+
+    get firstName() { return this._firstName; }
+    set firstName(firstName) { this._firstName = firstName; }
+    get lastName() { return this._lastName; }
+    set lastName(lastName) { this._lastName = lastName; }
+
+    Greet() {
+
+    }
+}
+</code></pre>
+<p>[^^^]TS compiles into [vvv]JS</p>
+<pre><code class="language-javascript">class Person {
+    constructor(firstName, lastName) {
+        this._firstName = firstName;
+        this._lastName = lastName;
+    }
+    get firstName() { return this._firstName; }
+    set firstName(firstName) { this._firstName = firstName; }
+    get lastName() { return this._lastName; }
+    set lastName(lastName) { this._lastName = lastName; }
+    Greet() {
+    }
+}
+</code></pre>
+<p>Ok, well, yeah, that stuff is ES6 too&hellip;  But Lambdas! You gotta use method lambdas!</p>
+<pre><code class="language-typescript">class Person {
+    constructor(energyLevel) {
+        this.energyLevel = energyLevel;
+    }
+    BeAwesome = (timeOfDay) =&gt; {
+        if(this.energyLevel == &quot;High&quot;) {
+            //Be Awesome Somehow
+        }
+    }
+}
+</code></pre>
+<p>[^^^]TS compiles into [vvv]JS</p>
+<pre><code class="language-javascript">class Person {
+    constructor(energyLevel) {
+        this.BeAwesome = (timeOfDay) =&gt; {
+            if (this.energyLevel == &quot;High&quot;) {
+                //Be Awesome Somehow
+            }
+        };
+        this.energyLevel = energyLevel;
+    }
+}
+</code></pre>
+<p>GOTCHA! You can&rsquo;t do lambda methods on classes can you, ES6? Well, actually that doesn&rsquo;t look much different really, that is still a lambda, just moved to a different spot. And this is still treated correctly&hellip;  Then if all of this is just ES6, where does TypeScript add value?</p>
+<h3 id="types">Types!</h3>
+<p>Back in example one we used <code>let</code> and <code>const</code>. What you didn&rsquo;t see was that TypeScript implicitly typed those variables:</p>
+<pre><code class="language-typescript">// TypeScript knows this is a Number type
+const x = 10;
+// and knows this is a string type
+let y = &quot;string&quot;;
+</code></pre>
+<p>To really shine, we try to use these incorrectly:</p>
+<pre><code class="language-typescript">// TypeScript knows this is a Number type
+const x = 10;
+// and knows this is a string type
+let y = &quot;string&quot;;
+
+// app.ts(7,1): error TS2322: Type '10' is not assignable to type 'string'.
+y = x; //IDE shows squigglies (~)
+
+</code></pre>
+<p>This actually compiles with an error, which means our pipeline would stop and we have to fix it.  Static type checking is your first Unit Test!</p>
+<p>To make this even clearer, we can declare the types (The first TypeScript syntax of the day!)</p>
+<pre><code class="language-typescript">
+const x:Number = 10;
+
+let y:string = &quot;string&quot;;
+</code></pre>
+<p>[^^^]TS compiles into [vvv]JS</p>
+<pre><code class="language-javascript">const x = 10;
+let y = &quot;string&quot;;
+</code></pre>
+<p>And apart from the compiler performing type checks for us, the output just strips it all away. This implicit typing and checking is the first real exposure to true TypeScript functionality coming to life.</p>
+<h3 id="the-lie">The Lie</h3>
+<p>I cheated earlier. While yes, all of the above did produce output, I didn&rsquo;t show you the compiler errors on those classes.</p>
+<pre><code class="language-typescript">class Person {
+    constructor(firstName, lastName) {
+        this._firstName = firstName;
+        this._lastName = lastName;
+    }
+
+    get firstName() { return this._firstName; }
+    set firstName(firstName) { this._firstName = firstName; }
+    get lastName() { return this._lastName; }
+    set lastName(lastName) { this._lastName = lastName; }
+
+    Greet() {
+
+    }
+}
+</code></pre>
+<pre><code class="language-cmd">app.ts(3,14): error TS2339: Property '_firstName' does not exist on type 'Person'.
+app.ts(4,14): error TS2339: Property '_lastName' does not exist on type 'Person'.
+app.ts(7,35): error TS2339: Property '_firstName' does not exist on type 'Person'.
+app.ts(8,37): error TS2339: Property '_firstName' does not exist on type 'Person'.
+app.ts(9,34): error TS2339: Property '_lastName' does not exist on type 'Person'.
+app.ts(10,35): error TS2339: Property '_lastName' does not exist on type 'Person'.
+</code></pre>
+<p>Not only does it type check, but it is also linting on initialisation and declaration. We can declare our private fields and the errors go away:</p>
+<pre><code class="language-typescript">class Person {
+    _lastName: any;
+    _firstName: any;
+    constructor(firstName, lastName) {
+        this._firstName = firstName;
+        this._lastName = lastName;
+    }
+
+    get firstName() { return this._firstName; }
+    set firstName(firstName) { this._firstName = firstName; }
+    get lastName() { return this._lastName; }
+    set lastName(lastName) { this._lastName = lastName; }
+
+    Greet() {
+
+    }
+}
+</code></pre>
+<p>[^^^]TS compiles into [vvv]JS</p>
+<pre><code class="language-javascript">class Person {
+    constructor(firstName, lastName) {
+        this._firstName = firstName;
+        this._lastName = lastName;
+    }
+    get firstName() { return this._firstName; }
+    set firstName(firstName) { this._firstName = firstName; }
+    get lastName() { return this._lastName; }
+    set lastName(lastName) { this._lastName = lastName; }
+    Greet() {
+    }
+}
+</code></pre>
+<p>(<code>any</code> is like C#&rsquo;s <code>dynamic</code> type: &ldquo;let anything through at compile time, trust me it works at runtime&rdquo;. You loose intellisense though&hellip;)</p>
+<p>No more errors. And what&rsquo;s more, it&rsquo;s just icing. It all goes away on compile.</p>
+<p>This is the magic. This is where TypeScript shines. This is a whole lot of value, and if you are already using ES6, you could have this for nothing more than an extra pre-compile step and renaming some <code>*.js</code> files to <code>*.ts</code>. (your mileage fixing existing type errors may vary.)</p>
+<p>Understanding how to use types and define them is a whole article in itself, and it will surely follow at some point.</p>
+<p>This wasn&rsquo;t meant to show you how awesome typescript is, but instead, make you realise that the value is in the static typing and that TypeScript truly is a superset of JavaScript.</p>
+</description>
     </item>
     
   </channel>

@@ -4,6 +4,12 @@
     <title>Editorial on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/editorial/</link>
     <description>Recent content in Editorial on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Fri, 31 May 2019 10:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/editorial/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +19,20 @@
       <pubDate>Fri, 31 May 2019 10:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/mucon-2019-part2/</guid>
-      <description>Good morning day 3. So much to absorb already from Day 1 and 2 but it isn&amp;rsquo;t over yet.
-This morning&amp;rsquo;s Keynote &amp;ldquo;Crossing the River by Feeling the Stones&amp;rdquo; from Simon Wardley is a must see. This was a very educational look at the value of maps, and the importance of knowing the landscape, looking at Evolutionary Flow and not just Process Flow when looking at optimisations. I would recommend the talk from Susanne Kaiser &amp;ldquo;Preparing for a future Microservices journey&amp;rdquo; from the day before as a nice companion to this keynote talk, as she used &amp;ldquo;Wardley Maps&amp;rdquo; to specifically look at the evolution towards microservices.</description>
+      <description><p>Good morning day 3. So much to absorb already from <a href="/mucon-2019-part1/">Day 1 and 2</a> but it isn&rsquo;t over yet.</p>
+<p>This morning&rsquo;s Keynote &ldquo;Crossing the River by Feeling the Stones&rdquo; from <a href="https://twitter.com/swardley">Simon Wardley</a> is a must see. This was a very educational look at the value of maps, and the importance of knowing the landscape, looking at Evolutionary Flow and not just Process Flow when looking at optimisations. I would recommend the talk from Susanne Kaiser &ldquo;Preparing for a future Microservices journey&rdquo; from the day before as a nice companion to this keynote talk, as she used &ldquo;Wardley Maps&rdquo; to specifically look at the evolution towards microservices. (Though this keynote also shows that journey towards the end as well).</p>
+<p>&ldquo;Exploring your Microservices Architecture Through Graph Theory&rdquo; from <a href="https://twitter.com/techiewatt">Nicki Watt</a> was a great look at applying Graph Theory to distributed systems, especially with Microservices to gain insight into where architectural smells may exist using different analysis metrics.</p>
+<p>The before lunch slot was &ldquo;Awesome CI/CD Data Pipelines for Distributed Data-Sources&rdquo; from <a href="https://twitter.com/ChrisBurrell7">Chris Burrell</a>. This was a walkthrough of mining data sources (load and transform) from Microservices into RedShift in a pipeline approach.</p>
+<p>&ldquo;An Engineer&rsquo;s Guide to a Good Night&rsquo;s Sleep&rdquo; had <a href="https://twitter.com/NickyWrightson">Nicky Wrightson</a> giving a great Engineers Guide to Ops approach to building software, with 5 rules for building better systems so you don&rsquo;t have to be woken up at 3 am. Slides available here: <a href="https://speakerdeck.com/nickywrightson">https://speakerdeck.com/nickywrightson</a>.</p>
+<p><a href="https://twitter.com/matthiasnoback">Matthias Noback</a> presented &ldquo;Beyond Design Principles and Patterns: Writing Good Object-Oriented Code&rdquo; which was a great look at Object-Oriented code done right, in a nice succinctly laid out path from the ground up. I want to steal the whole thing as a blog post it was so well put together. Although there were code examples (Java?), the concepts given transcended across any OO language and presented in a nice language-agnostic way. Unfortunately, I didn&rsquo;t learn anything new, and I also had nothing to disagree with either.</p>
+<p><a href="https://twitter.com/mufridk">Mufrid Krilic</a> gave an interesting Lightning Talk: &ldquo;Domain Model in Multi-Language Environment with Examples from Healthcare&rdquo; which was a brief conversation about ubiquitous language when your code is in English but your domain is in Norwegian. This was from experience with a hospital software system.</p>
+<p>To round out the weeks Lightning Talks was &ldquo;Don&rsquo;t Rebuild your Monolith!&rdquo; by <a href="https://twitter.com/PeterAnning">Peter Anning</a>. An epic tale of transformation from Monolith, to Microservices, regrets and reaffirmations. An entertaining watch with the takeaway that processes like DevOps, Agile and Ubiquitous Langage that come out of moving to microservices must be maintained and assimilated, lest we forget and the monolith grows back.</p>
+<p>And last but not least, we have the final Keynote: &ldquo;Temporal Modelling&rdquo; from <a href="https://twitter.com/mathiasverraes">Mathias Verraes</a>. A really good overview conversation into Event-based systems, Event Storming and why modelling the Events of your system is of greater benefit than to use Entity Modelling instead. Another recommended one to expand your thinking.</p>
+<h2 id="summary">Summary</h2>
+<p>And that&rsquo;s a wrap! 2019 µCon is done and dusted. Lots to take in, lots to revisit from the recordings, and a bunch of sessions missed that need to be watched.</p>
+<p>The amazing crew doing the filming have been working away getting all the videos up as quickly as possible (on the day recorded for the most part!). You can head over to Skills Matter and watch them all from the links provided off of the <a href="https://skillsmatter.com/conferences/11982-con-london-2019-the-conference-on-microservices-ddd-and-software-architecture#program">Schedule here</a>. Take this and <a href="/mucon-2019-part1/">the previous part</a> as a guide for where to begin but continue through all the other amazing talks I didn&rsquo;t have time to attend in person as well.</p>
+<p>Happy Learning!</p>
+</description>
     </item>
     
     <item>
@@ -23,7 +41,39 @@ This morning&amp;rsquo;s Keynote &amp;ldquo;Crossing the River by Feeling the St
       <pubDate>Thu, 30 May 2019 20:05:21 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/mucon-2019-part1/</guid>
-      <description>After a restful night at a London hotel (I learned my lesson from the last time I came in for a London conference) coffee and breakfast at the Business Design Centre in London, muCon 2019 kicks off. muCon (or µCon) is a Conference on Microservices, DDD &amp;amp; Software Architecture. From what I gather, this year for the first time it is an amalgamation of a DDD and Microservices conference into one.</description>
+      <description><p>After a restful night at a London hotel (I learned my lesson from the last time I came in for a London conference) coffee and breakfast at the Business Design Centre in London, muCon 2019 kicks off. muCon (or µCon) is a Conference on Microservices, DDD &amp; Software Architecture. From what I gather, this year for the first time it is an amalgamation of a DDD and Microservices conference into one. I&rsquo;m here for three days. At this point, I&rsquo;ve gotten into a rhythm of blogging about my Conference Experiences so here we go again!</p>
+<h2 id="day-1">Day 1</h2>
+<p>We kick off with an excellent keynote from <a href="https://twitter.com/mfeathers">Michael Feathers</a> which captures various ideologies and principles applied to team and code architecture both at the class level, microservice level and interpersonal individual and team level as well.</p>
+<!-- raw HTML omitted -->
+<p>As usual, the day is split into tracks, so I can only give experience on where I&rsquo;ve been and guidance of which speakers and talks I would look out for in the future.</p>
+<p>Following on from the keynote for me was &ldquo;Microservices from Day One&rdquo; from <a href="https://twitter.com/rjrodger">Richard Rodger</a>. First-hand experience of building Microservices on a greenfields startup after <a href="https://www.manning.com/books/the-tao-of-microservices">literally writing a book on Microservices</a> development, a chance to practice what he preached.  An interesting takeaway that I liked was to design a message-centric system of components(microservices) and then the transport/routing layer doesn&rsquo;t matter (from a technology point of view). This resonates with me because it aligns nicely with the Ports and Adapters architecture.</p>
+<!-- raw HTML omitted -->
+<p>Next up, and filling the pre-lunch slot was &ldquo;Creating an Effective Developer Experience for Cloud-Native Apps&rdquo; from <a href="https://twitter.com/danielbryantuk">Daniel Bryant</a>. A great introduction and overview of DevEx, the idea of building a great experience for developers from coding to prod and beyond in the modern world of cloud-native, Kubernetes and Serverless. Whether it is &ldquo;build or buy&rdquo;, cloud or in-house hosting, the story for developers to build, debug, test, deploy and monitor should be a first-class consideration of developing software.</p>
+<!-- raw HTML omitted -->
+<p>&ldquo;The Gordian Knot&rdquo; from <a href="https://twitter.com/ziobrando">Alberto Brandolini</a> the importance of culture and the influence architecture plays on affecting that culture. Very interesting and a nice perspective on Conway&rsquo;s Law in many ways, and thinking about affecting change.</p>
+<!-- raw HTML omitted -->
+<p>&ldquo;Strategic Domain-Driven Design Patterns&rdquo; from <a href="https://twitter.com/ntcoding">Nick Tune</a> was an interesting discussion on DDD grouping. Definitely a topic I need to read the (blue) book on, literally and figuratively. (Although I am told one does not simply &ldquo;read&rdquo; Eric Evans' Domain Drive Design&hellip;) Some very high-level patterns and approaches to help with finding groupings in your system.</p>
+<!-- raw HTML omitted -->
+<p>&ldquo;Event Driven Collaboration&rdquo; from <a href="https://twitter.com/ICooper">Ian Cooper</a> another look at the <a href="https://blog.csmac.nz/geeking-out-at-altnetbrum-2018/#referencedataarchitecture">Reference Data concept</a>, with some practical examples of what and how you might go about implementing this. A revision on the concepts of inside mutable data Vs outside immutable data, events, messages and caching.</p>
+<!-- raw HTML omitted -->
+<p>The day wound down with a couple of Lightning Talks. A standout for me was &ldquo;Continuous Visibility, No More Dashboards!&rdquo; From <a href="https://twitter.com/JBJamesBrownJB">James Brown</a> on Continuous Visibility (CV). Using Alerts and notifications more, and only selectively add trends and maybe CI statuses to a physical dashboard where space is a premium (but don&rsquo;t forget to add GIfs!).</p>
+<!-- raw HTML omitted -->
+<h2 id="day-2">Day 2</h2>
+<p>Day 2 kicks off with another leading Keynote: &ldquo;Getting to DDD: Pragmatic or Principled?&rdquo; from
+<a href="https://twitter.com/julielerman">Julie Lerman</a>. Julie gave a discussion on the DDD journey, engaging with new adopters, and how building on the concepts with a group slowly can be a great way to bring more people on board, without getting hung up on being too principled or having to be all in with everything DDD at once.</p>
+<p>&ldquo;Preparing for a future Microservices journey&rdquo;
+from <a href="https://twitter.com/suksr">Susanne Kaiser</a> presented a journey from custom build through Microservices to Serverless taking all aspects of a hosted piece of software and it&rsquo;s infrastructure concerns transitioning through Build vs Buy, to commoditization.</p>
+<!-- raw HTML omitted -->
+<p>&ldquo;Observable Microservices&rdquo; from <a href="https://twitter.com/mariascandella">Maria Gomez</a> went through the what of observability (logs, alerts and tracing) along with the &lsquo;why&rsquo; for the value it provides to you once your services are in production.</p>
+<p>After lunch, <a href="https://twitter.com/duffleit">David Leitner</a> presented &ldquo;Micro Frontends – A Strive for Fully Verticalized Systems&rdquo;. A nice definition of MicroFrontends and example architectures to add to your toolbox of &ldquo;it depends&rdquo; solutions. Very clearly outlined the when and where the different approaches are applicable. Definitely check out his work if your thinking about verticalized splitting your frontend.</p>
+<p>This led into the afternoon Workshop: &ldquo;Show me the Kubernetes&rdquo; with <a href="https://twitter.com/denhamparry">Lewis Denham-Parry</a> and <a href="https://twitter.com/SoulmanIqbal">Salman Iqbal</a>. They walked us through the demos at <a href="https://github.com/CloudNativeWales/ShowMeTheKubernetes">github.com/CloudNativeWales/ShowMeTheKubernetes</a> which worked well on a temporarily spun up cluster on Azure, or with a Minikube locally (instructions included in both cases). Further examples were promised so there might be more than the three we went through in the session.</p>
+<p>To round out the second day was a keynote from <a href="https://twitter.com/dianamontalion">Diana Montalion</a> on Making a Case for Conceptual Integrity. I&rsquo;m not too proud to admit that I didn&rsquo;t understand the term &ldquo;conceptual integrity&rdquo; at the end and couldn&rsquo;t give you the definition. However, the topic was very interesting and the steps discussed to reach the definition given were very useful and interesting in themselves that to me it didn&rsquo;t matter. Maybe I&rsquo;m lacking the experience at this stage to accurately grok this, and others with more systems consulting experience and exposure did.</p>
+<!-- raw HTML omitted -->
+<h2 id="summary">Summary</h2>
+<p>Of course, most if not all of the talks were recorded and appear online (links added where available) but as usual you have missed the hallway conversations by not being here. These are usually the best part of any conference and this has been no exception.  One great conversation leads to quoting the statement that never had anyone said or seen a system that would be described as too gold plated, or too well tested. Most systems instead suffer from not being of a good enough quality or lacking in test coverage.</p>
+<p>In other conversations being able to share structures and strategies gives insight into what is or isn&rsquo;t working for other teams and companies and gives a relative look at where they are on their journey compared to you with yours. But based on the guidance and experience of others here, we all seem to be heading in a similar direction through SOA to DDD and Microservices.</p>
+<p>Stay tuned for a summary of my day 3 experience.</p>
+</description>
     </item>
     
     <item>
@@ -32,7 +82,34 @@ This morning&amp;rsquo;s Keynote &amp;ldquo;Crossing the River by Feeling the St
       <pubDate>Tue, 05 Feb 2019 20:13:39 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/so-you-wanna-be-a-rockstar-developer/</guid>
-      <description>Have you been to see rock bands perform live? There are a lot of subtleties to their performance that you might not have noticed. And it is relevant to software…</description>
+      <description><blockquote>
+<p>&lsquo;Cause we all just wanna be big rockstars
+And live in hilltop houses, drivin&rsquo; fifteen cars</p>
+<p>&ndash; Rockstar by Nickelback</p>
+</blockquote>
+<p>Have you been to see rock bands perform live? There are a lot of subtleties to their performance that you might not have noticed. And it is relevant to software development. (Really!)</p>
+<p>You&rsquo;ve seen the &ldquo;Diva Rockstar&rdquo; on stage? Basically, they take the main spotlight, everyone knows them and has no idea who the rest of the band are. In fact, you might even think the other guys are not very good, really.</p>
+<p>In some cases, there may be two, maybe a lead singer, and a guitarist competing against each other, making each other look bad to make themselves look better? Oh and those other guys, merely decoration, not even worth learning their names.</p>
+<p>You have a big problem in both scenarios. As a whole, the music they are producing is terrible. Sure that guy can sing or that woman can play, but as a whole, it sounds unpleasant, and off somehow. Not enjoyable.</p>
+<p>But a real proper performance? It just sings. And here is why. Teamwork.</p>
+<p>Pay close attention and you can see some true signs of polish that produce an amazing performance. First, the lead singer and lead musician share the spotlight. The guitarist lets the singer&rsquo;s voice shine, and the singer takes a break for a sweet, sweet guitar solo.  But more than that. They introduce the rest of the band. Bongo on drums with a smashing drum solo, Rip on bass with his fast fingers, and Gill on backing vocals etc.</p>
+<p>But it isn&rsquo;t even just the guys on stage that are slick. The crew are so good you barely notice them.  Where did that acoustic guitar come from? I&rsquo;m sure he was holding a Gibson before&hellip; He starting this song holding a guitar now he is just carrying the mic around&hellip; He keeps throwing away the picks into the audience but never seems to run out&hellip;</p>
+<p>If you look closely, you will see very well choreographed and rehearsed handoffs during and between certain songs that the stage crew sneak on and off to assist with. The support crew are as important as the band themselves for a successful outcome.  And again there is more. These guys set up the stage before, help to pack up the gear to get back on the road for the next gig after. You have sound engineers that are tuning the sound system to keep a clean and consistent output of sound.</p>
+<p>That lead singer is standing on the shoulders of a whole crew of people. And makes sure to shine the spotlight on the rest of the team playing the tunes.</p>
+<h3 id="huh">Huh?</h3>
+<p><em>You</em>: Hold on, this is a software development blog&hellip;
+<em>Me</em>: &hellip;
+<em>Me</em>: Right.
+<em>You</em>: &hellip;</p>
+<p>Ok was that too subtle? If not then I&rsquo;ll just repeat myself to reinforce the point.</p>
+<p>Don&rsquo;t aim to be a Rockstar developer. Aim to be an amazing team. And especially don&rsquo;t be a Diva.</p>
+<p>If you are trying to outshine everyone else, you are actually being detrimental to the aims and goals of the team. And you don&rsquo;t want to be competing with the other Rockstar wannabes on the team either. You want to spend less time fighting for control and more time shipping solutions, right? Right.</p>
+<p>The other big point of this analogy was to point out how critical the whole team, and a wider team, actually play a part. If it wasn&rsquo;t for the PM, PO, BA, Strategy Manager, Customer Support crew, not to mention Guild leaders, Evangelists, External trainers, CTO, Sales, Finance, Payroll&hellip;  you wouldn&rsquo;t still be here.</p>
+<p>It takes more than just a Rockstar to deliver software. You need a team of team players that work well together, practice their handoffs with each other, practice their craft together and put on a good show as a team, not a single spotlight with everyone else hiding in the shadows. No one wants to listen to that mess.</p>
+<h2 id="--">&ndash;</h2>
+<p>And if you really want to be a Rockstar developer, I leave you with this this:</p>
+<p><a href="https://github.com/RockstarLang/rockstar">https://github.com/RockstarLang/rockstar</a></p>
+</description>
     </item>
     
     <item>
@@ -41,8 +118,36 @@ This morning&amp;rsquo;s Keynote &amp;ldquo;Crossing the River by Feeling the St
       <pubDate>Mon, 24 Sep 2018 02:36:52 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/my-first-ddd-event-and-how-i-made-the-decision-to-work-a-16-hour-day/</guid>
-      <description>In my hand, I have a couple of train tickets. The reservations indicate that I left the house at 5 am Saturday morning to make the first train from Birmingham to Cambridge, and wouldn&amp;rsquo;t get home again until 9 pm. And that is exactly what I did.
-I&amp;rsquo;ve been making more of an effort this year to attend conferences and community events. I had a blast at NDC Oslo 2018 (1,2) meeting some amazing people, off the back of that I heard about Birmingham Alt.</description>
+      <description><p>In my hand, I have a couple of train tickets. The reservations indicate that I left the house at 5 am Saturday morning to make the first train from Birmingham to Cambridge, and wouldn&rsquo;t get home again until 9 pm. And that is exactly what I did.</p>
+<p>I&rsquo;ve been making more of an effort this year to attend conferences and community events. I had a blast at NDC Oslo 2018 (<a href="/ndc-oslo-2018/">1</a>,<a href="/ndc-oslo-2018-part2/">2</a>) meeting some amazing people, off the back of that I heard about <a href="/geeking-out-at-altnetbrum-2018/">Birmingham Alt.Net Unconference</a>, and then from there, I heard about DDD East Anglea. (Following that trend, next up: <a href="https://www.meetup.com/en-AU/altnetbrum/events/252629315/">F# SAFE Stack Hackday
+@ Birmingham Alt.Net</a>.)</p>
+<p>The nice thing about free Saturday Conferences and workshops is they are easy to get business sign-off, that is if you even need to bother :)</p>
+<!-- raw HTML omitted -->
+<h3 id="so-what-is-ddd">So what is DDD?</h3>
+<blockquote>
+<p>Developer! Developer! Developer! (DDD) East Anglia is the newest event in the popular series of Developer Days events for the UK .NET Community that have run since May 2005. Although each DDD event has its own particular &ldquo;flavour&rdquo;, they remain immensely popular and enjoyable, regularly attracting 200-300 attendees and often selling out within minutes.</p>
+</blockquote>
+<p>This was my first DDD event, though I was familiar with the slogan and its <a href="https://www.youtube.com/watch?v=Vhh_GeBPOhs">Ballmer origins</a>.  I heard about it in time to put in a talk, but my nerves got the better of me this time.  Soon, though. On this occasion, once again I was just an attendee.</p>
+<p>The day was a blast and there were great sessions to choose from. As usual, I made my decisions 5 minutes before they started and the end result is as follows.</p>
+<h3 id="the-talks">The Talks</h3>
+<p>First up was an intro to Dependency Injection, <strong>&ldquo;Dependency Injection in ASP<!-- raw HTML omitted --><!-- raw HTML omitted -->.NET Core 2. Why and How?&quot;</strong> by <a href="https://twitter.com/donwibier">Don Wibier</a> from Dev Express.  A nice overview of how DI works in the context of ASP<!-- raw HTML omitted --><!-- raw HTML omitted -->.Net Core 2, including the <code>[FromServices]</code> annotation which I haven&rsquo;t seen before and need to use more. It was introductory level, but captured all you need to know if you didn&rsquo;t already.</p>
+<p><strong>&ldquo;MediatR - bridging the gap between your SPA and your backend&rdquo;</strong> from <a href="https://twitter.com/russellreyno">Russell Seamer</a> was lots of unfamiliar libraries, but a neat technique on reducing boilerplate code in SPA+BFF situations. I need to expand SeaOrDew with what I learned here, and the full content would require an entire article to relay to you. The <a href="https://github.com/reyno/dddeastanglia">source has been put up on GitHub</a>, but is lacking the context of the talk and a README.</p>
+<p>Wrapping up before lunch was <strong>&ldquo;Who Will Test The Tests?&quot;</strong> by <a href="https://twitter.com/owennell">Oli Wennell</a> from comparethemarket.com, and was a great overview of Mutation Testing. A few library suggestions made <a href="http://pitest.org/">for Java</a>, Javascript (<a href="https://stryker-mutator.io/">Stryker</a>) and .Net (his <a href="https://github.com/ComparetheMarket/fettle">Fettle</a> for Full Framework and <a href="https://stryker-mutator.io/stryker-net/">Stryker</a> once again for Core based on The JS one). I liked the JavaScript demo and have ideas for using this now. His slides are online <a href="https://oliwennell.github.io/talks/mutation-testing-csharp2/index.html">here</a> along with <a href="https://github.com/oliwennell/talks/tree/master/mutation-testing/example-app">code samples</a>.</p>
+<p>A good lunch spread lead into some lightning talks (Grok talks) that was lots of fun, then it was <strong>&ldquo;SAFE Stack: Functional web programming in .Net&rdquo;</strong> from <a href="https://twitter.com/bruinbrown93">Anthony Brown</a>.  Nice to see the state of play with full-stack F# including SPA support. (As mentioned, I will get a chance to play with this at Birmingham Alt<!-- raw HTML omitted --><!-- raw HTML omitted -->.Net next month!)</p>
+<p>Finishing off, a <strong>&ldquo;Reasonable Software&rdquo;</strong> lesson + Rant from <a href="https://twitter.com/IJohnson_TNF">Ian Johnson</a>, software and processes you can reason about, and so forth. A last-minute ring-in but well put together talk, for only having 24 hours notice. Nice chatting with you afterwards Ian. A wide range of areas covered in a short session of 1 hour! Shame I didn&rsquo;t find out more about your sketch-noting&hellip;</p>
+<p>We wrapped up on Prizes and I was stoked to win one of the JetBrains prizes, though some nice hardware was given away too. Now to decide which product to choose&hellip;</p>
+<!-- raw HTML omitted -->
+<p>A great day of talking and listening all up, well worth attending your next nearest DDD Event, I say. There were many great talks I didn&rsquo;t get to see presented here as well, very spoilt for choice.</p>
+<h3 id="so">So&hellip;</h3>
+<p>So, how did it come to be, that  I was sat on a train at 5:30 am thinking to myself &ldquo;where is the coffee cart&rdquo;?</p>
+<p>It turns out that most sensible people went to Cambridge on Friday, gathered for dinner and drinks, and slept comfortably in a nearby hotel. These sensible people also booked to stay for the dinner afterwards and another night, too.</p>
+<p>But not me, no not at all.</p>
+<p>I travelled to Milton Keynes to work in the office on Friday and arrived late home to Birmingham at 9 pm, went to bed, woke up ridiculously early to catch the 5:22 am to Cambridge 3 hour train to make it to the 8:30 am registration and the 9 am kickoff.  Why do I do this to myself?  But I did. And to be honest it was well worth it for the great lineup of speakers and people I chatted with throughout the day to have come at all.</p>
+<p>The real reason is money, isn&rsquo;t it? It was cheaper to get the train there and back in one day, then to have a Hotel for the night or two. I even considered consolidating my Milton Keynes travel since it is &ldquo;on the way&rdquo;, but turns out the time it takes to get to Cambridge from MK on a Friday night by train would be the same time as Birmingham on Saturday morning. Plus saving the money and getting to sleep in my own bed seemed like a good idea at the time.</p>
+<p>The other reason is the trains in this country. I come from New Zealand. We have trains, they don&rsquo;t carry people. They do, but only between one or two select destinations for tourists a couple of times a day. I like the trains here, and the novelty of doing what could only be done by aeroplane in New Zealand with just as early a start anyway, and doing it for half the cost of what the plane would be, it was just one of those things I had to take advantage of while I&rsquo;m here in the UK.</p>
+<p>I know I shouldn&rsquo;t be penny-pinching really, but some habits die hard. Maybe I&rsquo;ll be more sensible next time&hellip; Maybe.</p>
+<p>On Sunday, he rested.</p>
+</description>
     </item>
     
     <item>
@@ -51,8 +156,44 @@ I&amp;rsquo;ve been making more of an effort this year to attend conferences and
       <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/geeking-out-at-altnetbrum-2018/</guid>
-      <description>Unlike some unfortunate people who found out on the day and missed out, I had the opportunity to attend the Alt.Net Unconference in Birmingham this Saturday.
-Now I know some of you think Saturday Conferences are too far outside your work time. But hear me out on this first. This is a free event, which means no expensive expense approval. It included lunch so no personal cost apart from transport to get there.</description>
+      <description><p>Unlike some unfortunate people who found out on the day and missed out, I had the opportunity to attend the Alt.Net Unconference in Birmingham this Saturday.</p>
+<p>Now I know some of you think Saturday Conferences are too far outside your work time. But hear me out on this first.  This is a free event, which means no expensive expense approval. It included lunch so no personal cost apart from transport to get there. And if you really struggle with that, you could negotiate some time-in-leu with your manager for the following Monday to attend. The benefit to you and your company from an event like this is massive.  Also, as a social event for the chance to geek out about the technology you love, or love to hate on, it is fantastic.</p>
+<p>Enough of the sales pitch, what was it like?</p>
+<p>For those of you unfamiliar with an unconference, the simplified version is that there is no agenda, whoever turns up are the right people. We make an agenda in the morning from attendee submissions. These can be talk topics, conversation topics where you have some knowledge to share, questions to ask or want to spend some time as a group learning something cool. We vote on and schedule the talks, and the get right into it.</p>
+<!-- raw HTML omitted -->
+<p>And our agenda was exceptional. You have those moments leading up to conferences with the dilemma of choice. That is where the day started.  Quantum computing with Q#, Functional Programming, dotnet CLI, git, motivating presenters, Reference Data Architecture, Blazor, Docker, Systems Thinking, Xamarin, I can&rsquo;t make an exhaustive list. There was a great breadth of choice in topics submitted and chosen.</p>
+<!-- raw HTML omitted -->
+<p>I had a few takeaways from the sessions I attended that I want to share.</p>
+<h3 id="reference-data-architecture">Reference Data Architecture</h3>
+<p>In programming, we kind of understand the idea of reference data. We may even have some in our database. This is a similar concept that can be used as a tool when architecting complex MicroService systems. Specifically to avoid coupling.  I found the ideas and explanations from <a href="https://twitter.com/ICooper">Ian Cooper</a> and <a href="https://twitter.com/holytshirt">Toby Henderson</a> from Huddle, where they have used this approach in a few places, to be very educational and inspiring.  I can&rsquo;t do the explanation justice in one paragraph so will pull this topic into a future post.  The key takeaway for me was to remember that &ldquo;Don&rsquo;t repeat yourself&rdquo; refers more to the duplication of knowledge, not necessarily the duplication of data or code.</p>
+<!-- raw HTML omitted -->
+<h3 id="liberating-structures">Liberating Structures</h3>
+<p><a href="https://twitter.com/LaylaCodesIt">Layla from Twilio</a> gave a great introduction to Liberating Structures. This is an umbrella term for a bunch of ideas, concepts and templates for running meetings, planning sessions, and Agile ceremonies to enhance and encourage better communication.  Recommend checking this out of you work in a team at all. Some great ideas for things to try, and do communication better.  A takeaway from this was learning about both a Fish Bowl and a Park Bench, and what the difference was.</p>
+<!-- raw HTML omitted -->
+<h3 id="dotnet-cli--the-javascript-kitchen-sink">dotnet cli + the javascript kitchen sink</h3>
+<p>We had three topics proposed: dotnet CLI dotnet new templates, and javascript acronym soup creeping into our .Net (what is npm, grunt, gulp, bower, yeoman etc etc).</p>
+<p>Merging these together, we had a great discussion going through the what and why of some of these front-end acronyms, and why Microsoft puts them into Visual Studio templates, why you should care. This lead on to dotnet core CLI. Running quickly through the power of the CLI, I showed everyone how to create, build, test, pack and publish with the CLI, and never opening visual studio (including creating a solution file and adding projects).</p>
+<p>For anyone who couldn&rsquo;t keep the pace, I have a <a href="https://blog.csmac.nz/dotnetcore2-getting-started">.Net Core CLI Blog Series</a> that you can refer back to.</p>
+<p>This lead nicely into <a href="https://twitter.com/jimbobbennett">Jim Bennett</a> talking about dotnet new templates, how to create them, and the power they have, including as a foundation for both Visual Studio &ldquo;File=&gt;New Project&rdquo; templates and the equivalent in Visual Studio for Mac. The demo was in context to the new Xamarin templates he is putting together.</p>
+<h3 id="systems-thinking---why-agile-alone-is-not-enough">Systems thinking - Why Agile alone is not enough</h3>
+<p>This was an interesting talk by <a href="https://twitter.com/consolondon">Marco Consolaro</a> looking at biological and environmental systems, and how we can learning and apply systems thinking to peoples and teams and companies.  Some real food for thought.</p>
+<p>I had one takeaway from one slide, around the goals of the individual. The system is driven by both the goals of the system, as well as the goals of its parts. As members of a team, we have our own goals as well as the team goal.  By communicating our own goals to the rest of the system (team) we can get and provide better support to allow all of us to meet both (Conclusion mine, not Marcos).</p>
+<p>This was just one small aspect that I took away, but the principles of Systems Thinking is a nice foundation for lots of ideas and approaches that could feed into agile development.</p>
+<!-- raw HTML omitted -->
+<h3 id="git">Git</h3>
+<p>I finished off with a little git and GitHub tutorial. It felt a bit rushed, and a bit of a shambles but I think I conveyed enough for the attendees to take away and start learning more. If nothing else, I showed enough UI of the edit, stage, commit cycle that it didn&rsquo;t look <a href="https://blog.csmac.nz/git-is-not-scary/">too hard or scary</a>. Bit rusty on running that demo, though.</p>
+<h3 id="park-bench">Park Bench</h3>
+<p>We wrapped up the day with a Park Bench. This is something I had not been part of before. Let me set the scene.</p>
+<p><em>Four chairs sit vacant at the front of the room. Around it, a semicircle of other chairs sits expectantly facing towards them. Reluctantly the chairs are filled, leaving the front seats full of nervous folk. The rules are stated: Those four chairs may only make statements, the others, only questions. A question is asked. the seats must answer with their statement.</em></p>
+<p><em>Suddenly a questioner wants to state. but how? They de-throne one of their peers from one of the four special chairs and take their place as Question-Answerer. For now. Soon enough someone else will have a statement. And so the cycle continues.</em></p>
+<p>This was actually really cool. Though not everyone got a chance to sit up the front, everyone who has something to add to the conversations could get up and do so. And anyone who had a question got the chance to ask it.  I would choose to do this again and might take it back to the office as something to try if the right situation arose.</p>
+<p>The topic of conversion started around the idea of .Net renaissance, and the question of if .Net is dead or dying as an industry, inspired by <a href="https://www.youtube.com/watch?v=1gfQFiGLZfw">Ian Cooper&rsquo;s .NET Renaissance talk</a> from a few years ago.  Some great discussion was had, and we cycled through some other interesting topics along the way, from Languages, Legacy, Salary, to open source, Microsoft then vs now and job security.  I don&rsquo;t know if there was a conclusion to the question, but some great discussion none-the-less.</p>
+<h3 id="thats-a-rap-to-the-pub">That&rsquo;s a rap. To the Pub!</h3>
+<p>Any great geek out event must finish with a chance to socialise. And with the unusually hot weather in the Uk this last week or so, an outdoor pub just up the road at the Custard Factory seemed ideal.  This was a nice debrief, and a chance to further get to know the other attendees and those that had spoken.</p>
+<p>Thanks so so much to <a href="https://twitter.com/ijrussell">Ian Russell</a> and <a href="https://twitter.com/DaveDev">Dave Evans</a> for organising such an amazing day.</p>
+<p>Anyone thinking about attending an unconference in the future, Do It! It is great fun, great learning, and not your usual conference.</p>
+<p>I learned about this from the last conference, and here I learned about DDD East Anglia. Might go check that out. Might see you there?</p>
+</description>
     </item>
     
     <item>
@@ -61,9 +202,52 @@ Now I know some of you think Saturday Conferences are too far outside your work 
       <pubDate>Sun, 24 Jun 2018 20:16:48 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/ndc-oslo-2018-part2/</guid>
-      <description>Day 2 Day 2 of NDC Oslo. A bit less productive than the first. I needed a longer lunch and missed a couple of slots, but made the most of talking to some of the speakers for a bit over the break. There is so much going on that it just felt necessary.
-Never-the-less, I did still pack in a few good choices throughout the day.
-Rise of the Tech Influencer First up was Michelle Sandford with her talk &amp;ldquo;Rise of the Tech Influencer - Small steps you can take to increase your reach&amp;rdquo;.</description>
+      <description><h2 id="day-2">Day 2</h2>
+<p>Day 2 of NDC Oslo. A bit less productive than the first. I needed a longer lunch and missed a couple of slots, but made the most of talking to some of the speakers for a bit over the break. There is so much going on that it just felt necessary.</p>
+<p>Never-the-less, I did still pack in a few good choices throughout the day.</p>
+<h3 id="rise-of-the-tech-influencer">Rise of the Tech Influencer</h3>
+<p>First up was <a href="https://twitter.com/msandfor">Michelle Sandford</a> with her talk &ldquo;Rise of the Tech Influencer - Small steps you can take to increase your reach&rdquo;. I had been twitter-stalking Michelle a bit the last few days leading up and into NDC, and it turns out that may have been the right idea based on some of the points through her talk. I need to take some advice to update my profile, get a picture of me instead of my avatar (done! Thanks Michelle!) so that I can get recognised more easily, and promote more of my writing better through social networks.</p>
+<!-- raw HTML omitted -->
+<p>I didn&rsquo;t get a chance to catch her at the end but needed to find her again before the end of the week for a decent chat, which I managed at the Social drinks on Thursday Night, and between sessions on Friday.  Sorry I didn&rsquo;t get a final goodbye before the day&rsquo;s end, Michelle!</p>
+<h3 id="implementing-authentication-and-authorization-with-aspnet-core-2">Implementing Authentication and Authorization with ASP.Net Core 2</h3>
+<p>A great talk by <a href="https://twitter.com/zerokoll">Chris Klug</a> on Auth in ASP.Net Core. Now I have done this before, and the hard way because I was connecting Auth to GitHub. But it is fair to say that I didn&rsquo;t really understand what I was doing at the time. However the clear incremental approach Chris took explaining each couple of lines as he went made it well worth revisiting something not entirely new to me. Recommended to anyone trying to do Auth with AspNetCore 2.X.</p>
+<h3 id="lunch">Lunch</h3>
+<p>After so many talks packed so tight across a day and a half, I felt it necessary to take a break for a long lunch, and had to miss a couple of slots. This gave me the chance to sit and have lunch with a lovely group of speakers. Also just reading a title of &ldquo;Quantum Computing&rdquo; made my head hurt for at least an hour.</p>
+<h3 id="adapting-aspnet-core-mvc-to-your-needs">Adapting ASP.NET Core MVC to your Needs</h3>
+<p>Competing timeslots with Jon Skeet is hard work, but I decided that Dates and Timezones wasn&rsquo;t as immediately necessary to me as AspNetCore is. (This later may have been regretted as I ran late towards a train leaving Oslo, realising my calendar appointment wasn&rsquo;t timezone adjusted. - Made it though!)</p>
+<p>So I went along to see <a href="https://twitter.com/filip_woj">Filip W</a> talk about what is new in AspNetCore 2.1 and MVC. I learned a bunch of new features, especially extension points and convention based patterns that will help reduce the MVC boiler-plate we have used in the last few releases, thanks to more convention over configuration enhancements, and the ability to customise them, too. Worth looking at if you are wanting to understand customising AspNetCore 2.1, or just to learn what Cargo-Cult code you can now remove.</p>
+<h3 id="finding-your-service-boundaries">Finding your service boundaries</h3>
+<p>&ldquo;Finding your service boundaries - A practical guide&rdquo; was an interesting talk from <a href="https://twitter.com/adamralph">Adam Ralph</a> talking over some of the finer points of using data-first approaches to building up your service boundaries. By avoiding doing Entity-First, or even naming things, we can avoid mistakes in design caused by these names.  I don&rsquo;t do the concept justice but if you are doing a lot of data-modeling for your services to get the Architecture right, this is one to take a look at. A lot of familiar principles of coupling and cohesion, applied to the domain of Micro Services.</p>
+<h3 id="containers-in-production">Containers in Production</h3>
+<p>Rounding out the day, right before the beer started, flowing was a very educational talk from <a href="https://twitter.com/DavidOstrovsky">David Ostrovsky</a>. The full title is &ldquo;Containers in Production: It&rsquo;s Like Orchestrating Cats&rdquo;.  This was a great real-world overview of using Kubernetes Clusters in production, for developers.  While he covers a few DevOps-y points towards the end, most of the operational points were nicely dev-centric and his points on health-checks and logging were spot-on.</p>
+<p>I had a quick chat with him afterwards about Containers and their health ping. He had stated that he adds checks for dependencies inside his health-check endpoint. I raised the concern that this might cause a cascading failure if a downstream service went down. He made the very valid point that firstly there is a cooldown. It will still report 200 until a service has been down for a period, then start complaining that it can&rsquo;t do its job. This way, transient downstream issues won&rsquo;t take out the upstream components.  Secondly, if you actually need the other services to do your work, and you don&rsquo;t have graceful degradation and short timeouts, then stopping this service is probably better. Your app and its consumers will then fail fast, rather than hang requests, or worse, produce incorrect results.</p>
+<p>To round that out, I later learned that Kubernetes has a backoff strategy for restarting instances, which would stop it thrashing in the above failing health check case (which I am yet to locate in AWS ECS).</p>
+<h2 id="pubconf">PubConf</h2>
+<p>Honourable mention goes to PubConf. That&rsquo;s all I want to say on the matter.</p>
+<!-- raw HTML omitted -->
+<h2 id="day-3">Day 3</h2>
+<p>The nature of a good conference is the opportunity to mingle for drinks the last night before the last day. Which means rather than putting together an update of day 2, the meeting of speakers and other like-minded developers takes priority over writing this.</p>
+<p>Never-the-less, here we are on day 3, the final day of NDC Oslo 2018.</p>
+<p>The first session was replaced with a late breakfast, and a chance to try out the overflow room. It&rsquo;s hard to judge talks well from switching between them, so I will have to revisit this and reserve judgement here.</p>
+<h3 id="the-hello-world-show-live">The Hello World Show LIVE</h3>
+<p>I have to say that I&rsquo;m not familiar with their show, but I was familiar with some of the guests. In almost a lightning-talk style, each guest gave a quick presentation, and these we all very entertaining and educational at the same time. This was educational and entertaining at the same time.</p>
+<p>After this, I think It is only fair I take a look at <a href="https://www.youtube.com/channel/UCh1MAMXrvKK_C_piVgOFOAg">The Hello World Show</a> on YouTube.</p>
+<h3 id="deconstructing-priviledge">Deconstructing Priviledge</h3>
+<p><a href="https://twitter.com/pati_gallardo">Patricia Aas</a> presented her talk on &ldquo;Deconstructing Privilege&rdquo;. I learned a lot. This is brain-altering stuff. In a good way.</p>
+<p>I hope I can convey this in the way it is intended and not get misunderstood, but I walked out in silent contemplation which lasted several minutes before I could engage in another conversation. Very thought-provoking, and I hope it had the desired effect of me achieving conscious incompetence at least.</p>
+<!-- raw HTML omitted -->
+<p>I also had recommendations to check out Arthur Doler&rsquo;s ' Let&rsquo;s Talk About Mental Health' that was on at the same time.</p>
+<!-- raw HTML omitted -->
+<h3 id="kubernetes-for-net-developers">Kubernetes for .Net developers</h3>
+<p><a href="https://twitter.com/ShahidDev">Shahid Iqbal</a> was a nice companion talk to attended following David Ostrovsky&rsquo;s Cat-Herding from the day before. A bit more hands-on with Kubernetes demos, templates and scripts, including demonstrating switching between dev-machine to cloud with the same <code>kubectl</code> toolchain.</p>
+<h3 id="not-a-magic">Not a magic</h3>
+<p>&ldquo;Not a magic: What to expect from Machine Learning projects&rdquo; was co-presented by <a href="https://twitter.com/KatyaGeek">Katya Mustafina</a> &amp; <a href="https://twitter.com/illumikko">Natalia An</a>. This was my wildcard for the day, getting a taste for ML and how it is done. I now have a much better understanding of the Machine Learning development cycle, and how complicated and time-consuming it can be to produce something useful.</p>
+<h3 id="12-factor-microservices">12 Factor MicroServices</h3>
+<p>Despite the fact that Troy Hunt was speaking in the other room, I felt I had more to benefit from finding out more about this <a href="https://12factor.net/">12 Factor</a> stuff, from someone who practically follows the principles himself. <a href="https://twitter.com/pondidum">Andy Davies</a> talked us through the 12 principles that make up 12-factor, with a few his own preferences and variations along the way, on how he uses them to source control, build, test and release pipeline his software applications.  Nothing too earth-shattering, but a good revision of the basics, things that might seem obvious to some, but not all of us do it. There was at least one point from this talk that I can use to try out as part of our iterative improvement.</p>
+<h2 id="again">Again?</h2>
+<p>Would I attend again? Without question. Well, one question. Can I afford it? Chances are if I had to come all the way from New Zealand or Australia it would be a bit of a mission and would hurt the wallet. However, if NDC Sydney is even half as good as this then it would be highly recommended. (Though I hear pre-sales may have just ended.)</p>
+<p>Thanks again to all the great speakers and attendees for their hallway conversions. This really makes a conference like this what it is.</p>
+</description>
     </item>
     
     <item>
@@ -72,8 +256,35 @@ Rise of the Tech Influencer First up was Michelle Sandford with her talk &amp;ld
       <pubDate>Wed, 13 Jun 2018 06:34:40 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/ndc-oslo-2018/</guid>
-      <description>With 10 streams on, there has been a lot to choose from at NDC in Oslo. But as day one ends, I&amp;rsquo;ve now voted with my feet. And since I can&amp;rsquo;t be in two places at once (though the overflow does technically make this possible) these are the decisions I made, and a few takeaways from each.
-Day 1 I was pretty much jumping from one session to the next today but had a little time to walk the stalls first.</description>
+      <description><p>With 10 streams on, there has been a lot to choose from at NDC in Oslo.  But as day one ends, I&rsquo;ve now voted with my feet. And since I can&rsquo;t be in two places at once (though the overflow does technically make this possible) these are the decisions I made, and a few takeaways from each.</p>
+<h3 id="day-1">Day 1</h3>
+<p>I was pretty much jumping from one session to the next today but had a little time to walk the stalls first.  A quick chat with the Guys from Microsoft, Octopus Deploy and a few stickers from some other stalls such as Twilio and JetBrains.</p>
+<h4 id="keynote">Keynote</h4>
+<p><a href="https://twitter.com/MadsTorgersen">Mads Torgersen</a> gave a great Keynote walking us through the 50 year history of Object Oriented Programming which covered many languages not seen much today, all the way up to Javascript and C# (and others) still used today, with a nice overview of which features were &ldquo;invented&rdquo; with each advancement.  This included interesting syntax inventions of &ldquo;C-mula&rdquo; and &ldquo;C-ta&rdquo;.</p>
+<!-- raw HTML omitted -->
+<h4 id="c-8">C# 8</h4>
+<p><a href="https://twitter.com/jonskeet">Jon Skeet</a> joined Mads Torgersen on stage to run through some beta builds of Visual Studio to demonstrate the coming soon features of C# in version 8. Honourable mentions I am looking forward to are the new switch pattern matching, Nullable Reference Type (<code>string?</code>), and the new &ldquo;Dammit!&rdquo; operator.</p>
+<!-- raw HTML omitted -->
+<p>I managed to find myself sitting next to Jon at a talk later in the day, and am very happy to have had a quick chat and got a Selfie with him.</p>
+<h4 id="implementing-a-clean-architecture-in-net-core">Implementing a Clean Architecture in .Net Core</h4>
+<p><a href="https://twitter.com/icooper">Ian Cooper</a> from Huddle walking us through Ports and Adapters in an evolutionary step by step way, evolving through an application while also going through the history of the architecture from <a href="http://www.cs.sjsu.edu/~pearce/modules/patterns/enterprise/ecb/ecb.htm">Entity-Control-Boundary</a> back to Hexagonal and Ports and Adapters.</p>
+<p>I must check out his library <a href="https://github.com/BrighterCommand/Brighter">Brighter</a> for its CQRS Command Dispatcher support.</p>
+<h4 id="the-power-of-roslyn">The power of Roslyn</h4>
+<p>After lunch, I was able to find out more about (and how easy it is) to make Roslyn inspecters and refactors from <a href="https://twitter.com/kuhlenhuth">Kasey Uhlenhuth</a>. Another must try to add to the list.</p>
+<h4 id="give-it-a-rest">Give it a REST</h4>
+<p>I met <a href="https://twitter.com/westleyl">Liam Westley</a> the night before and his elevator pitch and some conversion over beer lead me to make this a must-see. Also from Huddle and works with Ian Cooper, the full title &ldquo;Give it a REST - Tips for designing and consuming public APIs&rdquo; was a nice mix of tips and tricks for building, consuming, and maintaining REST APIs in a real, pragmatic way. Full of example horror stories from in and around his own company, it was full of valuable points to take away and start using.</p>
+<p>One point of note, was using a nested PUT on a resource to do patch actions in a lightweight way (such that a record status update would be a PUT to &ldquo;record/123/status&rdquo;). Pragmatic. Also, asynchronous requests using <code>202 Accepted</code>, using <code>429 TooManyRequests</code> for throttling, and using cache-related headers.</p>
+<p>(Apologies to <a href="https://twitter.com/PeterHilton">Peter Hilton</a> for missing yours that was at the same time, it is going to be a must see when I get access to the recordings. Beautiful code: typography and visual programming. - <a href="https://twitter.com/it_vegard/status/1006891857073377280">see twitter</a>)</p>
+<h4 id="reinventing-mvc-pattern-for-web-programming-with-f">Reinventing MVC pattern for web programming with F#</h4>
+<p>For a bit of a change, while still following the AspNetCore theme, I went and watched <a href="https://twitter.com/k_cieslak">Krzysztof Cieślak</a> (Chris), dubbed OSS Troublemaker. He talked about his Open Source project <a href="https://github.com/SaturnFramework/Saturn">Saturn</a> which is built on top of <a href="https://github.com/giraffe-fsharp/Giraffe">Giraffe</a> which in turn is built as an F# Library on top of AspNetCore. Saturn is an &ldquo;MVC&rdquo; library in F#, written to give you the power and performance leveraged from AspNetCore, but trying to keep in mind the concept of the Pit of Success, to make it easy to use, and easy to get starting as a new developer, while benefiting from the principles of MVC, and the power and productivity of F#.</p>
+<p>So many new tools to explore, and we are only one day in!</p>
+<h4 id="an-opinionated-approach-to-aspnet-core">An Opinionated Approach to ASP.NET Core</h4>
+<p><a href="https://twitter.com/OdeToCode">K. Scott Allen</a> gave us some opinions. I couldn&rsquo;t find anything too much to argue with, which probably means I should have gone to a different talk instead. However, his points were interesting to hear from someone else, nonetheless.</p>
+<p>Use &ldquo;Features&rdquo; folders to structure areas of your application functionality (keep Use-Case centric code together essentially); Async suffix has served its purpose, and is no longer really that relevant (we can stop mandating it); There is a button in Visual Studio to toggle the Solution Explorer between classic view, and filesystem view; put your build and helper scripts in your repository; have samples in your repository; put your solution at the top level of your repo.  As I say, lots of stuff that I would probably advocate as well if you asked me.</p>
+<p>The one throw-away comment that stuck with me was actually &ldquo;I wish there was a way to put my tests in here too&rdquo; in relation to being beside the code in the Feature beside the feature&rsquo;s code.  This is something I have to go away and see if it can be done with a little MSBuild magic, and maybe even extracted to a target file in a NuGet package, perhaps.</p>
+<h3 id="one-down">One down</h3>
+<p>Tomorrow is day 2, and there will another ~70 talks to get down to 7 which I should be able to give another debrief on as well. It may take up until tomorrow to make that decision, though.</p>
+</description>
     </item>
     
     <item>
@@ -82,9 +293,33 @@ Day 1 I was pretty much jumping from one session to the next today but had a lit
       <pubDate>Sun, 20 May 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/aws-summit-london-2018/</guid>
-      <description>I recently attended the AWS Summit in London and thought I would give some notes on the event from my perspective.
-As a developer working for a company that uses AWS, there was plenty to get out of an event such as this, and the free attendance makes a great business case to get the time to go.
-I really enjoyed the schedule of talks that I attended, and the keynote was a good overview of the state of things as AWS, with some exciting insight into partners in Automotive, and Healthcare.</description>
+      <description><p>I recently attended the AWS Summit in London and thought I would give some notes on the event from my perspective.</p>
+<p>As a developer working for a company that uses AWS, there was plenty to get out of an event such as this, and the free attendance makes a great business case to get the time to go.</p>
+<p>I really enjoyed the schedule of talks that I attended, and the keynote was a good overview of the state of things as AWS, with some exciting insight into partners in Automotive, and Healthcare.</p>
+<p>I went on, what one attendee tweeted, the <a href="https://twitter.com/unixdaemon/status/994575955728502784">@abbyfuller Track</a>.  As someone who has got to grips with Docker locally, and keen to leverage what AWS can offer in terms of clusters and cluster management, This was both a catchup refresher and heads-up of whats new as well (Fargate). If it wasn&rsquo;t for a more immediate need of ECS, I probably would have followed the Machine Learning track instead, there was a tonne of new stuff there, including on SageMaker.</p>
+<p>I attended:</p>
+<ul>
+<li>Container Scheduling - Abby Fuller <a href="https://twitter.com/abbyfuller">@abbyfuller</a> (AWS)</li>
+<li>Builders' Lab: Docker to Amazon ECS -  Ric Harvey <a href="https://twitter.com/ric__harvey">@ric__harvey</a> (AWS)</li>
+<li>Building Highly Scalable Retail Order Management Systems with Serverless - Bastien Leblanc <a href="https://twitter.com/bastleblanc">@bastleblanc</a> (AWS) &amp; David Edwards (River Island)</li>
+<li>Deep Dive into AWS Fargate - Abby Fuller <a href="https://twitter.com/abbyfuller">@abbyfuller</a> (AWS)</li>
+</ul>
+<p>Honourable mention goes to the Cost Optimisation as a By-Product of Awesome Practice &amp; Agility at Trainline (David Stanley -Trainline, Giorgio Bonfiglio - AWS, Richard Westby-Nunn - AWS) presentation, which I heard was really good.</p>
+<p>The presentation from David Edwards was a great overview of a 6-month enterprise-level project transforming their legacy internal sales fulfilment pipeline into a modern, asynchronous, event processing system, making use of Kinesis, Lambda and step functions. This new system allows future innovations to hook into different process events to perform new and interesting business use cases going forward.</p>
+<p>The stalls were an interesting mix. I guess working for a Software-as-a-service Company, we already have a great grasp of outsourcing to other SAAS products for managing aspects of our Ops Data hosting, from source control to logging, instrumentation monitoring security and metrics.  Since we already have products or solutions in place, and I am reasonably far removed from the choices, understanding, and interest in these tools, the stalls didn&rsquo;t really have anything specific to offer me. However, you could always find an icecream, tee-shirt or six, and stickers in abundance if you take a look.</p>
+<p>Two other aspects of the day I didn&rsquo;t take advantage of, but would consider in advance of going again, was the Exam Centre, and the Ask an Architect.</p>
+<p>It is a great way to focus on getting certified to book in to sit different AWS Exams at the Summit. You give yourself a deadline to get ready for it and are sitting in an environment with other people also getting their certifications.</p>
+<p>I think if I was at a certain stage in a project, or planning approaches for the next project, then the Ask an Architect would be a great opportunity to get expert advice on a specific problem, and a deeper understanding of which tools and technologies in the AWS Stack to apply to it.</p>
+<p>Would I attend again?  Yes, but only if one of the following was true:</p>
+<ul>
+<li>There is a development track which directly correlated to a project currently worked on, or soon to be worked on (ML/SageMaker content for instance)</li>
+<li>I am wanting some focus to sit examinations</li>
+<li>I was working for a company or in a role that needed to make contact with SaaS product vendors to evaluate new solutions to make use of.</li>
+<li>I had an interesting architectural problem in need of some good outside Architecture input without springing for an expensive consultant.</li>
+</ul>
+<p>Recording of the keynote is up on Youtube - <a href="https://www.youtube.com/watch?v=XXbF6cUIgfs">https://www.youtube.com/watch?v=XXbF6cUIgfs</a></p>
+<p>Hopefully, other recordings from the summit will follow.</p>
+</description>
     </item>
     
     <item>
@@ -93,10 +328,14 @@ I really enjoyed the schedule of talks that I attended, and the keynote was a go
       <pubDate>Thu, 10 May 2018 20:41:55 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/you-cant-out-exercise-a-bad-diet/</guid>
-      <description>I heard a great quote yesterday:
- You can&amp;rsquo;t out-exercise a bad diet
- And this is a great metaphor for technical debt.
-We all agree that you need to pay down your tech debt in your software. And it&amp;rsquo;s great to commit to addressing a little technical debt during each sprint. The problem is that this is the exercise. And if you still have a bad diet of cutting corners and taking shortcuts, your stuck with an overweight system (a monolith, if you like).</description>
+      <description><p>I heard a great quote yesterday:</p>
+<blockquote>
+<p>You can&rsquo;t out-exercise a bad diet</p>
+</blockquote>
+<p>And this is a great metaphor for technical debt.</p>
+<p>We all agree that you need to pay down your tech debt in your software. And it&rsquo;s great to commit to addressing a little technical debt during each sprint. The problem is that this is the exercise.  And if you still have a bad diet of cutting corners and taking shortcuts, your stuck with an overweight system (a monolith, if you like).</p>
+<p>If you want to get serious about the technical debt, you need to start by fixing your bad diet of shortcuts and start by doing things right while doing the right thing.  Only then can you really start paying down existing technical debt as well.</p>
+</description>
     </item>
     
     <item>
@@ -105,8 +344,19 @@ We all agree that you need to pay down your tech debt in your software. And it&a
       <pubDate>Mon, 09 Apr 2018 08:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/developers-are-not-lazy-theyre-efficient/</guid>
-      <description>Well, mostly.
-I hear the excuse a lot from developers, &amp;ldquo;Oh, because I am lazy&amp;rdquo;. This seems to be some sort of way of justifying the way we do some of our development, automation scripts, bash power-user commands like grep and awk, even writing a program to solve something we could do ourselves manually. Unfortunately, even copy+paste development. We don&amp;rsquo;t do ourselves any favours using the term lazy though, since not all words can have their meanings reversed, unlike literally.</description>
+      <description><p>Well, mostly.</p>
+<p>I hear the excuse a lot from developers, &ldquo;Oh, because I am lazy&rdquo;.  This seems to be some sort of way of justifying the way we do some of our development, automation scripts, bash power-user commands like <code>grep</code> and <code>awk</code>, even writing a program to solve something we could do ourselves manually. Unfortunately, even copy+paste development.  We don&rsquo;t do ourselves any favours using the term lazy though, since not all words can have their meanings reversed, unlike <code>literally</code>.</p>
+<p>I&rsquo;ve spent some time trying to analyse this, and determine what we are actually trying to convey, and how accurate we actually are by making such a statement about ourselves, or the work we are completing.</p>
+<p>I&rsquo;ve come to the conclusion that most of the time we actually mean we are trying to be efficient.  Why spend a bunch of time repeating a task manually, when we can get the computer to do it for us. While the computer is running the task for us, it frees up some real time to stop and think, analyse upcoming problems, or automate/script up the next task to be run.</p>
+<p>First, a simple task of moving files.  I will use the example of photos in folders that we want to collate correctly. Now, we know that our photos have a taken date, and that is what we want to use for sorting.  We could manually create a folder for the first year, a folder for the first month (or <code>01</code> really) and then go through the photos one at a time, and when the photo matches that year and month, move it (or copy, whatever) to our new folder.  And any reasonable person would spend the next few months doing this, or not bother.  But we are programmers. We can write a bash shell command, script file, or program to complete this task for us.</p>
+<p>Here comes the efficiency bit: If there are 100 photos, A GUI Power User can probably reorganise these photos manually and get it done faster than most programmers could write, test, and debug a program, and probably faster than the average shell user could script and test a solution. But here is the thing: If we want/have to do this once a week, or once a month ongoing, by taking longer to write the script the first time, you save countless time going forward. This is not lazy, especially if writing the script takes longer, and is more work the first time.  The other case is that we have thousands of photos (100s of thousands, even), and by automating this we will easily get it done faster than if we did it manually, and probably more accurately too. Efficient.</p>
+<p>A similar argument can be made for creating formulas in an Excel spreadsheet, a mail merge in Word, or a workflow in IFTTT.</p>
+<p>This highlights another point. Most of the time we hear someone declare themselves lazy, they actually spend more time on the problem.  Writing a code solution will usually take longer than the manual approach. At least in the short term. I wouldn&rsquo;t use the term lazy to explain someone who rather than drive and get stuck in traffic decides to take a push bike instead. Efficient, looking ahead at the real payoff.</p>
+<p>I mentioned Copy Paste. That is lazy. Let me explain&hellip; No, there is too much. Let me sum up.</p>
+<p>There is a false economy to copy and paste. You might get a quick-win solution running by copying some existing code, then tweaking it a little bit.  If you are doing TDD (Red, Green, Refactor) you are encouraged to take this shortcut to get to Green. But if you have to copy and paste multiple lines to code every time you need to add something, you are doing it wrong. Firstly, you have more chance of making a mistake every time you copy. You end up with a maintenance headache have to update all the copies as well.</p>
+<p>The correct solution, if you have created one copy, and can see that it will be copied again, is to extract out one or more methods to perform the task that you can call multiple times instead. (&ldquo;compression-oriented programming&rdquo; or &ldquo;semantic compression&rdquo; - <a href="https://caseymuratori.com/blog_0015">see related</a>).  Duplicate code is ripe for refactoring. (TDD step 3, Refactor!)</p>
+<p>We should stop calling ourselves and others in our profession lazy. We are efficient, we automate, we are programmers.</p>
+</description>
     </item>
     
     <item>
@@ -115,9 +365,15 @@ I hear the excuse a lot from developers, &amp;ldquo;Oh, because I am lazy&amp;rd
       <pubDate>Thu, 19 Jan 2017 23:50:24 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/microsoft-google-android-wear-support-is-missing/</guid>
-      <description>Ok, so I know I am in the minority as a Windows Phone user, but sometimes I just get frustrated and I wish Microsoft at least tried to achieve parity with their platforms, and not leave it to others who just won&amp;rsquo;t bother.
-I have a really nice Acer Liquid Jade Primo Windows 10 mobile phone. Continuum, Hexa Core Processor, 3GB memory, nice 5.5&amp;quot; screen, great camera.
-Yesterday I went shopping and saw the really nice Fossil Q watches.</description>
+      <description><p>Ok, so I know I am in the minority as a Windows Phone user, but sometimes I just get frustrated and I wish Microsoft at least tried to achieve parity with their platforms, and not leave it to others who just won&rsquo;t bother.</p>
+<p>I have a really nice <a href="https://www.microsoftstore.com/store/msuk/en_GB/pdp/Acer-Liquid-Jade-Primo--Unlocked/productID.5064103000">Acer Liquid Jade Primo</a> Windows 10 mobile phone. Continuum, Hexa Core Processor, 3GB memory, nice 5.5&quot; screen, great camera.</p>
+<p>Yesterday I went shopping and saw the really nice Fossil Q watches. (Further disclaimer: I already own a really nice Fossil Mechanical watch, and a Microsoft Band 2) They were really nice, but I had to walk away. Why? Because they run Android Wear.</p>
+<p>Now, technically, there is no limitation that says &ldquo;because it is Android, it will not work with Windows&rdquo;. It has even been <a href="https://mspoweruser.com/developer-working-making-android-wear-work-windows-10-mobile/">proven possible</a> by an independent developer talking to the Bluetooth APIs, and Windows has some really nice API hooks already to allow smart devices to hook into many parts of messaging and notifications. It&rsquo;s just that Google has no inclination to write a Windows Phone 8 or Windows 10 UWP app that supports it. They wrote an iPhone app, though. Because otherwise how will their hardware and software compete with the Apple Watch?</p>
+<p>What makes me frustrated isn&rsquo;t that Google isn&rsquo;t supporting Microsoft&rsquo;s business plan, and the progress of their competitor to Android, It is actually that Microsoft doesn&rsquo;t seem to be doing anything to provide these missing applications themselves. If you are willing to write apps for Android Wear, then why not allow those apps the chance to work with a Windows Phone?</p>
+<p>Microsoft Research, I would love to see you release something awesome in the Android-Wear client app space.</p>
+<p>Just one more stone on the scales tipping them in the wrong direction that might one day force me to buy an Android.</p>
+<p>/rant</p>
+</description>
     </item>
     
     <item>
@@ -126,10 +382,40 @@ Yesterday I went shopping and saw the really nice Fossil Q watches.</description
       <pubDate>Mon, 07 Nov 2016 03:14:31 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/podcasts-im-addicted/</guid>
-      <description>My name is Mark and I am a podcast addict.
-TL;DR I listen to many podcasts. If you want some suggestions for weekly/monthly listening I recommend:
- Hanselminutes .Net Rocks! Yet Another Podcast Merge Conflict Accidental Tech Podcast The Incomparable  And some podcasts that have finished
- This Developer&amp;rsquo;s Life (27 episodes) We&amp;rsquo;re Alive (A story about zombies) (48 episodes)  It begins Over the last few years, my daily commute consisted of a 10-40 minute walk each way (depending on where we moved to).</description>
+      <description><p>My name is Mark and I am a podcast addict.</p>
+<h3 id="tldr">TL;DR</h3>
+<p>I listen to many podcasts. If you want some suggestions for weekly/monthly listening I recommend:</p>
+<ul>
+<li><a href="http://hanselminutes.com/">Hanselminutes</a></li>
+<li><a href="http://www.dotnetrocks.com/">.Net Rocks!</a></li>
+<li><a href="http://jesseliberty.com/podcast/">Yet Another Podcast</a></li>
+<li><a href="http://www.mergeconflict.fm/">Merge Conflict</a></li>
+<li><a href="https://atp.fm/">Accidental Tech Podcast</a></li>
+<li><a href="https://www.theincomparable.com/theincomparable/">The Incomparable</a></li>
+</ul>
+<p>And some podcasts that have finished</p>
+<ul>
+<li><a href="http://thisdeveloperslife.com/">This Developer&rsquo;s Life</a> (27 episodes)</li>
+<li><a href="http://www.werealive.com/listen/">We&rsquo;re Alive</a> (A story about zombies) (48 episodes)</li>
+</ul>
+<h3 id="it-begins">It begins</h3>
+<p>Over the last few years, my daily commute consisted of a 10-40 minute walk each way (depending on where we moved to). This lead me down the path of wearing headphones. Music is a great way to pass the time, but pretty soon I wanted something more.</p>
+<p><a href="http://hanselminutes.com/">Hanselminutes</a> was my gateway to becoming a podcast listener. I started listening about 4 years ago and really enjoyed the relevant content to a .Net developer like myself. After a few episodes, I loaded the back catalog onto my phone. As well as keeping up with new weekly episodes, I was devouring episodes from 2006, then 2007, and on it went.</p>
+<p>Pretty soon, it had come to my attention that there was a show called <a href="http://www.dotnetrocks.com/">.Net Rocks!</a> (another from the <a href="http://www.pwop.com/podcasts.aspx">Pwop Studios</a>). This now became my second podcast but to this day the only one I haven&rsquo;t considered the back catelog since <a href="https://twitter.com/carlfranklin">@carlfranklin</a> and <a href="https://twitter.com/richcampbell">@richcampbell</a> produce 3 episodes a week! And it&rsquo;s great they geek out once in a while with science technology such as Sound Technology, Nasa, and the latest in power generation.</p>
+<p>But in the process of Listening, I found <a href="http://www.thetabletshow.com/">The Tablet Show</a>, a limited run of .Net Rock style episodes that focussed on all things tablet, Windows 8, Android and iPad. And related to this I stumbled on <a href="https://twitter.com/WindowsDevShow">The Windows Developer Show</a> (now missing from the face of the Internet), a podcast focusing first on Metro and Windows Phone, and later all things modern Windows Dev (up to UWP).</p>
+<p>For a short period I tried out <a href="http://www.werealive.com/listen/">We&rsquo;re Alive</a>, a story-based podcast about zombies. This was really good, but much like The Walking Dead, it fell to the wayside for more technical content.</p>
+<p>As well as reading <a href="http://www.hanselman.com/blog/">Scott Hanselman&rsquo;s blog</a> I also enjoyed the <a href="http://jesseliberty.com/">blog of Jesse Liberty</a>, and it turned out he has a podcast called <a href="http://jesseliberty.com/podcast/">Yet Another Podcast</a>. At the same time, Scott had another podcast <a href="http://thisdeveloperslife.com/">This Developer&rsquo;s Life</a> with <a href="http://rob.conery.io/">Rob Conery</a>. This was a short run show (based on episode count), but every episode was (and still is) worth the listen. (For completion I am aware of <a href="http://www.ratchetandthegeek.com/">Ratchet and the Geek</a> co-hosted by Scott, but it hasn&rsquo;t made it onto my queue yet)</p>
+<p>Since I had been hooked on podcasts already, <a href="https://github.com/deadalusai">a friend</a> started putting me onto other podcasts. The first one that stuck with me was ATP, the <a href="https://atp.fm/">Accidental Tech Podcast</a>. What started as a podcast I was keeping up with week to week, has 2 years later become another podcast on my completion list that I can say I am up to date with (which says a lot since the latest episode is #192 and they run well over 60 minutes each, some reaching 2 hours in length). These 3 guys talk about things from an Apple perspective, primarily, but touch on anything newsworthy in Tech along the way.</p>
+<p>The next recommended podcast to stick was <a href="http://www.newrustacean.com/">New Rustacean</a>, a podcast about learning the Rust programming language. I&rsquo;ll admit, a podcast isn&rsquo;t the best way to learn a language, but it is a nice supplementary. Since I started listening when it came out this one has been easy to keep up with as new episodes are released.</p>
+<h3 id="four-years-on">Four years on</h3>
+<p>The latest across my list that started is <a href="http://www.mergeconflict.fm/">Merge Conflict</a>, a weekly show by <a href="http://twitter.com/praeclarum">Frank Krueger </a> known for <a href="http://calca.io/">Calca</a>, <a href="http://icircuitapp.com/">iCircuit</a>, and <a href="http://continuous.codes/">Continuous</a> and <a href="http://twitter.com/jamesmontemagno">James Montemagno </a> of Xamarin fame. A great listen for development practice and geeky topics like VR and Chat Bots.</p>
+<p>My completionist tendencies meant I was almost at zero unlistened episodes across all the podcasts I listen to. (excluding the new ones coming up each week, or .Net Rocks. One day&hellip;) So I thought I would venture out again. Starting with the hosts of <a href="https://atp.fm/">ATP</a>, I looked into some of their previous and other shows.</p>
+<p>The first of these is an old completed podcast <a href="http://5by5.tv/hypercritical">Hypercritical</a>, a show where <a href="http://arstechnica.com/author/john-siracusa/">John Siracusa</a> can just rant about all things. Spanning from early 2011 till late 2012 for 100 episodes. Quickly following this is <a href="https://twitter.com/marcoarment">Marco Arment</a>&rsquo;s <a href="http://5by5.tv/buildanalyze">Build &amp; Analyse</a> (with <a href="https://twitter.com/danbenjamin">Dan Benjamin</a>) and <a href="https://twitter.com/caseyliss">Casey Liss</a>&rsquo;s <a href="https://www.relay.fm/analogue">Analog(ue)</a> (with <a href="https://twitter.com/imyke">Myke Hurley</a>).</p>
+<p>The other few I have now added to my list to start listening to are <a href="https://www.theincomparable.com/robot/">Robot Or Not</a> (another Siracusa show) and <a href="https://www.theincomparable.com/theincomparable/">The Incomparable</a>, which is another great Geek listen. So far these look to fit in nicely, while I also keep up with new episodes of ATP, Hanselminutes and Merge Conflict.</p>
+<p>My queue is back to <del>500</del> <del>880</del> 850 and counting down. But I doubt that will last long. I&rsquo;m addicted. And if you are too, these might help feed your habit.</p>
+<h3 id="bonus-comments">Bonus Comments</h3>
+<p>Thanks for reading all the way to the end. Much appreciated. As a bonus, the headphones that I use are the <a href="https://www.amazon.co.uk/Jaybird-Bluebuds-Bluetooth-Earphones-Midnight/dp/B00AIRUOI8">Jaybird Bluebuds X In-Ear Bluetooth Earphones</a> (no longer available, but I would vouch for the quality and service of the Jaybird guys). This is my second pair as a replacement for an audio fault a year in, and they were really good about sending me the new ones under warranty.  These are great for walking, running and general music and podcast listening.</p>
+</description>
     </item>
     
     <item>
@@ -138,8 +424,25 @@ TL;DR I listen to many podcasts. If you want some suggestions for weekly/monthly
       <pubDate>Sun, 05 Jun 2016 21:32:04 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/fork-off-with-your-branches/</guid>
-      <description>The nice thing about git is that branches are cheap and you can create many and varied branches for every little fix, format or feature. The annoying thing about GitHub is that every user creates many many many branches.
-One of my pet peeves at the moment is a large number of branches on our upstream repository. That is, the shared common one we all fork from and Pull Request into.</description>
+      <description><p>The nice thing about git is that branches are cheap and you can create many and varied branches for every little fix, format or feature. The annoying thing about GitHub is that every user creates many many many branches.</p>
+<p>One of my pet peeves at the moment is a large number of branches on our upstream repository. That is, the shared common one we all fork from and Pull Request into. When I started there were almost 200 branches! So many branches made it really hard to find out which branch was for what, and even harder to tell if any of the branches were not being used.</p>
+<p>These might seem like small things, but if you have a CI server <em>(I really hope you have a CI server)</em> you might set up wildcard builds that automatically build every branch that matches a certain pattern, for example, <code>feature/*</code> or <code>release/*</code>. Now every one of these branches has a build that runs every time the code changes. You probably want to ensure they are up to date with master, so a script will run on a schedule <em>(or triggered off of a merge)</em> and auto-merge master down to your branch. <em>(Why is this required? probably because you have so many branches in the first place! Investigate <a href="https://www.google.co.uk/search?q=rebase">git rebase</a>&hellip;)</em></p>
+<p>So now, every time the script runs, it triggers updates on every branch, which triggers a build. 200 branches? instant 200 builds in your CI queue. <em>(Who has 200 agents? not me.)</em> Frustration sets in when you can&rsquo;t get your normal build through because your server is busy, and will stay busy for a while.</p>
+<p>The other obvious overhead to me is a cognitive one. If an individual is tracking more than one branch or work, they have to context switch back and forward between then. I can understand 2 work streams due to external blockers on task one and be filling time with task 2, but having 3 or more branches is juggling too much work.  Taking this further, if you have a bunch of branches because the work is done and ready to release, get it shipped. It&rsquo;s not done until it&rsquo;s in production in front of customers <em>(even if only early adopter or beta users)</em>.  using branches as a release task list isn&rsquo;t sensible when everyone does it. Your branches get lost in the noise.  You may even forget to release a branch of changes until your manager chases you for something you thought was released!</p>
+<p>Let&rsquo;s apply this to teams. A team can only be focussing on so many priorities (read branches) before they start dropping balls, or wasting a lot of time on communication and overhead on tracking these different tasks <em>(bugs, features etc)</em>. The less active branches a team has to manage at once, the better. And you get a bit of a <a href="https://en.wikipedia.org/wiki/Bystander_effect">bystander effect</a> on your branches.</p>
+<p>Frustrations aside, there are some real benefits from using a <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow">git flow</a> or <a href="https://guides.github.com/introduction/flow/">GitHub Flow</a> approach where there is a single trunk of development <em>(either a develop-release-master flow or a master-master-master flow)</em> where you are subject to a continuous integration model. Things like <a href="https://en.wikipedia.org/wiki/Feature_toggle">feature flagging</a> and dark releases are great ways to handle harder features and code refactors such are renames, formatting and class extraction are much easier when there is only one branch to work in.</p>
+<p>Some rules to work by:</p>
+<ul>
+<li>keep your small change branches in your fork.</li>
+<li>Don&rsquo;t push branches upstream</li>
+<li>collaborative feature branches? Use feature toggles to maintain continuous integrations.</li>
+<li>Refactoring? incrementally, ship often.</li>
+<li>No more big bang changes, please.</li>
+<li>Branches are cheap, but you don&rsquo;t have to share them.</li>
+</ul>
+<p>Another pet peeve is naming things.  If you have to have a branch, name it after your team, your username, or the bug tracking id for the story of work it relates to. cryptic &lsquo;feature&rsquo; or &lsquo;bug&rsquo; description names don&rsquo;t help anyone. The diff says what the change is, so it is self-descriptive <em>(aka <a href="https://en.wikipedia.org/wiki/Self-documenting_code">self-documenting</a>)</em>, but I don&rsquo;t know who owns it.</p>
+<p><strong>&lt;/rant&gt;</strong></p>
+</description>
     </item>
     
     <item>
@@ -148,7 +451,14 @@ One of my pet peeves at the moment is a large number of branches on our upstream
       <pubDate>Mon, 16 May 2016 04:37:44 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/on-passion-in-it/</guid>
-      <description>Some people have a natural gift to be able to learn. They can pick up any subject and by putting in hard work they can get good at it. Some people have a natural interest in a specific subject, and these people enjoy the process of learning and don’t find the work being put in as ‘hard’, but instead it is fun. They too will get good, or even great at this subject.</description>
+      <description><p>Some people have a natural gift to be able to learn. They can pick up any subject and by putting in hard work they can get good at it.  Some people have a natural interest in a specific subject, and these people enjoy the process of learning and don’t find the work being put in as ‘hard’, but instead it is fun. They too will get good, or even great at this subject.  Then there are other people. No matter how hard they work on any subject, the hard work may never truly pay off enough for them to get ‘good’. Instead, they feel frustrations, and anxiety and even may come to hate it, being too hard.</p>
+<p>Why do I bring this up? Well, it turns out that as much as people may generally fit into one of these three groups, we can all take any specific subject or topic and put ourselves into one of these three categories in it. Learning a language? Well, you may find it impossible if you never had to learn another language before, especially at an older age. But have you already learned 5 other languages? You can get really good at the sixth one with some hard work being put in.  Do you absolutely enjoy baking? Then learning a new recipe or technique might be so much fun that it feels like easy work, even if you put in days of effort to get really great results.</p>
+<p>This concept is also very relevant to the I.T. industry.   If you are here reading this, you probably belong to the industry or intend to in the near future.</p>
+<p>The I.T. industry is a very broad category, with so many different topics and subjects to pick and choose from. I would dare say that if you enjoy computers in a general sense, then there is an area of I.T. out there that you can be passionate about, and enjoy working in. If you are reading this, and really hate your job in the I.T. sector, you might want to pay attention here.</p>
+<p>Passion fuels a fire of learning that makes the whole process fun, exciting and enjoyable. You can enjoy the process of becoming good at a topic, and might even find yourself becoming great at it as well. The trick is to find the area that interests you the most, and dive in. You can start learning about it in your spare time, and look for opportunities to apply it to your current role, your next project, or otherwise to your next C.V application. Learning in your own time and applying for a job in that area is a great way to get the job you will enjoy.  Better yet, that job can take you from good to great, while enjoying yourself at the same time!</p>
+<p>The other great thing about the Industry is the fast pace it moves in.  You have the opportunity to completely retrain every 5-10 years to get out of something you find dull and boring, into something that you can get really fired up over. Or move from one area you really enjoy that you don’t find as challenging anymore, into a new field of technology to keep things fun and interesting, while transferring the skills you have built up along the way.</p>
+<p>So what is your new Passion going to be? Or have you already found it?</p>
+</description>
     </item>
     
     <item>
@@ -157,114 +467,17 @@ One of my pet peeves at the moment is a large number of branches on our upstream
       <pubDate>Wed, 04 May 2016 08:08:43 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/guess-whos-back/</guid>
-      <description>Ok, so not that big a leap, it&amp;rsquo;s just me. Six months later me. Moved to the UK me.
-I&amp;rsquo;ve taken the plunge and moved away from Windy Wellington in little old New Zealand to a place in the UK called Milton Keynes. Famous for wide streets, round-a-bouts and concrete cows.
-Why Milton Keynes? Because Xero has an office here of course! Aside from being cheaper to live here than in the middle of London, it&amp;rsquo;s also a bit quieter and a bit of a slower pace of life for a bit, with reasonable connections to anywhere but here.</description>
-    </item>
-    
-    <item>
-      <title>Microsoft Band 2 - The first 24 hours</title>
-      <link>https://csmacnzblog.github.io/post/microsoft-band-2-the-first-24-hours/</link>
-      <pubDate>Wed, 18 Nov 2015 09:13:57 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/microsoft-band-2-the-first-24-hours/</guid>
-      <description>My Microsoft Band finally arrived yesterday morning, so obviously I put it straight on (after a charge of course). Here is a chronicle of first impressions.
-Setup Out of the box, setup was really easy. Simply following the instructions on the band and the phone made it simple. I paired it with my Windows Phone (a Lumia 930) and as soon as the connection was made, the two devices started to chat to each other, downloading updates for the band using my phone&amp;rsquo;s internet connection.</description>
-    </item>
-    
-    <item>
-      <title>Global Day of Coderetreat 2015. Done.</title>
-      <link>https://csmacnzblog.github.io/post/global-day-of-coderetreat-2015-done/</link>
-      <pubDate>Sat, 14 Nov 2015 18:35:22 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/global-day-of-coderetreat-2015-done/</guid>
-      <description>It was another great year being involved in the Global Day of Coderetreat for 2015. This was my first year hosting, and it was great fun planning the exercises and running the day. With 16 people turning up, we had a nice mix of student developers, junior developers from various different Software Consultancies around Wellington, and a couple of Seasoned Vets of the GCDR who are known faces from the .</description>
-    </item>
-    
-    <item>
-      <title>Global Day of Coderetreat 2015 is here</title>
-      <link>https://csmacnzblog.github.io/post/global-day-of-code-retreat-2015-is-here/</link>
-      <pubDate>Wed, 11 Nov 2015 18:22:41 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/global-day-of-code-retreat-2015-is-here/</guid>
-      <description>It&amp;rsquo;s that time of year again for Programmers the world over to gather together and practice their art. Yes, It&amp;rsquo;s the 2015 Global Day of Code Retreat on Saturday 14th November, and once again I have found myself involved. 4 years ago I attended my first GDCR in Wellington and it was great fun. Now, having stepped in to help facilitate last year, I have stepped up to Host it, with the help of a few of my colleagues as Xero.</description>
-    </item>
-    
-    <item>
-      <title>On fixing problems in existing solutions</title>
-      <link>https://csmacnzblog.github.io/post/on-fixing-problems-in-existing-installations/</link>
-      <pubDate>Sun, 08 Nov 2015 07:02:57 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/on-fixing-problems-in-existing-installations/</guid>
-      <description>A builder came around the other day to fix the shelf under the sink. We had a leaking tap that over time had been dripping down onto the shelf and the boards had ended up in an awful state. From my perspective, we just simply needed to rip it out and put a new one in.
-Luckily, the builder was an expert and explained to me what would have to be done.</description>
-    </item>
-    
-    <item>
-      <title>Pets vs Cattle</title>
-      <link>https://csmacnzblog.github.io/post/pets-vs-cattle/</link>
-      <pubDate>Sun, 09 Aug 2015 08:41:48 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/pets-vs-cattle/</guid>
-      <description>There is this concept that has been floating around for a while which says you should treat your servers as cattle, not pets. I came across another version of this analogy that I wanted to post, since it doesn&amp;rsquo;t seem to have been recorded anywhere but has been mentioned in presentations. But before I get to that, let us look at what this phrase means, and where it came from.</description>
-    </item>
-    
-    <item>
-      <title>Another layer of indirection</title>
-      <link>https://csmacnzblog.github.io/post/another-layer-of-indirection/</link>
-      <pubDate>Wed, 08 Jul 2015 16:21:53 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/another-layer-of-indirection/</guid>
-      <description>There is a &amp;lsquo;great&amp;rsquo; quote in Software development about indirection that goes like this:
- Any problem can be solved by adding another layer of indirection. David Wheeler The follow up to this, of course, is to end it with the following:
- &amp;hellip;except for the problem of too many layers of indirection. Kevlin Henney I am here to provide a proof of sorts, that disproves the latter and re-enforces the former.</description>
-    </item>
-    
-    <item>
-      <title>Git is not scary</title>
-      <link>https://csmacnzblog.github.io/post/git-is-not-scary/</link>
-      <pubDate>Sun, 10 May 2015 18:14:28 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/git-is-not-scary/</guid>
-      <description>It may not be simple, it may not be easy, but git is not scary. Now, I&amp;rsquo;ve been using git for less than a year now, professionally. I had dabbled in git personal projects for the year before that. My primary Source control had mostly been TFS (Team Foundation Server), and I had been exposed to subversion on a major project before too. Full disclosure, I&amp;rsquo;ve never used Visual SourceSafe. Just Sayin&#39;.</description>
-    </item>
-    
-    <item>
-      <title>Ports and Adapters</title>
-      <link>https://csmacnzblog.github.io/post/ports-and-adapters/</link>
-      <pubDate>Sun, 03 May 2015 09:45:09 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/ports-and-adapters/</guid>
-      <description>It feels like everywhere I turn (in my circles anyway), people are talking about Ports and Adapters, and I thought I would jump on the bandwagon. You may have also heard this architecture called Onion Architecture, or Hexagonal Architecture. All of these are essentially the same idea, under a different name.
-Brief History When we started solving our problems with a 3 tier architecture, we were trying to solve the problem of isolating our business logic from our persistence and from our presentation.</description>
-    </item>
-    
-    <item>
-      <title>SOLID-ifying your Nuget Packaging</title>
-      <link>https://csmacnzblog.github.io/post/solid-ifying-your-nuget-packaging/</link>
-      <pubDate>Mon, 27 Apr 2015 07:54:17 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/solid-ifying-your-nuget-packaging/</guid>
-      <description>The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to DLL Hell. But I had this slight epiphany from another comment, where it was observed that our X.Common package had &amp;lsquo;helper code&amp;rsquo; for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc).</description>
-    </item>
-    
-    <item>
-      <title>Semantics vs implementation detail</title>
-      <link>https://csmacnzblog.github.io/post/semantics-vs-implementation-detail/</link>
-      <pubDate>Sun, 11 Jan 2015 16:36:29 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/semantics-vs-implementation-detail/</guid>
-      <description>When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&amp;rsquo;t call it firstNameString, or cfnString, and we have also lost the bad habit of firstNameStr or strFirstName. The implementation detail simply doesn&amp;rsquo;t matter. Semantically, it represents the customer&amp;rsquo;s first name, so we use customerFirstName. Or if we are clearly in the context of the customer we can simply use firstName or customer.</description>
-    </item>
-    
-    <item>
-      <title>Thoughts on Testing</title>
-      <link>https://csmacnzblog.github.io/post/thoughts-on-testing/</link>
-      <pubDate>Sun, 04 Jan 2015 19:57:02 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/thoughts-on-testing/</guid>
-      <description>I&amp;rsquo;ve gone through the regular evolution when it comes to writing tests. At first there was no time, didnt bother. This was mostly down to the fact I was building demo apps and samples that got less use than it took to build them, working with senior devs who had made their name making said apps.
-The next stage is reluctant acceptance. The team I was put on wrote tests, so I guess I should too.</description>
+      <description><p>Ok, so not that big a leap, it&rsquo;s just me. Six months later me. Moved to the UK me.</p>
+<p>I&rsquo;ve taken the plunge and moved away from Windy Wellington in little old New Zealand to a place in the UK called <a href="http://www.destinationmiltonkeynes.co.uk/">Milton Keynes</a>.  Famous for wide streets, round-a-bouts and <a href="http://www.mkcows.com/">concrete cows</a>.</p>
+<p>Why Milton Keynes? Because Xero has an office here of course! Aside from being cheaper to live here than in the middle of London, it&rsquo;s also a bit quieter and a bit of a slower pace of life for a bit, with reasonable connections to anywhere but here.  The plan is to live and work here for a while and travel around Great Britain and Europe. It makes sense when Europe is 2-3 hours aways from here when it was 26 hours of plane plus another 5-12 of airports from Wellington!</p>
+<p>So as you can imagine, planning a move takes a while, and my Wife and I had a 7 week holiday on our way over. Thus explains the 6 months of no blog posts.  But I&rsquo;m back in anger now and keen to get back into a good cadence of writing and GitHub-ing again.</p>
+<p>As I travelled for the last 7 weeks, I completely lost touch with the development community. Partly from the busy sight-seeing schedule and <a href="https://www.instagram.com/p/BEVzwZ7Fq1T/?taken-by=csmacnz">picture taking</a>, but partly because the mobile internet roaming charges were ridiculously priced, and hotel wifi was not amazing.  And I was on holiday, so no time for work. But it did have an unforeseen side effect.</p>
+<p>I spend 7 weeks around the non-geek, the computer normal, the general every-day average computer technology smart phone public. Real People. Lots of &lsquo;em.  And I noticed a few things.  People have no idea what their devices can do. The times I heard &ldquo;did you know it could do this?&rdquo; for a years-old feature that came out 3 versions ago was interesting to hear. On top of this, the amount of bad software that people can and do put up with without complaining is amazing. We in the professional developer community hold other developers to a very high standard. One which we are very vocal about, but one the general public don&rsquo;t really know to consider.  They put up with a lot, and are non-the-wiser.  Amazing.</p>
+<p>The other side of travelling was using all of the hotel websites, airport touch kiosks and information centre devices.  Wow. Touch is hard, but some of these machines could do with a bit of TLC.  (What was I saying about high standards?)  It has made me appreciate good touch software when I see it, as well as sticking to good old keyboard or mouse over touch in some cases as well. I could type my name faster or select from a few dropdowns faster than using some of the touch-designed selections and wizards.</p>
+<p>For those of you making great experiences out there for travellers - thank you. For those of you making responsive web design - bravo. For those of you who realise people do have Windows Phones, even though we are only 5%, I applaud you!  And better yet, though of you who remember that as well as iPhone and Android apps, having a responsive web-based version for everyone else still covers the other 20-30% of phone users who still want to access your resources on their phone!</p>
+<p>But now that I&rsquo;m back, I can start my XAML windows development again, get stuck into <a href="https://msdn.microsoft.com/en-us/windows/uwp/get-started/whats-a-uwp">Universal Windows Platform</a> apps, and <a href="http://dotnet.github.io/">.Net Core</a> development.</p>
+<p>Who has an idea of an app gap I could fill? Send me a tweet or put a comment below and I might give it a go.</p>
+</description>
     </item>
     
   </channel>

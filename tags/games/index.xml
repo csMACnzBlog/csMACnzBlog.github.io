@@ -4,6 +4,12 @@
     <title>games on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/tags/games/</link>
     <description>Recent content in games on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Mon, 02 Feb 2009 05:15:08 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/games/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +19,13 @@
       <pubDate>Mon, 02 Feb 2009 05:15:08 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/global-game-jam-2009/</guid>
-      <description>This weekend I was lucky enough to participate in Global Game Jam 2009 in the Dunedin, New Zealand Team.For those of you who don&amp;rsquo;t know what Game Jam is, it&amp;rsquo;s a 48-hour game building competition run in multiple centers around the world simultaneously.Dunedin entered three teams and successfully made 3 games in the 48 hours allocated, with a total of 10 people participating in Dunedin, and a total of over 1700 participants worldwide.</description>
+      <description><p>This weekend I was lucky enough to participate in Global Game Jam 2009 in the Dunedin, New Zealand Team.For those of you who don&rsquo;t know what Game Jam is, it&rsquo;s a 48-hour game building competition run in multiple centers around the world simultaneously.Dunedin entered three teams and successfully made 3 games in the 48 hours allocated, with a total of 10 people participating in Dunedin, and a total of over 1700 participants worldwide.</p>
+<p>The competition had 3 international constraints: Game-play must last no longer than 5 minutes; It had to represent the theme &ldquo;As long as we&rsquo;re together, we will never run out of problems&rdquo;; and it had to include one of three themes, cold, blank or modern. The Dunedin chapter of the competition has hosted and run by Tim Nixon of <a href="http://www.straylight-studios.com/">Straylight</a>, who have hosted running versions of all our games on their website, which were all developed to run on the web.</p>
+<p>My team made a game called &ldquo;My Mate&rsquo;s Drunk&rdquo;. The story-line was your mate has dragged you out for a night on the town and has gotten rather sloshed. Your task is to get him home without being late, and with causing as little damage to the town on the way home. This game was written in Java. <a href="http://globalgamejam.org/games/my-mate039s-drunk" title="Global Game Jam - My Mate's Drunk">Global Game Jam - My Mate&rsquo;s Drunk</a> <a href="http://dev.straylight-studios.com/gamejam/MyMatesDrunk/game.html">Straylight - My Mate&rsquo;s Drunk</a></p>
+<p>One team build a weather simulator where you terraform a planet by manipulating the clouds. Their back story is that humans will arrive at the planet in a few thousand years, and you are a small robot sent ahead to terraform the planet to get it ready and inhabitable for them. You essentially have 5 minutes to get the planet ready for them and get a percentage terraformed rating at the end. This game was developed in Silverlight. <a href="http://globalgamejam.org/games/terraqua">Global Game Jam - TerrAqua</a> <a href="http://dev.straylight-studios.com/gamejam/terraqua/testpage.html">Straylight - TerrAqua</a></p>
+<p>The Third team built a battling toasters game which is called Death By Toaster. Set in a Post-Apocalyptic Future junkyard, the mutant appliances are coming alive and fighting for survival. You battle for supremacy and glory. This game has 1, 2 or 3 player mode, and is also built with Silverlight. <a href="http://globalgamejam.org/games/death-toaster">Global Game Jam - Death By Toaster</a> <a href="http://dev.straylight-studios.com/gamejam/DeathByToaster/">Straylight - Death By Toaster</a></p>
+<p>Be sure to also check out other games built by people all over the world at the <a href="http://globalgamejam.org/">Game Jam Website</a>.It was heaps of fun and my only hope is that people play and enjoy all the great games that came out of this weekend.</p>
+</description>
     </item>
     
   </channel>

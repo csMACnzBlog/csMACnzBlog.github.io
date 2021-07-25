@@ -4,6 +4,12 @@
     <title>mucon on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/mucon/</link>
     <description>Recent content in mucon on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Fri, 31 May 2019 10:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/mucon/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +19,20 @@
       <pubDate>Fri, 31 May 2019 10:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/mucon-2019-part2/</guid>
-      <description>Good morning day 3. So much to absorb already from Day 1 and 2 but it isn&amp;rsquo;t over yet.
-This morning&amp;rsquo;s Keynote &amp;ldquo;Crossing the River by Feeling the Stones&amp;rdquo; from Simon Wardley is a must see. This was a very educational look at the value of maps, and the importance of knowing the landscape, looking at Evolutionary Flow and not just Process Flow when looking at optimisations. I would recommend the talk from Susanne Kaiser &amp;ldquo;Preparing for a future Microservices journey&amp;rdquo; from the day before as a nice companion to this keynote talk, as she used &amp;ldquo;Wardley Maps&amp;rdquo; to specifically look at the evolution towards microservices.</description>
+      <description><p>Good morning day 3. So much to absorb already from <a href="/mucon-2019-part1/">Day 1 and 2</a> but it isn&rsquo;t over yet.</p>
+<p>This morning&rsquo;s Keynote &ldquo;Crossing the River by Feeling the Stones&rdquo; from <a href="https://twitter.com/swardley">Simon Wardley</a> is a must see. This was a very educational look at the value of maps, and the importance of knowing the landscape, looking at Evolutionary Flow and not just Process Flow when looking at optimisations. I would recommend the talk from Susanne Kaiser &ldquo;Preparing for a future Microservices journey&rdquo; from the day before as a nice companion to this keynote talk, as she used &ldquo;Wardley Maps&rdquo; to specifically look at the evolution towards microservices. (Though this keynote also shows that journey towards the end as well).</p>
+<p>&ldquo;Exploring your Microservices Architecture Through Graph Theory&rdquo; from <a href="https://twitter.com/techiewatt">Nicki Watt</a> was a great look at applying Graph Theory to distributed systems, especially with Microservices to gain insight into where architectural smells may exist using different analysis metrics.</p>
+<p>The before lunch slot was &ldquo;Awesome CI/CD Data Pipelines for Distributed Data-Sources&rdquo; from <a href="https://twitter.com/ChrisBurrell7">Chris Burrell</a>. This was a walkthrough of mining data sources (load and transform) from Microservices into RedShift in a pipeline approach.</p>
+<p>&ldquo;An Engineer&rsquo;s Guide to a Good Night&rsquo;s Sleep&rdquo; had <a href="https://twitter.com/NickyWrightson">Nicky Wrightson</a> giving a great Engineers Guide to Ops approach to building software, with 5 rules for building better systems so you don&rsquo;t have to be woken up at 3 am. Slides available here: <a href="https://speakerdeck.com/nickywrightson">https://speakerdeck.com/nickywrightson</a>.</p>
+<p><a href="https://twitter.com/matthiasnoback">Matthias Noback</a> presented &ldquo;Beyond Design Principles and Patterns: Writing Good Object-Oriented Code&rdquo; which was a great look at Object-Oriented code done right, in a nice succinctly laid out path from the ground up. I want to steal the whole thing as a blog post it was so well put together. Although there were code examples (Java?), the concepts given transcended across any OO language and presented in a nice language-agnostic way. Unfortunately, I didn&rsquo;t learn anything new, and I also had nothing to disagree with either.</p>
+<p><a href="https://twitter.com/mufridk">Mufrid Krilic</a> gave an interesting Lightning Talk: &ldquo;Domain Model in Multi-Language Environment with Examples from Healthcare&rdquo; which was a brief conversation about ubiquitous language when your code is in English but your domain is in Norwegian. This was from experience with a hospital software system.</p>
+<p>To round out the weeks Lightning Talks was &ldquo;Don&rsquo;t Rebuild your Monolith!&rdquo; by <a href="https://twitter.com/PeterAnning">Peter Anning</a>. An epic tale of transformation from Monolith, to Microservices, regrets and reaffirmations. An entertaining watch with the takeaway that processes like DevOps, Agile and Ubiquitous Langage that come out of moving to microservices must be maintained and assimilated, lest we forget and the monolith grows back.</p>
+<p>And last but not least, we have the final Keynote: &ldquo;Temporal Modelling&rdquo; from <a href="https://twitter.com/mathiasverraes">Mathias Verraes</a>. A really good overview conversation into Event-based systems, Event Storming and why modelling the Events of your system is of greater benefit than to use Entity Modelling instead. Another recommended one to expand your thinking.</p>
+<h2 id="summary">Summary</h2>
+<p>And that&rsquo;s a wrap! 2019 µCon is done and dusted. Lots to take in, lots to revisit from the recordings, and a bunch of sessions missed that need to be watched.</p>
+<p>The amazing crew doing the filming have been working away getting all the videos up as quickly as possible (on the day recorded for the most part!). You can head over to Skills Matter and watch them all from the links provided off of the <a href="https://skillsmatter.com/conferences/11982-con-london-2019-the-conference-on-microservices-ddd-and-software-architecture#program">Schedule here</a>. Take this and <a href="/mucon-2019-part1/">the previous part</a> as a guide for where to begin but continue through all the other amazing talks I didn&rsquo;t have time to attend in person as well.</p>
+<p>Happy Learning!</p>
+</description>
     </item>
     
     <item>
@@ -23,7 +41,39 @@ This morning&amp;rsquo;s Keynote &amp;ldquo;Crossing the River by Feeling the St
       <pubDate>Thu, 30 May 2019 20:05:21 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/mucon-2019-part1/</guid>
-      <description>After a restful night at a London hotel (I learned my lesson from the last time I came in for a London conference) coffee and breakfast at the Business Design Centre in London, muCon 2019 kicks off. muCon (or µCon) is a Conference on Microservices, DDD &amp;amp; Software Architecture. From what I gather, this year for the first time it is an amalgamation of a DDD and Microservices conference into one.</description>
+      <description><p>After a restful night at a London hotel (I learned my lesson from the last time I came in for a London conference) coffee and breakfast at the Business Design Centre in London, muCon 2019 kicks off. muCon (or µCon) is a Conference on Microservices, DDD &amp; Software Architecture. From what I gather, this year for the first time it is an amalgamation of a DDD and Microservices conference into one. I&rsquo;m here for three days. At this point, I&rsquo;ve gotten into a rhythm of blogging about my Conference Experiences so here we go again!</p>
+<h2 id="day-1">Day 1</h2>
+<p>We kick off with an excellent keynote from <a href="https://twitter.com/mfeathers">Michael Feathers</a> which captures various ideologies and principles applied to team and code architecture both at the class level, microservice level and interpersonal individual and team level as well.</p>
+<!-- raw HTML omitted -->
+<p>As usual, the day is split into tracks, so I can only give experience on where I&rsquo;ve been and guidance of which speakers and talks I would look out for in the future.</p>
+<p>Following on from the keynote for me was &ldquo;Microservices from Day One&rdquo; from <a href="https://twitter.com/rjrodger">Richard Rodger</a>. First-hand experience of building Microservices on a greenfields startup after <a href="https://www.manning.com/books/the-tao-of-microservices">literally writing a book on Microservices</a> development, a chance to practice what he preached.  An interesting takeaway that I liked was to design a message-centric system of components(microservices) and then the transport/routing layer doesn&rsquo;t matter (from a technology point of view). This resonates with me because it aligns nicely with the Ports and Adapters architecture.</p>
+<!-- raw HTML omitted -->
+<p>Next up, and filling the pre-lunch slot was &ldquo;Creating an Effective Developer Experience for Cloud-Native Apps&rdquo; from <a href="https://twitter.com/danielbryantuk">Daniel Bryant</a>. A great introduction and overview of DevEx, the idea of building a great experience for developers from coding to prod and beyond in the modern world of cloud-native, Kubernetes and Serverless. Whether it is &ldquo;build or buy&rdquo;, cloud or in-house hosting, the story for developers to build, debug, test, deploy and monitor should be a first-class consideration of developing software.</p>
+<!-- raw HTML omitted -->
+<p>&ldquo;The Gordian Knot&rdquo; from <a href="https://twitter.com/ziobrando">Alberto Brandolini</a> the importance of culture and the influence architecture plays on affecting that culture. Very interesting and a nice perspective on Conway&rsquo;s Law in many ways, and thinking about affecting change.</p>
+<!-- raw HTML omitted -->
+<p>&ldquo;Strategic Domain-Driven Design Patterns&rdquo; from <a href="https://twitter.com/ntcoding">Nick Tune</a> was an interesting discussion on DDD grouping. Definitely a topic I need to read the (blue) book on, literally and figuratively. (Although I am told one does not simply &ldquo;read&rdquo; Eric Evans' Domain Drive Design&hellip;) Some very high-level patterns and approaches to help with finding groupings in your system.</p>
+<!-- raw HTML omitted -->
+<p>&ldquo;Event Driven Collaboration&rdquo; from <a href="https://twitter.com/ICooper">Ian Cooper</a> another look at the <a href="https://blog.csmac.nz/geeking-out-at-altnetbrum-2018/#referencedataarchitecture">Reference Data concept</a>, with some practical examples of what and how you might go about implementing this. A revision on the concepts of inside mutable data Vs outside immutable data, events, messages and caching.</p>
+<!-- raw HTML omitted -->
+<p>The day wound down with a couple of Lightning Talks. A standout for me was &ldquo;Continuous Visibility, No More Dashboards!&rdquo; From <a href="https://twitter.com/JBJamesBrownJB">James Brown</a> on Continuous Visibility (CV). Using Alerts and notifications more, and only selectively add trends and maybe CI statuses to a physical dashboard where space is a premium (but don&rsquo;t forget to add GIfs!).</p>
+<!-- raw HTML omitted -->
+<h2 id="day-2">Day 2</h2>
+<p>Day 2 kicks off with another leading Keynote: &ldquo;Getting to DDD: Pragmatic or Principled?&rdquo; from
+<a href="https://twitter.com/julielerman">Julie Lerman</a>. Julie gave a discussion on the DDD journey, engaging with new adopters, and how building on the concepts with a group slowly can be a great way to bring more people on board, without getting hung up on being too principled or having to be all in with everything DDD at once.</p>
+<p>&ldquo;Preparing for a future Microservices journey&rdquo;
+from <a href="https://twitter.com/suksr">Susanne Kaiser</a> presented a journey from custom build through Microservices to Serverless taking all aspects of a hosted piece of software and it&rsquo;s infrastructure concerns transitioning through Build vs Buy, to commoditization.</p>
+<!-- raw HTML omitted -->
+<p>&ldquo;Observable Microservices&rdquo; from <a href="https://twitter.com/mariascandella">Maria Gomez</a> went through the what of observability (logs, alerts and tracing) along with the &lsquo;why&rsquo; for the value it provides to you once your services are in production.</p>
+<p>After lunch, <a href="https://twitter.com/duffleit">David Leitner</a> presented &ldquo;Micro Frontends – A Strive for Fully Verticalized Systems&rdquo;. A nice definition of MicroFrontends and example architectures to add to your toolbox of &ldquo;it depends&rdquo; solutions. Very clearly outlined the when and where the different approaches are applicable. Definitely check out his work if your thinking about verticalized splitting your frontend.</p>
+<p>This led into the afternoon Workshop: &ldquo;Show me the Kubernetes&rdquo; with <a href="https://twitter.com/denhamparry">Lewis Denham-Parry</a> and <a href="https://twitter.com/SoulmanIqbal">Salman Iqbal</a>. They walked us through the demos at <a href="https://github.com/CloudNativeWales/ShowMeTheKubernetes">github.com/CloudNativeWales/ShowMeTheKubernetes</a> which worked well on a temporarily spun up cluster on Azure, or with a Minikube locally (instructions included in both cases). Further examples were promised so there might be more than the three we went through in the session.</p>
+<p>To round out the second day was a keynote from <a href="https://twitter.com/dianamontalion">Diana Montalion</a> on Making a Case for Conceptual Integrity. I&rsquo;m not too proud to admit that I didn&rsquo;t understand the term &ldquo;conceptual integrity&rdquo; at the end and couldn&rsquo;t give you the definition. However, the topic was very interesting and the steps discussed to reach the definition given were very useful and interesting in themselves that to me it didn&rsquo;t matter. Maybe I&rsquo;m lacking the experience at this stage to accurately grok this, and others with more systems consulting experience and exposure did.</p>
+<!-- raw HTML omitted -->
+<h2 id="summary">Summary</h2>
+<p>Of course, most if not all of the talks were recorded and appear online (links added where available) but as usual you have missed the hallway conversations by not being here. These are usually the best part of any conference and this has been no exception.  One great conversation leads to quoting the statement that never had anyone said or seen a system that would be described as too gold plated, or too well tested. Most systems instead suffer from not being of a good enough quality or lacking in test coverage.</p>
+<p>In other conversations being able to share structures and strategies gives insight into what is or isn&rsquo;t working for other teams and companies and gives a relative look at where they are on their journey compared to you with yours. But based on the guidance and experience of others here, we all seem to be heading in a similar direction through SOA to DDD and Microservices.</p>
+<p>Stay tuned for a summary of my day 3 experience.</p>
+</description>
     </item>
     
   </channel>

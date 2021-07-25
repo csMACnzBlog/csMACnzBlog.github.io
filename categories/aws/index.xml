@@ -4,6 +4,12 @@
     <title>AWS on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/aws/</link>
     <description>Recent content in AWS on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Sun, 20 May 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/aws/index.xml" rel="self" type="application/rss+xml" />
@@ -13,9 +19,33 @@
       <pubDate>Sun, 20 May 2018 07:00:00 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/aws-summit-london-2018/</guid>
-      <description>I recently attended the AWS Summit in London and thought I would give some notes on the event from my perspective.
-As a developer working for a company that uses AWS, there was plenty to get out of an event such as this, and the free attendance makes a great business case to get the time to go.
-I really enjoyed the schedule of talks that I attended, and the keynote was a good overview of the state of things as AWS, with some exciting insight into partners in Automotive, and Healthcare.</description>
+      <description><p>I recently attended the AWS Summit in London and thought I would give some notes on the event from my perspective.</p>
+<p>As a developer working for a company that uses AWS, there was plenty to get out of an event such as this, and the free attendance makes a great business case to get the time to go.</p>
+<p>I really enjoyed the schedule of talks that I attended, and the keynote was a good overview of the state of things as AWS, with some exciting insight into partners in Automotive, and Healthcare.</p>
+<p>I went on, what one attendee tweeted, the <a href="https://twitter.com/unixdaemon/status/994575955728502784">@abbyfuller Track</a>.  As someone who has got to grips with Docker locally, and keen to leverage what AWS can offer in terms of clusters and cluster management, This was both a catchup refresher and heads-up of whats new as well (Fargate). If it wasn&rsquo;t for a more immediate need of ECS, I probably would have followed the Machine Learning track instead, there was a tonne of new stuff there, including on SageMaker.</p>
+<p>I attended:</p>
+<ul>
+<li>Container Scheduling - Abby Fuller <a href="https://twitter.com/abbyfuller">@abbyfuller</a> (AWS)</li>
+<li>Builders' Lab: Docker to Amazon ECS -  Ric Harvey <a href="https://twitter.com/ric__harvey">@ric__harvey</a> (AWS)</li>
+<li>Building Highly Scalable Retail Order Management Systems with Serverless - Bastien Leblanc <a href="https://twitter.com/bastleblanc">@bastleblanc</a> (AWS) &amp; David Edwards (River Island)</li>
+<li>Deep Dive into AWS Fargate - Abby Fuller <a href="https://twitter.com/abbyfuller">@abbyfuller</a> (AWS)</li>
+</ul>
+<p>Honourable mention goes to the Cost Optimisation as a By-Product of Awesome Practice &amp; Agility at Trainline (David Stanley -Trainline, Giorgio Bonfiglio - AWS, Richard Westby-Nunn - AWS) presentation, which I heard was really good.</p>
+<p>The presentation from David Edwards was a great overview of a 6-month enterprise-level project transforming their legacy internal sales fulfilment pipeline into a modern, asynchronous, event processing system, making use of Kinesis, Lambda and step functions. This new system allows future innovations to hook into different process events to perform new and interesting business use cases going forward.</p>
+<p>The stalls were an interesting mix. I guess working for a Software-as-a-service Company, we already have a great grasp of outsourcing to other SAAS products for managing aspects of our Ops Data hosting, from source control to logging, instrumentation monitoring security and metrics.  Since we already have products or solutions in place, and I am reasonably far removed from the choices, understanding, and interest in these tools, the stalls didn&rsquo;t really have anything specific to offer me. However, you could always find an icecream, tee-shirt or six, and stickers in abundance if you take a look.</p>
+<p>Two other aspects of the day I didn&rsquo;t take advantage of, but would consider in advance of going again, was the Exam Centre, and the Ask an Architect.</p>
+<p>It is a great way to focus on getting certified to book in to sit different AWS Exams at the Summit. You give yourself a deadline to get ready for it and are sitting in an environment with other people also getting their certifications.</p>
+<p>I think if I was at a certain stage in a project, or planning approaches for the next project, then the Ask an Architect would be a great opportunity to get expert advice on a specific problem, and a deeper understanding of which tools and technologies in the AWS Stack to apply to it.</p>
+<p>Would I attend again?  Yes, but only if one of the following was true:</p>
+<ul>
+<li>There is a development track which directly correlated to a project currently worked on, or soon to be worked on (ML/SageMaker content for instance)</li>
+<li>I am wanting some focus to sit examinations</li>
+<li>I was working for a company or in a role that needed to make contact with SaaS product vendors to evaluate new solutions to make use of.</li>
+<li>I had an interesting architectural problem in need of some good outside Architecture input without springing for an expensive consultant.</li>
+</ul>
+<p>Recording of the keynote is up on Youtube - <a href="https://www.youtube.com/watch?v=XXbF6cUIgfs">https://www.youtube.com/watch?v=XXbF6cUIgfs</a></p>
+<p>Hopefully, other recordings from the summit will follow.</p>
+</description>
     </item>
     
   </channel>

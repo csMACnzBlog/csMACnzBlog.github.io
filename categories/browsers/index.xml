@@ -4,6 +4,12 @@
     <title>Browsers on csMACnz&#39;s Blog</title>
     <link>https://csmacnzblog.github.io/categories/browsers/</link>
     <description>Recent content in Browsers on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://csmacnzblog.github.io</link>
+    </image>
+    <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
     <lastBuildDate>Sat, 14 Jun 2008 11:38:44 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/browsers/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +19,11 @@
       <pubDate>Sat, 14 Jun 2008 11:38:44 +0000</pubDate>
       
       <guid>https://csmacnzblog.github.io/post/ie8-microsoft-are-still-in-the-game/</guid>
-      <description>It seems that Microsoft have already set their sites on the next generation web browser war, and this time they aim to win. It&amp;rsquo;s predecessor IE7 was released in late 2006, and was a sore dissapointment to some, but was also seen as a step in the right direction by others in the web development community. This all comes down to the battle of the standards, a war that has been going on since the start of the web years ago.</description>
+      <description><p>It seems that Microsoft have already set their sites on the next generation web browser war, and this time they aim to win. It&rsquo;s predecessor IE7 was released in late 2006, and was a sore dissapointment to some, but was also seen as a step in the right direction by others in the web development community. This all comes down to the battle of the standards, a war that has been going on since the start of the web years ago.</p>
+<p>Internet explorer has had many quirks since its first incarnation, and one that has given the most strife is its width attribute. You see, when you specify width using standards, you get the width of the contents, and you add padding and borders and margins onto this to get the absolute size of the element. When you try and do this with IE, it decides that the width will include the padding, which means your elements may look completely different in IE compaired to Firefox or Opera. These quirks had been adopted as wrote by many web developers, who used microsofts methods when developing their sites, and many sites online today still adopt these policies.</p>
+<p>When IE7 came out, it was mostly aimed at catching up with the other players with features. This included tabbed browsing among other things. As a late tack-on, they setup a compatibility setting that went something like this. If you declare you page to be standards complient, we will do our best to interprete it against the standards. But if you don&rsquo;t tell me anything, my default behaviour will be to use &lsquo;quirks&rsquo; mode, which essentially is IE6 and backwards compatibility mode. This was partially good news to alot of developers, who had been creating web complient sites and now knew they would work somewhat normally for internet explorer 7. This didn&rsquo;t solve the problem that many people still use IE6 and older, as all the same compatibility hacks still need to be done anyway, but a step in the right direction in any case.</p>
+<p>Now IE8 is heading our way with beta tests coming soon, and they seem to be taking another vital step. IE8 has been developed with standards in mind, as the main part of the browser to be developed. This is so much the case that they have actually managed to get it to pass the <a href="http://blogs.msdn.com/ie/archive/2007/12/19/internet-explorer-8-and-acid2-a-milestone.aspx">acid2 test</a>. The new system for acceptance of pages seems to be default to super-standards mode, with will more then likely break the internet as we know it. This is of course a slight exaguration, but i wouldn&rsquo;t be surprised if some of microsofts own pages might need to be adjusted to work with the new super-standards mode under their own browser. Many sites on the web will no doubt behave very irregularly under this new mode, and will <a href="http://blogs.zdnet.com/microsoft/?p=1262&amp;tag=rbxccnbzd1">most likely break in IE8</a>, but with any luck this will help move the net as a whole towards a state of standardisation, with all sites working uniformally well on all browsers in the coming years. Web standards are one of the bests things to come to the web, both for developers and consumers alike. Anything that helps the world unite under a common format for all people to view the same information the same way will greatly enhance the experiences we have on the web, and the browser war may finally come down to personal preference instead of picking holes in what is wrong with the other browsers and why my pages break when you try and look at them in the other bad browser.</p>
+</description>
     </item>
     
   </channel>
