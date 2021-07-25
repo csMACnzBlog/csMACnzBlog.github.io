@@ -361,35 +361,6 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     </item>
     
     <item>
-      <title>Microsoft and dotnet: 4 is the new 9</title>
-      <link>https://csmacnzblog.github.io/post/untitled-4/</link>
-      <pubDate>Mon, 08 Jul 2019 22:54:03 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/untitled-4/</guid>
-      <description>&lt;p&gt;Dotnet core 3.0 is about to drop, but we already have lots of information about vnext specifically that it&amp;rsquo;s going to be dotnet 5.&lt;/p&gt;
-&lt;p&gt;It wasn&amp;rsquo;t that many years ago that Microsoft seemingly forgot how to.count. Windows 8 with all its modern UI was succeeded with not Windows 9, but instead a version named Windows 10. Not sure what the aversion to the number 9 was, buta they are up to their old tricks again with .Net.&lt;/p&gt;
-&lt;p&gt;Once dotnet Core 3 drops we already know that the next version will be called .Net 5. The number 4 is getting the same treatment as 9.&lt;/p&gt;
-&lt;p&gt;The reality is not just a simple arithmetic error. Instead, it is part of a larger reunification story of C# and .Net in general.&lt;/p&gt;
-&lt;p&gt;For those of you still building .Net Full Framework apps for Desktop, Windows Services and IIS may be aware that the rest of the world had started moving to dotnet Core, with version 1,2 and now 3.0 dropping soon. This is not just a reimplementation, but at the same time part of a process to define a standard (a &amp;lsquo;NetStandard&amp;rsquo; you might say) which is a shared set of API code specifications that a runtime implementation can fulfil. These are versioned, have been growing incrementally in cspabilities., and have been implemented by these new dotnet Core implementations, as well as each new minor versioned release of the  .Net Full Framework as well.&lt;/p&gt;
-&lt;p&gt;But the standard opens up nuget possibilities. We can build nuget libraries that instead of targeting a runtime, can target one of these NetStandard versions instead. This means a Reilly portable library that can be written once, and run on multiple target runtimes. This is also unbounded because any new runtime can use the library providing it also meets the required standard.&lt;/p&gt;
-&lt;p&gt;And that&amp;rsquo;s where the story gets even more interesting. Have you heard of Mono?&lt;/p&gt;
-&lt;p&gt;Mono started as a cleanroom implementation of the runtime as a by specification reimplementation on Linux.  What have it legs was its evolution as part of Xamarin, which gave C# a way to run on both IOS and Android devices as well.  And by implementing .NetStandard, mono picked up support for using these new portable Niger packages.&lt;/p&gt;
-&lt;p&gt;Didi&lt;/p&gt;
-&lt;p&gt;&amp;hellip;&lt;/p&gt;
-&lt;p&gt;Unification of core, mono, full framework is dead.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>(Untitled)</title>
-      <link>https://csmacnzblog.github.io/post/untitled-2/</link>
-      <pubDate>Mon, 08 Jul 2019 22:44:20 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/untitled-2/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Snuffleupagus-Oriented Programming</title>
       <link>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</link>
       <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
@@ -1027,6 +998,155 @@ from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; 
 &lt;p&gt;Of course, most if not all of the talks were recorded and appear online (links added where available) but as usual you have missed the hallway conversations by not being here. These are usually the best part of any conference and this has been no exception.  One great conversation leads to quoting the statement that never had anyone said or seen a system that would be described as too gold plated, or too well tested. Most systems instead suffer from not being of a good enough quality or lacking in test coverage.&lt;/p&gt;
 &lt;p&gt;In other conversations being able to share structures and strategies gives insight into what is or isn&amp;rsquo;t working for other teams and companies and gives a relative look at where they are on their journey compared to you with yours. But based on the guidance and experience of others here, we all seem to be heading in a similar direction through SOA to DDD and Microservices.&lt;/p&gt;
 &lt;p&gt;Stay tuned for a summary of my day 3 experience.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 7: throw expressions</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/</link>
+      <pubDate>Mon, 27 May 2019 10:30:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/</guid>
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;Throwing Exceptions is both a blessing and a curse in C#. You can throw from anywhere to unwind the stack. But adding exception throwing and handling code can cause overheads that you need to be wary of. Not to mention making the code harder to reason about with control flow.&lt;/p&gt;
+&lt;p&gt;Regardless, we have them, and we use them, so the language should make that as easy as possible to do so. with C# 7 this was enhanced to support using &lt;code&gt;throw&lt;/code&gt; as an expression. Up until this point, it was always a statement, which means there are places in the code that throw could not go.&lt;/p&gt;
+&lt;p&gt;One new language feature that only supports expressions and not statements is the Elvis Operator (or Null Conditional Operator, which we &lt;a href=&#34;looking-back-on-csharp6-elvis-operator/&#34;&gt;already looked back at&lt;/a&gt;) and another is the null coalescing operator. When it comes to validating code, these two features shine together.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public MyClass(string firstArg, string secondArg, Widget widget)
+{
+    if(firstArg is null)
+    {
+        throw new ArgumentNullException(nameof(firstArg));
+    }
+    if(secondArg is null)
+    {
+        throw new ArgumentNullException(nameof(secondArg));
+    }
+    if(widget is null)
+    {
+        throw new ArgumentNullException(nameof(widget));
+    }
+    
+    _firstArg = firstArg;
+    _secondArgLength = secondArg.Length;
+    _widget = widget;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So verbose! wouldn&amp;rsquo;t it be nice to collapse it together a bit?  With throw expressions, we can.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public MyClass(string firstArg, string secondArg, Widget widget)
+{
+    _firstArg = firstArg ?? throw new ArgumentNullException(nameof(firstArg));
+    _secondArg = secondArg?.Length ?? throw new ArgumentNullException(nameof(secondArg));
+    _widget = widget ?? throw new ArgumentNullException(nameof(widget));
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.&lt;/p&gt;
+&lt;p&gt;Also remember how we looked at &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt; and &lt;a href=&#34;looking-back-on-csharp7-more-expression-body-members&#34;&gt;more in c# 7&lt;/a&gt;? Well as the name suggests, the body &lt;em&gt;is&lt;/em&gt; an expression. Now that we have throw expressions, the bodies can use them too!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Widget
+{
+    public Widget() =&amp;gt; throw new ArgumentException(&amp;quot;Requires arguments, none provided.&amp;quot;);
+    
+    public ~Widget() =&amp;gt; throw new NotSupportedException(&amp;quot;What are you building that needs a destructor, anyway? (Just curious.)&amp;quot;);
+    
+    public string MyValueProperty =&amp;gt; throw new NotImplementedException();
+    
+    public decimal CalculateTheAnswer() =&amp;gt; throw new NotImplementedException();
+ 
+    private T[] _items = new T[100];
+    public T this[int i]
+    {
+        get =&amp;gt; _items?[i] ?? throw new Exception(&amp;quot;Not initialised somehow.&amp;quot;);
+        set =&amp;gt; throw new NotSupportedException(&amp;quot;An interface made me do this.&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are other use-cases out there, expressions are used all over the place. But I will leave that as an exercise to the reader to discover along the way.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Looking Back on C# 7: More Expression body members</title>
+      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/</link>
+      <pubDate>Mon, 20 May 2019 10:30:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/</guid>
+      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
+&lt;p&gt;We already had a look at how we can use &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt;. In C# 7.0, this has been extended further to include constructors, finalizers, and get and set accessors on properties and indexers.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// The old way:
+public class Gadget&amp;lt;T&amp;gt;
+{    
+    // A property with a custom get implementation
+    private int _dateAsTicks;
+    public DateTime myValue
+    {
+        get
+        {
+            return new DateTime(_dateAsTicks);
+        }
+        set
+        {
+            _dateAsTicks = value.Ticks;
+        }
+    }
+    
+    // A standard constructor
+    public Gadget(int ticks)
+    {
+        _dateAsTicks = ticks;
+    }
+    
+    public ~Gadget()
+    {
+        // just imagine this actually needed a destructor
+        _dateAsTicks = 0;
+    }
+    
+    private T[] _items = new T[100];
+    public T this[int i]
+    {
+        get
+        {
+            return _items[i];
+        }
+        set
+        {
+            _items[i] = value;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now with lambdas:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Gadget&amp;lt;T&amp;gt;
+{ 
+    private int _dateAsTicks;
+    public DateTime myValue
+    {
+        get = &amp;gt; new DateTime(_dateAsTicks);
+        set =&amp;gt; _dateAsTicks = value.Ticks;
+    }
+    
+    // A readonly prop version would look like this
+    // public DateTime myValue = &amp;gt; new DateTime(_dateAsTicks);
+    
+    // A standard constructor
+    public Gadget(int ticks) =&amp;gt; _dateAsTicks = ticks
+    
+    public ~Gadget() =&amp;gt; _dateAsTicks = 0;
+ 
+    private T[] _items = new T[100];
+    public T this[int i]
+    {
+        get =&amp;gt; _items[i];
+        set =&amp;gt; _items[i] = value;
+    }
+    
+    // If it were readonly it could look like this:
+    // public T this[int i] =&amp;gt; _items[i];
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Much like the last instalment, this is a pretty consistent and straight-forward transformation into lambdas, just with an increased scope of application.&lt;/p&gt;
+&lt;p&gt;Also, did you know that expression body members are binary compatible?  It is worth knowing. What this means is that if you have a method, it doesn&amp;rsquo;t matter if you compile with a method body or an expression body member, they both produce the same binary signature, and anything that links to your DLL won&amp;rsquo;t know the difference. This means you can change your code back and forward and not have to worry about breaking binary compatibility. Code compiled against a version that used a method body will still work against it when you change it to a member body expression.&lt;/p&gt;
+&lt;p&gt;Just bear in mind that changes between methods and properties, and changes of method signatures are not binary compatible changes.&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 </description>
     </item>
     

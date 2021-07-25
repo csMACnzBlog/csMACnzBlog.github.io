@@ -75,95 +75,97 @@
             
 <div class="col-lg-8"><div class="container">
       <div class="posts mb-4"><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/more-small-classes/">More small classes</a></h2>
-            <div class="post-summary mb-3">Its a pretty common rule of thumb to avoid monoliths and write more small classes. Think about the solid principles.
- Single responsibility per class. This implies less in it. Smaller. Open for extension closed for modification. Take out the things that will change. Smaller. Liskov substitution principle says …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/introducing-bclextensions/">Introducing BCLExtensions</a></h2>
+            <div class="post-summary mb-3">It has been a pipe-dream of mine for a while to have my very own C# extensions library. Well now I do. I&rsquo;ve been chipping away at a library on github for ages (my init commit was 15 Sep 2012!) and it is finally a real thing! I&rsquo;ve got a V1.0.0, a Nuget package, and even 100% coverage. I even have the …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/performance-testing-methodimploptions-aggresiveinlining/">Performance testing MethodImplOptions.AggresiveInlining</a></h2>
-            <div class="post-summary mb-3"></div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/monocov-travis-ci-winning/">monocov &#43; Travis-CI = WINNING</a></h2>
+            <div class="post-summary mb-3">After much frustration, I now have monocov running on my Travis-CI build, and I&rsquo;m going to share with you how I did it.
+TL;DR The coverage results don&rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.
+As I mentioned in a previous post, I am building a …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/ghost-blog-backups/">Ghost blog backups</a></h2>
-            <div class="post-summary mb-3">I&rsquo;ve been using Ghost to run my blog for a few months now. One thing that was not immediately obvious to me was how to backup the content in my blog. So here is a quick recap on how its done.
-Its actually pretty easy, although not very discoverable. When you are logged in, you can head to the URL …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/visual-studio-powershell/">Visual Studio PowerShell</a></h2>
+            <div class="post-summary mb-3">I&rsquo;ve been using psake as my build tool and running my builds on Appveyor. Now Appveyor runs with all the visual studio commands available on the path. When you install visual studio, It gives you a special cmd shell shortcut that loads you an environment with all the visual studio stuff available, which is cool. …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/building-a-better-development-team/">Building a better development team</a></h2>
-            <div class="post-summary mb-3">Last November I helped out with the Wellington contingent of the Global Day of Coderetreat. It was a great day to explore strategies and techniques to improve your code and expand your knowledge of patterns and practices. This is a great event and I highly recommend looking out for it again later this year. I liked …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/introducing-coveralls-net/">Introducing Coveralls.net</a></h2>
+            <div class="post-summary mb-3">So I&rsquo;ve built an (almost MVP) code coverage publisher for coveralls.io from C# code, using opencover coverage results. Checkout the github repo and nuget packages if you want to use it. I&rsquo;m even dogfooding it on appveyor as part of my psake build tasks.
+So how do you use it? Well luckily I used docopts.net …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/relocate-your-library-folders-from-registry/">Relocate your library folders from registry</a></h2>
-            <div class="post-summary mb-3">http://www.sevenforums.com/tutorials/18583-user-folders-restore-default-location.html</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/mediaportal-no-network-no-cards/">Mediaportal: no network, no cards</a></h2>
+            <div class="post-summary mb-3">I just moved house, and of course the first thing to do is plug in the media pc running MediaPortal, so that my shows will record. But as you would expect, change brings problems. It doesn&rsquo;t start. The pc boots, everything looks ok, but the TV-Server doesn&rsquo;t seem to be running. When I tried to launch the …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/">Code Demoing with Visual Studio</a></h2>
-            <div class="post-summary mb-3">I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.
-Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/semantics-vs-implementation-detail/">Semantics vs implementation detail</a></h2>
+            <div class="post-summary mb-3">When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&rsquo;t call it firstNameString, or cfnString, and we have also lost the bad habit of firstNameStr or strFirstName. The implementation …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/caliburn-micro-and-async/">Caliburn.Micro and Async</a></h2>
-            <div class="post-summary mb-3">When it comes to asynchronous processing for client side applications, async and await are an amazing way to code. You no longer have to worry about thread affinity and UIThread delegation. It just works. But it is also real easy to get it wrong when an exception is thrown, as I found out the hard way.
-The symptom is …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/thoughts-on-testing/">Thoughts on Testing</a></h2>
+            <div class="post-summary mb-3">I&rsquo;ve gone through the regular evolution when it comes to writing tests. At first there was no time, didnt bother. This was mostly down to the fact I was building demo apps and samples that got less use than it took to build them, working with senior devs who had made their name making said apps.
+The next stage is …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/ports-and-adapters-what-goes-in-the-engine/">Ports and Adapters - what goes in the engine?</a></h2>
-            <div class="post-summary mb-3">I wanted to talk about other patterns/approaches/architechtures that fit inside this architecture
- DDD CQRS TDD/Organic  </div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/git-housekeeping/">Git Housekeeping</a></h2>
+            <div class="post-summary mb-3">Those who are using Git but still new to the concept will no doubt have realised that files are treated differently to normal source control tools, and that they transition between different known states, according to git. I am going to try and explain these states, and give commands on how to transition between them. …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/ports-and-adapters-a-complete-solution/">Ports and Adapters - a complete solution</a></h2>
-            <div class="post-summary mb-3">Look at:
- WPF/WinPhone/ios apps public apis (ui services vs system services or a third type just for api?) website/web app services layer CQRS/Crud/Service methods vs presentation concerns (ui services vs system services) testing  add diagrams tie into previous posts.</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/">Travis-ci, C# and PCL</a></h2>
+            <div class="post-summary mb-3">As any good library should do, I&rsquo;m building my BCLExtensions project(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact). It works great on my AppVeyor CI builds, which is a great .Net windows build server.
+I recently discovered Travis-CI has added beta C# …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/net-web-configs-and-iis/">.Net web configs and IIS</a></h2>
-            <div class="post-summary mb-3">defaults, overrides and server config vs web application config
-http://blogs.msdn.com/b/chaun/archive/2009/12/04/iis7-error-cannot-add-duplicate-collection-entry-of-type-mimemap-with-unique-key-attribute-fileextension.aspx</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/">Hey, I found this thing called Coveralls.io</a></h2>
+            <div class="post-summary mb-3">In my pursuit to find a build task runner for my code coverage I stumbled on this whole other side of the internet I didn&rsquo;t know about (from a .Net developer&rsquo;s perspective). I&rsquo;ve been using AppVeyor.com for my open-source CI build, which is a great option for anyone with a project on the Microsoft …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/code-camp-christchurch-an-introduction-to-git/">Code Camp Christchurch - An Introduction to git</a></h2>
-            <div class="post-summary mb-3">I presented today at Code Camp Christchurch on git. I will try and translate some of the topics into new tutorial posts over the coming weeks, but you can find a rough transcript of the content from my presentation in my post git is not scary.
-I refered to some links in my talk, and wanted to make them available here. …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/gulp-vs-net/">Gulp vs .net</a></h2>
+            <div class="post-summary mb-3">I wanted to add continuous code coverage to my little extension library project, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!
+Because I&rsquo;m started to learn more about this nodejs thing as a …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/ports-and-adapters-by-example/">Ports and Adapters, by example</a></h2>
-            <div class="post-summary mb-3"></div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/new-zealand-public-holidays-calendar/">New Zealand Public holidays Calendar</a></h2>
+            <div class="post-summary mb-3">Want to see all the New Zealand public holidays on your calendar on your Google Calendar, but don&rsquo;t want to have to enter them yourself, or maintain them?
+I found this great page with public holidays and calendars on the MBIE site. They have the New Zealand public holidays here for the current, past and future …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/git-is-not-scary/">Git is not scary</a></h2>
-            <div class="post-summary mb-3">It may not be simple, it may not be easy, but git is not scary. Now, I&rsquo;ve been using git for less than a year now, professionally. I had dabbled in git personal projects for the year before that. My primary Source control had mostly been TFS (Team Foundation Server), and I had been exposed to subversion on a …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/mockups-and-sketches-overview/">Mockups and Sketches - Overview</a></h2>
+            <div class="post-summary mb-3">This is part of a wireframing series
+ Overview First Draft Balsamiq Blend with Sketchflow  This is a companion post to my talk at welliDotNet, Wellington&rsquo;s .Net User Group on Wednesday 4th April 2012. The slides can be downloaded here.
+I want to give you a brief introduction to creating designs and mockups for …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/ports-and-adapters/">Ports and Adapters</a></h2>
-            <div class="post-summary mb-3">It feels like everywhere I turn (in my circles anyway), people are talking about Ports and Adapters, and I thought I would jump on the bandwagon. You may have also heard this architecture called Onion Architecture, or Hexagonal Architecture. All of these are essentially the same idea, under a different name.
-Brief …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/hosts-entries-and-windows-services/">Hosts entries and windows services</a></h2>
+            <div class="post-summary mb-3">This is regarding an issue where the hosts file is being ignored when running a service as local system. Skip to the bottom for the solution or read on if you care what lead to the need for this in the first place.
+The Problem Recently I had an issue with my machine and hosts file being ignored. I was using a Windows …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/solid-ifying-your-nuget-packaging/">SOLID-ifying your Nuget Packaging</a></h2>
-            <div class="post-summary mb-3">The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to DLL Hell. But I had this slight epiphany from another comment, where it was observed that our X.Common package had &lsquo;helper code&rsquo; for …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/7-lessons-from-building-a-wp7-game-in-7-days/">7 Lessons from Building a WP7 Game in 7 days</a></h2>
+            <div class="post-summary mb-3">This is a companion post for my talk at Wellington&rsquo;s SLAMD user group on 6 July 2011.
+Recently I took part in Nigel Parker&rsquo;s &ldquo;Release an App for Windows Phone 7 in 7 Days for a Chance to Win a New HTC 7 Trophy Phone&rdquo; competition, with the intent of winning a Windows Phone 7 device. Although I …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/git-lol/">git lol</a></h2>
-            <div class="post-summary mb-3">I saw Scott Chacon use git lol on an introduction to git video, and thought it looked like a neat alias idea. I did some searching and came across this blog post by Franz Bettag, in which he creates an alias for git log called git lol. I&rsquo;m not sure if he came up with it, but it looks like Scott Chacon is the …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/">Bing Maps Control Series - 2: Add a simple map to your application</a></h2>
+            <div class="post-summary mb-3">This is part 2 of a series on using the Silverlight Bing Maps Control. If haven&rsquo;t already, check out part 1.
+So Now that you have installed the Bing Maps Silverlight Control, and got yourself a key, you need to add the control to your project. For completeness, lets start by creating a new Silverlight 4 …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/aliasing-your-git-status/">Aliasing your &#39;git status&#39;</a></h2>
-            <div class="post-summary mb-3">Anyone else have the bad habit of typing in git statsu or git stauts? Or maybe you just end up typing git status all the time at the command line, and wonder if there was a better way. Well, there is.
-Aliases Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/bing-maps-control-series-1-downloading-and-installing-the-tools/">Bing Maps Control Series - 1: Downloading and Installing the Tools</a></h2>
+            <div class="post-summary mb-3">Over the last month or so I have has the opportunity to develop using the Bing Maps Control for Silverlight, and thought it appropriate to share this experience as well as a bit of a &lsquo;how to&rsquo; on using it. I plan for this to be a bit of a series based on the following items: - Downloading and Installing the …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/mvvm-testing-ports-and-adapters/">MVVM, &#43; Testing &#43; Ports and Adapters</a></h2>
-            <div class="post-summary mb-3"></div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/custom-control-validation-in-silverlight/">Custom Control Validation in Silverlight</a></h2>
+            <div class="post-summary mb-3">So you&rsquo;ve built up your nice new fancy custom control, and some Dependency Properties for your users to bind there data to, what else could you want? How about validation? Turns out that the control base class is all ready set up for this exact scenario. There is only one step required: Create the Visual states. …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/testing-when-your-using-ports-and-adapters/">Testing when your using Ports and Adapters</a></h2>
-            <div class="post-summary mb-3">I touched on Testing in my previous Ports and Adapters post, but when your testing your ports and adapters system, you want to think about how you write your Unit Tests, Developer Tests, and Integration Tests. Ill try and do this with an example Geometry app (contrived to look slightly like a LOB application).</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/xaml-and-system-windows-markup/">XAML and System.Windows.Markup</a></h2>
+            <div class="post-summary mb-3">On Wednesday I gave a talk on xaml usage outside of the UI. This post is basically a recap of that talk. There are three useful attributes in the System.Windows.Markup namespace that give you some control over how classes can be used in Xaml, and xaml tools like Expression Blend and Visual Studio. This has an impact …</div>
           </div>
         </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/">TeamCity, GitHub and Pull Requests</a></h2>
-            <div class="post-summary mb-3">I&rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.
-It is really easy to set up a build task that runs PowerShell as its build step. With this I …</div>
+            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dialogs-from-outside-the-ui/">Dialogs From Outside the UI</a></h2>
+            <div class="post-summary mb-3">If you are getting the &ldquo;Dialogs must be user-initiated.&rdquo; error in Visual Studio, you are probably calling an OpenFileDialog or SaveFileDialog from the wrong place.
+The most common &lsquo;wrong place&rsquo; seems to actually be the debugger. If are stepping through your code and try to step over a …</div>
           </div>
         </article></div>
     </div>    

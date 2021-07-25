@@ -12,42 +12,7 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 16 Aug 2015 08:14:28 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/resharper/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Resharper Shortcuts</title>
-      <link>https://csmacnzblog.github.io/post/resharper-shortcuts/</link>
-      <pubDate>Sun, 16 Aug 2015 08:14:28 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/resharper-shortcuts/</guid>
-      <description>&lt;p&gt;Shortcut keys are a huge productivity tool. The longer you can keep your fingers on the keyboard typing without reaching for the mouse, the faster you will get things done.  Using Resharper with Visual Studio is no different.&lt;/p&gt;
-&lt;h3 id=&#34;the-core-concepts&#34;&gt;The core concepts&lt;/h3&gt;
-&lt;h3 id=&#34;choices-choices&#34;&gt;Choices, Choices&amp;hellip;&lt;/h3&gt;
-&lt;p&gt;As with most things in live, you have a choice to make.&lt;/p&gt;
-&lt;p&gt;To make the most of the productivity boost of shortcuts, use an out of the box set, and make sure it is the same set that everyone on your team uses. This way you can be productive on everyone else&amp;rsquo;s machine, not just your own, and can teach the shortcuts to others on your team, without having to know multiple configurations.&lt;/p&gt;
-&lt;h3 id=&#34;resources&#34;&gt;Resources&lt;/h3&gt;
-&lt;p&gt;Jetbrains create these great cheatsheets that you can find and print off, for each of their default mappings.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.jetbrains.com/resharper/help/Reference__Keyboard_Shortcuts.html&#34;&gt;https://www.jetbrains.com/resharper/help/Reference__Keyboard_Shortcuts.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;latest shortcut cheatsheet link here: &lt;a href=&#34;https://www.jetbrains.com/resharper/documentation/documentation.html&#34;&gt;https://www.jetbrains.com/resharper/documentation/documentation.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.jetbrains.com/resharper/docs/ReSharper90DefaultKeymap_VS_scheme.pdf&#34;&gt;ReSharper 9 Default Keymap: Visual Studio scheme &lt;/a&gt;
-&lt;a href=&#34;https://www.jetbrains.com/resharper/docs/ReSharper90DefaultKeymap_IDEA_scheme.pdf&#34;&gt;ReSharper 9 Default Keymap: ReSharper 2.x / IntelliJ IDEA scheme&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Resharper on AppVeyor</title>
-      <link>https://csmacnzblog.github.io/post/resharper-on-appveyor/</link>
-      <pubDate>Sat, 15 Aug 2015 17:16:08 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/resharper-on-appveyor/</guid>
-      <description>&lt;p&gt;JetBrains have some great tools. One I am particularly fond of is &lt;a href=&#34;https://www.jetbrains.com/resharper/&#34;&gt;Resharper&lt;/a&gt;. Resharper is a Code Analysis, Refactoring, formatting and all round productivity boosting tool. It falls into the same camp as &lt;a href=&#34;https://www.devexpress.com/products/coderush/&#34;&gt;CodeRush&lt;/a&gt; and &lt;a href=&#34;http://www.telerik.com/products/justcode.aspx&#34;&gt;JustCode&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;If you are using &lt;a href=&#34;https://www.jetbrains.com/teamcity/&#34;&gt;TeamCity&lt;/a&gt;, which is the Continuous Integration server from JetBrains, then you will find build tasks available to run ReSharper&amp;rsquo;s duplicate finder and inspection tools across your solution. This is really helpful, and can even do things like high-water marks on error counts, and failing builds on errors.&lt;/p&gt;
-&lt;p&gt;But my open source projects don&amp;rsquo;t run on TeamCity, they run on AppVeyor. I get all the benefit out of my ReSharper License on my PC with Visual Studio, but the build server sees none of that. Enter the &lt;a href=&#34;https://www.jetbrains.com/resharper/features/command-line.html&#34;&gt;Resharper Command Line Tools&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I mentioned the command line tools &lt;a href=&#34;https://csmacnzblog.github.io/-net-os-6-metrics/#resharpercli&#34;&gt;during my open source CI tools series&lt;/a&gt; and so thought I would outline how it can be used, and how I&amp;rsquo;ve come to use it with &lt;a href=&#34;http://appveyor.com/&#34;&gt;AppVeyor&lt;/a&gt;, my CI server of choice.&lt;/p&gt;
-&lt;p&gt;Gotchas&lt;/p&gt;
-&lt;p&gt;I get this fascinating error intermitently : &lt;a href=&#34;https://youtrack.jetbrains.com/issue/RSRP-429298&#34;&gt;issue RSRP-429298&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
+    <lastBuildDate>Sun, 02 Aug 2015 08:37:47 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/resharper/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</title>
       <link>https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</link>

@@ -74,23 +74,5 @@
 </description>
     </item>
     
-    <item>
-      <title>Retries with Polly</title>
-      <link>https://csmacnzblog.github.io/post/retries-with-polly/</link>
-      <pubDate>Fri, 24 Jun 2016 02:01:49 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/retries-with-polly/</guid>
-      <description>&lt;p&gt;Just a quick results of an investigation of our PrintService v-next logs that keep happening (can&amp;rsquo;t find queue)
-&lt;strong&gt;Why?&lt;/strong&gt; - Because I was worried that I was using Polly Retries wrong, to know for next time (SPOILERS - I was)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;What:&lt;/strong&gt;
-We have retries over checking the queue (and other aws commands.  We see many errors of &lt;code&gt;WebException: The remote server returned an error: (504) Gateway Timeout&lt;/code&gt; happening quite a lot. These should be being retried and so should never trigger an error log. We are seeing a lot of logs still.
-Investigating further, we don not actually log any messages saying &amp;ldquo;here is the error, going to retry now&amp;rdquo; which should happen because of this line of code: &lt;a href=&#34;https://github.dev.xero.com/dev-markc/PrintService/blob/master/project/Xero.PrintService.Platform/Policy/AWSPolicy.cs#L43&#34;&gt;https://github.dev.xero.com/dev-markc/PrintService/blob/master/project/Xero.PrintService.Platform/Policy/AWSPolicy.cs#L43&lt;/a&gt;
-I looked into the filter we were using. It looks sensible, only retry if the error is not the sender&amp;rsquo;s fault.
-Then I found out that the AmazonServiceException ErrorType defaults to ErrorType.Sender. Then I found the following line of code that wraps WebExceptions (like above) doesn&amp;rsquo;t even set the ErrorType, and so it will be ErrorType.Sender - &lt;a href=&#34;https://github.com/aws/aws-sdk-net/blob/master/sdk/src/Core/Amazon.Runtime/Pipeline/ErrorHandler/WebExceptionHandler.cs#L44&#34;&gt;https://github.com/aws/aws-sdk-net/blob/master/sdk/src/Core/Amazon.Runtime/Pipeline/ErrorHandler/WebExceptionHandler.cs#L44&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt; - Don&amp;rsquo;t trust the Error type and assume it means what it is supposed to - and we were not actually retrying.
-So every error we were emailed is indicative of how often we get network connection timeouts to AWS SQS. So Retries are really important.  But we need to be careful with our retry logic, because with the Polly API you have to check the PolicyResult.ExceptionType - ExceptionType.Unknown means there was an exception unhandled by the policy - passed through, and  ExceptionType.HandledByThisPolicy means it actually retried, and timed out.&lt;/p&gt;
-</description>
-    </item>
-    
   </channel>
 </rss>

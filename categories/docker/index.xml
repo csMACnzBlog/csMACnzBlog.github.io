@@ -142,25 +142,6 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     </item>
     
     <item>
-      <title>More .Net on Docker - AspNet Core Debugging Tips and Tricks</title>
-      <link>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</link>
-      <pubDate>Sun, 15 Jul 2018 22:02:30 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/dotnet-docker-aspnetcore-tips-and-tricks/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnet-docker-tips-and-tricks/&#34;&gt;Last time&lt;/a&gt; we covered some basics of &lt;code&gt;Dockerfile&lt;/code&gt; with a console application. Let&amp;rsquo;s continue our journal with AspNet Core.&lt;/p&gt;
-&lt;h3 id=&#34;develop-time-dependencies&#34;&gt;Develop-time dependencies&lt;/h3&gt;
-&lt;p&gt;We are using React and the .Net WebPack Hot Reloader. While at development time this requires node, at runtime it doesn&amp;rsquo;t.  Here is a couple of fun facts about Visual Studio debugging I combine in an interesting way.&lt;/p&gt;
-&lt;p&gt;Visual Studio Run (F5) on a docker-compose builds locally. This means it doesn&amp;rsquo;t actually use or do what your &lt;code&gt;Dockerfile&lt;/code&gt; says. Instead, it takes the first (and only first) defined named USE from your &lt;code&gt;Dockerfile&lt;/code&gt;, and builds that.&lt;/p&gt;
-&lt;p&gt;Fact number 2, Once built, it will launch an instance, and attach (volume mount) the application and run it.&lt;/p&gt;
-&lt;p&gt;Fact number 3 is docker-compose.yml.  Your docker-compose project uses several docker-compose files stacked together. First, your &lt;code&gt;docker-compose.yml&lt;/code&gt; file, then if you have one, the &lt;code&gt;docker-compose.override.yml&lt;/code&gt; file. This is followed by some generated ones by visual studio, that will override most of the details if it detects the referenced &lt;code&gt;Dockerfile&lt;/code&gt; has a &lt;code&gt;*.csproj&lt;/code&gt; beside it.  You can then create a &lt;code&gt;docker-compose.vs.debug.yml&lt;/code&gt; or &lt;code&gt;docker-compose.vs.release.yml&lt;/code&gt; (depending on &lt;code&gt;debug&lt;/code&gt; or &lt;code&gt;release&lt;/code&gt; build selection) that will allow you to override anything extra you want on for debugging.  This lets you set environment variables for your container to use (such as &lt;code&gt;ASPNETCORE_ENVIRONMENT&lt;/code&gt; to Development) if different from the default or override you use.&lt;/p&gt;
-&lt;p&gt;Putting this all together: In my &lt;code&gt;Dockerfile&lt;/code&gt;, I make sure the first &lt;code&gt;USE&lt;/code&gt; sets up a docker image that has the node runtime dependencies to make the Hot Reloading work. And because the source is a Volume Mount, local changes reflect inside the container, too. My build and publish &lt;code&gt;USE&lt;/code&gt; containers in my multi-stage build don&amp;rsquo;t depend on this debug one, and instead the debug container is thrown away, except when used during debugging in Visual Studio.&lt;/p&gt;
-&lt;p&gt;I then make sure the &lt;code&gt;docker-compose.yml&lt;/code&gt; is going to use a non-Development build by default. This should build as a &lt;code&gt;Production&lt;/code&gt; Environment instead. The &lt;code&gt;docker-compose.debug.yml&lt;/code&gt; sets back to &lt;code&gt;Development&lt;/code&gt; during debug. I configure my Hot Reloading to only configure and run when &lt;code&gt;IsDevelopment()&lt;/code&gt; is true.&lt;/p&gt;
-&lt;p&gt;Now when I debug Run the docker-compose project, my application is attached to the debugger, with node available in the container, in DevelopmentMode using Hot Reloading of my React app.&lt;/p&gt;
-&lt;p&gt;When I build the real docker container, the publish result has no node installed, saving me a few &lt;code&gt;Mbs&lt;/code&gt;, and one less moving part it doesn&amp;rsquo;t need. (If you tried to use it in Debug mode, it would even crash because node is missing, a bonus as-designed feature.)&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Develop your Rust in Docker</title>
       <link>https://csmacnzblog.github.io/post/develop-your-rust-in-docker/</link>
       <pubDate>Mon, 14 May 2018 07:00:00 +0000</pubDate>

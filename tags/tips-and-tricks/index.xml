@@ -1462,24 +1462,6 @@ $response.StatusDescription #should be OK
     </item>
     
     <item>
-      <title>Retries with Polly</title>
-      <link>https://csmacnzblog.github.io/post/retries-with-polly/</link>
-      <pubDate>Fri, 24 Jun 2016 02:01:49 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/retries-with-polly/</guid>
-      <description>&lt;p&gt;Just a quick results of an investigation of our PrintService v-next logs that keep happening (can&amp;rsquo;t find queue)
-&lt;strong&gt;Why?&lt;/strong&gt; - Because I was worried that I was using Polly Retries wrong, to know for next time (SPOILERS - I was)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;What:&lt;/strong&gt;
-We have retries over checking the queue (and other aws commands.  We see many errors of &lt;code&gt;WebException: The remote server returned an error: (504) Gateway Timeout&lt;/code&gt; happening quite a lot. These should be being retried and so should never trigger an error log. We are seeing a lot of logs still.
-Investigating further, we don not actually log any messages saying &amp;ldquo;here is the error, going to retry now&amp;rdquo; which should happen because of this line of code: &lt;a href=&#34;https://github.dev.xero.com/dev-markc/PrintService/blob/master/project/Xero.PrintService.Platform/Policy/AWSPolicy.cs#L43&#34;&gt;https://github.dev.xero.com/dev-markc/PrintService/blob/master/project/Xero.PrintService.Platform/Policy/AWSPolicy.cs#L43&lt;/a&gt;
-I looked into the filter we were using. It looks sensible, only retry if the error is not the sender&amp;rsquo;s fault.
-Then I found out that the AmazonServiceException ErrorType defaults to ErrorType.Sender. Then I found the following line of code that wraps WebExceptions (like above) doesn&amp;rsquo;t even set the ErrorType, and so it will be ErrorType.Sender - &lt;a href=&#34;https://github.com/aws/aws-sdk-net/blob/master/sdk/src/Core/Amazon.Runtime/Pipeline/ErrorHandler/WebExceptionHandler.cs#L44&#34;&gt;https://github.com/aws/aws-sdk-net/blob/master/sdk/src/Core/Amazon.Runtime/Pipeline/ErrorHandler/WebExceptionHandler.cs#L44&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt; - Don&amp;rsquo;t trust the Error type and assume it means what it is supposed to - and we were not actually retrying.
-So every error we were emailed is indicative of how often we get network connection timeouts to AWS SQS. So Retries are really important.  But we need to be careful with our retry logic, because with the Polly API you have to check the PolicyResult.ExceptionType - ExceptionType.Unknown means there was an exception unhandled by the policy - passed through, and  ExceptionType.HandledByThisPolicy means it actually retried, and timed out.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Manage your hosts entries better</title>
       <link>https://csmacnzblog.github.io/post/manage-your-hosts-entries-better/</link>
       <pubDate>Tue, 31 May 2016 04:25:00 +0000</pubDate>
@@ -1494,6 +1476,109 @@ So every error we were emailed is indicative of how often we get network connect
 &lt;p&gt;&lt;img src=&#34;http://i3.codeplex.com/Download?ProjectName=iishostsmgr&amp;amp;DownloadId=364495&#34; alt=&#34;Host Manager in action - image from https://iishostsmgr.codeplex.com/&#34;&gt;&lt;/p&gt;
 &lt;p&gt;The UI is very simple and easy to use. It means that you can add or update host entries directly inside IIS without having to go hunting for the file. A huge productivity boost.&lt;/p&gt;
 &lt;p&gt;Recommended.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A couple of debugging tips</title>
+      <link>https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/</link>
+      <pubDate>Mon, 23 May 2016 04:33:09 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/</guid>
+      <description>&lt;p&gt;I had an idea of something I wanted to post, but a quick google turns up I &lt;a href=&#34;http://blog.csmac.nz/on-gitversioning-subdirectories/&#34;&gt;posted it 6 months ago&lt;/a&gt;, so here are some debugging tips.&lt;/p&gt;
+&lt;h3 id=&#34;console-break&#34;&gt;Console Break&lt;/h3&gt;
+&lt;p&gt;So you are writing a console app? Cool. Want to see the output? Of course, you do. But when you run it, the app pops up then disappears really quickly right? No? Have you a break point in the last line? Well, that&amp;rsquo;s sensible.&lt;/p&gt;
+&lt;p&gt;But what if you do not want to remember to put that break point in everytime git cleans your directory, or someone pulls the code for the first time?&lt;/p&gt;
+&lt;p&gt;How about this?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        //App goes here
+
+        Console.ReadLine();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nice trick! Now every time the app runs, it waits for a keypress to continue. But what about when you run the app for real. Damn! I didn&amp;rsquo;t really want the app to wait for a key to exit&amp;hellip; I&amp;rsquo;ve got it!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        //App goes here
+
+
+        if(Debugger.IsAttached)
+        {    
+            Console.ReadLine();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, it will only stop if the debugger is attached. Perfect.&lt;/p&gt;
+&lt;p&gt;Performance overhead you say? Really? I wouldn&amp;rsquo;t be worried but if you want we can do this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        //App goes here
+
+
+        BreakOnDebug();
+    }
+
+    [Conditional(&amp;quot;DEBUG&amp;quot;)]
+    private void BreakOnDebug()
+    {
+        if (Debugger.IsAttached)
+        {
+            Console.ReadLine();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Happy?&lt;/p&gt;
+&lt;p&gt;You can also try using &lt;code&gt;if (Debugger.IsAttached) {Debugger.Break(); }&lt;/code&gt; instead of ReadLine to force the code to actually stop and to start debugging the state of your application instead. Although to be fair, at the end of the app, there probably isn&amp;rsquo;t much to see.&lt;/p&gt;
+&lt;h3 id=&#34;command-line-attach&#34;&gt;Command-line attach&lt;/h3&gt;
+&lt;p&gt;But I really want to be able to run this at the command line, from a specific folder, and play with the arguments. And I just found it crashes for some reason.  Well, I let it attach to VS automatically (the dialog does come up), but what I really want to do, is run it attached to the debugger and step through.  How about this?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine(&amp;quot;Attach debugger and press any key to continue&amp;quot;);
+        Console.ReadLine(); 
+
+        //breakpoint goes here
+
+        //App goes here
+        ...    
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now I can run my app and it stops before starting.  I can use the &lt;em&gt;debug =&amp;gt; attach to process&amp;hellip;&lt;/em&gt; menu it Visual Studio to attach, like I would to an IIS site, but instead to the running instance of my console app. Easy. Press a key in the console and any of my breakpoints and I can step through the specific parameters running from the specific folder and get the bottom of this bug.&lt;/p&gt;
+&lt;p&gt;The only catch here is to not forget to remove the code when not running debug builds.  Or we could use the same trick again:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        StopAndWaitOnDebug();
+
+        //breakpoint goes here
+
+        //App goes here
+        ...    
+    }
+    
+    [Conditional(&amp;quot;DEBUG&amp;quot;)]
+    private void StopAndWaitOnDebug()
+    {
+        Console.WriteLine(&amp;quot;Attach debugger and press any key to continue&amp;quot;);
+        Console.ReadLine();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also try using &lt;code&gt;if (Debugger.IsAttached) {Debugger.Break(); }&lt;/code&gt; as well after the ReadLine if you really wanted to.&lt;/p&gt;
+&lt;p&gt;So there you go. Some nice and useful ways to use the &lt;code&gt;Console.ReadLine&lt;/code&gt; method for debugging.&lt;/p&gt;
 </description>
     </item>
     

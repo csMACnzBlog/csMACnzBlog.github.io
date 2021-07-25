@@ -198,26 +198,6 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     </item>
     
     <item>
-      <title>Microsoft and dotnet: 4 is the new 9</title>
-      <link>https://csmacnzblog.github.io/post/untitled-4/</link>
-      <pubDate>Mon, 08 Jul 2019 22:54:03 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/untitled-4/</guid>
-      <description>&lt;p&gt;Dotnet core 3.0 is about to drop, but we already have lots of information about vnext specifically that it&amp;rsquo;s going to be dotnet 5.&lt;/p&gt;
-&lt;p&gt;It wasn&amp;rsquo;t that many years ago that Microsoft seemingly forgot how to.count. Windows 8 with all its modern UI was succeeded with not Windows 9, but instead a version named Windows 10. Not sure what the aversion to the number 9 was, buta they are up to their old tricks again with .Net.&lt;/p&gt;
-&lt;p&gt;Once dotnet Core 3 drops we already know that the next version will be called .Net 5. The number 4 is getting the same treatment as 9.&lt;/p&gt;
-&lt;p&gt;The reality is not just a simple arithmetic error. Instead, it is part of a larger reunification story of C# and .Net in general.&lt;/p&gt;
-&lt;p&gt;For those of you still building .Net Full Framework apps for Desktop, Windows Services and IIS may be aware that the rest of the world had started moving to dotnet Core, with version 1,2 and now 3.0 dropping soon. This is not just a reimplementation, but at the same time part of a process to define a standard (a &amp;lsquo;NetStandard&amp;rsquo; you might say) which is a shared set of API code specifications that a runtime implementation can fulfil. These are versioned, have been growing incrementally in cspabilities., and have been implemented by these new dotnet Core implementations, as well as each new minor versioned release of the  .Net Full Framework as well.&lt;/p&gt;
-&lt;p&gt;But the standard opens up nuget possibilities. We can build nuget libraries that instead of targeting a runtime, can target one of these NetStandard versions instead. This means a Reilly portable library that can be written once, and run on multiple target runtimes. This is also unbounded because any new runtime can use the library providing it also meets the required standard.&lt;/p&gt;
-&lt;p&gt;And that&amp;rsquo;s where the story gets even more interesting. Have you heard of Mono?&lt;/p&gt;
-&lt;p&gt;Mono started as a cleanroom implementation of the runtime as a by specification reimplementation on Linux.  What have it legs was its evolution as part of Xamarin, which gave C# a way to run on both IOS and Android devices as well.  And by implementing .NetStandard, mono picked up support for using these new portable Niger packages.&lt;/p&gt;
-&lt;p&gt;Didi&lt;/p&gt;
-&lt;p&gt;&amp;hellip;&lt;/p&gt;
-&lt;p&gt;Unification of core, mono, full framework is dead.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Looking Back on C# 7: Pattern matching</title>
       <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/</link>
       <pubDate>Mon, 01 Jul 2019 06:00:00 +0000</pubDate>
@@ -922,19 +902,6 @@ public class Gadget&amp;lt;T&amp;gt;
     </item>
     
     <item>
-      <title>Looking Back on C# 7: Tuples upgraded</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-tuples-upgraded/</link>
-      <pubDate>Sun, 19 May 2019 19:54:45 +0000</pubDate>
-      
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-tuples-upgraded/</guid>
-      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
-&lt;p&gt;Tuples deconstruction discards
-&lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#tuples&#34;&gt;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#tuples&lt;/a&gt;
-&lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#discards&#34;&gt;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#discards&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Looking Back on C# 6: Expression body members</title>
       <link>https://csmacnzblog.github.io/post/looking-back-on-csharp6-expression-body-members/</link>
       <pubDate>Sun, 12 May 2019 22:30:00 +0000</pubDate>
@@ -1281,6 +1248,327 @@ _logger.LogInformation(&amp;quot;My name is {FirstName}&amp;quot;, &amp;quot;Mar
 &lt;p&gt;As mentioned, you can start playing with some of this stuff today in the &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/12/05/take-c-8-0-for-a-spin/&#34;&gt;Preview of Visual Studio 2019&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Plenty of new stuff to learn over the coming year and I can&amp;rsquo;t wait for Release day so I can update everything I have.  First stop will be Nullable reference types.&lt;/p&gt;
 &lt;p&gt;What are you looking forward to using the most?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Clean Startup in your AspNetCore</title>
+      <link>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</link>
+      <pubDate>Mon, 02 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</guid>
+      <description>&lt;p&gt;I want to talk about this point made about &lt;a href=&#34;https://odetocode.com/blogs/scott/archive/2016/08/30/keeping-a-clean-startup-cs-in-asp-net-core.aspx&#34;&gt;Keeping a Clean Startup.cs in Asp.Net Core&lt;/a&gt; by K. Scott Alan. Mostly I want to agree and elaborate on it.&lt;/p&gt;
+&lt;p&gt;(Warning! I used the British English &lt;code&gt;customised&lt;/code&gt; below. If this &lt;a href=&#34;http://grammarist.com/spelling/customise-customize/&#34;&gt;doesn&amp;rsquo;t match your sensibilities&lt;/a&gt;, just use &lt;code&gt;customize&lt;/code&gt; instead.)&lt;/p&gt;
+&lt;h3 id=&#34;the-idea&#34;&gt;The Idea&lt;/h3&gt;
+&lt;p&gt;The basic idea is that we have a &lt;code&gt;Startup.cs&lt;/code&gt; file, where we configure our application. This becomes a dumping ground for all sorts of configuration of both services, and pipeline if we let it.  This is a simple pattern to avoid the mess and organise your code.&lt;/p&gt;
+&lt;p&gt;It is a simple &amp;lsquo;what&amp;rsquo; vs &amp;lsquo;how&amp;rsquo; situation.  In your &lt;code&gt;Startup.cs&lt;/code&gt; you want to see the &amp;lsquo;what&amp;rsquo;. The &amp;lsquo;how&amp;rsquo; should be abstracted away to go look at separately.&lt;/p&gt;
+&lt;p&gt;The simple example given in the original example by OdeToCode is the final code that looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public void ConfigureServices(IServiceCollection services)
+{
+    // ...
+    services.AddCustomizedMvc();
+    services.AddCustomizedIdentity();
+    services.AddDataStores();
+    // ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;unpacking-the-idea&#34;&gt;Unpacking the idea&lt;/h3&gt;
+&lt;p&gt;I have a few specific implementation details I have taken away from this.&lt;/p&gt;
+&lt;h4 id=&#34;naming&#34;&gt;Naming&lt;/h4&gt;
+&lt;p&gt;The first is a naming convention.  We already have extension methods for &lt;code&gt;IApplicationBuilder&lt;/code&gt; in &lt;code&gt;Configure&lt;/code&gt; and &lt;code&gt;IServiceCollection&lt;/code&gt; in &lt;code&gt;ConfigureServices&lt;/code&gt;. These follow a convention of &lt;code&gt;AddX&lt;/code&gt; and &lt;code&gt;UseX&lt;/code&gt; and are pipelines that take and return the Builder/Services.  If you are building extensions in a library, this convention should be followed for these.&lt;/p&gt;
+&lt;p&gt;If you are creating these application-specific Extensions, the naming convention &lt;code&gt;UseCustomisedX&lt;/code&gt; and &lt;code&gt;AddCustomisedX&lt;/code&gt; works well, both showing their intent while distinguishing local vs library items.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public static IServiceCollection AddCustomisedMvc(this IServiceCollection services)
+{
+    // ...
+    return services;
+}
+
+public static IApplicationBuilder UseCustomisedMvc(this IApplicationBuilder app)
+{
+    // ...
+    return app;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;cohesion&#34;&gt;Cohesion&lt;/h4&gt;
+&lt;p&gt;Most, but not all, components added to Startup have both an &lt;code&gt;Add&lt;/code&gt; and a &lt;code&gt;Use&lt;/code&gt;. That is, you register services, and you add to the pipeline. Now that we pull the &amp;lsquo;how&amp;rsquo; of these out into extensions methods, we can group them together in the same file. It just makes sense.  So if we have our MVC customisations, we create a &lt;code&gt;MvcExtensions&lt;/code&gt; class.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public static class MvcExtensions
+{
+    public static IServiceCollection AddCustomisedMvc(this IServiceCollection services)
+    {
+        services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+        return services;
+    }
+
+    public static IApplicationBuilder UseCustomisedMvc(this IApplicationBuilder app)
+    {
+        app.UseMvc(routes =&amp;gt;
+        {
+            routes.MapRoute(
+                name: &amp;quot;default&amp;quot;,
+                template: &amp;quot;{controller=Home}/{action=Index}/{id?}&amp;quot;);
+        });
+
+        return app;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;namespacing&#34;&gt;Namespacing&lt;/h4&gt;
+&lt;p&gt;I would love to put these Extensions in a folder called Startup. But it is bad practice to have a Class and Namespace called the same thing. So instead I use &lt;code&gt;StartupExtensions&lt;/code&gt; as the namespace/folder. inside are all the &lt;code&gt;XExtensions&lt;/code&gt; classes that our system is using.&lt;/p&gt;
+&lt;h4 id=&#34;pass-through-dependencies&#34;&gt;Pass through dependencies&lt;/h4&gt;
+&lt;p&gt;You may find that your extension needs &lt;code&gt;IConfiguration&lt;/code&gt; or &lt;code&gt;IHostingEnvironment&lt;/code&gt;. That is fine. You can pass these into the method as necessary in the normal way.&lt;/p&gt;
+&lt;h4 id=&#34;piping&#34;&gt;Piping&lt;/h4&gt;
+&lt;p&gt;If you correctly build your customised methods as both Extension Methods, and as pipes, you can keep the code even cleaner. You could use the lambda syntax to create a functional version of each method like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+public void ConfigureServices(IServiceCollection services) =&amp;gt; services
+    .AddCustomisedCookies()
+    .AddCustomisedMvc();
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env) =&amp;gt; app
+    .UseCustomisedErrorHandling(env)
+    .UseHttpsRedirection()
+    .UseStaticFiles()
+    .UseCustomisedMvc();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;conditional-flow&#34;&gt;Conditional Flow&lt;/h3&gt;
+&lt;p&gt;You may have conditional flow in your middleware pipeline. I have two different options, you can pick the right one for the right situation.&lt;/p&gt;
+&lt;h4 id=&#34;put-it-in-the-extensions&#34;&gt;Put it in the Extensions&lt;/h4&gt;
+&lt;p&gt;If the logic fits nicely into one particular aspect of your setup (such as Error Handling and Development mode) you can just keep the conditions you need but inside that extension.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public static IApplicationBuilder UseCustomisedErrorHandling(this IApplicationBuilder app, IHostingEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+        app.UseExceptionHandler(&amp;quot;/Home/Error&amp;quot;);
+    }
+
+    return app;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;branching-middleware&#34;&gt;Branching middleware&lt;/h4&gt;
+&lt;p&gt;If your middleware has complex pipeline branching, you probably should consider that more of a &lt;code&gt;what&lt;/code&gt; than a &lt;code&gt;how&lt;/code&gt;.  I would recommend keeping this in the Startup, still. An example of this might be:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;app.UseCustomisedErrorHandling();
+app.MapWhen(
+    ctx =&amp;gt; IsAdminArea(ctx.Request.Path),
+    builder =&amp;gt;
+    {
+        builder.UseCustomisedAuthorisation();
+        builder.UseCustomisedMvc();
+    });
+app.UseCustomisedMvc();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What you can see here at a high level is &amp;lsquo;what&amp;rsquo; is configured for each of the branches, while still abstracting away the &amp;lsquo;how&amp;rsquo;.&lt;/p&gt;
+&lt;p&gt;However, if you have a more aspect-specific &lt;code&gt;MapWhen&lt;/code&gt;, (such as &amp;ldquo;When the URL is &lt;code&gt;/ping&lt;/code&gt; return a 200&amp;rdquo;) this can probably still be pulled out into an Extension. The above only really applies when you have branched complex middleware pipelines.&lt;/p&gt;
+&lt;h3 id=&#34;sample&#34;&gt;Sample&lt;/h3&gt;
+&lt;p&gt;I ran a &lt;code&gt;dotnet new mvc&lt;/code&gt; to produce a new project. I created a before and after version and you can see an example of the refactoring following the above rules. This can be found at &lt;a href=&#34;https://github.com/csMacnzBlog/CleanStartup&#34;&gt;github.com/csMacnzBlog/CleanStartup&lt;/a&gt;. There is also a &lt;a href=&#34;https://github.com/csMacnzBlog/CleanStartup/blob/FullPipeline/after/Startup.cs&#34;&gt;Full Pipeline branched version&lt;/a&gt; available.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>My C# naming conventions</title>
+      <link>https://csmacnzblog.github.io/post/my-c-naming-conventions/</link>
+      <pubDate>Sun, 25 Mar 2018 05:00:00 +0000</pubDate>
+      
+      <guid>https://csmacnzblog.github.io/post/my-c-naming-conventions/</guid>
+      <description>&lt;p&gt;I have opinions!&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve been meaning to write this article for a while.  I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.&lt;/p&gt;
+&lt;p&gt;Firstly, let&amp;rsquo;s just say that there are Guidelines and Opinions. I might not be clear exactly which one something is below, but it will be one or the other.  That means that what I say won&amp;rsquo;t fit all situations. Don&amp;rsquo;t take it as a hard and fast rule. Use your own judgement.&lt;/p&gt;
+&lt;p&gt;Also, I love feedback, it is how I change and evolve my own style. I would love to revisit this in another couple of years and share how it might have changed. Please leave comments at the end.&lt;/p&gt;
+&lt;p&gt;One final thought before I start: Decide this as a team. If your whole team have individual styles and conventions, the code can feel like reading a book with multiple authors, disjointed and hard to follow. Just like a book, different chapters can have different authors and work well, the code can have different styles in different modules (libraries, packages, repositories). As long as the whole team is using the same style in the same code together, it will become more cohesive to read, write and maintain. And that is the ultimate point of applying Style Guidelines in the first place.&lt;/p&gt;
+&lt;h2 id=&#34;an-overview&#34;&gt;An Overview&lt;/h2&gt;
+&lt;p&gt;Before I go into my styles, let&amp;rsquo;s look at something more general, and standard.&lt;/p&gt;
+&lt;h3 id=&#34;microsoft-guidance&#34;&gt;Microsoft Guidance&lt;/h3&gt;
+&lt;p&gt;Starting with something simple. If you are new to Microsoft Development and .Net, I would recommend reading their &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/naming-guidelines&#34;&gt;Naming Guidelines&lt;/a&gt; and &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/general-naming-conventions&#34;&gt;General Naming Conventions&lt;/a&gt;. At the very least, it makes it easier to read other peoples code. If they write in C#, there is a high chance that they follow these guidelines. Either because they are part of a team that enforces them or the tooling uses it by default (Visual Studio, VSCode, Resharper, Rider etc) by their auto-formatter, or something like &lt;a href=&#34;https://github.com/dotnet/roslyn-analyzers#recommended-version-of-analyzer-packages&#34;&gt;FxCop&lt;/a&gt; or &lt;a href=&#34;https://github.com/StyleCop/StyleCop&#34;&gt;StyleCop&lt;/a&gt; is enforcing it.&lt;/p&gt;
+&lt;p&gt;I may deviate a little, but this guidance was my starting point when I first began writing C# code.&lt;/p&gt;
+&lt;h3 id=&#34;contracts-public-vs-private&#34;&gt;Contracts: Public Vs Private&lt;/h3&gt;
+&lt;p&gt;There are two places where you can apply your style and convention. Internally in your code, as you write it, and externally in the public API and contracts that your library exposes to other programs to use.&lt;/p&gt;
+&lt;p&gt;Before taking anything else into account, I recommend that any public signatures (e.g. naming conventions - class names, method names, parameter names, properties etc) Should follow the guidance from Microsoft. People using your library should not have to deal with your style and conventions, they should match what the expected C# library conventions are. This can also include protected methods and properties if your library is extensible.&lt;/p&gt;
+&lt;p&gt;Inside your code, its all up to you. Anything private (and protected if the class is sealed) is never exposed to the consumer, you can do what you like. Similarly, the layout of your code (whitespace, braces, class/file distribution) is all up to you (and your team).&lt;/p&gt;
+&lt;h2 id=&#34;check-out-m-style&#34;&gt;Check Out M&#39; Style&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s get specific on how I do.&lt;/p&gt;
+&lt;p&gt;In general my rules are pretty hard to describe, so hopefully, the examples will help (I will use &lt;code&gt;•&lt;/code&gt; as the representative of space and &lt;code&gt;⟶&lt;/code&gt; as the representative of tab - SPOILER: I will never use this tab character&amp;hellip;)&lt;/p&gt;
+&lt;h3 id=&#34;naming-conventions&#34;&gt;Naming Conventions&lt;/h3&gt;
+&lt;p&gt;Every person and every language has their own approach to naming conventions. In C# there are a few basics: Capital letters starting Namespaces, Classes, Methods, and Properties and we use &lt;code&gt;PascalCase&lt;/code&gt; by default, and not underscores.  Properties do not start their name with &amp;ldquo;Get&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;I stick to this as a strong rule. All methods, All Properties, anything public.&lt;/p&gt;
+&lt;p&gt;In general, variables and parameters use &lt;code&gt;camelCase&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;I use a couple of conventions for naming things well. For instance, I might name something that is a boolean &lt;code&gt;IsOpen&lt;/code&gt; rather than &lt;code&gt;Open&lt;/code&gt; or &lt;code&gt;Opened&lt;/code&gt;, and for a setting &lt;code&gt;CanOpen&lt;/code&gt;.  &lt;code&gt;Is&lt;/code&gt; and &lt;code&gt;Can&lt;/code&gt; prefixes help readability of the code a lot. This is for properties but applies to methods just as much.&lt;/p&gt;
+&lt;p&gt;Private fields always (always) start with an underscore (&lt;code&gt;_&lt;/code&gt;). When you are reading code, it makes it easier to determine what belongs to the method, and what belongs to the class.&lt;/p&gt;
+&lt;p&gt;Use long descriptive names, not single letter variables. Even if you are using Linq, if the name of the item in the lambda isn&amp;rsquo;t obvious, still use a full name as the lambda parameter.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// bad
+var names = data.Select(w =&amp;gt; w.Name).ToList();
+
+// better
+var names = data.Select(widget =&amp;gt; widget.Name).ToList();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;hungarian-notation&#34;&gt;Hungarian Notation&lt;/h3&gt;
+&lt;p&gt;Related to naming things is &lt;a href=&#34;https://en.wikipedia.org/wiki/Hungarian_notation&#34;&gt;Hungarian Notation&lt;/a&gt;. Now there are two interpretations to this, the wrong one, and the original one. Most people remember Visual Basic, and using &lt;code&gt;btnSave&lt;/code&gt; and &lt;code&gt;txtName&lt;/code&gt; for UI controls, or the terrible &lt;code&gt;strName&lt;/code&gt;.  This is the wrong interpretation of HN. Notation shouldn&amp;rsquo;t be re-declaring the type which the reader can discover themselves, but instead to indicate the meaning of the data to avoid ambiguity. I think the name people use for the correct way is &amp;ldquo;Apps Hungarian&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Anyway, I use this when it is useful.  My simplest example is when I have an argument that is an &lt;code&gt;int&lt;/code&gt; providing a time. I will call my parameter &lt;code&gt;timeoutInSeconds&lt;/code&gt;. Not strictly Hungarian Notation, but serves a similar purpose.  Of course, if it makes more sense, I will use a &lt;code&gt;TimeSpan&lt;/code&gt; instead, but sometimes an integer amount of seconds is a better API.&lt;/p&gt;
+&lt;p&gt;This also extends to units of measure. If we are using real world values we name the variables with their unit of measure.  &lt;code&gt;lengthInMeters&lt;/code&gt; and &lt;code&gt;lengthInInches&lt;/code&gt; helps the readability of code, especially when you have to mix units. Also if your mixing amounts with volumes, it helps to have &lt;code&gt;qtyAmount&lt;/code&gt;, &lt;code&gt;mnyUnitCost&lt;/code&gt; and &lt;code&gt;mnyTotal&lt;/code&gt; to identify which decimal is a quantity, and which is a monitary amount.&lt;/p&gt;
+&lt;p&gt;Or better yet, use &lt;a href=&#34;https://blog.csmac.nz/semantics-vs-implementation-detail/&#34;&gt;Value Types&lt;/a&gt; for all of the above, instead.&lt;/p&gt;
+&lt;h3 id=&#34;method-signatures&#34;&gt;Method signatures&lt;/h3&gt;
+&lt;p&gt;If anything in this article will surprise you, it is probably this one.&lt;/p&gt;
+&lt;p&gt;I can&amp;rsquo;t remember when I first saw this, but it took years to finally sink in and for me to &lt;a href=&#34;https://en.wikipedia.org/wiki/Grok&#34;&gt;grok&lt;/a&gt; it. It has to do with long signatures.&lt;/p&gt;
+&lt;p&gt;First, try not to have long signatures. decompose your classes to shrink their constructors, and use Parameter Objects to pass around instead.&lt;/p&gt;
+&lt;p&gt;Sometimes the problem isn&amp;rsquo;t the number of arguments, but the names of those arguments. Nice long descriptive class names will quickly lead to this problem, even with only two or three parameters, especially Constructors when IOC is in play (which is always, right?).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public•class•MyClass
+{
+••••public•MyClass•(MyFirstDependentServiceWithALongName•myFirstDependentServiceWithALongName,•AnotherDependencyYouNeed•anotherDependencyYouNeed)
+••••{
+••••}
+
+...
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Is your screen wrapping, or is it just me?&lt;/p&gt;
+&lt;p&gt;There are two problems with this style.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You need to scroll your code window to see the whole signature, and when you scroll you lose the rest of your code. (I don&amp;rsquo;t care how wide your screen is, this can and will still happen.)&lt;/li&gt;
+&lt;li&gt;Your source control tool with thrash on the signature line, with high potential for merge conflicts and such during development.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Like I say, it took me years after reading this idea before actually using it. Let it stew a bit in your mind.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public•class•MyClass
+{
+••••public•MyClass•(
+••••••••MyFirstDependentServiceWithALongName•myFirstDependentServiceWithALongName,
+••••••••AnotherDependencyYouNeed•anotherDependencyYouNeed)
+••••{
+••••}
+
+...
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We put each argument on a new line. They are indented an additional four spaces (the default indentation amount for one indent level).  That last closing brace is on the same line as the last argument. (Because it will have to change to a &lt;code&gt;,&lt;/code&gt; anyway if we adding another arg, and the function body braces work better with it that way.)&lt;/p&gt;
+&lt;p&gt;Always, always put the first argument on a new line. If you don&amp;rsquo;t, the indentation is too wide, and if you rename the method, the indentation would keep shifting. You want to keep a stable, predictable indentation, within a method, and between methods. Consistency. (Again, this helps source control)&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s see that without the visible whitespace:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class MyClass
+{
+    public MyClass (
+        MyFirstDependentServiceWithALongName myFirstDependentServiceWithALongName,
+        AnotherDependencyYouNeed anotherDependencyYouNeed)
+    {
+    }
+
+...
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I find this style much easier to read, now.&lt;/p&gt;
+&lt;p&gt;It even works during the method calls:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var result = ProcessData(
+    inputData,
+    customers,
+    authorisationData,
+    filterOptions,
+    sortOptions);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The main take-away for me is, follow the Yoda method. Do or do not.&lt;/p&gt;
+&lt;p&gt;Always put everything on one line, or always put all arguments on their own lines.&lt;/p&gt;
+&lt;h3 id=&#34;braces&#34;&gt;Braces&lt;/h3&gt;
+&lt;p&gt;Braces go on new lines, not like &lt;code&gt;JavaScript&lt;/code&gt; where they start on the same line as the header line. Pretty sure that is standard.&lt;/p&gt;
+&lt;p&gt;Always use braces when optional.&lt;/p&gt;
+&lt;p&gt;So there is some great guidance that &lt;code&gt;if&lt;/code&gt; statements and similar should only ever have one statement, so the braces for a body block should never be necessary. That&amp;rsquo;s fine.  But the main reason for overriding it with my rule is the following. With no braces, you leave that code open to an edit vulnerability that can trick even the most experienced programmer to miss because our brains love to trick us.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if (someCondition(withAnArg))
+    DoWork();
+    
+if (aDifferentCondition(wthAnotherArg))
+    DoDifferentWork();
+    ButAlsoDoAnotherThing();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That second example is lying to you.&lt;/p&gt;
+&lt;p&gt;look again with braces:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if (someCondition(withAnArg))
+{
+    DoWork();
+}
+    
+if (aDifferentCondition(wthAnotherArg))
+{
+    DoDifferentWork();
+}
+    ButAlsoDoAnotherThing();
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Even without fixing the whitespace, there is no mistaking what the second set of code does, whether you can read C# or not. It is far too easy for someone to start with code like the first &lt;code&gt;if (someCondition(withAnArg))&lt;/code&gt; and add another line that they think is inside the condition, but actually isn&amp;rsquo;t, like what has happened to the &lt;code&gt;if (aDifferentCondition(wthAnotherArg))&lt;/code&gt; condition in the first example.&lt;/p&gt;
+&lt;p&gt;That is why I always enforce braces.&lt;/p&gt;
+&lt;p&gt;Lambdas are fine. you can leave out the braces on one-liner lambdas because the compiler will sort you out if you get that wrong.&lt;/p&gt;
+&lt;h3 id=&#34;general-whitespace&#34;&gt;General Whitespace&lt;/h3&gt;
+&lt;p&gt;StyleCop has really helped me get stricter with my whitespace, enforcing my rules at compile time.&lt;/p&gt;
+&lt;p&gt;These are really minor things, but I find they aid readability.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use a space before &lt;code&gt;(&lt;/code&gt; in method signatures (but not in calls)&lt;/li&gt;
+&lt;li&gt;(As Mentioned above) signatures on lines longer than 80 chars wide puts each arg on a new line.&lt;/li&gt;
+&lt;li&gt;If you have your curly braces (&lt;code&gt;{&lt;/code&gt; &lt;code&gt;}&lt;/code&gt;) on one line, they should have spaces on either side.&lt;/li&gt;
+&lt;li&gt;between class names and the base-class/interface, one space either side of the colon (&lt;code&gt;public class MyClass : IMyInterface&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;spaces either side of lambda arrows (&lt;code&gt;w =&amp;gt; w.Name&lt;/code&gt;)  (Also most symbols really)&lt;/li&gt;
+&lt;li&gt;One space after starting a comment line/block (This is law, &lt;a href=&#34;https://stackoverflow.blog/2018/03/14/podcast-123-jon-skeet-wants-you-to-be-a-feminist/&#34;&gt;John Skeet declared it so on a podcast&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Use 4 spaces for indentation&lt;/li&gt;
+&lt;li&gt;No tabs, ever&lt;/li&gt;
+&lt;li&gt;No spaces on empty lines (Just being anal)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Mostly, I just follow the Out-Of-The-Box settings from StyleCop.&lt;/p&gt;
+&lt;h3 id=&#34;privates&#34;&gt;Privates&lt;/h3&gt;
+&lt;p&gt;As mentioned, I enforce underscore (&lt;code&gt;_&lt;/code&gt;) prefixes for private fields. And &lt;a href=&#34;http://stackoverflow.com/questions/4540146/naming-convention-for-private-fields/11461218#11461218&#34;&gt;I am not alone&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;(stolen from the comment linked above:)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It eliminates conflicts with camel-cased parameter names - no need to use &amp;ldquo;this&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;It&amp;rsquo;s a visual indicator that the internal persistent state of the object is being read, or - more importantly - being written. It&amp;rsquo;s a flag saying &lt;em&gt;&amp;ldquo;this has side effects outside of the particular method I happen to be looking at&amp;rdquo;&lt;/em&gt;, which is very important to know when looking at unfamiliar code.&lt;/li&gt;
+&lt;li&gt;Although you can apply the above as a reverse argument for &lt;code&gt;this&lt;/code&gt;, the above will be enforced by the compiler non-optional, while &lt;code&gt;this&lt;/code&gt; can be left off by choice.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Statics tend to vary a bit. If they are &lt;code&gt;static&lt;/code&gt; and &lt;code&gt;readonly&lt;/code&gt;, I have been known to use a starting Capital letter &lt;code&gt;PascalCase&lt;/code&gt;. For consistency, often Mutable Statics are named the same.&lt;/p&gt;
+&lt;p&gt;I have been known to use ALLCAPS for Constants. This is a carry-over from C I suspect but makes it easier to spot a Constant in code. Sometimes this feels too harsh, and I may use &lt;code&gt;PascalCase&lt;/code&gt; here instead. What is the difference to the end user between a &lt;code&gt;private static readonly&lt;/code&gt; and a &lt;code&gt;private const&lt;/code&gt; anyway?&lt;/p&gt;
+&lt;p&gt;My thinking is that if it starts with a Capital letter (&lt;code&gt;PascalCase&lt;/code&gt;), it isn&amp;rsquo;t owned by you. Either it belongs to the class you called to get it (property) or it doesn&amp;rsquo;t belong to this instance (Static). For this thinking, I often will use Pascal Case for Protected fields as well, so that derived classes can tell they do not own it, either.&lt;/p&gt;
+&lt;p&gt;These rules are a bit less thought through, and I don&amp;rsquo;t tend to be any stricter than my tooling tells me to be. (If Resharper or StyleCop says to change it, I usually will.)&lt;/p&gt;
+&lt;h3 id=&#34;tests&#34;&gt;Tests&lt;/h3&gt;
+&lt;p&gt;This is probably the most controversial and the most varied. Somehow, when it comes to tests, it feels easier to break the rules.&lt;/p&gt;
+&lt;p&gt;Don&amp;rsquo;t get me wrong, I subscribe to Uncle Bob, and your tests should be given the care and attention that any of your code is given. SOLID, DRY, Coupling vs cohesion, modularisation etc etc.  But tests exercise requirements, so readability is more important than expected standards.  Also, tests are all under your domain, your style can flourish, you are the only consumer.&lt;/p&gt;
+&lt;p&gt;What I am talking about primarily is using underscores in test names rather than strict PascalCase.&lt;/p&gt;
+&lt;p&gt;I have been experimenting, and I have two approaches I use:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Every_Word_Is_Seperated_By_An_Underscore_So_That_It_Forms_A_Descriptive_Sentence&lt;/li&gt;
+&lt;li&gt;GivenIHaveATestMethod_WhenINeedToNameIt_ThenISeperateTheGivenWhenThenComponentsByUnderscores&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I have more recently extended my ideas to following this further guidance of organising tests to now use nested classes, and inheritance:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class GivenIHaveAUser
+{
+    public class GivenIHaveLoggedIn : GivenIHaveAUser
+    {
+        public class GivenINavigateToTheFormPage : GivenIHaveLoggedIn
+        {
+            public class GivenISubmitAValidForm : GivenINavigateToTheFormPage
+            {
+                [Test]
+                public void ItSubmitsSuccessfully()
+                {
+                   ...
+                }
+            }
+
+            public class GivenISubmitAnInvalidForm : GivenINavigateToTheFormPage
+            {
+                [Test]
+                public void ItShowsValidationMessages()
+                {
+                   ...
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;automation&#34;&gt;Automation&lt;/h3&gt;
+&lt;p&gt;If you want to really care about the style of your code, I recommend installing a few NuGet packages into your projects to get compile-time enforcement (don&amp;rsquo;t worry, the rules are configurable):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;PackageReference Include=&amp;quot;Microsoft.CodeAnalysis.FxCopAnalyzers&amp;quot; Version=&amp;quot;2.6.0&amp;quot;  PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+&amp;lt;PackageReference Include=&amp;quot;codecracker.CSharp&amp;quot; Version=&amp;quot;1.0.3&amp;quot; PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+&amp;lt;PackageReference Include=&amp;quot;StyleCop.Analyzers&amp;quot; Version=&amp;quot;1.1.0-beta004&amp;quot; PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(That needs a whole article in itself, but this is a taster.)&lt;/p&gt;
+&lt;h3 id=&#34;the-end&#34;&gt;The End&lt;/h3&gt;
+&lt;p&gt;I hope you enjoyed reading and thinking about code formatting. If you haven&amp;rsquo;t taken something away to try, read it again and find something to challenge me on. If you can&amp;rsquo;t make an argument for or against, maybe give it a go yourself, or suggest it to your team.&lt;/p&gt;
 </description>
     </item>
     
