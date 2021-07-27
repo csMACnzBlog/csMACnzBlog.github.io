@@ -1,185 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
-    <meta name='language' content='EN'>
-    <meta name='medium' content='blog'>
 
-
-    <title>docker - csMACnz&#39;s Blog</title>
-    <meta name="description" content="">
-    <meta name='keywords' content='csMACnz'>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+        <meta name='language' content='EN'>
+        <meta name='medium' content='blog'>
 
     
-    <meta property="og:type" content="article"/>
-    <meta property="og:title" content="docker"/>
-    <meta property="og:description" content=""/>
-    <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
-    <meta property="og:url" content="https://csmacnzblog.github.io/tags/docker/"/>
-    <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+        <title>docker - csMACnz&#39;s Blog</title>
+        <meta name="description" content="">
+        <meta name='keywords' content='csMACnz'>
 
+        
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="docker"/>
+        <meta property="og:description" content=""/>
+        <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+        <meta property="og:url" content="https://csmacnzblog.github.io/tags/docker/"/>
+        <meta property="og:image" content="http://csmac.nz/Content/icon/icon.png"/>
+
+        
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="docker"/>
+        <meta name="twitter:description" content=""/>
+        <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
+        <meta name="twitter:site" content="@csMACnz"/>
+        <meta name="twitter:creator" content="@csMACnz"/>
     
-    <meta name="twitter:card" content="summary"/>
-    <meta name="twitter:title" content="docker"/>
-    <meta name="twitter:description" content=""/>
-    <meta name="twitter:image" content="http://csmac.nz/Content/icon/icon.png"/>
-    <meta name="twitter:site" content="@csMACnz"/>
-    <meta name="twitter:creator" content="@csMACnz"/>
 
+        <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+        <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+        <link rel='me' type='text/html' href='https://github.com/csMACnz'>
 
-    <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
-    <link rel="icon" type="image/png" href="/images/icon/icon.png" />
-    <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+        <script>
+            var d_id  = 'csmacnz',
+                g_id  = 'UA-18464866-2',
+                g_url = 'auto';
+        </script>
 
-    <script>
-        var d_id  = 'csmacnz',
-            g_id  = 'UA-18464866-2',
-            g_url = 'auto';
-    </script>
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
 
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+        <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+        <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
 
-    <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
-    <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
-
-    <!-- ENTERING partial seo-schema.html -->
-    
-    <!-- LEAVING partial seo-schema.html -->
-    <link rel="alternate" type="application/rss+xml" title="csMACnz's Blog" href="https://csmacnzblog.github.io/tags/docker/index.xml" />
-    <style>
-        .post-content img {
-            max-width: 500px;
-        }
-    </style>
+        
+        <link rel="alternate" type="application/rss+xml" title="csMACnz's Blog" href="https://csmacnzblog.github.io/tags/docker/index.xml" />
+        
     </head>
     <body class="blog">
-        <div class="page-area"><header class="header-area">
-    <h1 class="header-area-title">csMACnz</h1>
-</header>
-<nav class="navigation-area header-bar-parent">
-    <div class="header-bar header-bar-blog">
-        <ul class="menu">
-            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
-            <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
-            <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
-        </ul>
-    </div>
-</nav><div id="content" class="content-area">
-            
-<div class="col-lg-8"><div class="container">
-      <div class="posts mb-4"><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/">.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</a></h2>
-            <div class="post-summary mb-3">I&rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
-Start with the defaults Use the built-in tools in Visual Studio to …</div>
-          </div>
-        </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/develop-your-rust-in-docker/">Develop your Rust in Docker</a></h2>
-            <div class="post-summary mb-3">I decided a while ago that the next language I would try to learn is Rust. I don&rsquo;t want to go too much into Rust other than to repeat its own summary:
+        <div class="page-area">
+
+            <header class="header-area">
+                <h1 class="header-area-title">csMACnz</h1>
+            </header>
+            <nav class="navigation-area header-bar-parent">
+                <div class="header-bar header-bar-blog">
+                    <ul class="menu">
+                        <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz">Home</a></li>
+                        <li class="menu-item"><a class="menu-item-content" href="http://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+                        <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div id="content" class="content-area">
+
+<!--Page Content Begins-->
+
+<main class="content-box" role="main">
+  <h1>docker tags</h1><article role="article" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <span class="post-meta"><time datetime="2018-07-16"  itemprop="datePublished">16 Jul 18</time> on <a href="/tags/docker">docker</a>,  <a href="/tags/dotnetcore">dotnetcore</a>,  <a href="/tags/visual-studio">Visual Studio</a></span>
+      <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/dotnet-docker-tips-and-tricks/" rel="bookmark">.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</a></h2>
+      
+      <a href="/post/dotnet-docker-tips-and-tricks/#disqus_thread"></a>
+    </header>
+    <section class="post-excerpt" itemprop="description">
+      <p>I&rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
+Start with the defaults Use the built-in tools in Visual Studio to …</p>
+    </section>
+  </article><article role="article" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <span class="post-meta"><time datetime="2018-05-14"  itemprop="datePublished">14 May 18</time> on <a href="/tags/rust">Rust</a>,  <a href="/tags/docker">docker</a></span>
+      <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/develop-your-rust-in-docker/" rel="bookmark">Develop your Rust in Docker</a></h2>
+      
+      <a href="/post/develop-your-rust-in-docker/#disqus_thread"></a>
+    </header>
+    <section class="post-excerpt" itemprop="description">
+      <p>I decided a while ago that the next language I would try to learn is Rust. I don&rsquo;t want to go too much into Rust other than to repeat its own summary:
  Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. &ndash; https://www.rust-lang.org/
- But like …</div>
-          </div>
-        </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/">A Windows Service using netcoreapp on dotnet</a></h2>
-            <div class="post-summary mb-3">I wrote Building a Windows Service with .Net Core and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application. Technically the title is still valid, it was a windows service, and I built it using .Net Core tools. But since people came looking for the answer to actually hosting a …</div>
-          </div>
-        </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/">dotnet build, targeting full .Net 4.5.1 on nanoserver docker</a></h2>
-            <div class="post-summary mb-3">I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
+ But like …</p>
+    </section>
+  </article><article role="article" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <span class="post-meta"><time datetime="2018-04-22"  itemprop="datePublished">22 Apr 18</time> on <a href="/tags/dotnetcore">dotnetcore</a>,  <a href="/tags/tips-and-tricks">Tips and Tricks</a>,  <a href="/tags/docker">docker</a></span>
+      <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/a-windows-service-on-dotnet/" rel="bookmark">A Windows Service using netcoreapp on dotnet</a></h2>
+      
+      <a href="/post/a-windows-service-on-dotnet/#disqus_thread"></a>
+    </header>
+    <section class="post-excerpt" itemprop="description">
+      <p>I wrote Building a Windows Service with .Net Core and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application. Technically the title is still valid, it was a windows service, and I built it using .Net Core tools. But since people came looking for the answer to actually hosting a …</p>
+    </section>
+  </article><article role="article" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <span class="post-meta"><time datetime="2017-03-31"  itemprop="datePublished">31 Mar 17</time> on <a href="/tags/dotnetcore">dotnetcore</a>,  <a href="/tags/docker">docker</a>,  <a href="/tags/tips-and-tricks">Tips and Tricks</a></span>
+      <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/dotnet-build-targeting-full-net451-on-nanoserver-2/" rel="bookmark">dotnet build, targeting full .Net 4.5.1 on nanoserver docker</a></h2>
+      
+      <a href="/post/dotnet-build-targeting-full-net451-on-nanoserver-2/#disqus_thread"></a>
+    </header>
+    <section class="post-excerpt" itemprop="description">
+      <p>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
 Basically I was trying this:
-docker run -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 …</div>
-          </div>
-        </article><article class="post row surface"><div class="post-body">
-            <h2 class="post-title mb-4"><a href="https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/">&#34;failed to peek context header from STDIN&#34; and how to fix</a></h2>
-            <div class="post-summary mb-3">The docker guidance says you can run docker build piping the dockerfile:
+docker run -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 …</p>
+    </section>
+  </article><article role="article" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <span class="post-meta"><time datetime="2016-11-29"  itemprop="datePublished">29 Nov 16</time> on <a href="/tags/tips-and-tricks">Tips and Tricks</a>,  <a href="/tags/docker">docker</a></span>
+      <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/" rel="bookmark">&#34;failed to peek context header from STDIN&#34; and how to fix</a></h2>
+      
+      <a href="/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/#disqus_thread"></a>
+    </header>
+    <section class="post-excerpt" itemprop="description">
+      <p>The docker guidance says you can run docker build piping the dockerfile:
 #On linux$ docker build - &lt; Dockerfile and on Windows it says to do this:
 #PowerShellGet-Content Dockerfile | docker build - Nice. But I&rsquo;ve been getting this error all day&hellip;
-&gt; Get-Content Dockerfile | docker build -unable to …</div>
-          </div>
-        </article></div>
-    </div>    
-</div>
+&gt; Get-Content Dockerfile | docker build -unable to …</p>
+    </section>
+  </article></main>
 
-        </div><aside class="sidebar-area">
-            <div class="header-bar-parent sidebar-item">
-                <div class="header-bar header-bar-twitter">Twitter</div>
-                
-                <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
-                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
-                
-            </div>
-            <div class="header-bar-parent sidebar-item">
-                <div class="header-bar header-bar-rss">Subscribe</div>
-                
-                <a href="/rssfeeds/" title="csMACnz's Blog">RSS Feeds</a>
-                <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
-                <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
-                <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
-                <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
-                <br />
-                <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
-                
-                
-            </div>
-            <div class="header-bar-parent sidebar-item">
-                <div class="header-bar header-bar-xbox">Gamercard</div>
-                
+<!--Page Content Ends-->
 
-                <div>
-                    <a href="https://www.exophase.com/xbox/user/csMACnz/"><img width="288px" src="https://card.exophase.com/1/1476805.png"></a>
-                    <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="https://www.steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
-                </div>
-                
-            </div>
-            <div class="header-bar-parent sidebar-item">
-                <div class="header-bar header-bar-ads">Advertisement</div>
-                
-                <div>
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
-                        crossorigin="anonymous"></script>
+            </div><aside class="sidebar-area">
+
+<!--Sidebar Content Begins-->
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-twitter">Twitter</div>
                     
-                    <ins class="adsbygoogle"
-                        style="display:block"
-                        data-ad-client="ca-pub-4517187877737982"
-                        data-ad-slot="3618449993"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+                    <a class="twitter-timeline" style="display: block; text-align: center;" href="https://twitter.com/csmacnz" data-widget-id="523634688984772608">Tweets by @@csmacnz</a>
+                    <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                    
                 </div>
+
                 
-            </div>
-        </aside>
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-rss">Subscribe</div>
+                    
+                    <a href="/rssfeeds/" title="csMACnz's Blog">RSS Feeds</a>
+                    <a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a>
+                    <a href="http://feedly.com/#subscription/feed/http://feeds.feedburner.com/csmacnzBlog" title="csMACnz&amp;#039;s Blog"><img src="http://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                    <a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/csmacnzBlog"><img src="http://www.netvibes.com/img/add2netvibes.gif" width="91" height="17" alt="Add to netvibes" style="border:0" /></a>
+                    <a href="http://feeds.feedburner.com/csmacnzBlog"><img src="http://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                    <br />
+                    <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                    
+                    
+                </div>
+
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-xbox">Gamercard</div>
+                    
+
+                    <div>
+                        <a href="https://www.exophase.com/xbox/user/csMACnz/"><img width="288px" src="https://card.exophase.com/1/1476805.png"></a>
+                        <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="https://www.steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                    </div>
+                    
+                </div>
+
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-ads">Advertisement</div>
+                    
+                    <div>
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
+                            crossorigin="anonymous"></script>
+                        
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-4517187877737982"
+                            data-ad-slot="3618449993"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                    
+                </div>
+
+<!--Sidebar Content Ends-->
+
+            </aside>
+
+            <footer class="footer-area">
+
+            <p>
+                Designed and Maintained by Mark Clearwater; Last updated August 2021.
+                <!-- This used to be something useful, now it is just a hack I left it to make layout easier but also as a fun reminder for me of what it used to be -->
+                <br /><a class="footer-link" >¯\_(ツ)_/¯</a>
+            </p>
+
+            </footer>
+        </div>
+
+<!--body scripts Begins-->
+
         
-        <footer class="footer-area"><p>
-    Designed and Maintained by Mark Clearwater; Last updated August 2021.
-    <br /><a class="footer-link" >¯\_(ツ)_/¯</a>
-</p></footer>
-    </div>
-    
-    
-    <script src="/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    
-    <script src="/js/codetoggle.js"></script> 
+        <script src="/js/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 
-    
-    <script>
-        var _gaq = [['_setAccount', g_id], ['_trackPageview']];
-        (function (d, t) {
-            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g, s);
-        }(document, 'script'));
-    </script>
+        <script src="/js/codetoggle.js"></script> 
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        
+        <script>
+            var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+            (function (d, t) {
+                var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+                s.parentNode.insertBefore(g, s);
+            }(document, 'script'));
+        </script>
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!--body scripts Ends-->
+
+
+<!-------------------------------->
+<!--                            -->
+<!--  _(\    |@@|               -->
+<!-- (__/\__ \--/ __            -->
+<!--    \___|----|  |   __      -->
+<!--        \ }{ /\ )_ / _\     -->
+<!--        /\__/\ \__O (__     -->
+<!--       (--/\--)    \__/     -->
+<!--       _)(  )(_             -->
+<!--      `---''---`            -->
+<!--                            -->
+<!-- https://github.com/csMACnz -->
+<!-------------------------------->
+
     </body>
 </html>
