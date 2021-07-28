@@ -230,7 +230,8 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
       
       <guid>https://blogmigration.csmac.nz/post/we-are-all-10x/</guid>
       <description>&lt;p&gt;If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;10x engineers&lt;br&gt;&lt;br&gt;Founders if you ever come across this rare breed of engineers, grab them. If you have a 10x engineer as part of your first few engineers, you increase the odds of your startup success significantly.&lt;br&gt;&lt;br&gt;OK, here is a tough question.&lt;br&gt;&lt;br&gt;How do you spot a 10x engineer?&lt;/p&gt;&amp;mdash; Shekhar Kirani (@skirani) &lt;a href=&#34;https://twitter.com/skirani/status/1149302828420067328?ref_src=twsrc%5Etfw&#34;&gt;July 11, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 &lt;p&gt;As a developer who tries to be good at their job, I have thoughts on this. As a Human, I like to be heard. (Note that being heard is not the same thing as being agreed with, or being right.) So here I am giving my opinion on this idea of a 10x developer, and specifically these &amp;ldquo;10 signs&amp;rdquo; put up online.&lt;/p&gt;
 &lt;p&gt;I like the idea that there are no 10x people, instead, you can strive to produce 10x teams.&lt;/p&gt;
 &lt;h2 id=&#34;1-meetings&#34;&gt;1. Meetings&lt;/h2&gt;
@@ -248,7 +249,8 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
 &lt;p&gt;One my big comparisons between my generation and the one before me (that is the one with the access to Google, but not access to iPads) was that at school we were no longer taught to memorise and recall information. Instead, we were taught, and learned, the importance of finding and referencing information. There is too much information for us all to hold in our heads. knowing where to look and what to look for is far more important that memorised information for a technology that will be obsolete in 3 years (if you are lucky), let alone memorising a dozen of them over time.&lt;/p&gt;
 &lt;p&gt;Yes, it is great to get people who know the domain really well, and for some people, it really is a skill. But people can&amp;rsquo;t know what they haven&amp;rsquo;t seen yet, and new hires always start as a blank slate. Not to mention tomorrow will bring a new set of libraries, applications and services that need to be learned and understood.&lt;/p&gt;
 &lt;p&gt;Scott Hanselman talks of the experience-groundhog-day scenario.&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;Do you have 10 years’ experience, or the same year 10 times? &lt;a href=&#34;https://t.co/LhIeWiWl3H&#34;&gt;https://t.co/LhIeWiWl3H&lt;/a&gt;&lt;/p&gt;&amp;mdash; Scott Hanselman (@shanselman) &lt;a href=&#34;https://twitter.com/shanselman/status/1001495109836226560?ref_src=twsrc%5Etfw&#34;&gt;May 29, 2018&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 &lt;h2 id=&#34;5-full-stack&#34;&gt;5. Full Stack&lt;/h2&gt;
 &lt;p&gt;Don&amp;rsquo;t you love buzz words? FullStack. A full-stack would be from the HTML/CSS/js to the backend code, to the database. But it is also understanding how the TCP/HTTP layer works with packets and routing. How does your platform infrastructure run, do you manage and patch the servers? Database backups and data security, not to mention how the hardware scales, can you write the assembly to work with arm processors too?&lt;/p&gt;
 &lt;p&gt;Jack of all trades, master of none. That is a saying that acknowledges you are spread too thin. You can&amp;rsquo;t be an expert in everything, so instead, you can hire an expert in each thing. Yes, you want everyone to be a generalist, but make sure you have coverage with all of the specialists, too.&lt;/p&gt;
@@ -288,7 +290,8 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
       <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
       
       <guid>https://blogmigration.csmac.nz/post/snuffleupagus-oriented-programming/</guid>
-      <description>&lt;!-- raw HTML omitted --&gt;
+      <description>&lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;An impromptu introduction to Snuffleupagus-Oriented Programming (SOP): &lt;a href=&#34;https://t.co/jPkjPRgqQr&#34;&gt;https://t.co/jPkjPRgqQr&lt;/a&gt;&lt;/p&gt;&amp;mdash; Casey Muratori (@cmuratori) &lt;a href=&#34;https://twitter.com/cmuratori/status/623332420855541764?ref_src=twsrc%5Etfw&#34;&gt;July 21, 2015&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 &lt;p&gt;Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.&lt;/p&gt;
 &lt;p&gt;How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.&lt;/p&gt;
 &lt;p&gt;Most developers get to a point where they see the value in having contract design up front across team boundaries, layer boundaries, reusable components, HTTP/Soap boundaries etc. An evolved design for these will never be as good as an intentional one. And on the flip side, we have all used clunky library APIs in various languages, BCL or otherwise.&lt;/p&gt;
@@ -297,7 +300,7 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
 &lt;h3 id=&#34;enter-sop&#34;&gt;Enter SOP&lt;/h3&gt;
 &lt;p&gt;The ideas from this story match an approach to building your API.&lt;/p&gt;
 &lt;p&gt;First, we are going to imagine that what we want to use exists. Then we are going to write code against the API, crafting our usage case, without implementing anything.  Once we are happy that our API is usable, we implement it and make it actually exist, make it real. There may be a few tweaks once the realities and limitations of the implementation are taken into account, but the idea is to try and keep it as usable as the original usage cases as possible, usability intact.&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
+&lt;div style=&#34;padding-top:72.800%;position:relative;&#34;&gt;&lt;iframe src=&#34;https://gifer.com/embed/9YHg&#34; width=&#34;100%&#34; height=&#34;100%&#34; style=&#39;position:absolute;top:0;left:0;&#39; frameBorder=&#34;0&#34; allowFullScreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://gifer.com&#34;&gt;via GIFER&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;tdd&#34;&gt;TDD&lt;/h3&gt;
 &lt;p&gt;This is a great candidate approach to work with TDD as well, just with more implementation code along the way to produce passing tests. Like Mr Snuffleupagus, this implementation code is imaginary until you have enough test cases to make it real, and refactor.&lt;/p&gt;
 &lt;h3 id=&#34;thanks&#34;&gt;Thanks&lt;/h3&gt;

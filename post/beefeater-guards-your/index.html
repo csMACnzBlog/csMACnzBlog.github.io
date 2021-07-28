@@ -11,13 +11,13 @@
 
     
         <title>Beefeater - Guard your methods&#39; Ins and Outs. - csMACnz&#39;s Blog</title>
-        <meta name="description" content=" A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater. This library contains helpers to add semantics to the optionality …&lt;/!--&gt;">
+        <meta name="description" content=" A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater. This library contains helpers to add semantics to the optionality …">
         <meta name='keywords' content='csMACnz'>
 
         
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Beefeater - Guard your methods&#39; Ins and Outs."/>
-        <meta property="og:description" content=" A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater. This library contains helpers to add semantics to the optionality …&lt;/!--&gt;"/>
+        <meta property="og:description" content=" A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater. This library contains helpers to add semantics to the optionality …"/>
         <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
         <meta property="og:url" content="https://blogmigration.csmac.nz/post/beefeater-guards-your/"/>
         <meta property="og:image" content="https://csmac.nz/Content/icon/icon.png"/>
@@ -25,7 +25,7 @@
         
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:title" content="Beefeater - Guard your methods&#39; Ins and Outs."/>
-        <meta name="twitter:description" content=" A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater. This library contains helpers to add semantics to the optionality …&lt;/!--&gt;"/>
+        <meta name="twitter:description" content=" A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater. This library contains helpers to add semantics to the optionality …"/>
         <meta name="twitter:image" content="https://csmac.nz/Content/icon/icon.png"/>
         <meta name="twitter:site" content="@csMACnz"/>
         <meta name="twitter:creator" content="@csMACnz"/>
@@ -131,7 +131,7 @@
         <h1 class="post-title" itemprop="headline">Beefeater - Guard your methods&#39; Ins and Outs.</h1>
     
         <section class="post-content"  itemprop="articleBody">
-            <!-- raw HTML omitted -->
+            <img align="right" width="256px" height="256px" src="http://img.csmac.nz/Beefeater-256.svg">
 <p>A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater.</p>
 <p>This library contains helpers to add semantics to the optionality of your parameters and results from method calls. I built it on <code>NetStandard1.0</code> for maximum compatibility.</p>
 <p>Some of this will soon become obsolete with C# 8 features such as the C# 8 nullable reference types, but much of it gives you the power you need right now.</p>
@@ -160,7 +160,7 @@
 <p>There was a theory of making an enum match but it wasn&rsquo;t achievable. However again C# 8 might solve this with new pattern matching too.</p>
 <p>There is also Resharper definitions provided to work with and be trusted by the Resharper Null static analysis.</p>
 <h3 id="show-me-the-code">Show me the code!</h3>
-<h4 id="optiont">Option<!-- raw HTML omitted --></h4>
+<h4 id="optiont">Option<T></h4>
 <p>As a simple example you may have a method like this:</p>
 <pre><code>public string Modify(string first, string second)
 {
@@ -402,8 +402,6 @@ Result&lt;Unit,string&gt;
                     <div class="header-bar header-bar-ads">Advertisement</div>
                     
                     <div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
-                            crossorigin="anonymous"></script>
                         
                         <ins class="adsbygoogle"
                             style="display:block"

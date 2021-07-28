@@ -11,13 +11,13 @@
 
     
         <title>using over lambda - csMACnz&#39;s Blog</title>
-        <meta name="description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &quot;Some Sort of Metadata for timing&quot;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult resul; …">
-        <meta name='keywords' content='csMACnz, c#'>
+        <meta name="description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &quot;Some Sort of Metadata for timing&quot;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult …">
+        <meta name='keywords' content='csMACnz, C Sharp'>
 
         
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="using over lambda"/>
-        <meta property="og:description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &quot;Some Sort of Metadata for timing&quot;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult resul; …"/>
+        <meta property="og:description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &quot;Some Sort of Metadata for timing&quot;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult …"/>
         <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
         <meta property="og:url" content="https://blogmigration.csmac.nz/post/using-over-lambda/"/>
         <meta property="og:image" content="https://csmac.nz/Content/icon/icon.png"/>
@@ -25,7 +25,7 @@
         
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:title" content="using over lambda"/>
-        <meta name="twitter:description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &quot;Some Sort of Metadata for timing&quot;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult resul; …"/>
+        <meta name="twitter:description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &quot;Some Sort of Metadata for timing&quot;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult …"/>
         <meta name="twitter:image" content="https://csmac.nz/Content/icon/icon.png"/>
         <meta name="twitter:site" content="@csMACnz"/>
         <meta name="twitter:creator" content="@csMACnz"/>
@@ -84,8 +84,8 @@
             "url" : "https:\/\/blogmigration.csmac.nz\/post\/using-over-lambda\/",
             "datePublished": "2016-06-22T05:59:37.000Z",
             "dateModified" : "2016-06-22T05:59:37.000Z",
-            "keywords" : [ "c#" ]
-            "description" : "Let\u0026rsquo;s talk about these two patterns:\npublic void GetSomethingDone() { var metaData = \u0026quot;Some Sort of Metadata for timing\u0026quot;; var result = DoTimedWork(metaData, () =\u0026gt; { MyResult resul; \/\/Some other complicated work\/method-call happens here return result; }); \/\/either uses or returns result here } public T DoTimedWork(string metaData, Func\u0026lt;T\u0026gt; action) { \/\/Setup code probably here using(var timer = new MetricsTimer(metaData)) { return action(); } }  And another:\npublic void GetSomethingDone() { var metaData = \u0026quot;Some Sort of Metadata for timing\u0026quot;; MyResult result; Using(DoTimedWork(metaData)) { \/\/Some other complicated work\/method-call happens here result = complicatedWorkResultSomehow; }; \/\/either uses or returns result here } public IDisposable DoTimedWork(string metaData) { \/\/Setup code probably here return new MetricsTimer(metaData); }  Let\u0026rsquo;s discuss shall we?",
+            "keywords" : [ "C Sharp" ]
+            "description" : "Let\u0026rsquo;s talk about these two patterns:\npublic void GetSomethingDone()\r{\rvar metaData = \u0026quot;Some Sort of Metadata for timing\u0026quot;;\rvar result = DoTimedWork(metaData, () =\u0026gt;\r{\rMyResult resul;\r\/\/Some other complicated work\/method-call happens here\rreturn result;\r});\r\/\/either uses or returns result here\r}\rpublic T DoTimedWork(string metaData, Func\u0026lt;T\u0026gt; action)\r{\r\/\/Setup code probably here\rusing(var timer = new MetricsTimer(metaData))\r{\rreturn action();\r}\r}\r And another:\npublic void GetSomethingDone()\r{\rvar metaData = \u0026quot;Some Sort of Metadata for timing\u0026quot;;\rMyResult result;\rUsing(DoTimedWork(metaData))\r{\r\/\/Some other complicated work\/method-call happens here\rresult = complicatedWorkResultSomehow;\r};\r\/\/either uses or returns result here\r}\rpublic IDisposable DoTimedWork(string metaData)\r{\r\/\/Setup code probably here\rreturn new MetricsTimer(metaData);\r}\r Let\u0026rsquo;s discuss shall we?",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blogmigration.csmac.nz"
@@ -126,7 +126,7 @@
 <article>
     <div class="content-box" itemscope itemtype=" https://schema.org/Article">
     
-        <span class="post-meta"><time datetime="2016-06-22"  itemprop="datePublished">22 Jun 16</time> on <a href="/tags/c">c#</a></span>
+        <span class="post-meta"><time datetime="2016-06-22"  itemprop="datePublished">22 Jun 16</time> on <a href="/tags/c-sharp">C Sharp</a></span>
     
         <h1 class="post-title" itemprop="headline">using over lambda</h1>
     
@@ -330,8 +330,6 @@ public Using(IDisposable disposable, Func&lt;T&gt; action)
                     <div class="header-bar header-bar-ads">Advertisement</div>
                     
                     <div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
-                            crossorigin="anonymous"></script>
                         
                         <ins class="adsbygoogle"
                             style="display:block"

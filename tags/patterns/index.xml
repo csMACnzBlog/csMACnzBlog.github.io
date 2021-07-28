@@ -19,7 +19,8 @@
       <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
       
       <guid>https://blogmigration.csmac.nz/post/snuffleupagus-oriented-programming/</guid>
-      <description>&lt;!-- raw HTML omitted --&gt;
+      <description>&lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;An impromptu introduction to Snuffleupagus-Oriented Programming (SOP): &lt;a href=&#34;https://t.co/jPkjPRgqQr&#34;&gt;https://t.co/jPkjPRgqQr&lt;/a&gt;&lt;/p&gt;&amp;mdash; Casey Muratori (@cmuratori) &lt;a href=&#34;https://twitter.com/cmuratori/status/623332420855541764?ref_src=twsrc%5Etfw&#34;&gt;July 21, 2015&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 &lt;p&gt;Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.&lt;/p&gt;
 &lt;p&gt;How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.&lt;/p&gt;
 &lt;p&gt;Most developers get to a point where they see the value in having contract design up front across team boundaries, layer boundaries, reusable components, HTTP/Soap boundaries etc. An evolved design for these will never be as good as an intentional one. And on the flip side, we have all used clunky library APIs in various languages, BCL or otherwise.&lt;/p&gt;
@@ -28,7 +29,7 @@
 &lt;h3 id=&#34;enter-sop&#34;&gt;Enter SOP&lt;/h3&gt;
 &lt;p&gt;The ideas from this story match an approach to building your API.&lt;/p&gt;
 &lt;p&gt;First, we are going to imagine that what we want to use exists. Then we are going to write code against the API, crafting our usage case, without implementing anything.  Once we are happy that our API is usable, we implement it and make it actually exist, make it real. There may be a few tweaks once the realities and limitations of the implementation are taken into account, but the idea is to try and keep it as usable as the original usage cases as possible, usability intact.&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
+&lt;div style=&#34;padding-top:72.800%;position:relative;&#34;&gt;&lt;iframe src=&#34;https://gifer.com/embed/9YHg&#34; width=&#34;100%&#34; height=&#34;100%&#34; style=&#39;position:absolute;top:0;left:0;&#39; frameBorder=&#34;0&#34; allowFullScreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://gifer.com&#34;&gt;via GIFER&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;tdd&#34;&gt;TDD&lt;/h3&gt;
 &lt;p&gt;This is a great candidate approach to work with TDD as well, just with more implementation code along the way to produce passing tests. Like Mr Snuffleupagus, this implementation code is imaginary until you have enough test cases to make it real, and refactor.&lt;/p&gt;
 &lt;h3 id=&#34;thanks&#34;&gt;Thanks&lt;/h3&gt;

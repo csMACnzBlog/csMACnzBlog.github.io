@@ -12,7 +12,7 @@
     
         <title>Looking Back on C#: async and await - csMACnz&#39;s Blog</title>
         <meta name="description" content="With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some …">
-        <meta name='keywords' content='csMACnz, c#'>
+        <meta name='keywords' content='csMACnz, C Sharp'>
 
         
         <meta property="og:type" content="article"/>
@@ -90,7 +90,7 @@
                 "width": 440,
                 "height": 295
             },
-            "keywords" : [ "c#" ]
+            "keywords" : [ "C Sharp" ]
             "description" : "With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.\nMultithreaded programming has always been a difficult thing to get your head around, and there are many pitfalls easily stumbled into.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
@@ -102,7 +102,7 @@
             "accountablePerson" : "Mark Clearwater",
             "copyrightHolder" : "Mark Clearwater",
             "copyrightYear" : "2019",
-            "wordCount" : "1373",
+            "wordCount" : "1374",
         }
         </script>
         
@@ -132,7 +132,7 @@
 <article>
     <div class="content-box" itemscope itemtype=" https://schema.org/Article">
     
-        <span class="post-meta"><time datetime="2019-06-24"  itemprop="datePublished">24 Jun 19</time> on <a href="/tags/c">c#</a></span>
+        <span class="post-meta"><time datetime="2019-06-24"  itemprop="datePublished">24 Jun 19</time> on <a href="/tags/c-sharp">C Sharp</a></span>
     
         <h1 class="post-title" itemprop="headline">Looking Back on C#: async and await</h1>
     
@@ -257,7 +257,7 @@ public class MyTestCase : IAsyncLifetime
 </code></pre>
 <p>I&rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.</p>
 <h2 id="valuetask">ValueTask</h2>
-<p>The original implementation of the async/await language feature was strongly tied to the <code>Task</code> and `Task<!-- raw HTML omitted --> types.</p>
+<p>The original implementation of the async/await language feature was strongly tied to the <code>Task</code> and `Task<T> types.</p>
 <p>In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the <a href="/looking-back-on-csharp6-initializers/">Add for the initialiser syntax</a>). Specifically, the <code>GetAwaiter</code> method must be available on the type used with the <code>await</code> keyword.</p>
 <p>Along with this change was the introduction of a new type to leverage this pattern, <code>ValueTask</code>. A <code>ValueTask</code> is a value type (struct) that will be stack-allocated and copied by value. If your method uses caching, and most of the time returns a simple value instead of an awaited execution, the <code>ValueTask</code> may be more efficient than the <code>Task</code> type.</p>
 <p>This is because the overheads of Heap-allocation of the reference type <code>Task</code> can have an impact on performance. If you detect this as an issue, you can use the new <code>ValueTask</code> instead. This will be a stack-allocated value type containing the response value and copied around.</p>
@@ -342,8 +342,6 @@ public class MyTestCase : IAsyncLifetime
                     <div class="header-bar header-bar-ads">Advertisement</div>
                     
                     <div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
-                            crossorigin="anonymous"></script>
                         
                         <ins class="adsbygoogle"
                             style="display:block"

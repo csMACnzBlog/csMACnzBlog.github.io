@@ -237,7 +237,7 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
 &lt;li&gt;IoT improvements&lt;/li&gt;
 &lt;li&gt;TLS improvements on linux&lt;/li&gt;
 &lt;li&gt;Cryptography improvements&lt;/li&gt;
-&lt;li&gt;More BCL Improvements using optimized Span&lt;!-- raw HTML omitted --&gt;, Memory&lt;!-- raw HTML omitted --&gt;&lt;/li&gt;
+&lt;li&gt;More BCL Improvements using optimized Span&lt;T&gt;, Memory&lt;T&gt;&lt;/li&gt;
 &lt;li&gt;Default implementations of interface members&lt;/li&gt;
 &lt;li&gt;Tiered Compilation on by default&lt;/li&gt;
 &lt;li&gt;Assembly Metadata Reading with MetadataLoadContext&lt;/li&gt;
@@ -413,7 +413,7 @@ As well as BuildAction &lt;code&gt;Compile&lt;/code&gt;, there are a couple of o
 &lt;p&gt;Well after some stumbling around in the dotnet core docs, I found information about &lt;code&gt;HostBuilder&lt;/code&gt;, which looks a lot like the &lt;code&gt;WebHostBuilder&lt;/code&gt; and &lt;code&gt;WebHost&lt;/code&gt; that we use with AspNetCore.  And that is no accident.&lt;/p&gt;
 &lt;p&gt;This new set of classes is a new feature from dotnet core 2.1:&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;The Generic Host is new in ASP&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;.NET Core 2.1 and isn&amp;rsquo;t suitable for web hosting scenarios. For web hosting scenarios, use the Web Host. The Generic Host is under development to replace the Web Host in a future release and act as the primary host API in both HTTP and non-HTTP scenarios. - &lt;a href=&#34;https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.1&#34;&gt;microsoft docs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Generic Host is new in ASP&lt;span&gt;&lt;/span&gt;.NET Core 2.1 and isn&amp;rsquo;t suitable for web hosting scenarios. For web hosting scenarios, use the Web Host. The Generic Host is under development to replace the Web Host in a future release and act as the primary host API in both HTTP and non-HTTP scenarios. - &lt;a href=&#34;https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.1&#34;&gt;microsoft docs&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;If you are used to the WebHostBuilder (&lt;code&gt;WebHost.CreateWebHostBuilder(args).Build().Run();&lt;/code&gt;) then you will find the contracts for this very similar.  Let&amp;rsquo;s look at an example of what a console app using this new library might look like.&lt;/p&gt;
 &lt;p&gt;Like last time, we will use this simple application that will sleep for 1 second, then try to generate the next number in the Fibonacci Sequence and print it out.&lt;/p&gt;

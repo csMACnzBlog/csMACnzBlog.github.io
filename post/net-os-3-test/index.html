@@ -96,7 +96,7 @@
             "accountablePerson" : "Mark Clearwater",
             "copyrightHolder" : "Mark Clearwater",
             "copyrightYear" : "2015",
-            "wordCount" : "1265",
+            "wordCount" : "1267",
         }
         </script>
         
@@ -165,7 +165,7 @@
 <h3 id="nunit">NUnit</h3>
 <p><a href="http://www.nunit.org/">NUnit</a> is a popular open source alternative to MSTest. The framework takes the basic principles of MSTest and extends them in a few ways to enhance the flexibility of its use. It basically gives you the ultimate in flexibility in how you wish to organise your tests, including parameterised test case attribution to your tests, all the setup and teardown options and all the runners and integration to tools you need. Version 3.0 (a complete rewrite) is currently in alpha.</p>
 <h3 id="xunit">xUnit</h3>
-<p>Another slightly less popular but rising test framework is <a href="http://xunit.github.io/">xUnit</a>. This one is a bit more opinionated, and tries to cut the scope of available features compared to NUnit and MSTest around Setup and Teardown, opting for constructor and destructor as a more native approach. However it replaces per method Setup and Teardown with a slightly different dependency model using Fixtures (implementing IUseFixture<!-- raw HTML omitted --> and/or IClassFixture<!-- raw HTML omitted --> in your test class).  This has become my go-to test framework, with NuGet packages, visual studio and Resharper runners and command line tools available. Works on mono as well as .Net.  Version 2.0 is in RC3 at the time of this writing(although it did take 2 years to get out of alpha, there has been steady progress over the last few months).</p>
+<p>Another slightly less popular but rising test framework is <a href="http://xunit.github.io/">xUnit</a>. This one is a bit more opinionated, and tries to cut the scope of available features compared to NUnit and MSTest around Setup and Teardown, opting for constructor and destructor as a more native approach. However it replaces per method Setup and Teardown with a slightly different dependency model using Fixtures (implementing IUseFixture<T> and/or IClassFixture<T> in your test class).  This has become my go-to test framework, with NuGet packages, visual studio and Resharper runners and command line tools available. Works on mono as well as .Net.  Version 2.0 is in RC3 at the time of this writing(although it did take 2 years to get out of alpha, there has been steady progress over the last few months).</p>
 <h3 id="fixie">Fixie</h3>
 <p><a href="http://fixie.github.io/">Fixie</a> is something I&rsquo;ve only come across in passing. It looks to be a very promising test framework, and I encourage you to take it for a test drive if your looking for something to try. My understanding is it is the bare minimum scaffolding to run tests. You are then left to write your conventions for defining and finding what is a test, and defining your own assertion library (or just pick one from NuGet). It allows you to write your own expressions to wrap test methods with classes (for Setup and Teardown) and defining your own parameter injection resolution.</p>
 <p>If you find your highly opinionated in how you want your tests to work, and don&rsquo;t quite like some small parts of your chosen framework, this might be the one to use to get things exactly right.</p>
@@ -263,8 +263,6 @@
                     <div class="header-bar header-bar-ads">Advertisement</div>
                     
                     <div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
-                            crossorigin="anonymous"></script>
                         
                         <ins class="adsbygoogle"
                             style="display:block"

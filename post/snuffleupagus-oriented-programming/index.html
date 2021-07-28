@@ -11,13 +11,13 @@
 
     
         <title>Snuffleupagus-Oriented Programming - csMACnz&#39;s Blog</title>
-        <meta name="description" content=" Sometimes naming something is the best way to start talking about a topic that lots of people do but don&rsquo;t realise or haven&rsquo;t pulled together as a concept. This is one of those ideas that finally has a good …&lt;/!--&gt;">
+        <meta name="description" content="An impromptu introduction to Snuffleupagus-Oriented Programming (SOP): https://t.co/jPkjPRgqQr&mdash; Casey Muratori (@cmuratori) July 21, 2015  Sometimes naming something is the best way to start talking about a topic …">
         <meta name='keywords' content='csMACnz, software development, Patterns'>
 
         
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Snuffleupagus-Oriented Programming"/>
-        <meta property="og:description" content=" Sometimes naming something is the best way to start talking about a topic that lots of people do but don&rsquo;t realise or haven&rsquo;t pulled together as a concept. This is one of those ideas that finally has a good …&lt;/!--&gt;"/>
+        <meta property="og:description" content="An impromptu introduction to Snuffleupagus-Oriented Programming (SOP): https://t.co/jPkjPRgqQr&mdash; Casey Muratori (@cmuratori) July 21, 2015  Sometimes naming something is the best way to start talking about a topic …"/>
         <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
         <meta property="og:url" content="https://blogmigration.csmac.nz/post/snuffleupagus-oriented-programming/"/>
         <meta property="og:image" content="https://csmac.nz/Content/icon/icon.png"/>
@@ -25,7 +25,7 @@
         
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:title" content="Snuffleupagus-Oriented Programming"/>
-        <meta name="twitter:description" content=" Sometimes naming something is the best way to start talking about a topic that lots of people do but don&rsquo;t realise or haven&rsquo;t pulled together as a concept. This is one of those ideas that finally has a good …&lt;/!--&gt;"/>
+        <meta name="twitter:description" content="An impromptu introduction to Snuffleupagus-Oriented Programming (SOP): https://t.co/jPkjPRgqQr&mdash; Casey Muratori (@cmuratori) July 21, 2015  Sometimes naming something is the best way to start talking about a topic …"/>
         <meta name="twitter:image" content="https://csmac.nz/Content/icon/icon.png"/>
         <meta name="twitter:site" content="@csMACnz"/>
         <meta name="twitter:creator" content="@csMACnz"/>
@@ -91,7 +91,7 @@
                 "height": 295
             },
             "keywords" : [ "software development", "Patterns" ]
-            "description" : "Sometimes naming something is the best way to start talking about a topic that lots of people do but don\u0026rsquo;t realise or haven\u0026rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.\nHow do you build out a new API? Here we are meaning programming contracts effectively. You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.",
+            "description" : "An impromptu introduction to Snuffleupagus-Oriented Programming (SOP): https:\/\/t.co\/jPkjPRgqQr\n\u0026mdash; Casey Muratori (@cmuratori) July 21, 2015\r\rSometimes naming something is the best way to start talking about a topic that lots of people do but don\u0026rsquo;t realise or haven\u0026rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.\nHow do you build out a new API? Here we are meaning programming contracts effectively.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blogmigration.csmac.nz"
@@ -102,7 +102,7 @@
             "accountablePerson" : "Mark Clearwater",
             "copyrightHolder" : "Mark Clearwater",
             "copyrightYear" : "2019",
-            "wordCount" : "424",
+            "wordCount" : "441",
         }
         </script>
         
@@ -137,7 +137,8 @@
         <h1 class="post-title" itemprop="headline">Snuffleupagus-Oriented Programming</h1>
     
         <section class="post-content"  itemprop="articleBody">
-            <img class="post-image" src="/content/images/2019/07/1rYH-1-.gif"><!-- raw HTML omitted -->
+            <img class="post-image" src="/content/images/2019/07/1rYH-1-.gif"><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">An impromptu introduction to Snuffleupagus-Oriented Programming (SOP): <a href="https://t.co/jPkjPRgqQr">https://t.co/jPkjPRgqQr</a></p>&mdash; Casey Muratori (@cmuratori) <a href="https://twitter.com/cmuratori/status/623332420855541764?ref_src=twsrc%5Etfw">July 21, 2015</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <p>Sometimes naming something is the best way to start talking about a topic that lots of people do but don&rsquo;t realise or haven&rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.</p>
 <p>How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.</p>
 <p>Most developers get to a point where they see the value in having contract design up front across team boundaries, layer boundaries, reusable components, HTTP/Soap boundaries etc. An evolved design for these will never be as good as an intentional one. And on the flip side, we have all used clunky library APIs in various languages, BCL or otherwise.</p>
@@ -146,7 +147,7 @@
 <h3 id="enter-sop">Enter SOP</h3>
 <p>The ideas from this story match an approach to building your API.</p>
 <p>First, we are going to imagine that what we want to use exists. Then we are going to write code against the API, crafting our usage case, without implementing anything.  Once we are happy that our API is usable, we implement it and make it actually exist, make it real. There may be a few tweaks once the realities and limitations of the implementation are taken into account, but the idea is to try and keep it as usable as the original usage cases as possible, usability intact.</p>
-<!-- raw HTML omitted -->
+<div style="padding-top:72.800%;position:relative;"><iframe src="https://gifer.com/embed/9YHg" width="100%" height="100%" style='position:absolute;top:0;left:0;' frameBorder="0" allowFullScreen></iframe></div><p><a href="https://gifer.com">via GIFER</a></p>
 <h3 id="tdd">TDD</h3>
 <p>This is a great candidate approach to work with TDD as well, just with more implementation code along the way to produce passing tests. Like Mr Snuffleupagus, this implementation code is imaginary until you have enough test cases to make it real, and refactor.</p>
 <h3 id="thanks">Thanks</h3>
@@ -229,8 +230,6 @@
                     <div class="header-bar header-bar-ads">Advertisement</div>
                     
                     <div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
-                            crossorigin="anonymous"></script>
                         
                         <ins class="adsbygoogle"
                             style="display:block"

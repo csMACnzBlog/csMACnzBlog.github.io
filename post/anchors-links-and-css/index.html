@@ -96,7 +96,7 @@
             "accountablePerson" : "Mark Clearwater",
             "copyrightHolder" : "Mark Clearwater",
             "copyrightYear" : "2015",
-            "wordCount" : "833",
+            "wordCount" : "878",
         }
         </script>
         
@@ -166,14 +166,40 @@ a:hover {
 }
 </code></pre>
 <p>You can imagine I have two buttons, one with just <code>.menu-button</code>, and one with <code>.menu-button-current</code> as well.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p><!-- raw HTML omitted -->Current Page<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->Other Page<!-- raw HTML omitted --></p>
+<style>
+.test-base-style:link {
+  color: Orange;
+}
+.test-base-style:visited {
+  color: DarkOrange;
+}
+.test-base-style:hover {
+  color: Blue;
+}
+.test1-menu-button {
+    display: inline-block;
+    background-color: inherit;
+    color: orange;
+    ...
+}
+.test1-menu-button:link,
+.test1-menu-button:visited {
+    color: orange;
+}
+.test1-menu-button:link:hover {
+    color: pink;
+    background:blue;
+}
+.test1-menu-button-current {
+    color:blue;
+}
+</style>
+<p><a class=".test-base-style test1-menu-button test1-menu-button-current">Current Page</a>
+<a class=".test-base-style test1-menu-button" href="#">Other Page</a></p>
 <p>The problem is, that when I had an anchor without a link, it worked ok. when I had a button with a link, it didn&rsquo;t pick up the correct colors. It basically looked like a normal menu button.</p>
-<p><!-- raw HTML omitted -->Current Page<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->Clickable Current Page <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->Other Page<!-- raw HTML omitted --></p>
+<p><a class=".test-base-style test1-menu-button test1-menu-button-current">Current Page</a>
+<a class=".test-base-style test1-menu-button test1-menu-button-current" href="#">Clickable Current Page </a>
+<a class=".test-base-style test1-menu-button" href="#">Other Page</a></p>
 <p>Several attempts to change it got halfway there, but I ended up with a button where the text was still blue on hover. I tried a whole bunch of other things, which are really hard to reproduce again, that I thought, according to precedence, should have worked.  The real problem actually came back to the default anchor styles, and the three states an anchor can be in.</p>
 <p>An Anchor can be a link, not a link, or visited. Unfortunately, when you hover, it could be hovering in any one of these three states. And best of all, there are only pseudo-classes for two of them. If you explicitly use hover by itself, that&rsquo;s fine, it applies to all three, but where you are trying to distinguish if it is clickable or not, you might decide to add link so that it fixes things :</p>
 <pre><code class="language-css">.menu-button:link:hover {
@@ -294,8 +320,6 @@ a:visited:hover {
                     <div class="header-bar header-bar-ads">Advertisement</div>
                     
                     <div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
-                            crossorigin="anonymous"></script>
                         
                         <ins class="adsbygoogle"
                             style="display:block"

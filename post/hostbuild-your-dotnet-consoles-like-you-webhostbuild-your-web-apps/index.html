@@ -142,7 +142,7 @@
 <p>Well after some stumbling around in the dotnet core docs, I found information about <code>HostBuilder</code>, which looks a lot like the <code>WebHostBuilder</code> and <code>WebHost</code> that we use with AspNetCore.  And that is no accident.</p>
 <p>This new set of classes is a new feature from dotnet core 2.1:</p>
 <blockquote>
-<p>The Generic Host is new in ASP<!-- raw HTML omitted --><!-- raw HTML omitted -->.NET Core 2.1 and isn&rsquo;t suitable for web hosting scenarios. For web hosting scenarios, use the Web Host. The Generic Host is under development to replace the Web Host in a future release and act as the primary host API in both HTTP and non-HTTP scenarios. - <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.1">microsoft docs</a></p>
+<p>The Generic Host is new in ASP<span></span>.NET Core 2.1 and isn&rsquo;t suitable for web hosting scenarios. For web hosting scenarios, use the Web Host. The Generic Host is under development to replace the Web Host in a future release and act as the primary host API in both HTTP and non-HTTP scenarios. - <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.1">microsoft docs</a></p>
 </blockquote>
 <p>If you are used to the WebHostBuilder (<code>WebHost.CreateWebHostBuilder(args).Build().Run();</code>) then you will find the contracts for this very similar.  Let&rsquo;s look at an example of what a console app using this new library might look like.</p>
 <p>Like last time, we will use this simple application that will sleep for 1 second, then try to generate the next number in the Fibonacci Sequence and print it out.</p>
@@ -385,8 +385,6 @@ using (host)
                     <div class="header-bar header-bar-ads">Advertisement</div>
                     
                     <div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
-                            crossorigin="anonymous"></script>
                         
                         <ins class="adsbygoogle"
                             style="display:block"
