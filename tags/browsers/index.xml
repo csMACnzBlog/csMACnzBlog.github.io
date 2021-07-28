@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Browsers on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/browsers/</link>
+    <link>https://blogmigration.csmac.nz/tags/browsers/</link>
     <description>Recent content in Browsers on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sat, 14 Jun 2008 11:38:44 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/browsers/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jun 2008 11:38:44 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/browsers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>IE8, Microsoft are still in the game</title>
-      <link>https://csmacnzblog.github.io/post/ie8-microsoft-are-still-in-the-game/</link>
+      <link>https://blogmigration.csmac.nz/post/ie8-microsoft-are-still-in-the-game/</link>
       <pubDate>Sat, 14 Jun 2008 11:38:44 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/ie8-microsoft-are-still-in-the-game/</guid>
+      <guid>https://blogmigration.csmac.nz/post/ie8-microsoft-are-still-in-the-game/</guid>
       <description>&lt;p&gt;It seems that Microsoft have already set their sites on the next generation web browser war, and this time they aim to win. It&amp;rsquo;s predecessor IE7 was released in late 2006, and was a sore dissapointment to some, but was also seen as a step in the right direction by others in the web development community. This all comes down to the battle of the standards, a war that has been going on since the start of the web years ago.&lt;/p&gt;
 &lt;p&gt;Internet explorer has had many quirks since its first incarnation, and one that has given the most strife is its width attribute. You see, when you specify width using standards, you get the width of the contents, and you add padding and borders and margins onto this to get the absolute size of the element. When you try and do this with IE, it decides that the width will include the padding, which means your elements may look completely different in IE compaired to Firefox or Opera. These quirks had been adopted as wrote by many web developers, who used microsofts methods when developing their sites, and many sites online today still adopt these policies.&lt;/p&gt;
 &lt;p&gt;When IE7 came out, it was mostly aimed at catching up with the other players with features. This included tabbed browsing among other things. As a late tack-on, they setup a compatibility setting that went something like this. If you declare you page to be standards complient, we will do our best to interprete it against the standards. But if you don&amp;rsquo;t tell me anything, my default behaviour will be to use &amp;lsquo;quirks&amp;rsquo; mode, which essentially is IE6 and backwards compatibility mode. This was partially good news to alot of developers, who had been creating web complient sites and now knew they would work somewhat normally for internet explorer 7. This didn&amp;rsquo;t solve the problem that many people still use IE6 and older, as all the same compatibility hacks still need to be done anyway, but a step in the right direction in any case.&lt;/p&gt;

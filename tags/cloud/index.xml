@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cloud on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/cloud/</link>
+    <link>https://blogmigration.csmac.nz/tags/cloud/</link>
     <description>Recent content in Cloud on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 09 Aug 2015 08:41:48 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Aug 2015 08:41:48 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pets vs Cattle</title>
-      <link>https://csmacnzblog.github.io/post/pets-vs-cattle/</link>
+      <link>https://blogmigration.csmac.nz/post/pets-vs-cattle/</link>
       <pubDate>Sun, 09 Aug 2015 08:41:48 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/pets-vs-cattle/</guid>
+      <guid>https://blogmigration.csmac.nz/post/pets-vs-cattle/</guid>
       <description>&lt;p&gt;There is this concept that has been floating around for a while which says you should treat your servers as cattle, not pets. I came across another version of this analogy that I wanted to post, since it doesn&amp;rsquo;t seem to have been recorded anywhere but has been mentioned in presentations. But before I get to that, let us look at what this phrase means, and where it came from.&lt;/p&gt;
 &lt;h3 id=&#34;definition&#34;&gt;Definition&lt;/h3&gt;
 &lt;p&gt;When we talk about servers at pets, we are referring to the fact that we need to care for them. We feed and water them fancy meals. We give them a name. When they are sick, we nurse them back to health. They are important to us. They are unique snowflakes, and we don&amp;rsquo;t want anything to happen to them.&lt;/p&gt;

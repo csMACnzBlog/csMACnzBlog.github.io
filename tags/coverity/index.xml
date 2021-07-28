@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Coverity on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/coverity/</link>
+    <link>https://blogmigration.csmac.nz/tags/coverity/</link>
     <description>Recent content in Coverity on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 08 Mar 2015 17:34:21 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/coverity/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Mar 2015 17:34:21 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/coverity/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introducing PublishCoverity</title>
-      <link>https://csmacnzblog.github.io/post/introducing-publishcoverity/</link>
+      <link>https://blogmigration.csmac.nz/post/introducing-publishcoverity/</link>
       <pubDate>Sun, 08 Mar 2015 17:34:21 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/introducing-publishcoverity/</guid>
+      <guid>https://blogmigration.csmac.nz/post/introducing-publishcoverity/</guid>
       <description>&lt;p&gt;As part of my open source development tooling investigation, I came across &lt;a href=&#34;https://scan.coverity.com/&#34;&gt;Coverity Scan&lt;/a&gt; Static Analysis. And thanks to &lt;a href=&#34;http://arkfps.github.io/2015/01/07/using-coverity-scan-with-appveyor/&#34;&gt;Arkfps&#39; post&lt;/a&gt; I could automate the process of submitting the results. And now &lt;a href=&#34;http://help.appveyor.com/discussions/suggestions/497-coverity-static-analysis-support&#34;&gt;Appveyor includes Coverity on it&amp;rsquo;s images&lt;/a&gt;. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.nuget.org/packages/PublishCoverity&#34;&gt;PublishCoverity&lt;/a&gt; is available on NuGet, and has two use cases: Compress and Publish.&lt;/p&gt;
 &lt;p&gt;Compress takes a directory and compresses it to produce an output zip file.&lt;/p&gt;

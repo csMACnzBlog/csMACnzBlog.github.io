@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>git on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/git/</link>
+    <link>https://blogmigration.csmac.nz/tags/git/</link>
     <description>Recent content in git on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 05 Jun 2016 21:32:04 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Jun 2016 21:32:04 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fork off with your branches</title>
-      <link>https://csmacnzblog.github.io/post/fork-off-with-your-branches/</link>
+      <link>https://blogmigration.csmac.nz/post/fork-off-with-your-branches/</link>
       <pubDate>Sun, 05 Jun 2016 21:32:04 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/fork-off-with-your-branches/</guid>
+      <guid>https://blogmigration.csmac.nz/post/fork-off-with-your-branches/</guid>
       <description>&lt;p&gt;The nice thing about git is that branches are cheap and you can create many and varied branches for every little fix, format or feature. The annoying thing about GitHub is that every user creates many many many branches.&lt;/p&gt;
 &lt;p&gt;One of my pet peeves at the moment is a large number of branches on our upstream repository. That is, the shared common one we all fork from and Pull Request into. When I started there were almost 200 branches! So many branches made it really hard to find out which branch was for what, and even harder to tell if any of the branches were not being used.&lt;/p&gt;
 &lt;p&gt;These might seem like small things, but if you have a CI server &lt;em&gt;(I really hope you have a CI server)&lt;/em&gt; you might set up wildcard builds that automatically build every branch that matches a certain pattern, for example, &lt;code&gt;feature/*&lt;/code&gt; or &lt;code&gt;release/*&lt;/code&gt;. Now every one of these branches has a build that runs every time the code changes. You probably want to ensure they are up to date with master, so a script will run on a schedule &lt;em&gt;(or triggered off of a merge)&lt;/em&gt; and auto-merge master down to your branch. &lt;em&gt;(Why is this required? probably because you have so many branches in the first place! Investigate &lt;a href=&#34;https://www.google.co.uk/search?q=rebase&#34;&gt;git rebase&lt;/a&gt;&amp;hellip;)&lt;/em&gt;&lt;/p&gt;
@@ -42,10 +42,10 @@
     
     <item>
       <title>On gitversioning subdirectories</title>
-      <link>https://csmacnzblog.github.io/post/on-gitversioning-subdirectories/</link>
+      <link>https://blogmigration.csmac.nz/post/on-gitversioning-subdirectories/</link>
       <pubDate>Sun, 22 Nov 2015 15:05:14 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/on-gitversioning-subdirectories/</guid>
+      <guid>https://blogmigration.csmac.nz/post/on-gitversioning-subdirectories/</guid>
       <description>&lt;p&gt;We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&amp;rsquo;t it be nice if we could detect that the subdirectory hasn&amp;rsquo;t changed and so has the same version it did last time we built it?&lt;/p&gt;
 &lt;p&gt;We use &lt;a href=&#34;https://github.com/GitTools/GitVersion&#34;&gt;gitversion&lt;/a&gt;, so we already have a way to get the version for the current commit.  Maybe we can use that to get the version for a subdirectories latest commit?  Sure we can!&lt;/p&gt;
 &lt;p&gt;To get the version for the latest commit, we need the latest commit.  Turns out you can use&lt;/p&gt;
@@ -88,10 +88,10 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>Code Camp Christchurch - An Introduction to git</title>
-      <link>https://csmacnzblog.github.io/post/code-camp-christchurch-an-introduction-to-git/</link>
+      <link>https://blogmigration.csmac.nz/post/code-camp-christchurch-an-introduction-to-git/</link>
       <pubDate>Fri, 15 May 2015 13:59:24 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/code-camp-christchurch-an-introduction-to-git/</guid>
+      <guid>https://blogmigration.csmac.nz/post/code-camp-christchurch-an-introduction-to-git/</guid>
       <description>&lt;p&gt;I presented today at Code Camp Christchurch on git. I will try and translate some of the topics into new tutorial posts over the coming weeks, but you can find a rough transcript of the content from my presentation in my post &lt;a href=&#34;https://blog.csmac.nz/git-is-not-scary/&#34;&gt;git is not scary&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I refered to some links in my talk, and wanted to make them available here. So on with it then.&lt;/p&gt;
 &lt;h4 id=&#34;the-git-parable&#34;&gt;The Git Parable&lt;/h4&gt;
@@ -119,10 +119,10 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>Git is not scary</title>
-      <link>https://csmacnzblog.github.io/post/git-is-not-scary/</link>
+      <link>https://blogmigration.csmac.nz/post/git-is-not-scary/</link>
       <pubDate>Sun, 10 May 2015 18:14:28 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/git-is-not-scary/</guid>
+      <guid>https://blogmigration.csmac.nz/post/git-is-not-scary/</guid>
       <description>&lt;p&gt;It may not be simple, it may not be easy, but git is not scary. Now, I&amp;rsquo;ve been using git for less than a year now, professionally. I had dabbled in git personal projects for the year before that. My primary Source control had mostly been TFS (Team Foundation Server), and I had been exposed to subversion on a major project before too. Full disclosure, I&amp;rsquo;ve never used Visual SourceSafe. Just Sayin&#39;. I hear it was pretty good. But when you compare and contrast all the source control systems out there, each of them has their own pros and cons (including git). From my experience bravely going all in, git has been a ray of light, enhancing my developer flow. At a minimum, it chases away some of those pain points I had using TFS Source Control. git is not scary.&lt;/p&gt;
 &lt;p&gt;But if you&amp;rsquo;re happy with what you&amp;rsquo;re using, why would you change?&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve gone to some authoritative sources to look at some stats. Let&amp;rsquo;s start with Stack Overflow:&lt;/p&gt;
@@ -145,10 +145,10 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>git lol</title>
-      <link>https://csmacnzblog.github.io/post/git-lol/</link>
+      <link>https://blogmigration.csmac.nz/post/git-lol/</link>
       <pubDate>Wed, 22 Apr 2015 07:33:49 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/git-lol/</guid>
+      <guid>https://blogmigration.csmac.nz/post/git-lol/</guid>
       <description>&lt;p&gt;I saw &lt;a href=&#34;http://scottchacon.com/&#34;&gt;Scott Chacon&lt;/a&gt; use &lt;code&gt;git lol&lt;/code&gt; on an &lt;a href=&#34;https://www.youtube.com/watch?v=ZDR433b0HJY&#34;&gt;introduction to git video&lt;/a&gt;, and thought it looked like a neat alias idea. I did some searching and came across &lt;a href=&#34;http://uberblo.gs/2010/12/git-lol-the-other-git-log&#34;&gt;this blog post&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/fbettag&#34;&gt;Franz Bettag&lt;/a&gt;, in which he creates an alias for &lt;code&gt;git log&lt;/code&gt; called &lt;code&gt;git lol&lt;/code&gt;.  I&amp;rsquo;m not sure if he came up with it, but it looks like Scott Chacon is the person from whom people seem to learn about it.  Unfortunately the gist links on Franz&amp;rsquo;s blog post don&amp;rsquo;t work for me, so to help me find them again in the future, I thought I would re-post his post here:&lt;/p&gt;
 &lt;p&gt;He starts with:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -204,10 +204,10 @@ $ git lol
     
     <item>
       <title>Aliasing your &#39;git status&#39;</title>
-      <link>https://csmacnzblog.github.io/post/aliasing-your-git-status/</link>
+      <link>https://blogmigration.csmac.nz/post/aliasing-your-git-status/</link>
       <pubDate>Sat, 18 Apr 2015 13:26:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/aliasing-your-git-status/</guid>
+      <guid>https://blogmigration.csmac.nz/post/aliasing-your-git-status/</guid>
       <description>&lt;p&gt;Anyone else have the bad habit of typing in &lt;code&gt;git statsu&lt;/code&gt; or &lt;code&gt;git stauts&lt;/code&gt;? Or maybe you just end up typing &lt;code&gt;git status&lt;/code&gt; all the time at the command line, and wonder if there was a better way.  Well, there is.&lt;/p&gt;
 &lt;h3 id=&#34;aliases&#34;&gt;Aliases&lt;/h3&gt;
 &lt;p&gt;Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an alternative way to call another command, maybe with implicit parameters baked in that you use all the time. So for me, I want to type &lt;code&gt;gs&lt;/code&gt; to perform a &lt;code&gt;git status&lt;/code&gt; call.&lt;/p&gt;
@@ -230,10 +230,10 @@ New-Alias -Name gs -Value Get-GitStatus
     
     <item>
       <title>TeamCity, GitHub and Pull Requests</title>
-      <link>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</link>
+      <link>https://blogmigration.csmac.nz/post/teamcity-github-and-pull-requests/</link>
       <pubDate>Mon, 06 Apr 2015 12:29:27 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</guid>
+      <guid>https://blogmigration.csmac.nz/post/teamcity-github-and-pull-requests/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&amp;rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.&lt;/p&gt;
 &lt;p&gt;It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the &lt;a href=&#34;https://developer.github.com/v3/repos/statuses/&#34;&gt;Statuses api on GitHub&lt;/a&gt; for just how easy). Again it is easy to trigger a build off of the &amp;lsquo;special&amp;rsquo; pull request branch github uses. A guide to getting all of these links working is &lt;a href=&#34;http://blog.jetbrains.com/teamcity/2013/02/automatically-building-pull-requests-from-github-with-teamcity/&#34;&gt;available on the teamcity blog&lt;/a&gt;. But triggering the git source control checking on TeamCity turned out the be the hard bit.&lt;/p&gt;
 &lt;p&gt;There are Webhooks in GitHub. There are also Service Hooks. There is a &lt;a href=&#34;https://github.com/github/github-services/blob/master/lib/services/teamcity.rb&#34;&gt;TeamCity Service Hook&lt;/a&gt;. Unfortunately there are issues with both that requires some third set of code to actually make it work. Here is why.&lt;/p&gt;
@@ -246,10 +246,10 @@ New-Alias -Name gs -Value Get-GitStatus
     
     <item>
       <title>Git Housekeeping</title>
-      <link>https://csmacnzblog.github.io/post/git-housekeeping/</link>
+      <link>https://blogmigration.csmac.nz/post/git-housekeeping/</link>
       <pubDate>Mon, 29 Dec 2014 09:36:45 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/git-housekeeping/</guid>
+      <guid>https://blogmigration.csmac.nz/post/git-housekeeping/</guid>
       <description>&lt;p&gt;Those who are using Git but still new to the concept will no doubt have realised that files are treated differently to normal source control tools, and that they transition between different known states, according to git.  I am going to try and explain these states, and give commands on how to transition between them.&lt;/p&gt;
 &lt;p&gt;I needed these commands recently because I wanted to reset my changes and hadn&amp;rsquo;t really thought about how these states affect what it is that gets &amp;lsquo;reset&amp;rsquo;.&lt;/p&gt;
 &lt;p&gt;TL;DR: you can use these commands to perform different state transitions&lt;/p&gt;

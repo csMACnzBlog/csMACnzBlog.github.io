@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Resharper on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/resharper/</link>
+    <link>https://blogmigration.csmac.nz/categories/resharper/</link>
     <description>Recent content in Resharper on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 02 Aug 2015 08:37:47 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/resharper/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Aug 2015 08:37:47 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/resharper/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ExternalAnnotations, or how to not depend on jetbrains.annotations.dll</title>
-      <link>https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</link>
+      <link>https://blogmigration.csmac.nz/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</link>
       <pubDate>Sun, 02 Aug 2015 08:37:47 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</guid>
+      <guid>https://blogmigration.csmac.nz/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</guid>
       <description>&lt;p&gt;There is some great static analysis stuff that ReSharper does for you.  Specifically around nullability, purity and usage of your code.
 From their &lt;em&gt;Code Annotations&lt;/em&gt; page in Visual Studio:&lt;/p&gt;
 &lt;blockquote&gt;

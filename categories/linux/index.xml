@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/linux/</link>
+    <link>https://blogmigration.csmac.nz/categories/linux/</link>
     <description>Recent content in Linux on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 14 Mar 2010 05:54:01 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Mar 2010 05:54:01 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>From MythTV to Windows Media Center</title>
-      <link>https://csmacnzblog.github.io/post/from-mythtv-to-windows-media-center/</link>
+      <link>https://blogmigration.csmac.nz/post/from-mythtv-to-windows-media-center/</link>
       <pubDate>Sun, 14 Mar 2010 05:54:01 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/from-mythtv-to-windows-media-center/</guid>
+      <guid>https://blogmigration.csmac.nz/post/from-mythtv-to-windows-media-center/</guid>
       <description>&lt;p&gt;I recently decided to make the leap from Ubuntu and open source MythTV to the professional product, Microsoft&amp;rsquo;s Windows Media Center. Why you may ask? Well to be honest I moved and lost my Freeview reception, then came to the conclusion that without that I no longer had any real use for the machine. But also I have recently become a Windows developer and and using Linux less and less. My Windows partitions on my other machines are getting booted more and more, and with windows 7 out (and getting my hands on a couple of copies) I thought it a good time to change focus and try another media PC software out.&lt;/p&gt;
 &lt;p&gt;So now we have the why out of the way, lets look at some of the things I wanted to say, the reason for this post. Lets start with the more general point.&lt;/p&gt;
 &lt;h3 id=&#34;using-windows-7-with-linux-ext2ext3-partitions&#34;&gt;Using Windows 7 with Linux ext2/ext3 Partitions&lt;/h3&gt;
@@ -36,10 +36,10 @@
     
     <item>
       <title>Tversity On Linux with vmware</title>
-      <link>https://csmacnzblog.github.io/post/tversity-on-linux-with-vmware/</link>
+      <link>https://blogmigration.csmac.nz/post/tversity-on-linux-with-vmware/</link>
       <pubDate>Tue, 26 Feb 2008 22:26:15 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/tversity-on-linux-with-vmware/</guid>
+      <guid>https://blogmigration.csmac.nz/post/tversity-on-linux-with-vmware/</guid>
       <description>&lt;p&gt;My struggles with TVersity have come to an end for the moment, and I&amp;rsquo;m quite happy with that. After struggling for many hours to get it working under wine on my ubuntu machine, I decided to try out vmware running virtual windows xp. it took all of a couple of hours, most of which was a windows installation, and i had TVersity working from virtual xp on my ubuntu box. It works well enough to be able to stream music to my psp without any skipping, and I have even tested it with streaming video to an xbox 360. Although I haven&amp;rsquo;t actually confirmed that it does do any conversion, it seems to be do the job for all the videos I have.&lt;/p&gt;
 &lt;p&gt;I used &lt;a href=&#34;http://ubuntu-tutorials.com/2007/11/17/install-vmware-server-on-ubuntu-710-gutsy-gibbon-updated/&#34; title=&#34;Install VMware Server on Ubuntu 7.10 “Gutsy Gibbon” : Updated&#34;&gt;this tutorial&lt;/a&gt; to get vmware installed on my ubuntu gutsy machine, and it was a relatively easy process from there to get windows xp installed. I also found&lt;a href=&#34;http://linux.vanvalkinburgh.org/2007/04/22/streaming-files-to-the-360&#34; title=&#34;Streaming files to the 360&#34;&gt; this little tutorial&lt;/a&gt; to get samba file sharing working as a network location on virtual xp to add files from for TVersity, and some useful advice on codec packs to install, even for mythtv files.  I already had samba file sharing working on my machine, but hopefully it works for others to get theirs working.&lt;/p&gt;
 &lt;p&gt;Although these tutorials are ubuntu gutsy specific, they shouldn&amp;rsquo;t be too different for other versions on ubuntu, or other linux distros.  If you feel you need to, just have a quick search of google for vmware and your distro name, you will probably find several guides to be able to help you.&lt;/p&gt;
@@ -50,10 +50,10 @@
     
     <item>
       <title>Ubuntu misadventures</title>
-      <link>https://csmacnzblog.github.io/post/ubuntu-misadventures/</link>
+      <link>https://blogmigration.csmac.nz/post/ubuntu-misadventures/</link>
       <pubDate>Tue, 29 Jan 2008 01:40:09 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/ubuntu-misadventures/</guid>
+      <guid>https://blogmigration.csmac.nz/post/ubuntu-misadventures/</guid>
       <description>&lt;p&gt;It was about three months ago that i made the leap into linux on a almost full time basis. I had been using linux on my laptop with dual boot occasionally and had been using fedora at university (along with mac osx and windows 2000) but decided it was time to make the final leap and make it a full time thing.&lt;/p&gt;
 &lt;p&gt;Ubuntu was my flavour of choice, as i had heard from a few people that it was very supportive of most hardware and for most people it would just work out of the box. I had just recently purchased a new computer, and had vista running on it, mainly as a educational experience for myself so i knew how to help people who would inevitably buy a new pc that shipped with it, and it uses an amd 64 bit cpu. So to me it seemed like an idea to see what all the fuss was about and install the 64bit version of ubuntu gutsy.&lt;/p&gt;
 &lt;p&gt;I seem to have taken the road less travelled in this approach, but fortunately i wasn&amp;rsquo;t the only one, and found heaps of help on the ubuntu forums of how to get most programs working, and there seemed to be a very comprehensive 64bit repository available that got most of my programs working. The hardest thing was to get 64bit firefox working with flash, which was only available in a 32bit flavour at the time, (i think a 64bit might not be far away, but that could just be wishfull thinking) but i found many people who had managed to get it working, and after a few weeks of playing around i did too. It was another story to get sound working in flash, but after installing and uninstalling various audio drivers (oss, alsa and pulsaudio) eventually that worked too.&lt;/p&gt;
@@ -68,10 +68,10 @@
     
     <item>
       <title>TVersity media streaming</title>
-      <link>https://csmacnzblog.github.io/post/tversity-media-streaming/</link>
+      <link>https://blogmigration.csmac.nz/post/tversity-media-streaming/</link>
       <pubDate>Wed, 16 Jan 2008 02:52:19 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/tversity-media-streaming/</guid>
+      <guid>https://blogmigration.csmac.nz/post/tversity-media-streaming/</guid>
       <description>&lt;p&gt;About a year ago I bought myself a psp off of the local auction website TradeMe, New Zealand&amp;rsquo;s answer to eBay, and have since used it mostly for listening to music and not a lot else. Sure I&amp;rsquo;ve used it for gaming, and struggled with using it for the internet, and just recently I&amp;rsquo;ve started watching videos (though due to the hassle of converting them not many), but music has been its main use. I own a 2gb memory stick duo for my PSP, but still seem to be endlessly copying music on and off from my computer, thinking &amp;ldquo;there must be a better way&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;And it was about half way through last year that I discovered this great program called TVersity. Designed for streaming music and video from a windows machine to external devices, I have slowly watched it grow to be able to support the XBox 360, Playstation 3, PSP, as well as some wifi cell phones and other computers through a web interface. Now what makes this program stand out to me was that it would add my music to rss feeds, that it generates on the fly from album, artist or genre, that i can save to my PSP rss feeds list, and stream music, which has been great to listen to my music around the house across the wireless network without having to transfer it on first. You can also download from the web interface to the PSP if you wanted to do that as well.&lt;/p&gt;
 &lt;p&gt;One of it&amp;rsquo;s other great features, and it is the combination of this and the streaming web interface that make it so great, is that it can stream video, and convert it to streaming formats on the fly. No more converting all your videos into various formats on your computer, having 3 copies of everything and having to spend days creating them. Now I can watch my favourite episode of Stargate or The Simpsons from my TV through my 360 without having to spend time transferring, encoding and copying.&lt;/p&gt;

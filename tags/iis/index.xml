@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>IIS on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/iis/</link>
+    <link>https://blogmigration.csmac.nz/tags/iis/</link>
     <description>Recent content in IIS on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 31 May 2016 04:25:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/iis/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 May 2016 04:25:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/iis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Manage your hosts entries better</title>
-      <link>https://csmacnzblog.github.io/post/manage-your-hosts-entries-better/</link>
+      <link>https://blogmigration.csmac.nz/post/manage-your-hosts-entries-better/</link>
       <pubDate>Tue, 31 May 2016 04:25:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/manage-your-hosts-entries-better/</guid>
+      <guid>https://blogmigration.csmac.nz/post/manage-your-hosts-entries-better/</guid>
       <description>&lt;p&gt;If you are working with a lot of sites in IIS then you will be familiar with the hosts file on your computer. &lt;code&gt;%SystemRoot%\System32\drivers\etc\hosts&lt;/code&gt;, usually found in &lt;code&gt;C:\Windows\System32\drivers\etc\hosts&lt;/code&gt;.  This file acts as a DNS mapping table used by your computer.  As a developer, you will often want to tinker with this table. For example, you have a site running locally and you want to run it with a URL in your browser. You can map &lt;code&gt;www.mysite.local&lt;/code&gt; to the IP address of your machine, or the local loopback address &lt;code&gt;127.0.0.1&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;127.0.0.1    www.mysite.local    #comments are supported too
 &lt;/code&gt;&lt;/pre&gt;

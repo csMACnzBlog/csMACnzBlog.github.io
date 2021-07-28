@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>troubleshooting on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/troubleshooting/</link>
+    <link>https://blogmigration.csmac.nz/categories/troubleshooting/</link>
     <description>Recent content in troubleshooting on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 13 Nov 2017 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/troubleshooting/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Nov 2017 06:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/troubleshooting/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Couldn&#39;t Connect. Get Connected to your Wireless Display Adapter</title>
-      <link>https://csmacnzblog.github.io/post/fix-wireless-display-connection/</link>
+      <link>https://blogmigration.csmac.nz/post/fix-wireless-display-connection/</link>
       <pubDate>Mon, 13 Nov 2017 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/fix-wireless-display-connection/</guid>
+      <guid>https://blogmigration.csmac.nz/post/fix-wireless-display-connection/</guid>
       <description>&lt;p&gt;I was having trouble with connecting my laptops to a remote display with Miricast.&lt;/p&gt;
 &lt;p&gt;Specifically, I was trying to use the functionality built into Windows 10 to connect to a wireless display and had a Microsoft Wireless Display Adapter V2 plugged into my TV.&lt;/p&gt;
 &lt;p&gt;It would say &lt;code&gt;Connecting to ...&lt;/code&gt; for a while and then fail with a message &lt;code&gt;Couldn&#39;t connect&lt;/code&gt;.&lt;/p&gt;
@@ -36,10 +36,10 @@
     
     <item>
       <title>Windows 10 phantom text fix</title>
-      <link>https://csmacnzblog.github.io/post/windows-10-phantom-text-fix/</link>
+      <link>https://blogmigration.csmac.nz/post/windows-10-phantom-text-fix/</link>
       <pubDate>Wed, 01 Jul 2015 20:35:13 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/windows-10-phantom-text-fix/</guid>
+      <guid>https://blogmigration.csmac.nz/post/windows-10-phantom-text-fix/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been using the Windows 10 Insider Previews on my &lt;a href=&#34;http://www.dell.com/us/dfb/p/latitude-10-st2e/pd&#34;&gt;Dell Latitude ST2E Tablet&lt;/a&gt; for a few months and It has been a bit hit and miss.  I&amp;rsquo;ve really enjoyed the experience of previewing what&amp;rsquo;s coming, but it has been quite buggy up until the 10158/10159 builds leading up to the July 29th RTM.  But there is one bug that has survived for me that, through wishful thinking I had expected to just go away after a while. That is, the phantom text, invisible text, or missing text bug, depending on what you want to call it.&lt;/p&gt;
 &lt;h3 id=&#34;exhibit-a&#34;&gt;Exhibit A&lt;/h3&gt;
 &lt;p&gt;This is a symptom I&amp;rsquo;ve been seeing on one Windows 8 app in particular while using windows 10, the &lt;a href=&#34;http://apps.microsoft.com/windows/en-nz/app/comics/39c58b6e-8b89-4127-a7a3-914cc7918b98&#34;&gt;Comixology App&lt;/a&gt;. Almost all of the buttons, links and text descriptions were completely missing, except maybe becoming visible when you press down on a button.  As of the 10158 release, I have started seeing this also happen on the new Windows 10 Store app as well. It makes it kind of tricky to use the apps when the content is blank.&lt;/p&gt;
@@ -71,10 +71,10 @@
     
     <item>
       <title>Strange Monitor issues</title>
-      <link>https://csmacnzblog.github.io/post/strange-monitor-issues/</link>
+      <link>https://blogmigration.csmac.nz/post/strange-monitor-issues/</link>
       <pubDate>Thu, 12 Feb 2009 22:35:24 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/strange-monitor-issues/</guid>
+      <guid>https://blogmigration.csmac.nz/post/strange-monitor-issues/</guid>
       <description>&lt;p&gt;Just a little backstory to put this in context.  I have a dual-boot Vista/Ubuntu machine.  I updated my hardware and vista needed to re-register, but my internet connection was down. Fine, I&amp;rsquo;ll use Ubuntu till my internets back.&lt;/p&gt;
 &lt;p&gt;All is well until I finally reboot into Vista and re-active my licence online, download all the latest updates and reboot. All of a sudden my LCD screen no longer works. Fortunately, I have two screens but the LCD no longer detects as UPnP and won&amp;rsquo;t take a resolution higher than 1024x768. This is really bad and so I figured it was vista being stupid. So I rebooted into ubuntu and guess what? the screen still doesn&amp;rsquo;t work and the resolution is caped at a rediculous 640x480.&lt;/p&gt;
 &lt;p&gt;This really frustrated me and I tried everything I could think of, let the video card cool down, reset the bios, monitor, x11 setup, everything. Nothing worked.&lt;/p&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>dotnetcore on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/dotnetcore/</link>
+    <link>https://blogmigration.csmac.nz/categories/dotnetcore/</link>
     <description>Recent content in dotnetcore on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 26 Jul 2020 02:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/dotnetcore/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Jul 2020 02:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/dotnetcore/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Nullable and notnull Serialisation Properties</title>
-      <link>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</link>
+      <link>https://blogmigration.csmac.nz/post/nullable-and-notnull-serialisation-properties/</link>
       <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
+      <guid>https://blogmigration.csmac.nz/post/nullable-and-notnull-serialisation-properties/</guid>
       <description>&lt;p&gt;The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is &lt;code&gt;= default!;&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;problem-definition&#34;&gt;problem definition&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// This class is used to serialise/deserialise a payload from a server
@@ -199,10 +199,10 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     
     <item>
       <title>Looking forward to dotnet in 2019</title>
-      <link>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</link>
       <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</guid>
       <description>&lt;p&gt;It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.&lt;/p&gt;
 &lt;p&gt;The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)&lt;/p&gt;
 &lt;h2 id=&#34;c-8&#34;&gt;C# 8&lt;/h2&gt;
@@ -257,11 +257,11 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     
     <item>
       <title>Speciality NuGet Packing on .Net Core</title>
-      <link>https://csmacnzblog.github.io/post/speciality-nuget-packing/</link>
+      <link>https://blogmigration.csmac.nz/post/speciality-nuget-packing/</link>
       <pubDate>Mon, 08 Oct 2018 05:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/speciality-nuget-packing/</guid>
-      <description>&lt;p&gt;I recently wrote about &lt;a href=&#34;https://csmacnzblog.github.io/nuget-packing-on-linux/&#34;&gt;NuGet packing on linux&lt;/a&gt; specifically, and want to continue the theme with other things you can do with NuGet packaging.&lt;/p&gt;
+      <guid>https://blogmigration.csmac.nz/post/speciality-nuget-packing/</guid>
+      <description>&lt;p&gt;I recently wrote about &lt;a href=&#34;https://blogmigration.csmac.nz/nuget-packing-on-linux/&#34;&gt;NuGet packing on linux&lt;/a&gt; specifically, and want to continue the theme with other things you can do with NuGet packaging.&lt;/p&gt;
 &lt;p&gt;As a quick recap you can use a .Net Core &lt;code&gt;*.csproj&lt;/code&gt; as a wrapper around a &lt;code&gt;*.nuspec&lt;/code&gt; file and use &lt;code&gt;dotnet pack&lt;/code&gt; to pack it, cross-platform, without needing &lt;code&gt;nuget.exe&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
 
@@ -276,7 +276,7 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
 &amp;lt;/Project&amp;gt;
 
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(See the &lt;a href=&#34;https://csmacnzblog.github.io/nuget-packing-on-linux/&#34;&gt;other article&lt;/a&gt; for more detailed analysis of these properties.)&lt;/p&gt;
+&lt;p&gt;(See the &lt;a href=&#34;https://blogmigration.csmac.nz/nuget-packing-on-linux/&#34;&gt;other article&lt;/a&gt; for more detailed analysis of these properties.)&lt;/p&gt;
 &lt;p&gt;Now for something new.&lt;/p&gt;
 &lt;h3 id=&#34;contentfiles&#34;&gt;ContentFiles&lt;/h3&gt;
 &lt;p&gt;Do you remember Content files? There was(is?) this feature in NuGet files where you can include files, and have those files automatically added to your .Net Framework applications when the Package is Installed. Some libraries used this to distribute code that could be embedded into your application instead of linking to a library dependency.  Dapper was one example that did this, and I think some logging frameworks also distributed some code this way.&lt;/p&gt;
@@ -340,10 +340,10 @@ As well as BuildAction &lt;code&gt;Compile&lt;/code&gt;, there are a couple of o
     
     <item>
       <title>NuGet Packing on Linux</title>
-      <link>https://csmacnzblog.github.io/post/nuget-packing-on-linux/</link>
+      <link>https://blogmigration.csmac.nz/post/nuget-packing-on-linux/</link>
       <pubDate>Mon, 01 Oct 2018 05:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/nuget-packing-on-linux/</guid>
+      <guid>https://blogmigration.csmac.nz/post/nuget-packing-on-linux/</guid>
       <description>&lt;p&gt;For anyone who has been cutting-edge with .Net for a while will know that the nuget.exe runs under mono. And that you can use nuget.exe to package &lt;code&gt;*.nuspec&lt;/code&gt; files into &lt;code&gt;*.nupkg&lt;/code&gt; files.&lt;/p&gt;
 &lt;p&gt;Anyone who has been doing dotnet cross-platform will also know that you can use &lt;code&gt;dotnet pack&lt;/code&gt; on both Windows and Linux to package your project into a NuGet package containing the &lt;code&gt;dll&lt;/code&gt;. It even does references and multi-targeting correctly out of the box.&lt;/p&gt;
 &lt;p&gt;But did you know that you can also use dotnet pack to package any arbitrary &lt;code&gt;nuspec&lt;/code&gt; file as well?&lt;/p&gt;
@@ -404,10 +404,10 @@ As well as BuildAction &lt;code&gt;Compile&lt;/code&gt;, there are a couple of o
     
     <item>
       <title>HostBuild your dotnet Consoles like you WebHostBuild your web apps.</title>
-      <link>https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</link>
+      <link>https://blogmigration.csmac.nz/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</link>
       <pubDate>Mon, 17 Sep 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</guid>
+      <guid>https://blogmigration.csmac.nz/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</guid>
       <description>&lt;p&gt;I wrote a while back on getting your &lt;a href=&#34;https://blog.csmac.nz/a-windows-service-on-dotnet/&#34;&gt;Windows Services building with .Net Core&lt;/a&gt; which is a nice way to use the new SDK pipeline but still host on Windows without much fuss.&lt;/p&gt;
 &lt;p&gt;But what If you like the approach but want to run on Linux?&lt;/p&gt;
 &lt;p&gt;Well after some stumbling around in the dotnet core docs, I found information about &lt;code&gt;HostBuilder&lt;/code&gt;, which looks a lot like the &lt;code&gt;WebHostBuilder&lt;/code&gt; and &lt;code&gt;WebHost&lt;/code&gt; that we use with AspNetCore.  And that is no accident.&lt;/p&gt;
@@ -583,10 +583,10 @@ using (host)
     
     <item>
       <title>Retry Policies with Polly</title>
-      <link>https://csmacnzblog.github.io/post/retry-policies-with-polly/</link>
+      <link>https://blogmigration.csmac.nz/post/retry-policies-with-polly/</link>
       <pubDate>Mon, 13 Aug 2018 04:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/retry-policies-with-polly/</guid>
+      <guid>https://blogmigration.csmac.nz/post/retry-policies-with-polly/</guid>
       <description>&lt;p&gt;I originally set out to write about Polly. Then I started reading their documentation.  I quickly realised that I couldn&amp;rsquo;t write anything as detailed and accurate as they already had available.  So instead, I&amp;rsquo;m going to give more of a super high level, with links to relevant reading.&lt;/p&gt;
 &lt;p&gt;You can find their Documentation on their Github at &lt;a href=&#34;https://github.com/App-vNext/Polly&#34;&gt;github.com/App-vNext/Polly&lt;/a&gt;, as well as plenty more resources at &lt;a href=&#34;http://www.thepollyproject.org/&#34;&gt;www.thepollyproject.org/&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The elevator pitch is this:&lt;/p&gt;
@@ -644,10 +644,10 @@ using (host)
     
     <item>
       <title>.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</title>
-      <link>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnet-docker-tips-and-tricks/</link>
       <pubDate>Mon, 16 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnet-docker-tips-and-tricks/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve started getting into building Docker Containers as deployment packages.  These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.&lt;/p&gt;
 &lt;h3 id=&#34;start-with-the-defaults&#34;&gt;Start with the defaults&lt;/h3&gt;
 &lt;p&gt;Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.&lt;/p&gt;
@@ -772,10 +772,10 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     
     <item>
       <title>Clean Startup in your AspNetCore</title>
-      <link>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</link>
+      <link>https://blogmigration.csmac.nz/post/clean-startup-in-your-aspnetcore/</link>
       <pubDate>Mon, 02 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</guid>
+      <guid>https://blogmigration.csmac.nz/post/clean-startup-in-your-aspnetcore/</guid>
       <description>&lt;p&gt;I want to talk about this point made about &lt;a href=&#34;https://odetocode.com/blogs/scott/archive/2016/08/30/keeping-a-clean-startup-cs-in-asp-net-core.aspx&#34;&gt;Keeping a Clean Startup.cs in Asp.Net Core&lt;/a&gt; by K. Scott Alan. Mostly I want to agree and elaborate on it.&lt;/p&gt;
 &lt;p&gt;(Warning! I used the British English &lt;code&gt;customised&lt;/code&gt; below. If this &lt;a href=&#34;http://grammarist.com/spelling/customise-customize/&#34;&gt;doesn&amp;rsquo;t match your sensibilities&lt;/a&gt;, just use &lt;code&gt;customize&lt;/code&gt; instead.)&lt;/p&gt;
 &lt;h3 id=&#34;the-idea&#34;&gt;The Idea&lt;/h3&gt;
@@ -888,15 +888,15 @@ app.UseCustomisedMvc();
     
     <item>
       <title>A Windows Service using netcoreapp on dotnet</title>
-      <link>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</link>
+      <link>https://blogmigration.csmac.nz/post/a-windows-service-on-dotnet/</link>
       <pubDate>Sun, 22 Apr 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</guid>
-      <description>&lt;p&gt;I wrote &lt;a href=&#34;https://csmacnzblog.github.io/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application.  Technically the title is still valid, it was a windows service, and I built it using .Net Core tools.  But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.&lt;/p&gt;
+      <guid>https://blogmigration.csmac.nz/post/a-windows-service-on-dotnet/</guid>
+      <description>&lt;p&gt;I wrote &lt;a href=&#34;https://blogmigration.csmac.nz/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application.  Technically the title is still valid, it was a windows service, and I built it using .Net Core tools.  But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.&lt;/p&gt;
 &lt;p&gt;Note that since windows Service logic and hooks are Windows-specific, this solution doesn&amp;rsquo;t work for Mac or Linux.  However I will try to maintain a working Console application, that should satisfy the requirements there.&lt;/p&gt;
 &lt;h2 id=&#34;just-target-net-full-framework&#34;&gt;Just target .Net Full framework&lt;/h2&gt;
 &lt;p&gt;Everything you already have working in your services using &lt;code&gt;System.ServiceProcess.ServiceBase&lt;/code&gt; and other classes from the &lt;code&gt;System.ServiceProcess&lt;/code&gt; full framework assemblies work fine when compiled with .Net Core. Since you can&amp;rsquo;t run a Windows Service on non-windows platforms, there is no reason not to just target the Windows-only full framework 4.6.2 or 4.7.1 or whichever your stable .Net version of choice is. None of the &lt;code&gt;System.ServiceProcess&lt;/code&gt; code can run on Linux or Mac anyway, and neither can any Windows Service specific code. This is probably going to be the path of least resistance.&lt;/p&gt;
-&lt;p&gt;But that was the subject of the &lt;a href=&#34;https://csmacnzblog.github.io/building-a-windows-service-with-net-core/&#34;&gt;other article&lt;/a&gt;, I assume you are here for something different.&lt;/p&gt;
+&lt;p&gt;But that was the subject of the &lt;a href=&#34;https://blogmigration.csmac.nz/building-a-windows-service-with-net-core/&#34;&gt;other article&lt;/a&gt;, I assume you are here for something different.&lt;/p&gt;
 &lt;h2 id=&#34;cross-platform-solution&#34;&gt;Cross Platform solution&lt;/h2&gt;
 &lt;p&gt;We will now take a look at what we can do to make an application that a) can install and run as a windows service, and b) still runs as a console app on Linux, ignoring the unused service code.  This application is going to be a portable &lt;code&gt;netcoreapp2.0&lt;/code&gt; application, so we can only reference &lt;code&gt;netstandard&lt;/code&gt; or &lt;code&gt;netcoreapp&lt;/code&gt; libraries.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/dasMulli/dotnet-win32-service&#34;&gt;dasMulli/dotnet-win32-service&lt;/a&gt; is a project that has created a win32 interop layer over the Windows Service API.  Much like the way the original .Net code probably works, but compiled as a dotnet standard library (&lt;code&gt;netstandard1.3&lt;/code&gt; and &lt;code&gt;netstandard2.0&lt;/code&gt; compatible versions).  On top of this, there is another library &lt;a href=&#34;https://github.com/PeterKottas/DotNetCore.WindowsService&#34;&gt;PeterKottas/DotNetCore.WindowsService&lt;/a&gt; which also targets &lt;code&gt;netstandard2.0&lt;/code&gt; that we will use to give us a nicer install/uninstall interface into our application.&lt;/p&gt;
@@ -1282,26 +1282,26 @@ The MyAppService service is now running, press Control+C to exit.
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Just make sure if you do decide to use this, that your stop function is &lt;a href=&#34;https://en.wikipedia.org/wiki/Idempotence&#34;&gt;idempotent&lt;/a&gt; and only runs once.&lt;/p&gt;
 &lt;h3 id=&#34;the-end&#34;&gt;The End&lt;/h3&gt;
-&lt;p&gt;I hope this article helps others coming to find out how to create cross-platform services with .Net Core. Also hopefully it redeems me for confusing so many people who landed on my &lt;a href=&#34;https://csmacnzblog.github.io/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; article as well.&lt;/p&gt;
+&lt;p&gt;I hope this article helps others coming to find out how to create cross-platform services with .Net Core. Also hopefully it redeems me for confusing so many people who landed on my &lt;a href=&#34;https://blogmigration.csmac.nz/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; article as well.&lt;/p&gt;
 &lt;p&gt;Simple. Easy. Works&lt;a href=&#34;https://blog.codinghorror.com/the-works-on-my-machine-certification-program/&#34;&gt;.&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>.Net Core SDK 2.* Series - Self-contained Applications</title>
-      <link>https://csmacnzblog.github.io/post/dotnetcore2-self-contained-applications/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore2-self-contained-applications/</link>
       <pubDate>Sun, 18 Mar 2018 20:18:22 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnetcore2-self-contained-applications/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-self-contained-applications/</guid>
       <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Self-contained Applications &amp;lt;=(We are here)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;(At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
@@ -1669,27 +1669,27 @@ dotnet build
 &lt;p&gt;The choice is yours.&lt;/p&gt;
 &lt;p&gt;At some point, I will have to experiment and write about how we might get that size down (there are a few ways I am aware of) so we may still get the best of both worlds.&lt;/p&gt;
 &lt;h2 id=&#34;the-end&#34;&gt;The End&lt;/h2&gt;
-&lt;p&gt;Thank you so much for getting this far. It has been a long journey from &lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore-getting-started&#34;&gt;Getting Started with 1.0&lt;/a&gt; almost 2 years ago to get here across these new 8 articles. Thanks for sticking with it. I hope you look forward to more .Net Core blog articles to come. Maybe even a revised 3.* version? (Take your time, MS)&lt;/p&gt;
+&lt;p&gt;Thank you so much for getting this far. It has been a long journey from &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-getting-started&#34;&gt;Getting Started with 1.0&lt;/a&gt; almost 2 years ago to get here across these new 8 articles. Thanks for sticking with it. I hope you look forward to more .Net Core blog articles to come. Maybe even a revised 3.* version? (Take your time, MS)&lt;/p&gt;
 &lt;p&gt;You can find related articles using the &lt;a href=&#34;https://blog.csmac.nz/tag/dotnetcore/&#34;&gt;dotnetcore tag&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>.Net Core SDK 2.* Series - Publishing Portable Applications</title>
-      <link>https://csmacnzblog.github.io/post/dotnetcore2-publishing-portable-applications/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore2-publishing-portable-applications/</link>
       <pubDate>Sun, 11 Mar 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnetcore2-publishing-portable-applications/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-publishing-portable-applications/</guid>
       <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Publishing Portable Applications &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;(At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
 &lt;p&gt;We can now take everything we have learned and start publishing our applications. Luckily, there is a command for that too.&lt;/p&gt;
@@ -1796,7 +1796,7 @@ This app prints the first verse of a poem.
 &lt;p&gt;That&amp;rsquo;s how easy it is to include extra files when publishing.&lt;/p&gt;
 &lt;h3 id=&#34;publishing-net-452-applications&#34;&gt;Publishing .Net 4.5.2 applications&lt;/h3&gt;
 &lt;p&gt;Or 4.6, 4.6.2 &amp;amp; 4.7. They all basically follow the same principles.&lt;/p&gt;
-&lt;p&gt;It all starts with the &lt;code&gt;csproj&lt;/code&gt; file. For reality sake, I am going to add to rather than replace the &lt;code&gt;netcoreapp2.0&lt;/code&gt; target (as seen in &lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-multi-targeting&#34;&gt;the last article&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;It all starts with the &lt;code&gt;csproj&lt;/code&gt; file. For reality sake, I am going to add to rather than replace the &lt;code&gt;netcoreapp2.0&lt;/code&gt; target (as seen in &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;the last article&lt;/a&gt;).&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
 
   &amp;lt;PropertyGroup&amp;gt;
@@ -1882,23 +1882,23 @@ dotnet publish -f netcoreapp2.0
     
     <item>
       <title>.Net Core SDK 2.* Series - Multi-targeting</title>
-      <link>https://csmacnzblog.github.io/post/dotnetcore2-multi-targeting/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore2-multi-targeting/</link>
       <pubDate>Tue, 06 Mar 2018 22:35:53 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnetcore2-multi-targeting/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-multi-targeting/</guid>
       <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Multi-targeting &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;(At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-nuget&#34;&gt;Last time&lt;/a&gt; we learned how to package our libraries as NuGet packages. But it was only targeting &lt;code&gt;netstandard2.0&lt;/code&gt;, the &lt;code&gt;netstandard&lt;/code&gt; target framework moniker for version 2.0.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;Last time&lt;/a&gt; we learned how to package our libraries as NuGet packages. But it was only targeting &lt;code&gt;netstandard2.0&lt;/code&gt;, the &lt;code&gt;netstandard&lt;/code&gt; target framework moniker for version 2.0.&lt;/p&gt;
 &lt;h3 id=&#34;a-quick-reference&#34;&gt;A Quick Reference&lt;/h3&gt;
 &lt;p&gt;All the old profiles and platforms have been mapped to netstandard target versions. This allows you to choose a version of &lt;code&gt;netstandard*&lt;/code&gt; to target that will be compatible with a minimum version of a specific platform runtime.  Take a look at &lt;a href=&#34;https://github.com/dotnet/standard/blob/master/docs/versions.md&#34;&gt;dotnet standard versions&lt;/a&gt; page for both framework and PCL mappings to &lt;code&gt;netstandard&lt;/code&gt; versions.&lt;/p&gt;
 &lt;p&gt;If you implement a particular target version in your package, it can be used by other libraries that are compatible with an equal or higher version level.&lt;/p&gt;
@@ -1997,7 +1997,7 @@ MyLib -&amp;gt; C:\dev\MyNewPackage\MyLib\bin\Debug\netstandard2.0\MyLib.dll
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We now have two target outputs, and two &lt;code&gt;dll&lt;/code&gt; files, which target different frameworks.&lt;/p&gt;
 &lt;h3 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h3&gt;
-&lt;p&gt;When we add Dependencies to our project, as &lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-whats-in-the-box/#frameworksanddependencies&#34;&gt;discussed before&lt;/a&gt;, but it is worth noting that by default they apply to all targets. Since we have only had one target until now that hasn&amp;rsquo;t been an explicit thing, but we have two targets in this example.&lt;/p&gt;
+&lt;p&gt;When we add Dependencies to our project, as &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box/#frameworksanddependencies&#34;&gt;discussed before&lt;/a&gt;, but it is worth noting that by default they apply to all targets. Since we have only had one target until now that hasn&amp;rsquo;t been an explicit thing, but we have two targets in this example.&lt;/p&gt;
 &lt;p&gt;We don&amp;rsquo;t have to add the dependency to every target, however. We can choose to add dependencies to only a specific target framework using some of the MSBuild features available to us.  (This applies to other references too, but I won&amp;rsquo;t cover that here)&lt;/p&gt;
 &lt;p&gt;Say that we want to reference Json.Net, but only if we are targetting &lt;code&gt;netstandard2.0&lt;/code&gt;. This will mean that the library isn&amp;rsquo;t available to our &lt;code&gt;netstandard1.0&lt;/code&gt; version, (and so we would have to conditionally compile out any code that used it), but it would mean that anyone using this library with a &lt;code&gt;netstandard1.0&lt;/code&gt; compatible target would not need the NuGet reference or its library. (A bit contrived, but the main thing to show you is the syntax. In reality, it is more likely you have a library that doesn&amp;rsquo;t support &lt;code&gt;netstandard1.0&lt;/code&gt; and you want graceful degradation on older targets).&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
@@ -2156,20 +2156,20 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     
     <item>
       <title>.Net Core SDK 2.* Series - NuGet</title>
-      <link>https://csmacnzblog.github.io/post/dotnetcore2-nuget/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore2-nuget/</link>
       <pubDate>Mon, 19 Feb 2018 04:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnetcore2-nuget/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-nuget/</guid>
       <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;NuGet &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;(At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s set aside Application packing for later, and focus our attention on NuGet.&lt;/p&gt;
@@ -2301,7 +2301,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We also see that under dependencies there is a group for the &lt;code&gt;targetFramework&lt;/code&gt; &lt;code&gt;&amp;quot;.NETStandard2.0&amp;quot;&lt;/code&gt;, although currently, it has no dependencies.&lt;/p&gt;
 &lt;h3 id=&#34;custom-metadata&#34;&gt;Custom Metadata&lt;/h3&gt;
-&lt;p&gt;We looked at some of the &lt;code&gt;csproj&lt;/code&gt; metadata in &lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-whats-in-the-box/#metadata&#34;&gt;Part 2, what&amp;rsquo;s in the box&lt;/a&gt;. We saw you could set the following properties:&lt;/p&gt;
+&lt;p&gt;We looked at some of the &lt;code&gt;csproj&lt;/code&gt; metadata in &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box/#metadata&#34;&gt;Part 2, what&amp;rsquo;s in the box&lt;/a&gt;. We saw you could set the following properties:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;PropertyGroup&amp;gt;
     &amp;lt;Authors&amp;gt;csMACnz&amp;lt;/Authors&amp;gt;
     &amp;lt;NeutralLanguage&amp;gt;en-NZ&amp;lt;/NeutralLanguage&amp;gt;
@@ -2374,20 +2374,20 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     
     <item>
       <title>.Net Core SDK 2.* Series - Testing</title>
-      <link>https://csmacnzblog.github.io/post/dotnetcore2-testing/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore2-testing/</link>
       <pubDate>Mon, 12 Feb 2018 04:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnetcore2-testing/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-testing/</guid>
       <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Testing &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;(At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
 &lt;h3 id=&#34;the-setup&#34;&gt;The Setup&lt;/h3&gt;
@@ -2552,20 +2552,20 @@ Test execution time: 1.4901 Seconds
     
     <item>
       <title>.Net Core SDK 2.* Series - Using Multiple Projects</title>
-      <link>https://csmacnzblog.github.io/post/dotnetcore2-using-multiple-projects/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore2-using-multiple-projects/</link>
       <pubDate>Mon, 05 Feb 2018 04:45:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnetcore2-using-multiple-projects/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-using-multiple-projects/</guid>
       <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Using Multiple Projects &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;(At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
 &lt;p&gt;We know how to create new projects, we know how to build and run our application and we know (roughly) what the content in the &lt;code&gt;csproj&lt;/code&gt; file means. But most projects tend to require multiple projects.&lt;/p&gt;
@@ -2578,7 +2578,7 @@ dotnet new console
 dotnet run
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;file---new-library&#34;&gt;File -&amp;gt; New Library&lt;/h3&gt;
-&lt;p&gt;As well as creating empty console applications, &lt;code&gt;dotnet&lt;/code&gt; can also create other things. If you try typing &lt;code&gt;dotnet new&lt;/code&gt; you will see a full list of all templates available, which you may remember from &lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;As well as creating empty console applications, &lt;code&gt;dotnet&lt;/code&gt; can also create other things. If you try typing &lt;code&gt;dotnet new&lt;/code&gt; you will see a full list of all templates available, which you may remember from &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Usage: new [options]
 
 Options:
@@ -2637,7 +2637,7 @@ Running &#39;dotnet restore&#39; on C:\dev\MyComplexApplicationRepo\MyNewLib\MyN
 
 Restore succeeded.
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We briefly looked at the differences between these projects in the previous section &lt;a href=&#34;https://csmacnzblog.github.io/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;. (Specifically, the app will have an extra &lt;code&gt;&amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;&lt;/code&gt; setting in the &lt;code&gt;csproj&lt;/code&gt; file, and targeting &lt;code&gt;netcoreapp2.0&lt;/code&gt; for the app and &lt;code&gt;netstandard2.0&lt;/code&gt; for the library.)&lt;/p&gt;
+&lt;p&gt;We briefly looked at the differences between these projects in the previous section &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;. (Specifically, the app will have an extra &lt;code&gt;&amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;&lt;/code&gt; setting in the &lt;code&gt;csproj&lt;/code&gt; file, and targeting &lt;code&gt;netcoreapp2.0&lt;/code&gt; for the app and &lt;code&gt;netstandard2.0&lt;/code&gt; for the library.)&lt;/p&gt;
 &lt;p&gt;.Net Standard Compatibility is a bit of a topic on its own. You can review the &lt;a href=&#34;https://github.com/dotnet/standard/blob/master/docs/versions.md&#34;&gt;Version Compatibility Grid&lt;/a&gt; for dotnet to determine which target you want for your library. If you do leave it as &lt;code&gt;netstandard2.0&lt;/code&gt;, then it will be compatible with dotnet core runtime version &lt;code&gt;2.0&lt;/code&gt; or newer, .Net full framework version &lt;code&gt;4.6.1&lt;/code&gt; or newer, Mono &lt;code&gt;5.4&lt;/code&gt;, and Windows UWP version &lt;code&gt;10.0.16299&lt;/code&gt; or newer. Click through to see the full table, including Xamarin and Windows Phone/Silverlight compatibility. The idea is the higher your version, the more base class libraries and methods are available, the lower the version gives you wider compatibility.&lt;/p&gt;
 &lt;p&gt;So the classlib has access to different library classes and methods depending on which version you target. These are implicitly available to you to use (unlike dotnet v1 where the standard library was an explicit dependency). The dotnet application project target &lt;code&gt;netcoreapp2.0&lt;/code&gt; also includes implicitly available core runtime types, classes and methods as well.  Additional libraries are then available from NuGet. (More on that later on in the series)&lt;/p&gt;
 &lt;p&gt;We can build our library, but of course, it cannot be run - its a library.&lt;/p&gt;

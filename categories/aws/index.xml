@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>AWS on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/aws/</link>
+    <link>https://blogmigration.csmac.nz/categories/aws/</link>
     <description>Recent content in AWS on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 20 May 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/aws/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 May 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AWS Summit London 2018</title>
-      <link>https://csmacnzblog.github.io/post/aws-summit-london-2018/</link>
+      <link>https://blogmigration.csmac.nz/post/aws-summit-london-2018/</link>
       <pubDate>Sun, 20 May 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/aws-summit-london-2018/</guid>
+      <guid>https://blogmigration.csmac.nz/post/aws-summit-london-2018/</guid>
       <description>&lt;p&gt;I recently attended the AWS Summit in London and thought I would give some notes on the event from my perspective.&lt;/p&gt;
 &lt;p&gt;As a developer working for a company that uses AWS, there was plenty to get out of an event such as this, and the free attendance makes a great business case to get the time to go.&lt;/p&gt;
 &lt;p&gt;I really enjoyed the schedule of talks that I attended, and the keynote was a good overview of the state of things as AWS, with some exciting insight into partners in Automotive, and Healthcare.&lt;/p&gt;

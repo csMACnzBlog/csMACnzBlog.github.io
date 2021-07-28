@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tools on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/tools/</link>
+    <link>https://blogmigration.csmac.nz/categories/tools/</link>
     <description>Recent content in Tools on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 04 Jun 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/tools/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jun 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Coveralls.Net 1.0.0 Release</title>
-      <link>https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/</link>
+      <link>https://blogmigration.csmac.nz/post/coveralls-net-1-0-0-release/</link>
       <pubDate>Mon, 04 Jun 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/</guid>
+      <guid>https://blogmigration.csmac.nz/post/coveralls-net-1-0-0-release/</guid>
       <description>&lt;p&gt;Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a &lt;a href=&#34;https://blog.csmac.nz/-net-os-1-source-control/&#34;&gt;Series of Blog Posts&lt;/a&gt;. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first.  This has continued at a slow pace for the last 3 years.&lt;/p&gt;
 &lt;p&gt;Back in January 2015 I &lt;a href=&#34;https://blog.csmac.nz/introducing-coveralls-net/&#34;&gt;Announced Coveralls.Net&lt;/a&gt;. This is a code coverage publisher for publishing your coverage results to the coveralls.io API. Coveralls.io is a coverage tracking service, which is free for open source projects, with a paid service for private use, and now an Enterprise version as well. There was a bunch of python and ruby versions, but I wanted fewer dependencies on those runtimes so built my own.  I even managed to get it listed as one of the two &lt;a href=&#34;https://docs.coveralls.io/dot-net&#34;&gt;recommended .Net coverage integrations&lt;/a&gt; on the coveralls.io docs.&lt;/p&gt;
 &lt;p&gt;While development has been a slow work of labour over the last three years, the announcement of dotnet CLI tools (proper npm-style tools, not the weird interim dotnet-tool stuff&amp;hellip;) with dotnet SDK 2.1, I had to jump in and get on board.&lt;/p&gt;
@@ -73,10 +73,10 @@ Expand-Archive .\coveralls-windows.zip coveralls-windows
     
     <item>
       <title>Mockups and Sketches - Overview</title>
-      <link>https://csmacnzblog.github.io/post/mockups-and-sketches-overview/</link>
+      <link>https://blogmigration.csmac.nz/post/mockups-and-sketches-overview/</link>
       <pubDate>Wed, 02 May 2012 09:25:39 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/mockups-and-sketches-overview/</guid>
+      <guid>https://blogmigration.csmac.nz/post/mockups-and-sketches-overview/</guid>
       <description>&lt;p&gt;This is part of a wireframing series&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Overview&lt;/strong&gt;&lt;/li&gt;

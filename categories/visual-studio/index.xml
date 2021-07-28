@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Visual Studio on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/visual-studio/</link>
+    <link>https://blogmigration.csmac.nz/categories/visual-studio/</link>
     <description>Recent content in Visual Studio on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Thu, 17 Jan 2019 20:40:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/visual-studio/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Jan 2019 20:40:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/visual-studio/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Looking forward to dotnet in 2019</title>
-      <link>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</link>
       <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</guid>
       <description>&lt;p&gt;It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.&lt;/p&gt;
 &lt;p&gt;The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)&lt;/p&gt;
 &lt;h2 id=&#34;c-8&#34;&gt;C# 8&lt;/h2&gt;
@@ -73,10 +73,10 @@
     
     <item>
       <title>.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</title>
-      <link>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnet-docker-tips-and-tricks/</link>
       <pubDate>Mon, 16 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnet-docker-tips-and-tricks/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve started getting into building Docker Containers as deployment packages.  These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.&lt;/p&gt;
 &lt;h3 id=&#34;start-with-the-defaults&#34;&gt;Start with the defaults&lt;/h3&gt;
 &lt;p&gt;Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.&lt;/p&gt;
@@ -201,10 +201,10 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     
     <item>
       <title>.Net core tests not showing up in VS? Here&#39;s the trick...</title>
-      <link>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</link>
+      <link>https://blogmigration.csmac.nz/post/net-core-tests-not-showing/</link>
       <pubDate>Tue, 01 Nov 2016 01:38:35 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</guid>
+      <guid>https://blogmigration.csmac.nz/post/net-core-tests-not-showing/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use &lt;code&gt;dotnet test&lt;/code&gt;, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp;amp; netcoreapp1.0).&lt;/p&gt;
 &lt;p&gt;But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.&lt;/p&gt;
 &lt;p&gt;Turns out, if you want tests to show up in Visual Studio you have to make sure that in your &lt;code&gt;project.json&lt;/code&gt;, &lt;code&gt;netcoreapp1.0&lt;/code&gt; needs to be the first framework in the &lt;code&gt;frameworks&lt;/code&gt; section. Otherwise it don&amp;rsquo;t work right.&lt;/p&gt;
@@ -215,10 +215,10 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     
     <item>
       <title>Treat Warnings As Errors with this one weird PowerShell Script...</title>
-      <link>https://csmacnzblog.github.io/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</link>
+      <link>https://blogmigration.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</link>
       <pubDate>Mon, 09 May 2016 08:30:59 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
+      <guid>https://blogmigration.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
       <description>&lt;p&gt;There is this great feature in Visual Studio that lets you really dial up the quality of your code. It has been there forever it seems, but very few people use it.&lt;/p&gt;
 &lt;p&gt;The compiler spits out errors, which stop your app compiling. You fix your errors and move on.  But the compiler also spits out a lot of warnings too. And many of these are to do with the quality of your code, and possible code errors you have introduced that could cause you issues later on.&lt;/p&gt;
 &lt;p&gt;Did you know you can get the builds to actually fail to compile from these warnings?&lt;/p&gt;
@@ -276,10 +276,10 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     
     <item>
       <title>Visual Studio 2015 vs Visual Studio 2013</title>
-      <link>https://csmacnzblog.github.io/post/visual-studio-2015-vs-visual-studio-2013/</link>
+      <link>https://blogmigration.csmac.nz/post/visual-studio-2015-vs-visual-studio-2013/</link>
       <pubDate>Wed, 05 Aug 2015 11:13:12 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/visual-studio-2015-vs-visual-studio-2013/</guid>
+      <guid>https://blogmigration.csmac.nz/post/visual-studio-2015-vs-visual-studio-2013/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been running some numbers over our solution to try and make things more efficient. While I was at it, I figured I would put 2013 head to head with 2015.&lt;/p&gt;
 &lt;p&gt;The main test I ran was to take a solution open in Visual Studio and make sure it builds. I then ran Clean Solution.  Using a stopwatch (so accuracy +- 1-second values) I recorded how long it took to build. I repeated this 5 times, over three machines, once each with 2013 and 2015.  So first, the raw numbers (in seconds):&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
@@ -304,10 +304,10 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     
     <item>
       <title>Using C# 5.0 with Visual Studio 2015</title>
-      <link>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</link>
+      <link>https://blogmigration.csmac.nz/post/using-c5-with-visual-studio-2015/</link>
       <pubDate>Sun, 26 Jul 2015 07:46:16 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/using-c5-with-visual-studio-2015/</guid>
+      <guid>https://blogmigration.csmac.nz/post/using-c5-with-visual-studio-2015/</guid>
       <description>&lt;p&gt;Visual Studio 2015 is out and brings us the new C# 6 language features. We also have the new .Net 4.6 Runtime. But what does that mean?&lt;/p&gt;
 &lt;p&gt;Well, the framework version and language version are two separate concerns. You can practically pick any framework, with any language, and it will work. This means that If you want to use C# 6 features on your .Net 4.0 application, you can. Ok, so some language features require specific framework libraries, like generics, and async, but most features tend to be &lt;a href=&#34;https://en.wikipedia.org/wiki/Syntactic_sugar&#34;&gt;syntactic sugar&lt;/a&gt;. You have to use VS 2015 to have a compiler with the C# 6 features, but you can also use .Net 4.6 in Visual Studio 2013 with C# 5 and older language versions.&lt;/p&gt;
 &lt;p&gt;There is no reason I can think of to not upgrade to Visual Studio 2015 for your application development. But maybe there is some obscure edge case or policy that stops you, or some of your team, from upgrading. By default, projects will use the latest language version when built in Visual Studio, and so early adopters will start seeing hints and suggestions to use these new features. How can we stop ourselves and our team from breaking compilation in VS 2013?&lt;/p&gt;
@@ -330,10 +330,10 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     
     <item>
       <title>Code Demoing with Visual Studio</title>
-      <link>https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/</link>
+      <link>https://blogmigration.csmac.nz/post/code-demoing-with-visual-studio/</link>
       <pubDate>Sun, 24 May 2015 08:24:28 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/code-demoing-with-visual-studio/</guid>
+      <guid>https://blogmigration.csmac.nz/post/code-demoing-with-visual-studio/</guid>
       <description>&lt;p&gt;I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.&lt;/p&gt;
 &lt;p&gt;Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called &lt;a href=&#34;https://visualstudiogallery.msdn.microsoft.com/dbcb8670-889e-4a54-a226-a48a15e4cace&#34;&gt;Productivity Power Tools 2013&lt;/a&gt;.  Specifically, the built in presentation feature.&lt;/p&gt;
 &lt;p&gt;Productivity Power Tools 2013 is a Visual Studio extension I use for numerous reasons. One being this awesome present mode feature, but others include coloured tabs, and squiggles for Error visualisations.&lt;/p&gt;

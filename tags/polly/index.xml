@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Polly on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/polly/</link>
+    <link>https://blogmigration.csmac.nz/tags/polly/</link>
     <description>Recent content in Polly on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 13 Aug 2018 04:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/polly/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Aug 2018 04:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/polly/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Retry Policies with Polly</title>
-      <link>https://csmacnzblog.github.io/post/retry-policies-with-polly/</link>
+      <link>https://blogmigration.csmac.nz/post/retry-policies-with-polly/</link>
       <pubDate>Mon, 13 Aug 2018 04:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/retry-policies-with-polly/</guid>
+      <guid>https://blogmigration.csmac.nz/post/retry-policies-with-polly/</guid>
       <description>&lt;p&gt;I originally set out to write about Polly. Then I started reading their documentation.  I quickly realised that I couldn&amp;rsquo;t write anything as detailed and accurate as they already had available.  So instead, I&amp;rsquo;m going to give more of a super high level, with links to relevant reading.&lt;/p&gt;
 &lt;p&gt;You can find their Documentation on their Github at &lt;a href=&#34;https://github.com/App-vNext/Polly&#34;&gt;github.com/App-vNext/Polly&lt;/a&gt;, as well as plenty more resources at &lt;a href=&#34;http://www.thepollyproject.org/&#34;&gt;www.thepollyproject.org/&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The elevator pitch is this:&lt;/p&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bing Maps Control on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/bing-maps-control/</link>
+    <link>https://blogmigration.csmac.nz/categories/bing-maps-control/</link>
     <description>Recent content in Bing Maps Control on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Wed, 16 Feb 2011 04:38:14 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/bing-maps-control/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Feb 2011 04:38:14 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/bing-maps-control/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bing Maps Control Series - 2: Add a simple map to your application</title>
-      <link>https://csmacnzblog.github.io/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</link>
+      <link>https://blogmigration.csmac.nz/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</link>
       <pubDate>Wed, 16 Feb 2011 04:38:14 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</guid>
+      <guid>https://blogmigration.csmac.nz/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</guid>
       <description>&lt;p&gt;This is part 2 of a series on using the Silverlight Bing Maps Control. If haven&amp;rsquo;t already, check out &lt;a href=&#34;http://www.csmac.co.nz/blog/2011/01/17/bing-maps-control-series-1-downloading-and-installing-the-tools/&#34;&gt;part 1&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;So Now that you have installed the Bing Maps Silverlight Control, and got yourself a key, you need to add the control to your project. For completeness, lets start by creating a new Silverlight 4 Application Project in Visual Studio 2010, and open up the MainPage.xaml file.&lt;/p&gt;
 &lt;p&gt;Now before we can add the control, we need a reference to it. If you installed to the default location, go the the solution explorer, right click on the References -&amp;gt; Add Reference. Browse to &lt;code&gt;C:/Program Files(x86)/Bing Maps Silverlight Control/V1/Libraries&lt;/code&gt; (or similar) and add the two Dlls, &lt;code&gt;Microsoft.Maps.MapControl.dll&lt;/code&gt; and &lt;code&gt;Microsoft.Maps.MapControl.Common.dll&lt;/code&gt;. Now we are ready to add the control. Now use the following code to add the map control to your xaml: &lt;code&gt;&amp;lt;m:Map CredentialsProvider=&amp;quot;[your key here]&amp;quot;/&amp;gt;&lt;/code&gt; as well as adding this to your UserControl: &lt;code&gt;xmlns:m=&amp;quot;clr-namespace:Microsoft.Maps.MapControl;assembly=Microsoft.Maps.MapControl&amp;quot;&lt;/code&gt; and your done!&lt;/p&gt;
@@ -30,10 +30,10 @@
     
     <item>
       <title>Bing Maps Control Series - 1: Downloading and Installing the Tools</title>
-      <link>https://csmacnzblog.github.io/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</link>
+      <link>https://blogmigration.csmac.nz/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</link>
       <pubDate>Sun, 16 Jan 2011 19:29:10 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</guid>
+      <guid>https://blogmigration.csmac.nz/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.csmac.co.nz/blog/wp-content/uploads/2011/01/bingmapsscreen.png&#34;&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/h_175,w_300/v1414277587/bingmapsscreen_gw6hxl.png&#34; alt=&#34;Screenshot of Bing Maps.&#34; title=&#34;bingmapsscreen&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Over the last month or so I have has the opportunity to develop using the Bing Maps Control for Silverlight, and thought it appropriate to share this experience as well as a bit of a &amp;lsquo;how to&amp;rsquo; on using it. I plan for this to be a bit of a series based on the following items: - Downloading and Installing the Tools.&lt;/p&gt;
 &lt;ul&gt;

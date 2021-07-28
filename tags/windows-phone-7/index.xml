@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Windows Phone 7 on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/windows-phone-7/</link>
+    <link>https://blogmigration.csmac.nz/tags/windows-phone-7/</link>
     <description>Recent content in Windows Phone 7 on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 05 Jul 2011 18:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/windows-phone-7/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Jul 2011 18:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/windows-phone-7/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>7 Lessons from Building a WP7 Game in 7 days</title>
-      <link>https://csmacnzblog.github.io/post/7-lessons-from-building-a-wp7-game-in-7-days/</link>
+      <link>https://blogmigration.csmac.nz/post/7-lessons-from-building-a-wp7-game-in-7-days/</link>
       <pubDate>Tue, 05 Jul 2011 18:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/7-lessons-from-building-a-wp7-game-in-7-days/</guid>
+      <guid>https://blogmigration.csmac.nz/post/7-lessons-from-building-a-wp7-game-in-7-days/</guid>
       <description>&lt;p&gt;This is a companion post for my talk at Wellington&amp;rsquo;s SLAMD user group on 6 July 2011.&lt;/p&gt;
 &lt;p&gt;Recently I took part in &lt;a href=&#34;http://blogs.msdn.com/b/nigel/&#34;&gt;Nigel Parker&lt;/a&gt;&amp;rsquo;s &amp;ldquo;&lt;a href=&#34;http://blogs.msdn.com/b/nigel/archive/2011/05/16/release-an-app-for-windows-phone-7-in-7-days-to-win-a-phone.aspx&#34;&gt;Release an App for Windows Phone 7 in 7 Days for a Chance to Win a New HTC 7 Trophy Phone&lt;/a&gt;&amp;rdquo; competition, with the intent of winning a Windows Phone 7 device. Although I didn&amp;rsquo;t manage to win the device, I did get a free 1 year subscription to the App Hub, allowing me to develop and submit apps that I build, had fun doing it, and learned a few lessons along the way. This was my first exposure to the WP7 development ecosystem, as well as my first excursion onto a mobile platform in general.&lt;/p&gt;
 &lt;p&gt;So what follows is a few lessons that I would like to pass on about developing a windows phone application. First though, I will give a quick overview of what exactly I built. The brief was simple, build an application, and have it live on the marketplace by the 6th of June. Not that big of a task, really. The point of this exercise was to both boost awareness of the new development tools, and to increase the footprint of New Zealand-built apps on the marketplace.&lt;/p&gt;
@@ -51,10 +51,10 @@
     
     <item>
       <title>Microsoft Releases Application Bar Icons for Windows Phone 7</title>
-      <link>https://csmacnzblog.github.io/post/microsoft-releases-application-bar-icons-for-windows-phone-7/</link>
+      <link>https://blogmigration.csmac.nz/post/microsoft-releases-application-bar-icons-for-windows-phone-7/</link>
       <pubDate>Thu, 08 Apr 2010 05:16:20 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/microsoft-releases-application-bar-icons-for-windows-phone-7/</guid>
+      <guid>https://blogmigration.csmac.nz/post/microsoft-releases-application-bar-icons-for-windows-phone-7/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://erictric.com/2010/04/07/microsoft-releases-application-bar-icons-for-windows-phone-7/&#34; title=&#34;Microsoft Releases Application Bar Icons for Windows Phone 7&#34;&gt;Check out the icons&lt;/a&gt; for developers, For Windows Phone 7, lookin pretty sharp.&lt;/p&gt;
 </description>
     </item>

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>TeamCity on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/teamcity/</link>
+    <link>https://blogmigration.csmac.nz/tags/teamcity/</link>
     <description>Recent content in TeamCity on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 25 Oct 2016 00:54:19 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/teamcity/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Oct 2016 00:54:19 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/teamcity/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>dotnet &#43; nunit3 &#43; TeamCity success</title>
-      <link>https://csmacnzblog.github.io/post/dotnet/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnet/</link>
       <pubDate>Tue, 25 Oct 2016 00:54:19 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnet/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnet/</guid>
       <description>&lt;p&gt;The new .Net Core CLI has the ability to use &lt;a href=&#34;http://xunit.github.io/docs/getting-started-dotnet-core.html&#34;&gt;xunit&lt;/a&gt; or &lt;a href=&#34;https://github.com/nunit/dotnet-test-nunit&#34;&gt;nunit&lt;/a&gt;. Which is great. For running tests locally.&lt;/p&gt;
 &lt;p&gt;I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to &lt;a href=&#34;https://confluence.jetbrains.com/display/TCD10/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-ImportingXMLReports&#34;&gt;import xml reports&lt;/a&gt; which supports &lt;code&gt;junit&lt;/code&gt; (which is xunit-compatible) and &lt;code&gt;nunit&lt;/code&gt;. But choosing &lt;code&gt;nunit&lt;/code&gt; means support for the nunit2 xml format. And guess what? The new .Net Core test runner for nunit &lt;a href=&#34;https://github.com/nunit/dotnet-test-nunit/issues/75&#34;&gt;only outputs in nunit3 format&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Now, the decision makes perfect sense to me. The new format is more expressive, gives more information and is the future. And vendors need to start using it and move away from the old format. But as you can imagine, JetBrains just hasn&amp;rsquo;t gotten around to &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-46195&#34;&gt;getting it right yet&lt;/a&gt;. (There is some support in TC 10.0.2 but it seems there might be some teething issues and many of us are still on TC 9.X anyway.)&lt;/p&gt;
@@ -110,10 +110,10 @@ echo &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedT
     
     <item>
       <title>TeamCity, GitHub and Pull Requests</title>
-      <link>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</link>
+      <link>https://blogmigration.csmac.nz/post/teamcity-github-and-pull-requests/</link>
       <pubDate>Mon, 06 Apr 2015 12:29:27 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</guid>
+      <guid>https://blogmigration.csmac.nz/post/teamcity-github-and-pull-requests/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&amp;rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.&lt;/p&gt;
 &lt;p&gt;It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the &lt;a href=&#34;https://developer.github.com/v3/repos/statuses/&#34;&gt;Statuses api on GitHub&lt;/a&gt; for just how easy). Again it is easy to trigger a build off of the &amp;lsquo;special&amp;rsquo; pull request branch github uses. A guide to getting all of these links working is &lt;a href=&#34;http://blog.jetbrains.com/teamcity/2013/02/automatically-building-pull-requests-from-github-with-teamcity/&#34;&gt;available on the teamcity blog&lt;/a&gt;. But triggering the git source control checking on TeamCity turned out the be the hard bit.&lt;/p&gt;
 &lt;p&gt;There are Webhooks in GitHub. There are also Service Hooks. There is a &lt;a href=&#34;https://github.com/github/github-services/blob/master/lib/services/teamcity.rb&#34;&gt;TeamCity Service Hook&lt;/a&gt;. Unfortunately there are issues with both that requires some third set of code to actually make it work. Here is why.&lt;/p&gt;

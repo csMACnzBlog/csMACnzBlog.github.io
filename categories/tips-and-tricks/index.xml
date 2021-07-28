@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tips and Tricks on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/tips-and-tricks/</link>
+    <link>https://blogmigration.csmac.nz/categories/tips-and-tricks/</link>
     <description>Recent content in Tips and Tricks on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 15 Oct 2018 05:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/tips-and-tricks/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Oct 2018 05:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/tips-and-tricks/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Sharing audio to Google Hangouts (or Meets)</title>
-      <link>https://csmacnzblog.github.io/post/sharing-audio-to-google-hangouts-or-meets/</link>
+      <link>https://blogmigration.csmac.nz/post/sharing-audio-to-google-hangouts-or-meets/</link>
       <pubDate>Mon, 15 Oct 2018 05:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/sharing-audio-to-google-hangouts-or-meets/</guid>
+      <guid>https://blogmigration.csmac.nz/post/sharing-audio-to-google-hangouts-or-meets/</guid>
       <description>&lt;p&gt;I work remotely, and I&amp;rsquo;ve used a bunch of solutions over the last few years to be able to route audio from my computer into a meeting call in Google Hangouts. From hardware to virtual audio cable software, every solution has been finicky at best, and wrecks day-to-day audio and video at worst, and requires a bunch of mucking around every time I want to enable or disable the setup.&lt;/p&gt;
 &lt;p&gt;But not anymore.&lt;/p&gt;
 &lt;p&gt;Just recently I discovered that the power of Google Hangouts combined with the power of Chrome Cast is an amazing solution to all your problems!&lt;/p&gt;
@@ -43,10 +43,10 @@
     
     <item>
       <title>NuGet Packing on Linux</title>
-      <link>https://csmacnzblog.github.io/post/nuget-packing-on-linux/</link>
+      <link>https://blogmigration.csmac.nz/post/nuget-packing-on-linux/</link>
       <pubDate>Mon, 01 Oct 2018 05:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/nuget-packing-on-linux/</guid>
+      <guid>https://blogmigration.csmac.nz/post/nuget-packing-on-linux/</guid>
       <description>&lt;p&gt;For anyone who has been cutting-edge with .Net for a while will know that the nuget.exe runs under mono. And that you can use nuget.exe to package &lt;code&gt;*.nuspec&lt;/code&gt; files into &lt;code&gt;*.nupkg&lt;/code&gt; files.&lt;/p&gt;
 &lt;p&gt;Anyone who has been doing dotnet cross-platform will also know that you can use &lt;code&gt;dotnet pack&lt;/code&gt; on both Windows and Linux to package your project into a NuGet package containing the &lt;code&gt;dll&lt;/code&gt;. It even does references and multi-targeting correctly out of the box.&lt;/p&gt;
 &lt;p&gt;But did you know that you can also use dotnet pack to package any arbitrary &lt;code&gt;nuspec&lt;/code&gt; file as well?&lt;/p&gt;
@@ -107,10 +107,10 @@
     
     <item>
       <title>HostBuild your dotnet Consoles like you WebHostBuild your web apps.</title>
-      <link>https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</link>
+      <link>https://blogmigration.csmac.nz/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</link>
       <pubDate>Mon, 17 Sep 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</guid>
+      <guid>https://blogmigration.csmac.nz/post/hostbuild-your-dotnet-consoles-like-you-webhostbuild-your-web-apps/</guid>
       <description>&lt;p&gt;I wrote a while back on getting your &lt;a href=&#34;https://blog.csmac.nz/a-windows-service-on-dotnet/&#34;&gt;Windows Services building with .Net Core&lt;/a&gt; which is a nice way to use the new SDK pipeline but still host on Windows without much fuss.&lt;/p&gt;
 &lt;p&gt;But what If you like the approach but want to run on Linux?&lt;/p&gt;
 &lt;p&gt;Well after some stumbling around in the dotnet core docs, I found information about &lt;code&gt;HostBuilder&lt;/code&gt;, which looks a lot like the &lt;code&gt;WebHostBuilder&lt;/code&gt; and &lt;code&gt;WebHost&lt;/code&gt; that we use with AspNetCore.  And that is no accident.&lt;/p&gt;
@@ -286,10 +286,10 @@ using (host)
     
     <item>
       <title>Some cool tricks with your Windows Shells</title>
-      <link>https://csmacnzblog.github.io/post/some-cool-tricks-with-your-windows-shell/</link>
+      <link>https://blogmigration.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</link>
       <pubDate>Mon, 09 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/some-cool-tricks-with-your-windows-shell/</guid>
+      <guid>https://blogmigration.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (&lt;a href=&#34;https://docs.microsoft.com/en-us/windows/wsl/install-win10&#34;&gt;Windows Subsystem for Linux&lt;/a&gt;).  There are a few of the tricks I have learned recently that help me every day.&lt;/p&gt;
 &lt;h3 id=&#34;f8-searches-history&#34;&gt;F8 searches history!&lt;/h3&gt;
 &lt;p&gt;That&amp;rsquo;s right! When you type into the command line (this work in cmd and PowerShell) and then press F8, it will do a back-in-time search for a historical command that begins with what you typed. This is a nice way to auto-complete an entire command with complex arguments quickly and easily.&lt;/p&gt;
@@ -321,15 +321,15 @@ using (host)
     
     <item>
       <title>A Windows Service using netcoreapp on dotnet</title>
-      <link>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</link>
+      <link>https://blogmigration.csmac.nz/post/a-windows-service-on-dotnet/</link>
       <pubDate>Sun, 22 Apr 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</guid>
-      <description>&lt;p&gt;I wrote &lt;a href=&#34;https://csmacnzblog.github.io/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application.  Technically the title is still valid, it was a windows service, and I built it using .Net Core tools.  But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.&lt;/p&gt;
+      <guid>https://blogmigration.csmac.nz/post/a-windows-service-on-dotnet/</guid>
+      <description>&lt;p&gt;I wrote &lt;a href=&#34;https://blogmigration.csmac.nz/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application.  Technically the title is still valid, it was a windows service, and I built it using .Net Core tools.  But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.&lt;/p&gt;
 &lt;p&gt;Note that since windows Service logic and hooks are Windows-specific, this solution doesn&amp;rsquo;t work for Mac or Linux.  However I will try to maintain a working Console application, that should satisfy the requirements there.&lt;/p&gt;
 &lt;h2 id=&#34;just-target-net-full-framework&#34;&gt;Just target .Net Full framework&lt;/h2&gt;
 &lt;p&gt;Everything you already have working in your services using &lt;code&gt;System.ServiceProcess.ServiceBase&lt;/code&gt; and other classes from the &lt;code&gt;System.ServiceProcess&lt;/code&gt; full framework assemblies work fine when compiled with .Net Core. Since you can&amp;rsquo;t run a Windows Service on non-windows platforms, there is no reason not to just target the Windows-only full framework 4.6.2 or 4.7.1 or whichever your stable .Net version of choice is. None of the &lt;code&gt;System.ServiceProcess&lt;/code&gt; code can run on Linux or Mac anyway, and neither can any Windows Service specific code. This is probably going to be the path of least resistance.&lt;/p&gt;
-&lt;p&gt;But that was the subject of the &lt;a href=&#34;https://csmacnzblog.github.io/building-a-windows-service-with-net-core/&#34;&gt;other article&lt;/a&gt;, I assume you are here for something different.&lt;/p&gt;
+&lt;p&gt;But that was the subject of the &lt;a href=&#34;https://blogmigration.csmac.nz/building-a-windows-service-with-net-core/&#34;&gt;other article&lt;/a&gt;, I assume you are here for something different.&lt;/p&gt;
 &lt;h2 id=&#34;cross-platform-solution&#34;&gt;Cross Platform solution&lt;/h2&gt;
 &lt;p&gt;We will now take a look at what we can do to make an application that a) can install and run as a windows service, and b) still runs as a console app on Linux, ignoring the unused service code.  This application is going to be a portable &lt;code&gt;netcoreapp2.0&lt;/code&gt; application, so we can only reference &lt;code&gt;netstandard&lt;/code&gt; or &lt;code&gt;netcoreapp&lt;/code&gt; libraries.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/dasMulli/dotnet-win32-service&#34;&gt;dasMulli/dotnet-win32-service&lt;/a&gt; is a project that has created a win32 interop layer over the Windows Service API.  Much like the way the original .Net code probably works, but compiled as a dotnet standard library (&lt;code&gt;netstandard1.3&lt;/code&gt; and &lt;code&gt;netstandard2.0&lt;/code&gt; compatible versions).  On top of this, there is another library &lt;a href=&#34;https://github.com/PeterKottas/DotNetCore.WindowsService&#34;&gt;PeterKottas/DotNetCore.WindowsService&lt;/a&gt; which also targets &lt;code&gt;netstandard2.0&lt;/code&gt; that we will use to give us a nicer install/uninstall interface into our application.&lt;/p&gt;
@@ -715,17 +715,17 @@ The MyAppService service is now running, press Control+C to exit.
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Just make sure if you do decide to use this, that your stop function is &lt;a href=&#34;https://en.wikipedia.org/wiki/Idempotence&#34;&gt;idempotent&lt;/a&gt; and only runs once.&lt;/p&gt;
 &lt;h3 id=&#34;the-end&#34;&gt;The End&lt;/h3&gt;
-&lt;p&gt;I hope this article helps others coming to find out how to create cross-platform services with .Net Core. Also hopefully it redeems me for confusing so many people who landed on my &lt;a href=&#34;https://csmacnzblog.github.io/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; article as well.&lt;/p&gt;
+&lt;p&gt;I hope this article helps others coming to find out how to create cross-platform services with .Net Core. Also hopefully it redeems me for confusing so many people who landed on my &lt;a href=&#34;https://blogmigration.csmac.nz/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; article as well.&lt;/p&gt;
 &lt;p&gt;Simple. Easy. Works&lt;a href=&#34;https://blog.codinghorror.com/the-works-on-my-machine-certification-program/&#34;&gt;.&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>My C# naming conventions</title>
-      <link>https://csmacnzblog.github.io/post/my-c-naming-conventions/</link>
+      <link>https://blogmigration.csmac.nz/post/my-c-naming-conventions/</link>
       <pubDate>Sun, 25 Mar 2018 05:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/my-c-naming-conventions/</guid>
+      <guid>https://blogmigration.csmac.nz/post/my-c-naming-conventions/</guid>
       <description>&lt;p&gt;I have opinions!&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve been meaning to write this article for a while.  I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.&lt;/p&gt;
 &lt;p&gt;Firstly, let&amp;rsquo;s just say that there are Guidelines and Opinions. I might not be clear exactly which one something is below, but it will be one or the other.  That means that what I say won&amp;rsquo;t fit all situations. Don&amp;rsquo;t take it as a hard and fast rule. Use your own judgement.&lt;/p&gt;
@@ -927,10 +927,10 @@ if (aDifferentCondition(wthAnotherArg))
     
     <item>
       <title>On Screen Shortcut keys for presentations and recordings</title>
-      <link>https://csmacnzblog.github.io/post/on-screen-shortcut-keys-for-presentations-and-recordings/</link>
+      <link>https://blogmigration.csmac.nz/post/on-screen-shortcut-keys-for-presentations-and-recordings/</link>
       <pubDate>Mon, 26 Feb 2018 04:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/on-screen-shortcut-keys-for-presentations-and-recordings/</guid>
+      <guid>https://blogmigration.csmac.nz/post/on-screen-shortcut-keys-for-presentations-and-recordings/</guid>
       <description>&lt;p&gt;I used this tool a while ago that let me show on-screen what keyboard shortcuts and combinations I was pressing so that others could see them, especially during presentations, and on video recordings.&lt;/p&gt;
 &lt;p&gt;But for the life of me today, on a new machine, I couldn&amp;rsquo;t remember what it was called. Searching didn&amp;rsquo;t help. For future reference, I will remember I wrote this article, and hopefully, others searching for &amp;ldquo;show shortcut keys on screen&amp;rdquo; will find this article as well.&lt;/p&gt;
 &lt;p&gt;The tool I used was called Carnac. Carnac is a &lt;a href=&#34;https://github.com/Code52/carnac&#34;&gt;Code52 project on GitHub&lt;/a&gt;. It nicely shows the shortcut keys you press, such as &lt;code&gt;ctrl+c&lt;/code&gt;, &lt;code&gt;alt+enter&lt;/code&gt; &lt;code&gt;ctrl+.&lt;/code&gt; etc on the screen so that others can see what you pressed.  Since I&amp;rsquo;m recording a few videos of coding at the moment, this will add an extra benefit for those watching them.&lt;/p&gt;
@@ -942,10 +942,10 @@ if (aDifferentCondition(wthAnotherArg))
     
     <item>
       <title>A PowerShell Watch Command</title>
-      <link>https://csmacnzblog.github.io/post/a-powershell-watch-command/</link>
+      <link>https://blogmigration.csmac.nz/post/a-powershell-watch-command/</link>
       <pubDate>Tue, 30 Jan 2018 19:36:30 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/a-powershell-watch-command/</guid>
+      <guid>https://blogmigration.csmac.nz/post/a-powershell-watch-command/</guid>
       <description>&lt;p&gt;I use dotnet-watch a bunch and have used a version via grunt/gulp a little in the past as well.&lt;/p&gt;
 &lt;p&gt;In front of me, I had some TypeScript, &lt;code&gt;tsc&lt;/code&gt; and an &lt;code&gt;app.ts&lt;/code&gt; file. I wanted to watch it and trigger &lt;code&gt;tsc&lt;/code&gt; automatically. But there was no csproj, no NuGet, and no npm in sight.&lt;/p&gt;
 &lt;p&gt;I went searching far and wide for solutions, and some clever people have some insight to add to the quest:&lt;/p&gt;
@@ -998,10 +998,10 @@ watch -Folder &amp;quot;${PWD}&amp;quot; =Filter &amp;quot;*.ts&amp;quot; -Actio
     
     <item>
       <title>There can be only one return; 0 RLY?</title>
-      <link>https://csmacnzblog.github.io/post/there-can-be-only-one-return/</link>
+      <link>https://blogmigration.csmac.nz/post/there-can-be-only-one-return/</link>
       <pubDate>Sun, 03 Dec 2017 22:15:55 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/there-can-be-only-one-return/</guid>
+      <guid>https://blogmigration.csmac.nz/post/there-can-be-only-one-return/</guid>
       <description>&lt;p&gt;My opinions and choices on style of coding evolves and changes over time. By blogging about this now, I can refer back later when I change my mind. I can also elicit the opinions of others to influence me to change my ways if I happen to be wrong and not know it yet.&lt;/p&gt;
 &lt;p&gt;Lets talk about returns.  There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (&amp;lsquo;if&amp;rsquo;/&amp;lsquo;else&amp;rsquo;, &amp;lsquo;switch&amp;rsquo;, &amp;lsquo;while&amp;rsquo; commands, for instance). If you don&amp;rsquo;t actually return a result, you can still think about flow of control and where you exit from.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public string WhenIPipeDataIntoOtherFunctions(string fileName)
@@ -1322,10 +1322,10 @@ else if (ASimpleCheckPasses(input1) &amp;amp;&amp;amp; AWebCallCheck(input1, inp
     
     <item>
       <title>In C#, your structs should be immutable.</title>
-      <link>https://csmacnzblog.github.io/post/in-c-your-structs-should-be-immutable/</link>
+      <link>https://blogmigration.csmac.nz/post/in-c-your-structs-should-be-immutable/</link>
       <pubDate>Sun, 26 Nov 2017 20:35:19 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/in-c-your-structs-should-be-immutable/</guid>
+      <guid>https://blogmigration.csmac.nz/post/in-c-your-structs-should-be-immutable/</guid>
       <description>&lt;p&gt;I wrote some code. It was simple code. I had a collection. I iterated over the collection and updated the values. I did this several times in an outer loop.&lt;/p&gt;
 &lt;p&gt;The code didn&amp;rsquo;t work.&lt;/p&gt;
 &lt;p&gt;Why didn&amp;rsquo;t it work? My collection was an array of Structs. When I pulled an item out in the for loop, it was copied. When I updated the copy, the changes went away at the end of the scope.&lt;/p&gt;
@@ -1339,10 +1339,10 @@ else if (ASimpleCheckPasses(input1) &amp;amp;&amp;amp; AWebCallCheck(input1, inp
     
     <item>
       <title>dotnet build, targeting full .Net 4.5.1 on nanoserver docker</title>
-      <link>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</link>
       <pubDate>Fri, 31 Mar 2017 01:18:07 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</guid>
       <description>&lt;p&gt;I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.&lt;/p&gt;
 &lt;p&gt;Basically I was trying this:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1
@@ -1394,10 +1394,10 @@ else if (ASimpleCheckPasses(input1) &amp;amp;&amp;amp; AWebCallCheck(input1, inp
     
     <item>
       <title>&#34;failed to peek context header from STDIN&#34; and how to fix</title>
-      <link>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</link>
+      <link>https://blogmigration.csmac.nz/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</link>
       <pubDate>Tue, 29 Nov 2016 04:12:29 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</guid>
+      <guid>https://blogmigration.csmac.nz/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</guid>
       <description>&lt;p&gt;The &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/build/#/text-files&#34;&gt;docker guidance says&lt;/a&gt; you can run docker build piping the dockerfile:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;#On linux
 $ docker build - &amp;lt; Dockerfile
@@ -1419,10 +1419,10 @@ unable to prepare context: failed to peek context header from STDIN: Incorrect f
     
     <item>
       <title>Form posts with PowerShell</title>
-      <link>https://csmacnzblog.github.io/post/formpost-with-powershell/</link>
+      <link>https://blogmigration.csmac.nz/post/formpost-with-powershell/</link>
       <pubDate>Mon, 27 Jun 2016 03:57:16 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/formpost-with-powershell/</guid>
+      <guid>https://blogmigration.csmac.nz/post/formpost-with-powershell/</guid>
       <description>&lt;p&gt;This article is based on an answer found and updated on &lt;a href=&#34;http://stackoverflow.com/a/37729623/2118268&#34;&gt;StackOverflow&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;f you have used PowerShell for much at all, you are probably familiar with &lt;code&gt;Invoke-WebRequest&lt;/code&gt;. But did you know you can carry around a session and have it automatically add and update cookies for you?&lt;/p&gt;
 &lt;h3 id=&#34;the-scenario&#34;&gt;The Scenario&lt;/h3&gt;
@@ -1463,10 +1463,10 @@ $response.StatusDescription #should be OK
     
     <item>
       <title>Manage your hosts entries better</title>
-      <link>https://csmacnzblog.github.io/post/manage-your-hosts-entries-better/</link>
+      <link>https://blogmigration.csmac.nz/post/manage-your-hosts-entries-better/</link>
       <pubDate>Tue, 31 May 2016 04:25:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/manage-your-hosts-entries-better/</guid>
+      <guid>https://blogmigration.csmac.nz/post/manage-your-hosts-entries-better/</guid>
       <description>&lt;p&gt;If you are working with a lot of sites in IIS then you will be familiar with the hosts file on your computer. &lt;code&gt;%SystemRoot%\System32\drivers\etc\hosts&lt;/code&gt;, usually found in &lt;code&gt;C:\Windows\System32\drivers\etc\hosts&lt;/code&gt;.  This file acts as a DNS mapping table used by your computer.  As a developer, you will often want to tinker with this table. For example, you have a site running locally and you want to run it with a URL in your browser. You can map &lt;code&gt;www.mysite.local&lt;/code&gt; to the IP address of your machine, or the local loopback address &lt;code&gt;127.0.0.1&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;127.0.0.1    www.mysite.local    #comments are supported too
 &lt;/code&gt;&lt;/pre&gt;
@@ -1481,10 +1481,10 @@ $response.StatusDescription #should be OK
     
     <item>
       <title>A couple of debugging tips</title>
-      <link>https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/</link>
+      <link>https://blogmigration.csmac.nz/post/a-couple-of-debugging-tips/</link>
       <pubDate>Mon, 23 May 2016 04:33:09 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/a-couple-of-debugging-tips/</guid>
+      <guid>https://blogmigration.csmac.nz/post/a-couple-of-debugging-tips/</guid>
       <description>&lt;p&gt;I had an idea of something I wanted to post, but a quick google turns up I &lt;a href=&#34;http://blog.csmac.nz/on-gitversioning-subdirectories/&#34;&gt;posted it 6 months ago&lt;/a&gt;, so here are some debugging tips.&lt;/p&gt;
 &lt;h3 id=&#34;console-break&#34;&gt;Console Break&lt;/h3&gt;
 &lt;p&gt;So you are writing a console app? Cool. Want to see the output? Of course, you do. But when you run it, the app pops up then disappears really quickly right? No? Have you a break point in the last line? Well, that&amp;rsquo;s sensible.&lt;/p&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PortableClassLibrary on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/portableclasslibrary/</link>
+    <link>https://blogmigration.csmac.nz/categories/portableclasslibrary/</link>
     <description>Recent content in PortableClassLibrary on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 23 Dec 2014 10:10:46 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/portableclasslibrary/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Dec 2014 10:10:46 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/portableclasslibrary/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Travis-ci, C# and PCL</title>
-      <link>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</link>
+      <link>https://blogmigration.csmac.nz/post/travis-ci-c-and-pcl/</link>
       <pubDate>Tue, 23 Dec 2014 10:10:46 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</guid>
+      <guid>https://blogmigration.csmac.nz/post/travis-ci-c-and-pcl/</guid>
       <description>&lt;p&gt;As any good library should do, I&amp;rsquo;m building my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;BCLExtensions project&lt;/a&gt;(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact).  It works great on my &lt;a href=&#34;https://ci.appveyor.com/project/MarkClearwater/bclextensions&#34;&gt;AppVeyor CI builds&lt;/a&gt;, which is a great .Net windows build server.&lt;/p&gt;
 &lt;p&gt;I recently discovered &lt;a href=&#34;http://docs.travis-ci.com/user/languages/csharp/&#34;&gt;Travis-CI has added beta C# support&lt;/a&gt; so I connected it up with my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;GitHub prooject&lt;/a&gt;, which is designed to eventually work with mono anyway, and gave it a go. But no, that&amp;rsquo;s a no go.  The awesome error I was getting was this cryptic thing:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;	Target GetReferenceAssemblyPaths:

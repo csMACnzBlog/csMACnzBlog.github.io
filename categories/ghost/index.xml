@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ghost on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/ghost/</link>
+    <link>https://blogmigration.csmac.nz/categories/ghost/</link>
     <description>Recent content in Ghost on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sat, 09 Sep 2017 10:07:33 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/ghost/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Sep 2017 10:07:33 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/ghost/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ghost Blog Upgrade to 1.* (1.8.4 in fact)</title>
-      <link>https://csmacnzblog.github.io/post/ghost-blog-upgrade-to-v1/</link>
+      <link>https://blogmigration.csmac.nz/post/ghost-blog-upgrade-to-v1/</link>
       <pubDate>Sat, 09 Sep 2017 10:07:33 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/ghost-blog-upgrade-to-v1/</guid>
+      <guid>https://blogmigration.csmac.nz/post/ghost-blog-upgrade-to-v1/</guid>
       <description>&lt;p&gt;While I&amp;rsquo;ve been hapily blogging away on Ghost version 0.8.0 hosted on azure (very much ad-hoc hosting approach) the Ghost Blog team made the leap to a &lt;code&gt;1.*&lt;/code&gt; version, with a very breaking changes along the way, especially to their upgrade process. They&amp;rsquo;ve made it all the way to &lt;code&gt;1.8.4&lt;/code&gt; and so I figured it was time I upgraded.&lt;/p&gt;
 &lt;p&gt;This was going to be a nightmare if it wasn&amp;rsquo;t for two things.&lt;/p&gt;
 &lt;h3 id=&#34;backup-and-import&#34;&gt;Backup and Import&lt;/h3&gt;
@@ -38,10 +38,10 @@
     
     <item>
       <title>Ghost blog backups</title>
-      <link>https://csmacnzblog.github.io/post/ghost-blog-backups/</link>
+      <link>https://blogmigration.csmac.nz/post/ghost-blog-backups/</link>
       <pubDate>Sun, 14 Jun 2015 17:25:12 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/ghost-blog-backups/</guid>
+      <guid>https://blogmigration.csmac.nz/post/ghost-blog-backups/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been using &lt;a href=&#34;https://ghost.org/&#34;&gt;Ghost&lt;/a&gt; to run my blog for a few months now. One thing that was not immediately obvious to me was how to backup the content in my blog. So here is a quick recap on how its done.&lt;/p&gt;
 &lt;p&gt;Its actually pretty easy, although not very discoverable.  When you are logged in, you can head to the URL https://[YourBlogDomain]/ghost/debug. This takes you to the following debug page:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1432437154/ghostdebugcontent_pffn97.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;

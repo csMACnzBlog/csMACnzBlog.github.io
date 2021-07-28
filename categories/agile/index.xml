@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>agile on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/agile/</link>
+    <link>https://blogmigration.csmac.nz/categories/agile/</link>
     <description>Recent content in agile on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 10 Sep 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/agile/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Sep 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/agile/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Agile Jogging to complement your Sprinting</title>
-      <link>https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/</link>
+      <link>https://blogmigration.csmac.nz/post/agile-jogging-to-compliment-your-sprinting/</link>
       <pubDate>Mon, 10 Sep 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/</guid>
+      <guid>https://blogmigration.csmac.nz/post/agile-jogging-to-compliment-your-sprinting/</guid>
       <description>&lt;p&gt;Way back when I was first introduced to everything agile from &lt;a href=&#34;https://twitter.com/JezzSantos&#34;&gt;Jezz Santos&lt;/a&gt;,  we complemented the terminology of our &amp;ldquo;sprint&amp;rdquo; with that of a &amp;ldquo;jog&amp;rdquo;.&lt;/p&gt;
 &lt;h3 id=&#34;sprinting&#34;&gt;Sprinting&lt;/h3&gt;
 &lt;p&gt;Sprinting or sprints are the idea of a (usually) timeboxed length of real-world time (5 days, 3 weeks etc) that produces a cadence of focused teamwork on a particular selection of stories. Usually, these stories are prioritised, and the team should be working on the top-most unfinished work. The aim of the sprint is to take this collection of stories (tasks, work) and commit to finishing them in the sprint, and not anything else instead.  At the end of the sprint and before the next one starts, we can select a different prioritised set and repeat (this may or may not include any incomplete stories, as desired).&lt;/p&gt;

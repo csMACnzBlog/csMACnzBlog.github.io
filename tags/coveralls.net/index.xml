@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>coveralls.net on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/coveralls.net/</link>
+    <link>https://blogmigration.csmac.nz/tags/coveralls.net/</link>
     <description>Recent content in coveralls.net on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 04 Jun 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/coveralls.net/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jun 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/coveralls.net/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Coveralls.Net 1.0.0 Release</title>
-      <link>https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/</link>
+      <link>https://blogmigration.csmac.nz/post/coveralls-net-1-0-0-release/</link>
       <pubDate>Mon, 04 Jun 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/coveralls-net-1-0-0-release/</guid>
+      <guid>https://blogmigration.csmac.nz/post/coveralls-net-1-0-0-release/</guid>
       <description>&lt;p&gt;Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a &lt;a href=&#34;https://blog.csmac.nz/-net-os-1-source-control/&#34;&gt;Series of Blog Posts&lt;/a&gt;. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first.  This has continued at a slow pace for the last 3 years.&lt;/p&gt;
 &lt;p&gt;Back in January 2015 I &lt;a href=&#34;https://blog.csmac.nz/introducing-coveralls-net/&#34;&gt;Announced Coveralls.Net&lt;/a&gt;. This is a code coverage publisher for publishing your coverage results to the coveralls.io API. Coveralls.io is a coverage tracking service, which is free for open source projects, with a paid service for private use, and now an Enterprise version as well. There was a bunch of python and ruby versions, but I wanted fewer dependencies on those runtimes so built my own.  I even managed to get it listed as one of the two &lt;a href=&#34;https://docs.coveralls.io/dot-net&#34;&gt;recommended .Net coverage integrations&lt;/a&gt; on the coveralls.io docs.&lt;/p&gt;
 &lt;p&gt;While development has been a slow work of labour over the last three years, the announcement of dotnet CLI tools (proper npm-style tools, not the weird interim dotnet-tool stuff&amp;hellip;) with dotnet SDK 2.1, I had to jump in and get on board.&lt;/p&gt;
@@ -73,10 +73,10 @@ Expand-Archive .\coveralls-windows.zip coveralls-windows
     
     <item>
       <title>monocov &#43; Travis-CI = WINNING</title>
-      <link>https://csmacnzblog.github.io/post/monocov-travis-ci-winning/</link>
+      <link>https://blogmigration.csmac.nz/post/monocov-travis-ci-winning/</link>
       <pubDate>Sun, 08 Feb 2015 15:29:13 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/monocov-travis-ci-winning/</guid>
+      <guid>https://blogmigration.csmac.nz/post/monocov-travis-ci-winning/</guid>
       <description>&lt;p&gt;After much frustration, I now have &lt;a href=&#34;https://github.com/mono/monocov&#34;&gt;monocov&lt;/a&gt; running on my Travis-CI build, and I&amp;rsquo;m going to share with you how I did it.&lt;/p&gt;
 &lt;p&gt;TL;DR
 The coverage results don&amp;rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.&lt;/p&gt;
@@ -143,10 +143,10 @@ script:
     
     <item>
       <title>Introducing Coveralls.net</title>
-      <link>https://csmacnzblog.github.io/post/introducing-coveralls-net/</link>
+      <link>https://blogmigration.csmac.nz/post/introducing-coveralls-net/</link>
       <pubDate>Sat, 24 Jan 2015 14:33:48 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/introducing-coveralls-net/</guid>
+      <guid>https://blogmigration.csmac.nz/post/introducing-coveralls-net/</guid>
       <description>&lt;p&gt;So I&amp;rsquo;ve built an (almost MVP) code coverage publisher for &lt;a href=&#34;http://coveralls.io&#34;&gt;coveralls.io&lt;/a&gt; from C# code, using opencover coverage results.  Checkout the &lt;a href=&#34;https://github.com/csmacnz/coveralls.net&#34;&gt;github repo&lt;/a&gt; and &lt;a href=&#34;https://www.nuget.org/packages/coveralls.net/&#34;&gt;nuget packages&lt;/a&gt; if you want to use it.  I&amp;rsquo;m even dogfooding it on appveyor as part of my &lt;a href=&#34;https://github.com/csmacnz/coveralls.net/blob/master/build.tasks.ps1#L81&#34;&gt;psake build tasks&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;So how do you use it?  Well luckily I used &lt;a href=&#34;https://github.com/docopt/docopt.net&#34;&gt;docopts.net&lt;/a&gt; to give you a bit of a command line experience while you use it, but the gist is this:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;csmacnz.Coveralls.exe --opencover -i opencovertests.xml --repoToken &amp;quot;abcdefghijklmnopqrstuvwxyz&amp;quot; --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
@@ -161,10 +161,10 @@ script:
     
     <item>
       <title>Hey, I found this thing called Coveralls.io</title>
-      <link>https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/</link>
+      <link>https://blogmigration.csmac.nz/post/hey-i-found-this-thing-called-coveralls-io/</link>
       <pubDate>Sun, 14 Dec 2014 19:50:47 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/</guid>
+      <guid>https://blogmigration.csmac.nz/post/hey-i-found-this-thing-called-coveralls-io/</guid>
       <description>&lt;p&gt;In my pursuit to &lt;a href=&#34;//blog.csmac.nz/gulp-vs-net/&#34;&gt;find a build task runner for my code coverage&lt;/a&gt; I stumbled on this whole other side of the internet I didn&amp;rsquo;t know about (from a .Net developer&amp;rsquo;s perspective). I&amp;rsquo;ve been using &lt;a href=&#34;http://www.appveyor.com/&#34;&gt;AppVeyor.com&lt;/a&gt; for my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;m aware this isn&amp;rsquo;t new, and there are others like &lt;a href=&#34;http://travis-ci.org/&#34;&gt;Travis-CI.org&lt;/a&gt; which run all the other platforms, but I didn&amp;rsquo;t realise how prolific it really was! Especially how exclusive of microsoft languages they all are. Travis-CI for instance, doesn&amp;rsquo;t seem to support .Net by looking on their &lt;a href=&#34;http://docs.travis-ci.com/&#34;&gt;docs page&lt;/a&gt;, though there does seem to be &lt;a href=&#34;http://docs.travis-ci.com/user/languages/csharp/&#34;&gt;mono support in beta&lt;/a&gt; (and that didnt exist when i looked a week ago, so will keep an eye on this).&lt;/p&gt;
 &lt;p&gt;But my main reason for this post, is that I found this cool new (to me any way) Continuous Code Coverage host called &lt;a href=&#34;https://coveralls.io/&#34;&gt;coveralls.io&lt;/a&gt;. With a cool name like that, and a badge for my project, I&amp;rsquo;m sold. But wait, lets check &lt;a href=&#34;https://coveralls.zendesk.com/hc/en-us&#34;&gt;those docs&lt;/a&gt; again.  Yip as I thought, no C# support.  They even have C/C++, this is wrong!&lt;/p&gt;

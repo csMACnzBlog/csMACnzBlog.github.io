@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/post/</link>
+    <link>https://blogmigration.csmac.nz/post/</link>
     <description>Recent content in Posts on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 13 Jul 2021 19:18:43 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Jul 2021 19:18:43 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</title>
-      <link>https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/</link>
+      <link>https://blogmigration.csmac.nz/post/terraform-newrelic-provider-facepalm/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/terraform-newrelic-provider-facepalm/</guid>
+      <guid>https://blogmigration.csmac.nz/post/terraform-newrelic-provider-facepalm/</guid>
       <description>&lt;p&gt;Recently I tried upgrading from Terraform 0.12 to 1.0.1. I think the key here is leaving 0.12.&lt;/p&gt;
 &lt;p&gt;Anyway, there was a breaking change in 0.13 around how providers worked, and we got this cryptic error.&lt;/p&gt;
 &lt;p&gt;(Caveat: I don&amp;rsquo;t actually know how much of this has to do with a newrelic provider update as well or instead, but was what we got the week of 2021/07/12.)&lt;/p&gt;
@@ -76,10 +76,10 @@ provider &amp;quot;newrelic&amp;quot; {
     
     <item>
       <title>Kotlin, TeamCity and reflection</title>
-      <link>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</link>
+      <link>https://blogmigration.csmac.nz/post/kotlin-teamcity-and-reflection/</link>
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</guid>
+      <guid>https://blogmigration.csmac.nz/post/kotlin-teamcity-and-reflection/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.&lt;/p&gt;
 &lt;p&gt;Today&amp;rsquo;s fun little problem was the error message:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -102,10 +102,10 @@ val props = Project::class.declaredMemberProperties
     
     <item>
       <title>Bluetooth Devices keep disconnecting</title>
-      <link>https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/</link>
+      <link>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
       <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/bluetooth-devices-keep-disconnecting/</guid>
+      <guid>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
       <description>&lt;p&gt;It all started when I installed Windows Update 20H2 in October 2020.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve had a stable machine (HP ZBook laptop for reference) for months and months with the same Bluetooth hardware, no issues. But that fateful day I installed the 20H2 update from Microsoft, everything changed.&lt;/p&gt;
 &lt;p&gt;Suddenly I was having disconnect issues. I have a Bluetooth keyboard and Bluetooth mouse connected (I think they are both low energy?) And I found that one of them would reconnect, and the other wouldn&amp;rsquo;t. If I turned one-off, the other would reconnect, but the first one wouldn&amp;rsquo;t be able to when turned back on.&lt;/p&gt;
@@ -119,10 +119,10 @@ val props = Project::class.declaredMemberProperties
     
     <item>
       <title>Nullable and notnull Serialisation Properties</title>
-      <link>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</link>
+      <link>https://blogmigration.csmac.nz/post/nullable-and-notnull-serialisation-properties/</link>
       <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
+      <guid>https://blogmigration.csmac.nz/post/nullable-and-notnull-serialisation-properties/</guid>
       <description>&lt;p&gt;The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is &lt;code&gt;= default!;&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;problem-definition&#34;&gt;problem definition&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// This class is used to serialise/deserialise a payload from a server
@@ -303,10 +303,10 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     
     <item>
       <title>We are all 10x engineers, but I don&#39;t think it means what you think it means</title>
-      <link>https://csmacnzblog.github.io/post/we-are-all-10x/</link>
+      <link>https://blogmigration.csmac.nz/post/we-are-all-10x/</link>
       <pubDate>Mon, 15 Jul 2019 09:50:55 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/we-are-all-10x/</guid>
+      <guid>https://blogmigration.csmac.nz/post/we-are-all-10x/</guid>
       <description>&lt;p&gt;If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;As a developer who tries to be good at their job, I have thoughts on this. As a Human, I like to be heard. (Note that being heard is not the same thing as being agreed with, or being right.) So here I am giving my opinion on this idea of a 10x developer, and specifically these &amp;ldquo;10 signs&amp;rdquo; put up online.&lt;/p&gt;
@@ -362,10 +362,10 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     
     <item>
       <title>Snuffleupagus-Oriented Programming</title>
-      <link>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</link>
+      <link>https://blogmigration.csmac.nz/post/snuffleupagus-oriented-programming/</link>
       <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</guid>
+      <guid>https://blogmigration.csmac.nz/post/snuffleupagus-oriented-programming/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.&lt;/p&gt;
 &lt;p&gt;How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.&lt;/p&gt;
@@ -385,10 +385,10 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     
     <item>
       <title>Looking Back on C# 7: Pattern matching</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-pattern-matching/</link>
       <pubDate>Mon, 01 Jul 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-pattern-matching/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;Pattern matching is a powerful feature that has been unlocked against various language constructs in C#.  The idea is to take existing features like &lt;code&gt;case&lt;/code&gt; from switches and &lt;code&gt;is&lt;/code&gt; and extract their capabilities into a &amp;ldquo;pattern matching&amp;rdquo; concept over types and values. This can then be applied back to these language features, and other places in the future.&lt;/p&gt;
 &lt;p&gt;Before the new concept of patterns, &lt;code&gt;case&lt;/code&gt; accepted a constant as an argument, and &lt;code&gt;is&lt;/code&gt; would accept a type.&lt;/p&gt;
@@ -494,10 +494,10 @@ if (widget.Type is &amp;quot;FOO&amp;quot;)
     
     <item>
       <title>Looking Back on C#: async and await</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp-async-await/</link>
       <pubDate>Mon, 24 Jun 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp-async-await/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;Multithreaded programming has always been a difficult thing to get your head around, and there are many pitfalls easily stumbled into. To help combat this, Microsoft gave us async/await in C#.&lt;/p&gt;
 &lt;p&gt;Async/Await is a language feature that has been around since Visual Studio 2012 and C# 5 and hides a bunch of the boilerplate state machine code required to safely park a logical thread of execution while it waits for some work to complete or to respond from another thread, IO, or network device.  This allows code to be more logically procedural and linear, therefore easier to read and comprehend.&lt;/p&gt;
@@ -619,7 +619,7 @@ public class MyTestCase : IAsyncLifetime
 &lt;p&gt;I&amp;rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.&lt;/p&gt;
 &lt;h2 id=&#34;valuetask&#34;&gt;ValueTask&lt;/h2&gt;
 &lt;p&gt;The original implementation of the async/await language feature was strongly tied to the &lt;code&gt;Task&lt;/code&gt; and `Task&lt;!-- raw HTML omitted --&gt; types.&lt;/p&gt;
-&lt;p&gt;In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-initializers/&#34;&gt;Add for the initialiser syntax&lt;/a&gt;). Specifically, the &lt;code&gt;GetAwaiter&lt;/code&gt; method must be available on the type used with the &lt;code&gt;await&lt;/code&gt; keyword.&lt;/p&gt;
+&lt;p&gt;In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the &lt;a href=&#34;https://blogmigration.csmac.nz/looking-back-on-csharp6-initializers/&#34;&gt;Add for the initialiser syntax&lt;/a&gt;). Specifically, the &lt;code&gt;GetAwaiter&lt;/code&gt; method must be available on the type used with the &lt;code&gt;await&lt;/code&gt; keyword.&lt;/p&gt;
 &lt;p&gt;Along with this change was the introduction of a new type to leverage this pattern, &lt;code&gt;ValueTask&lt;/code&gt;. A &lt;code&gt;ValueTask&lt;/code&gt; is a value type (struct) that will be stack-allocated and copied by value. If your method uses caching, and most of the time returns a simple value instead of an awaited execution, the &lt;code&gt;ValueTask&lt;/code&gt; may be more efficient than the &lt;code&gt;Task&lt;/code&gt; type.&lt;/p&gt;
 &lt;p&gt;This is because the overheads of Heap-allocation of the reference type &lt;code&gt;Task&lt;/code&gt; can have an impact on performance. If you detect this as an issue, you can use the new &lt;code&gt;ValueTask&lt;/code&gt; instead. This will be a stack-allocated value type containing the response value and copied around.&lt;/p&gt;
 &lt;p&gt;Guidance for this: if you mostly return a value, but occasionally call an actual asynchronous IO execution, &lt;code&gt;ValueTask&lt;/code&gt; will probably add value (e.g. heavy result caching). If you actually await most of the time, &lt;code&gt;Task&lt;/code&gt; should be fine. As usual, measure and test before making the change arbitrarily.&lt;/p&gt;
@@ -630,12 +630,12 @@ public class MyTestCase : IAsyncLifetime
     
     <item>
       <title>Looking Back on C# 7: refs enhancements</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-refs/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-refs/</link>
       <pubDate>Mon, 17 Jun 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-refs/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-refs/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
-&lt;p&gt;We talked about the out variables &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp7-out-variables&#34;&gt;in the previous post in the series&lt;/a&gt;, but there are a few other enhancements related to &lt;code&gt;ref&lt;/code&gt; as well.&lt;/p&gt;
+&lt;p&gt;We talked about the out variables &lt;a href=&#34;https://blogmigration.csmac.nz/looking-back-on-csharp7-out-variables&#34;&gt;in the previous post in the series&lt;/a&gt;, but there are a few other enhancements related to &lt;code&gt;ref&lt;/code&gt; as well.&lt;/p&gt;
 &lt;p&gt;Hopefully, the concepts of values, pointers, stacks and heaps make sense to you at a conceptual level. These are crucial concepts to using and understanding &lt;code&gt;ref&lt;/code&gt; and &lt;code&gt;out&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;As a quick recap, stack memory is local to a function and the function call stack. This memory is semantically &amp;ldquo;pushed&amp;rdquo; to for each method call, and &amp;ldquo;popped&amp;rdquo; from on each return (the call stack, stack overflow etc). The heap is a shared memory space where objects are allocated and stored, which is acted on by the Garbage Collector.&lt;/p&gt;
 &lt;p&gt;Values are mostly stack-allocated. They are copied around so that setting a value variable does not affect any other variable. Primitive types and structs are Value types. Reference types are the classes in C#. Classes are always stored on the heap, and all variables of class types are pointers or references. Assigning a reference to a new variable will point to the same value on the heap. Changing a field value on a reference type will be reflected in both variables. (Boxing values onto the heap is another thing, too.)&lt;/p&gt;
@@ -691,10 +691,10 @@ WriteLine(array[4]); // prints 9
     
     <item>
       <title>Looking Back on C# 7: Out variables</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-out-variables/</link>
       <pubDate>Mon, 10 Jun 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-out-variables/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;h3 id=&#34;what-are-out-parameters&#34;&gt;What are out parameters?&lt;/h3&gt;
 &lt;p&gt;Sometimes you want a method to pass back a value by reference. In &lt;code&gt;C&lt;/code&gt; and &lt;code&gt;C++&lt;/code&gt; this is done by passing the address in as an argument. In C#, we use the &lt;code&gt;out&lt;/code&gt; keyword.&lt;/p&gt;
@@ -747,10 +747,10 @@ if (Int32.TryParse(numberAsString, out number))
     
     <item>
       <title>Looking Back on C# 7: Local functions</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-local-functions/</link>
       <pubDate>Mon, 03 Jun 2019 10:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-local-functions/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;h2 id=&#34;lambdas---a-recap&#34;&gt;Lambdas - a recap&lt;/h2&gt;
 &lt;p&gt;All the way back in C# 3 we were given lambdas. These are anonymous functions that can be passed around as what are essentially function pointers.&lt;/p&gt;
@@ -940,11 +940,11 @@ private void Print(TextWriter out, TreeNode node, string indent)
     
     <item>
       <title>µCon 2019 - Day 3</title>
-      <link>https://csmacnzblog.github.io/post/mucon-2019-part2/</link>
+      <link>https://blogmigration.csmac.nz/post/mucon-2019-part2/</link>
       <pubDate>Fri, 31 May 2019 10:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/mucon-2019-part2/</guid>
-      <description>&lt;p&gt;Good morning day 3. So much to absorb already from &lt;a href=&#34;https://csmacnzblog.github.io/mucon-2019-part1/&#34;&gt;Day 1 and 2&lt;/a&gt; but it isn&amp;rsquo;t over yet.&lt;/p&gt;
+      <guid>https://blogmigration.csmac.nz/post/mucon-2019-part2/</guid>
+      <description>&lt;p&gt;Good morning day 3. So much to absorb already from &lt;a href=&#34;https://blogmigration.csmac.nz/mucon-2019-part1/&#34;&gt;Day 1 and 2&lt;/a&gt; but it isn&amp;rsquo;t over yet.&lt;/p&gt;
 &lt;p&gt;This morning&amp;rsquo;s Keynote &amp;ldquo;Crossing the River by Feeling the Stones&amp;rdquo; from &lt;a href=&#34;https://twitter.com/swardley&#34;&gt;Simon Wardley&lt;/a&gt; is a must see. This was a very educational look at the value of maps, and the importance of knowing the landscape, looking at Evolutionary Flow and not just Process Flow when looking at optimisations. I would recommend the talk from Susanne Kaiser &amp;ldquo;Preparing for a future Microservices journey&amp;rdquo; from the day before as a nice companion to this keynote talk, as she used &amp;ldquo;Wardley Maps&amp;rdquo; to specifically look at the evolution towards microservices. (Though this keynote also shows that journey towards the end as well).&lt;/p&gt;
 &lt;p&gt;&amp;ldquo;Exploring your Microservices Architecture Through Graph Theory&amp;rdquo; from &lt;a href=&#34;https://twitter.com/techiewatt&#34;&gt;Nicki Watt&lt;/a&gt; was a great look at applying Graph Theory to distributed systems, especially with Microservices to gain insight into where architectural smells may exist using different analysis metrics.&lt;/p&gt;
 &lt;p&gt;The before lunch slot was &amp;ldquo;Awesome CI/CD Data Pipelines for Distributed Data-Sources&amp;rdquo; from &lt;a href=&#34;https://twitter.com/ChrisBurrell7&#34;&gt;Chris Burrell&lt;/a&gt;. This was a walkthrough of mining data sources (load and transform) from Microservices into RedShift in a pipeline approach.&lt;/p&gt;
@@ -955,17 +955,17 @@ private void Print(TextWriter out, TreeNode node, string indent)
 &lt;p&gt;And last but not least, we have the final Keynote: &amp;ldquo;Temporal Modelling&amp;rdquo; from &lt;a href=&#34;https://twitter.com/mathiasverraes&#34;&gt;Mathias Verraes&lt;/a&gt;. A really good overview conversation into Event-based systems, Event Storming and why modelling the Events of your system is of greater benefit than to use Entity Modelling instead. Another recommended one to expand your thinking.&lt;/p&gt;
 &lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
 &lt;p&gt;And that&amp;rsquo;s a wrap! 2019 µCon is done and dusted. Lots to take in, lots to revisit from the recordings, and a bunch of sessions missed that need to be watched.&lt;/p&gt;
-&lt;p&gt;The amazing crew doing the filming have been working away getting all the videos up as quickly as possible (on the day recorded for the most part!). You can head over to Skills Matter and watch them all from the links provided off of the &lt;a href=&#34;https://skillsmatter.com/conferences/11982-con-london-2019-the-conference-on-microservices-ddd-and-software-architecture#program&#34;&gt;Schedule here&lt;/a&gt;. Take this and &lt;a href=&#34;https://csmacnzblog.github.io/mucon-2019-part1/&#34;&gt;the previous part&lt;/a&gt; as a guide for where to begin but continue through all the other amazing talks I didn&amp;rsquo;t have time to attend in person as well.&lt;/p&gt;
+&lt;p&gt;The amazing crew doing the filming have been working away getting all the videos up as quickly as possible (on the day recorded for the most part!). You can head over to Skills Matter and watch them all from the links provided off of the &lt;a href=&#34;https://skillsmatter.com/conferences/11982-con-london-2019-the-conference-on-microservices-ddd-and-software-architecture#program&#34;&gt;Schedule here&lt;/a&gt;. Take this and &lt;a href=&#34;https://blogmigration.csmac.nz/mucon-2019-part1/&#34;&gt;the previous part&lt;/a&gt; as a guide for where to begin but continue through all the other amazing talks I didn&amp;rsquo;t have time to attend in person as well.&lt;/p&gt;
 &lt;p&gt;Happy Learning!&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>µCon 2019 - Day 1 &amp; 2</title>
-      <link>https://csmacnzblog.github.io/post/mucon-2019-part1/</link>
+      <link>https://blogmigration.csmac.nz/post/mucon-2019-part1/</link>
       <pubDate>Thu, 30 May 2019 20:05:21 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/mucon-2019-part1/</guid>
+      <guid>https://blogmigration.csmac.nz/post/mucon-2019-part1/</guid>
       <description>&lt;p&gt;After a restful night at a London hotel (I learned my lesson from the last time I came in for a London conference) coffee and breakfast at the Business Design Centre in London, muCon 2019 kicks off. muCon (or µCon) is a Conference on Microservices, DDD &amp;amp; Software Architecture. From what I gather, this year for the first time it is an amalgamation of a DDD and Microservices conference into one. I&amp;rsquo;m here for three days. At this point, I&amp;rsquo;ve gotten into a rhythm of blogging about my Conference Experiences so here we go again!&lt;/p&gt;
 &lt;h2 id=&#34;day-1&#34;&gt;Day 1&lt;/h2&gt;
 &lt;p&gt;We kick off with an excellent keynote from &lt;a href=&#34;https://twitter.com/mfeathers&#34;&gt;Michael Feathers&lt;/a&gt; which captures various ideologies and principles applied to team and code architecture both at the class level, microservice level and interpersonal individual and team level as well.&lt;/p&gt;
@@ -1003,10 +1003,10 @@ from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; 
     
     <item>
       <title>Looking Back on C# 7: throw expressions</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-throw-expressions/</link>
       <pubDate>Mon, 27 May 2019 10:30:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-throw-expressions/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;Throwing Exceptions is both a blessing and a curse in C#. You can throw from anywhere to unwind the stack. But adding exception throwing and handling code can cause overheads that you need to be wary of. Not to mention making the code harder to reason about with control flow.&lt;/p&gt;
 &lt;p&gt;Regardless, we have them, and we use them, so the language should make that as easy as possible to do so. with C# 7 this was enhanced to support using &lt;code&gt;throw&lt;/code&gt; as an expression. Up until this point, it was always a statement, which means there are places in the code that throw could not go.&lt;/p&gt;
@@ -1040,7 +1040,7 @@ from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; 
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.&lt;/p&gt;
-&lt;p&gt;Also remember how we looked at &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt; and &lt;a href=&#34;looking-back-on-csharp7-more-expression-body-members&#34;&gt;more in c# 7&lt;/a&gt;? Well as the name suggests, the body &lt;em&gt;is&lt;/em&gt; an expression. Now that we have throw expressions, the bodies can use them too!&lt;/p&gt;
+&lt;p&gt;Also remember how we looked at &lt;a href=&#34;https://blogmigration.csmac.nz/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt; and &lt;a href=&#34;looking-back-on-csharp7-more-expression-body-members&#34;&gt;more in c# 7&lt;/a&gt;? Well as the name suggests, the body &lt;em&gt;is&lt;/em&gt; an expression. Now that we have throw expressions, the bodies can use them too!&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Widget
 {
     public Widget() =&amp;gt; throw new ArgumentException(&amp;quot;Requires arguments, none provided.&amp;quot;);
@@ -1065,12 +1065,12 @@ from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; 
     
     <item>
       <title>Looking Back on C# 7: More Expression body members</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-more-expression-body-members/</link>
       <pubDate>Mon, 20 May 2019 10:30:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-more-expression-body-members/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
-&lt;p&gt;We already had a look at how we can use &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt;. In C# 7.0, this has been extended further to include constructors, finalizers, and get and set accessors on properties and indexers.&lt;/p&gt;
+&lt;p&gt;We already had a look at how we can use &lt;a href=&#34;https://blogmigration.csmac.nz/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt;. In C# 7.0, this has been extended further to include constructors, finalizers, and get and set accessors on properties and indexers.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// The old way:
 public class Gadget&amp;lt;T&amp;gt;
 {    

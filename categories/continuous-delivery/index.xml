@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Continuous Delivery on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/continuous-delivery/</link>
+    <link>https://blogmigration.csmac.nz/categories/continuous-delivery/</link>
     <description>Recent content in Continuous Delivery on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 22 Nov 2015 15:05:14 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/continuous-delivery/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Nov 2015 15:05:14 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/continuous-delivery/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>On gitversioning subdirectories</title>
-      <link>https://csmacnzblog.github.io/post/on-gitversioning-subdirectories/</link>
+      <link>https://blogmigration.csmac.nz/post/on-gitversioning-subdirectories/</link>
       <pubDate>Sun, 22 Nov 2015 15:05:14 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/on-gitversioning-subdirectories/</guid>
+      <guid>https://blogmigration.csmac.nz/post/on-gitversioning-subdirectories/</guid>
       <description>&lt;p&gt;We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&amp;rsquo;t it be nice if we could detect that the subdirectory hasn&amp;rsquo;t changed and so has the same version it did last time we built it?&lt;/p&gt;
 &lt;p&gt;We use &lt;a href=&#34;https://github.com/GitTools/GitVersion&#34;&gt;gitversion&lt;/a&gt;, so we already have a way to get the version for the current commit.  Maybe we can use that to get the version for a subdirectories latest commit?  Sure we can!&lt;/p&gt;
 &lt;p&gt;To get the version for the latest commit, we need the latest commit.  Turns out you can use&lt;/p&gt;
@@ -61,10 +61,10 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>TeamCity, GitHub and Pull Requests</title>
-      <link>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</link>
+      <link>https://blogmigration.csmac.nz/post/teamcity-github-and-pull-requests/</link>
       <pubDate>Mon, 06 Apr 2015 12:29:27 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/teamcity-github-and-pull-requests/</guid>
+      <guid>https://blogmigration.csmac.nz/post/teamcity-github-and-pull-requests/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been having fun setting up TeamCity builds, specifically trying to run a static analysis build that shows it&amp;rsquo;s results on a pull request. This lead me to discover some issues with the built-in TeamCity support.&lt;/p&gt;
 &lt;p&gt;It is really easy to set up a build task that runs PowerShell as its build step. With this I can arbitrarily run code and get static analysis checking. It is even easy to push the results back to GitHub using the api (see the &lt;a href=&#34;https://developer.github.com/v3/repos/statuses/&#34;&gt;Statuses api on GitHub&lt;/a&gt; for just how easy). Again it is easy to trigger a build off of the &amp;lsquo;special&amp;rsquo; pull request branch github uses. A guide to getting all of these links working is &lt;a href=&#34;http://blog.jetbrains.com/teamcity/2013/02/automatically-building-pull-requests-from-github-with-teamcity/&#34;&gt;available on the teamcity blog&lt;/a&gt;. But triggering the git source control checking on TeamCity turned out the be the hard bit.&lt;/p&gt;
 &lt;p&gt;There are Webhooks in GitHub. There are also Service Hooks. There is a &lt;a href=&#34;https://github.com/github/github-services/blob/master/lib/services/teamcity.rb&#34;&gt;TeamCity Service Hook&lt;/a&gt;. Unfortunately there are issues with both that requires some third set of code to actually make it work. Here is why.&lt;/p&gt;
@@ -77,20 +77,20 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>.Net Open Source Series - 7. Lifecycle Management</title>
-      <link>https://csmacnzblog.github.io/post/net-os-7-lifecycle-management/</link>
+      <link>https://blogmigration.csmac.nz/post/net-os-7-lifecycle-management/</link>
       <pubDate>Tue, 03 Mar 2015 19:42:16 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/net-os-7-lifecycle-management/</guid>
+      <guid>https://blogmigration.csmac.nz/post/net-os-7-lifecycle-management/</guid>
       <description>&lt;p&gt;This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Lifecycle Management &amp;lt;=(We are here)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;lifecycle-management&#34;&gt;Lifecycle Management&lt;/h2&gt;
@@ -133,21 +133,21 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>.Net Open Source Series - 6. Metrics</title>
-      <link>https://csmacnzblog.github.io/post/net-os-6-metrics/</link>
+      <link>https://blogmigration.csmac.nz/post/net-os-6-metrics/</link>
       <pubDate>Sun, 01 Mar 2015 18:37:27 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/net-os-6-metrics/</guid>
+      <guid>https://blogmigration.csmac.nz/post/net-os-6-metrics/</guid>
       <description>&lt;p&gt;This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Metrics &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;metrics&#34;&gt;Metrics&lt;/h2&gt;
 &lt;p&gt;Cyclomatic Complexity, Coverage and Static Analysis are all processes you should regularly expose your code base to, even as far as every build, if not at least nightly.  Here are a few services that offer to give you this insight into your code base.&lt;/p&gt;
@@ -176,21 +176,21 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>.Net Open Source Series - 5. Documentation</title>
-      <link>https://csmacnzblog.github.io/post/net-os-5-documentation/</link>
+      <link>https://blogmigration.csmac.nz/post/net-os-5-documentation/</link>
       <pubDate>Sun, 01 Mar 2015 16:56:24 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/net-os-5-documentation/</guid>
+      <guid>https://blogmigration.csmac.nz/post/net-os-5-documentation/</guid>
       <description>&lt;p&gt;This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Documentation &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;documentation&#34;&gt;Documentation&lt;/h2&gt;
 &lt;p&gt;Whether you had a console app, a GUI, or an &lt;a href=&#34;https://www.nuget.org/packages/BCLExtensions&#34;&gt;Extension Library&lt;/a&gt; (shameless plug, oh well), you will want, if not need, documentation. People need to know how to get started and what gotchas to look out for.  So here are a few ways to share with your users how to use your awesome tool/app/library.&lt;/p&gt;
@@ -214,21 +214,21 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>.Net Open Source Series - 4. Publish &amp; Deploy</title>
-      <link>https://csmacnzblog.github.io/post/net-os-4-publish-deploy/</link>
+      <link>https://blogmigration.csmac.nz/post/net-os-4-publish-deploy/</link>
       <pubDate>Sat, 28 Feb 2015 21:43:34 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/net-os-4-publish-deploy/</guid>
+      <guid>https://blogmigration.csmac.nz/post/net-os-4-publish-deploy/</guid>
       <description>&lt;p&gt;This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Publish &amp;amp; Deploy &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;publish--deploy&#34;&gt;Publish &amp;amp; Deploy&lt;/h2&gt;
 &lt;p&gt;Once we are happy with our code, had it tested and happy with what we have, we need a way to distribute it to our customers.  For Websites and Web applications, we want to deploy it onto the web somewhere where it can run.  I will cover a few choices available to .Net developers that I have come across.&lt;/p&gt;
@@ -247,7 +247,7 @@ move-item $TmpFile $FileFullPath -force
 &lt;li&gt;Github Releases&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;appveyor&#34;&gt;AppVeyor&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;http://www.appveyor.com/&#34;&gt;AppVeyor&lt;/a&gt; is my go-to build server. For some extra information in AppVeyor, there is &lt;a href=&#34;http://www.hanselman.com/blog/AppVeyorAGoodContinuousIntegrationSystemIsAJoyToBehold.aspx&#34;&gt;this great article from scott hanselman&lt;/a&gt; and it also &lt;a href=&#34;https://csmacnzblog.github.io/-net-os-2-build/#appveyor&#34;&gt;features in the build section&lt;/a&gt; of this series.  In terms of publishing and deploying applications, AppVeyor has a very detailed &lt;a href=&#34;http://www.appveyor.com/docs/deployment&#34;&gt;Deployment&lt;/a&gt; documentation, and can take your build artifacts and push them almost anywhere you can think of. FTP, Amazon, Azure, to SQL, GitHub Releases (mentioned below) and custom scripts for when you have an API available to publish to.  You can publish from artifacts after a successful build manually, or add it as the final build step on every build, or with conditions.  They even provide their own NuGet feed if you want to use the build outputs as in-house betas during development.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.appveyor.com/&#34;&gt;AppVeyor&lt;/a&gt; is my go-to build server. For some extra information in AppVeyor, there is &lt;a href=&#34;http://www.hanselman.com/blog/AppVeyorAGoodContinuousIntegrationSystemIsAJoyToBehold.aspx&#34;&gt;this great article from scott hanselman&lt;/a&gt; and it also &lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-2-build/#appveyor&#34;&gt;features in the build section&lt;/a&gt; of this series.  In terms of publishing and deploying applications, AppVeyor has a very detailed &lt;a href=&#34;http://www.appveyor.com/docs/deployment&#34;&gt;Deployment&lt;/a&gt; documentation, and can take your build artifacts and push them almost anywhere you can think of. FTP, Amazon, Azure, to SQL, GitHub Releases (mentioned below) and custom scripts for when you have an API available to publish to.  You can publish from artifacts after a successful build manually, or add it as the final build step on every build, or with conditions.  They even provide their own NuGet feed if you want to use the build outputs as in-house betas during development.&lt;/p&gt;
 &lt;h3 id=&#34;oncheckin&#34;&gt;OnCheckin&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://oncheckin.com/&#34;&gt;OnCheckin&lt;/a&gt; is an Australian company that provides continuous delivery from check to deployment, and manages all the steps in between for you.  It looks to be very customisable, and provides one site for free. It supports config transforms for the deployment side, and Bitbucket and GitHub for source control, as well as private SVN and git, and Team Foundation Server. You can set up your host provider manually or using a publish profile, such as connecting to an Azure website, or any private host you may have.&lt;/p&gt;
 &lt;h3 id=&#34;azure&#34;&gt;Azure&lt;/h3&gt;
@@ -273,24 +273,24 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>.Net Open Source Series - 3. Test</title>
-      <link>https://csmacnzblog.github.io/post/net-os-3-test/</link>
+      <link>https://blogmigration.csmac.nz/post/net-os-3-test/</link>
       <pubDate>Wed, 25 Feb 2015 20:55:52 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/net-os-3-test/</guid>
+      <guid>https://blogmigration.csmac.nz/post/net-os-3-test/</guid>
       <description>&lt;p&gt;This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-2-build&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Test &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;
-&lt;p&gt;Once we Have our &lt;a href=&#34;https://csmacnzblog.github.io/-net-os-1-source-control&#34;&gt;Build Server&lt;/a&gt; and &lt;a href=&#34;https://csmacnzblog.github.io/-net-os-2-build&#34;&gt;Build Scripts&lt;/a&gt; all chosen and set up, we can add value by running our tests to check the integrity of our code.  Once we have these tests running every build for every check-in, we can monitor the health of our code base, of our features and branches.  There are plenty of options to choose from for test frameworks so lets have a quick look at a few specifically.&lt;/p&gt;
+&lt;p&gt;Once we Have our &lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-1-source-control&#34;&gt;Build Server&lt;/a&gt; and &lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-2-build&#34;&gt;Build Scripts&lt;/a&gt; all chosen and set up, we can add value by running our tests to check the integrity of our code.  Once we have these tests running every build for every check-in, we can monitor the health of our code base, of our features and branches.  There are plenty of options to choose from for test frameworks so lets have a quick look at a few specifically.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;MSTest&lt;/li&gt;
 &lt;li&gt;NUnit&lt;/li&gt;
@@ -324,7 +324,7 @@ move-item $TmpFile $FileFullPath -force
 &lt;h3 id=&#34;xrmonocover&#34;&gt;XR.Mono.Cover&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/inorton/XR.Baboon&#34;&gt;XR.Mono.Cover&lt;/a&gt; looks really promising. This appears to be a mono-only coverage, but claims to work on mono on windows as well. Again I have no experience to share here. It does have a GUI component and stores its data in a SQLite database for easier data analysis later on. It is a bit light on updates, so either it doesn&amp;rsquo;t have any issues, or no ones really using it.&lt;/p&gt;
 &lt;h3 id=&#34;monocov&#34;&gt;monocov&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/mono/monocov&#34;&gt;Monocov&lt;/a&gt; is an open source coverage tool for mono.  I &lt;a href=&#34;https://csmacnzblog.github.io/monocov-travis-ci-winning/&#34;&gt;managed to get this working&lt;/a&gt; despite it being several years unmaintained, and it is pretty broken.  If you really want to do coverage on mono I would look into &lt;a href=&#34;https://github.com/inorton/XR.Baboon&#34;&gt;XR.Mono.Cover&lt;/a&gt; and &lt;a href=&#34;https://github.com/gaillard/SharpCover&#34;&gt;SharpCover&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/mono/monocov&#34;&gt;Monocov&lt;/a&gt; is an open source coverage tool for mono.  I &lt;a href=&#34;https://blogmigration.csmac.nz/monocov-travis-ci-winning/&#34;&gt;managed to get this working&lt;/a&gt; despite it being several years unmaintained, and it is pretty broken.  If you really want to do coverage on mono I would look into &lt;a href=&#34;https://github.com/inorton/XR.Baboon&#34;&gt;XR.Mono.Cover&lt;/a&gt; and &lt;a href=&#34;https://github.com/gaillard/SharpCover&#34;&gt;SharpCover&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;visual-studio&#34;&gt;Visual Studio&lt;/h3&gt;
 &lt;p&gt;Visual Studio has had coverage capabilities is some of its higher SKUs for a while. And as well as the GUI coverage you can use in the test runner, it also has command line tooling you can use. you can even produce a coverage report using a flag on the vstest.console runner.  Not really open source, but a nice option if you have it available.&lt;/p&gt;
 &lt;h3 id=&#34;and-more&#34;&gt;And More&lt;/h3&gt;
@@ -336,24 +336,24 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>.Net Open Source Series - 2. Build</title>
-      <link>https://csmacnzblog.github.io/post/net-os-2-build/</link>
+      <link>https://blogmigration.csmac.nz/post/net-os-2-build/</link>
       <pubDate>Tue, 24 Feb 2015 20:30:15 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/net-os-2-build/</guid>
+      <guid>https://blogmigration.csmac.nz/post/net-os-2-build/</guid>
       <description>&lt;p&gt;This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-1-source-control&#34;&gt;Source Control&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
 &lt;li&gt;Build &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;build&#34;&gt;Build&lt;/h2&gt;
-&lt;p&gt;So not we have our source control sorted (and if you don&amp;rsquo;t check back on &lt;a href=&#34;https://csmacnzblog.github.io/-net-os-1-source-control/&#34;&gt;part 1&lt;/a&gt;) We can start writing code. And once we have some code together we need a way to build it.  If your a Visual Studio developer like me, you might think &amp;lsquo;I have foo.csproj, and it builds just fine!&amp;rsquo;.  Well that&amp;rsquo;s great, if your wanting to depend on a visual studio GUI. But if you want to reach Continuous * Nirvana, you need a build server, and it needs to run autonomously.  As well as needing this build server, we probably want scripts to automate our build process. And over time we can add to these scripts with other steps, like running tests, packaging deployables, and running static analysis.&lt;/p&gt;
+&lt;p&gt;So not we have our source control sorted (and if you don&amp;rsquo;t check back on &lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-1-source-control/&#34;&gt;part 1&lt;/a&gt;) We can start writing code. And once we have some code together we need a way to build it.  If your a Visual Studio developer like me, you might think &amp;lsquo;I have foo.csproj, and it builds just fine!&amp;rsquo;.  Well that&amp;rsquo;s great, if your wanting to depend on a visual studio GUI. But if you want to reach Continuous * Nirvana, you need a build server, and it needs to run autonomously.  As well as needing this build server, we probably want scripts to automate our build process. And over time we can add to these scripts with other steps, like running tests, packaging deployables, and running static analysis.&lt;/p&gt;
 &lt;p&gt;I will quickly run through a few build script options I&amp;rsquo;ve used, and although not definitive, are plenty powerful to get the job done. These are:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;MSBuild&lt;/li&gt;
@@ -399,21 +399,21 @@ move-item $TmpFile $FileFullPath -force
     
     <item>
       <title>.Net Open Source Series - 1. Source Control</title>
-      <link>https://csmacnzblog.github.io/post/net-os-1-source-control/</link>
+      <link>https://blogmigration.csmac.nz/post/net-os-1-source-control/</link>
       <pubDate>Sun, 22 Feb 2015 21:13:07 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/net-os-1-source-control/</guid>
+      <guid>https://blogmigration.csmac.nz/post/net-os-1-source-control/</guid>
       <description>&lt;p&gt;This is a series on my findings around building open source software online for free. There are many SAAS (Software As A Service) platforms out there and a lot of these are free to use with your open source projects.  But not all of these work with C# and .Net. So this series highlights the tools and products out there that work with .Net in different phases of the software development life cycle.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Source Control  &amp;lt;=(We are here)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-2-build/&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://csmacnzblog.github.io/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-2-build/&#34;&gt;Build&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-3-test/&#34;&gt;Test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-4-publish-deploy/&#34;&gt;Publish &amp;amp; Deploy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-5-documentation/&#34;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-6-metrics/&#34;&gt;Metrics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-7-lifecycle-management/&#34;&gt;Lifecycle Management&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;source-control&#34;&gt;Source Control&lt;/h2&gt;
 &lt;p&gt;There are lots of different ways to host your source control online, and source control isn&amp;rsquo;t really language specific, so we dont have any options ruled out in this.  I&amp;rsquo;m sure this is nothing new to most people, but I will list off a few options with a little bit of detail.&lt;/p&gt;
@@ -451,16 +451,16 @@ move-item $TmpFile $FileFullPath -force
 &lt;p&gt;This is only a handful of repository hosts out there, mainly ones I&amp;rsquo;ve had anything to do with over the last 5 years. But there are a ton more source control hosters out there, at varying levels of &amp;lsquo;free&amp;rsquo; and for more information on these there is a page on Wikipedia -
 &lt;a href=&#34;http://en.wikipedia.org/wiki/Comparison_of_source_code_software_hosting_facilities&#34;&gt;Comparison of source code software hosting facilities&lt;/a&gt;.  Since I haven&amp;rsquo;t really had anything to do with the rest I&amp;rsquo;ll leave the investigation up to the reader.&lt;/p&gt;
 &lt;p&gt;My picks from the above: I use Visual Studio Online for all my apps, websites and other private work, and github for everything else.&lt;/p&gt;
-&lt;p&gt;So thats it for Source Control. Next up is &lt;a href=&#34;https://csmacnzblog.github.io/-net-os-2-build/&#34;&gt;Building your hosted Source&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So thats it for Source Control. Next up is &lt;a href=&#34;https://blogmigration.csmac.nz/-net-os-2-build/&#34;&gt;Building your hosted Source&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>monocov &#43; Travis-CI = WINNING</title>
-      <link>https://csmacnzblog.github.io/post/monocov-travis-ci-winning/</link>
+      <link>https://blogmigration.csmac.nz/post/monocov-travis-ci-winning/</link>
       <pubDate>Sun, 08 Feb 2015 15:29:13 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/monocov-travis-ci-winning/</guid>
+      <guid>https://blogmigration.csmac.nz/post/monocov-travis-ci-winning/</guid>
       <description>&lt;p&gt;After much frustration, I now have &lt;a href=&#34;https://github.com/mono/monocov&#34;&gt;monocov&lt;/a&gt; running on my Travis-CI build, and I&amp;rsquo;m going to share with you how I did it.&lt;/p&gt;
 &lt;p&gt;TL;DR
 The coverage results don&amp;rsquo;t seem accurate just yet, but jump to the end to see the full script to get it going on your build.&lt;/p&gt;
@@ -527,10 +527,10 @@ script:
     
     <item>
       <title>Travis-ci, C# and PCL</title>
-      <link>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</link>
+      <link>https://blogmigration.csmac.nz/post/travis-ci-c-and-pcl/</link>
       <pubDate>Tue, 23 Dec 2014 10:10:46 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/travis-ci-c-and-pcl/</guid>
+      <guid>https://blogmigration.csmac.nz/post/travis-ci-c-and-pcl/</guid>
       <description>&lt;p&gt;As any good library should do, I&amp;rsquo;m building my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;BCLExtensions project&lt;/a&gt;(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact).  It works great on my &lt;a href=&#34;https://ci.appveyor.com/project/MarkClearwater/bclextensions&#34;&gt;AppVeyor CI builds&lt;/a&gt;, which is a great .Net windows build server.&lt;/p&gt;
 &lt;p&gt;I recently discovered &lt;a href=&#34;http://docs.travis-ci.com/user/languages/csharp/&#34;&gt;Travis-CI has added beta C# support&lt;/a&gt; so I connected it up with my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;GitHub prooject&lt;/a&gt;, which is designed to eventually work with mono anyway, and gave it a go. But no, that&amp;rsquo;s a no go.  The awesome error I was getting was this cryptic thing:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;	Target GetReferenceAssemblyPaths:
@@ -565,10 +565,10 @@ script:
     
     <item>
       <title>Hey, I found this thing called Coveralls.io</title>
-      <link>https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/</link>
+      <link>https://blogmigration.csmac.nz/post/hey-i-found-this-thing-called-coveralls-io/</link>
       <pubDate>Sun, 14 Dec 2014 19:50:47 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/hey-i-found-this-thing-called-coveralls-io/</guid>
+      <guid>https://blogmigration.csmac.nz/post/hey-i-found-this-thing-called-coveralls-io/</guid>
       <description>&lt;p&gt;In my pursuit to &lt;a href=&#34;//blog.csmac.nz/gulp-vs-net/&#34;&gt;find a build task runner for my code coverage&lt;/a&gt; I stumbled on this whole other side of the internet I didn&amp;rsquo;t know about (from a .Net developer&amp;rsquo;s perspective). I&amp;rsquo;ve been using &lt;a href=&#34;http://www.appveyor.com/&#34;&gt;AppVeyor.com&lt;/a&gt; for my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;m aware this isn&amp;rsquo;t new, and there are others like &lt;a href=&#34;http://travis-ci.org/&#34;&gt;Travis-CI.org&lt;/a&gt; which run all the other platforms, but I didn&amp;rsquo;t realise how prolific it really was! Especially how exclusive of microsoft languages they all are. Travis-CI for instance, doesn&amp;rsquo;t seem to support .Net by looking on their &lt;a href=&#34;http://docs.travis-ci.com/&#34;&gt;docs page&lt;/a&gt;, though there does seem to be &lt;a href=&#34;http://docs.travis-ci.com/user/languages/csharp/&#34;&gt;mono support in beta&lt;/a&gt; (and that didnt exist when i looked a week ago, so will keep an eye on this).&lt;/p&gt;
 &lt;p&gt;But my main reason for this post, is that I found this cool new (to me any way) Continuous Code Coverage host called &lt;a href=&#34;https://coveralls.io/&#34;&gt;coveralls.io&lt;/a&gt;. With a cool name like that, and a badge for my project, I&amp;rsquo;m sold. But wait, lets check &lt;a href=&#34;https://coveralls.zendesk.com/hc/en-us&#34;&gt;those docs&lt;/a&gt; again.  Yip as I thought, no C# support.  They even have C/C++, this is wrong!&lt;/p&gt;

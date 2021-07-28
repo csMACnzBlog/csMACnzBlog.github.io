@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>docker on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/docker/</link>
+    <link>https://blogmigration.csmac.nz/categories/docker/</link>
     <description>Recent content in docker on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 16 Jul 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Jul 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</title>
-      <link>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnet-docker-tips-and-tricks/</link>
       <pubDate>Mon, 16 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnet-docker-tips-and-tricks/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnet-docker-tips-and-tricks/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve started getting into building Docker Containers as deployment packages.  These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.&lt;/p&gt;
 &lt;h3 id=&#34;start-with-the-defaults&#34;&gt;Start with the defaults&lt;/h3&gt;
 &lt;p&gt;Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.&lt;/p&gt;
@@ -143,10 +143,10 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     
     <item>
       <title>Develop your Rust in Docker</title>
-      <link>https://csmacnzblog.github.io/post/develop-your-rust-in-docker/</link>
+      <link>https://blogmigration.csmac.nz/post/develop-your-rust-in-docker/</link>
       <pubDate>Mon, 14 May 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/develop-your-rust-in-docker/</guid>
+      <guid>https://blogmigration.csmac.nz/post/develop-your-rust-in-docker/</guid>
       <description>&lt;p&gt;I decided a while ago that the next language I would try to learn is Rust.  I don&amp;rsquo;t want to go too much into Rust other than to repeat its own summary:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.
@@ -223,15 +223,15 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
     
     <item>
       <title>A Windows Service using netcoreapp on dotnet</title>
-      <link>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</link>
+      <link>https://blogmigration.csmac.nz/post/a-windows-service-on-dotnet/</link>
       <pubDate>Sun, 22 Apr 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/a-windows-service-on-dotnet/</guid>
-      <description>&lt;p&gt;I wrote &lt;a href=&#34;https://csmacnzblog.github.io/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application.  Technically the title is still valid, it was a windows service, and I built it using .Net Core tools.  But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.&lt;/p&gt;
+      <guid>https://blogmigration.csmac.nz/post/a-windows-service-on-dotnet/</guid>
+      <description>&lt;p&gt;I wrote &lt;a href=&#34;https://blogmigration.csmac.nz/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application.  Technically the title is still valid, it was a windows service, and I built it using .Net Core tools.  But since people came looking for the answer to actually hosting a NetCoreApp application as a Windows Service, I thought it best to follow up with that article as well.&lt;/p&gt;
 &lt;p&gt;Note that since windows Service logic and hooks are Windows-specific, this solution doesn&amp;rsquo;t work for Mac or Linux.  However I will try to maintain a working Console application, that should satisfy the requirements there.&lt;/p&gt;
 &lt;h2 id=&#34;just-target-net-full-framework&#34;&gt;Just target .Net Full framework&lt;/h2&gt;
 &lt;p&gt;Everything you already have working in your services using &lt;code&gt;System.ServiceProcess.ServiceBase&lt;/code&gt; and other classes from the &lt;code&gt;System.ServiceProcess&lt;/code&gt; full framework assemblies work fine when compiled with .Net Core. Since you can&amp;rsquo;t run a Windows Service on non-windows platforms, there is no reason not to just target the Windows-only full framework 4.6.2 or 4.7.1 or whichever your stable .Net version of choice is. None of the &lt;code&gt;System.ServiceProcess&lt;/code&gt; code can run on Linux or Mac anyway, and neither can any Windows Service specific code. This is probably going to be the path of least resistance.&lt;/p&gt;
-&lt;p&gt;But that was the subject of the &lt;a href=&#34;https://csmacnzblog.github.io/building-a-windows-service-with-net-core/&#34;&gt;other article&lt;/a&gt;, I assume you are here for something different.&lt;/p&gt;
+&lt;p&gt;But that was the subject of the &lt;a href=&#34;https://blogmigration.csmac.nz/building-a-windows-service-with-net-core/&#34;&gt;other article&lt;/a&gt;, I assume you are here for something different.&lt;/p&gt;
 &lt;h2 id=&#34;cross-platform-solution&#34;&gt;Cross Platform solution&lt;/h2&gt;
 &lt;p&gt;We will now take a look at what we can do to make an application that a) can install and run as a windows service, and b) still runs as a console app on Linux, ignoring the unused service code.  This application is going to be a portable &lt;code&gt;netcoreapp2.0&lt;/code&gt; application, so we can only reference &lt;code&gt;netstandard&lt;/code&gt; or &lt;code&gt;netcoreapp&lt;/code&gt; libraries.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/dasMulli/dotnet-win32-service&#34;&gt;dasMulli/dotnet-win32-service&lt;/a&gt; is a project that has created a win32 interop layer over the Windows Service API.  Much like the way the original .Net code probably works, but compiled as a dotnet standard library (&lt;code&gt;netstandard1.3&lt;/code&gt; and &lt;code&gt;netstandard2.0&lt;/code&gt; compatible versions).  On top of this, there is another library &lt;a href=&#34;https://github.com/PeterKottas/DotNetCore.WindowsService&#34;&gt;PeterKottas/DotNetCore.WindowsService&lt;/a&gt; which also targets &lt;code&gt;netstandard2.0&lt;/code&gt; that we will use to give us a nicer install/uninstall interface into our application.&lt;/p&gt;
@@ -617,17 +617,17 @@ The MyAppService service is now running, press Control+C to exit.
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Just make sure if you do decide to use this, that your stop function is &lt;a href=&#34;https://en.wikipedia.org/wiki/Idempotence&#34;&gt;idempotent&lt;/a&gt; and only runs once.&lt;/p&gt;
 &lt;h3 id=&#34;the-end&#34;&gt;The End&lt;/h3&gt;
-&lt;p&gt;I hope this article helps others coming to find out how to create cross-platform services with .Net Core. Also hopefully it redeems me for confusing so many people who landed on my &lt;a href=&#34;https://csmacnzblog.github.io/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; article as well.&lt;/p&gt;
+&lt;p&gt;I hope this article helps others coming to find out how to create cross-platform services with .Net Core. Also hopefully it redeems me for confusing so many people who landed on my &lt;a href=&#34;https://blogmigration.csmac.nz/building-a-windows-service-with-net-core/&#34;&gt;Building a Windows Service with .Net Core&lt;/a&gt; article as well.&lt;/p&gt;
 &lt;p&gt;Simple. Easy. Works&lt;a href=&#34;https://blog.codinghorror.com/the-works-on-my-machine-certification-program/&#34;&gt;.&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>dotnet build, targeting full .Net 4.5.1 on nanoserver docker</title>
-      <link>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</link>
       <pubDate>Fri, 31 Mar 2017 01:18:07 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnet-build-targeting-full-net451-on-nanoserver-2/</guid>
       <description>&lt;p&gt;I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.&lt;/p&gt;
 &lt;p&gt;Basically I was trying this:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;docker run -v &amp;quot;$(pwd):C:/work&amp;quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1
@@ -679,10 +679,10 @@ The MyAppService service is now running, press Control+C to exit.
     
     <item>
       <title>&#34;failed to peek context header from STDIN&#34; and how to fix</title>
-      <link>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</link>
+      <link>https://blogmigration.csmac.nz/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</link>
       <pubDate>Tue, 29 Nov 2016 04:12:29 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</guid>
+      <guid>https://blogmigration.csmac.nz/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/</guid>
       <description>&lt;p&gt;The &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/build/#/text-files&#34;&gt;docker guidance says&lt;/a&gt; you can run docker build piping the dockerfile:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;#On linux
 $ docker build - &amp;lt; Dockerfile

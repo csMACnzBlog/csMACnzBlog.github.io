@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vscode on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/vscode/</link>
+    <link>https://blogmigration.csmac.nz/categories/vscode/</link>
     <description>Recent content in vscode on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 03 Jan 2017 21:26:42 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/vscode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 Jan 2017 21:26:42 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/vscode/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>FiraCode, my new favorite VS Code dev font</title>
-      <link>https://csmacnzblog.github.io/post/firacode-my-new-favorite-vscode-font/</link>
+      <link>https://blogmigration.csmac.nz/post/firacode-my-new-favorite-vscode-font/</link>
       <pubDate>Tue, 03 Jan 2017 21:26:42 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/firacode-my-new-favorite-vscode-font/</guid>
+      <guid>https://blogmigration.csmac.nz/post/firacode-my-new-favorite-vscode-font/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been using Fira Code as my new dev font. And I&amp;rsquo;m sticking with it.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/tonsky/FiraCode&#34;&gt;FiraCode&lt;/a&gt; is available on GitHub, and is a based on the concept of ligatures, targeting at programming symbols.&lt;/p&gt;
 &lt;p&gt;In short, ligatures are where two or more actual characters are printed as a single printable character, originating in print where certain letters in certain orders would have a special stamp to use in the printing press to represent them. This gives a font a nicer flow and feel.&lt;/p&gt;
@@ -41,10 +41,10 @@
     
     <item>
       <title>Visual Studio Code with C# and dotnet</title>
-      <link>https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/</link>
+      <link>https://blogmigration.csmac.nz/post/visual-studio-code-with-csharp-and-dotnet/</link>
       <pubDate>Sun, 03 Jul 2016 04:34:30 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/visual-studio-code-with-csharp-and-dotnet/</guid>
+      <guid>https://blogmigration.csmac.nz/post/visual-studio-code-with-csharp-and-dotnet/</guid>
       <description>&lt;p&gt;Getting Started with Visual Studio Code? Me too. Let&amp;rsquo;s see what it takes to get going. This is a bit of a companion piece alongside my &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started/&#34;&gt;.Net Core Series&lt;/a&gt; I am writing at the moment. Hopefully as well as .Net Core, I will have a play with writing TypeScript, Rust and maybe C++ inside Visual Studio Code. I might have to focus on the interface in another article as well.&lt;/p&gt;
 &lt;p&gt;After downloading and installing Visual Studio Code from &lt;a href=&#34;https://code.visualstudio.com/&#34;&gt;code.visualstudio.com&lt;/a&gt;, or installing using &lt;code&gt;choco install visualstudiocode&lt;/code&gt; from the command line, there are few things missing.&lt;/p&gt;
 &lt;p&gt;It seems that, by default, Code is &lt;a href=&#34;https://en.wikipedia.org/wiki/Out_of_the_box_(feature)&#34;&gt;OOTB&lt;/a&gt; ready for JavaScript. But .Net support needs to be installed.&lt;/p&gt;

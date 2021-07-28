@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Testing on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/testing/</link>
+    <link>https://blogmigration.csmac.nz/tags/testing/</link>
     <description>Recent content in Testing on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Thu, 28 Dec 2017 23:41:13 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Dec 2017 23:41:13 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/testing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply</title>
-      <link>https://csmacnzblog.github.io/post/storytellerreduxsample/</link>
+      <link>https://blogmigration.csmac.nz/post/storytellerreduxsample/</link>
       <pubDate>Thu, 28 Dec 2017 23:41:13 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/storytellerreduxsample/</guid>
+      <guid>https://blogmigration.csmac.nz/post/storytellerreduxsample/</guid>
       <description>&lt;p&gt;A week or two ago Jeremy Miller posted an article &lt;a href=&#34;https://jeremydmiller.com/2017/12/19/subcutaneous-testing-against-react-net-applications/&#34;&gt;Subcutaneous Testing against React + .Net Applications&lt;/a&gt;. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.&lt;/p&gt;
 &lt;p&gt;While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned.  So I figured I would pull on that thread and see what is actually possible.&lt;/p&gt;
 &lt;h3 id=&#34;first-hurdle&#34;&gt;First Hurdle&lt;/h3&gt;
@@ -261,10 +261,10 @@
     
     <item>
       <title>.Net core tests not showing up in VS? Here&#39;s the trick...</title>
-      <link>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</link>
+      <link>https://blogmigration.csmac.nz/post/net-core-tests-not-showing/</link>
       <pubDate>Tue, 01 Nov 2016 01:38:35 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/net-core-tests-not-showing/</guid>
+      <guid>https://blogmigration.csmac.nz/post/net-core-tests-not-showing/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use &lt;code&gt;dotnet test&lt;/code&gt;, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp;amp; netcoreapp1.0).&lt;/p&gt;
 &lt;p&gt;But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.&lt;/p&gt;
 &lt;p&gt;Turns out, if you want tests to show up in Visual Studio you have to make sure that in your &lt;code&gt;project.json&lt;/code&gt;, &lt;code&gt;netcoreapp1.0&lt;/code&gt; needs to be the first framework in the &lt;code&gt;frameworks&lt;/code&gt; section. Otherwise it don&amp;rsquo;t work right.&lt;/p&gt;
@@ -275,10 +275,10 @@
     
     <item>
       <title>dotnet &#43; nunit3 &#43; TeamCity success</title>
-      <link>https://csmacnzblog.github.io/post/dotnet/</link>
+      <link>https://blogmigration.csmac.nz/post/dotnet/</link>
       <pubDate>Tue, 25 Oct 2016 00:54:19 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/dotnet/</guid>
+      <guid>https://blogmigration.csmac.nz/post/dotnet/</guid>
       <description>&lt;p&gt;The new .Net Core CLI has the ability to use &lt;a href=&#34;http://xunit.github.io/docs/getting-started-dotnet-core.html&#34;&gt;xunit&lt;/a&gt; or &lt;a href=&#34;https://github.com/nunit/dotnet-test-nunit&#34;&gt;nunit&lt;/a&gt;. Which is great. For running tests locally.&lt;/p&gt;
 &lt;p&gt;I use TeamCity, so I like to see test results showing up, track testing count over time etc. There is a built in way to &lt;a href=&#34;https://confluence.jetbrains.com/display/TCD10/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-ImportingXMLReports&#34;&gt;import xml reports&lt;/a&gt; which supports &lt;code&gt;junit&lt;/code&gt; (which is xunit-compatible) and &lt;code&gt;nunit&lt;/code&gt;. But choosing &lt;code&gt;nunit&lt;/code&gt; means support for the nunit2 xml format. And guess what? The new .Net Core test runner for nunit &lt;a href=&#34;https://github.com/nunit/dotnet-test-nunit/issues/75&#34;&gt;only outputs in nunit3 format&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Now, the decision makes perfect sense to me. The new format is more expressive, gives more information and is the future. And vendors need to start using it and move away from the old format. But as you can imagine, JetBrains just hasn&amp;rsquo;t gotten around to &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-46195&#34;&gt;getting it right yet&lt;/a&gt;. (There is some support in TC 10.0.2 but it seems there might be some teething issues and many of us are still on TC 9.X anyway.)&lt;/p&gt;
@@ -370,10 +370,10 @@ echo &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedT
     
     <item>
       <title>The new 80/60 rule for testing</title>
-      <link>https://csmacnzblog.github.io/post/the-new-8060-rule-for-testing/</link>
+      <link>https://blogmigration.csmac.nz/post/the-new-8060-rule-for-testing/</link>
       <pubDate>Mon, 30 Nov 2015 06:24:46 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/the-new-8060-rule-for-testing/</guid>
+      <guid>https://blogmigration.csmac.nz/post/the-new-8060-rule-for-testing/</guid>
       <description>&lt;p&gt;I was listening to a presentation on testing, and the question on coverage came up. I was asked my opinion, and this interesting thought occurred to me. So I tweeted:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://twitter.com/csMACnz/status/667046640797126657&#34;&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1448433043/testratiotweet_f6co7x.png&#34; alt=&#34;@csMACnz&amp;rsquo;s test ratio tweet&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
@@ -390,10 +390,10 @@ echo &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedT
     
     <item>
       <title>Thoughts on Testing</title>
-      <link>https://csmacnzblog.github.io/post/thoughts-on-testing/</link>
+      <link>https://blogmigration.csmac.nz/post/thoughts-on-testing/</link>
       <pubDate>Sun, 04 Jan 2015 19:57:02 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/thoughts-on-testing/</guid>
+      <guid>https://blogmigration.csmac.nz/post/thoughts-on-testing/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve gone through the regular evolution when it comes to writing tests.  At first there was no time, didnt bother. This was mostly down to the fact I was building demo apps and samples that got less use than it took to build them, working with senior devs who had made their name making said apps.&lt;/p&gt;
 &lt;p&gt;The next stage is reluctant acceptance. The team I was put on wrote tests, so I guess I should too. In fact, it was more of a requirement, with code coverage metrics driving how many tests we write.  The tests written at this stage were horrible, too many dependancies, lots of mocks, lots of setup, and code deplication. Very fragile tests, some even depended on databases, real-world time, all that crazy stuff.&lt;/p&gt;
 &lt;p&gt;Finally after a while the penny dropped, and testing is making sense.  Some of the big lessons that had to be realised where the following:&lt;/p&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Patterns on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/patterns/</link>
+    <link>https://blogmigration.csmac.nz/tags/patterns/</link>
     <description>Recent content in Patterns on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 08 Jul 2019 06:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/patterns/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Jul 2019 06:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/patterns/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Snuffleupagus-Oriented Programming</title>
-      <link>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</link>
+      <link>https://blogmigration.csmac.nz/post/snuffleupagus-oriented-programming/</link>
       <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</guid>
+      <guid>https://blogmigration.csmac.nz/post/snuffleupagus-oriented-programming/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.&lt;/p&gt;
 &lt;p&gt;How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.&lt;/p&gt;
@@ -38,10 +38,10 @@
     
     <item>
       <title>The Service Locator base class anti-pattern</title>
-      <link>https://csmacnzblog.github.io/post/the-service-locator-base-class-antipattern/</link>
+      <link>https://blogmigration.csmac.nz/post/the-service-locator-base-class-antipattern/</link>
       <pubDate>Sun, 05 Jul 2015 18:04:40 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/the-service-locator-base-class-antipattern/</guid>
+      <guid>https://blogmigration.csmac.nz/post/the-service-locator-base-class-antipattern/</guid>
       <description>&lt;p&gt;Something I have seen a lot of over the last few years is a lot of service location, particularly in base classes, particularly in Controllers. But not limited to there, it can happen anywhere we see base classes.&lt;/p&gt;
 &lt;h2 id=&#34;short-rant-about-inheritance&#34;&gt;Short rant about inheritance&lt;/h2&gt;
 &lt;p&gt;The longer I do this, the more I find that base classes are not meant to be overused. I find that if we are pumping base classes full of code, we should probably be breaking them out into smaller classes, and including them in the derived versions that actually use that functionality. If it is a cross-cutting concern, probably using attributes would be a cleaner solution.  Composition over Inheritance makes testing much simpler IMHO.&lt;/p&gt;
@@ -280,10 +280,10 @@ public class CustomerController : Controller
     
     <item>
       <title>More small classes</title>
-      <link>https://csmacnzblog.github.io/post/more-small-classes/</link>
+      <link>https://blogmigration.csmac.nz/post/more-small-classes/</link>
       <pubDate>Sun, 21 Jun 2015 08:49:59 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/more-small-classes/</guid>
+      <guid>https://blogmigration.csmac.nz/post/more-small-classes/</guid>
       <description>&lt;p&gt;Its a pretty common rule of thumb to avoid monoliths and write more small classes. Think about the solid principles.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Single responsibility per class. This implies less in it. Smaller.&lt;/li&gt;
@@ -401,10 +401,10 @@ public class CustomerController : Controller
     
     <item>
       <title>Ports and Adapters</title>
-      <link>https://csmacnzblog.github.io/post/ports-and-adapters/</link>
+      <link>https://blogmigration.csmac.nz/post/ports-and-adapters/</link>
       <pubDate>Sun, 03 May 2015 09:45:09 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/ports-and-adapters/</guid>
+      <guid>https://blogmigration.csmac.nz/post/ports-and-adapters/</guid>
       <description>&lt;p&gt;It feels like everywhere I turn (in my circles anyway), people are talking about Ports and Adapters, and I thought I would jump on the bandwagon. You may have also heard this architecture called Onion Architecture, or Hexagonal Architecture. All of these are essentially the same idea, under a different name.&lt;/p&gt;
 &lt;h3 id=&#34;brief-history&#34;&gt;Brief History&lt;/h3&gt;
 &lt;p&gt;When we started solving our problems with a 3 tier architecture, we were trying to solve the problem of isolating our business logic from our persistence and from our presentation. But it wasn&amp;rsquo;t a silver bullet, due to coupling back up the stack of implementation concerns, and the idea has been refined over the last decade or so. The TDD/BDD movement lead us down a more prescriptive approach, as well as &lt;a href=&#34;http://martinfowler.com/bliki/CQRS.html&#34;&gt;CQRS&lt;/a&gt; patterns, and basically more and more abstractions. But those who were implementing TDD/BDD had lost the core of the messaging. Specifically, isolate your tests from each other, not your methods from their required dependencies.&lt;/p&gt;
@@ -428,10 +428,10 @@ public class CustomerController : Controller
     
     <item>
       <title>Semantics vs implementation detail</title>
-      <link>https://csmacnzblog.github.io/post/semantics-vs-implementation-detail/</link>
+      <link>https://blogmigration.csmac.nz/post/semantics-vs-implementation-detail/</link>
       <pubDate>Sun, 11 Jan 2015 16:36:29 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/semantics-vs-implementation-detail/</guid>
+      <guid>https://blogmigration.csmac.nz/post/semantics-vs-implementation-detail/</guid>
       <description>&lt;p&gt;When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&amp;rsquo;t call it &lt;code&gt;firstNameString&lt;/code&gt;, or &lt;code&gt;cfnString&lt;/code&gt;, and we have also lost the bad habit of &lt;code&gt;firstNameStr&lt;/code&gt; or &lt;code&gt;strFirstName&lt;/code&gt;.  The implementation detail simply doesn&amp;rsquo;t matter. Semantically, it represents the customer&amp;rsquo;s first name, so we use &lt;code&gt;customerFirstName&lt;/code&gt;. Or if we are clearly in the context of the customer we can simply use &lt;code&gt;firstName&lt;/code&gt; or &lt;code&gt;customer.FirstName&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;By describing things by what they represent and not how they are represented, we make them more resistant to implementation changes, and we also make it clearer what it is we expect from their use. Why then do we not treat types the same way?&lt;/p&gt;
 &lt;p&gt;Well we do, you might say. Sure we name our classes well. We have &lt;code&gt;Customer&lt;/code&gt;, which is an class which has a name that matches it&amp;rsquo;s semantic meaning. But why does it have a constructor signature like this?&lt;/p&gt;

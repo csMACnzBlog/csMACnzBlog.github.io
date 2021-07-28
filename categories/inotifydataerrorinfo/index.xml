@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>INotifyDataErrorInfo on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/inotifydataerrorinfo/</link>
+    <link>https://blogmigration.csmac.nz/categories/inotifydataerrorinfo/</link>
     <description>Recent content in INotifyDataErrorInfo on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Wed, 17 Nov 2010 20:52:11 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/inotifydataerrorinfo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Nov 2010 20:52:11 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/inotifydataerrorinfo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Custom Control Validation in Silverlight</title>
-      <link>https://csmacnzblog.github.io/post/custom-control-validation-in-silverlight/</link>
+      <link>https://blogmigration.csmac.nz/post/custom-control-validation-in-silverlight/</link>
       <pubDate>Wed, 17 Nov 2010 20:52:11 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/custom-control-validation-in-silverlight/</guid>
+      <guid>https://blogmigration.csmac.nz/post/custom-control-validation-in-silverlight/</guid>
       <description>&lt;p&gt;So you&amp;rsquo;ve built up your nice new fancy custom control, and some Dependency Properties for your users to bind there data to, what else could you want? How about validation? Turns out that the control base class is all ready set up for this exact scenario. There is only one step required: Create the Visual states. Just add a visualstategroup called &lt;code&gt;ValidationStates&lt;/code&gt; and a state for each of &lt;code&gt;Valid&lt;/code&gt;, &lt;code&gt;InvalidUnfocused&lt;/code&gt; and &lt;code&gt;InvalidFocused&lt;/code&gt; corresponding to how you want your control to behave when in each of those states. You can even add these attributes into your class cs file to aid in blending your control:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[TemplateVisualState(GroupName = &amp;quot;ValidationStates&amp;quot;, Name = &amp;quot;Valid&amp;quot;)]`
 [TemplateVisualState(GroupName = &amp;quot;ValidationStates&amp;quot;, Name = &amp;quot;InvalidUnfocused&amp;quot;)]

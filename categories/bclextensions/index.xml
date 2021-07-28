@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>BCLExtensions on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/bclextensions/</link>
+    <link>https://blogmigration.csmac.nz/categories/bclextensions/</link>
     <description>Recent content in BCLExtensions on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 15 Feb 2015 15:25:45 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/bclextensions/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 Feb 2015 15:25:45 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/bclextensions/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introducing BCLExtensions</title>
-      <link>https://csmacnzblog.github.io/post/introducing-bclextensions/</link>
+      <link>https://blogmigration.csmac.nz/post/introducing-bclextensions/</link>
       <pubDate>Sun, 15 Feb 2015 15:25:45 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/introducing-bclextensions/</guid>
+      <guid>https://blogmigration.csmac.nz/post/introducing-bclextensions/</guid>
       <description>&lt;p&gt;It has been a pipe-dream of mine for a while to have my very own C# extensions library. Well now I do.  I&amp;rsquo;ve been chipping away at a library on github for ages (my init commit was &lt;strong&gt;15 Sep 2012!&lt;/strong&gt;) and it is finally a real thing! I&amp;rsquo;ve got a V1.0.0, a Nuget package, and even 100% coverage. I even have the &lt;a href=&#34;https://scan.coverity.com/projects/3770&#34;&gt;coverity report&lt;/a&gt; running, although it&amp;rsquo;s taken so long that I don&amp;rsquo;t have anything to worry about right now.  So far there are 24 Extensions available to use.&lt;/p&gt;
 &lt;p&gt;As a bonus, my library is a PCL using profile 328, which pretty much means it will work with any C# application you are writting.  I even have it building and running all my test on &lt;a href=&#34;https://travis-ci.org/csMACnz/BCLExtensions&#34;&gt;Travis-CI&lt;/a&gt; (252 tests and counting).&lt;/p&gt;
 &lt;p&gt;Please feel free to grab the nuget at &lt;a href=&#34;https://www.nuget.org/packages/BCLExtensions&#34;&gt;nuget.org/packages/BCLExtensions&lt;/a&gt; and check the source as &lt;a href=&#34;https://github.com/csMACnz/BCLExtensions&#34;&gt;github.com/csMACnz/BCLExtensions&lt;/a&gt;.&lt;/p&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>silverlight on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/silverlight/</link>
+    <link>https://blogmigration.csmac.nz/tags/silverlight/</link>
     <description>Recent content in silverlight on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Wed, 16 Feb 2011 04:38:14 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/silverlight/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Feb 2011 04:38:14 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/silverlight/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bing Maps Control Series - 2: Add a simple map to your application</title>
-      <link>https://csmacnzblog.github.io/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</link>
+      <link>https://blogmigration.csmac.nz/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</link>
       <pubDate>Wed, 16 Feb 2011 04:38:14 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</guid>
+      <guid>https://blogmigration.csmac.nz/post/bing-maps-control-series-2-add-a-simple-map-to-your-application/</guid>
       <description>&lt;p&gt;This is part 2 of a series on using the Silverlight Bing Maps Control. If haven&amp;rsquo;t already, check out &lt;a href=&#34;http://www.csmac.co.nz/blog/2011/01/17/bing-maps-control-series-1-downloading-and-installing-the-tools/&#34;&gt;part 1&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;So Now that you have installed the Bing Maps Silverlight Control, and got yourself a key, you need to add the control to your project. For completeness, lets start by creating a new Silverlight 4 Application Project in Visual Studio 2010, and open up the MainPage.xaml file.&lt;/p&gt;
 &lt;p&gt;Now before we can add the control, we need a reference to it. If you installed to the default location, go the the solution explorer, right click on the References -&amp;gt; Add Reference. Browse to &lt;code&gt;C:/Program Files(x86)/Bing Maps Silverlight Control/V1/Libraries&lt;/code&gt; (or similar) and add the two Dlls, &lt;code&gt;Microsoft.Maps.MapControl.dll&lt;/code&gt; and &lt;code&gt;Microsoft.Maps.MapControl.Common.dll&lt;/code&gt;. Now we are ready to add the control. Now use the following code to add the map control to your xaml: &lt;code&gt;&amp;lt;m:Map CredentialsProvider=&amp;quot;[your key here]&amp;quot;/&amp;gt;&lt;/code&gt; as well as adding this to your UserControl: &lt;code&gt;xmlns:m=&amp;quot;clr-namespace:Microsoft.Maps.MapControl;assembly=Microsoft.Maps.MapControl&amp;quot;&lt;/code&gt; and your done!&lt;/p&gt;
@@ -30,10 +30,10 @@
     
     <item>
       <title>Bing Maps Control Series - 1: Downloading and Installing the Tools</title>
-      <link>https://csmacnzblog.github.io/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</link>
+      <link>https://blogmigration.csmac.nz/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</link>
       <pubDate>Sun, 16 Jan 2011 19:29:10 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</guid>
+      <guid>https://blogmigration.csmac.nz/post/bing-maps-control-series-1-downloading-and-installing-the-tools/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.csmac.co.nz/blog/wp-content/uploads/2011/01/bingmapsscreen.png&#34;&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/h_175,w_300/v1414277587/bingmapsscreen_gw6hxl.png&#34; alt=&#34;Screenshot of Bing Maps.&#34; title=&#34;bingmapsscreen&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Over the last month or so I have has the opportunity to develop using the Bing Maps Control for Silverlight, and thought it appropriate to share this experience as well as a bit of a &amp;lsquo;how to&amp;rsquo; on using it. I plan for this to be a bit of a series based on the following items: - Downloading and Installing the Tools.&lt;/p&gt;
 &lt;ul&gt;
@@ -54,10 +54,10 @@
     
     <item>
       <title>Custom Control Validation in Silverlight</title>
-      <link>https://csmacnzblog.github.io/post/custom-control-validation-in-silverlight/</link>
+      <link>https://blogmigration.csmac.nz/post/custom-control-validation-in-silverlight/</link>
       <pubDate>Wed, 17 Nov 2010 20:52:11 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/custom-control-validation-in-silverlight/</guid>
+      <guid>https://blogmigration.csmac.nz/post/custom-control-validation-in-silverlight/</guid>
       <description>&lt;p&gt;So you&amp;rsquo;ve built up your nice new fancy custom control, and some Dependency Properties for your users to bind there data to, what else could you want? How about validation? Turns out that the control base class is all ready set up for this exact scenario. There is only one step required: Create the Visual states. Just add a visualstategroup called &lt;code&gt;ValidationStates&lt;/code&gt; and a state for each of &lt;code&gt;Valid&lt;/code&gt;, &lt;code&gt;InvalidUnfocused&lt;/code&gt; and &lt;code&gt;InvalidFocused&lt;/code&gt; corresponding to how you want your control to behave when in each of those states. You can even add these attributes into your class cs file to aid in blending your control:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[TemplateVisualState(GroupName = &amp;quot;ValidationStates&amp;quot;, Name = &amp;quot;Valid&amp;quot;)]`
 [TemplateVisualState(GroupName = &amp;quot;ValidationStates&amp;quot;, Name = &amp;quot;InvalidUnfocused&amp;quot;)]
@@ -71,10 +71,10 @@
     
     <item>
       <title>WPF VS Silverlight 1: Data Template Selector</title>
-      <link>https://csmacnzblog.github.io/post/wpf-vs-silverlight-1-data-template-selector/</link>
+      <link>https://blogmigration.csmac.nz/post/wpf-vs-silverlight-1-data-template-selector/</link>
       <pubDate>Wed, 06 Oct 2010 03:44:12 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/wpf-vs-silverlight-1-data-template-selector/</guid>
+      <guid>https://blogmigration.csmac.nz/post/wpf-vs-silverlight-1-data-template-selector/</guid>
       <description>&lt;p&gt;Here is my first post on what I will try and turn into a series of WPF/Silverlight differences and how to get around them.  First I will begin by talking about &lt;code&gt;DataTemplateSelector&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;I suppose before I talk about the &lt;code&gt;DataTemplateSelector&lt;/code&gt; class, I should mention a little bit about what a Template is.  Unless you are new to WPF and Silverlight Development (and by extension, WP7 development) you will be aware all controls have a Template Property.  This property is of type &lt;code&gt;ControlTemplate&lt;/code&gt;, and allows you to change the look and behaviour of a control, without affecting it&amp;rsquo;s behaviour.   ContentControl which derives from Control has a Content field which holds an object. This object gets its look and feel from somewhere, and if it is a UIElement, then it comes from itself.  But if the object is some other type, such as a POCO or ViewModel object, then the default behaviour is to use the object&amp;rsquo;s &lt;code&gt;ToString()&lt;/code&gt; method.  Most of you have probably seen this numerous times and this is where the DataTemplate comes in.&lt;/p&gt;
 &lt;p&gt;ContentControl has another property called &lt;code&gt;ContentTemplate&lt;/code&gt;, of type &lt;code&gt;DataTemplate&lt;/code&gt;, that will be used in place of the content.  By default, the DataContext of the Template will be the Content property of the ContentControl. The benefit of this is that we can apply Bindings to get at the properties of the object itself. This finally brings me to the differences section of this post, The &lt;code&gt;DataTemplateSelector&lt;/code&gt;. Up to this point, we are describing both Silverlight and WPF, but the &lt;code&gt;ContentTemplateSelector&lt;/code&gt; Property of type &lt;code&gt;DataTemplateSelector&lt;/code&gt; only exists on the WPF version of the &lt;code&gt;ContentControl&lt;/code&gt; Class. So before I tell you how to overcome this, I will convince you of why you would bother using this feature anyway.&lt;/p&gt;
@@ -90,10 +90,10 @@
     
     <item>
       <title>Where can I find Silverlight?</title>
-      <link>https://csmacnzblog.github.io/post/where-can-i-find-silverlight/</link>
+      <link>https://blogmigration.csmac.nz/post/where-can-i-find-silverlight/</link>
       <pubDate>Mon, 26 Apr 2010 09:23:24 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/where-can-i-find-silverlight/</guid>
+      <guid>https://blogmigration.csmac.nz/post/where-can-i-find-silverlight/</guid>
       <description>&lt;p&gt;I had someone ask me the other day where he could go to see silverlight in action, what sites are using silverlight, so I did a bit of searching, and found that it&amp;rsquo;s not that easy to find really. So here is my attempt to create such a list. Feel free to add anything I miss by posting comments.&lt;/p&gt;
 &lt;h3 id=&#34;bing-maps&#34;&gt;Bing maps&lt;/h3&gt;
 &lt;p&gt;I mentioned Twitter Maps on Bing in an &lt;a href=&#34;http://www.csmac.co.nz/blog/2010/03/31/bing-presents-twitter-maps/&#34; title=&#34;Bing Presents Twitter Maps&#34;&gt;earlier post&lt;/a&gt; but Bing maps is actually powered by silverlight, in its most advanced version. A standard version is available for those who don&amp;rsquo;t have silverlight installed, but I did notice that the site makes a point to tell you that you get a better experience with Silverlight, and prompts you to install it. &lt;a href=&#34;http://www.bing.com/maps/explore/#5003/0.40326=&amp;amp;o=&amp;amp;a=0/5872/style=auto&amp;amp;lat=-41.287971&amp;amp;lon=174.824121&amp;amp;z=11&amp;amp;pid=5874&#34; title=&#34;Bing Maps Wellington Tweets&#34;&gt;Bing Maps&lt;/a&gt;&lt;/p&gt;

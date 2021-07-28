@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>css on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/css/</link>
+    <link>https://blogmigration.csmac.nz/categories/css/</link>
     <description>Recent content in css on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 30 Jun 2015 22:55:42 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/css/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 Jun 2015 22:55:42 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/css/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Html anchors, links, and css</title>
-      <link>https://csmacnzblog.github.io/post/anchors-links-and-css/</link>
+      <link>https://blogmigration.csmac.nz/post/anchors-links-and-css/</link>
       <pubDate>Tue, 30 Jun 2015 22:55:42 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/anchors-links-and-css/</guid>
+      <guid>https://blogmigration.csmac.nz/post/anchors-links-and-css/</guid>
       <description>&lt;p&gt;As part of reskinning my blog, I have had to rethink my menu links and CSS. I discovered something interesting that I hadn&amp;rsquo;t really thought about before. But let&amp;rsquo;s start with a lesson that got me to where I made that realisation.&lt;/p&gt;
 &lt;h2 id=&#34;lvha&#34;&gt;LVHA&lt;/h2&gt;
 &lt;p&gt;I recall a time at uni where I was learning about CSS. The phrase &lt;code&gt;Love, Ha!&lt;/code&gt; was etched into my brain to remember the letters &lt;code&gt;LVHA&lt;/code&gt;, which stand for the 4 pseudo classes of an anchor (&lt;code&gt;a&lt;/code&gt;) tag, which were &lt;code&gt;link&lt;/code&gt;, &lt;code&gt;visited&lt;/code&gt;, &lt;code&gt;hover&lt;/code&gt;, &lt;code&gt;active&lt;/code&gt;. Link represents an anchor that has an href, somewhere to go. Anchors are not inherently links, that is just one state they could be. Visited is a link that has been clicked before, traditionally seen as a shade of purple rather than blue after you have used it. Hover is of course mouse over, and Active is mouse down.  The acronym was used because this was the order you should declare their styles, to ensure expected behaviour.  This was back when ie6 was the standard, and XHtml was all the rage. Something to note was that these pseudo-classes only existed on anchors, and hover was only available if it was a link (if my memory serves me correctly).&lt;/p&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>software development on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/categories/software-development/</link>
+    <link>https://blogmigration.csmac.nz/categories/software-development/</link>
     <description>Recent content in software development on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 11 May 2021 17:42:06 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/categories/software-development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 May 2021 17:42:06 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/software-development/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kotlin, TeamCity and reflection</title>
-      <link>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</link>
+      <link>https://blogmigration.csmac.nz/post/kotlin-teamcity-and-reflection/</link>
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/kotlin-teamcity-and-reflection/</guid>
+      <guid>https://blogmigration.csmac.nz/post/kotlin-teamcity-and-reflection/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.&lt;/p&gt;
 &lt;p&gt;Today&amp;rsquo;s fun little problem was the error message:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -41,10 +41,10 @@ val props = Project::class.declaredMemberProperties
     
     <item>
       <title>Nullable and notnull Serialisation Properties</title>
-      <link>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</link>
+      <link>https://blogmigration.csmac.nz/post/nullable-and-notnull-serialisation-properties/</link>
       <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
+      <guid>https://blogmigration.csmac.nz/post/nullable-and-notnull-serialisation-properties/</guid>
       <description>&lt;p&gt;The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is &lt;code&gt;= default!;&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;problem-definition&#34;&gt;problem definition&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// This class is used to serialise/deserialise a payload from a server
@@ -225,10 +225,10 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     
     <item>
       <title>We are all 10x engineers, but I don&#39;t think it means what you think it means</title>
-      <link>https://csmacnzblog.github.io/post/we-are-all-10x/</link>
+      <link>https://blogmigration.csmac.nz/post/we-are-all-10x/</link>
       <pubDate>Mon, 15 Jul 2019 09:50:55 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/we-are-all-10x/</guid>
+      <guid>https://blogmigration.csmac.nz/post/we-are-all-10x/</guid>
       <description>&lt;p&gt;If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;As a developer who tries to be good at their job, I have thoughts on this. As a Human, I like to be heard. (Note that being heard is not the same thing as being agreed with, or being right.) So here I am giving my opinion on this idea of a 10x developer, and specifically these &amp;ldquo;10 signs&amp;rdquo; put up online.&lt;/p&gt;
@@ -284,10 +284,10 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     
     <item>
       <title>Snuffleupagus-Oriented Programming</title>
-      <link>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</link>
+      <link>https://blogmigration.csmac.nz/post/snuffleupagus-oriented-programming/</link>
       <pubDate>Mon, 08 Jul 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/snuffleupagus-oriented-programming/</guid>
+      <guid>https://blogmigration.csmac.nz/post/snuffleupagus-oriented-programming/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;Sometimes naming something is the best way to start talking about a topic that lots of people do but don&amp;rsquo;t realise or haven&amp;rsquo;t pulled together as a concept. This is one of those ideas that finally has a good (?) name.&lt;/p&gt;
 &lt;p&gt;How do you build out a new API? Here we are meaning programming contracts effectively.  You can hack away until you have something functional, and then start consuming it. Better yet, build it out as code to do a job and then ship it to someone else to try and use.&lt;/p&gt;
@@ -307,10 +307,10 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     
     <item>
       <title>Agile Jogging to complement your Sprinting</title>
-      <link>https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/</link>
+      <link>https://blogmigration.csmac.nz/post/agile-jogging-to-compliment-your-sprinting/</link>
       <pubDate>Mon, 10 Sep 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/agile-jogging-to-compliment-your-sprinting/</guid>
+      <guid>https://blogmigration.csmac.nz/post/agile-jogging-to-compliment-your-sprinting/</guid>
       <description>&lt;p&gt;Way back when I was first introduced to everything agile from &lt;a href=&#34;https://twitter.com/JezzSantos&#34;&gt;Jezz Santos&lt;/a&gt;,  we complemented the terminology of our &amp;ldquo;sprint&amp;rdquo; with that of a &amp;ldquo;jog&amp;rdquo;.&lt;/p&gt;
 &lt;h3 id=&#34;sprinting&#34;&gt;Sprinting&lt;/h3&gt;
 &lt;p&gt;Sprinting or sprints are the idea of a (usually) timeboxed length of real-world time (5 days, 3 weeks etc) that produces a cadence of focused teamwork on a particular selection of stories. Usually, these stories are prioritised, and the team should be working on the top-most unfinished work. The aim of the sprint is to take this collection of stories (tasks, work) and commit to finishing them in the sprint, and not anything else instead.  At the end of the sprint and before the next one starts, we can select a different prioritised set and repeat (this may or may not include any incomplete stories, as desired).&lt;/p&gt;
@@ -362,10 +362,10 @@ I will also say something very specific of code tidy:  If the code you are worki
     
     <item>
       <title>A Little Town called Milton</title>
-      <link>https://csmacnzblog.github.io/post/a-little-town-called-milton/</link>
+      <link>https://blogmigration.csmac.nz/post/a-little-town-called-milton/</link>
       <pubDate>Mon, 23 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/a-little-town-called-milton/</guid>
+      <guid>https://blogmigration.csmac.nz/post/a-little-town-called-milton/</guid>
       <description>&lt;p&gt;There is a small town in the South Island of New Zealand called Milton. The main road runs right through the town in one side and out the other. Its a nice enough place to stop on a road trip.&lt;/p&gt;
 &lt;p&gt;There is a unique feature to this main road in Miton, you see. When you get to the middle of the town and the road has a massive kink in it.  Why is this here?&lt;/p&gt;
 &lt;p&gt;One story goes that two surveyors were building the road, one from the south and one from the north. A nice straight road.  The problem is that when they go their straight road to the town they realised that it didn&amp;rsquo;t line up. So they had to use the kink to connect it up.&lt;/p&gt;
@@ -381,10 +381,10 @@ I will also say something very specific of code tidy:  If the code you are worki
     
     <item>
       <title>You can&#39;t out-exercise a bad diet</title>
-      <link>https://csmacnzblog.github.io/post/you-cant-out-exercise-a-bad-diet/</link>
+      <link>https://blogmigration.csmac.nz/post/you-cant-out-exercise-a-bad-diet/</link>
       <pubDate>Thu, 10 May 2018 20:41:55 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/you-cant-out-exercise-a-bad-diet/</guid>
+      <guid>https://blogmigration.csmac.nz/post/you-cant-out-exercise-a-bad-diet/</guid>
       <description>&lt;p&gt;I heard a great quote yesterday:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;You can&amp;rsquo;t out-exercise a bad diet&lt;/p&gt;
@@ -397,10 +397,10 @@ I will also say something very specific of code tidy:  If the code you are worki
     
     <item>
       <title>Code Katas</title>
-      <link>https://csmacnzblog.github.io/post/code-kata/</link>
+      <link>https://blogmigration.csmac.nz/post/code-kata/</link>
       <pubDate>Mon, 07 May 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/code-kata/</guid>
+      <guid>https://blogmigration.csmac.nz/post/code-kata/</guid>
       <description>&lt;p&gt;Our team recently went through the &lt;a href=&#34;http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata&#34;&gt;Bowling Game Kata&lt;/a&gt; (as seen on &lt;a href=&#34;https://vimeo.com/43734265&#34;&gt;Clean Code&lt;/a&gt;) from Uncle Bob. Here are some interesting learnings and takeaways from the session that I picked up on.&lt;/p&gt;
 &lt;h3 id=&#34;practice-makes-perfect&#34;&gt;Practice makes perfect&lt;/h3&gt;
 &lt;p&gt;The only way to get good at something is to practice. The concept of doing a Code Kata is to practice the art of TDD and Red-Green-Refactor. By practising, it will become easier to do against real code in real scenarios. To re-iterate the &lt;a href=&#34;http://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html&#34;&gt;Three Laws of TDD&lt;/a&gt;:&lt;/p&gt;
@@ -462,10 +462,10 @@ I will also say something very specific of code tidy:  If the code you are worki
     
     <item>
       <title>How to Constructors</title>
-      <link>https://csmacnzblog.github.io/post/how-to-constructors/</link>
+      <link>https://blogmigration.csmac.nz/post/how-to-constructors/</link>
       <pubDate>Mon, 16 Jan 2017 02:44:32 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/how-to-constructors/</guid>
+      <guid>https://blogmigration.csmac.nz/post/how-to-constructors/</guid>
       <description>&lt;p&gt;Constructors for services are a really handy way to pass in configuration, variation and dependencies. Here are some ways I have learned to use Constructors and some ideas on testing.&lt;/p&gt;
 &lt;h3 id=&#34;what-shouldnt-be-in-a-constructor&#34;&gt;What shouldn&amp;rsquo;t be in a Constructor&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Execution.&lt;/strong&gt;  Any complex execution of code should not be in a constructor. This includes asynchronous method calls (which either has to block synchronously, or runs off to nowhere), web requests, and complex calculations.&lt;/p&gt;
@@ -632,10 +632,10 @@ _rss.PostReport(dataReport);
     
     <item>
       <title>Guess Who&#39;s Back?</title>
-      <link>https://csmacnzblog.github.io/post/guess-whos-back/</link>
+      <link>https://blogmigration.csmac.nz/post/guess-whos-back/</link>
       <pubDate>Wed, 04 May 2016 08:08:43 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/guess-whos-back/</guid>
+      <guid>https://blogmigration.csmac.nz/post/guess-whos-back/</guid>
       <description>&lt;p&gt;Ok, so not that big a leap, it&amp;rsquo;s just me. Six months later me. Moved to the UK me.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve taken the plunge and moved away from Windy Wellington in little old New Zealand to a place in the UK called &lt;a href=&#34;http://www.destinationmiltonkeynes.co.uk/&#34;&gt;Milton Keynes&lt;/a&gt;.  Famous for wide streets, round-a-bouts and &lt;a href=&#34;http://www.mkcows.com/&#34;&gt;concrete cows&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Why Milton Keynes? Because Xero has an office here of course! Aside from being cheaper to live here than in the middle of London, it&amp;rsquo;s also a bit quieter and a bit of a slower pace of life for a bit, with reasonable connections to anywhere but here.  The plan is to live and work here for a while and travel around Great Britain and Europe. It makes sense when Europe is 2-3 hours aways from here when it was 26 hours of plane plus another 5-12 of airports from Wellington!&lt;/p&gt;
@@ -651,10 +651,10 @@ _rss.PostReport(dataReport);
     
     <item>
       <title>On fixing problems in existing solutions</title>
-      <link>https://csmacnzblog.github.io/post/on-fixing-problems-in-existing-installations/</link>
+      <link>https://blogmigration.csmac.nz/post/on-fixing-problems-in-existing-installations/</link>
       <pubDate>Sun, 08 Nov 2015 07:02:57 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/on-fixing-problems-in-existing-installations/</guid>
+      <guid>https://blogmigration.csmac.nz/post/on-fixing-problems-in-existing-installations/</guid>
       <description>&lt;p&gt;A builder came around the other day to fix the shelf under the sink. We had a leaking tap that over time had been dripping down onto the shelf and the boards had ended up in an awful state.  From my perspective, we just simply needed to rip it out and put a new one in.&lt;/p&gt;
 &lt;p&gt;Luckily, the builder was an expert and explained to me what would have to be done. First we would have to cut out the old board. Pipes were running through it and we would have to dismantle all the plumbing first otherwise. The new solution would be designed to slot in around the pipes, making it less coupled going forward. The next problem was that we wouldn&amp;rsquo;t be able to get a replacement straight in. It was a corner cupboard with an L-shaped board, and even with the slot taken out couldn&amp;rsquo;t be manoeuvred in.  The kitchen was a kit set and had been built in around the shelf, making it harder to pull parts out and put replacements in.&lt;/p&gt;
 &lt;p&gt;His solution was simple, though, we have a shelf made of two rectangular parts. These would connect at a seam to form the L-shape. But having two parts rather than one means we need to add extra reinforcing. His experience told him that we needed to add braces to strengthen the connection between the wood. And to ensure the cupboard is still useful, extra wood would be added at the back and side walls to help support each piece. We would keep these thin so they don&amp;rsquo;t encroach on the storage space. A sound solution that avoided a lot of novice mistakes because of his experience and expertise.&lt;/p&gt;
@@ -664,10 +664,10 @@ _rss.PostReport(dataReport);
     
     <item>
       <title>Building a better development team</title>
-      <link>https://csmacnzblog.github.io/post/building-a-better-development-team/</link>
+      <link>https://blogmigration.csmac.nz/post/building-a-better-development-team/</link>
       <pubDate>Sun, 07 Jun 2015 20:29:10 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/building-a-better-development-team/</guid>
+      <guid>https://blogmigration.csmac.nz/post/building-a-better-development-team/</guid>
       <description>&lt;p&gt;Last November I helped out with the &lt;a href=&#34;http://www.meetup.com/kiwi-code-retreat/events/208940932/&#34;&gt;Wellington contingent of the Global Day of Coderetreat&lt;/a&gt;.  It was a great day to explore strategies and techniques to improve your code and expand your knowledge of patterns and practices.  This is a great event and I highly recommend looking out for it again later this year. I liked this concept so much, that I started my own series over the Summer (December till January is Summer here is NZ).&lt;/p&gt;
 &lt;h3 id=&#34;core-development-series&#34;&gt;Core Development Series&lt;/h3&gt;
 &lt;p&gt;Each fortnight, on a Friday, I would set aside a 90 minute slot to gather together.  In this period, we would look at a problem from the retreat, spend 45 minutes running through the exercise at teams of 2, then each answer the following questions:&lt;/p&gt;
@@ -689,10 +689,10 @@ _rss.PostReport(dataReport);
     
     <item>
       <title>Action Hero Style Software Development</title>
-      <link>https://csmacnzblog.github.io/post/action-hero-style-software-development/</link>
+      <link>https://blogmigration.csmac.nz/post/action-hero-style-software-development/</link>
       <pubDate>Sun, 28 Mar 2010 21:08:39 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/action-hero-style-software-development/</guid>
+      <guid>https://blogmigration.csmac.nz/post/action-hero-style-software-development/</guid>
       <description>&lt;p&gt;I just read a really awesome post about software development using the analogy of Chuck Norris and Steven Seagal. Definately worth a read and brings forward some good points about software development. Check it out. &lt;a href=&#34;http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/&#34; title=&#34;Software development, action hero style&#34;&gt;http://www.intergen.co.nz/blog/chris-klug/dates/2010/3/software-development-action-hero-style/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>

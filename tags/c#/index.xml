@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>c# on csMACnz&#39;s Blog</title>
-    <link>https://csmacnzblog.github.io/tags/c#/</link>
+    <link>https://blogmigration.csmac.nz/tags/c#/</link>
     <description>Recent content in c# on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://csmacnzblog.github.io/favicon.png</url>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://csmacnzblog.github.io</link>
+      <link>https://blogmigration.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 26 Jul 2020 02:00:00 +0000</lastBuildDate><atom:link href="https://csmacnzblog.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Jul 2020 02:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/c#/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Nullable and notnull Serialisation Properties</title>
-      <link>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</link>
+      <link>https://blogmigration.csmac.nz/post/nullable-and-notnull-serialisation-properties/</link>
       <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/nullable-and-notnull-serialisation-properties/</guid>
+      <guid>https://blogmigration.csmac.nz/post/nullable-and-notnull-serialisation-properties/</guid>
       <description>&lt;p&gt;The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is &lt;code&gt;= default!;&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;problem-definition&#34;&gt;problem definition&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// This class is used to serialise/deserialise a payload from a server
@@ -199,10 +199,10 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
     
     <item>
       <title>Looking Back on C# 7: Pattern matching</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-pattern-matching/</link>
       <pubDate>Mon, 01 Jul 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-pattern-matching/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-pattern-matching/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;Pattern matching is a powerful feature that has been unlocked against various language constructs in C#.  The idea is to take existing features like &lt;code&gt;case&lt;/code&gt; from switches and &lt;code&gt;is&lt;/code&gt; and extract their capabilities into a &amp;ldquo;pattern matching&amp;rdquo; concept over types and values. This can then be applied back to these language features, and other places in the future.&lt;/p&gt;
 &lt;p&gt;Before the new concept of patterns, &lt;code&gt;case&lt;/code&gt; accepted a constant as an argument, and &lt;code&gt;is&lt;/code&gt; would accept a type.&lt;/p&gt;
@@ -308,10 +308,10 @@ if (widget.Type is &amp;quot;FOO&amp;quot;)
     
     <item>
       <title>Looking Back on C#: async and await</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp-async-await/</link>
       <pubDate>Mon, 24 Jun 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp-async-await/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp-async-await/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;Multithreaded programming has always been a difficult thing to get your head around, and there are many pitfalls easily stumbled into. To help combat this, Microsoft gave us async/await in C#.&lt;/p&gt;
 &lt;p&gt;Async/Await is a language feature that has been around since Visual Studio 2012 and C# 5 and hides a bunch of the boilerplate state machine code required to safely park a logical thread of execution while it waits for some work to complete or to respond from another thread, IO, or network device.  This allows code to be more logically procedural and linear, therefore easier to read and comprehend.&lt;/p&gt;
@@ -433,7 +433,7 @@ public class MyTestCase : IAsyncLifetime
 &lt;p&gt;I&amp;rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.&lt;/p&gt;
 &lt;h2 id=&#34;valuetask&#34;&gt;ValueTask&lt;/h2&gt;
 &lt;p&gt;The original implementation of the async/await language feature was strongly tied to the &lt;code&gt;Task&lt;/code&gt; and `Task&lt;!-- raw HTML omitted --&gt; types.&lt;/p&gt;
-&lt;p&gt;In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-initializers/&#34;&gt;Add for the initialiser syntax&lt;/a&gt;). Specifically, the &lt;code&gt;GetAwaiter&lt;/code&gt; method must be available on the type used with the &lt;code&gt;await&lt;/code&gt; keyword.&lt;/p&gt;
+&lt;p&gt;In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the &lt;a href=&#34;https://blogmigration.csmac.nz/looking-back-on-csharp6-initializers/&#34;&gt;Add for the initialiser syntax&lt;/a&gt;). Specifically, the &lt;code&gt;GetAwaiter&lt;/code&gt; method must be available on the type used with the &lt;code&gt;await&lt;/code&gt; keyword.&lt;/p&gt;
 &lt;p&gt;Along with this change was the introduction of a new type to leverage this pattern, &lt;code&gt;ValueTask&lt;/code&gt;. A &lt;code&gt;ValueTask&lt;/code&gt; is a value type (struct) that will be stack-allocated and copied by value. If your method uses caching, and most of the time returns a simple value instead of an awaited execution, the &lt;code&gt;ValueTask&lt;/code&gt; may be more efficient than the &lt;code&gt;Task&lt;/code&gt; type.&lt;/p&gt;
 &lt;p&gt;This is because the overheads of Heap-allocation of the reference type &lt;code&gt;Task&lt;/code&gt; can have an impact on performance. If you detect this as an issue, you can use the new &lt;code&gt;ValueTask&lt;/code&gt; instead. This will be a stack-allocated value type containing the response value and copied around.&lt;/p&gt;
 &lt;p&gt;Guidance for this: if you mostly return a value, but occasionally call an actual asynchronous IO execution, &lt;code&gt;ValueTask&lt;/code&gt; will probably add value (e.g. heavy result caching). If you actually await most of the time, &lt;code&gt;Task&lt;/code&gt; should be fine. As usual, measure and test before making the change arbitrarily.&lt;/p&gt;
@@ -444,12 +444,12 @@ public class MyTestCase : IAsyncLifetime
     
     <item>
       <title>Looking Back on C# 7: refs enhancements</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-refs/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-refs/</link>
       <pubDate>Mon, 17 Jun 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-refs/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-refs/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
-&lt;p&gt;We talked about the out variables &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp7-out-variables&#34;&gt;in the previous post in the series&lt;/a&gt;, but there are a few other enhancements related to &lt;code&gt;ref&lt;/code&gt; as well.&lt;/p&gt;
+&lt;p&gt;We talked about the out variables &lt;a href=&#34;https://blogmigration.csmac.nz/looking-back-on-csharp7-out-variables&#34;&gt;in the previous post in the series&lt;/a&gt;, but there are a few other enhancements related to &lt;code&gt;ref&lt;/code&gt; as well.&lt;/p&gt;
 &lt;p&gt;Hopefully, the concepts of values, pointers, stacks and heaps make sense to you at a conceptual level. These are crucial concepts to using and understanding &lt;code&gt;ref&lt;/code&gt; and &lt;code&gt;out&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;As a quick recap, stack memory is local to a function and the function call stack. This memory is semantically &amp;ldquo;pushed&amp;rdquo; to for each method call, and &amp;ldquo;popped&amp;rdquo; from on each return (the call stack, stack overflow etc). The heap is a shared memory space where objects are allocated and stored, which is acted on by the Garbage Collector.&lt;/p&gt;
 &lt;p&gt;Values are mostly stack-allocated. They are copied around so that setting a value variable does not affect any other variable. Primitive types and structs are Value types. Reference types are the classes in C#. Classes are always stored on the heap, and all variables of class types are pointers or references. Assigning a reference to a new variable will point to the same value on the heap. Changing a field value on a reference type will be reflected in both variables. (Boxing values onto the heap is another thing, too.)&lt;/p&gt;
@@ -505,10 +505,10 @@ WriteLine(array[4]); // prints 9
     
     <item>
       <title>Looking Back on C# 7: Out variables</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-out-variables/</link>
       <pubDate>Mon, 10 Jun 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-out-variables/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-out-variables/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;h3 id=&#34;what-are-out-parameters&#34;&gt;What are out parameters?&lt;/h3&gt;
 &lt;p&gt;Sometimes you want a method to pass back a value by reference. In &lt;code&gt;C&lt;/code&gt; and &lt;code&gt;C++&lt;/code&gt; this is done by passing the address in as an argument. In C#, we use the &lt;code&gt;out&lt;/code&gt; keyword.&lt;/p&gt;
@@ -561,10 +561,10 @@ if (Int32.TryParse(numberAsString, out number))
     
     <item>
       <title>Looking Back on C# 7: Local functions</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-local-functions/</link>
       <pubDate>Mon, 03 Jun 2019 10:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-local-functions/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-local-functions/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;h2 id=&#34;lambdas---a-recap&#34;&gt;Lambdas - a recap&lt;/h2&gt;
 &lt;p&gt;All the way back in C# 3 we were given lambdas. These are anonymous functions that can be passed around as what are essentially function pointers.&lt;/p&gt;
@@ -754,10 +754,10 @@ private void Print(TextWriter out, TreeNode node, string indent)
     
     <item>
       <title>Looking Back on C# 7: throw expressions</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-throw-expressions/</link>
       <pubDate>Mon, 27 May 2019 10:30:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-throw-expressions/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-throw-expressions/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;Throwing Exceptions is both a blessing and a curse in C#. You can throw from anywhere to unwind the stack. But adding exception throwing and handling code can cause overheads that you need to be wary of. Not to mention making the code harder to reason about with control flow.&lt;/p&gt;
 &lt;p&gt;Regardless, we have them, and we use them, so the language should make that as easy as possible to do so. with C# 7 this was enhanced to support using &lt;code&gt;throw&lt;/code&gt; as an expression. Up until this point, it was always a statement, which means there are places in the code that throw could not go.&lt;/p&gt;
@@ -791,7 +791,7 @@ private void Print(TextWriter out, TreeNode node, string indent)
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.&lt;/p&gt;
-&lt;p&gt;Also remember how we looked at &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt; and &lt;a href=&#34;looking-back-on-csharp7-more-expression-body-members&#34;&gt;more in c# 7&lt;/a&gt;? Well as the name suggests, the body &lt;em&gt;is&lt;/em&gt; an expression. Now that we have throw expressions, the bodies can use them too!&lt;/p&gt;
+&lt;p&gt;Also remember how we looked at &lt;a href=&#34;https://blogmigration.csmac.nz/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt; and &lt;a href=&#34;looking-back-on-csharp7-more-expression-body-members&#34;&gt;more in c# 7&lt;/a&gt;? Well as the name suggests, the body &lt;em&gt;is&lt;/em&gt; an expression. Now that we have throw expressions, the bodies can use them too!&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Widget
 {
     public Widget() =&amp;gt; throw new ArgumentException(&amp;quot;Requires arguments, none provided.&amp;quot;);
@@ -816,12 +816,12 @@ private void Print(TextWriter out, TreeNode node, string indent)
     
     <item>
       <title>Looking Back on C# 7: More Expression body members</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-more-expression-body-members/</link>
       <pubDate>Mon, 20 May 2019 10:30:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp7-more-expression-body-members/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp7-more-expression-body-members/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
-&lt;p&gt;We already had a look at how we can use &lt;a href=&#34;https://csmacnzblog.github.io/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt;. In C# 7.0, this has been extended further to include constructors, finalizers, and get and set accessors on properties and indexers.&lt;/p&gt;
+&lt;p&gt;We already had a look at how we can use &lt;a href=&#34;https://blogmigration.csmac.nz/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt;. In C# 7.0, this has been extended further to include constructors, finalizers, and get and set accessors on properties and indexers.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// The old way:
 public class Gadget&amp;lt;T&amp;gt;
 {    
@@ -903,10 +903,10 @@ public class Gadget&amp;lt;T&amp;gt;
     
     <item>
       <title>Looking Back on C# 6: Expression body members</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp6-expression-body-members/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp6-expression-body-members/</link>
       <pubDate>Sun, 12 May 2019 22:30:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp6-expression-body-members/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp6-expression-body-members/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;Method blocks are one of the most fundamental components of C#. They get used for all class methods, for property getters and setters, constructors, destructors, so many places.&lt;/p&gt;
 &lt;p&gt;Back in C# 3, we got Lambda expressions, which allowed us to generate anonymous function-like expressions that could be passed around as function pointers using &lt;code&gt;Func&lt;/code&gt; and &lt;code&gt;Action&lt;/code&gt;.&lt;/p&gt;
@@ -978,10 +978,10 @@ public class Widget
     
     <item>
       <title>Looking back on C# 6: Initializers</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp6-initializers/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp6-initializers/</link>
       <pubDate>Mon, 29 Apr 2019 11:30:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp6-initializers/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp6-initializers/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;Initializers have had a few upgrades since the early C# days. But before we look at more recent changes, we will review what came before.&lt;/p&gt;
 &lt;p&gt;Initializers or Object Initializers is a name given to code that performs the initial setup of a piece of memory (a struct or an object). Constructors are part of this but the idea goes more towards the holistic setup of the object data for all of the state you care to set up.&lt;/p&gt;
@@ -1129,10 +1129,10 @@ public class MyFoo
     
     <item>
       <title>Looking back on C# 6: String interpolation</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-csharp6-string-interpolation/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-csharp6-string-interpolation/</link>
       <pubDate>Sun, 14 Apr 2019 11:30:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-csharp6-string-interpolation/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-csharp6-string-interpolation/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;String Interpolation is a great feature that I now use everywhere I can (Except logging - see below).&lt;/p&gt;
 &lt;p&gt;We have efficient libraries to format strings for us, so we don&amp;rsquo;t have to concatenate all the time. This is both convenient and performant.&lt;/p&gt;
@@ -1179,10 +1179,10 @@ _logger.LogInformation(&amp;quot;My name is {FirstName}&amp;quot;, &amp;quot;Mar
     
     <item>
       <title>Looking back on C#</title>
-      <link>https://csmacnzblog.github.io/post/looking-back-on-c/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-back-on-c/</link>
       <pubDate>Mon, 18 Mar 2019 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-back-on-c/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-back-on-c/</guid>
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;It was back in 2016 with the release of Roslyn, a complete rewrite C# compiler platform written in C# that we started to see a ramp up on language features not seen since .Net 4.0 (probably). Most people probably remember &lt;code&gt;async&lt;/code&gt; &lt;code&gt;await&lt;/code&gt; and then an explosion of language features started flooding in.&lt;/p&gt;
 &lt;p&gt;2016 we saw the release of C# 6 and Visual Studio 2015.  This had some great features to look forward to revisiting soon.  Visual Studio 2017 followed two years later with C# 7, and quick on its heels was 7.1, 7.2, and 7.3 alongside three of the 8 minor Visual Studio 2017 releases. That is a few features over the last 4 years to learn and know.&lt;/p&gt;
@@ -1195,10 +1195,10 @@ _logger.LogInformation(&amp;quot;My name is {FirstName}&amp;quot;, &amp;quot;Mar
     
     <item>
       <title>Looking forward to dotnet in 2019</title>
-      <link>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</link>
+      <link>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</link>
       <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/looking-forward-to-dotnet-in-2019/</guid>
+      <guid>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</guid>
       <description>&lt;p&gt;It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.&lt;/p&gt;
 &lt;p&gt;The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)&lt;/p&gt;
 &lt;h2 id=&#34;c-8&#34;&gt;C# 8&lt;/h2&gt;
@@ -1253,10 +1253,10 @@ _logger.LogInformation(&amp;quot;My name is {FirstName}&amp;quot;, &amp;quot;Mar
     
     <item>
       <title>Clean Startup in your AspNetCore</title>
-      <link>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</link>
+      <link>https://blogmigration.csmac.nz/post/clean-startup-in-your-aspnetcore/</link>
       <pubDate>Mon, 02 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/clean-startup-in-your-aspnetcore/</guid>
+      <guid>https://blogmigration.csmac.nz/post/clean-startup-in-your-aspnetcore/</guid>
       <description>&lt;p&gt;I want to talk about this point made about &lt;a href=&#34;https://odetocode.com/blogs/scott/archive/2016/08/30/keeping-a-clean-startup-cs-in-asp-net-core.aspx&#34;&gt;Keeping a Clean Startup.cs in Asp.Net Core&lt;/a&gt; by K. Scott Alan. Mostly I want to agree and elaborate on it.&lt;/p&gt;
 &lt;p&gt;(Warning! I used the British English &lt;code&gt;customised&lt;/code&gt; below. If this &lt;a href=&#34;http://grammarist.com/spelling/customise-customize/&#34;&gt;doesn&amp;rsquo;t match your sensibilities&lt;/a&gt;, just use &lt;code&gt;customize&lt;/code&gt; instead.)&lt;/p&gt;
 &lt;h3 id=&#34;the-idea&#34;&gt;The Idea&lt;/h3&gt;
@@ -1369,10 +1369,10 @@ app.UseCustomisedMvc();
     
     <item>
       <title>My C# naming conventions</title>
-      <link>https://csmacnzblog.github.io/post/my-c-naming-conventions/</link>
+      <link>https://blogmigration.csmac.nz/post/my-c-naming-conventions/</link>
       <pubDate>Sun, 25 Mar 2018 05:00:00 +0000</pubDate>
       
-      <guid>https://csmacnzblog.github.io/post/my-c-naming-conventions/</guid>
+      <guid>https://blogmigration.csmac.nz/post/my-c-naming-conventions/</guid>
       <description>&lt;p&gt;I have opinions!&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve been meaning to write this article for a while.  I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.&lt;/p&gt;
 &lt;p&gt;Firstly, let&amp;rsquo;s just say that there are Guidelines and Opinions. I might not be clear exactly which one something is below, but it will be one or the other.  That means that what I say won&amp;rsquo;t fit all situations. Don&amp;rsquo;t take it as a hard and fast rule. Use your own judgement.&lt;/p&gt;
