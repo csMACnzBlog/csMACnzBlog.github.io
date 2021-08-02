@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/experimenting-with-global-json\/";
             }
         </script>
 
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2016-07-21"  itemprop="datePublished">21 Jul 16</time> on <a href="/tags/c-sharp">C Sharp</a>,  <a href="/tags/dotnetcore">dotnetcore</a></span>
-    
-        <h1 class="post-title" itemprop="headline">Experimenting with global.json</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2016-07-21"  itemprop="datePublished">21 Jul 16</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/c-sharp">C Sharp</a>,  <a href="/tags/dotnetcore">dotnetcore</a></span>
+<h1 class="post-title" itemprop="headline">Experimenting with global.json</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>While working on my <a href="/dotnetcore-getting-started">.Net Core Series</a> I noticed that Visual Studio was adding a <code>global.json</code> file to the root of my project, and liked to put <code>src</code> and <code>test</code> in there. I thought I would investigate what it actually does.</p>

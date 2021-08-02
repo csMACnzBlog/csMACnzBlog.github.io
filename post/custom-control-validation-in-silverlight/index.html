@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/custom-control-validation-in-silverlight\/";
             }
         </script>
 
@@ -18,7 +18,7 @@
     
         <title>Custom Control Validation in Silverlight - csMACnz&#39;s Blog</title>
         <meta name="description" content="So you&rsquo;ve built up your nice new fancy custom control, and some Dependency Properties for your users to bind there data to, what else could you want? How about validation? Turns out that the control base class is …">
-        <meta name='keywords' content='csMACnz, INotifyDataErrorInfo, silverlight, validation'>
+        <meta name='keywords' content='csMACnz, silverlight, validation'>
 
         
         <meta property="og:type" content="article"/>
@@ -90,7 +90,7 @@
             "url" : "https:\/\/blogmigration.csmac.nz\/post\/custom-control-validation-in-silverlight\/",
             "datePublished": "2010-11-17T20:52:11.000Z",
             "dateModified" : "2010-11-17T20:52:11.000Z",
-            "keywords" : [ "INotifyDataErrorInfo", "silverlight", "validation" ]
+            "keywords" : [ "silverlight", "validation" ]
             "description" : "So you\u0026rsquo;ve built up your nice new fancy custom control, and some Dependency Properties for your users to bind there data to, what else could you want? How about validation? Turns out that the control base class is all ready set up for this exact scenario. There is only one step required: Create the Visual states. Just add a visualstategroup called ValidationStates and a state for each of Valid, InvalidUnfocused and InvalidFocused corresponding to how you want your control to behave when in each of those states.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2010-11-17"  itemprop="datePublished">17 Nov 10</time> on <a href="/tags/inotifydataerrorinfo">INotifyDataErrorInfo</a>,  <a href="/tags/silverlight">silverlight</a>,  <a href="/tags/validation">validation</a></span>
-    
-        <h1 class="post-title" itemprop="headline">Custom Control Validation in Silverlight</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2010-11-17"  itemprop="datePublished">17 Nov 10</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/silverlight">silverlight</a>,  <a href="/tags/validation">validation</a></span>
+<h1 class="post-title" itemprop="headline">Custom Control Validation in Silverlight</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>So you&rsquo;ve built up your nice new fancy custom control, and some Dependency Properties for your users to bind there data to, what else could you want? How about validation? Turns out that the control base class is all ready set up for this exact scenario. There is only one step required: Create the Visual states. Just add a visualstategroup called <code>ValidationStates</code> and a state for each of <code>Valid</code>, <code>InvalidUnfocused</code> and <code>InvalidFocused</code> corresponding to how you want your control to behave when in each of those states. You can even add these attributes into your class cs file to aid in blending your control:</p>

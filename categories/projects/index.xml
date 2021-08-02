@@ -142,6 +142,208 @@ Copy the data above into a CSV file to make it pretty in a spreadsheet
     </item>
     
     <item>
+      <title>Beefeater - Guard your methods&#39; Ins and Outs.</title>
+      <link>https://blogmigration.csmac.nz/post/beefeater-guards-your/</link>
+      <pubDate>Mon, 06 Aug 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/beefeater-guards-your/</guid>
+      <description>&lt;img align=&#34;right&#34; width=&#34;256px&#34; height=&#34;256px&#34; src=&#34;http://img.csmac.nz/Beefeater-256.svg&#34;&gt;
+&lt;p&gt;A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater.&lt;/p&gt;
+&lt;p&gt;This library contains helpers to add semantics to the optionality of your parameters and results from method calls. I built it on &lt;code&gt;NetStandard1.0&lt;/code&gt; for maximum compatibility.&lt;/p&gt;
+&lt;p&gt;Some of this will soon become obsolete with C# 8 features such as the C# 8 nullable reference types, but much of it gives you the power you need right now.&lt;/p&gt;
+&lt;p&gt;You can install the NuGet package using &lt;code&gt;Install-Package Beefeater&lt;/code&gt; or by heading to the &lt;a href=&#34;https://www.nuget.org/packages/Beefeater&#34;&gt;Nuget Package Page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Last week I released version 0.5.0.&lt;/p&gt;
+&lt;p&gt;The basic idea is similar to the &lt;code&gt;Nullable&amp;lt;T&amp;gt;&lt;/code&gt; type that exists for value types. But extend this into semantic markup around method arguments and return types.&lt;/p&gt;
+&lt;p&gt;The approach is to allow you to write declarative code, and let the library determine which part gets called.&lt;/p&gt;
+&lt;p&gt;To make this seamless, I&amp;rsquo;ve leveraged a few features of C#, namely the Implicit Casts, and Generics.&lt;/p&gt;
+&lt;p&gt;But just declaring optionality isn&amp;rsquo;t enough, so the goal is to go further and provide functions to write better safer code using these types.&lt;/p&gt;
+&lt;h3 id=&#34;the-bits&#34;&gt;The bits&lt;/h3&gt;
+&lt;p&gt;The library is made up of a few different utilities and ideas.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt; - declare a reference type as possibly null (C# 8 makes this obsolete, but implicit casts to/from the new syntax might work)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;NotNull&amp;lt;T&amp;gt;&lt;/code&gt; - so you can declare something is certainly never null (or crash immediately rather than on dereference)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Result&amp;lt;TValue, TError&amp;gt;&lt;/code&gt; - Represents either a success result or an error (Modelled after &lt;a href=&#34;https://doc.rust-lang.org/std/result/&#34;&gt;Rust&amp;rsquo;s std::result&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Either&amp;lt;TValue, TError&amp;gt;&lt;/code&gt; - a more generic concept of a two-part Union type&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are implicit casts to and from (where sensible) these types when they are in use, so you only need to explicitly declare them in contracts, and occasionally in return types. Although, a bunch of work has been put in to avoid return types most of the type.&lt;/p&gt;
+&lt;p&gt;These classes have some consistent methods to help out:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Match - a function or action that is provided lambda &lt;code&gt;Func&lt;/code&gt;s/&lt;code&gt;Action&lt;/code&gt;s  respectively to cover both known states of the object.&lt;/li&gt;
+&lt;li&gt;HasValue - similar to the &lt;code&gt;Nullable&amp;lt;T&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;ValueOrDefault - to ensure you certainly get back a value&lt;/li&gt;
+&lt;li&gt;IsSuccess - a similar pattern to &lt;code&gt;Nullable&amp;lt;T&amp;gt;&lt;/code&gt; applied to &lt;code&gt;Result&amp;lt;,&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There was a theory of making an enum match but it wasn&amp;rsquo;t achievable. However again C# 8 might solve this with new pattern matching too.&lt;/p&gt;
+&lt;p&gt;There is also Resharper definitions provided to work with and be trusted by the Resharper Null static analysis.&lt;/p&gt;
+&lt;h3 id=&#34;show-me-the-code&#34;&gt;Show me the code!&lt;/h3&gt;
+&lt;h4 id=&#34;optiont&#34;&gt;Option&lt;T&gt;&lt;/h4&gt;
+&lt;p&gt;As a simple example you may have a method like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public string Modify(string first, string second)
+{
+    if (first == null)
+    {
+        throw new ArgumentNullException(nameof(first));
+    }
+    if (second == null)
+    {
+        return null;
+    }
+    return first + second;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Typical code. A bit of error checking, and some switch logic based on an optional argument.&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t know about you, but it is hard for me to know that &lt;code&gt;first&lt;/code&gt; is required, but &lt;code&gt;second&lt;/code&gt; is optional. At least not without comments, or a thorough inspection of the code. Shouldn&amp;rsquo;t the signature tell me this? (C# 8 says it will.)&lt;/p&gt;
+&lt;p&gt;Lets take a look at this using Beefeater:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public Option&amp;lt;string&amp;gt; Modify(NotNull&amp;lt;string&amp;gt; first, Option&amp;lt;string&amp;gt; second)
+{
+    return second.Match(
+        v =&amp;gt; first + v,
+        () =&amp;gt; Option&amp;lt;string&amp;gt;.None);
+}
+
+var x = Modify(&amp;quot;Hello&amp;quot;, &amp;quot;World&amp;quot;);
+var y = Modify(&amp;quot;Hello&amp;quot;, null);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is very clean to me. First, the signature tells us everything we need to know.&lt;/p&gt;
+&lt;p&gt;And when we look at the calling syntax, it is seamless. it works exactly as you expect. With one difference.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; in the example are both &lt;code&gt;Option&amp;lt;string&amp;gt;&lt;/code&gt; type. This means you cannot pass this to a method that requires &lt;code&gt;NotNull&amp;lt;string&amp;gt;&lt;/code&gt;, or even &lt;code&gt;string&lt;/code&gt; itself.&lt;/p&gt;
+&lt;p&gt;Why? Well, clearly you have no idea if that result is safe. You know it is either a Nothing or a non-null string. (Is it both?  Schrodinger&amp;rsquo;s &lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt;?)&lt;/p&gt;
+&lt;p&gt;The only sensible thing to do is to check, right? It would be unsafe not to.  Thus the value of the library is revealed.&lt;/p&gt;
+&lt;p&gt;That check can use the &lt;code&gt;Match&lt;/code&gt; method, too.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var x = Modify(&amp;quot;Hello&amp;quot;, &amp;quot;World&amp;quot;);
+
+var outputMessage = x.Match(
+  some: value =&amp;gt; $&amp;quot;The result is {value}&amp;quot;,
+  none: () =&amp;gt; &amp;quot;There wasn&#39;t anything to report&amp;quot;);
+
+Console.WriteLine(outputMessage);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Your code will start to become very functional, but you will also get compile-type checks to ensure you are handling error cases correctly.&lt;/p&gt;
+&lt;p&gt;If you really want to live dangerously, though, there is an explicit cast back to the original type, that will throw a &lt;code&gt;PanicException&lt;/code&gt;. This is basically the library equivalent to the &lt;code&gt;NullReferenceException&lt;/code&gt;, but should normally throw earlier in your code when the Null is first observed, rather than late at dereference.&lt;/p&gt;
+&lt;p&gt;Much like async/await, this library is contagious and will ripple through your code, just FYI.&lt;/p&gt;
+&lt;h4 id=&#34;resulttvalue-terror&#34;&gt;Result&amp;lt;TValue, TError&amp;gt;&lt;/h4&gt;
+&lt;p&gt;Apart from &lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt;, the other most useful is the &lt;code&gt;Result&amp;lt;TValue, TError&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Again, you might have written:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public bool Create(string filePath, string second)
+{
+    if (filePath == null)
+    {
+        throw new ArgumentNullException(nameof(filePath));
+    }
+    if(second == null)
+    {
+        return false;
+    }
+    using (FileStream stream = File.OpenWrite(filePath))
+    {
+        using (var writer = new StreamWriter(stream))
+        {
+            writer.WriteLine(second);
+        }
+    }
+    return true;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Again, a little cruft. Optionality unclear. But there is more.  This method can and will throw a bunch of exceptions. FileNotFound, UnauthorizedAccess, and others. Your calling code is either going to handle many exceptions, or the app will crash. We could put the logic into the method, and the code would get complex. But how do we handle the return? returns &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; or Throws exception, how do you translate that into a concise return type of &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; or FileNotFound or Unauthorized or Other?&lt;/p&gt;
+&lt;p&gt;Beefeater says like this:
+(Rust too, actually&amp;hellip;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public enum ErrorResult
+{
+    UnknownError,
+    FileNotFound,
+    Unauthorized
+}
+public Result&amp;lt;bool, ErrorResult&amp;gt; Create(NotNull&amp;lt;string&amp;gt; filePath, Option&amp;lt;string&amp;gt; second)
+{
+    FileStream stream;
+    try
+    {
+        stream = File.OpenWrite(filePath);
+    }
+    catch (UnauthorizedAccessException ex)
+    {
+        return ErrorResult.Unauthorized;
+    }
+    catch (FileNotFoundException ex)
+    {
+        return ErrorResult.FileNotFound;
+    }
+    catch (Exception ex)
+    {
+        return ErrorResult.UnknownError;
+    }
+    using (stream)
+    {
+        return second.Match(
+            v =&amp;gt;
+            {
+                using (var writer = new StreamWriter(stream))
+                {
+                    writer.WriteLine(v);
+                }
+                return true;
+            },
+            () =&amp;gt; false);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To me, the business logic is very easy to read from this code. Again the signature is clear what to expect and how to use the result.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var result = Create(&amp;quot;myfile.txt&amp;quot;, someVar);
+var outputMessage = result.Match(
+  isCreated =&amp;gt; isCreated
+    ? &amp;quot;The file was created with someVar&amp;quot;
+    : &amp;quot;The file was not created because someVar&amp;quot;,
+  error =&amp;gt; 
+  {
+      switch(error)
+      {
+          case FileNotFound:
+              return &amp;quot;File Not Found&amp;quot;;
+          case Unauthorized:
+              return &amp;quot;The file is secure and you can&#39;t get it.&amp;quot;;
+          case UnknownError:
+          default:
+              return &amp;quot;An unknown Error occurred&amp;quot;;
+      }
+  });
+
+Console.WriteLine(outputMessage);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Just like that, every code-branch/edge-case has to be covered, or it will not compile. (Enum notwithstanding.)&lt;/p&gt;
+&lt;h4 id=&#34;either&#34;&gt;Either&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Either&amp;lt;T1, T2&amp;gt;&lt;/code&gt; is very similar to Result, except the semantic meaning differs. It allows a method to return either one type or another type.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public Either&amp;lt;long, double&amp;gt; DivideByTwo(int aNumber)
+{
+    if (aNumber % 2 == 0)
+        return aNumber / 2;
+    return aNumber / (double)2;
+}
+
+var x = DivideByTwo(10);
+var x = DivideByTwo(5);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;recursion&#34;&gt;Recursion?&lt;/h4&gt;
+&lt;p&gt;You could even nest these things:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Either&amp;lt;Option&amp;lt;string&amp;gt;, NotNull&amp;lt;int&amp;gt;&amp;gt;
+Option&amp;lt;Either&amp;lt;Foo, Bar&amp;gt;&amp;gt;
+Result&amp;lt;Option&amp;lt;string&amp;gt;,CustomError&amp;gt;
+Result&amp;lt;Unit,string&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Different combinations will provide different value in different situations.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Unit&lt;/code&gt;? Yeah. When you go functional, representing &lt;code&gt;void&lt;/code&gt; as a type is much helpful. I have another library where I get my Unit from, but there are literally dozens on Nuget.&lt;/p&gt;
+&lt;h3 id=&#34;c-8&#34;&gt;C# 8&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ve hung a lot of stuff on C# 8 in this article. At some point, I should cover what is coming (though at this stage nothing is certain). Basically, though, this library has been hanging around for a while, before nullable reference types was even being discussed publicly. So whether nullable reference types happens in 8, 8.1 or C# 9, this library is here today and can get you started thinking about different states of optionality in your code today.&lt;/p&gt;
+&lt;h3 id=&#34;performance&#34;&gt;Performance?&lt;/h3&gt;
+&lt;p&gt;About that&amp;hellip;.&lt;/p&gt;
+&lt;p&gt;So I haven&amp;rsquo;t actually spent any time profiling to see if this is damaging your code. For most LOB apps, this will not be the bottleneck compared to IO. But it is a valid point and does need further investigation and optimisation.&lt;/p&gt;
+&lt;p&gt;From a development performance point of view, I do go slower to go faster. I think about and code up the edge cases up front, rather than doubling back when something goes wrong.&lt;/p&gt;
+&lt;h3 id=&#34;attention&#34;&gt;Attention!&lt;/h3&gt;
+&lt;p&gt;So that&amp;rsquo;s Beefeater. I&amp;rsquo;ve started using it slowly on utilities and simple console apps. Hopefully, you find it interesting and it inspires you to think about how you handle your code yourself.&lt;/p&gt;
+&lt;p&gt;If you don&amp;rsquo;t like the ideas in this library, remember a &lt;code&gt;Result&amp;lt;,&amp;gt;&lt;/code&gt; is just a tuple, a &lt;code&gt;(string, ErrorEnum)&lt;/code&gt; if you wish. The rest is just boilerplate code you could write yourself. (Though I do handle all the error and state checking for you so you can just provide the Actions 😉 )&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Coveralls.Net 1.0.0 Release</title>
       <link>https://blogmigration.csmac.nz/post/coveralls-net-1-0-0-release/</link>
       <pubDate>Mon, 04 Jun 2018 07:00:00 +0000</pubDate>
@@ -290,44 +492,6 @@ Example:
     </item>
     
     <item>
-      <title>Travis-ci, C# and PCL</title>
-      <link>https://blogmigration.csmac.nz/post/travis-ci-c-and-pcl/</link>
-      <pubDate>Tue, 23 Dec 2014 10:10:46 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/post/travis-ci-c-and-pcl/</guid>
-      <description>&lt;p&gt;As any good library should do, I&amp;rsquo;m building my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;BCLExtensions project&lt;/a&gt;(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact).  It works great on my &lt;a href=&#34;https://ci.appveyor.com/project/MarkClearwater/bclextensions&#34;&gt;AppVeyor CI builds&lt;/a&gt;, which is a great .Net windows build server.&lt;/p&gt;
-&lt;p&gt;I recently discovered &lt;a href=&#34;http://docs.travis-ci.com/user/languages/csharp/&#34;&gt;Travis-CI has added beta C# support&lt;/a&gt; so I connected it up with my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;GitHub prooject&lt;/a&gt;, which is designed to eventually work with mono anyway, and gave it a go. But no, that&amp;rsquo;s a no go.  The awesome error I was getting was this cryptic thing:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;	Target GetReferenceAssemblyPaths:
-		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets:  warning : Unable to find framework corresponding to the target framework moniker &#39;.NETPortable,Version=v4.0,Profile=Profile328&#39;. Framework assembly references will be resolved from the GAC, which might not be the intended behavior.
-		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets: error : PCL Reference Assemblies not installed.
-	Task &amp;quot;GetReferenceAssemblyPaths&amp;quot; execution -- FAILED
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Turns out since I&amp;rsquo;m using PCL (remember how i said i was using PCL), which the Xamarin mono bits on linux don&amp;rsquo;t come with, and there are no debian packages that contain these PCL frameworks, the bits I need are not there on the Travis build vm.  It wont compile without them. Damn.&lt;/p&gt;
-&lt;p&gt;Luckily for me, thanks to some fast work from the Travis-CI guys, I got the following added to my .travis.yml file:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;	install:
-		- curl -sS http://storage.bos.xamarin.com/bot-provisioning/PortableReferenceAssemblies-2014-04-14.zip &amp;gt; /tmp/pcl-assemblies.zip
-		- unzip /tmp/pcl-assemblies.zip -d /tmp/pcl-assemblies &amp;amp;&amp;amp; mv /tmp/pcl-assemblies/PortableReferenceAssemblies-2014-04-14 /tmp/pcl-assemblies/.NETPortable
-		- export XBUILD_FRAMEWORK_FOLDERS_PATH=/tmp/pcl-assemblies/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;They even put it in a &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions/pull/2&#34;&gt;nice PR&lt;/a&gt; for me.  This allowed the build server to download the PCL references from Xamarin, set the environment variable for the location of the assemblies (well done xbuild for including that little gem in their source, and all my builds came to life.&lt;/p&gt;
-&lt;p&gt;The only other hurdle i had was my mstest projects wouldn&amp;rsquo;t compile, no mstest on mono.  This was easily fixed by changing to xUnit, which is cross platform, and I&amp;rsquo;m loving as a test framework so far. easy to add using nuget packages and this in your .yml:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;    install:
-        - nuget restore MySolution.sln
-        - chmod +x ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe
-    script:
-        - xbuild /p:Configuration=Release ./MySolution.sln
-        - mono ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./MyProject.Tests/bin/Release/MyProject.Tests.dll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And now today I got an &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions/pull/2#issuecomment-67963660&#34;&gt;update from the guys at Travis&lt;/a&gt;:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/akoeplinger&#34;&gt;@akoeplinger&lt;/a&gt; commented&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/csmacnz&#34;&gt;@csmacnz&lt;/a&gt; just FYI, we are now installing the new referenceassemblies-pcl Debian package from Xamarin in the Travis C# support, so this workaround shouldn&amp;rsquo;t be necessary any longer :)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;So I will be able to remove all this and pretend it never happened. At least I&amp;rsquo;ve documented it in the mean-time, and know it is here if a similar issue crops up in the future.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Hey, I found this thing called Coveralls.io</title>
       <link>https://blogmigration.csmac.nz/post/hey-i-found-this-thing-called-coveralls-io/</link>
       <pubDate>Sun, 14 Dec 2014 19:50:47 +0000</pubDate>
@@ -406,6 +570,72 @@ Example:
 &lt;h3 id=&#34;7-tasks-on-the-emulator&#34;&gt;7) Tasks on the emulator&lt;/h3&gt;
 &lt;p&gt;Some things I have come across since finishing, while trying to add a few tasks to my application, such as rating, links to my website, and integrated sending feedback/bug reports, have been interesting discoveries. This relates to the Tasks in the API, and to the hubs and built in applications. I wont go into too much detail, but you can basically use the tasks as a backdoor to access the hidden hubs. From there, you can set up an email account or two, as well as a few other settings, and then get a lot more functionality out of the tasks. More about this can be seen on &lt;a href=&#34;http://dotnet.dzone.com/articles/real-email-accounts-inside&#34;&gt;this blog post&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;So there you have it. 7 lessons from 7 days developing an application for Windows Phone 7.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Time for an update</title>
+      <link>https://blogmigration.csmac.nz/post/time-for-an-update/</link>
+      <pubDate>Fri, 10 Sep 2010 08:33:12 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/time-for-an-update/</guid>
+      <description>&lt;p&gt;So I really should have posted something sooner, but I&amp;rsquo;ve been so busy with other things. Anyway, Change should soon be coming, I have a whole backlog of things i need to post about, and I&amp;rsquo;ve started using Twitter, which should result in this post being tweeted about due to a new plugin (fingers crossed). So here is my mental note, to myself and perhaps also a promise to the wider public, of what i hope to get done to this site over the next few months (I hope this is realistic enough :-) ).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Finish Photo Album Application&lt;/li&gt;
+&lt;li&gt;Restyle the site&lt;/li&gt;
+&lt;li&gt;Add twitter and Social Networking to my site&lt;/li&gt;
+&lt;li&gt;Post about the HTML bridge&lt;/li&gt;
+&lt;li&gt;Post about DataTemplateSelector&lt;/li&gt;
+&lt;li&gt;Post about Attached Behaviour and default item selection&lt;/li&gt;
+&lt;li&gt;Post about Blend and UI Styling&lt;/li&gt;
+&lt;li&gt;Create a Silverlight frontend for WordPress&lt;/li&gt;
+&lt;li&gt;Create Silverlight Tag Cloud&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And if i manage to get through all that I can probably afford to skip another month of not posting! lets see how we go aye?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Playing with Silverlight</title>
+      <link>https://blogmigration.csmac.nz/post/playing-with-silverlight/</link>
+      <pubDate>Mon, 21 Sep 2009 22:54:49 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/playing-with-silverlight/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve just started to experiment with silverlight, well, silverlight 2 to be exact. Its an interesting combination of C# and xml markup, but i like it none-the-less. So far if made a series of buttons that change elements on the screen, nothing special, but am keen to get stuck into something more substantial. Maybe if i get my traffic simulator working in C++ ill port it over to silverlight? We shall see.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>My First YouTube Post</title>
+      <link>https://blogmigration.csmac.nz/post/my-first-youtube-post/</link>
+      <pubDate>Sun, 15 Feb 2009 22:31:58 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/my-first-youtube-post/</guid>
+      <description>&lt;p&gt;Well here is the YouTube movie I promised, 6 weeks work to make, and im really proud of it.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube-nocookie.com/embed/ZMvdaIs1tCo&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;This was made using Blender for the animation, and GIMP to prepare the stop motion frames. Be sure to keep posted for the second installment of Fred. :)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>YouTube</title>
+      <link>https://blogmigration.csmac.nz/post/youtube/</link>
+      <pubDate>Wed, 11 Feb 2009 23:18:26 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/youtube/</guid>
+      <description>&lt;p&gt;I am just about ready to start becoming a contributing member of YouTube. For the last six weeks I&amp;rsquo;ve been taking part in a Summer School Paper at my University to develop and make a short 2-5 minute movie. The paper essentially sums itself up as &amp;lsquo;YouTube for credit&amp;rsquo; according to one of the organisers. This has been a great experience and has the end result of me having a movie showing tomorrow and my video published on the course&amp;rsquo;s YouTube channel.&lt;/p&gt;
+&lt;p&gt;So the movie I made over the last six weeks was about a clay ball who evolves into a clay Person, Fred. Fred goes through an epic journey to overcome love, loss and life to become what he was destined to be. All in the space of 3 minutes, a good achievement i thought. I should also mention this film was made in part with play dough stop motion, and the rest in Blender with 3D animation. This process has lead me to decide that i want to keep making little videos of Fred and other 3D people and objects, and start publishing these on YouTube just for fun. This will also improve my Blender skills which at this point are lacking compared to some of the things i saw on YouTube yesterday.&lt;/p&gt;
+&lt;p&gt;So watch this space and expect some more random videos and animations coming your way from me, hopefully. I still have two assignments to wrap up in the next week, and then another heavy work load will be starting, but the good intentions are there and hopefully this will eventuate into something great. Visit my soon to be full YouTube channel at &lt;a href=&#34;http://www.youtube.com/user/mmclearwater&#34;&gt;http://www.youtube.com/user/mmclearwater&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Clay-mation coming soon</title>
+      <link>https://blogmigration.csmac.nz/post/claymation-coming-soon/</link>
+      <pubDate>Fri, 16 Jan 2009 11:47:54 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/claymation-coming-soon/</guid>
+      <description>&lt;p&gt;So I&amp;rsquo;m making a movie. Yes thats right, I am making a short animated film for a class project with a fellow class mate, that will eventually end up on youtube for every one to enjoy. I don&amp;rsquo;t want to give too much away, but will say this: it contains stop-motion play dough. Wait and see!&lt;/p&gt;
 </description>
     </item>
     

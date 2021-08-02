@@ -12,7 +12,68 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Fri, 31 May 2019 10:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/editorial/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Jul 2019 09:50:55 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/editorial/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>We are all 10x engineers, but I don&#39;t think it means what you think it means</title>
+      <link>https://blogmigration.csmac.nz/post/we-are-all-10x/</link>
+      <pubDate>Mon, 15 Jul 2019 09:50:55 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/we-are-all-10x/</guid>
+      <description>&lt;p&gt;If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:&lt;/p&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;10x engineers&lt;br&gt;&lt;br&gt;Founders if you ever come across this rare breed of engineers, grab them. If you have a 10x engineer as part of your first few engineers, you increase the odds of your startup success significantly.&lt;br&gt;&lt;br&gt;OK, here is a tough question.&lt;br&gt;&lt;br&gt;How do you spot a 10x engineer?&lt;/p&gt;&amp;mdash; Shekhar Kirani (@skirani) &lt;a href=&#34;https://twitter.com/skirani/status/1149302828420067328?ref_src=twsrc%5Etfw&#34;&gt;July 11, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+&lt;p&gt;As a developer who tries to be good at their job, I have thoughts on this. As a Human, I like to be heard. (Note that being heard is not the same thing as being agreed with, or being right.) So here I am giving my opinion on this idea of a 10x developer, and specifically these &amp;ldquo;10 signs&amp;rdquo; put up online.&lt;/p&gt;
+&lt;p&gt;I like the idea that there are no 10x people, instead, you can strive to produce 10x teams.&lt;/p&gt;
+&lt;h2 id=&#34;1-meetings&#34;&gt;1. Meetings&lt;/h2&gt;
+&lt;p&gt;A lot of people don&amp;rsquo;t like meetings. But unfortunately, communication is a big part of effective teams and businesses. While it is true that some people love meetings, and some meetings don&amp;rsquo;t hold productivity, the key here is communication. If you can find an effective means of communication within a team that works, that is most important.  Having a team full of people that don&amp;rsquo;t have meetings doesn&amp;rsquo;t make a 10x team. If meetings are causing you or your team problems, it is work looking at other strategies for effective communication. There are alternatives out there.&lt;/p&gt;
+&lt;h2 id=&#34;2-office-hours&#34;&gt;2. Office Hours&lt;/h2&gt;
+&lt;p&gt;&amp;ldquo;Nine to Five&amp;rdquo; is such an old fashioned idea these days. Not only do some countries have alternative ideas like 4 day weeks, long lunch hours, &amp;ldquo;flexitime&amp;rdquo;, but more and more business work across locations and across timezones. We are asking people to work outside these hours for various reasons already, so why not some give and take here?&lt;/p&gt;
+&lt;p&gt;Most people would love flexible work hours. It turns out that if people can work around their own schedule, they put their best work forward when they are present. I would much rather have someone contribute 100% at 9 pm at night because their kids are in bed and they can concentrate rather than pay them to sit at their desk for several hours texting and calling their family. Just a thought.&lt;/p&gt;
+&lt;p&gt;We are so fortunate that in our industry is so capable and adjustable to different working hours that it is a shame not to support this. It is not that &amp;ldquo;10x developers are the people who like this&amp;rdquo;, it is actually that most employees want this, and it can be done.&lt;/p&gt;
+&lt;h2 id=&#34;3-screen-colour-and-worn-keyboards&#34;&gt;3. Screen colour and worn keyboards&lt;/h2&gt;
+&lt;p&gt;If I saw a sports star on the field/pitch/court wearing badly worn shoes, I wouldn&amp;rsquo;t think &amp;ldquo;This is a superstar&amp;rdquo;, I would probably think &amp;ldquo;he isn&amp;rsquo;t paid enough&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Why are you letting your developers use worn-out equipment? Buying the required hardware and software is such an important thing, just do it! In all seriousness, though, giving staff the right tools to get their job done is always a good idea.&lt;/p&gt;
+&lt;p&gt;There is an interesting dichotomy with custom technical tools as well. If you have one developer that goes against the grain of the team with customisation, then it both makes it harder for them to use other machines (e.g. during pairing/mobbing) and for others to use theirs. There is some efficiency to using the out of the box defaults too. You can get up and running faster, and waste less time doing customisations every time you refresh your machine or change jobs and get new hardware.&lt;/p&gt;
+&lt;p&gt;Also, if you have to have everything customised your own way, you won&amp;rsquo;t be able to acclimatise to new situations, new tools, new teams. Not someone you want to add to your team.&lt;/p&gt;
+&lt;h2 id=&#34;4-good-memory&#34;&gt;4. Good memory&lt;/h2&gt;
+&lt;p&gt;One my big comparisons between my generation and the one before me (that is the one with the access to Google, but not access to iPads) was that at school we were no longer taught to memorise and recall information. Instead, we were taught, and learned, the importance of finding and referencing information. There is too much information for us all to hold in our heads. knowing where to look and what to look for is far more important that memorised information for a technology that will be obsolete in 3 years (if you are lucky), let alone memorising a dozen of them over time.&lt;/p&gt;
+&lt;p&gt;Yes, it is great to get people who know the domain really well, and for some people, it really is a skill. But people can&amp;rsquo;t know what they haven&amp;rsquo;t seen yet, and new hires always start as a blank slate. Not to mention tomorrow will bring a new set of libraries, applications and services that need to be learned and understood.&lt;/p&gt;
+&lt;p&gt;Scott Hanselman talks of the experience-groundhog-day scenario.&lt;/p&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;Do you have 10 years’ experience, or the same year 10 times? &lt;a href=&#34;https://t.co/LhIeWiWl3H&#34;&gt;https://t.co/LhIeWiWl3H&lt;/a&gt;&lt;/p&gt;&amp;mdash; Scott Hanselman (@shanselman) &lt;a href=&#34;https://twitter.com/shanselman/status/1001495109836226560?ref_src=twsrc%5Etfw&#34;&gt;May 29, 2018&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+&lt;h2 id=&#34;5-full-stack&#34;&gt;5. Full Stack&lt;/h2&gt;
+&lt;p&gt;Don&amp;rsquo;t you love buzz words? FullStack. A full-stack would be from the HTML/CSS/js to the backend code, to the database. But it is also understanding how the TCP/HTTP layer works with packets and routing. How does your platform infrastructure run, do you manage and patch the servers? Database backups and data security, not to mention how the hardware scales, can you write the assembly to work with arm processors too?&lt;/p&gt;
+&lt;p&gt;Jack of all trades, master of none. That is a saying that acknowledges you are spread too thin. You can&amp;rsquo;t be an expert in everything, so instead, you can hire an expert in each thing. Yes, you want everyone to be a generalist, but make sure you have coverage with all of the specialists, too.&lt;/p&gt;
+&lt;p&gt;I can&amp;rsquo;t say I&amp;rsquo;ve met too many people who can design and build an amazing user experience, and also optimise a large scale database, and run a datacentre. Oh and also works well with others&amp;hellip;&lt;/p&gt;
+&lt;h2 id=&#34;6-wait-wat&#34;&gt;6. Wait, WAT?&lt;/h2&gt;
+&lt;p&gt;This one I just have to quote it in two parts:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;10x engineers can convert &amp;ldquo;thought&amp;rdquo; into &amp;ldquo;code&amp;rdquo; in their mind and write it in an iterative fashion.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Just for a second, imagine with me, that you could replace the words &amp;ldquo;10x engineer&amp;rdquo; with &amp;ldquo;a developer&amp;rdquo;. Crazy idea, but it might actually work.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Given a product feature, they can write that entire feature in one or two sittings of 4 to 6 hours with a caffeinated drink without distraction.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We all have good days where we fire on all cylinders. Or a task or feature fits into just the right hole in a system.  Cherish the days when it happens, but realise its more about the stars aligning and less about the ability of your developer. We are all capable of this. But the rest of the time it&amp;rsquo;s just a Monday.&lt;/p&gt;
+&lt;h2 id=&#34;7-good-memory-part-deux&#34;&gt;7. Good Memory. Part Deux&lt;/h2&gt;
+&lt;p&gt;We talked about this. Enough said.&lt;/p&gt;
+&lt;h2 id=&#34;8-learning&#34;&gt;8. Learning&lt;/h2&gt;
+&lt;p&gt;This is another one of those things with a dichotomy. If you are always learning something new, you never get to master anything. There is a benefit to having people who are masters, and people who can learn, and people who can teach and share. You need balance both as a developer and person, but also in and within a team. If you don&amp;rsquo;t have this yet, look at hiring the capabilty, but don&amp;rsquo;t use it to rule in or out talented people.&lt;/p&gt;
+&lt;h2 id=&#34;9-terrible-leaders&#34;&gt;9. Terrible leaders&lt;/h2&gt;
+&lt;p&gt;Yes. I think exactly what you want to do is hire someone who cannot teach how the system works to new staff. That will help you grow. No, not really. The team is only as strong as its weakest point. And the ability to both cover for, and teach and grow newer talent is key to growth and success.&lt;/p&gt;
+&lt;p&gt;Also, while it is true that some people will be amazing on your team, but will interview poorly, I can&amp;rsquo;t say there is a direct reverse correlation here, either. Sorry.&lt;/p&gt;
+&lt;h2 id=&#34;10&#34;&gt;10. &lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;10x engineers rarely job hunt or move out of the company. They move out because you make their life miserable with the process, meetings, training, and other non-value-added activities. If you come across them, hold on to them. Celebrate them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So close. This is the first point I almost agree with. Just go ahead and replace &amp;ldquo;10x engineers&amp;rdquo; again with &amp;ldquo;developers&amp;rdquo;, Or even just &amp;ldquo;employees&amp;rdquo; will do.&lt;/p&gt;
+&lt;h2 id=&#34;01x-developers&#34;&gt;0.1x developers&lt;/h2&gt;
+&lt;p&gt;While there are seeds in here that make for an interesting debate, they have nothing to with &amp;ldquo;10&amp;rdquo; or &amp;ldquo;X&amp;rdquo;. The best summary of the whole situation is this: The scale is off.  I think the truth of the matter is that there are developers who might contribute to failings in a team (and some warning signs appear above, under the wrong inversion, though). We can call them the 0.1x developers. They are the ones to truly watch out for.&lt;/p&gt;
+&lt;p&gt;As founders and employers, you will want to be doing all the right things to attract and keep good talent, and that is more important than going after a mythical creature known as the 10x developer.&lt;/p&gt;
+&lt;p&gt;What someone needs to do is follow the footsteps of Dylan Beattie&amp;rsquo;s &lt;a href=&#34;https://github.com/RockstarLang/rockstar&#34;&gt;Rockstar programming language&lt;/a&gt; and make a language or piece of hardware board and call it &amp;ldquo;10x&amp;rdquo;. Then we can all be Rockstar Programmers and 10x Engineers.&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>µCon 2019 - Day 3</title>
       <link>https://blogmigration.csmac.nz/post/mucon-2019-part2/</link>
@@ -86,6 +147,21 @@ from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; 
     </item>
     
     <item>
+      <title>Silverlight 6 with .NetStandard support Announced</title>
+      <link>https://blogmigration.csmac.nz/post/silverlight-6-with-netstandard-support-announced/</link>
+      <pubDate>Sun, 31 Mar 2019 16:30:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/silverlight-6-with-netstandard-support-announced/</guid>
+      <description>&lt;p&gt;&lt;em&gt;Published on April Fools Day, 2019&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Microsoft announced today that they are working on Silverlight 6, which is to include .NetStandard support up to at least NetStandard 2.0.&lt;/p&gt;
+&lt;p&gt;Development Manager &lt;a href=&#34;http://bit.ly/llirpa&#34;&gt;Loof Lirpa&lt;/a&gt; on the Silverlight Development team has confirmed that there is a Silverlight version 6 in the works, and it will be compatible with the .Net Standard and the dotnet cli.&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;We have been working hard behind the scenes for a while, because it is important for us to get this right and be as compatible as possible, we didn&amp;rsquo;t want to announce anything until we were certain it was going to be possible to do.&amp;rdquo;, Mrs Lirpa told us.&lt;/p&gt;
+&lt;p&gt;As well as the existing Windows and Mac Browser support we have come to expect from Silverlight, and the Windows OOTB mode, version 6 will ship with Linux support for the first time. Leveraging the work done for .Net core on linux, and with the help of Johnny Skeeet at Mozilla, browsers on Linux including the Chrome browser will also support the new version. &amp;ldquo;We have had such great success with embedding Flash into our browser from a security point of view, we look forward to completing the Silverlight 6 integration for all platforms.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;Developers should expect to have builds available by April 1st 2020.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>So you wanna be a Rockstar (Developer)?</title>
       <link>https://blogmigration.csmac.nz/post/so-you-wanna-be-a-rockstar-developer/</link>
       <pubDate>Tue, 05 Feb 2019 20:13:39 +0000</pubDate>
@@ -118,6 +194,64 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
 &lt;h2 id=&#34;--&#34;&gt;&amp;ndash;&lt;/h2&gt;
 &lt;p&gt;And if you really want to be a Rockstar developer, I leave you with this this:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/RockstarLang/rockstar&#34;&gt;https://github.com/RockstarLang/rockstar&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Looking forward to dotnet in 2019</title>
+      <link>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</link>
+      <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</guid>
+      <description>&lt;p&gt;It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.&lt;/p&gt;
+&lt;p&gt;The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)&lt;/p&gt;
+&lt;h2 id=&#34;c-8&#34;&gt;C# 8&lt;/h2&gt;
+&lt;p&gt;It feels like we&amp;rsquo;ve been talking about C# 8 for a while, with 7.1, 7.2 and 7.3 releases building towards it. (It was 2 years ago when they were talking about what&amp;rsquo;s new in C# 7.0!). We&amp;rsquo;ve had demos at Build, NDC and online of what is coming, with &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/12/05/take-c-8-0-for-a-spin/&#34;&gt;Preview releases&lt;/a&gt; dropping towards the end of last year. We should expect to see VS 2019 Released this Quarter (one hopes) and can get a better look at C# 8 in its final form at that point.&lt;/p&gt;
+&lt;p&gt;What we do know is there are a bunch of cool features coming:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nullable reference types&lt;/li&gt;
+&lt;li&gt;Async streams&lt;/li&gt;
+&lt;li&gt;Ranges and indices&lt;/li&gt;
+&lt;li&gt;Default implementations of interface members&lt;/li&gt;
+&lt;li&gt;Recursive patterns&lt;/li&gt;
+&lt;li&gt;Switch expressions&lt;/li&gt;
+&lt;li&gt;Target-typed new-expressions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;More detailed notes and examples of what these are and how they look was published on the .Net Blog article &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/&#34;&gt;Building C# 8.0&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I am seriously looking forward to the Nullable reference types (I have a few libraries to get updated to support it still), Switch expressions and recursive patterns, and also finding out where the other features start to find their use for me.&lt;/p&gt;
+&lt;h2 id=&#34;net-core-30&#34;&gt;.Net Core 3.0&lt;/h2&gt;
+&lt;p&gt;Once again, we have a proper Major release. This one is as important as the .Net Core 2.0 milestone was, but hopefully, the jump is much more stable. This is an umbrella for new dotnet CLI tool updates, MSBuild updates, a new 3.0 runtime, and support for all in Visual Studio as well.&lt;/p&gt;
+&lt;p&gt;The big headline is Windows Desktop Coming to .NET Core. Yes, this is OS-specific and not cross-platform, but is a huge step in getting those GUI apps transferred over to the dotnet CLI and the .Net Core runtime. As part of this, they even OpenSourced all the GUI frameworks WPF, WinForms and WinUI.&lt;/p&gt;
+&lt;p&gt;Things to look out for when moving to .Net Core 3.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Desktop Applications support&lt;/li&gt;
+&lt;li&gt;Applications now have executables by default&lt;/li&gt;
+&lt;li&gt;dotnet build now copies dependencies&lt;/li&gt;
+&lt;li&gt;Local dotnet tools&lt;/li&gt;
+&lt;li&gt;ARM64 and updated platform support&lt;/li&gt;
+&lt;li&gt;Many language and runtime improvements
+&lt;ul&gt;
+&lt;li&gt;fast in-box JSON Reader&lt;/li&gt;
+&lt;li&gt;C# 8 language features support&lt;/li&gt;
+&lt;li&gt;System.Buffers.SequenceReader&lt;/li&gt;
+&lt;li&gt;IoT improvements&lt;/li&gt;
+&lt;li&gt;TLS improvements on linux&lt;/li&gt;
+&lt;li&gt;Cryptography improvements&lt;/li&gt;
+&lt;li&gt;More BCL Improvements using optimized Span&lt;T&gt;, Memory&lt;T&gt;&lt;/li&gt;
+&lt;li&gt;Default implementations of interface members&lt;/li&gt;
+&lt;li&gt;Tiered Compilation on by default&lt;/li&gt;
+&lt;li&gt;Assembly Metadata Reading with MetadataLoadContext&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To see more of the changes in detail, especially the language and runtime improvements, you can read up more yourself &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/12/04/announcing-net-core-3-preview-1-and-open-sourcing-windows-desktop-frameworks/&#34;&gt;in the Announcement from December&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;netstandard21&#34;&gt;.NetStandard2.1&lt;/h2&gt;
+&lt;p&gt;The release of .Net Core 2.1 and 2.2 went by without needing to update the baseline of compatibility. The NetStandard2.0 target has stood up well as a baseline common denominator after the false start .NetStandard1.x gave some of us.&lt;/p&gt;
+&lt;p&gt;Late last year Microsoft &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/11/05/announcing-net-standard-2-1/&#34;&gt;Announced .NET Standard 2.1&lt;/a&gt;, which is a new required standard that will be first implemented in .dotnet 3.0 and .Net Framework 4.8 is a foundation to allow using some of the new language features that need Runtime support, such as Async streams, indexers and ranges.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;As mentioned, you can start playing with some of this stuff today in the &lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2018/12/05/take-c-8-0-for-a-spin/&#34;&gt;Preview of Visual Studio 2019&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Plenty of new stuff to learn over the coming year and I can&amp;rsquo;t wait for Release day so I can update everything I have.  First stop will be Nullable reference types.&lt;/p&gt;
+&lt;p&gt;What are you looking forward to using the most?&lt;/p&gt;
 </description>
     </item>
     
@@ -158,6 +292,25 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
 &lt;p&gt;The other reason is the trains in this country. I come from New Zealand. We have trains, they don&amp;rsquo;t carry people. They do, but only between one or two select destinations for tourists a couple of times a day. I like the trains here, and the novelty of doing what could only be done by aeroplane in New Zealand with just as early a start anyway, and doing it for half the cost of what the plane would be, it was just one of those things I had to take advantage of while I&amp;rsquo;m here in the UK.&lt;/p&gt;
 &lt;p&gt;I know I shouldn&amp;rsquo;t be penny-pinching really, but some habits die hard. Maybe I&amp;rsquo;ll be more sensible next time&amp;hellip; Maybe.&lt;/p&gt;
 &lt;p&gt;On Sunday, he rested.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Little Town called Milton</title>
+      <link>https://blogmigration.csmac.nz/post/a-little-town-called-milton/</link>
+      <pubDate>Mon, 23 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/a-little-town-called-milton/</guid>
+      <description>&lt;p&gt;There is a small town in the South Island of New Zealand called Milton. The main road runs right through the town in one side and out the other. Its a nice enough place to stop on a road trip.&lt;/p&gt;
+&lt;p&gt;There is a unique feature to this main road in Miton, you see. When you get to the middle of the town and the road has a massive kink in it.  Why is this here?&lt;/p&gt;
+&lt;p&gt;One story goes that two surveyors were building the road, one from the south and one from the north. A nice straight road.  The problem is that when they go their straight road to the town they realised that it didn&amp;rsquo;t line up. So they had to use the kink to connect it up.&lt;/p&gt;
+&lt;p&gt;Another story tells of a tree that didn&amp;rsquo;t want to be removed, so when they realised it was in the way of the road it was too late. The road had to go around it.&lt;/p&gt;
+&lt;p&gt;No matter which version of the story you believe, there are two very interesting and important lessons to learn here.&lt;/p&gt;
+&lt;p&gt;When you are working together on a project, and there is a point where you meet and connect, it is important to define exactly how this connection is defined and then build from that agreed contract.&lt;/p&gt;
+&lt;p&gt;Say you are building an API service that another team will consume. Building out the contract of that API together will help avoid any kinks later. Software refactoring might be easier than re-laying an entire stretch of Highway, but it still costs you.&lt;/p&gt;
+&lt;p&gt;The other lesson is this: do some research ahead of time and understand your constraints. If you know what obsticles are in your way, you can produce a cleaner result to avoid them, rather then producing nasty work-arounds once you have already built a bunch stuff that is going to be too much effort to destroy and start over.&lt;/p&gt;
+&lt;p&gt;Thanks for reading!&lt;/p&gt;
+&lt;p&gt;CC Image courtesy of &lt;a href=&#34;https://www.flickr.com/photos/johnbullas/2663355586&#34;&gt;johnbullas on Flickr&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -395,110 +548,6 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
 &lt;p&gt;Microsoft Research, I would love to see you release something awesome in the Android-Wear client app space.&lt;/p&gt;
 &lt;p&gt;Just one more stone on the scales tipping them in the wrong direction that might one day force me to buy an Android.&lt;/p&gt;
 &lt;p&gt;/rant&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Podcasts, I&#39;m addicted.</title>
-      <link>https://blogmigration.csmac.nz/post/podcasts-im-addicted/</link>
-      <pubDate>Mon, 07 Nov 2016 03:14:31 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/post/podcasts-im-addicted/</guid>
-      <description>&lt;p&gt;My name is Mark and I am a podcast addict.&lt;/p&gt;
-&lt;h3 id=&#34;tldr&#34;&gt;TL;DR&lt;/h3&gt;
-&lt;p&gt;I listen to many podcasts. If you want some suggestions for weekly/monthly listening I recommend:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://hanselminutes.com/&#34;&gt;Hanselminutes&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.dotnetrocks.com/&#34;&gt;.Net Rocks!&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://jesseliberty.com/podcast/&#34;&gt;Yet Another Podcast&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.mergeconflict.fm/&#34;&gt;Merge Conflict&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://atp.fm/&#34;&gt;Accidental Tech Podcast&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.theincomparable.com/theincomparable/&#34;&gt;The Incomparable&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;And some podcasts that have finished&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://thisdeveloperslife.com/&#34;&gt;This Developer&amp;rsquo;s Life&lt;/a&gt; (27 episodes)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.werealive.com/listen/&#34;&gt;We&amp;rsquo;re Alive&lt;/a&gt; (A story about zombies) (48 episodes)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;it-begins&#34;&gt;It begins&lt;/h3&gt;
-&lt;p&gt;Over the last few years, my daily commute consisted of a 10-40 minute walk each way (depending on where we moved to). This lead me down the path of wearing headphones. Music is a great way to pass the time, but pretty soon I wanted something more.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://hanselminutes.com/&#34;&gt;Hanselminutes&lt;/a&gt; was my gateway to becoming a podcast listener. I started listening about 4 years ago and really enjoyed the relevant content to a .Net developer like myself. After a few episodes, I loaded the back catalog onto my phone. As well as keeping up with new weekly episodes, I was devouring episodes from 2006, then 2007, and on it went.&lt;/p&gt;
-&lt;p&gt;Pretty soon, it had come to my attention that there was a show called &lt;a href=&#34;http://www.dotnetrocks.com/&#34;&gt;.Net Rocks!&lt;/a&gt; (another from the &lt;a href=&#34;http://www.pwop.com/podcasts.aspx&#34;&gt;Pwop Studios&lt;/a&gt;). This now became my second podcast but to this day the only one I haven&amp;rsquo;t considered the back catelog since &lt;a href=&#34;https://twitter.com/carlfranklin&#34;&gt;@carlfranklin&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/richcampbell&#34;&gt;@richcampbell&lt;/a&gt; produce 3 episodes a week! And it&amp;rsquo;s great they geek out once in a while with science technology such as Sound Technology, Nasa, and the latest in power generation.&lt;/p&gt;
-&lt;p&gt;But in the process of Listening, I found &lt;a href=&#34;http://www.thetabletshow.com/&#34;&gt;The Tablet Show&lt;/a&gt;, a limited run of .Net Rock style episodes that focussed on all things tablet, Windows 8, Android and iPad. And related to this I stumbled on &lt;a href=&#34;https://twitter.com/WindowsDevShow&#34;&gt;The Windows Developer Show&lt;/a&gt; (now missing from the face of the Internet), a podcast focusing first on Metro and Windows Phone, and later all things modern Windows Dev (up to UWP).&lt;/p&gt;
-&lt;p&gt;For a short period I tried out &lt;a href=&#34;http://www.werealive.com/listen/&#34;&gt;We&amp;rsquo;re Alive&lt;/a&gt;, a story-based podcast about zombies. This was really good, but much like The Walking Dead, it fell to the wayside for more technical content.&lt;/p&gt;
-&lt;p&gt;As well as reading &lt;a href=&#34;http://www.hanselman.com/blog/&#34;&gt;Scott Hanselman&amp;rsquo;s blog&lt;/a&gt; I also enjoyed the &lt;a href=&#34;http://jesseliberty.com/&#34;&gt;blog of Jesse Liberty&lt;/a&gt;, and it turned out he has a podcast called &lt;a href=&#34;http://jesseliberty.com/podcast/&#34;&gt;Yet Another Podcast&lt;/a&gt;. At the same time, Scott had another podcast &lt;a href=&#34;http://thisdeveloperslife.com/&#34;&gt;This Developer&amp;rsquo;s Life&lt;/a&gt; with &lt;a href=&#34;http://rob.conery.io/&#34;&gt;Rob Conery&lt;/a&gt;. This was a short run show (based on episode count), but every episode was (and still is) worth the listen. (For completion I am aware of &lt;a href=&#34;http://www.ratchetandthegeek.com/&#34;&gt;Ratchet and the Geek&lt;/a&gt; co-hosted by Scott, but it hasn&amp;rsquo;t made it onto my queue yet)&lt;/p&gt;
-&lt;p&gt;Since I had been hooked on podcasts already, &lt;a href=&#34;https://github.com/deadalusai&#34;&gt;a friend&lt;/a&gt; started putting me onto other podcasts. The first one that stuck with me was ATP, the &lt;a href=&#34;https://atp.fm/&#34;&gt;Accidental Tech Podcast&lt;/a&gt;. What started as a podcast I was keeping up with week to week, has 2 years later become another podcast on my completion list that I can say I am up to date with (which says a lot since the latest episode is #192 and they run well over 60 minutes each, some reaching 2 hours in length). These 3 guys talk about things from an Apple perspective, primarily, but touch on anything newsworthy in Tech along the way.&lt;/p&gt;
-&lt;p&gt;The next recommended podcast to stick was &lt;a href=&#34;http://www.newrustacean.com/&#34;&gt;New Rustacean&lt;/a&gt;, a podcast about learning the Rust programming language. I&amp;rsquo;ll admit, a podcast isn&amp;rsquo;t the best way to learn a language, but it is a nice supplementary. Since I started listening when it came out this one has been easy to keep up with as new episodes are released.&lt;/p&gt;
-&lt;h3 id=&#34;four-years-on&#34;&gt;Four years on&lt;/h3&gt;
-&lt;p&gt;The latest across my list that started is &lt;a href=&#34;http://www.mergeconflict.fm/&#34;&gt;Merge Conflict&lt;/a&gt;, a weekly show by &lt;a href=&#34;http://twitter.com/praeclarum&#34;&gt;Frank Krueger &lt;/a&gt; known for &lt;a href=&#34;http://calca.io/&#34;&gt;Calca&lt;/a&gt;, &lt;a href=&#34;http://icircuitapp.com/&#34;&gt;iCircuit&lt;/a&gt;, and &lt;a href=&#34;http://continuous.codes/&#34;&gt;Continuous&lt;/a&gt; and &lt;a href=&#34;http://twitter.com/jamesmontemagno&#34;&gt;James Montemagno &lt;/a&gt; of Xamarin fame. A great listen for development practice and geeky topics like VR and Chat Bots.&lt;/p&gt;
-&lt;p&gt;My completionist tendencies meant I was almost at zero unlistened episodes across all the podcasts I listen to. (excluding the new ones coming up each week, or .Net Rocks. One day&amp;hellip;) So I thought I would venture out again. Starting with the hosts of &lt;a href=&#34;https://atp.fm/&#34;&gt;ATP&lt;/a&gt;, I looked into some of their previous and other shows.&lt;/p&gt;
-&lt;p&gt;The first of these is an old completed podcast &lt;a href=&#34;http://5by5.tv/hypercritical&#34;&gt;Hypercritical&lt;/a&gt;, a show where &lt;a href=&#34;http://arstechnica.com/author/john-siracusa/&#34;&gt;John Siracusa&lt;/a&gt; can just rant about all things. Spanning from early 2011 till late 2012 for 100 episodes. Quickly following this is &lt;a href=&#34;https://twitter.com/marcoarment&#34;&gt;Marco Arment&lt;/a&gt;&amp;rsquo;s &lt;a href=&#34;http://5by5.tv/buildanalyze&#34;&gt;Build &amp;amp; Analyse&lt;/a&gt; (with &lt;a href=&#34;https://twitter.com/danbenjamin&#34;&gt;Dan Benjamin&lt;/a&gt;) and &lt;a href=&#34;https://twitter.com/caseyliss&#34;&gt;Casey Liss&lt;/a&gt;&amp;rsquo;s &lt;a href=&#34;https://www.relay.fm/analogue&#34;&gt;Analog(ue)&lt;/a&gt; (with &lt;a href=&#34;https://twitter.com/imyke&#34;&gt;Myke Hurley&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;The other few I have now added to my list to start listening to are &lt;a href=&#34;https://www.theincomparable.com/robot/&#34;&gt;Robot Or Not&lt;/a&gt; (another Siracusa show) and &lt;a href=&#34;https://www.theincomparable.com/theincomparable/&#34;&gt;The Incomparable&lt;/a&gt;, which is another great Geek listen. So far these look to fit in nicely, while I also keep up with new episodes of ATP, Hanselminutes and Merge Conflict.&lt;/p&gt;
-&lt;p&gt;My queue is back to &lt;del&gt;500&lt;/del&gt; &lt;del&gt;880&lt;/del&gt; 850 and counting down. But I doubt that will last long. I&amp;rsquo;m addicted. And if you are too, these might help feed your habit.&lt;/p&gt;
-&lt;h3 id=&#34;bonus-comments&#34;&gt;Bonus Comments&lt;/h3&gt;
-&lt;p&gt;Thanks for reading all the way to the end. Much appreciated. As a bonus, the headphones that I use are the &lt;a href=&#34;https://www.amazon.co.uk/Jaybird-Bluebuds-Bluetooth-Earphones-Midnight/dp/B00AIRUOI8&#34;&gt;Jaybird Bluebuds X In-Ear Bluetooth Earphones&lt;/a&gt; (no longer available, but I would vouch for the quality and service of the Jaybird guys). This is my second pair as a replacement for an audio fault a year in, and they were really good about sending me the new ones under warranty.  These are great for walking, running and general music and podcast listening.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Fork off with your branches</title>
-      <link>https://blogmigration.csmac.nz/post/fork-off-with-your-branches/</link>
-      <pubDate>Sun, 05 Jun 2016 21:32:04 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/post/fork-off-with-your-branches/</guid>
-      <description>&lt;p&gt;The nice thing about git is that branches are cheap and you can create many and varied branches for every little fix, format or feature. The annoying thing about GitHub is that every user creates many many many branches.&lt;/p&gt;
-&lt;p&gt;One of my pet peeves at the moment is a large number of branches on our upstream repository. That is, the shared common one we all fork from and Pull Request into. When I started there were almost 200 branches! So many branches made it really hard to find out which branch was for what, and even harder to tell if any of the branches were not being used.&lt;/p&gt;
-&lt;p&gt;These might seem like small things, but if you have a CI server &lt;em&gt;(I really hope you have a CI server)&lt;/em&gt; you might set up wildcard builds that automatically build every branch that matches a certain pattern, for example, &lt;code&gt;feature/*&lt;/code&gt; or &lt;code&gt;release/*&lt;/code&gt;. Now every one of these branches has a build that runs every time the code changes. You probably want to ensure they are up to date with master, so a script will run on a schedule &lt;em&gt;(or triggered off of a merge)&lt;/em&gt; and auto-merge master down to your branch. &lt;em&gt;(Why is this required? probably because you have so many branches in the first place! Investigate &lt;a href=&#34;https://www.google.co.uk/search?q=rebase&#34;&gt;git rebase&lt;/a&gt;&amp;hellip;)&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;So now, every time the script runs, it triggers updates on every branch, which triggers a build. 200 branches? instant 200 builds in your CI queue. &lt;em&gt;(Who has 200 agents? not me.)&lt;/em&gt; Frustration sets in when you can&amp;rsquo;t get your normal build through because your server is busy, and will stay busy for a while.&lt;/p&gt;
-&lt;p&gt;The other obvious overhead to me is a cognitive one. If an individual is tracking more than one branch or work, they have to context switch back and forward between then. I can understand 2 work streams due to external blockers on task one and be filling time with task 2, but having 3 or more branches is juggling too much work.  Taking this further, if you have a bunch of branches because the work is done and ready to release, get it shipped. It&amp;rsquo;s not done until it&amp;rsquo;s in production in front of customers &lt;em&gt;(even if only early adopter or beta users)&lt;/em&gt;.  using branches as a release task list isn&amp;rsquo;t sensible when everyone does it. Your branches get lost in the noise.  You may even forget to release a branch of changes until your manager chases you for something you thought was released!&lt;/p&gt;
-&lt;p&gt;Let&amp;rsquo;s apply this to teams. A team can only be focussing on so many priorities (read branches) before they start dropping balls, or wasting a lot of time on communication and overhead on tracking these different tasks &lt;em&gt;(bugs, features etc)&lt;/em&gt;. The less active branches a team has to manage at once, the better. And you get a bit of a &lt;a href=&#34;https://en.wikipedia.org/wiki/Bystander_effect&#34;&gt;bystander effect&lt;/a&gt; on your branches.&lt;/p&gt;
-&lt;p&gt;Frustrations aside, there are some real benefits from using a &lt;a href=&#34;https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow&#34;&gt;git flow&lt;/a&gt; or &lt;a href=&#34;https://guides.github.com/introduction/flow/&#34;&gt;GitHub Flow&lt;/a&gt; approach where there is a single trunk of development &lt;em&gt;(either a develop-release-master flow or a master-master-master flow)&lt;/em&gt; where you are subject to a continuous integration model. Things like &lt;a href=&#34;https://en.wikipedia.org/wiki/Feature_toggle&#34;&gt;feature flagging&lt;/a&gt; and dark releases are great ways to handle harder features and code refactors such are renames, formatting and class extraction are much easier when there is only one branch to work in.&lt;/p&gt;
-&lt;p&gt;Some rules to work by:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;keep your small change branches in your fork.&lt;/li&gt;
-&lt;li&gt;Don&amp;rsquo;t push branches upstream&lt;/li&gt;
-&lt;li&gt;collaborative feature branches? Use feature toggles to maintain continuous integrations.&lt;/li&gt;
-&lt;li&gt;Refactoring? incrementally, ship often.&lt;/li&gt;
-&lt;li&gt;No more big bang changes, please.&lt;/li&gt;
-&lt;li&gt;Branches are cheap, but you don&amp;rsquo;t have to share them.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Another pet peeve is naming things.  If you have to have a branch, name it after your team, your username, or the bug tracking id for the story of work it relates to. cryptic &amp;lsquo;feature&amp;rsquo; or &amp;lsquo;bug&amp;rsquo; description names don&amp;rsquo;t help anyone. The diff says what the change is, so it is self-descriptive &lt;em&gt;(aka &lt;a href=&#34;https://en.wikipedia.org/wiki/Self-documenting_code&#34;&gt;self-documenting&lt;/a&gt;)&lt;/em&gt;, but I don&amp;rsquo;t know who owns it.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&amp;lt;/rant&amp;gt;&lt;/strong&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>On Passion in IT</title>
-      <link>https://blogmigration.csmac.nz/post/on-passion-in-it/</link>
-      <pubDate>Mon, 16 May 2016 04:37:44 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/post/on-passion-in-it/</guid>
-      <description>&lt;p&gt;Some people have a natural gift to be able to learn. They can pick up any subject and by putting in hard work they can get good at it.  Some people have a natural interest in a specific subject, and these people enjoy the process of learning and don’t find the work being put in as ‘hard’, but instead it is fun. They too will get good, or even great at this subject.  Then there are other people. No matter how hard they work on any subject, the hard work may never truly pay off enough for them to get ‘good’. Instead, they feel frustrations, and anxiety and even may come to hate it, being too hard.&lt;/p&gt;
-&lt;p&gt;Why do I bring this up? Well, it turns out that as much as people may generally fit into one of these three groups, we can all take any specific subject or topic and put ourselves into one of these three categories in it. Learning a language? Well, you may find it impossible if you never had to learn another language before, especially at an older age. But have you already learned 5 other languages? You can get really good at the sixth one with some hard work being put in.  Do you absolutely enjoy baking? Then learning a new recipe or technique might be so much fun that it feels like easy work, even if you put in days of effort to get really great results.&lt;/p&gt;
-&lt;p&gt;This concept is also very relevant to the I.T. industry.   If you are here reading this, you probably belong to the industry or intend to in the near future.&lt;/p&gt;
-&lt;p&gt;The I.T. industry is a very broad category, with so many different topics and subjects to pick and choose from. I would dare say that if you enjoy computers in a general sense, then there is an area of I.T. out there that you can be passionate about, and enjoy working in. If you are reading this, and really hate your job in the I.T. sector, you might want to pay attention here.&lt;/p&gt;
-&lt;p&gt;Passion fuels a fire of learning that makes the whole process fun, exciting and enjoyable. You can enjoy the process of becoming good at a topic, and might even find yourself becoming great at it as well. The trick is to find the area that interests you the most, and dive in. You can start learning about it in your spare time, and look for opportunities to apply it to your current role, your next project, or otherwise to your next C.V application. Learning in your own time and applying for a job in that area is a great way to get the job you will enjoy.  Better yet, that job can take you from good to great, while enjoying yourself at the same time!&lt;/p&gt;
-&lt;p&gt;The other great thing about the Industry is the fast pace it moves in.  You have the opportunity to completely retrain every 5-10 years to get out of something you find dull and boring, into something that you can get really fired up over. Or move from one area you really enjoy that you don’t find as challenging anymore, into a new field of technology to keep things fun and interesting, while transferring the skills you have built up along the way.&lt;/p&gt;
-&lt;p&gt;So what is your new Passion going to be? Or have you already found it?&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Guess Who&#39;s Back?</title>
-      <link>https://blogmigration.csmac.nz/post/guess-whos-back/</link>
-      <pubDate>Wed, 04 May 2016 08:08:43 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/post/guess-whos-back/</guid>
-      <description>&lt;p&gt;Ok, so not that big a leap, it&amp;rsquo;s just me. Six months later me. Moved to the UK me.&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;ve taken the plunge and moved away from Windy Wellington in little old New Zealand to a place in the UK called &lt;a href=&#34;http://www.destinationmiltonkeynes.co.uk/&#34;&gt;Milton Keynes&lt;/a&gt;.  Famous for wide streets, round-a-bouts and &lt;a href=&#34;http://www.mkcows.com/&#34;&gt;concrete cows&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Why Milton Keynes? Because Xero has an office here of course! Aside from being cheaper to live here than in the middle of London, it&amp;rsquo;s also a bit quieter and a bit of a slower pace of life for a bit, with reasonable connections to anywhere but here.  The plan is to live and work here for a while and travel around Great Britain and Europe. It makes sense when Europe is 2-3 hours aways from here when it was 26 hours of plane plus another 5-12 of airports from Wellington!&lt;/p&gt;
-&lt;p&gt;So as you can imagine, planning a move takes a while, and my Wife and I had a 7 week holiday on our way over. Thus explains the 6 months of no blog posts.  But I&amp;rsquo;m back in anger now and keen to get back into a good cadence of writing and GitHub-ing again.&lt;/p&gt;
-&lt;p&gt;As I travelled for the last 7 weeks, I completely lost touch with the development community. Partly from the busy sight-seeing schedule and &lt;a href=&#34;https://www.instagram.com/p/BEVzwZ7Fq1T/?taken-by=csmacnz&#34;&gt;picture taking&lt;/a&gt;, but partly because the mobile internet roaming charges were ridiculously priced, and hotel wifi was not amazing.  And I was on holiday, so no time for work. But it did have an unforeseen side effect.&lt;/p&gt;
-&lt;p&gt;I spend 7 weeks around the non-geek, the computer normal, the general every-day average computer technology smart phone public. Real People. Lots of &amp;lsquo;em.  And I noticed a few things.  People have no idea what their devices can do. The times I heard &amp;ldquo;did you know it could do this?&amp;rdquo; for a years-old feature that came out 3 versions ago was interesting to hear. On top of this, the amount of bad software that people can and do put up with without complaining is amazing. We in the professional developer community hold other developers to a very high standard. One which we are very vocal about, but one the general public don&amp;rsquo;t really know to consider.  They put up with a lot, and are non-the-wiser.  Amazing.&lt;/p&gt;
-&lt;p&gt;The other side of travelling was using all of the hotel websites, airport touch kiosks and information centre devices.  Wow. Touch is hard, but some of these machines could do with a bit of TLC.  (What was I saying about high standards?)  It has made me appreciate good touch software when I see it, as well as sticking to good old keyboard or mouse over touch in some cases as well. I could type my name faster or select from a few dropdowns faster than using some of the touch-designed selections and wizards.&lt;/p&gt;
-&lt;p&gt;For those of you making great experiences out there for travellers - thank you. For those of you making responsive web design - bravo. For those of you who realise people do have Windows Phones, even though we are only 5%, I applaud you!  And better yet, though of you who remember that as well as iPhone and Android apps, having a responsive web-based version for everyone else still covers the other 20-30% of phone users who still want to access your resources on their phone!&lt;/p&gt;
-&lt;p&gt;But now that I&amp;rsquo;m back, I can start my XAML windows development again, get stuck into &lt;a href=&#34;https://msdn.microsoft.com/en-us/windows/uwp/get-started/whats-a-uwp&#34;&gt;Universal Windows Platform&lt;/a&gt; apps, and &lt;a href=&#34;http://dotnet.github.io/&#34;&gt;.Net Core&lt;/a&gt; development.&lt;/p&gt;
-&lt;p&gt;Who has an idea of an app gap I could fill? Send me a tweet or put a comment below and I might give it a go.&lt;/p&gt;
 </description>
     </item>
     

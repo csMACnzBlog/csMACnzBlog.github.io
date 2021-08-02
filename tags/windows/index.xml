@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows on csMACnz&#39;s Blog</title>
+    <link>https://blogmigration.csmac.nz/tags/windows/</link>
+    <description>Recent content in Windows on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://blogmigration.csmac.nz</link>
+    </image>
+    <ttl>1440</ttl>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 09 Nov 2020 07:11:07 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth Devices keep disconnecting</title>
+      <link>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
+      <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
+      <description>&lt;p&gt;It all started when I installed Windows Update 20H2 in October 2020.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve had a stable machine (HP ZBook laptop for reference) for months and months with the same Bluetooth hardware, no issues. But that fateful day I installed the 20H2 update from Microsoft, everything changed.&lt;/p&gt;
+&lt;p&gt;Suddenly I was having disconnect issues. I have a Bluetooth keyboard and Bluetooth mouse connected (I think they are both low energy?) And I found that one of them would reconnect, and the other wouldn&amp;rsquo;t. If I turned one-off, the other would reconnect, but the first one wouldn&amp;rsquo;t be able to when turned back on.&lt;/p&gt;
+&lt;p&gt;As a temporary fix, I was able to connect the first device, then delete and re-add the second device. After somewhere between 10 minutes and half an hour, one device would disconnect again.&lt;/p&gt;
+&lt;p&gt;I tried all the solutions from googling this issue, but the only one that worked was to update the Intel Bluetooth drivers.&lt;/p&gt;
+&lt;p&gt;In Device Manager on Windows, under Bluetooth, the device is listed as &amp;ldquo;Intel(R) Wireless Bluetooth(R) and no amount of Windows Update to resolve new drivers helped.  But then I found the official driver support from intel: &lt;a href=&#34;https://www.intel.com/content/www/us/en/support/intel-driver-support-assistant.html&#34;&gt;Intel Driver Support Assistant&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I installed the tool and let it run. Lucky for me, there was a newer Bluetooth Driver for Windows 10 that I could download and install (amongst a few other Intel drivers as well).&lt;/p&gt;
+&lt;p&gt;After installing the latest intel Bluetooth driver, I haven&amp;rsquo;t noticed any other issues since. It is back to business as usual now.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>F5 VPN and Windows 10</title>
+      <link>https://blogmigration.csmac.nz/post/f5-vpn-and-windows-10/</link>
+      <pubDate>Thu, 03 Sep 2015 09:24:27 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/f5-vpn-and-windows-10/</guid>
+      <description>&lt;p&gt;I recently had the need to VPN into a network using an F5 Networks VPN.  Turns out the provided BIG-IP Edge Client installs ok on Windows 10 but doesn&amp;rsquo;t connect.  I kept getting the &amp;ldquo;Network Access Connection Device was not found.&amp;rdquo; error at the last step of connecting.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1441314642/Error_b6ernt.png&#34; alt=&#34;&amp;ldquo;Network Access Connection Device was not found.&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Turns out that it was adding a &amp;lsquo;device&amp;rsquo; to device manager but not associating a driver to it.  Easily fixed as it happens.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open Device Manager.&lt;/li&gt;
+&lt;li&gt;Find the f5 driver with the warning triangle icon&lt;/li&gt;
+&lt;li&gt;Open its properties, go to the Driver tab, select update driver&amp;hellip;&lt;/li&gt;
+&lt;li&gt;Choose browse my computer for driver software&lt;/li&gt;
+&lt;li&gt;Choose Let me pick from a list of device driver on my computer&lt;/li&gt;
+&lt;li&gt;Select F5 Networks fro the left-hand side&lt;/li&gt;
+&lt;li&gt;Select F5 Networks VPN Adapter from the right-hand side. Click next&lt;/li&gt;
+&lt;li&gt;Accept the warning, yes you want to continue&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I&amp;rsquo;m not sure if this driver is standard to windows 10, or only there because I did an in-place upgrade from Windows 7. I assume it is in there by default.&lt;/p&gt;
+&lt;p&gt;Try connecting again, and you should succeed!&lt;/p&gt;
+&lt;p&gt;Now at this stage, once connected, you are likely to have every DNS error imaginable connecting to anywhere. This shows as &amp;ldquo;DNS-PROBE-FINISHED-NXDOMAIN&amp;rdquo; in chrome.&lt;/p&gt;
+&lt;p&gt;This had to do with the &amp;ldquo;F5 Networks DNS Relay Proxy Service&amp;rdquo;. You have two options:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Disable the service, deal with UAC&lt;/li&gt;
+&lt;li&gt;Restart the service after every connect.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Depending how often you need to use the VPN, you have a choice. If you disable the service, you will need to accept a UAC dialog after connecting. This dialog will open over and over again on top of itself until you say yes. Annoying, but only right after connecting.&lt;/p&gt;
+&lt;p&gt;The other option is that after connecting, you have to go into services and restart &amp;ldquo;F5 Networks DNS Relay Proxy Service&amp;rdquo;. Every time.&lt;/p&gt;
+&lt;p&gt;I can&amp;rsquo;t say what the service does, what the consequences of not having it running are (apart from the UAC dialog) so up to you what you choose.&lt;/p&gt;
+&lt;p&gt;I hope this helps other people getting stuck trying to run their VPN on Windows 10 until the officially supported versions become available and get rid of these two small problems in their client software.  It is also worth noting that I had a version 7 installer, so you may not get the exact experience I did since I believe they are now up to version 10.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

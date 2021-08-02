@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/pulseaudio-in-system-wide-mode\/";
             }
         </script>
 
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2009-10-12"  itemprop="datePublished">12 Oct 09</time></span>
-    
-        <h1 class="post-title" itemprop="headline">Pulseaudio in system-wide mode</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2009-10-12"  itemprop="datePublished">12 Oct 09</time> in <a href="/categories/it-support">IT Support</a></span>
+<h1 class="post-title" itemprop="headline">Pulseaudio in system-wide mode</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>I have my machine set up to use MPD (Music Player Daemon to play my music, and use the minion Firefox plug-in MPD client to control it, all well and good, no troubles there. I use Pulseaudio(PA) for sound on my Ubuntu server, and configuring this with MPD is no trouble, just search for MPD and Pulseaudio and the instructions come up several times in the first page. But the problem is that PA defaults to user-session mode, where the user logged in has control over the speakers through PA. If you also have this problem, the solution is system-wide mode. I found this <a href="http://ubuntuforums.org/showthread.php?t=1108742">really nice forum post</a> with simple concise instructions to fix the problem: /etc/pulse/daemon.conf: daemonize = yes system-instance = yes /etc/default/pulseaudio: PULSEAUDIO_SYSTEM_START=1 Once I did that, it all worked, mpd started and i could hit play without needing to log in. The next step is to get it to remember and continue playing over a restart&hellip;</p>

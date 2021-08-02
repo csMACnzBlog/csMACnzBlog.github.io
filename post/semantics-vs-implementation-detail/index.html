@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/semantics-vs-implementation-detail\/";
             }
         </script>
 
@@ -18,7 +18,7 @@
     
         <title>Semantics vs implementation detail - csMACnz&#39;s Blog</title>
         <meta name="description" content="When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&rsquo;t call it firstNameString, or …">
-        <meta name='keywords' content='csMACnz, Patterns, Editorial'>
+        <meta name='keywords' content='csMACnz, Patterns'>
 
         
         <meta property="og:type" content="article"/>
@@ -90,7 +90,7 @@
             "url" : "https:\/\/blogmigration.csmac.nz\/post\/semantics-vs-implementation-detail\/",
             "datePublished": "2015-01-11T16:36:29.000Z",
             "dateModified" : "2015-01-11T16:36:29.000Z",
-            "keywords" : [ "Patterns", "Editorial" ]
+            "keywords" : [ "Patterns" ]
             "description" : "When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don\u0026rsquo;t call it firstNameString, or cfnString, and we have also lost the bad habit of firstNameStr or strFirstName. The implementation detail simply doesn\u0026rsquo;t matter. Semantically, it represents the customer\u0026rsquo;s first name, so we use customerFirstName. Or if we are clearly in the context of the customer we can simply use firstName or customer.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2015-01-11"  itemprop="datePublished">11 Jan 15</time> on <a href="/tags/patterns">Patterns</a>,  <a href="/tags/editorial">Editorial</a></span>
-    
-        <h1 class="post-title" itemprop="headline">Semantics vs implementation detail</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2015-01-11"  itemprop="datePublished">11 Jan 15</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/patterns">Patterns</a></span>
+<h1 class="post-title" itemprop="headline">Semantics vs implementation detail</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&rsquo;t call it <code>firstNameString</code>, or <code>cfnString</code>, and we have also lost the bad habit of <code>firstNameStr</code> or <code>strFirstName</code>.  The implementation detail simply doesn&rsquo;t matter. Semantically, it represents the customer&rsquo;s first name, so we use <code>customerFirstName</code>. Or if we are clearly in the context of the customer we can simply use <code>firstName</code> or <code>customer.FirstName</code>.</p>

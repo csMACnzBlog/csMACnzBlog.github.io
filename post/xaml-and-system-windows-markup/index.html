@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/xaml-and-system-windows-markup\/";
             }
         </script>
 
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2010-11-06"  itemprop="datePublished">06 Nov 10</time></span>
-    
-        <h1 class="post-title" itemprop="headline">XAML and System.Windows.Markup</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2010-11-06"  itemprop="datePublished">06 Nov 10</time> in <a href="/categories/software-engineering">Software Engineering</a></span>
+<h1 class="post-title" itemprop="headline">XAML and System.Windows.Markup</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>On Wednesday I gave a talk on xaml usage outside of the UI. This post is basically a recap of that talk. There are three useful attributes in the System.Windows.Markup namespace that give you some control over how classes can be used in Xaml, and xaml tools like Expression Blend and Visual Studio. This has an impact mostly on human readability and legibility of the xaml, and can benefit anyone who reads and writes raw xaml markup. There are three main attributes in the System.Windows.Markup namespace: XmlnsDefinition, XmlnsPrefix and ContentProperty.</p>

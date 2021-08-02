@@ -14,20 +14,20 @@
     <language>en-nz</language>
     <lastBuildDate>Tue, 13 Jul 2021 19:18:43 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title></title>
+      <link>https://blogmigration.csmac.nz/</link>
+      <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Categories</title>
       <link>https://blogmigration.csmac.nz/categories/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
       <guid>https://blogmigration.csmac.nz/categories/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz/</link>
-      <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/</guid>
       <description></description>
     </item>
     
@@ -102,6 +102,15 @@ provider &amp;quot;newrelic&amp;quot; {
     </item>
     
     <item>
+      <title>Software Engineering</title>
+      <link>https://blogmigration.csmac.nz/categories/software-engineering/</link>
+      <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/categories/software-engineering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Tags</title>
       <link>https://blogmigration.csmac.nz/tags/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
@@ -120,29 +129,11 @@ provider &amp;quot;newrelic&amp;quot; {
     </item>
     
     <item>
-      <title>Terraform</title>
-      <link>https://blogmigration.csmac.nz/categories/terraform/</link>
-      <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/categories/terraform/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>kotlin</title>
       <link>https://blogmigration.csmac.nz/tags/kotlin/</link>
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
       <guid>https://blogmigration.csmac.nz/tags/kotlin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kotlin</title>
-      <link>https://blogmigration.csmac.nz/categories/kotlin/</link>
-      <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/categories/kotlin/</guid>
       <description></description>
     </item>
     
@@ -173,20 +164,11 @@ val props = Project::class.declaredMemberProperties
     </item>
     
     <item>
-      <title>software development</title>
-      <link>https://blogmigration.csmac.nz/tags/software-development/</link>
+      <title>TeamCity</title>
+      <link>https://blogmigration.csmac.nz/tags/teamcity/</link>
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/tags/software-development/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>software development</title>
-      <link>https://blogmigration.csmac.nz/categories/software-development/</link>
-      <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/categories/software-development/</guid>
+      <guid>https://blogmigration.csmac.nz/tags/teamcity/</guid>
       <description></description>
     </item>
     
@@ -208,20 +190,38 @@ val props = Project::class.declaredMemberProperties
     </item>
     
     <item>
-      <title>C Sharp</title>
-      <link>https://blogmigration.csmac.nz/tags/c-sharp/</link>
-      <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
+      <title>IT Support</title>
+      <link>https://blogmigration.csmac.nz/categories/it-support/</link>
+      <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/tags/c-sharp/</guid>
+      <guid>https://blogmigration.csmac.nz/categories/it-support/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tips and Tricks</title>
+      <link>https://blogmigration.csmac.nz/tags/tips-and-tricks/</link>
+      <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/tags/tips-and-tricks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Windows</title>
+      <link>https://blogmigration.csmac.nz/tags/windows/</link>
+      <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/tags/windows/</guid>
       <description></description>
     </item>
     
     <item>
       <title>C Sharp</title>
-      <link>https://blogmigration.csmac.nz/categories/c-sharp/</link>
+      <link>https://blogmigration.csmac.nz/tags/c-sharp/</link>
       <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/categories/c-sharp/</guid>
+      <guid>https://blogmigration.csmac.nz/tags/c-sharp/</guid>
       <description></description>
     </item>
     

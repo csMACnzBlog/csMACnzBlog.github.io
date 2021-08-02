@@ -12,7 +12,24 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 15 Oct 2018 05:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/tips-and-tricks/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Nov 2020 07:11:07 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/tips-and-tricks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth Devices keep disconnecting</title>
+      <link>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
+      <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
+      <description>&lt;p&gt;It all started when I installed Windows Update 20H2 in October 2020.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve had a stable machine (HP ZBook laptop for reference) for months and months with the same Bluetooth hardware, no issues. But that fateful day I installed the 20H2 update from Microsoft, everything changed.&lt;/p&gt;
+&lt;p&gt;Suddenly I was having disconnect issues. I have a Bluetooth keyboard and Bluetooth mouse connected (I think they are both low energy?) And I found that one of them would reconnect, and the other wouldn&amp;rsquo;t. If I turned one-off, the other would reconnect, but the first one wouldn&amp;rsquo;t be able to when turned back on.&lt;/p&gt;
+&lt;p&gt;As a temporary fix, I was able to connect the first device, then delete and re-add the second device. After somewhere between 10 minutes and half an hour, one device would disconnect again.&lt;/p&gt;
+&lt;p&gt;I tried all the solutions from googling this issue, but the only one that worked was to update the Intel Bluetooth drivers.&lt;/p&gt;
+&lt;p&gt;In Device Manager on Windows, under Bluetooth, the device is listed as &amp;ldquo;Intel(R) Wireless Bluetooth(R) and no amount of Windows Update to resolve new drivers helped.  But then I found the official driver support from intel: &lt;a href=&#34;https://www.intel.com/content/www/us/en/support/intel-driver-support-assistant.html&#34;&gt;Intel Driver Support Assistant&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I installed the tool and let it run. Lucky for me, there was a newer Bluetooth Driver for Windows 10 that I could download and install (amongst a few other Intel drivers as well).&lt;/p&gt;
+&lt;p&gt;After installing the latest intel Bluetooth driver, I haven&amp;rsquo;t noticed any other issues since. It is back to business as usual now.&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>Sharing audio to Google Hangouts (or Meets)</title>
       <link>https://blogmigration.csmac.nz/post/sharing-audio-to-google-hangouts-or-meets/</link>
@@ -1476,109 +1493,6 @@ $response.StatusDescription #should be OK
 &lt;p&gt;&lt;img src=&#34;http://i3.codeplex.com/Download?ProjectName=iishostsmgr&amp;amp;DownloadId=364495&#34; alt=&#34;Host Manager in action - image from https://iishostsmgr.codeplex.com/&#34;&gt;&lt;/p&gt;
 &lt;p&gt;The UI is very simple and easy to use. It means that you can add or update host entries directly inside IIS without having to go hunting for the file. A huge productivity boost.&lt;/p&gt;
 &lt;p&gt;Recommended.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>A couple of debugging tips</title>
-      <link>https://blogmigration.csmac.nz/post/a-couple-of-debugging-tips/</link>
-      <pubDate>Mon, 23 May 2016 04:33:09 +0000</pubDate>
-      
-      <guid>https://blogmigration.csmac.nz/post/a-couple-of-debugging-tips/</guid>
-      <description>&lt;p&gt;I had an idea of something I wanted to post, but a quick google turns up I &lt;a href=&#34;http://blog.csmac.nz/on-gitversioning-subdirectories/&#34;&gt;posted it 6 months ago&lt;/a&gt;, so here are some debugging tips.&lt;/p&gt;
-&lt;h3 id=&#34;console-break&#34;&gt;Console Break&lt;/h3&gt;
-&lt;p&gt;So you are writing a console app? Cool. Want to see the output? Of course, you do. But when you run it, the app pops up then disappears really quickly right? No? Have you a break point in the last line? Well, that&amp;rsquo;s sensible.&lt;/p&gt;
-&lt;p&gt;But what if you do not want to remember to put that break point in everytime git cleans your directory, or someone pulls the code for the first time?&lt;/p&gt;
-&lt;p&gt;How about this?&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class Program
-{
-    static void Main(string[] args)
-    {
-        //App goes here
-
-        Console.ReadLine();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Nice trick! Now every time the app runs, it waits for a keypress to continue. But what about when you run the app for real. Damn! I didn&amp;rsquo;t really want the app to wait for a key to exit&amp;hellip; I&amp;rsquo;ve got it!&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class Program
-{
-    static void Main(string[] args)
-    {
-        //App goes here
-
-
-        if(Debugger.IsAttached)
-        {    
-            Console.ReadLine();
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now, it will only stop if the debugger is attached. Perfect.&lt;/p&gt;
-&lt;p&gt;Performance overhead you say? Really? I wouldn&amp;rsquo;t be worried but if you want we can do this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class Program
-{
-    static void Main(string[] args)
-    {
-        //App goes here
-
-
-        BreakOnDebug();
-    }
-
-    [Conditional(&amp;quot;DEBUG&amp;quot;)]
-    private void BreakOnDebug()
-    {
-        if (Debugger.IsAttached)
-        {
-            Console.ReadLine();
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Happy?&lt;/p&gt;
-&lt;p&gt;You can also try using &lt;code&gt;if (Debugger.IsAttached) {Debugger.Break(); }&lt;/code&gt; instead of ReadLine to force the code to actually stop and to start debugging the state of your application instead. Although to be fair, at the end of the app, there probably isn&amp;rsquo;t much to see.&lt;/p&gt;
-&lt;h3 id=&#34;command-line-attach&#34;&gt;Command-line attach&lt;/h3&gt;
-&lt;p&gt;But I really want to be able to run this at the command line, from a specific folder, and play with the arguments. And I just found it crashes for some reason.  Well, I let it attach to VS automatically (the dialog does come up), but what I really want to do, is run it attached to the debugger and step through.  How about this?&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class Program
-{
-    static void Main(string[] args)
-    {
-        Console.WriteLine(&amp;quot;Attach debugger and press any key to continue&amp;quot;);
-        Console.ReadLine(); 
-
-        //breakpoint goes here
-
-        //App goes here
-        ...    
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now I can run my app and it stops before starting.  I can use the &lt;em&gt;debug =&amp;gt; attach to process&amp;hellip;&lt;/em&gt; menu it Visual Studio to attach, like I would to an IIS site, but instead to the running instance of my console app. Easy. Press a key in the console and any of my breakpoints and I can step through the specific parameters running from the specific folder and get the bottom of this bug.&lt;/p&gt;
-&lt;p&gt;The only catch here is to not forget to remove the code when not running debug builds.  Or we could use the same trick again:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class Program
-{
-    static void Main(string[] args)
-    {
-        StopAndWaitOnDebug();
-
-        //breakpoint goes here
-
-        //App goes here
-        ...    
-    }
-    
-    [Conditional(&amp;quot;DEBUG&amp;quot;)]
-    private void StopAndWaitOnDebug()
-    {
-        Console.WriteLine(&amp;quot;Attach debugger and press any key to continue&amp;quot;);
-        Console.ReadLine();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You can also try using &lt;code&gt;if (Debugger.IsAttached) {Debugger.Break(); }&lt;/code&gt; as well after the ReadLine if you really wanted to.&lt;/p&gt;
-&lt;p&gt;So there you go. Some nice and useful ways to use the &lt;code&gt;Console.ReadLine&lt;/code&gt; method for debugging.&lt;/p&gt;
 </description>
     </item>
     

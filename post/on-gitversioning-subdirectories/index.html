@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/on-gitversioning-subdirectories\/";
             }
         </script>
 
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2015-11-22"  itemprop="datePublished">22 Nov 15</time> on <a href="/tags/continuous-delivery">Continuous Delivery</a>,  <a href="/tags/git">git</a></span>
-    
-        <h1 class="post-title" itemprop="headline">On gitversioning subdirectories</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2015-11-22"  itemprop="datePublished">22 Nov 15</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/continuous-delivery">Continuous Delivery</a>,  <a href="/tags/git">git</a></span>
+<h1 class="post-title" itemprop="headline">On gitversioning subdirectories</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&rsquo;t it be nice if we could detect that the subdirectory hasn&rsquo;t changed and so has the same version it did last time we built it?</p>

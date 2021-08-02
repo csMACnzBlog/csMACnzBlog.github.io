@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/manage-your-hosts-entries-better\/";
             }
         </script>
 
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2016-05-31"  itemprop="datePublished">31 May 16</time> on <a href="/tags/tips-and-tricks">Tips and Tricks</a>,  <a href="/tags/iis">IIS</a></span>
-    
-        <h1 class="post-title" itemprop="headline">Manage your hosts entries better</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2016-05-31"  itemprop="datePublished">31 May 16</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/tips-and-tricks">Tips and Tricks</a>,  <a href="/tags/iis">IIS</a></span>
+<h1 class="post-title" itemprop="headline">Manage your hosts entries better</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>If you are working with a lot of sites in IIS then you will be familiar with the hosts file on your computer. <code>%SystemRoot%\System32\drivers\etc\hosts</code>, usually found in <code>C:\Windows\System32\drivers\etc\hosts</code>.  This file acts as a DNS mapping table used by your computer.  As a developer, you will often want to tinker with this table. For example, you have a site running locally and you want to run it with a URL in your browser. You can map <code>www.mysite.local</code> to the IP address of your machine, or the local loopback address <code>127.0.0.1</code></p>

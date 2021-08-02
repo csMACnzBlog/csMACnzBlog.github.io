@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IT Support on csMACnz&#39;s Blog</title>
+    <link>https://blogmigration.csmac.nz/categories/it-support/</link>
+    <description>Recent content in IT Support on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://blogmigration.csmac.nz</link>
+    </image>
+    <ttl>1440</ttl>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 09 Nov 2020 07:11:07 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/it-support/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth Devices keep disconnecting</title>
+      <link>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
+      <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
+      <description>&lt;p&gt;It all started when I installed Windows Update 20H2 in October 2020.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve had a stable machine (HP ZBook laptop for reference) for months and months with the same Bluetooth hardware, no issues. But that fateful day I installed the 20H2 update from Microsoft, everything changed.&lt;/p&gt;
+&lt;p&gt;Suddenly I was having disconnect issues. I have a Bluetooth keyboard and Bluetooth mouse connected (I think they are both low energy?) And I found that one of them would reconnect, and the other wouldn&amp;rsquo;t. If I turned one-off, the other would reconnect, but the first one wouldn&amp;rsquo;t be able to when turned back on.&lt;/p&gt;
+&lt;p&gt;As a temporary fix, I was able to connect the first device, then delete and re-add the second device. After somewhere between 10 minutes and half an hour, one device would disconnect again.&lt;/p&gt;
+&lt;p&gt;I tried all the solutions from googling this issue, but the only one that worked was to update the Intel Bluetooth drivers.&lt;/p&gt;
+&lt;p&gt;In Device Manager on Windows, under Bluetooth, the device is listed as &amp;ldquo;Intel(R) Wireless Bluetooth(R) and no amount of Windows Update to resolve new drivers helped.  But then I found the official driver support from intel: &lt;a href=&#34;https://www.intel.com/content/www/us/en/support/intel-driver-support-assistant.html&#34;&gt;Intel Driver Support Assistant&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I installed the tool and let it run. Lucky for me, there was a newer Bluetooth Driver for Windows 10 that I could download and install (amongst a few other Intel drivers as well).&lt;/p&gt;
+&lt;p&gt;After installing the latest intel Bluetooth driver, I haven&amp;rsquo;t noticed any other issues since. It is back to business as usual now.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Sharing audio to Google Hangouts (or Meets)</title>
+      <link>https://blogmigration.csmac.nz/post/sharing-audio-to-google-hangouts-or-meets/</link>
+      <pubDate>Mon, 15 Oct 2018 05:00:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/sharing-audio-to-google-hangouts-or-meets/</guid>
+      <description>&lt;p&gt;I work remotely, and I&amp;rsquo;ve used a bunch of solutions over the last few years to be able to route audio from my computer into a meeting call in Google Hangouts. From hardware to virtual audio cable software, every solution has been finicky at best, and wrecks day-to-day audio and video at worst, and requires a bunch of mucking around every time I want to enable or disable the setup.&lt;/p&gt;
+&lt;p&gt;But not anymore.&lt;/p&gt;
+&lt;p&gt;Just recently I discovered that the power of Google Hangouts combined with the power of Chrome Cast is an amazing solution to all your problems!&lt;/p&gt;
+&lt;p&gt;Well, that is to say, using Chromecast with your Hangouts solves your audio problems.&lt;/p&gt;
+&lt;p&gt;First things first, the problem.  I have a video with audio, and I want to share that audio to the meeting I am in. By default, the audio into the call is a microphone. Most other solutions involve hi-jacking the various audio on your machine and routing it either into a physical microphone port on your computer, or a virtualised one using something like &lt;a href=&#34;https://www.vb-audio.com/Cable/&#34;&gt;VB-CABLE Virtual Audio Device&lt;/a&gt;.  Otherwise, no sound that your computer makes will be heard by anyone in the meeting. (Unless you have really loud speakers that can be heard into the mic and poor noise cancellation.)&lt;/p&gt;
+&lt;p&gt;Luckily, Google has solved this problem. You can instead open the desired video or web-page that plays audio, open up the tab in Chrome and use the &amp;ldquo;&amp;hellip; =&amp;gt; cast&amp;hellip;&amp;rdquo; menu option. The same tool even lets you choose to cast the entire screen if you want.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://res.cloudinary.com/csmacnz/image/upload/v1537983157/CastTo_wtxvin.png&#34; alt=&#34;Select Destination on Cast Dialog&#34;&gt;&lt;/p&gt;
+&lt;p&gt;From there you can share to your meeting!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://res.cloudinary.com/csmacnz/image/upload/v1537983454/CastToGif_ez16tt.gif&#34; alt=&#34;Animation of Casting&#34;&gt;&lt;/p&gt;
+&lt;p&gt;As you can see, it is easy to turn the audio on and off.  There is even an option in the top left to choose to cast the whole screen rather than just a tab. Much easier than doing it through the meeting itself in some ways.&lt;/p&gt;
+&lt;p&gt;If you have the shortcode for an existing meeting, such as &lt;code&gt;xxx-yyyy-zzz&lt;/code&gt; you can paste this into the search and share to that meeting easily, without it needing to show up as a search result as well.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m still unsure how the target meetings are discovered. For me, I can usually see any meetings from my calendar with a Meet configured shown in the list for me for times within a couple of hours from now. But I know others have had issues with getting these to show up. I&amp;rsquo;m still experimenting to understand that part of the service. Is it because I am logged into the browser with the same account, because I have my google calendar open, or because I am logged into a session? No idea, but it works for me!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://res.cloudinary.com/csmacnz/image/upload/v1537984713/HangoutsMeet_yxjaer.png&#34; alt=&#34;Calendar entry with a Meet invite attached&#34;&gt;&lt;/p&gt;
+&lt;p&gt;My best guess is that it is because I am logged in in my browser with the same domain google account that owns my calendar.&lt;/p&gt;
+&lt;p&gt;It even seems to be able to cast to a meeting even though I haven&amp;rsquo;t got that meeting open which is a nice feature if you were physically in a room and didn&amp;rsquo;t want to have to actually join the meeting first.&lt;/p&gt;
+&lt;p&gt;The full support docs for this solution are here in the hangouts help centre: &lt;a href=&#34;https://support.google.com/meet/answer/7391885?hl=en&#34;&gt;https://support.google.com/meet/answer/7391885?hl=en&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If you are seeing the &amp;ldquo;No Cast Destination Found&amp;rdquo; message instead, there is another support guide on that as well:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://support.google.com/chromecast/answer/6320939&#34;&gt;https://support.google.com/chromecast/answer/6320939&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Happy Casting!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Some cool tricks with your Windows Shells</title>
+      <link>https://blogmigration.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</link>
+      <pubDate>Mon, 09 Jul 2018 06:00:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (&lt;a href=&#34;https://docs.microsoft.com/en-us/windows/wsl/install-win10&#34;&gt;Windows Subsystem for Linux&lt;/a&gt;).  There are a few of the tricks I have learned recently that help me every day.&lt;/p&gt;
+&lt;h3 id=&#34;f8-searches-history&#34;&gt;F8 searches history!&lt;/h3&gt;
+&lt;p&gt;That&amp;rsquo;s right! When you type into the command line (this work in cmd and PowerShell) and then press F8, it will do a back-in-time search for a historical command that begins with what you typed. This is a nice way to auto-complete an entire command with complex arguments quickly and easily.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1531122887/F8_Demo_lewuak.gif&#34; alt=&#34;F8 cmd history demo&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;windows-explorer-open-shell-here&#34;&gt;Windows Explorer &amp;ldquo;Open Shell Here&amp;rdquo;&lt;/h3&gt;
+&lt;p&gt;This works for WSL, PowerShell, and cmd.  From any folder in Windows Explorer, you can type into the address bar either &lt;code&gt;wsl&lt;/code&gt;, &lt;code&gt;powershell&lt;/code&gt; or &lt;code&gt;cmd&lt;/code&gt; and it will launch the respective shell opened at the same directory.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1531123505/ShellOpen_Demo_krpbpz.gif&#34; alt=&#34;Open Shell Here Demo&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;profile&#34;&gt;$PROFILE&lt;/h3&gt;
+&lt;p&gt;Powershell has a configuration file that you can add startup scripts to.  This file exists at a path specified by the variable &lt;code&gt;$PROFILE&lt;/code&gt;. You can quickly get to it from PowerShell using &lt;code&gt;notepad++ $PROFILE&lt;/code&gt; (or use whatever text editor appeals).&lt;/p&gt;
+&lt;p&gt;You can add all sorts in here, from defining functions to be available, setting environment variables and more.  Some ideas I&amp;rsquo;ve used it for before are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/make-me-a-sandwich/&#34;&gt;Emulating sudo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/aliasing-your-git-status/&#34;&gt;&lt;code&gt;git status&lt;/code&gt; command aliasing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/a-powershell-watch-command/&#34;&gt;Define your own Watch command&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/visual-studio-powershell/&#34;&gt;Load the VS Developer Command Prompt dependencies&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;wsl&#34;&gt;WSL&lt;/h3&gt;
+&lt;p&gt;Windows Subsystem for Linux (wsl) is an interesting new development. With this, I can install Ubuntu and have a bash shell I can run Linux commands in. This is what Cygwin always wanted to grow up to be.&lt;/p&gt;
+&lt;p&gt;The neat thing is you can pass commands back and forward from Powershell and wsl.&lt;/p&gt;
+&lt;p&gt;In powershell, you can type a command such as:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;wsl find . -name *.csproj | % { cat $_ | wsl grep Framework }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This command will execute the command &lt;code&gt;wsl find . -name *.csproj&lt;/code&gt; from the current directory in Linux, pass list of file paths generated back to Powershell, then for each path, execute a &lt;code&gt;grep&lt;/code&gt; search on Linux again. We could now take the collection of results and pipe them once more through PowerShell, or another Linux command for further processing. Clever.&lt;/p&gt;
+&lt;p&gt;If you are already a Linux Shell Pro, you will probably find this ability a true PowerUser feature for you.&lt;/p&gt;
+&lt;h3 id=&#34;wrap-up&#34;&gt;Wrap up&lt;/h3&gt;
+&lt;p&gt;These are just a few of the Shell features I have been loving to use lately. There are so many more cool tips and tricks out there. What are your favourites?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>On Screen Shortcut keys for presentations and recordings</title>
+      <link>https://blogmigration.csmac.nz/post/on-screen-shortcut-keys-for-presentations-and-recordings/</link>
+      <pubDate>Mon, 26 Feb 2018 04:00:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/on-screen-shortcut-keys-for-presentations-and-recordings/</guid>
+      <description>&lt;p&gt;I used this tool a while ago that let me show on-screen what keyboard shortcuts and combinations I was pressing so that others could see them, especially during presentations, and on video recordings.&lt;/p&gt;
+&lt;p&gt;But for the life of me today, on a new machine, I couldn&amp;rsquo;t remember what it was called. Searching didn&amp;rsquo;t help. For future reference, I will remember I wrote this article, and hopefully, others searching for &amp;ldquo;show shortcut keys on screen&amp;rdquo; will find this article as well.&lt;/p&gt;
+&lt;p&gt;The tool I used was called Carnac. Carnac is a &lt;a href=&#34;https://github.com/Code52/carnac&#34;&gt;Code52 project on GitHub&lt;/a&gt;. It nicely shows the shortcut keys you press, such as &lt;code&gt;ctrl+c&lt;/code&gt;, &lt;code&gt;alt+enter&lt;/code&gt; &lt;code&gt;ctrl+.&lt;/code&gt; etc on the screen so that others can see what you pressed.  Since I&amp;rsquo;m recording a few videos of coding at the moment, this will add an extra benefit for those watching them.&lt;/p&gt;
+&lt;p&gt;I suspect originally I heard about this from &lt;a href=&#34;https://www.hanselman.com/blog/ScottHanselmans2014UltimateDeveloperAndPowerUsersToolListForWindows.aspx&#34;&gt;Scott Hanselman&amp;rsquo;s 2014 Ultimate Developer and Power Users Tool List for Windows&lt;/a&gt; (Although I may have the year wrong&amp;hellip;).&lt;/p&gt;
+&lt;p&gt;This is in the same vein as &lt;a href=&#34;https://blog.csmac.nz/code-demoing-with-visual-studio/&#34;&gt;Another post I wrote about Visual Studio present mode&lt;/a&gt;, which is still in &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=VisualStudioProductTeam.ProductivityPowerTools2015&#34;&gt;ProductivityPowerTools2015&lt;/a&gt;, and the latest &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=VisualStudioProductTeam.ProductivityPowerPack2017&#34;&gt;ProductivityPowerPack2017&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Happy presenting!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Couldn&#39;t Connect. Get Connected to your Wireless Display Adapter</title>
+      <link>https://blogmigration.csmac.nz/post/fix-wireless-display-connection/</link>
+      <pubDate>Mon, 13 Nov 2017 06:00:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/fix-wireless-display-connection/</guid>
+      <description>&lt;p&gt;I was having trouble with connecting my laptops to a remote display with Miricast.&lt;/p&gt;
+&lt;p&gt;Specifically, I was trying to use the functionality built into Windows 10 to connect to a wireless display and had a Microsoft Wireless Display Adapter V2 plugged into my TV.&lt;/p&gt;
+&lt;p&gt;It would say &lt;code&gt;Connecting to ...&lt;/code&gt; for a while and then fail with a message &lt;code&gt;Couldn&#39;t connect&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_400/v1510561847/CouldntConnect_dcn7xf.png&#34; alt=&#34;Windows says Couldn&amp;rsquo;t Connect&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I managed to find a support article from Microsoft, which has some great troubleshooting steps to follow.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://support.microsoft.com/en-gb/help/4023497#solution-6--allow-the-adapter-to-communicate-through-windows-firewall&#34;&gt;https://support.microsoft.com/en-gb/help/4023497#solution-6--allow-the-adapter-to-communicate-through-windows-firewall&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Turns out in my case it is a networking firewall issue.  If you suspect you have this problem, try turning your Windows Firewall off, and then connect. If it works, this might be your issue, too. (Please turn the firewall back on now!!)&lt;/p&gt;
+&lt;p&gt;However, these instructions by themselves were not enough. In the Windows Firewall, there is configuration around Blocking incoming connections. A little checkbox says &amp;ldquo;Block all incoming connections, including those in the list of allowed applications&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1510561847/BlockIncommingConnections_hkp01v.png&#34; alt=&#34;Customise Firewall settings to allow applications through.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If you want to be able to connect to a Wireless Display, this needs to be &lt;strong&gt;Unchecked&lt;/strong&gt;, so that the device can communicate back to establish the connection. Depending on your situation, you may need to do this for Both Public and private networks.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SECURITY WARNING&lt;/strong&gt;  If you are using your laptop against public network connections, you probably want to turn this back on again when you have finished so that your machine is protected on public networks such as wifi hotspots at Cafes and Airports.  Just turn this off while you are connected to your remote displays, at your home or office on the trusted Private networks.&lt;/p&gt;
+&lt;p&gt;There may be a way to establish a trusted Display Adapter as a private network instead, to avoid this issue. I just haven&amp;rsquo;t found one yet. If you do, please let me know!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Microsoft &amp; Google, Android Wear support is missing</title>
+      <link>https://blogmigration.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</link>
+      <pubDate>Thu, 19 Jan 2017 23:50:24 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</guid>
+      <description>&lt;p&gt;Ok, so I know I am in the minority as a Windows Phone user, but sometimes I just get frustrated and I wish Microsoft at least tried to achieve parity with their platforms, and not leave it to others who just won&amp;rsquo;t bother.&lt;/p&gt;
+&lt;p&gt;I have a really nice &lt;a href=&#34;https://www.microsoftstore.com/store/msuk/en_GB/pdp/Acer-Liquid-Jade-Primo--Unlocked/productID.5064103000&#34;&gt;Acer Liquid Jade Primo&lt;/a&gt; Windows 10 mobile phone. Continuum, Hexa Core Processor, 3GB memory, nice 5.5&amp;quot; screen, great camera.&lt;/p&gt;
+&lt;p&gt;Yesterday I went shopping and saw the really nice Fossil Q watches. (Further disclaimer: I already own a really nice Fossil Mechanical watch, and a Microsoft Band 2) They were really nice, but I had to walk away. Why? Because they run Android Wear.&lt;/p&gt;
+&lt;p&gt;Now, technically, there is no limitation that says &amp;ldquo;because it is Android, it will not work with Windows&amp;rdquo;. It has even been &lt;a href=&#34;https://mspoweruser.com/developer-working-making-android-wear-work-windows-10-mobile/&#34;&gt;proven possible&lt;/a&gt; by an independent developer talking to the Bluetooth APIs, and Windows has some really nice API hooks already to allow smart devices to hook into many parts of messaging and notifications. It&amp;rsquo;s just that Google has no inclination to write a Windows Phone 8 or Windows 10 UWP app that supports it. They wrote an iPhone app, though. Because otherwise how will their hardware and software compete with the Apple Watch?&lt;/p&gt;
+&lt;p&gt;What makes me frustrated isn&amp;rsquo;t that Google isn&amp;rsquo;t supporting Microsoft&amp;rsquo;s business plan, and the progress of their competitor to Android, It is actually that Microsoft doesn&amp;rsquo;t seem to be doing anything to provide these missing applications themselves. If you are willing to write apps for Android Wear, then why not allow those apps the chance to work with a Windows Phone?&lt;/p&gt;
+&lt;p&gt;Microsoft Research, I would love to see you release something awesome in the Android-Wear client app space.&lt;/p&gt;
+&lt;p&gt;Just one more stone on the scales tipping them in the wrong direction that might one day force me to buy an Android.&lt;/p&gt;
+&lt;p&gt;/rant&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Microsoft Band 2 - The first 24 hours</title>
+      <link>https://blogmigration.csmac.nz/post/microsoft-band-2-the-first-24-hours/</link>
+      <pubDate>Wed, 18 Nov 2015 09:13:57 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/microsoft-band-2-the-first-24-hours/</guid>
+      <description>&lt;p&gt;My Microsoft Band finally arrived yesterday morning, so obviously I put it straight on (after a charge of course). Here is a chronicle of first impressions.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1447883120/microsoftbandunboxed_qlnuof.png&#34; alt=&#34;Unboxing the device.&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;setup&#34;&gt;Setup&lt;/h3&gt;
+&lt;p&gt;Out of the box, setup was really easy. Simply following the instructions on the band and the phone made it simple. I paired it with my Windows Phone (a Lumia 930) and as soon as the connection was made, the two devices started to chat to each other, downloading updates for the band using my phone&amp;rsquo;s internet connection. Very Internet of Things. Once that was complete I played around with the apps and tiles available, configuring the ones I wanted and turning off ones I didn&amp;rsquo;t (like Starbucks and Twitter).&lt;/p&gt;
+&lt;h3 id=&#34;first-impressions&#34;&gt;First impressions&lt;/h3&gt;
+&lt;p&gt;At first after putting it on it was a little uncomfortable, since I am wearing it on my right wrist and I have always worn my watch on my left.  This quickly passed and I barely felt it anymore after that. I turned on txt and email alerts and started getting a buzz on my wrist every time an email or txt came in. Notifications also came through to the Band as well. Haptic alerts can be adjusted to the strength that works for you.&lt;/p&gt;
+&lt;p&gt;I was able to use the on-screen keyboard to reply to txt messages, and played with some Cortana searches such as &amp;ldquo;remind me to buy milk on the way home&amp;rdquo; and &amp;ldquo;what am I doing tonight&amp;rdquo;. Simple commands relay the Cortana results back to the Band. Other more complex results such as search results would direct you to look at your phone.&lt;/p&gt;
+&lt;h3 id=&#34;telling-the-time&#34;&gt;Telling the time&lt;/h3&gt;
+&lt;p&gt;The band does have a watch mode, but I don&amp;rsquo;t think I&amp;rsquo;ll use it for now. First, I still wear an analog watch on my left write, but the second is power consumption. The Always On mode means you can treat it like a regular watch when you&amp;rsquo;re not interacting with it. The caveat is that it uses more power. There is a Rotate On mode as well, which will flash up the time when you flick your wrist around to look at the Band. I was finding that this was triggered more often than I wanted it to be, and was distracting, so the setting is now Off.&lt;/p&gt;
+&lt;h3 id=&#34;speed-reading&#34;&gt;Speed reading&lt;/h3&gt;
+&lt;p&gt;A feature I didn&amp;rsquo;t know the band had been Speed Reading. When a message is displayed, you can scroll up and down and read it yourself. If you press the Action button It will display one word at a time for you to read in a speed reading fashion. I quite enjoyed the settings available for speed: Off, Slower, Slow, Medium, Fast and Faster. My current setting is Fast.&lt;/p&gt;
+&lt;h3 id=&#34;sleep&#34;&gt;Sleep&lt;/h3&gt;
+&lt;p&gt;I have a Fitbit. It&amp;rsquo;s the Fitbit One model, that comes with a belt clip case, and a velcro arm wrist that you can slot it into to track your sleep. That lasted about 3 weeks before it was too much hassle changing the case over every night and every morning.&lt;/p&gt;
+&lt;p&gt;Last night I wore the Band to bed. Sleep mode is easy to turn on and produced some interesting results.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1447883206/wp_ss_20151119_0001_qaj7zn.png&#34; alt=&#34;Sleep tracking results.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Firstly, the alarm I set for 7 am woke me up at 6:30.  This is the Smart Alarm feature, that decides the optimal time to wake you up. Sure. I guess I was kind of awake anyway? It does seem to think I had 90% efficiency in my sleep, even if I did only get 6 hours. Again, I suppose I feel rested? I do seem to wake up a lot in the night. It will be interesting to see what this looks like over time.&lt;/p&gt;
+&lt;h3 id=&#34;walking-to-work&#34;&gt;Walking to work&lt;/h3&gt;
+&lt;p&gt;This morning I took the Run mode for a spin while walking to work. Yeah, I was only walking, but still it is interesting to see my heart rate changing, and the GPS tracking my location.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1447884169/wp_ss_20151119_0002_bt8nf7.png&#34; alt=&#34;Walking to work tracking.&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;battery&#34;&gt;Battery&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;m not sure If I gave it a full charge or not, but only just now has it given me a low battery warning. That&amp;rsquo;s pretty good for a first-day use, especially while I was playing with it much more than I might on a standard day. So day 1, that&amp;rsquo;s 24-26 hours of power. Time will tell if I end up averaging more or less, and how long a charge I need to give it to get that benefit back.&lt;/p&gt;
+&lt;h3 id=&#34;in-conclusion&#34;&gt;In Conclusion&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;m glad I bought it. And I&amp;rsquo;ll be sure to recommend it as a reasonable alternative to a Fitbit, or sports watch.  Next steps, go for a real run with it and monitor my stats over the next few weeks. All going well I&amp;rsquo;ll pull down the SDK and figure out how to turn it into a remote for audio playback&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>F5 VPN and Windows 10</title>
+      <link>https://blogmigration.csmac.nz/post/f5-vpn-and-windows-10/</link>
+      <pubDate>Thu, 03 Sep 2015 09:24:27 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/f5-vpn-and-windows-10/</guid>
+      <description>&lt;p&gt;I recently had the need to VPN into a network using an F5 Networks VPN.  Turns out the provided BIG-IP Edge Client installs ok on Windows 10 but doesn&amp;rsquo;t connect.  I kept getting the &amp;ldquo;Network Access Connection Device was not found.&amp;rdquo; error at the last step of connecting.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1441314642/Error_b6ernt.png&#34; alt=&#34;&amp;ldquo;Network Access Connection Device was not found.&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Turns out that it was adding a &amp;lsquo;device&amp;rsquo; to device manager but not associating a driver to it.  Easily fixed as it happens.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open Device Manager.&lt;/li&gt;
+&lt;li&gt;Find the f5 driver with the warning triangle icon&lt;/li&gt;
+&lt;li&gt;Open its properties, go to the Driver tab, select update driver&amp;hellip;&lt;/li&gt;
+&lt;li&gt;Choose browse my computer for driver software&lt;/li&gt;
+&lt;li&gt;Choose Let me pick from a list of device driver on my computer&lt;/li&gt;
+&lt;li&gt;Select F5 Networks fro the left-hand side&lt;/li&gt;
+&lt;li&gt;Select F5 Networks VPN Adapter from the right-hand side. Click next&lt;/li&gt;
+&lt;li&gt;Accept the warning, yes you want to continue&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I&amp;rsquo;m not sure if this driver is standard to windows 10, or only there because I did an in-place upgrade from Windows 7. I assume it is in there by default.&lt;/p&gt;
+&lt;p&gt;Try connecting again, and you should succeed!&lt;/p&gt;
+&lt;p&gt;Now at this stage, once connected, you are likely to have every DNS error imaginable connecting to anywhere. This shows as &amp;ldquo;DNS-PROBE-FINISHED-NXDOMAIN&amp;rdquo; in chrome.&lt;/p&gt;
+&lt;p&gt;This had to do with the &amp;ldquo;F5 Networks DNS Relay Proxy Service&amp;rdquo;. You have two options:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Disable the service, deal with UAC&lt;/li&gt;
+&lt;li&gt;Restart the service after every connect.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Depending how often you need to use the VPN, you have a choice. If you disable the service, you will need to accept a UAC dialog after connecting. This dialog will open over and over again on top of itself until you say yes. Annoying, but only right after connecting.&lt;/p&gt;
+&lt;p&gt;The other option is that after connecting, you have to go into services and restart &amp;ldquo;F5 Networks DNS Relay Proxy Service&amp;rdquo;. Every time.&lt;/p&gt;
+&lt;p&gt;I can&amp;rsquo;t say what the service does, what the consequences of not having it running are (apart from the UAC dialog) so up to you what you choose.&lt;/p&gt;
+&lt;p&gt;I hope this helps other people getting stuck trying to run their VPN on Windows 10 until the officially supported versions become available and get rid of these two small problems in their client software.  It is also worth noting that I had a version 7 installer, so you may not get the exact experience I did since I believe they are now up to version 10.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Keyboard shortcuts for Windows 10 Power Users - Part 2</title>
+      <link>https://blogmigration.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-2/</link>
+      <pubDate>Thu, 20 Aug 2015 07:57:16 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-2/</guid>
+      <description>&lt;p&gt;When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Part 1: &lt;a href=&#34;https://blogmigration.csmac.nz/keyboard-shortcuts-for-windows-10-power-users-1&#34;&gt;What&amp;rsquo;s New&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 2: Old Classics &amp;lt;=(We are here)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;part-2-old-classics&#34;&gt;Part 2 Old classics&lt;/h2&gt;
+&lt;p&gt;If you are a Windows 7 power user, there is nothing new for you here. But you might want to skim the list anyway, in case you&amp;rsquo;ve been missing something useful for years and didn&amp;rsquo;t know it.  I don&amp;rsquo;t have anything older than 7 but can confirm these do appear in that version. In Windows 10, they are still here, and can improve your productivity to use them.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--l--lock-screen&#34;&gt;WinKey + l =&amp;gt; Lock screen&lt;/h4&gt;
+&lt;p&gt;If you use a computer in your day job, this is a must know shortcut. Every time I get up, I instinctively use &lt;code&gt;WinKey + 1&lt;/code&gt; to lock my machine. I also have a 5-minute timeout, but pranksters and inter-office practical jokes have drummed this one into me.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--pause--system-information&#34;&gt;WinKey + Pause =&amp;gt; System Information&lt;/h4&gt;
+&lt;p&gt;This is an old favorite of mine. Use &lt;code&gt;WinKey + Pause&lt;/code&gt; to open the System information screen (usually labelled as &amp;lsquo;System&amp;rsquo;). It&amp;rsquo;s a quick way to check the specs of a machine, its processors, memory, machine name, version and SKU, 64 or 32 bit.  It is also a great way to quickly get to Advanced system settings, which is usually linked off of this screen.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--p--project-duplicate-extend-etc&#34;&gt;WinKey + p =&amp;gt; Project (Duplicate, extend etc)&lt;/h4&gt;
+&lt;p&gt;If you use projectors and tvs a lot to present on, this is another must know shortcut. &lt;code&gt;WinKey + p&lt;/code&gt; show the Project selection, and successive presses of &amp;lsquo;p&amp;rsquo; while holding down the &lt;code&gt;WinKey&lt;/code&gt; will toggle through the options. Release &lt;code&gt;WinKey&lt;/code&gt; will active the projection mode selected. You can also use the mouse once the selection screen is visible, or &lt;code&gt;Esc&lt;/code&gt; to dismiss.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--m--minimise-windows&#34;&gt;WinKey + m =&amp;gt; Minimise windows&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;WinKey + m&lt;/code&gt; minimises all the applications on your screen down to the taskbar. This can be a nice way to remove the clutter from your screen, before opening back up one task to focus on, or launch something from your desktop.&lt;/p&gt;
+&lt;p&gt;With Multiple Desktops in Windows 10, this only minimises the apps on the desktop you are currently on, and not any of the other ones, which is nice.&lt;/p&gt;
+&lt;p&gt;As a companion to this, if you use &lt;code&gt;WinKey + Shift + m&lt;/code&gt; it restores all the minimised windows.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--d--toggle-show-desktoprestore-apps&#34;&gt;WinKey + d =&amp;gt; Toggle show desktop/restore apps&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;WinKey + d&lt;/code&gt; and &lt;code&gt;WinKey + m&lt;/code&gt; are very similar at first glance. What makes &lt;code&gt;WinKey + d&lt;/code&gt; different is rather than just minimising everything, it toggles hiding and showing all your windows that are in focus.&lt;/p&gt;
+&lt;p&gt;This is slightly less useful than it seems since all you really get to do is see the desktop, copy or paste icons from the desktop, then restore, and not much more. Anything else, like opening something from the desktop will stop you being able to restore again. However, you can still use &lt;code&gt;WinKey + Shift + m&lt;/code&gt; to restore again at this stage as well.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--r--run&#34;&gt;WinKey + r =&amp;gt; Run&lt;/h4&gt;
+&lt;p&gt;Windows has a Run dialog. It can be launched from the start menu, searching start, or using the shortcut key &lt;code&gt;WinKey + r&lt;/code&gt;. A great way to run an app from a specific name. I mostly use it to quickly run applications like notepad, or calc, since they are quick to type, or when I need to run RegEdit.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--e--explorer&#34;&gt;WinKey + e =&amp;gt; Explorer&lt;/h4&gt;
+&lt;p&gt;I use &lt;code&gt;WinKey + e&lt;/code&gt; almost daily. If I need a file explorer, this is the way I get one open, much faster than grabbing the mouse and clicking file explorer on the taskbar.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--t---taskbar&#34;&gt;WinKey + t = &amp;gt; Taskbar&lt;/h4&gt;
+&lt;p&gt;Want to focus on the taskbar? &lt;code&gt;WinKey + t&lt;/code&gt; gets you there, and you can use the arrow keys to navigate, and &lt;code&gt;Enter&lt;/code&gt; to launch or show an app and give it focus.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--b--system-tray-icon-area&#34;&gt;WinKey + b =&amp;gt; System tray icon area&lt;/h4&gt;
+&lt;p&gt;Want to focus on the system tray? There is a shortcut for that too: &lt;code&gt;WinKey + b&lt;/code&gt;. Again we use the arrow keys and &lt;code&gt;Enter&lt;/code&gt; to navigate and select something.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--u--ease-of-access-center&#34;&gt;WinKey + u =&amp;gt; Ease of access center&lt;/h4&gt;
+&lt;p&gt;Something I never use, but here for completeness, &lt;code&gt;WinKey + u&lt;/code&gt; launches the Ease of access center.&lt;/p&gt;
+&lt;h4 id=&#34;alt--f4--close&#34;&gt;Alt + F4 =&amp;gt; Close&lt;/h4&gt;
+&lt;p&gt;I&amp;rsquo;ve tried to focus on &lt;code&gt;WinKey +&lt;/code&gt; shortcuts, but this is a great complement to all the other I have mentioned. &lt;code&gt;Alt + F4&lt;/code&gt; closes the current window or Application. If you are on the desktop, this launches the &lt;code&gt;Shutdown Windows&lt;/code&gt; dialog instead.&lt;/p&gt;
+&lt;h4 id=&#34;ctrl--alt--delete--windows-security&#34;&gt;Ctrl + Alt + Delete =&amp;gt; Windows Security&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Ctrl + Alt + Delete&lt;/code&gt; is pretty well known, and even has its own &lt;a href=&#34;https://en.wikipedia.org/wiki/Control-Alt-Delete&#34;&gt;Wiki page&lt;/a&gt;. In Windows, at some point in time this launched the Task Manager directly, but these days it brings you to a full-screen menu, providing quick actions like launching the Task Manager, And allowing you to perform session actions like, log out, switch user and lock.&lt;/p&gt;
+&lt;h4 id=&#34;alt--tab--switch-focus&#34;&gt;Alt + Tab =&amp;gt; Switch Focus&lt;/h4&gt;
+&lt;p&gt;I mentioned &lt;code&gt;Alt + Tab&lt;/code&gt; when I talked about &lt;code&gt;WinKey + Tab&lt;/code&gt; in Part 1. This launches the Task Switcher. Holding &lt;code&gt;Alt&lt;/code&gt; and successively pressing &lt;code&gt;Tab&lt;/code&gt; will cycle through all of the windows you can focus on and will gain focus when you release the &lt;code&gt;Alt&lt;/code&gt; key.  In Windows 10, using Multiple Desktops, only the Windows in the current desktop show up in the &lt;code&gt;Alt + Tab&lt;/code&gt; menu.&lt;/p&gt;
+&lt;h3 id=&#34;summary&#34;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ve missed a lot. I know I have. But I really wanted to focus on the &lt;code&gt;WinKey&lt;/code&gt; based shortcuts. Maybe I will come back for a part 3 at some point and cover a bunch of Windows conventions that work across many, but not all of the apps. For now, I hope you learned one new thing to take away with you today to start using tomorrow.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Keyboard shortcuts for Windows 10 Power Users - Part 1</title>
+      <link>https://blogmigration.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-1/</link>
+      <pubDate>Sun, 16 Aug 2015 07:46:39 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-1/</guid>
+      <description>&lt;p&gt;When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Part 1: What&amp;rsquo;s New &amp;lt;=(We are here)&lt;/li&gt;
+&lt;li&gt;Part 2: &lt;a href=&#34;https://blogmigration.csmac.nz/keyboard-shortcuts-for-windows-10-power-users-2&#34;&gt;Old Classics&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;part-1-whats-new&#34;&gt;Part 1: Whats new?&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s focus on what is new to Windows 7 users. Some of these are completely new to Windows 10, and some have been around since 8, but they might not do exactly what they used to.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;New to Windows 10&lt;/li&gt;
+&lt;li&gt;Changed in Windows 10&lt;/li&gt;
+&lt;li&gt;Added in Windows 8&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;new-to-windows-10&#34;&gt;New to Windows 10&lt;/h3&gt;
+&lt;p&gt;With the new Multiple Desktops feature comes a few new shortcuts for you to learn. Using the task view you can perform all these actions with the mouse, but keyboard junkies will love these new keyboard commands. (See &lt;code&gt;WinKey + Tab&lt;/code&gt; further down for more on the Task View.)&lt;/p&gt;
+&lt;h4 id=&#34;winkey--ctrl--d--add-new-desktop&#34;&gt;WinKey + Ctrl + d =&amp;gt; Add new desktop&lt;/h4&gt;
+&lt;p&gt;As well as using your mouse with Task View, you can quickly add a new desktop using the new &lt;code&gt;WinKey + Ctrl + d&lt;/code&gt; shortcut.  This creates a new desktop at the far right of all existing ones and takes you to it.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--ctrl--f4--close-a-desktop&#34;&gt;WinKey + Ctrl + F4 =&amp;gt; Close a desktop&lt;/h4&gt;
+&lt;p&gt;Finished with a desktop? &lt;code&gt;WinKey + Ctrl + F4&lt;/code&gt; will close it and take you, and any open apps to the desktop on your left. If you&amp;rsquo;re at the left-most screen, it will take everything to the new left-most screen.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--ctrl--leftright--switch-desktops&#34;&gt;WinKey + Ctrl + left/right =&amp;gt; Switch desktops&lt;/h4&gt;
+&lt;p&gt;Using &lt;code&gt;Ctrl + WinKey + left arrow&lt;/code&gt; will navigate you to the Desktop to your left. &lt;code&gt;Ctrl + WinKey + right arrow&lt;/code&gt; will navigate you to the Desktop to your right. These desktops don&amp;rsquo;t wrap, so when you are at the right-most or left-most, the shortcut for that direction does nothing.&lt;/p&gt;
+&lt;h4 id=&#34;a-note-about-multiple-monitors&#34;&gt;A note about multiple monitors&lt;/h4&gt;
+&lt;p&gt;If you use a multi-monitor setup, you will find that each desktop contains all of your monitors. This is best explained with an example.  If you have two monitors and one desktop everything will be familiar. When you add a new desktop, both your screens transition to that desktop. As you switch between Desktop 1 and Desktop 2, both of your monitors will change back and forward.  Basically what I am trying to say is that it is an all or nothing transition, you can&amp;rsquo;t have different numbers of Desktops per monitor, or transition separately per monitor.&lt;/p&gt;
+&lt;h3 id=&#34;changed-in-windows-10&#34;&gt;Changed in Windows 10&lt;/h3&gt;
+&lt;p&gt;Windows 10 is a bit of a sweet spot between 7 and 8. Because of that, some of the edgy features from 8 have gone, or transformed to be a bit more pared back and so the shortcuts have had to change a bit too.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--sor-q--search&#34;&gt;WinKey + s(or q) =&amp;gt; Search&lt;/h4&gt;
+&lt;p&gt;Windows 8 introduced &lt;code&gt;WinKey + s&lt;/code&gt; and &lt;code&gt;WinKey + q&lt;/code&gt;. From memory, they used to do different things, possible app vs global search, but since 8.1 Update they both just bring up the Windows search menu.  With Windows 10, these both do the same thing, and that is to open and focus windows search, or Cortana if that is available and enabled.&lt;/p&gt;
+&lt;p&gt;Also, note that &lt;code&gt;WinKey + w&lt;/code&gt;, and &lt;code&gt;WinKey + f&lt;/code&gt;, which used to bring up settings search and files search have been removed. Windows Search finds anything and everything in one place now.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--i--settings&#34;&gt;WinKey + i =&amp;gt; Settings&lt;/h4&gt;
+&lt;p&gt;In Windows 8, &lt;code&gt;WinKey + i&lt;/code&gt; brought up the settings sidebar. This would be the running Windows Store Application&amp;rsquo;s Settings page. If you were on the desktop it had a Desktop Settings page instead. In Windows 10 this brings up the Windows Settings App. This &amp;lsquo;app&amp;rsquo; is the new way to interact with most of the functionality that used to belong to the Control Panel. (This is what evolved out of Windows 8&amp;rsquo;s PC Settings App.)&lt;/p&gt;
+&lt;h4 id=&#34;winkey--c--microphone-search&#34;&gt;WinKey + c =&amp;gt; Microphone search&lt;/h4&gt;
+&lt;p&gt;In Windows 8, there was the concept of the Charms bar on the right hand side. Now in Windows 10, since that is no longer a thing, the shortcut &lt;code&gt;WinKey + c&lt;/code&gt; has been reused to launch microphone/Cortana speech to text search instead.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--tab--task-view&#34;&gt;WinKey + Tab =&amp;gt; Task View&lt;/h4&gt;
+&lt;p&gt;I believe this came in with Vista as part of the Aero visual theming for windows. Using &lt;code&gt;WinKey + Tab&lt;/code&gt; rather than &lt;code&gt;Alt + Tab&lt;/code&gt; gave you a 3d visualisation carousel of sorts, that cycled through live views of the running windows.  Windows 8 re-used this for app switching, opening a bar at the right-hand side with your Windows Store apps.&lt;/p&gt;
+&lt;p&gt;Now with Windows 10, it launches Task View. Task View can also be launched from the button located on your taskbar that looks like a box with wings.  It is here that you get access to the Multiple Desktop feature, to add a new desktop or navigate between, and transfer windows between them using the mouse.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--arrows--snap-windows&#34;&gt;WinKey + Arrows =&amp;gt; Snap Windows&lt;/h4&gt;
+&lt;p&gt;Another one that has been around a while is the window snapping feature. Not sure if this was a Vista or a 7 thing, but it too has been enhanced with Windows 10.  The old functionality snaps your focused application.  &lt;code&gt;WinKey + up&lt;/code&gt; would make your app full screen. From there you can use &lt;code&gt;WinKey + down&lt;/code&gt; to restore the window as a window. One more &lt;code&gt;WinKey + down&lt;/code&gt; would minimise the windows. &lt;code&gt;WinKey + left&lt;/code&gt; would snap the app to take the entire left side of the screen, and &lt;code&gt;WinKey + right&lt;/code&gt; would snap the app to take the entire right side of the screen.&lt;/p&gt;
+&lt;p&gt;In Windows 10 we have two new features. When you &lt;code&gt;WinKey + left&lt;/code&gt; to snap your window, you get an app picker on the right-hand side, to quickly snap another app into the rest of the space. &lt;code&gt;Esc&lt;/code&gt; cancels that new selection menu. Again &lt;code&gt;WinKey + right&lt;/code&gt; is the opposite.&lt;/p&gt;
+&lt;p&gt;The other new feature is that you can do all 4 quarters of your screen.  &lt;code&gt;WinKey + up&lt;/code&gt; from a left or right snapped app will shrink it to half the size again into the respective corner. Playing around with the arrow keys gets your app moving around all over the place, and as you start filling up the screen, if you have enough other apps running you will get the space fill window picker show up in the gaps you create.&lt;/p&gt;
+&lt;h3 id=&#34;added-in-windows-8&#34;&gt;Added in Windows 8&lt;/h3&gt;
+&lt;p&gt;Windows 8 users will be familiar with these, but for Windows 7 users coming to 10, here is something else that is new.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--h--share&#34;&gt;WinKey + h =&amp;gt; Share&lt;/h4&gt;
+&lt;p&gt;Sharing was a feature that Windows 8 introduced for Windows Store Apps.  Apps could provide code to handle producing shareable text, images and other structured data, or to handle consuming different types of data.  The idea here is that using these loose contracts different apps could share in a very generic way.  &lt;code&gt;WinKey + h&lt;/code&gt; launches the Share page on the right-hand side.  As well as the shares from the app, there is a built in &amp;ldquo;Share a Screenshot of&amp;rdquo; default, which is always there no matter what application you are running.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--k--connect-devices&#34;&gt;WinKey + k =&amp;gt; Connect devices&lt;/h4&gt;
+&lt;p&gt;Windows 8 introduced Connect as a quick way to connect to devices. This included Play to, Print, and Project. Now in windows 10, it is where we scan to connect to  wireless displays and audio devices. Using &lt;code&gt;WinKey + k&lt;/code&gt; launches this page.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--x--quick-actions&#34;&gt;WinKey + x =&amp;gt; Quick actions&lt;/h4&gt;
+&lt;p&gt;The quick actions shortcut &lt;code&gt;WinKey + x&lt;/code&gt; seems to be new since Windows 8 (although on HP machines this shortcut seems to launch the Windows Mobility Center). It launches the menu you get when you right-click on the start button. In Windows 8 and 10 we have actions like Shutdown/restart, launch a command-line or PowerShell window, get to System, Device Manager, Event Viewer and others.  This is a great quick way to get to advanced system screens quickly and easily.&lt;/p&gt;
+&lt;h4 id=&#34;winkey--print-screen&#34;&gt;WinKey + Print Screen&lt;/h4&gt;
+&lt;p&gt;The Print Screen key (sometimes labelled &lt;code&gt;PrtScn&lt;/code&gt; or &lt;code&gt;prt sc&lt;/code&gt;) has always had modifiers when you take screenshots with it. In Windows 8 we were introduced &lt;code&gt;WinKey + Print Screen&lt;/code&gt; to screenshot the whole desktop and same the image straight to your picture folder. Phones and tablets usually also have this feature using a combination of hardware buttons pressed at the same time (often &lt;code&gt;Volume Up + Power&lt;/code&gt;).&lt;/p&gt;
+&lt;h3 id=&#34;summary&#34;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;There you have it. Multiple Desktops, App Snapping, Share, Connect and Quick actions.  That is what is new, and I hope you find one or two that you will start using tomorrow, even if you still on Windows 8.  If you are still on 7 or haven&amp;rsquo;t really got stuck into using shortcuts on windows, there are plenty more out there, and I will run through the in Part 2: Old Classics.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Windows 10 Animations</title>
+      <link>https://blogmigration.csmac.nz/post/windows-10-animations/</link>
+      <pubDate>Sun, 02 Aug 2015 17:18:45 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/windows-10-animations/</guid>
+      <description>&lt;p&gt;You&amp;rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?&lt;/p&gt;
+&lt;p&gt;Since &lt;a href=&#34;https://en.wikipedia.org/wiki/Windows_Aero&#34;&gt;Aero&lt;/a&gt; came onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects.  With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View.&lt;/p&gt;
+&lt;p&gt;Luckily there has also always been a way to customise how little, or how much of the animations you want to see or use.&lt;/p&gt;
+&lt;h3 id=&#34;where-are-the-settings&#34;&gt;Where are the settings?&lt;/h3&gt;
+&lt;p&gt;To find the settings related to the animations, first you need to open &lt;code&gt;System Information&lt;/code&gt;.  This can be done by typing &lt;code&gt;System&lt;/code&gt; into search.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10searchsystem_tluume.png&#34; alt=&#34;Search for System Information using Windows Search.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Or more simply, use the keyboard shortcut Winkey + Pause  (Pause is found near the Print Screen or scroll lock buttons on most keyboard I have used).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10SystemInformation_fwvamw.png&#34; alt=&#34;The System Information dialog.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;From here, simply click on the &lt;code&gt;Advanced system settings&lt;/code&gt; button on the left. This opens the &lt;code&gt;System Properties&lt;/code&gt; dialog. Navigate to the &lt;code&gt;Advanced&lt;/code&gt; tab.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10systemproperties_qyzvak.png&#34; alt=&#34;The System Properties dialog.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Click on &lt;code&gt;Settings&lt;/code&gt; in the &lt;code&gt;Performance&lt;/code&gt; section. This is where we can customise the &lt;code&gt;Visual Effects&lt;/code&gt; of Windows.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1438549439/win10performanceoptions_iicexg.png&#34; alt=&#34;The Performance Options dialog.&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;caveat&#34;&gt;Caveat&lt;/h3&gt;
+&lt;p&gt;Windows might think it knows best and have turned off settings that your graphics setup cannot handle. Either setting could be completely unavailable to you, or you might start getting performance issues by turning some of these on. There, I&amp;rsquo;ve warned you. Tweak the settings to your hearts content.&lt;/p&gt;
+&lt;h3 id=&#34;i-dont-currently-see-animations&#34;&gt;I don&amp;rsquo;t currently see animations&lt;/h3&gt;
+&lt;p&gt;You really want to see the animations, but they don&amp;rsquo;t seem to be currently on? You might have &lt;code&gt;Adjust for best performance&lt;/code&gt; or &lt;code&gt;Let Windows choose what&#39;s best for my computer&lt;/code&gt; selected.  Choose &lt;code&gt;Adjust for best appearance&lt;/code&gt; and animations will be turned on.  Still not happy with this, you can use &lt;code&gt;Custom&lt;/code&gt; and selectively turn on the ones you want.&lt;/p&gt;
+&lt;h3 id=&#34;the-animations-annoy-me&#34;&gt;The animations annoy me&lt;/h3&gt;
+&lt;p&gt;If you sincerely despise the animations windows throws at you, you are in luck. This is configurable. You may currently see &lt;code&gt;Adjust for best appearance&lt;/code&gt;, or &lt;code&gt;Let Windows choose what&#39;s best for my computer&lt;/code&gt;.  Just change this to &lt;code&gt;Adjust for best performance&lt;/code&gt; and there is a good chance all the check boxes become unticked. All your animations will now be turned off.&lt;/p&gt;
+&lt;p&gt;You may want to choose &lt;code&gt;Custom&lt;/code&gt; and start selectively turning off the ones that really annoy you, and leave the rest on that make sense to you.&lt;/p&gt;
+&lt;h3 id=&#34;i-want-to-pick-and-choose&#34;&gt;I want to pick and choose&lt;/h3&gt;
+&lt;p&gt;As mentioned above, there is an option &lt;code&gt;Custom&lt;/code&gt;. This lets your turn on and off specific OS animations. For instance &lt;code&gt;Animate windows when minimizing and maximizing&lt;/code&gt; will turn on the transition for windows as you minimise and maximise them to the system tray, but also controls the multiple desktop transition left and right.  For the best balance, you can turn on the ones that work for you, and turn off the ones that don&amp;rsquo;t. Customising these will give you the best experience for you and your machine to balance the power of the machine, against your tolerance or preference to the animations and transitions.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Windows 10 phantom text fix</title>
+      <link>https://blogmigration.csmac.nz/post/windows-10-phantom-text-fix/</link>
+      <pubDate>Wed, 01 Jul 2015 20:35:13 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/windows-10-phantom-text-fix/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been using the Windows 10 Insider Previews on my &lt;a href=&#34;http://www.dell.com/us/dfb/p/latitude-10-st2e/pd&#34;&gt;Dell Latitude ST2E Tablet&lt;/a&gt; for a few months and It has been a bit hit and miss.  I&amp;rsquo;ve really enjoyed the experience of previewing what&amp;rsquo;s coming, but it has been quite buggy up until the 10158/10159 builds leading up to the July 29th RTM.  But there is one bug that has survived for me that, through wishful thinking I had expected to just go away after a while. That is, the phantom text, invisible text, or missing text bug, depending on what you want to call it.&lt;/p&gt;
+&lt;h3 id=&#34;exhibit-a&#34;&gt;Exhibit A&lt;/h3&gt;
+&lt;p&gt;This is a symptom I&amp;rsquo;ve been seeing on one Windows 8 app in particular while using windows 10, the &lt;a href=&#34;http://apps.microsoft.com/windows/en-nz/app/comics/39c58b6e-8b89-4127-a7a3-914cc7918b98&#34;&gt;Comixology App&lt;/a&gt;. Almost all of the buttons, links and text descriptions were completely missing, except maybe becoming visible when you press down on a button.  As of the 10158 release, I have started seeing this also happen on the new Windows 10 Store app as well. It makes it kind of tricky to use the apps when the content is blank.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824524/the_bug_tj8c7h.png&#34; alt=&#34;Screenshot showing missing text in apps on Windows 10&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;research&#34;&gt;Research&lt;/h3&gt;
+&lt;p&gt;I came across &lt;a href=&#34;http://kb.parallels.com/en/122856&#34;&gt;some early bugs&lt;/a&gt; that indicated it might be driver related. As Hard as I looked, the obscure Intel Atom Z2760 processor just did not have any new Windows 10 drivers, and the 2013 drivers that dell provided barely differed from the ones Windows Update had given me.&lt;/p&gt;
+&lt;h3 id=&#34;the-fix&#34;&gt;The Fix&lt;/h3&gt;
+&lt;p&gt;Out of pure frustration, I tried resetting my drivers to the Microsoft Basic Display Adapter, and wouldn&amp;rsquo;t you know it, It actually solved the problem!&lt;/p&gt;
+&lt;p&gt;To do this yourself, just follow these simple steps:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open Device Manager&lt;/li&gt;
+&lt;li&gt;Find your Display Adapter under the Display adapters group&lt;/li&gt;
+&lt;li&gt;Right-Click your adapter and select Update Driver Software&lt;/li&gt;
+&lt;li&gt;Select the &amp;ldquo;Browse my Computer for driver software&amp;rdquo; option&lt;/li&gt;
+&lt;li&gt;Select &amp;ldquo;Let me pick from a list of device drivers on my computer&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Select &amp;ldquo;Microsoft Basic Display Adapter&amp;rdquo; from the list&lt;/li&gt;
+&lt;li&gt;Click Next and you&amp;rsquo;re done&lt;/li&gt;
+&lt;li&gt;Click Close to close the window&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824521/basicdriver_zqaz7l.png&#34; alt=&#34;Update your driver selecting the Microsoft Basic Display Adapter.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;When I did this, it didn&amp;rsquo;t require a restart, but it will prompt you if you do.&lt;/p&gt;
+&lt;p&gt;Straight away, I was able to see all the missing text, and can finally start using the system again without the missing text bug.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1435824526/fixed_uyfg9e.png&#34; alt=&#34;After the fix, the text is visible again.&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;And that&amp;rsquo;s basically it. I searched for ages and didn&amp;rsquo;t find a solution, so hopefully this helps someone else out who is having similar problems.&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t know the extent of the issue across the OS since until recently it only happened on one app. Now that It happens in the Store it might become more common. I&amp;rsquo;m hoping that come August, this will no longer be an issue for the RTM, but if it is, This might save a few people some pain until Intel, Dell or Microsoft get around to correcting the issue for the general Windows 10 user, without the need for this workaround.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>New Zealand Public holidays Calendar</title>
+      <link>https://blogmigration.csmac.nz/post/new-zealand-public-holidays-calendar/</link>
+      <pubDate>Tue, 02 Dec 2014 14:53:39 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/new-zealand-public-holidays-calendar/</guid>
+      <description>&lt;p&gt;Want to see all the New Zealand public holidays on your calendar on your Google Calendar, but don&amp;rsquo;t want to have to enter them yourself, or maintain them?&lt;/p&gt;
+&lt;p&gt;I found this great page with &lt;a href=&#34;http://www.dol.govt.nz/er/holidaysandleave/publicholidays/publicholidaydates/&#34;&gt;public holidays and calendars&lt;/a&gt; on the MBIE site.  They have the New Zealand public holidays here for the current, past and future years for your reference. They also have this great link to an icalendar (ics) url for &lt;a href=&#34;http://www.dol.govt.nz/er/holidaysandleave/publicholidays/publicholidaydates/ical/public-holidays-all.ics&#34;&gt;National public holiday dates, including all regional anniversaries&lt;/a&gt; (linked here for your reference) on the &lt;a href=&#34;http://www.dol.govt.nz/er/holidaysandleave/publicholidays/publicholidaydates/ical/index.asp&#34;&gt;NZ public holiday iCalendar feeds&lt;/a&gt; page.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve been using this with my personal and work Google calendars, but it should work for you anywhere *.ics web calendars are. Just right click the &lt;a href=&#34;http://www.dol.govt.nz/er/holidaysandleave/publicholidays/publicholidaydates/ical/public-holidays-all.ics&#34;&gt;ical link&lt;/a&gt;, and select &amp;lsquo;Copy link address&amp;rsquo; (or equivalent in your browser of choice). Then in Google Calendar, click the arrow on the left hand side beside &amp;lsquo;Other Calendars&amp;rsquo; and select &amp;lsquo;Add by URL&amp;rsquo;. paste in the url, click &amp;lsquo;Add Calendar&amp;rsquo; and your done.&lt;/p&gt;
+&lt;p&gt;Enjoy.&lt;/p&gt;
+&lt;p&gt;*[MBIE]: Ministry of Business, Innovation and Employment&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Pulseaudio in system-wide mode</title>
+      <link>https://blogmigration.csmac.nz/post/pulseaudio-in-system-wide-mode/</link>
+      <pubDate>Mon, 12 Oct 2009 02:38:01 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/pulseaudio-in-system-wide-mode/</guid>
+      <description>&lt;p&gt;I have my machine set up to use MPD (Music Player Daemon to play my music, and use the minion Firefox plug-in MPD client to control it, all well and good, no troubles there. I use Pulseaudio(PA) for sound on my Ubuntu server, and configuring this with MPD is no trouble, just search for MPD and Pulseaudio and the instructions come up several times in the first page. But the problem is that PA defaults to user-session mode, where the user logged in has control over the speakers through PA. If you also have this problem, the solution is system-wide mode. I found this &lt;a href=&#34;http://ubuntuforums.org/showthread.php?t=1108742&#34;&gt;really nice forum post&lt;/a&gt; with simple concise instructions to fix the problem: /etc/pulse/daemon.conf: daemonize = yes system-instance = yes /etc/default/pulseaudio: PULSEAUDIO_SYSTEM_START=1 Once I did that, it all worked, mpd started and i could hit play without needing to log in. The next step is to get it to remember and continue playing over a restart&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Strange Monitor issues</title>
+      <link>https://blogmigration.csmac.nz/post/strange-monitor-issues/</link>
+      <pubDate>Thu, 12 Feb 2009 22:35:24 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/strange-monitor-issues/</guid>
+      <description>&lt;p&gt;Just a little backstory to put this in context.  I have a dual-boot Vista/Ubuntu machine.  I updated my hardware and vista needed to re-register, but my internet connection was down. Fine, I&amp;rsquo;ll use Ubuntu till my internets back.&lt;/p&gt;
+&lt;p&gt;All is well until I finally reboot into Vista and re-active my licence online, download all the latest updates and reboot. All of a sudden my LCD screen no longer works. Fortunately, I have two screens but the LCD no longer detects as UPnP and won&amp;rsquo;t take a resolution higher than 1024x768. This is really bad and so I figured it was vista being stupid. So I rebooted into ubuntu and guess what? the screen still doesn&amp;rsquo;t work and the resolution is caped at a rediculous 640x480.&lt;/p&gt;
+&lt;p&gt;This really frustrated me and I tried everything I could think of, let the video card cool down, reset the bios, monitor, x11 setup, everything. Nothing worked.&lt;/p&gt;
+&lt;p&gt;Finally I found &lt;a href=&#34;http://forums.nvidia.com/lofiversion/index.php?t48178.html&#34;&gt;this forum&lt;/a&gt; that had a post with everyone having the same problem, same monitor, similar graphics card, same vista. About halfway down the page &lt;a href=&#34;https://forums.geforce.com/default/topic/369603/geforce-drivers/no-signal-blank-screen-vista-please-post-here-if-you-have-this-issue/post/2648803/#2648803&#34;&gt;umop3pl5dn had posted&lt;/a&gt; the solution and it was ridiculously simple.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You guys seriously will not BELIEVE this&amp;hellip;&lt;/p&gt;
+&lt;p&gt;No Signal Problems /yes.gif&#39; class=&amp;lsquo;bbc_emoticon&amp;rsquo; alt=&#39;:yes:&#39; /&amp;gt;&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m running an 8800GTS evga card w/ a chimei 22inch LCD(cmv221D) and I&amp;rsquo;ve been up all night / all day yesterday trying to figure out why my monitor randomly wouldnt go over 1024x768 randomly&amp;hellip;well I was reading around and read somewhere to just UNPLUG the power and dvi cable for a few mins&amp;hellip;i did it for about 5 or so.and when i plugged it back in, mind you my PC was still running and i had this very forum open the whole time..i plug it back in and everything is working again like normal as if the monitor reset itself somehow?? i have no idea why this worked, ive tried EVERYTHING else&amp;hellip;it&amp;rsquo;s a shot in the dark, at least it was for me and i happen to hit the bullseye&amp;hellip;try it out!? haha.gif haha.gif&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Unplug the monitor from the power, wait a minute, reconnect the monitor, and bingo it all works again. So if any of you vista users of with a Chimei monitor using an NVidia 8xxx series card have this problem in te future, unplug the monitor power, wait, replace and away you go.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

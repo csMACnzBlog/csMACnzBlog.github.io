@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/gulp-vs-net\/";
             }
         </script>
 
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2014-12-07"  itemprop="datePublished">07 Dec 14</time> on <a href="/tags/projects">Projects</a>,  <a href="/tags/nodejs">nodejs</a></span>
-    
-        <h1 class="post-title" itemprop="headline">Gulp vs .net</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2014-12-07"  itemprop="datePublished">07 Dec 14</time> in <a href="/categories/projects">Projects</a>,  <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/projects">Projects</a>,  <a href="/tags/nodejs">nodejs</a></span>
+<h1 class="post-title" itemprop="headline">Gulp vs .net</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>I wanted to add continuous code coverage to my <a href="https://github.com/csmacnz/BCLExtensions">little extension library project</a>, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!</p>

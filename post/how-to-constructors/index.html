@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/how-to-constructors\/";
             }
         </script>
 
@@ -18,7 +18,7 @@
     
         <title>How to Constructors - csMACnz&#39;s Blog</title>
         <meta name="description" content="Constructors for services are a really handy way to pass in configuration, variation and dependencies. Here are some ways I have learned to use Constructors and some ideas on testing. What shouldn&rsquo;t be in a …">
-        <meta name='keywords' content='csMACnz, C Sharp, software development'>
+        <meta name='keywords' content='csMACnz, C Sharp'>
 
         
         <meta property="og:type" content="article"/>
@@ -96,7 +96,7 @@
                 "width": 440,
                 "height": 295
             },
-            "keywords" : [ "C Sharp", "software development" ]
+            "keywords" : [ "C Sharp" ]
             "description" : "Constructors for services are a really handy way to pass in configuration, variation and dependencies. Here are some ways I have learned to use Constructors and some ideas on testing.\nWhat shouldn\u0026rsquo;t be in a Constructor Execution. Any complex execution of code should not be in a constructor. This includes asynchronous method calls (which either has to block synchronously, or runs off to nowhere), web requests, and complex calculations.\nWhy? Why not run your whole application in a constructor?",
             "mainEntityOfPage": {
                 "@type": "WebPage",
@@ -136,11 +136,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2017-01-16"  itemprop="datePublished">16 Jan 17</time> on <a href="/tags/c-sharp">C Sharp</a>,  <a href="/tags/software-development">software development</a></span>
-    
-        <h1 class="post-title" itemprop="headline">How to Constructors</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2017-01-16"  itemprop="datePublished">16 Jan 17</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/c-sharp">C Sharp</a></span>
+<h1 class="post-title" itemprop="headline">How to Constructors</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <img class="post-image" src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_440/v1484323800/pexels-photo-209177_engogw.jpg"><p>Constructors for services are a really handy way to pass in configuration, variation and dependencies. Here are some ways I have learned to use Constructors and some ideas on testing.</p>

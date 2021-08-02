@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Media PC on csMACnz&#39;s Blog</title>
+    <link>https://blogmigration.csmac.nz/categories/media-pc/</link>
+    <description>Recent content in Media PC on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://blogmigration.csmac.nz</link>
+    </image>
+    <ttl>1440</ttl>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Mon, 19 Jan 2015 15:22:27 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/media-pc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mediaportal: no network, no cards</title>
+      <link>https://blogmigration.csmac.nz/post/mediaportal-no-network-no-cards/</link>
+      <pubDate>Mon, 19 Jan 2015 15:22:27 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/mediaportal-no-network-no-cards/</guid>
+      <description>&lt;p&gt;I just moved house, and of course the first thing to do is plug in the media pc running MediaPortal, so that my shows will record.  But as you would expect, change brings problems.  It doesn&amp;rsquo;t start. The pc boots, everything looks ok, but the TV-Server doesn&amp;rsquo;t seem to be running. When I tried to launch the TV-Server Configuration, pops up an awesome dialog with a stacktrace in it:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+Server stack trace: 
+void TvService.TVController.get_Cards()
+void System.Runtime.Remoting.Messaging.StackBuilderSink._PrivateProcessMessage(IntPtr md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp;amp; outArgs)
+void System.Runtime.Remoting.Messaging.StackBuilderSink.PrivateProcessMessage(RuntimeMethodHandle md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp;amp; outArgs)
+void System.Runtime.Remoting.Messaging.StackBuilderSink.SyncProcessMessage(IMessage msg, Int32 methodPtr, Boolean fExecuteInContext)
+Exception rethrown at [0]: 
+void System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+void System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp;amp; msgData, Int32 type)
+void TvControl.IController.get_Cards()
+void SetupTv.Startup.Main(String[] arguments)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I have no idea what is wrong at this point. Has my card been damaged in transit? Is there some rogue signal on the satellite cable that is causing issues with the driver? Who knows.&lt;/p&gt;
+&lt;p&gt;At this stage, I have tried without the aerial, and it still has the same error, tried restarting, ensuring there was enough memory and hard drive space.  The front-end software runs fine so it&amp;rsquo;s only the TV-Service that is the issue.  I didn&amp;rsquo;t have a network cable plugged in, and windows was in a state of no network connection, as apposed to no internet access or connected.&lt;/p&gt;
+&lt;p&gt;I casually say to my Wife, while explaining the issue, &amp;ldquo;The Internet isn&amp;rsquo;t connected, but that shouldn&amp;rsquo;t make any difference.&amp;rdquo;  Her reply was &amp;ldquo;are you sure the internet isn&amp;rsquo;t the problem?&amp;rdquo;. &lt;em&gt;Genius&lt;/em&gt;.  I remember back to when I had wireless/wired network bridging a while back to pass through connection to my Xbox. The networking would die if the wired network had no signal, which happened whenever the Xbox was off, even though the internet was from the wireless.&lt;/p&gt;
+&lt;p&gt;So after much Google searching, and not seeing anything obvious to help my cause, I decided to try plugging in a powered network switch with a patch cable. this gave me a live signal in the cable, but doesn&amp;rsquo;t provide a &amp;lsquo;network&amp;rsquo; as such.  But sure enough, as soon as I has that plugged in, everything came right. No network connected, no internet, not even DHCP resolution, but the fact there was a switch at the other end of the cable was enough, and all is well.&lt;/p&gt;
+&lt;p&gt;Today, after solving the issue, I found &lt;a href=&#34;http://forum.team-mediaportal.com/threads/tv-stops-on-a-network-disconnect.43329/&#34;&gt;this post&lt;/a&gt; that explains it has to do with the TV-Server binding to the IP address, (which windows created for me after not locating a DHCP server) and also suggests a loop-back interface driver that can be used to fix the issue through software means.&lt;/p&gt;
+&lt;p&gt;Luckily for me this is only a temporary issue, and my powered switch workaround will do the trick until I get Broadband connected and my flat network wired up again.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt; If you get the NullReferenceException, and messages that say no cards available, make sure your network at least resolves an IP address, even if it is just a loop-back or an &lt;a href=&#34;http://packetlife.net/blog/2008/sep/24/169-254-0-0-addresses-explained/&#34;&gt;Automatic Private IP Address&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>From MythTV to Windows Media Center</title>
+      <link>https://blogmigration.csmac.nz/post/from-mythtv-to-windows-media-center/</link>
+      <pubDate>Sun, 14 Mar 2010 05:54:01 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/from-mythtv-to-windows-media-center/</guid>
+      <description>&lt;p&gt;I recently decided to make the leap from Ubuntu and open source MythTV to the professional product, Microsoft&amp;rsquo;s Windows Media Center. Why you may ask? Well to be honest I moved and lost my Freeview reception, then came to the conclusion that without that I no longer had any real use for the machine. But also I have recently become a Windows developer and and using Linux less and less. My Windows partitions on my other machines are getting booted more and more, and with windows 7 out (and getting my hands on a couple of copies) I thought it a good time to change focus and try another media PC software out.&lt;/p&gt;
+&lt;p&gt;So now we have the why out of the way, lets look at some of the things I wanted to say, the reason for this post. Lets start with the more general point.&lt;/p&gt;
+&lt;h3 id=&#34;using-windows-7-with-linux-ext2ext3-partitions&#34;&gt;Using Windows 7 with Linux ext2/ext3 Partitions&lt;/h3&gt;
+&lt;p&gt;Anyone who has dual-booted a machine has come to the point where they need to access their Windows files from their Linux OS, and are glad there is NTFS support in Linux. But of course the other situation arises where you actually needed that file that is currently in the Linux partition, but you need it in Windows now, and you don&amp;rsquo;t want to have to reboot to get at it. You need to be able to access your Linux Partition (ext2/ext3 or even ext4) from Windows, But the disk format is not natively supported.&lt;/p&gt;
+&lt;p&gt;Several utilities are currently available to solve this problem, ext2Ifs, fs-driver&amp;hellip; and a few others. I have up till this point been using ext2Ifs with my Windows XP/Ubuntu and Windows Vista/Ubuntu machines for a while and found it really good. It allows read/write access to ext2, and read for ext3.  It even works with Windows 7, though it needs to be installed and used in Vista Compatibility mode, which is great for most cases. Problem solved.&lt;/p&gt;
+&lt;p&gt;Unfortunately, the lasted version of Ubuntu is now formating it&amp;rsquo;s ext3 partitions using an inode size of 256-byte, where it used to use a size of 128-byte.  It would seem that such a small change has not been considered when the utilities for ext* partitions in Windows were built. That is to say, that ext2Ifs, my trusted partition reader, does not work with my new Ubuntu partition that is using the 256-byte version.&lt;/p&gt;
+&lt;p&gt;I did find a solution in the form of ext2Fsd. This utility can and does support the new inode size, and I can now read my media from my old MythTV install in my new Windows 7 Media Center install.&lt;/p&gt;
+&lt;h3 id=&#34;windows-media-center-and-codecs&#34;&gt;Windows Media Center and Codecs&lt;/h3&gt;
+&lt;p&gt;Media comes in all shapes and sizes, or should I say codecs and containers. Normally in these situations, when  media player doesn&amp;rsquo;t play a particular codec, I install some version of Windows_*_codec_pack and that solves the problem, or rinse and repeat. But luckily today I stumbled upon a post from Chris Lanier from 2007 that points the general punter in the correct direction. His recommendation on codec packs is &amp;ldquo;While a very few of them are built nicely, the majority of built by pirates who know little to nothing about what they are doing&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;His advice is two parts. Install something to handle the containers, and Install something else to handle the codecs. The first thing is &lt;a href=&#34;http://haali.cs.msu.ru/mkv/&#34;&gt;Haali Media Splitter&lt;/a&gt; and the second is &lt;a href=&#34;http://ffdshow-tryout.sourceforge.net/&#34;&gt;ffdshow&lt;/a&gt;. Ffdshow is familiar to me, because it is what i have been using with MythTV as my codecs of choice.&lt;/p&gt;
+&lt;p&gt;The full article can be found &lt;a href=&#34;http://msmvps.com/blogs/chrisl/archive/2007/07/21/1046591.aspx&#34; title=&#34;Guide to Codecs in Vista Media Center&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So there you have it, with that completed I can watch my media from my ext3 hard drive in Windows Media Center under Windows 7. The next step with the Media PC saga will be to move again to get better Freeview HD reception, or buy a satellite and new PVR card and go the Freeview Satellite approach. Time will tell.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Myth Update</title>
+      <link>https://blogmigration.csmac.nz/post/myth-update/</link>
+      <pubDate>Fri, 16 Jan 2009 11:40:36 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/myth-update/</guid>
+      <description>&lt;p&gt;Ive had my mythbox up and running for about a month now, and its working perfectly. Here are a few wee changes i had to make from the default xfce mythbuntu 8.10 I had to make. Mythwelcome I have my mythbox set up to autologin and run with the remote, without a keyboard and mouse. for this reason i needed it to have some way of getting back into mythtv frontend without having to remote login or plug in a keyboard.&lt;/p&gt;
+&lt;p&gt;I went into the autostart folder for xfce and changed the mythtv.desktop file to run mythwelcome instead.&lt;/p&gt;
+&lt;p&gt;The problem that arose from this was that when i closed mythtv, mythwelcome would hide itself and left me at the desktop without a keyboard. I have found two ways of fixing this, both work equally well. The first is from a bug post for mythbuntu, &lt;a href=&#34;https://bugs.launchpad.net/mythbuntu/+bug/260429&#34;&gt;https://bugs.launchpad.net/mythbuntu/+bug/260429&lt;/a&gt; which outlines in the comments a way to get it working by adding the following to mythfrontend.sh.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/usr/share/mythtv/mythfrontend.sh
+================================
+#source our dialog functions .
+/usr/share/mythtv/dialog_functions.sh +
+# deletes .ICEauthority resolves problems with mytharchive and mythwelcome +
+rm /home/gaby/.ICEauthority
+================================
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The second option was to restart gdm using &lt;code&gt;sudo /etc/init.d/gdm restart&lt;/code&gt; which is run when i press a button on the remote.&lt;/p&gt;
+&lt;p&gt;to get this to work i had to add &lt;code&gt;mythuser &amp;quot;ALL = NOPASSWD: /etc/init.d/gdm&amp;quot;&lt;/code&gt; to the end of &lt;code&gt;/etc/sudoers&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Just a small note to myself mainly, don&amp;rsquo;t chmod /etc/sudoers, that ends badly, use sudo visudo. To get it working with my remote i just added a fwe lines to my .lircrc file (or in my case inside the .lirc directory, with mythbuntu&amp;rsquo;s mythbuntu-lirc-generator).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;begin
+    remote = NOVA-T500
+    prog = irexec
+    button = Go
+    config = sudo /etc/init.d/gdm restart
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This added the command to my Go button on my remote and gave me a working Restart Gnome button. Terrestrial Freeview I have been using a UHF digital tuner card with New Zealand&amp;rsquo;s freeview, and this has been really good, nice high-definition quality tv. To get this working well i have been using a repository belonging to Paul Kendall, &lt;a href=&#34;https://launchpad.net/~paul-kcbbs/+archive&#34;&gt;https://launchpad.net/~paul-kcbbs/+archive&lt;/a&gt; using the following lines in &lt;code&gt;/etc/apt/sources.list deb http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main deb-src http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main&lt;/code&gt; This was the most important step in getting Terrestrial Freeview working on my Mythbox.&lt;/p&gt;
+&lt;p&gt;I haven&amp;rsquo;t tryed the latest intrepid mythtv build of mythtv, but this works for me and i dont want to try anything while it works. Unfortunately the Freeview Broadcast EPG only shows previous, current and next, leaving me no chance to schedule recordings for anymore then an hour away usually. luckily there is a good python script that is compatable with the mythtv epg grabber settings that are built in. It was as easy as adding the py file into the right directory. &lt;a href=&#34;http://www.htpcnz.net/Setting_up_EPG_data#Linux&#34;&gt;http://www.htpcnz.net/Setting_up_EPG_data#Linux&lt;/a&gt; has the details of how and where to get the script.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ wget [http://nice.net.nz/scripts/tv_grab_nz-py](http://nice.net.nz/scripts/tv_grab_nz-py &amp;quot;http://nice.net.nz/scripts/tv_grab_nz-py&amp;quot;)
+# Download the file
+$ sudo mv tv_grab_nz-py /usr/local/bin/
+# Put it in a system directory
+$ sudo chmod 755 /usr/local/bin/tv_grab_nz-py
+# Make it executable 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then just find and use it from myth-setup&amp;rsquo;s video sources menus and it should be in the list of available grabbers. Whats next for me? Well I have a few more things to get working.&lt;/p&gt;
+&lt;p&gt;I havent tried burning to dvds through mythtv yet. I also want to get auto encoding working too, these 4 or 5 gigabyte files are much too large to be storing for too long and nuvexport just doesnt want to work for me with xvid yet.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Media PC/Server</title>
+      <link>https://blogmigration.csmac.nz/post/media-pcserver/</link>
+      <pubDate>Sun, 12 Oct 2008 23:56:47 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/media-pcserver/</guid>
+      <description>&lt;p&gt;It has come to the end of another university year and I&amp;rsquo;m ready to once again start being a bit more regular with my blog posts. It also means i have more free time to start working on some projects of my own. The plan for this summer is to get a server running, to do samba/nfs file sharing and ldap authentication, as well as hopefully a mythtv server with a dual-tuner digital terrestrial card for watching and recording freeview here in New Zealand. My Current setup is a powerful multi-purpose machine, with Windows Vista for gaming and Ubuntu for everything else. I am currently running an apache server, samba server and dns off of this machine under Ubuntu, as well as my default Desktop environment, and main ssh server for remote access. The unfortunate side effect of this setup is that when i reboot into Vista for gaming, all of these services become unavailable. The main side effects of this is that no one can access my web site, no one can access my shares, and i can&amp;rsquo;t remote access my computer and files over the internet. Hence the need for a perminent server. At the start of the year i purchased a nice big NVidia geforce 8800 gts graphics card that was great for gaming. the side effect of this powerful card was that it&amp;rsquo;s large heat-sink and fan covered one of my spare pci slots, and the card was so long that i covered all my sata plugs as well as my second IDE plug. I didnt have any sata drives installed but i was using the second ide port for my storage drive. This drive is not plugged into the usb inside an external casing, but that means i have one more power plug in my multibox, and one less free usb port (1 less when i have 8 isnt a big issue really, at least not yet). This isnt directly related to the need of a server directly, but my best option to solve this problem is to but a larger more spacious motherboard. So here is where im at currently. I will purchase a new motherboard and have an old one lying around. i also have a few free hard drives lying around with reasonable capacity to install a server OS on. So my next logical step seemed to be new case, new cpu. I will also point out that my current box has a whopping 4gb of ram in it (ok, now really that whopping these days) but im still using 32bit OSs, which barely recognise or need that extra 1 gb. So ill &amp;lsquo;borrow&amp;rsquo; a gb from my current machine to support the new server. Now i have a plan. I&amp;rsquo;ll have the parts for a server, services i want to be running on a server, and a client machine for gaming and programming and things that nerdy computer science students like to do (no offence to those of you reading who resent these associations). I now started thinking about what else would be usefull to have running on this server. The first thing that came to mind was my vmware installation that i use to run TVersity on Windows XP. Under my current specs that shouldnt be a problem, and i might even be able to play around with other VM client OSs as well. The next thing was a centralised authentication system, and a single shared home directory. LDAP seemed to be the one that would work for me, and figured id use nfs for ubuntu and samba for windows to get it working with both OSs. Now here is where something i did last year came back to me. I managed to build myself a very bugy PVR box with an analog tv tuner card. I found a tv scheduling/recording software that ran on windows and got it stable enough to at least record and play back tv. I even found a xmltv listing and importing program to give me an epg to schedule show recording. Unfortuatly the box i was using to run this software up and died on me and has never recovered. Also it was on windows and i would have liked it to be a linux box. So now my plan is to get a freeview pvr running on this new server im about to setup. Ive found out that the Hauppauge WinTV Nova-T-500 is a dual tuner digital terrestrial UHF tv tuner card that should work with freeview, and has driver support on Ubuntu. With any luck ill be able to have it working with mythtv. The reason thats a good thing is i have this other old maching sitting around doing very little. If i can get it working for me as a myth client box, plugged into a tv&amp;hellip; you see where this is going, i suspect. Although there is the possibility that i could get the same results out of my xbox 360 plugged into the tv, but the thing about the mythtv frontend is that you can schedule recordings from it. But i guess that doesnt need to be on a tv, my desktop will do fine for that purpose. So stay tuned for the next instalment where i have a build pc ready with some servers running on it, and probably a few bugs and tricky bits to report on.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tversity On Linux with vmware</title>
+      <link>https://blogmigration.csmac.nz/post/tversity-on-linux-with-vmware/</link>
+      <pubDate>Tue, 26 Feb 2008 22:26:15 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/tversity-on-linux-with-vmware/</guid>
+      <description>&lt;p&gt;My struggles with TVersity have come to an end for the moment, and I&amp;rsquo;m quite happy with that. After struggling for many hours to get it working under wine on my ubuntu machine, I decided to try out vmware running virtual windows xp. it took all of a couple of hours, most of which was a windows installation, and i had TVersity working from virtual xp on my ubuntu box. It works well enough to be able to stream music to my psp without any skipping, and I have even tested it with streaming video to an xbox 360. Although I haven&amp;rsquo;t actually confirmed that it does do any conversion, it seems to be do the job for all the videos I have.&lt;/p&gt;
+&lt;p&gt;I used &lt;a href=&#34;http://ubuntu-tutorials.com/2007/11/17/install-vmware-server-on-ubuntu-710-gutsy-gibbon-updated/&#34; title=&#34;Install VMware Server on Ubuntu 7.10 “Gutsy Gibbon” : Updated&#34;&gt;this tutorial&lt;/a&gt; to get vmware installed on my ubuntu gutsy machine, and it was a relatively easy process from there to get windows xp installed. I also found&lt;a href=&#34;http://linux.vanvalkinburgh.org/2007/04/22/streaming-files-to-the-360&#34; title=&#34;Streaming files to the 360&#34;&gt; this little tutorial&lt;/a&gt; to get samba file sharing working as a network location on virtual xp to add files from for TVersity, and some useful advice on codec packs to install, even for mythtv files.  I already had samba file sharing working on my machine, but hopefully it works for others to get theirs working.&lt;/p&gt;
+&lt;p&gt;Although these tutorials are ubuntu gutsy specific, they shouldn&amp;rsquo;t be too different for other versions on ubuntu, or other linux distros.  If you feel you need to, just have a quick search of google for vmware and your distro name, you will probably find several guides to be able to help you.&lt;/p&gt;
+&lt;p&gt;One issue I have had trouble with, however, is on the fly encoding and downloading to my psp. It would seem that the psp isn&amp;rsquo;t patient enough to wait for the video to encode on the server end, and times out while waiting. This hasn&amp;rsquo;t been too big a deal as I haven&amp;rsquo;t really done much video watching on my psp lately, but it would be nice to have either that working or be able to stream videos to it. I am fully aware that you can stream video to your psp from the ps3, and that the ps3 can source its videos from tversity running on a pc, but this seems to be a very drawn out process, and requires a ps3, a very expensive solution to my problem.  I guess that will have to wait until can afford a ps3. *sigh*&lt;/p&gt;
+&lt;p&gt;I noticed that my last post on tversity and psp streaming got a lot of hits from google, so maybe this post will help out alot of people to get tversity running until a linux compatable version in released.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>TVersity media streaming</title>
+      <link>https://blogmigration.csmac.nz/post/tversity-media-streaming/</link>
+      <pubDate>Wed, 16 Jan 2008 02:52:19 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/tversity-media-streaming/</guid>
+      <description>&lt;p&gt;About a year ago I bought myself a psp off of the local auction website TradeMe, New Zealand&amp;rsquo;s answer to eBay, and have since used it mostly for listening to music and not a lot else. Sure I&amp;rsquo;ve used it for gaming, and struggled with using it for the internet, and just recently I&amp;rsquo;ve started watching videos (though due to the hassle of converting them not many), but music has been its main use. I own a 2gb memory stick duo for my PSP, but still seem to be endlessly copying music on and off from my computer, thinking &amp;ldquo;there must be a better way&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;And it was about half way through last year that I discovered this great program called TVersity. Designed for streaming music and video from a windows machine to external devices, I have slowly watched it grow to be able to support the XBox 360, Playstation 3, PSP, as well as some wifi cell phones and other computers through a web interface. Now what makes this program stand out to me was that it would add my music to rss feeds, that it generates on the fly from album, artist or genre, that i can save to my PSP rss feeds list, and stream music, which has been great to listen to my music around the house across the wireless network without having to transfer it on first. You can also download from the web interface to the PSP if you wanted to do that as well.&lt;/p&gt;
+&lt;p&gt;One of it&amp;rsquo;s other great features, and it is the combination of this and the streaming web interface that make it so great, is that it can stream video, and convert it to streaming formats on the fly. No more converting all your videos into various formats on your computer, having 3 copies of everything and having to spend days creating them. Now I can watch my favourite episode of Stargate or The Simpsons from my TV through my 360 without having to spend time transferring, encoding and copying.&lt;/p&gt;
+&lt;p&gt;As of writing this, TVersity is in version 0.9.11.4, and only supports windows. Here is where i come unstuck a bit. About 2 months ago i installed Ubuntu on my machine, creating a weird Ubuntu-vista hybrid that has slowly become more and more Ubuntu oriented (except for those awesome games that unfortunately only work well on windows, :p ) and of course I have had to boot into windows to do my media streaming, or else I have to use my laptop, samba file sharing and some very interestingly wired networking to get it to go. This seemed like more trouble then it was worth, but still figured it was easier then copying files all the time, and i was using my windows laptop as a wifi access point linking everything together wired to my media pc server box anyway.&lt;/p&gt;
+&lt;p&gt;Well, as it would turn out, I&amp;rsquo;m not the only one who has has trouble finding TVersity, loving it, but only running a UNIX-based OS. So after half an hour searching the forums on TVersity&amp;rsquo;s website, i found a post going back over a year asking for a Linux port, and the general opinion was that it would happen as soon as version 1.0 has been released. We&amp;rsquo;ll we sure are getting closer to that. The other interesting thing i found was that the general public has found ways to get it working for them on Linux, even if only temporary and with some features disabled. The first of these was to run it under WINE, a windows emulation program for Linux. This worked for most things, except for the real-time encoding of the streamed media. I don&amp;rsquo;t know about anyone else, but that is one of the most useful things that TVersity has to offer, so that solution is worse then just booting windows. The second solution seems to be to run VMWare, and virtually boot windows inside Linux, and run the server that way. It still seems to be a long winded way to get the job done, but I&amp;rsquo;m pretty keen to try it out and see how it goes. I have been meaning to play around with virtual machine software anyway, this might be an excuse to get it done sooner.&lt;/p&gt;
+&lt;p&gt;Another thing that has got me excited about using TVersity again is that the latest firmware update for the PSP has added divx codec support, and allowing streaming videos through rss just like the music, instead of having to download the videos before watching them. That is something I&amp;rsquo;m really looking forward to playing around with, especially if i can get TVersity to convert and stream to the PSP nicely and can leave my movies and tv shows sitting raw and full quality on my computer for sharing purposes to other computers, tv&amp;rsquo;s etc.&lt;/p&gt;
+&lt;p&gt;I guess I&amp;rsquo;ll have to write a follow-up post about my media streaming progress, if i get around to doing any more to it any time soon.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

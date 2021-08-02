@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/method-calls-less-chaining-more-functional\/";
             }
         </script>
 
@@ -136,11 +136,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2018-08-20"  itemprop="datePublished">20 Aug 18</time></span>
-    
-        <h1 class="post-title" itemprop="headline">Method calls. Less chaining, more Functional.</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2018-08-20"  itemprop="datePublished">20 Aug 18</time> in <a href="/categories/software-engineering">Software Engineering</a></span>
+<h1 class="post-title" itemprop="headline">Method calls. Less chaining, more Functional.</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <img class="post-image" src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ&amp;s=f65e1693556799db15c78c259fb0aee2"><p>It came up in a recent code review that we had a method that did stuff, then called a method that did stuff, that then called a method. Eventually, the last method in the chain bubbled back up and out.</p>

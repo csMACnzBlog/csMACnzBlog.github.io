@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/solid-ifying-your-nuget-packaging\/";
             }
         </script>
 
@@ -18,7 +18,7 @@
     
         <title>SOLID-ifying your Nuget Packaging - csMACnz&#39;s Blog</title>
         <meta name="description" content="The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to DLL Hell. But I had this slight epiphany from …">
-        <meta name='keywords' content='csMACnz, Editorial, NuGet'>
+        <meta name='keywords' content='csMACnz, NuGet'>
 
         
         <meta property="og:type" content="article"/>
@@ -90,7 +90,7 @@
             "url" : "https:\/\/blogmigration.csmac.nz\/post\/solid-ifying-your-nuget-packaging\/",
             "datePublished": "2015-04-27T07:54:17.000Z",
             "dateModified" : "2015-04-27T07:54:17.000Z",
-            "keywords" : [ "Editorial", "NuGet" ]
+            "keywords" : [ "NuGet" ]
             "description" : "The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to DLL Hell. But I had this slight epiphany from another comment, where it was observed that our X.Common package had \u0026lsquo;helper code\u0026rsquo; for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc).",
             "mainEntityOfPage": {
                 "@type": "WebPage",
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2015-04-27"  itemprop="datePublished">27 Apr 15</time> on <a href="/tags/editorial">Editorial</a>,  <a href="/tags/nuget">NuGet</a></span>
-    
-        <h1 class="post-title" itemprop="headline">SOLID-ifying your Nuget Packaging</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2015-04-27"  itemprop="datePublished">27 Apr 15</time> in <a href="/categories/editorial">Editorial</a>,  <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/nuget">NuGet</a></span>
+<h1 class="post-title" itemprop="headline">SOLID-ifying your Nuget Packaging</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to <strong>DLL Hell</strong>. But I had this slight epiphany from another comment, where it was observed that our <strong>X.Common package</strong> had <em>&lsquo;helper code&rsquo;</em> for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc).</p>

@@ -12,7 +12,223 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 03 Jan 2017 21:26:42 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/vscode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Apr 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/vscode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Automated OCD with Stylecop</title>
+      <link>https://blogmigration.csmac.nz/post/automated-ocd-with-stylecop/</link>
+      <pubDate>Mon, 30 Apr 2018 07:00:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/automated-ocd-with-stylecop/</guid>
+      <description>&lt;p&gt;I never really got into Stylecop or FXCop.  I did make use of some of the Resharper autoformatting configuration, and static analysis features, and have in the past automated and configured this.&lt;/p&gt;
+&lt;p&gt;But since starting to use Visual Studio Code, I have been looking for more and more ways to get the benefits of the Visual Studio Gui tools, but as command-line alternatives.  This leads me to the Roslyn Analyzers.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m gonna preempt typo considerations here. The technology is Rosyln Analyzers, with a Zed (Z), which while hurts my spelling sensibilities, it is a name, so I am going to respect that spelling. Much like using libraries that use color instead of colour, most of us non-US English speakers are used to this anyway. But I digress.&lt;/p&gt;
+&lt;h3 id=&#34;a-gentle-reminder&#34;&gt;A gentle reminder&lt;/h3&gt;
+&lt;p&gt;This is the cool new latest-and-greatest technology of choice. This means two things: If you are not using the latest dotnet core project structure (1.1 or greater), this might not be for you; and you may come across bugs and errors that require bug reports to be posted, or custom rule configuration to disable some rules you don&amp;rsquo;t like.&lt;/p&gt;
+&lt;h3 id=&#34;roslyn-analyzers&#34;&gt;Roslyn Analyzers&lt;/h3&gt;
+&lt;p&gt;As of Visual Studio 2015, A new concept of Code Analyzers was introduced. 2017 has taken these further with analyzer APIs supporting automated code fixes as well.&lt;/p&gt;
+&lt;p&gt;A great example of this coming to fruition is the latest version of the xUnit NuGet packages.  Since xUnit version 2.3.0 the xUnit.analyzers has been bundled as a dependency with xUnit. When you compile, you will see warnings and errors on how you use their library.  Basically, as well as the interfaces of what you can do with their library, you also get style guidance on how you use them.  For example, if you write a test with an Assert.Equal with boolean parameters, you get an Analyzer error:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1524469666/xunitAssertRefactor_xfuulv.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The neat thing about this error is that it is actually a compiler error. You cannot compile and run your code unless you fix it! Amazing!&lt;/p&gt;
+&lt;p&gt;(You can find documentation of xUnit&amp;rsquo;s rules here: &lt;a href=&#34;https://xunit.github.io/xunit.analyzers/rules/&#34;&gt;https://xunit.github.io/xunit.analyzers/rules/&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;How does this work? Well, NuGet packages are required to be restored before building, or the build fails. Packages result in assembly references, as well as loading MSBuild target files, and also Rosyln Analyzers. All of this is fed into the Roslyn compiler. The compiler executes the Analyzers, and they come out with other Compiler Info/Warning/Error messages. If there are any errors, the build fails. No need for anything more than your compiler to make the most of these checks, which means they not only work with Visual Studio, but also works when using the dotnet cli only as well.&lt;/p&gt;
+&lt;p&gt;As you can see above, the analyzers also get loaded by the IDE, and can give red underlining of errors, and, if available, automatic refactoring, too!&lt;/p&gt;
+&lt;p&gt;The best bit, because they do not require any extra tools or processes to be run on your code, you fix the issues as you make them, not later on when you run a special manual post-processing script before checking in, or on your Pull Request Builds. No chance of creating code bugs from restyling your code, if you have to fix all before it compiles, and you have to compile before you test your work.&lt;/p&gt;
+&lt;h3 id=&#34;the-packages&#34;&gt;The Packages&lt;/h3&gt;
+&lt;p&gt;There are a ship-load of analyzers already out there, and more NuGet packages are likely to ship with Analyzers going forward. (As well as the xUnit Analyzers, I also found one distributed with FluentAssertions, and there are many other custom ones.)&lt;/p&gt;
+&lt;p&gt;I found &lt;a href=&#34;https://codehollow.com/2016/08/use-code-analyzers-csharp-improve-code-quality/&#34;&gt;an article that pulled out a few key ones&lt;/a&gt; from 18 months ago that are still going strong and have found they provide good coverage to tune your code by.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Microsoft.CodeAnalysis.FxCopAnalyzers&lt;/code&gt; (an aggregate over several Rosyln Analyzers from Microsft)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;codecracker.CSharp&lt;/code&gt; (The first OpenSource Analyzer project I heard about)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SonarAnalyzer.CSharp&lt;/code&gt; (If you&amp;rsquo;ve used SonarCube in the past, this is their modern approach so analyzers)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;StyleCop.Analyzers&lt;/code&gt; (StyleCop new and shiny using the .NET Compiler Platform)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I&amp;rsquo;ve gone whole-hog and added all four to some of my projects, and so far so good.  Each project is individually tunable, so you can disable rules as needed, and some give better support for the automated refactorings that others do.&lt;/p&gt;
+&lt;p&gt;Note that &lt;code&gt;Microsoft.CodeAnalysis.FxCopAnalyzers&lt;/code&gt; is in beta, and chasing the tails of the Roslyn Compiler&amp;rsquo;s newest features, so have a look at &lt;a href=&#34;https://github.com/dotnet/roslyn-analyzers#recommended-version-of-analyzer-packages&#34;&gt;https://github.com/dotnet/roslyn-analyzers#recommended-version-of-analyzer-packages&lt;/a&gt; to make sure you pick the version most compatible with your minimum compiler version your team/project is using.&lt;/p&gt;
+&lt;p&gt;Because it is so cutting edge, there is an advanced compiler feature you have to enable to get the rules working with 2.3.0-beta1:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;ItemGroup&amp;gt;
+  &amp;lt;Features&amp;gt;IOperation&amp;lt;/Features&amp;gt;
+&amp;lt;/ItemGroup&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The latest on this is:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;IOperation API shipped in Visual Studio 2017 15.5 Preview5, and we have released fully supported version 2.6.0 analyzer packages that should work on all future compiler/Visual Studio versions.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;first-helpful-trick&#34;&gt;First Helpful Trick:&lt;/h4&gt;
+&lt;p&gt;If you are producing NuGet packages, you might not want everyone using your project to be forced into using these all themselves.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PrivateAssets=&amp;quot;All&amp;quot;&lt;/code&gt; Solves this!&lt;/p&gt;
+&lt;p&gt;If you use this on your Package Reference in the &lt;code&gt;csproj&lt;/code&gt; file, then it will not inherit these dependencies into your built package.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;PackageReference Include=&amp;quot;Microsoft.CodeAnalysis.FxCopAnalyzers&amp;quot; Version=&amp;quot;2.3.0-beta1&amp;quot; PrivateAssets=&amp;quot;All&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;second-helpful-trick&#34;&gt;Second Helpful Trick:&lt;/h4&gt;
+&lt;p&gt;You have a lot of projects. I don&amp;rsquo;t mean 2-3, I mean a lot.  You have so many &lt;code&gt;csproj&lt;/code&gt; files, that trying to add this to your projects is daunting.&lt;/p&gt;
+&lt;p&gt;Enter MSBuild.  There is an under-utilised feature of MSBuild that allows you to add &lt;a href=&#34;https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build&#34;&gt;Directory.Build.Props&lt;/a&gt; files to your parent directories, and share common settings across your projects. Now that man-handling &lt;code&gt;csproj&lt;/code&gt; files is much calmer and simpler, this is super useful for adding common settings to one place that should be the same across projects. (You can also replace/remove/override these in child folders and &lt;code&gt;csproj&lt;/code&gt; files as well.)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
+&amp;lt;Project&amp;gt;
+  &amp;lt;PropertyGroup&amp;gt;
+    &amp;lt;Authors&amp;gt;csMACnz&amp;lt;/Authors&amp;gt;
+    &amp;lt;DebugType&amp;gt;full&amp;lt;/DebugType&amp;gt;
+    &amp;lt;NeutralLanguage&amp;gt;en-NZ&amp;lt;/NeutralLanguage&amp;gt;
+    &amp;lt;VersionPrefix&amp;gt;0.0.1&amp;lt;/VersionPrefix&amp;gt;
+    &amp;lt;TreatWarningsAsErrors&amp;gt;true&amp;lt;/TreatWarningsAsErrors&amp;gt;
+    &amp;lt;Company&amp;gt;csMACnz&amp;lt;/Company&amp;gt;
+    &amp;lt;Product&amp;gt;MyWidgetFizzBuzz&amp;lt;/Product&amp;gt;
+    &amp;lt;PackageTags&amp;gt;Fizz; Buzz&amp;lt;/PackageTags&amp;gt;
+    &amp;lt;Copyright&amp;gt;Copyright © csMACnz 2018&amp;lt;/Copyright&amp;gt;
+    &amp;lt;LangVersion&amp;gt;7.1&amp;lt;/LangVersion&amp;gt;
+    &amp;lt;Features&amp;gt;IOperation&amp;lt;/Features&amp;gt;
+    &amp;lt;CodeAnalysisRuleSet&amp;gt;$(MSBuildThisFileDirectory)/ruleset.ruleset&amp;lt;/CodeAnalysisRuleSet&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+
+  &amp;lt;PropertyGroup Condition=&amp;quot;&#39;$(Configuration)|$(Platform)&#39;==&#39;Debug|AnyCPU&#39;&amp;quot;&amp;gt;
+    &amp;lt;DebugSymbols&amp;gt;True&amp;lt;/DebugSymbols&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+   
+  &amp;lt;ItemGroup&amp;gt;
+    &amp;lt;PackageReference Include=&amp;quot;Microsoft.CodeAnalysis.FxCopAnalyzers&amp;quot; Version=&amp;quot;2.3.0-beta1&amp;quot;  PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+    &amp;lt;PackageReference Include=&amp;quot;SonarAnalyzer.CSharp&amp;quot; Version=&amp;quot;6.6.0.3969&amp;quot; PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+    &amp;lt;PackageReference Include=&amp;quot;codecracker.CSharp&amp;quot; Version=&amp;quot;1.0.3&amp;quot; PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+    &amp;lt;PackageReference Include=&amp;quot;StyleCop.Analyzers&amp;quot; Version=&amp;quot;1.1.0-beta004&amp;quot; PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+  &amp;lt;/ItemGroup&amp;gt;
+&amp;lt;/Project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As well as adding the selected analyzers to every project, this can handle common metadata like &lt;code&gt;Company&lt;/code&gt;, &lt;code&gt;Product&lt;/code&gt;, &lt;code&gt;Authors&lt;/code&gt;, &lt;code&gt;Copyright&lt;/code&gt; and compiler options such as &lt;code&gt;TreatWarningsAsErrors&lt;/code&gt;, &lt;code&gt;DebugType&lt;/code&gt;, &lt;code&gt;LangVersion&lt;/code&gt; and &lt;code&gt;VersionPrefix&lt;/code&gt;.  You are actually removing more clutter from your &lt;code&gt;csproj&lt;/code&gt; files, making them super slimmed down.&lt;/p&gt;
+&lt;h3 id=&#34;exception-to-the-rule&#34;&gt;Exception to the Rule&lt;/h3&gt;
+&lt;p&gt;You have added the Analyzers, and you now have thousands of failing errors in your project. Some of these you will want to actually fix now, others fix later, and some just don&amp;rsquo;t matter and the rule needs to be turned off.&lt;/p&gt;
+&lt;p&gt;You can use a &lt;code&gt;.ruleset&lt;/code&gt; xml file to configure rules. This is done using the &lt;code&gt;&amp;lt;CodeAnalysisRuleSet&amp;gt;&lt;/code&gt; section tag in your project file. Alternatively (as above) you can use &lt;code&gt;&amp;lt;CodeAnalysisRuleSet&amp;gt;$(MSBuildThisFileDirectory)/ruleset.ruleset&amp;lt;/CodeAnalysisRuleSet&amp;gt;&lt;/code&gt; in your &lt;code&gt;Directory.Build.Props&lt;/code&gt; file, and have a shared &lt;code&gt;ruleset.ruleset&lt;/code&gt; xml file next to it at the root of your repository.&lt;/p&gt;
+&lt;p&gt;Ruleset files can also include other ruleset files so you can make these modular, or heirarchical. (This is useful if you want slightly different rules for one project. Override &lt;code&gt;&amp;lt;CodeAnalysisRuleSet&amp;gt;&lt;/code&gt; in your project to use it&amp;rsquo;s own file, and include the main &lt;code&gt;.ruleset&lt;/code&gt; file from the project&amp;rsquo;s own version.)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/dotnet/roslyn/blob/master/docs/compilers/Rule%20Set%20Format.md#sample&#34;&gt;https://github.com/dotnet/roslyn/blob/master/docs/compilers/Rule%20Set%20Format.md#sample&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Great advice is to copy someone else&amp;rsquo;s configuration file as a starting point, then disable anything you still don&amp;rsquo;t like and then schedule time to review the existing exclusions possibly to turn them on again. (If the other project is yours, it probably doesn&amp;rsquo;t need much tweaking.)&lt;/p&gt;
+&lt;p&gt;A large number of the errors you will see will be &amp;ldquo;Fix spacing&amp;rdquo;. The default rules seem perfectly reasonable so I recommend using the fix all across Solution auto-fix for these first, to find where the real problems lie. You could also go through and disable all the rules that are failing and come back one or two a sprint to slowly improve things, too.&lt;/p&gt;
+&lt;p&gt;I guarantee that you will find at least one issue that will make you say &amp;ldquo;ooh, yip, that&amp;rsquo;s an exception waiting to happen&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Fixing some of these issues will break existing contracts. If this is a library that is shared with others, be sure to follow SemVer for breaking changes, or add exceptions around areas that could break existing contracts, with a comment explaining why you have violated the rule, so it can be fixed in your next lot of breaking changes. (You can do this by wrapping your code in &lt;code&gt;#pragma warning disable CA1034&lt;/code&gt; &lt;code&gt;#pragma warning enable CA1034&lt;/code&gt;)&lt;/p&gt;
+&lt;h3 id=&#34;recommendations&#34;&gt;Recommendations&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ve done a bunch of analysis on the Analyzers. I can tell you that they do not drastically increase your build times enough to not use them. Yes, there is an increase, but it is not enough in practice to slow down your build/test development cycle. It respects the existing build caching and only runs if you actually need to do a rebuild of a particular project.&lt;/p&gt;
+&lt;p&gt;It might cause you to spend more time on the code formatting as you write it, but that is going to reduce errors you might have added if you came back later and tried to fix them out of context.&lt;/p&gt;
+&lt;p&gt;Given the four Analyzers above, here are some rough results (on an application that takes &lt;strong&gt;about 1 minute to build&lt;/strong&gt; a project one of my projects.)&lt;/p&gt;
+&lt;p&gt;Some quick stats: &lt;strong&gt;24019 lines of code, 497 C# code files, 33 projects, (incl. 6 application component projects, 7 Test projects)&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Configuration&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Number of Analyzers&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Analyzer Execution Time&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;No Analyzers&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0/729&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Microsoft.CodeAnalysis.FxCopAnalyzers&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;51/152&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~9.2 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;codecracker.CSharp&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;50/76&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~17.2 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;StyleCop.Analyzers&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;34/194&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~16.3 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SonarAnalyzer.CSharp&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;142/307&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~47.7 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;All 4 Analyzers&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;277/729&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~71.9 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Basically, if you are worried about performance, don&amp;rsquo;t use SonarAnalyzer. Another reason to not use SonarAnalyzer is that it was the one I had to disable the most analyzers from.  If you are really really worried, I recommend just using &lt;code&gt;Microsoft.CodeAnalysis.FxCopAnalyzers&lt;/code&gt; and &lt;code&gt;StyleCop.Analyzers&lt;/code&gt; for the best coverage vs time ratio.&lt;/p&gt;
+&lt;p&gt;You can also see from these stats that there are more Analyzers available in these packs than are enabled to run by default. It might be worth looking into what you are missing that you want to enforce.&lt;/p&gt;
+&lt;h3 id=&#34;editor-config&#34;&gt;Editor Config&lt;/h3&gt;
+&lt;p&gt;Do you use editor config? You should use editor config.&lt;/p&gt;
+&lt;p&gt;Once you start using Code Analyzers, specifically the StyleCop Analyzer, you may find the default code generation rules in Visual Studio and VSCode (or even Resharper) might fight against you.  Luckily you can use EditorConfig to tell Visual Studio, VSCode, and even Resharper the specific way you want your code generation to be formatted as.  The &lt;code&gt;.editorconfig&lt;/code&gt; file checks into your repository, so you can make this configurable per repository.&lt;/p&gt;
+&lt;p&gt;More details:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference&#34;&gt;https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://kent-boogaart.com/blog/editorconfig-reference-for-c-developers&#34;&gt;http://kent-boogaart.com/blog/editorconfig-reference-for-c-developers&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;getting-it-working-on-your-build-servers&#34;&gt;Getting it working on your Build Servers&lt;/h3&gt;
+&lt;p&gt;This is short and sweet. Your build server will just fail to build on analyzer errors, with build errors. Because its all part of the compile pipeline in Roslyn now.&lt;/p&gt;
+&lt;h3 id=&#34;some-stylecop-rules-that-i-turn-off&#34;&gt;Some StyleCop Rules that I turn off&lt;/h3&gt;
+&lt;p&gt;This contains the opinions of Me, the Environment I&amp;rsquo;ve learned C# in, and possibly that of my Team. Possible controversy ahead.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA0001.md&#34;&gt;SA0001&lt;/a&gt; - Xml Comment Analysis Disabled
+&lt;ul&gt;
+&lt;li&gt;I don&amp;rsquo;t use XML documentation, so this rule is disabled&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1101.md&#34;&gt;SA1101&lt;/a&gt; - Prefix Local Calls With This
+&lt;ul&gt;
+&lt;li&gt;This is unnecessary since I prefer the underscore prefix of private fields. Never use &lt;code&gt;this&lt;/code&gt;, it is redundant.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1118.md&#34;&gt;SA1118&lt;/a&gt; - Parameter Must Not Span Multiple Lines
+&lt;ul&gt;
+&lt;li&gt;You probably don&amp;rsquo;t need this, but for syntactic reasons, some fluent code building reads better allowing this and I use it a lot.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1200.md&#34;&gt;SA1200&lt;/a&gt; - Using Directives Must Be Placed Correctly
+&lt;ul&gt;
+&lt;li&gt;Stylecop seems to want them inside namespaces, despite all tooling I&amp;rsquo;ve ever used has always placed them outside. Turning this on will confuse more than assist.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1201.md&#34;&gt;SA1201&lt;/a&gt; - Elements Must Appear In The Correct Order
+&lt;ul&gt;
+&lt;li&gt;If you are starting a new project, then this might appeal, but the code churn in git of turning this on is worse than the benefits. Also, automating to match this ordering is non-obvious&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1202.md&#34;&gt;SA1202&lt;/a&gt; - Elements Must Be Ordered By Access
+&lt;ul&gt;
+&lt;li&gt;Similar to the above, ordering is hard on an existing project, and I like private fields at the top for some reason (History). You might still find it gets in the way of your preferred ordering, anyway.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1204.md&#34;&gt;SA1204&lt;/a&gt; - Static Elements Must Appear Before Instance Elements
+&lt;ul&gt;
+&lt;li&gt;As with SA1201 and SA1204 above.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1309.md&#34;&gt;SA1309&lt;/a&gt; - Field Names Must Not Begin With Underscore
+&lt;ul&gt;
+&lt;li&gt;Related to SA1101, I have a preference for using underscores here.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1413.md&#34;&gt;SA1413&lt;/a&gt; - Use Trailing Commas In Multi Line Initializers
+&lt;ul&gt;
+&lt;li&gt;o rly? I can see the appeal for merging actually, but the compiler will catch it, and that&amp;rsquo;s what Build servers and PRs are for. My pedantic nature wants to remove it, so I do, and this rule is off.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1600.md&#34;&gt;SA1600&lt;/a&gt; - Elements Must Be Documented
+&lt;ul&gt;
+&lt;li&gt;In an ideal world of a pristine reference code base, this must be amazing to have. For an application where comments get out of sync faster then the build can run, Nope.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1602.md&#34;&gt;SA1602&lt;/a&gt; - Enumeration Items Must Be Documented
+&lt;ul&gt;
+&lt;li&gt;Docs again, as above.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1633.md&#34;&gt;SA1633&lt;/a&gt; - File Must Have Header
+&lt;ul&gt;
+&lt;li&gt;Same opinion as SA1600 above&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are probably other (related) rules, but I haven&amp;rsquo;t hit them yet, so haven&amp;rsquo;t turned them off.&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Go forth and automate the improved quality of your Repository! You have the tools, instructions, and if you have read this far the inclination to make it happen.&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>FiraCode, my new favorite VS Code dev font</title>
       <link>https://blogmigration.csmac.nz/post/firacode-my-new-favorite-vscode-font/</link>

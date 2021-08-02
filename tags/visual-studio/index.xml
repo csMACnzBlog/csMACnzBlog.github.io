@@ -200,6 +200,781 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     </item>
     
     <item>
+      <title>Automated OCD with Stylecop</title>
+      <link>https://blogmigration.csmac.nz/post/automated-ocd-with-stylecop/</link>
+      <pubDate>Mon, 30 Apr 2018 07:00:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/automated-ocd-with-stylecop/</guid>
+      <description>&lt;p&gt;I never really got into Stylecop or FXCop.  I did make use of some of the Resharper autoformatting configuration, and static analysis features, and have in the past automated and configured this.&lt;/p&gt;
+&lt;p&gt;But since starting to use Visual Studio Code, I have been looking for more and more ways to get the benefits of the Visual Studio Gui tools, but as command-line alternatives.  This leads me to the Roslyn Analyzers.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m gonna preempt typo considerations here. The technology is Rosyln Analyzers, with a Zed (Z), which while hurts my spelling sensibilities, it is a name, so I am going to respect that spelling. Much like using libraries that use color instead of colour, most of us non-US English speakers are used to this anyway. But I digress.&lt;/p&gt;
+&lt;h3 id=&#34;a-gentle-reminder&#34;&gt;A gentle reminder&lt;/h3&gt;
+&lt;p&gt;This is the cool new latest-and-greatest technology of choice. This means two things: If you are not using the latest dotnet core project structure (1.1 or greater), this might not be for you; and you may come across bugs and errors that require bug reports to be posted, or custom rule configuration to disable some rules you don&amp;rsquo;t like.&lt;/p&gt;
+&lt;h3 id=&#34;roslyn-analyzers&#34;&gt;Roslyn Analyzers&lt;/h3&gt;
+&lt;p&gt;As of Visual Studio 2015, A new concept of Code Analyzers was introduced. 2017 has taken these further with analyzer APIs supporting automated code fixes as well.&lt;/p&gt;
+&lt;p&gt;A great example of this coming to fruition is the latest version of the xUnit NuGet packages.  Since xUnit version 2.3.0 the xUnit.analyzers has been bundled as a dependency with xUnit. When you compile, you will see warnings and errors on how you use their library.  Basically, as well as the interfaces of what you can do with their library, you also get style guidance on how you use them.  For example, if you write a test with an Assert.Equal with boolean parameters, you get an Analyzer error:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1524469666/xunitAssertRefactor_xfuulv.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The neat thing about this error is that it is actually a compiler error. You cannot compile and run your code unless you fix it! Amazing!&lt;/p&gt;
+&lt;p&gt;(You can find documentation of xUnit&amp;rsquo;s rules here: &lt;a href=&#34;https://xunit.github.io/xunit.analyzers/rules/&#34;&gt;https://xunit.github.io/xunit.analyzers/rules/&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;How does this work? Well, NuGet packages are required to be restored before building, or the build fails. Packages result in assembly references, as well as loading MSBuild target files, and also Rosyln Analyzers. All of this is fed into the Roslyn compiler. The compiler executes the Analyzers, and they come out with other Compiler Info/Warning/Error messages. If there are any errors, the build fails. No need for anything more than your compiler to make the most of these checks, which means they not only work with Visual Studio, but also works when using the dotnet cli only as well.&lt;/p&gt;
+&lt;p&gt;As you can see above, the analyzers also get loaded by the IDE, and can give red underlining of errors, and, if available, automatic refactoring, too!&lt;/p&gt;
+&lt;p&gt;The best bit, because they do not require any extra tools or processes to be run on your code, you fix the issues as you make them, not later on when you run a special manual post-processing script before checking in, or on your Pull Request Builds. No chance of creating code bugs from restyling your code, if you have to fix all before it compiles, and you have to compile before you test your work.&lt;/p&gt;
+&lt;h3 id=&#34;the-packages&#34;&gt;The Packages&lt;/h3&gt;
+&lt;p&gt;There are a ship-load of analyzers already out there, and more NuGet packages are likely to ship with Analyzers going forward. (As well as the xUnit Analyzers, I also found one distributed with FluentAssertions, and there are many other custom ones.)&lt;/p&gt;
+&lt;p&gt;I found &lt;a href=&#34;https://codehollow.com/2016/08/use-code-analyzers-csharp-improve-code-quality/&#34;&gt;an article that pulled out a few key ones&lt;/a&gt; from 18 months ago that are still going strong and have found they provide good coverage to tune your code by.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Microsoft.CodeAnalysis.FxCopAnalyzers&lt;/code&gt; (an aggregate over several Rosyln Analyzers from Microsft)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;codecracker.CSharp&lt;/code&gt; (The first OpenSource Analyzer project I heard about)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SonarAnalyzer.CSharp&lt;/code&gt; (If you&amp;rsquo;ve used SonarCube in the past, this is their modern approach so analyzers)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;StyleCop.Analyzers&lt;/code&gt; (StyleCop new and shiny using the .NET Compiler Platform)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I&amp;rsquo;ve gone whole-hog and added all four to some of my projects, and so far so good.  Each project is individually tunable, so you can disable rules as needed, and some give better support for the automated refactorings that others do.&lt;/p&gt;
+&lt;p&gt;Note that &lt;code&gt;Microsoft.CodeAnalysis.FxCopAnalyzers&lt;/code&gt; is in beta, and chasing the tails of the Roslyn Compiler&amp;rsquo;s newest features, so have a look at &lt;a href=&#34;https://github.com/dotnet/roslyn-analyzers#recommended-version-of-analyzer-packages&#34;&gt;https://github.com/dotnet/roslyn-analyzers#recommended-version-of-analyzer-packages&lt;/a&gt; to make sure you pick the version most compatible with your minimum compiler version your team/project is using.&lt;/p&gt;
+&lt;p&gt;Because it is so cutting edge, there is an advanced compiler feature you have to enable to get the rules working with 2.3.0-beta1:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;ItemGroup&amp;gt;
+  &amp;lt;Features&amp;gt;IOperation&amp;lt;/Features&amp;gt;
+&amp;lt;/ItemGroup&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The latest on this is:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;IOperation API shipped in Visual Studio 2017 15.5 Preview5, and we have released fully supported version 2.6.0 analyzer packages that should work on all future compiler/Visual Studio versions.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;first-helpful-trick&#34;&gt;First Helpful Trick:&lt;/h4&gt;
+&lt;p&gt;If you are producing NuGet packages, you might not want everyone using your project to be forced into using these all themselves.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PrivateAssets=&amp;quot;All&amp;quot;&lt;/code&gt; Solves this!&lt;/p&gt;
+&lt;p&gt;If you use this on your Package Reference in the &lt;code&gt;csproj&lt;/code&gt; file, then it will not inherit these dependencies into your built package.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;PackageReference Include=&amp;quot;Microsoft.CodeAnalysis.FxCopAnalyzers&amp;quot; Version=&amp;quot;2.3.0-beta1&amp;quot; PrivateAssets=&amp;quot;All&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;second-helpful-trick&#34;&gt;Second Helpful Trick:&lt;/h4&gt;
+&lt;p&gt;You have a lot of projects. I don&amp;rsquo;t mean 2-3, I mean a lot.  You have so many &lt;code&gt;csproj&lt;/code&gt; files, that trying to add this to your projects is daunting.&lt;/p&gt;
+&lt;p&gt;Enter MSBuild.  There is an under-utilised feature of MSBuild that allows you to add &lt;a href=&#34;https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build&#34;&gt;Directory.Build.Props&lt;/a&gt; files to your parent directories, and share common settings across your projects. Now that man-handling &lt;code&gt;csproj&lt;/code&gt; files is much calmer and simpler, this is super useful for adding common settings to one place that should be the same across projects. (You can also replace/remove/override these in child folders and &lt;code&gt;csproj&lt;/code&gt; files as well.)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
+&amp;lt;Project&amp;gt;
+  &amp;lt;PropertyGroup&amp;gt;
+    &amp;lt;Authors&amp;gt;csMACnz&amp;lt;/Authors&amp;gt;
+    &amp;lt;DebugType&amp;gt;full&amp;lt;/DebugType&amp;gt;
+    &amp;lt;NeutralLanguage&amp;gt;en-NZ&amp;lt;/NeutralLanguage&amp;gt;
+    &amp;lt;VersionPrefix&amp;gt;0.0.1&amp;lt;/VersionPrefix&amp;gt;
+    &amp;lt;TreatWarningsAsErrors&amp;gt;true&amp;lt;/TreatWarningsAsErrors&amp;gt;
+    &amp;lt;Company&amp;gt;csMACnz&amp;lt;/Company&amp;gt;
+    &amp;lt;Product&amp;gt;MyWidgetFizzBuzz&amp;lt;/Product&amp;gt;
+    &amp;lt;PackageTags&amp;gt;Fizz; Buzz&amp;lt;/PackageTags&amp;gt;
+    &amp;lt;Copyright&amp;gt;Copyright © csMACnz 2018&amp;lt;/Copyright&amp;gt;
+    &amp;lt;LangVersion&amp;gt;7.1&amp;lt;/LangVersion&amp;gt;
+    &amp;lt;Features&amp;gt;IOperation&amp;lt;/Features&amp;gt;
+    &amp;lt;CodeAnalysisRuleSet&amp;gt;$(MSBuildThisFileDirectory)/ruleset.ruleset&amp;lt;/CodeAnalysisRuleSet&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+
+  &amp;lt;PropertyGroup Condition=&amp;quot;&#39;$(Configuration)|$(Platform)&#39;==&#39;Debug|AnyCPU&#39;&amp;quot;&amp;gt;
+    &amp;lt;DebugSymbols&amp;gt;True&amp;lt;/DebugSymbols&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+   
+  &amp;lt;ItemGroup&amp;gt;
+    &amp;lt;PackageReference Include=&amp;quot;Microsoft.CodeAnalysis.FxCopAnalyzers&amp;quot; Version=&amp;quot;2.3.0-beta1&amp;quot;  PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+    &amp;lt;PackageReference Include=&amp;quot;SonarAnalyzer.CSharp&amp;quot; Version=&amp;quot;6.6.0.3969&amp;quot; PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+    &amp;lt;PackageReference Include=&amp;quot;codecracker.CSharp&amp;quot; Version=&amp;quot;1.0.3&amp;quot; PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+    &amp;lt;PackageReference Include=&amp;quot;StyleCop.Analyzers&amp;quot; Version=&amp;quot;1.1.0-beta004&amp;quot; PrivateAssets=&amp;quot;All&amp;quot; /&amp;gt;
+  &amp;lt;/ItemGroup&amp;gt;
+&amp;lt;/Project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As well as adding the selected analyzers to every project, this can handle common metadata like &lt;code&gt;Company&lt;/code&gt;, &lt;code&gt;Product&lt;/code&gt;, &lt;code&gt;Authors&lt;/code&gt;, &lt;code&gt;Copyright&lt;/code&gt; and compiler options such as &lt;code&gt;TreatWarningsAsErrors&lt;/code&gt;, &lt;code&gt;DebugType&lt;/code&gt;, &lt;code&gt;LangVersion&lt;/code&gt; and &lt;code&gt;VersionPrefix&lt;/code&gt;.  You are actually removing more clutter from your &lt;code&gt;csproj&lt;/code&gt; files, making them super slimmed down.&lt;/p&gt;
+&lt;h3 id=&#34;exception-to-the-rule&#34;&gt;Exception to the Rule&lt;/h3&gt;
+&lt;p&gt;You have added the Analyzers, and you now have thousands of failing errors in your project. Some of these you will want to actually fix now, others fix later, and some just don&amp;rsquo;t matter and the rule needs to be turned off.&lt;/p&gt;
+&lt;p&gt;You can use a &lt;code&gt;.ruleset&lt;/code&gt; xml file to configure rules. This is done using the &lt;code&gt;&amp;lt;CodeAnalysisRuleSet&amp;gt;&lt;/code&gt; section tag in your project file. Alternatively (as above) you can use &lt;code&gt;&amp;lt;CodeAnalysisRuleSet&amp;gt;$(MSBuildThisFileDirectory)/ruleset.ruleset&amp;lt;/CodeAnalysisRuleSet&amp;gt;&lt;/code&gt; in your &lt;code&gt;Directory.Build.Props&lt;/code&gt; file, and have a shared &lt;code&gt;ruleset.ruleset&lt;/code&gt; xml file next to it at the root of your repository.&lt;/p&gt;
+&lt;p&gt;Ruleset files can also include other ruleset files so you can make these modular, or heirarchical. (This is useful if you want slightly different rules for one project. Override &lt;code&gt;&amp;lt;CodeAnalysisRuleSet&amp;gt;&lt;/code&gt; in your project to use it&amp;rsquo;s own file, and include the main &lt;code&gt;.ruleset&lt;/code&gt; file from the project&amp;rsquo;s own version.)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/dotnet/roslyn/blob/master/docs/compilers/Rule%20Set%20Format.md#sample&#34;&gt;https://github.com/dotnet/roslyn/blob/master/docs/compilers/Rule%20Set%20Format.md#sample&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Great advice is to copy someone else&amp;rsquo;s configuration file as a starting point, then disable anything you still don&amp;rsquo;t like and then schedule time to review the existing exclusions possibly to turn them on again. (If the other project is yours, it probably doesn&amp;rsquo;t need much tweaking.)&lt;/p&gt;
+&lt;p&gt;A large number of the errors you will see will be &amp;ldquo;Fix spacing&amp;rdquo;. The default rules seem perfectly reasonable so I recommend using the fix all across Solution auto-fix for these first, to find where the real problems lie. You could also go through and disable all the rules that are failing and come back one or two a sprint to slowly improve things, too.&lt;/p&gt;
+&lt;p&gt;I guarantee that you will find at least one issue that will make you say &amp;ldquo;ooh, yip, that&amp;rsquo;s an exception waiting to happen&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Fixing some of these issues will break existing contracts. If this is a library that is shared with others, be sure to follow SemVer for breaking changes, or add exceptions around areas that could break existing contracts, with a comment explaining why you have violated the rule, so it can be fixed in your next lot of breaking changes. (You can do this by wrapping your code in &lt;code&gt;#pragma warning disable CA1034&lt;/code&gt; &lt;code&gt;#pragma warning enable CA1034&lt;/code&gt;)&lt;/p&gt;
+&lt;h3 id=&#34;recommendations&#34;&gt;Recommendations&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ve done a bunch of analysis on the Analyzers. I can tell you that they do not drastically increase your build times enough to not use them. Yes, there is an increase, but it is not enough in practice to slow down your build/test development cycle. It respects the existing build caching and only runs if you actually need to do a rebuild of a particular project.&lt;/p&gt;
+&lt;p&gt;It might cause you to spend more time on the code formatting as you write it, but that is going to reduce errors you might have added if you came back later and tried to fix them out of context.&lt;/p&gt;
+&lt;p&gt;Given the four Analyzers above, here are some rough results (on an application that takes &lt;strong&gt;about 1 minute to build&lt;/strong&gt; a project one of my projects.)&lt;/p&gt;
+&lt;p&gt;Some quick stats: &lt;strong&gt;24019 lines of code, 497 C# code files, 33 projects, (incl. 6 application component projects, 7 Test projects)&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Configuration&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Number of Analyzers&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Analyzer Execution Time&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;No Analyzers&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0/729&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Microsoft.CodeAnalysis.FxCopAnalyzers&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;51/152&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~9.2 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;codecracker.CSharp&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;50/76&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~17.2 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;StyleCop.Analyzers&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;34/194&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~16.3 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SonarAnalyzer.CSharp&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;142/307&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~47.7 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;All 4 Analyzers&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;277/729&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;~71.9 seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Basically, if you are worried about performance, don&amp;rsquo;t use SonarAnalyzer. Another reason to not use SonarAnalyzer is that it was the one I had to disable the most analyzers from.  If you are really really worried, I recommend just using &lt;code&gt;Microsoft.CodeAnalysis.FxCopAnalyzers&lt;/code&gt; and &lt;code&gt;StyleCop.Analyzers&lt;/code&gt; for the best coverage vs time ratio.&lt;/p&gt;
+&lt;p&gt;You can also see from these stats that there are more Analyzers available in these packs than are enabled to run by default. It might be worth looking into what you are missing that you want to enforce.&lt;/p&gt;
+&lt;h3 id=&#34;editor-config&#34;&gt;Editor Config&lt;/h3&gt;
+&lt;p&gt;Do you use editor config? You should use editor config.&lt;/p&gt;
+&lt;p&gt;Once you start using Code Analyzers, specifically the StyleCop Analyzer, you may find the default code generation rules in Visual Studio and VSCode (or even Resharper) might fight against you.  Luckily you can use EditorConfig to tell Visual Studio, VSCode, and even Resharper the specific way you want your code generation to be formatted as.  The &lt;code&gt;.editorconfig&lt;/code&gt; file checks into your repository, so you can make this configurable per repository.&lt;/p&gt;
+&lt;p&gt;More details:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference&#34;&gt;https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://kent-boogaart.com/blog/editorconfig-reference-for-c-developers&#34;&gt;http://kent-boogaart.com/blog/editorconfig-reference-for-c-developers&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;getting-it-working-on-your-build-servers&#34;&gt;Getting it working on your Build Servers&lt;/h3&gt;
+&lt;p&gt;This is short and sweet. Your build server will just fail to build on analyzer errors, with build errors. Because its all part of the compile pipeline in Roslyn now.&lt;/p&gt;
+&lt;h3 id=&#34;some-stylecop-rules-that-i-turn-off&#34;&gt;Some StyleCop Rules that I turn off&lt;/h3&gt;
+&lt;p&gt;This contains the opinions of Me, the Environment I&amp;rsquo;ve learned C# in, and possibly that of my Team. Possible controversy ahead.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA0001.md&#34;&gt;SA0001&lt;/a&gt; - Xml Comment Analysis Disabled
+&lt;ul&gt;
+&lt;li&gt;I don&amp;rsquo;t use XML documentation, so this rule is disabled&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1101.md&#34;&gt;SA1101&lt;/a&gt; - Prefix Local Calls With This
+&lt;ul&gt;
+&lt;li&gt;This is unnecessary since I prefer the underscore prefix of private fields. Never use &lt;code&gt;this&lt;/code&gt;, it is redundant.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1118.md&#34;&gt;SA1118&lt;/a&gt; - Parameter Must Not Span Multiple Lines
+&lt;ul&gt;
+&lt;li&gt;You probably don&amp;rsquo;t need this, but for syntactic reasons, some fluent code building reads better allowing this and I use it a lot.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1200.md&#34;&gt;SA1200&lt;/a&gt; - Using Directives Must Be Placed Correctly
+&lt;ul&gt;
+&lt;li&gt;Stylecop seems to want them inside namespaces, despite all tooling I&amp;rsquo;ve ever used has always placed them outside. Turning this on will confuse more than assist.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1201.md&#34;&gt;SA1201&lt;/a&gt; - Elements Must Appear In The Correct Order
+&lt;ul&gt;
+&lt;li&gt;If you are starting a new project, then this might appeal, but the code churn in git of turning this on is worse than the benefits. Also, automating to match this ordering is non-obvious&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1202.md&#34;&gt;SA1202&lt;/a&gt; - Elements Must Be Ordered By Access
+&lt;ul&gt;
+&lt;li&gt;Similar to the above, ordering is hard on an existing project, and I like private fields at the top for some reason (History). You might still find it gets in the way of your preferred ordering, anyway.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1204.md&#34;&gt;SA1204&lt;/a&gt; - Static Elements Must Appear Before Instance Elements
+&lt;ul&gt;
+&lt;li&gt;As with SA1201 and SA1204 above.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1309.md&#34;&gt;SA1309&lt;/a&gt; - Field Names Must Not Begin With Underscore
+&lt;ul&gt;
+&lt;li&gt;Related to SA1101, I have a preference for using underscores here.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1413.md&#34;&gt;SA1413&lt;/a&gt; - Use Trailing Commas In Multi Line Initializers
+&lt;ul&gt;
+&lt;li&gt;o rly? I can see the appeal for merging actually, but the compiler will catch it, and that&amp;rsquo;s what Build servers and PRs are for. My pedantic nature wants to remove it, so I do, and this rule is off.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1600.md&#34;&gt;SA1600&lt;/a&gt; - Elements Must Be Documented
+&lt;ul&gt;
+&lt;li&gt;In an ideal world of a pristine reference code base, this must be amazing to have. For an application where comments get out of sync faster then the build can run, Nope.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1602.md&#34;&gt;SA1602&lt;/a&gt; - Enumeration Items Must Be Documented
+&lt;ul&gt;
+&lt;li&gt;Docs again, as above.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1633.md&#34;&gt;SA1633&lt;/a&gt; - File Must Have Header
+&lt;ul&gt;
+&lt;li&gt;Same opinion as SA1600 above&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are probably other (related) rules, but I haven&amp;rsquo;t hit them yet, so haven&amp;rsquo;t turned them off.&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Go forth and automate the improved quality of your Repository! You have the tools, instructions, and if you have read this far the inclination to make it happen.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - Using Multiple Projects</title>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore2-using-multiple-projects/</link>
+      <pubDate>Mon, 05 Feb 2018 04:45:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-using-multiple-projects/</guid>
+      <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Using Multiple Projects &amp;lt;=(We are here)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
+&lt;p&gt;We know how to create new projects, we know how to build and run our application and we know (roughly) what the content in the &lt;code&gt;csproj&lt;/code&gt; file means. But most projects tend to require multiple projects.&lt;/p&gt;
+&lt;p&gt;We are going to create a library project, and an application project. We can reference the library from the application, to see how referencing projects work.&lt;/p&gt;
+&lt;h3 id=&#34;file---new-application&#34;&gt;File -&amp;gt; New Application&lt;/h3&gt;
+&lt;p&gt;We should be old pros at this bit so let&amp;rsquo;s go:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir MyNewApp
+cd MyNewApp
+dotnet new console
+dotnet run
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;file---new-library&#34;&gt;File -&amp;gt; New Library&lt;/h3&gt;
+&lt;p&gt;As well as creating empty console applications, &lt;code&gt;dotnet&lt;/code&gt; can also create other things. If you try typing &lt;code&gt;dotnet new&lt;/code&gt; you will see a full list of all templates available, which you may remember from &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Usage: new [options]
+
+Options:
+  -h, --help          Displays help for this command.
+  -l, --list          Lists templates containing the specified name. If no name is specified, lists all templates.
+  -n, --name          The name for the output being created. If no name is specified, the name of the current directory is used.
+  -o, --output        Location to place the generated output.
+  -i, --install       Installs a source or a template pack.
+  -u, --uninstall     Uninstalls a source or a template pack.
+  --type              Filters templates based on available types. Predefined values are &amp;quot;project&amp;quot;, &amp;quot;item&amp;quot; or &amp;quot;other&amp;quot;.
+  --force             Forces content to be generated even if it would change existing files.
+  -lang, --language   Specifies the language of the template to create.
+
+
+Templates                                         Short Name       Language          Tags
+--------------------------------------------------------------------------------------------------------
+Console Application                               console          [C#], F#, VB      Common/Console
+Class library                                     classlib         [C#], F#, VB      Common/Library
+Unit Test Project                                 mstest           [C#], F#, VB      Test/MSTest
+xUnit Test Project                                xunit            [C#], F#, VB      Test/xUnit
+ASP.NET Core Empty                                web              [C#], F#          Web/Empty
+ASP.NET Core Web App (Model-View-Controller)      mvc              [C#], F#          Web/MVC
+ASP.NET Core Web App                              razor            [C#]              Web/MVC/Razor Pages
+ASP.NET Core with Angular                         angular          [C#]              Web/MVC/SPA
+ASP.NET Core with React.js                        react            [C#]              Web/MVC/SPA
+ASP.NET Core with React.js and Redux              reactredux       [C#]              Web/MVC/SPA
+ASP.NET Core Web API                              webapi           [C#], F#          Web/WebAPI
+global.json file                                  globaljson                         Config
+NuGet Config                                      nugetconfig                        Config
+Web Config                                        webconfig                          Config
+Solution File                                     sln                                Solution
+Razor Page                                        page                               Web/ASP.NET
+MVC ViewImports                                   viewimports                        Web/ASP.NET
+MVC ViewStart                                     viewstart                          Web/ASP.NET
+
+Examples:
+    dotnet new mvc --auth Individual
+    dotnet new console
+    dotnet new --help
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(Again the caveat that mine might be longer than yours because of some extra templates I have installed. This is also much changed since dotnet v1)&lt;/p&gt;
+&lt;p&gt;We want a Library so will use &lt;code&gt;classlib&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ../
+mkdir MyNewLib
+cd MyNewLib
+dotnet new classlib
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;The template &amp;quot;Class library&amp;quot; was created successfully.
+
+Processing post-creation actions...
+Running &#39;dotnet restore&#39; on C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj...
+  Restoring packages for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj...
+  Generating MSBuild file C:\dev\MyComplexApplicationRepo\MyNewLib\obj\MyNewLib.csproj.nuget.g.props.
+  Generating MSBuild file C:\dev\MyComplexApplicationRepo\MyNewLib\obj\MyNewLib.csproj.nuget.g.targets.
+  Restore completed in 115.85 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
+
+Restore succeeded.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We briefly looked at the differences between these projects in the previous section &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;. (Specifically, the app will have an extra &lt;code&gt;&amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;&lt;/code&gt; setting in the &lt;code&gt;csproj&lt;/code&gt; file, and targeting &lt;code&gt;netcoreapp2.0&lt;/code&gt; for the app and &lt;code&gt;netstandard2.0&lt;/code&gt; for the library.)&lt;/p&gt;
+&lt;p&gt;.Net Standard Compatibility is a bit of a topic on its own. You can review the &lt;a href=&#34;https://github.com/dotnet/standard/blob/master/docs/versions.md&#34;&gt;Version Compatibility Grid&lt;/a&gt; for dotnet to determine which target you want for your library. If you do leave it as &lt;code&gt;netstandard2.0&lt;/code&gt;, then it will be compatible with dotnet core runtime version &lt;code&gt;2.0&lt;/code&gt; or newer, .Net full framework version &lt;code&gt;4.6.1&lt;/code&gt; or newer, Mono &lt;code&gt;5.4&lt;/code&gt;, and Windows UWP version &lt;code&gt;10.0.16299&lt;/code&gt; or newer. Click through to see the full table, including Xamarin and Windows Phone/Silverlight compatibility. The idea is the higher your version, the more base class libraries and methods are available, the lower the version gives you wider compatibility.&lt;/p&gt;
+&lt;p&gt;So the classlib has access to different library classes and methods depending on which version you target. These are implicitly available to you to use (unlike dotnet v1 where the standard library was an explicit dependency). The dotnet application project target &lt;code&gt;netcoreapp2.0&lt;/code&gt; also includes implicitly available core runtime types, classes and methods as well.  Additional libraries are then available from NuGet. (More on that later on in the series)&lt;/p&gt;
+&lt;p&gt;We can build our library, but of course, it cannot be run - its a library.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restore completed in 22.02 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
+  MyNewLib -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewLib\bin\Debug\netstandard2.0\MyNewLib.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.75
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;ppppppphttpsenwikipediaorgwiki7_ps_military_adage&#34;&gt;PPPPPPP(&lt;a href=&#34;https://en.wikipedia.org/wiki/7_Ps_(military_adage)&#34;&gt;*&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;Before we can reference between the two projects, we probably need something to depend on. We can go into the file &lt;code&gt;Class1.cs&lt;/code&gt; and make a few changes.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;namespace MyNewLib
+{
+    public class Class1
+    {
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our class can be called &lt;code&gt;Calculator&lt;/code&gt;, and we can implement a simple method, &lt;code&gt;Add&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;using System;
+
+namespace MyNewLib
+{
+    public class Calculator
+    {
+        public int Add(int first, int second)
+        {
+            return first + second;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now it is a bit more interesting, at least.&lt;/p&gt;
+&lt;h3 id=&#34;project-references&#34;&gt;Project References&lt;/h3&gt;
+&lt;p&gt;Last time we briefly glossed over &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-whats-in-the-box/#frameworksanddependencies&#34;&gt;Frameworks and Dependencies&lt;/a&gt;. Let&amp;rsquo;s go over this again in more detail.&lt;/p&gt;
+&lt;p&gt;First, we want to reference our library from our application.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ../MyNewApp
+dotnet add reference ../MyNewLib/MyNewLib.csproj
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Reference `..\MyNewLib\MyNewLib.csproj` added to the project.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we look at our &lt;code&gt;csproj&lt;/code&gt; file now, we can see the reference has been added.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
+
+  &amp;lt;ItemGroup&amp;gt;
+    &amp;lt;ProjectReference Include=&amp;quot;..\MyNewLib\MyNewLib.csproj&amp;quot; /&amp;gt;
+  &amp;lt;/ItemGroup&amp;gt;
+
+  &amp;lt;PropertyGroup&amp;gt;
+    &amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;
+    &amp;lt;TargetFramework&amp;gt;netcoreapp2.0&amp;lt;/TargetFramework&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+
+&amp;lt;/Project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can basically give any relative path to any csproj and this will work.&lt;/p&gt;
+&lt;p&gt;One to note: Whenever you now build MyNewApp, it will recursively try and build the project MyNewLib as well.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restoring packages for C:\dev\MyComplexApplicationRepo\MyNewApp\MyNewApp.csproj...
+  Restore completed in 21.63 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
+  Restore completed in 141.95 ms for C:\dev\MyComplexApplicationRepo\MyNewApp\MyNewApp.csproj.
+  MyNewLib -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewLib\bin\Debug\netstandard2.0\MyNewLib.dll
+  MyNewApp -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewApp\bin\Debug\netcoreapp2.0\MyNewApp.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.68
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And we will add some code to make the dependency complete. Open MyNewApp&amp;rsquo;s &lt;code&gt;Program.cs&lt;/code&gt; file and add a call to our Calculator.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;using System;
+using MyNewLib;
+
+namespace MyNewApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Calculator calc = new Calculator();
+            var answer = calc.Add(18, 24);
+            Console.WriteLine($&amp;quot;The answer is {answer}.&amp;quot;);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;build-and-run&#34;&gt;Build and Run&lt;/h3&gt;
+&lt;p&gt;From the MyNewApp folder, we can now build and run our application, including the library code from MyNewLib. All of this can be done by just using dotnet run (which will do a restore, if required, as well as a build, if required).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet run
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And we can see from the output that both projects are built and we see the correct output from our application.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;The answer is 42.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because we used &lt;code&gt;run&lt;/code&gt;, the restore and build output has been done silently. This is not the case if it fails, you will see the errors on restore, or errors on build.  Often when errors are encountered, it pays to run the actual command to see all of the output for diagnosis.&lt;/p&gt;
+&lt;p&gt;Now we have 2 projects, and a reference between them. For convenience, though, we probably want to group these into some kind of working solution.&lt;/p&gt;
+&lt;h3 id=&#34;file---new-solution&#34;&gt;File -&amp;gt; New Solution&lt;/h3&gt;
+&lt;p&gt;Unlike dotnet v1, dotnet 2.* SDK is using real MSBuild and has native support built into it to not only run against Visual Studio Solution (&lt;code&gt;.sln&lt;/code&gt;) files but manage them as well.&lt;/p&gt;
+&lt;p&gt;We start by creating a new solution in our parent folder:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ../
+dotnet new sln
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;The template &amp;quot;Solution File&amp;quot; was created successfully.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&amp;ldquo;Solution File&amp;rdquo; is just another template available, which shows some of the flexibility and power of the dotnet template engine.  This will have created a file in the parent folder called &lt;code&gt;MyComplexApplicationRepo.sln&lt;/code&gt;, which comes from the parent folder. You can rename this file if desired.&lt;/p&gt;
+&lt;p&gt;As we have come to expect from the dotnet CLI, a minimal &lt;code&gt;sln&lt;/code&gt; file is created:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Global
+        GlobalSection(SolutionConfigurationPlatforms) = preSolution
+                Debug|Any CPU = Debug|Any CPU
+                Debug|x64 = Debug|x64
+                Debug|x86 = Debug|x86
+                Release|Any CPU = Release|Any CPU
+                Release|x64 = Release|x64
+                Release|x86 = Release|x86
+        EndGlobalSection
+        GlobalSection(SolutionProperties) = preSolution
+                HideSolutionNode = FALSE
+        EndGlobalSection
+EndGlobal
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To fill it up, we add our projects to the solution using the &lt;code&gt;dotnet sln ...&lt;/code&gt; commands:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet sln add .\MyNewApp\MyNewApp.csproj
+dotnet sln add .\MyNewLib\MyNewLib.csproj
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This updates the &lt;code&gt;sln&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project(&amp;quot;{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}&amp;quot;) = &amp;quot;MyNewApp&amp;quot;, &amp;quot;MyNewApp\MyNewApp.csproj&amp;quot;, &amp;quot;{32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}&amp;quot;
+EndProject
+Project(&amp;quot;{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}&amp;quot;) = &amp;quot;MyNewLib&amp;quot;, &amp;quot;MyNewLib\MyNewLib.csproj&amp;quot;, &amp;quot;{76D11E26-4764-4051-B597-9E1D88015259}&amp;quot;
+EndProject
+Global
+        GlobalSection(SolutionConfigurationPlatforms) = preSolution
+                Debug|Any CPU = Debug|Any CPU
+                Debug|x64 = Debug|x64
+                Debug|x86 = Debug|x86
+                Release|Any CPU = Release|Any CPU
+                Release|x64 = Release|x64
+                Release|x86 = Release|x86
+        EndGlobalSection
+        GlobalSection(SolutionProperties) = preSolution
+                HideSolutionNode = FALSE
+        EndGlobalSection
+        GlobalSection(ProjectConfigurationPlatforms) = postSolution
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|x64.ActiveCfg = Debug|x64
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|x64.Build.0 = Debug|x64
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|x86.ActiveCfg = Debug|x86
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|x86.Build.0 = Debug|x86
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|Any CPU.Build.0 = Release|Any CPU
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|x64.ActiveCfg = Release|x64
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|x64.Build.0 = Release|x64
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|x86.ActiveCfg = Release|x86
+                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|x86.Build.0 = Release|x86
+                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|x64.ActiveCfg = Debug|x64
+                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|x64.Build.0 = Debug|x64
+                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|x86.ActiveCfg = Debug|x86
+                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|x86.Build.0 = Debug|x86
+                {76D11E26-4764-4051-B597-9E1D88015259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+                {76D11E26-4764-4051-B597-9E1D88015259}.Release|Any CPU.Build.0 = Release|Any CPU
+                {76D11E26-4764-4051-B597-9E1D88015259}.Release|x64.ActiveCfg = Release|x64
+                {76D11E26-4764-4051-B597-9E1D88015259}.Release|x64.Build.0 = Release|x64
+                {76D11E26-4764-4051-B597-9E1D88015259}.Release|x86.ActiveCfg = Release|x86
+                {76D11E26-4764-4051-B597-9E1D88015259}.Release|x86.Build.0 = Release|x86
+        EndGlobalSection
+EndGlobal
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;While there is a lot of noise in here, the main thing is the first few lines where the 2 projects are set.&lt;/p&gt;
+&lt;p&gt;Now we have a single entry point to be able to build our application.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restore completed in 15.72 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
+  Restore completed in 16.16 ms for C:\dev\MyComplexApplicationRepo\MyNewApp\MyNewApp.csproj.
+  MyNewLib -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewLib\bin\Debug\netstandard2.0\MyNewLib.dll
+  MyNewApp -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewApp\bin\Debug\netcoreapp2.0\MyNewApp.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.77
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also explicitly name the solution file when using the commands like &lt;code&gt;dotnet build .\MyComplexApplicationRepo.sln&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;up-next&#34;&gt;Up Next&lt;/h3&gt;
+&lt;p&gt;Of course, we don&amp;rsquo;t just want to build and ship code, we want to test it actually works.  Next time we will create a test project, and write some tests against our library code above.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>.Net Core SDK 2.* Series - Getting Started</title>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore2-getting-started/</link>
+      <pubDate>Mon, 20 Nov 2017 07:00:25 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-getting-started/</guid>
+      <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Getting Started &amp;lt;=(We are here)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(At the time of writing, 2.0.3. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
+&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;I originally wrote a series on .Net Core when it was still a 1.* version. Now there is a 2.0, they have changed/fixed so much that it is truly a 2.0 version, that you can and should use for everything &lt;code&gt;.Net&lt;/code&gt;. I will (probably) be only showing instructions from on Windows, but all dotnet CLI instructions should be cross-platform. Let&amp;rsquo;s get into it!&lt;/p&gt;
+&lt;p&gt;While written from the point of sdk 2.0, these details should still apply to 2.1, 2.2 and so on as the sdk develops. Updates will be noted if anything drastic has changed.&lt;/p&gt;
+&lt;h3 id=&#34;installation&#34;&gt;Installation&lt;/h3&gt;
+&lt;p&gt;TL;DR =&amp;gt; Just Install following the instructions here: &lt;a href=&#34;https://www.microsoft.com/net/download&#34;&gt;https://www.microsoft.com/net/download&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This URL is fun spoke rather than written, &lt;a href=&#34;http://dot.net&#34;&gt;dot.net&lt;/a&gt; (dot dot net).  This is where you go to get started.&lt;/p&gt;
+&lt;p&gt;Dotnet supports multiple versions side by side. Get 2.0 installed and you can get started following along with me.&lt;/p&gt;
+&lt;p&gt;To check you have the correct version to follow along you can open a command line and type &amp;lsquo;dotnet &amp;ndash;version&amp;rsquo;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; dotnet --version
+2.0.3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dotnet-cli&#34;&gt;dotnet (CLI)&lt;/h3&gt;
+&lt;p&gt;Ok, so you could just go &lt;a href=&#34;https://www.microsoft.com/net/core#windows&#34;&gt;RTFM&lt;/a&gt;. But I will still go ahead and produce the Hello World of dotnet applications. &lt;a href=&#34;http://www.mirror.co.uk/news/world-news/internet-full-experts-warn-web-5628789&#34;&gt;The internet will be full soon&lt;/a&gt;, I might as well do my bit.&lt;/p&gt;
+&lt;p&gt;Firstly, like with git, we create a new folder and initialise it. In this case, the folder is the equivalent of a project folder.&lt;/p&gt;
+&lt;p&gt;The command to create a project is &lt;code&gt;dotnet new [options]&lt;/code&gt;. If you try to just run &lt;code&gt;dotnet new&lt;/code&gt; (like your used to) you might see this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Getting ready...
+Usage: new [options]
+
+Options:
+  -h, --help          Displays help for this command.
+  -l, --list          Lists templates containing the specified name. If no name is specified, lists all templates.
+  -n, --name          The name for the output being created. If no name is specified, the name of the current directory is used.
+  -o, --output        Location to place the generated output.
+  -i, --install       Installs a source or a template pack.
+  -u, --uninstall     Uninstalls a source or a template pack.
+  --type              Filters templates based on available types. Predefined values are &amp;quot;project&amp;quot;, &amp;quot;item&amp;quot; or &amp;quot;other&amp;quot;.
+  --force             Forces content to be generated even if it would change existing files.
+  -lang, --language   Specifies the language of the template to create.
+
+
+Templates                                         Short Name       Language          Tags
+--------------------------------------------------------------------------------------------------------
+Console Application                               console          [C#], F#, VB      Common/Console
+Class library                                     classlib         [C#], F#, VB      Common/Library
+Unit Test Project                                 mstest           [C#], F#, VB      Test/MSTest
+xUnit Test Project                                xunit            [C#], F#, VB      Test/xUnit
+ASP.NET Core Empty                                web              [C#], F#          Web/Empty
+ASP.NET Core Web App (Model-View-Controller)      mvc              [C#], F#          Web/MVC
+ASP.NET Core Web App                              razor            [C#]              Web/MVC/Razor Pages
+ASP.NET Core with Angular                         angular          [C#]              Web/MVC/SPA
+ASP.NET Core with React.js                        react            [C#]              Web/MVC/SPA
+ASP.NET Core with React.js and Redux              reactredux       [C#]              Web/MVC/SPA
+ASP.NET Core Web API                              webapi           [C#], F#          Web/WebAPI
+global.json file                                  globaljson                         Config
+Nuget Config                                      nugetconfig                        Config
+Web Config                                        webconfig                          Config
+Solution File                                     sln                                Solution
+Razor Page                                        page                               Web/ASP.NET
+MVC ViewImports                                   viewimports                        Web/ASP.NET
+MVC ViewStart                                     viewstart                          Web/ASP.NET
+
+
+Examples:
+    dotnet new mvc --auth Individual
+    dotnet new classlib --framework netcoreapp2.0
+    dotnet new --help
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Mine might show more than yours. I have some extra templates installed (more on this later). But I digress.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir MyNewApp
+cd MyNewApp
+dotnet new console
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We should now have a new console application created with two files:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Program.cs&lt;/li&gt;
+&lt;li&gt;MyNewApp.csproj&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Technically, this is enough for a dotnet app.&lt;/p&gt;
+&lt;p&gt;Now we can restore dependencies, build and run just by using the &amp;lsquo;dotnet run&amp;rsquo; command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet run
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Hello World!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That&amp;rsquo;s it. The dotnet &amp;lsquo;run&amp;rsquo; command will automatically run the &amp;lsquo;restore&amp;rsquo; and &amp;lsquo;build&amp;rsquo; tasks automatically if it needs to. We have a fully executable .Net Core Application.&lt;/p&gt;
+&lt;h3 id=&#34;visual-studio&#34;&gt;Visual Studio&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s repeat with Visual Studio now. I have Visual Studio 2017., Even if you don&amp;rsquo;t, you should still have something similar.&lt;/p&gt;
+&lt;p&gt;Choose File-&amp;gt; New -&amp;gt; Project and Select the &lt;code&gt;Console Application (.Net Core)&lt;/code&gt; template from under the new &lt;code&gt;.Net Core&lt;/code&gt; C# category.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1467318810/FileNewDotNetCoreApp_ktcsks.png&#34; alt=&#34;Select Console Application .Net Core from File New Project.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;This will create a new Solution with a new &lt;code&gt;csproj&lt;/code&gt; Project. This is the new slim csproj, which is different to the classic csproj you may be used to. Depending on where you created your project, the folder structure is roughly:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MyNewApp
+&lt;ul&gt;
+&lt;li&gt;MyNewApp
+&lt;ul&gt;
+&lt;li&gt;MyNewApp.csproj&lt;/li&gt;
+&lt;li&gt;Program.cs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;MyNewApp.sln&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is practically identical to what &amp;lsquo;dotnet new&amp;rsquo; added at the command line.&lt;/p&gt;
+&lt;p&gt;So now we have a project in Visual Studio. If we build and run, both will succeed and like the command-line counterpart, we see &amp;lsquo;Hello World&amp;rsquo; printed out. (Although it might not say open long enough to see it.)&lt;/p&gt;
+&lt;h3 id=&#34;easy&#34;&gt;Easy&lt;/h3&gt;
+&lt;p&gt;Next time we will take a deeper look into the &lt;code&gt;*.csproj&lt;/code&gt; file and start to experiment on ways to build more complex applications with .Net Core 2.0.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Migrating onto dotnet tools 1.0.0</title>
+      <link>https://blogmigration.csmac.nz/post/migrating-onto-dotnet-tools-1-0-0/</link>
+      <pubDate>Sat, 11 Mar 2017 23:52:52 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/migrating-onto-dotnet-tools-1-0-0/</guid>
+      <description>&lt;p&gt;Since Visual Studio 2017 is out, and we have a 1.0.0 tools release for .Net Core, I&amp;rsquo;m going to try and migrate a simple project from the pre-release tooling, onto the new tooling.&lt;/p&gt;
+&lt;p&gt;The biggest difference is that instead of using a &lt;code&gt;project.json&lt;/code&gt; file, the new tooling now uses a &lt;code&gt;.csproj&lt;/code&gt; file instead.  It will take a few more posts to go into the differences and re-learn how this works, so for now lets just get something building.&lt;/p&gt;
+&lt;h3 id=&#34;a-v-previous-dotnet-new&#34;&gt;A v-previous dotnet new&lt;/h3&gt;
+&lt;p&gt;I have a standard project created with &lt;code&gt;dotnet new&lt;/code&gt; in my folder. This is an app (the default when you use &lt;code&gt;new&lt;/code&gt; without parameters) and has two files: &lt;code&gt;project.json&lt;/code&gt; and &lt;code&gt;program.cs&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MyNewApp
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine(&amp;quot;Hello World!&amp;quot;);
+            if(!Console.IsInputRedirected){
+            Console.ReadKey();
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;version&amp;quot;: &amp;quot;1.0.0-*&amp;quot;,
+  &amp;quot;buildOptions&amp;quot;: {
+    &amp;quot;emitEntryPoint&amp;quot;: true,
+    &amp;quot;debugType&amp;quot;: &amp;quot;portable&amp;quot;
+  },
+  &amp;quot;dependencies&amp;quot;: {
+    &amp;quot;Microsoft.NETCore.App&amp;quot;: {
+      &amp;quot;type&amp;quot;: &amp;quot;platform&amp;quot;,
+      &amp;quot;version&amp;quot;: &amp;quot;1.0.0&amp;quot;
+    }
+  },
+
+  &amp;quot;frameworks&amp;quot;: {
+    &amp;quot;netcoreapp1.0&amp;quot;: {
+      &amp;quot;imports&amp;quot;: &amp;quot;dnxcore50&amp;quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that I have VS 2016 installed, I can&amp;rsquo;t build this project. I get an error:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;MSBUILD : error MSB1003: Specify a project or solution file. The current working directory does not contain a project or solution file.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;migration&#34;&gt;Migration&lt;/h3&gt;
+&lt;p&gt;Luckily, there is a &lt;code&gt;dotnet migrate&lt;/code&gt; command. If you run &lt;code&gt;dotnet help migrate&lt;/code&gt; you get some useful usage information:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;.NET Migrate Command
+
+Usage: dotnet migrate [arguments] [options]
+
+Arguments:
+  &amp;lt;PROJECT_JSON/GLOBAL_JSON/SOLUTION_FILE/PROJECT_DIR&amp;gt;  The path to one of the following:
+    - a project.json file to migrate.
+    - a global.json file, it will migrate the folders specified in global.json.
+    - a solution.sln file, it will migrate the projects referenced in the solution.
+    - a directory to migrate, it will recursively search for project.json files to migrate.
+Defaults to current directory if nothing is specified.
+
+Options:
+  -h|--help                     Show help information
+  -t|--template-file            Base MSBuild template to use for migrated app. The default is the project included in dotnet new.
+  -v|--sdk-package-version      The version of the sdk package that will be referenced in the migrated app. The default is the version of the sdk in dotnet new.
+  -x|--xproj-file               The path to the xproj file to use. Required when there is more than one xproj in a project directory.
+  -s|--skip-project-references  Skip migrating project references. By default project references are migrated recursively.
+  -r|--report-file              Output migration report to the given file in addition to the console.
+  --format-report-file-json     Output migration report file as json rather than user messages.
+  --skip-backup                 Skip moving project.json, global.json, and *.xproj to a `backup` directory after successful migration.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So as you can see, you can migrate a solution, a project, or use a &lt;code&gt;global.json&lt;/code&gt; to migrate multiple projects. You can even use &lt;code&gt;-t&lt;/code&gt; to migrate as a specific type of project. Since this defaults to the same template used for &lt;code&gt;dotnet new&lt;/code&gt;, and that I am running this from the project folder, I can just use &lt;code&gt;dotnet migrate&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This produces the following results:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Project dotnetprevious migration succeeded (C:\dev\temp\dotnetprevious).
+Summary
+Total Projects: 1
+Succeeded Projects: 1
+Failed Projects: 0
+
+The project migration has finished. Please visit https://aka.ms/coremigration to report any issues you&#39;ve encountered or ask for help.
+Files backed up to C:\dev\temp\dotnetprevious\backup\
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s see where we are:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnetprevious
+ |-- dotnetprevious.csproj
+ |-- Program.cs
+ |-- backup
+ |    +-- project.json
+ |
+ +-- obj
+      |-- ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So we can see that our &lt;code&gt;project.json&lt;/code&gt; has been moved out of the way and replaces with a &lt;code&gt;.csproj&lt;/code&gt; file. We still have our &lt;code&gt;project.json&lt;/code&gt; file to refer to as well, in case anything is missing.&lt;/p&gt;
+&lt;h3 id=&#34;build-it&#34;&gt;Build it&lt;/h3&gt;
+&lt;p&gt;Now we have migrated, we can restore, build and run:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;dotnet restore
+dotnet build
+dotnet run
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Success!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Hello World!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;the-csproj&#34;&gt;The csproj&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
+
+  &amp;lt;PropertyGroup&amp;gt;
+    &amp;lt;TargetFramework&amp;gt;netcoreapp1.0&amp;lt;/TargetFramework&amp;gt;
+    &amp;lt;DebugType&amp;gt;portable&amp;lt;/DebugType&amp;gt;
+    &amp;lt;AssemblyName&amp;gt;dotnetprevious&amp;lt;/AssemblyName&amp;gt;
+    &amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;
+    &amp;lt;PackageId&amp;gt;dotnetprevious&amp;lt;/PackageId&amp;gt;
+    &amp;lt;RuntimeFrameworkVersion&amp;gt;1.0.4&amp;lt;/RuntimeFrameworkVersion&amp;gt;
+    &amp;lt;PackageTargetFallback&amp;gt;$(PackageTargetFallback);dnxcore50&amp;lt;/PackageTargetFallback&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+
+&amp;lt;/Project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A pretty simple xml file, with a property group for some of the (familiar) properties we might want set on our project. We see that &lt;code&gt;TargetFramework&lt;/code&gt; is netcoreapp1.0, which is what makes this a new &lt;code&gt;.csproj&lt;/code&gt; vs the older .&lt;code&gt;csproj&lt;/code&gt; files.&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Simple migration seems to work, and is simple to apply. I am hoping as more complex project migration comes around it is just as easy. Don&amp;rsquo;t forget that &lt;code&gt;-t&lt;/code&gt; argument to use the right app, web, lib or test template as you migrate if required.&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;Also be aware that after migration, everyone will have to move to Visual Studio 2017, and the new dotnet 1.0.0 sdk before they can now build and run this now migrated project.&lt;/del&gt;&lt;/p&gt;
+&lt;h3 id=&#34;update-133&#34;&gt;Update (13/3)&lt;/h3&gt;
+&lt;p&gt;I have since learned that you can safely have all versions installed and running on the same machine. To make this work, just specify the correct sdk version in your global.json file, and the correct version of the sdk will be used.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;projects&amp;quot;: [
+    &amp;quot;.&amp;quot;
+  ],
+  &amp;quot;sdk&amp;quot;: {
+    &amp;quot;version&amp;quot;: &amp;quot;1.0.0-preview2-003131&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is also a separate setting used for &lt;code&gt;launchsettings.json&lt;/code&gt;, but I won&amp;rsquo;t give specifics on that since I am unfamiliar with it.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>.Net core tests not showing up in VS? Here&#39;s the trick...</title>
       <link>https://blogmigration.csmac.nz/post/net-core-tests-not-showing/</link>
       <pubDate>Tue, 01 Nov 2016 01:38:35 +0000</pubDate>
@@ -210,6 +985,396 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
 &lt;p&gt;Turns out, if you want tests to show up in Visual Studio you have to make sure that in your &lt;code&gt;project.json&lt;/code&gt;, &lt;code&gt;netcoreapp1.0&lt;/code&gt; needs to be the first framework in the &lt;code&gt;frameworks&lt;/code&gt; section. Otherwise it don&amp;rsquo;t work right.&lt;/p&gt;
 &lt;p&gt;Moving &lt;code&gt;netcoreapp1.0&lt;/code&gt; from being the last framework to the first solved all my problems. Now I have tests showing and passing in Visual Studio.&lt;/p&gt;
 &lt;p&gt;Done.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - What&#39;s in the box</title>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore-whats-in-the-box/</link>
+      <pubDate>Sat, 09 Jul 2016 02:50:00 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore-whats-in-the-box/</guid>
+      <description>&lt;p&gt;This is a series on the .Net Core 1.0 bits. Looking for &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;.Net Core 2 Series&lt;/a&gt;?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;What&amp;rsquo;s in the box &amp;lt;=(We are here)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Last time we created a new application. Once with dotnet CLI and once with Visual Studio.&lt;/p&gt;
+&lt;p&gt;We will have a look at some of the files and their contents. Since I assume the &lt;code&gt;Program.cs&lt;/code&gt; file is self-explanatory, I will give it a miss.&lt;/p&gt;
+&lt;h3 id=&#34;projectjson&#34;&gt;project.json&lt;/h3&gt;
+&lt;p&gt;Take a look at the two versions of &lt;code&gt;project.json&lt;/code&gt;. Firstly, from our &lt;code&gt;xproj&lt;/code&gt; project via Visual Studio:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;version&amp;quot;: &amp;quot;1.0.0-*&amp;quot;,
+  &amp;quot;buildOptions&amp;quot;: {
+    &amp;quot;emitEntryPoint&amp;quot;: true
+  },
+  &amp;quot;dependencies&amp;quot;: {
+    &amp;quot;Microsoft.NETCore.App&amp;quot;: {
+      &amp;quot;type&amp;quot;: &amp;quot;platform&amp;quot;,
+      &amp;quot;version&amp;quot;: &amp;quot;1.0.0&amp;quot;
+    }
+  },
+  &amp;quot;frameworks&amp;quot;: {
+    &amp;quot;netcoreapp1.0&amp;quot;: {
+      &amp;quot;imports&amp;quot;: &amp;quot;dnxcore50&amp;quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And a very similar one from &lt;code&gt;dotnet new&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;version&amp;quot;: &amp;quot;1.0.0-*&amp;quot;,
+  &amp;quot;buildOptions&amp;quot;: {
+    &amp;quot;debugType&amp;quot;: &amp;quot;portable&amp;quot;,
+    &amp;quot;emitEntryPoint&amp;quot;: true
+  },
+  &amp;quot;dependencies&amp;quot;: {},
+  &amp;quot;frameworks&amp;quot;: {
+    &amp;quot;netcoreapp1.0&amp;quot;: {
+      &amp;quot;dependencies&amp;quot;: {
+        &amp;quot;Microsoft.NETCore.App&amp;quot;: {
+          &amp;quot;type&amp;quot;: &amp;quot;platform&amp;quot;,
+          &amp;quot;version&amp;quot;: &amp;quot;1.0.0&amp;quot;
+        }
+      },
+      &amp;quot;imports&amp;quot;: &amp;quot;dnxcore50&amp;quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are a few differences. So let&amp;rsquo;s start with the similarities.
+We have 4 top-level properties: &lt;code&gt;version&lt;/code&gt;, &lt;code&gt;buildOptions&lt;/code&gt;, &lt;code&gt;dependencies&lt;/code&gt; and &lt;code&gt;frameworks&lt;/code&gt;. Starting with the easy ones.&lt;/p&gt;
+&lt;h4 id=&#34;version&#34;&gt;version&lt;/h4&gt;
+&lt;p&gt;The version property is the minimum required metadata about the artifact you are building. Other meta-data includes &amp;lsquo;name&amp;rsquo;, &lt;code&gt;title&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; and may others.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;name&lt;/code&gt; option by default will use the parent folder name. To make things a bit more precise, you could add &lt;code&gt;&amp;quot;name&amp;quot;: &amp;quot;MyNewApp&amp;quot;,&lt;/code&gt; at the top level.&lt;/p&gt;
+&lt;h4 id=&#34;buildoptions&#34;&gt;buildOptions&lt;/h4&gt;
+&lt;p&gt;The &lt;code&gt;buildOptions&lt;/code&gt; section contains some useful properties to know about. Firstly, we have the &lt;code&gt;emitEntryPoint&lt;/code&gt;. This is used to determine if the binary or exe produced is executable. By default, this means that you have a &lt;code&gt;Program.Main()&lt;/code&gt; method that will be called to begin your program.&lt;/p&gt;
+&lt;p&gt;The one I found interesting is the &lt;code&gt;&amp;quot;debugType&amp;quot;: &amp;quot;portable&amp;quot;&lt;/code&gt;. Using this option is required for the Visual Studio Code debugger to work. But it also means that your application will publish differently, depending on which value you select here.  More on that later when we get to Publishing applications.&lt;/p&gt;
+&lt;p&gt;Other properties include &lt;code&gt;nowarn&lt;/code&gt;, a list of compiler codes that should be suppressed, &lt;code&gt;warningsAsErrors&lt;/code&gt;, which should be &lt;a href=&#34;https://blog.csmac.nz/treat-warnings-as-errors-with-this-one-weird-powershell-script/&#34;&gt;familiar to some people&lt;/a&gt;, and &lt;code&gt;languageVersion&lt;/code&gt; which picks the flavor of C# the compiler will support.&lt;/p&gt;
+&lt;h4 id=&#34;frameworks-and-dependencies&#34;&gt;Frameworks and dependencies&lt;/h4&gt;
+&lt;p&gt;We get into some strange nesting territory when we start looking at frameworks and dependencies. The reason for this is that some dependencies support picking their framework when you target one for building. On the other hand, some frameworks need you to define different dependencies depending on what &lt;code&gt;#if&lt;/code&gt; defines your code has.&lt;/p&gt;
+&lt;p&gt;Because of this, the two sections allow nesting. You can provide a dependency at the top level, at it will be available to all frameworks, regardless of which one you try and build against. And if you are building against a specific framework, you can have specific dependencies that you use when you build that framework. This even gives you the option to target different versions of the dependencies you use, depending on your target platform.&lt;/p&gt;
+&lt;p&gt;So with our examples above, we can see that the Visual Studio and dotnet CLI versions define the same result, just in two different ways. If we wanted to add new framework target, then we would need to work out which dependency configuration works best for us going forward.&lt;/p&gt;
+&lt;h4 id=&#34;microsoftnetcoreapp&#34;&gt;Microsoft.NETCore.App&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s look a bit closer at &lt;code&gt;Microsoft.NETCore.App&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;Microsoft.NETCore.App&amp;quot;: {
+      &amp;quot;type&amp;quot;: &amp;quot;platform&amp;quot;,
+      &amp;quot;version&amp;quot;: &amp;quot;1.0.0&amp;quot;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is a dependency. This is a platform dependency. It&amp;rsquo;s also a &lt;a href=&#34;https://www.nuget.org/packages/Microsoft.NETCore.App/&#34;&gt;Nuget Package&lt;/a&gt;, which contains within it a bunch of system library NuGet packages.&lt;/p&gt;
+&lt;p&gt;Documentation for these is still a little unclear to me, so I will leave this as it is for now, and revisit when we need to change it later when we look at multi-targeting, referencing, and publishing.&lt;/p&gt;
+&lt;h4 id=&#34;netcoreapp10&#34;&gt;netcoreapp1.0&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s look a bit closer at &lt;code&gt;netcoreapp1.0&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;frameworks&amp;quot;: {
+    &amp;quot;netcoreapp1.0&amp;quot;: {
+      &amp;quot;imports&amp;quot;: &amp;quot;dnxcore50&amp;quot;
+    }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The framework &lt;code&gt;netcoreapp1.0&lt;/code&gt; is one of many Target Framework Moniker (TFM) values that can be used here. As well as the old classics &amp;lsquo;net45&amp;rsquo;, &amp;lsquo;net46&amp;rsquo;, we now have some new ones, like this &lt;code&gt;netcoreapp1.0&lt;/code&gt;. These seem to be similar and/or related to the TFMs that are supported as part of NuGet.&lt;/p&gt;
+&lt;p&gt;This &lt;a href=&#34;https://blogs.msdn.microsoft.com/cesardelatorre/2016/06/28/running-net-core-apps-on-multiple-frameworks-and-what-the-target-framework-monikers-tfms-are-about/&#34;&gt;article on TFMs&lt;/a&gt; attempts to explain these in a much greater detail than I can fit here in one paragraph.&lt;/p&gt;
+&lt;p&gt;But giving it a go, &lt;code&gt;dotnetcoreapp1.0&lt;/code&gt; is the reference to this release of .Net Core, as a target platform. So if you want to target this Framework(Runtime) Version, this is how.&lt;/p&gt;
+&lt;p&gt;As for &lt;code&gt;&amp;quot;imports&amp;quot;: &amp;quot;dnxcore50&amp;quot;&lt;/code&gt;, It looks like this is just telling the compiler (or runtime, unsure) that if it sees anything targeting &amp;ldquo;dnxcore50&amp;rdquo;, in a package, that is fine to use with this application. Reading that back, it probably is referring exactly to the NuGet Moniker that has been used during the early releases.&lt;/p&gt;
+&lt;h4 id=&#34;netstandardlibrary&#34;&gt;NETStandard.Library&lt;/h4&gt;
+&lt;p&gt;Later on, we will look at libraries rather than applications, and we will discover a new dependency on &lt;code&gt;&amp;quot;NETStandard.Library&amp;quot;: &amp;quot;1.6.0&amp;quot;&lt;/code&gt;.  This is a &lt;a href=&#34;https://www.nuget.org/packages/NETStandard.Library/&#34;&gt;NuGet package&lt;/a&gt;, that contains inside it multiple target versions, similar to the old Portable Class Library approach. Except now we have a more unified versioning strategy.&lt;/p&gt;
+&lt;p&gt;Again I defer to &lt;a href=&#34;https://oren.codes/2016/06/23/portable-is-dead-long-live-netstandard/&#34;&gt;a blog post&lt;/a&gt; that better explains what this is, but again I will try.&lt;/p&gt;
+&lt;p&gt;Essentially it is a way to target a minimum supported base class library that you rely on. That way you can achieve better forwards compatibility when new versions of the existing platform come out (such as .Net Core 1.1, or 2.0 even), without having to re-release with new changes. It also means as new platforms come out (Such as Xbox Two), they just define their compatibility against a version of NetStandard, and we will be able to use any packages that target up to that version when building for that platform.&lt;/p&gt;
+&lt;h4 id=&#34;more-on-projectjson&#34;&gt;more on project.json&lt;/h4&gt;
+&lt;p&gt;For information on how project.json interacts with NuGet itself, head over to the &lt;a href=&#34;http://docs.nuget.org/consume/ProjectJson-Intro&#34;&gt;NuGet 3.0, .NET and project.json&lt;/a&gt; page on the nuget.org, which also has some format notes &lt;a href=&#34;https://docs.nuget.org/consume/projectjson-format&#34;&gt;here&lt;/a&gt;. Notably, where there are differences between &lt;code&gt;nuget&lt;/code&gt; and &lt;code&gt;dotnet&lt;/code&gt; usages.&lt;/p&gt;
+&lt;p&gt;For a detailed look at all the things you can put in a &lt;code&gt;project.json&lt;/code&gt; file from a .Net Core perspective, head on over to the &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/articles/core/tools/project-json&#34;&gt;project.json reference guide&lt;/a&gt; on the official docs pages.&lt;/p&gt;
+&lt;p&gt;Just a note from that page:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This topic is likely to change before release! You can track the status of this issue through our public GitHub issue tracker.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;As I move forward into more complex examples, I&amp;rsquo;m sure we will discover more that can be added into the &lt;code&gt;project.json&lt;/code&gt; file.&lt;/p&gt;
+&lt;h3 id=&#34;projectlockjson&#34;&gt;project.lock.json&lt;/h3&gt;
+&lt;p&gt;When you run a &lt;code&gt;dotnet restore&lt;/code&gt; from the command line, or whenever you save the &lt;code&gt;project.json&lt;/code&gt; file in Visual Studio, the &lt;code&gt;project.lock.json&lt;/code&gt; file is updated.&lt;/p&gt;
+&lt;p&gt;It appears that your &lt;code&gt;project.json&lt;/code&gt; dependencies are reviewed, and a set of versions of NuGet packages is determined and recorded into this lock file.  This is a similar pattern to that seen with npm, and RubyGems.&lt;/p&gt;
+&lt;p&gt;You can check this file into source control, but you also don&amp;rsquo;t have to, since running &lt;code&gt;dotnet restore&lt;/code&gt; will rebuild it for you.&lt;/p&gt;
+&lt;h3 id=&#34;mynewappxproj&#34;&gt;MyNewApp.xproj&lt;/h3&gt;
+&lt;p&gt;Taking a bit of a turn, we will look at the &lt;code&gt;xproj&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
+&amp;lt;Project ToolsVersion=&amp;quot;14.0&amp;quot; DefaultTargets=&amp;quot;Build&amp;quot; xmlns=&amp;quot;http://schemas.microsoft.com/developer/msbuild/2003&amp;quot;&amp;gt;
+  &amp;lt;PropertyGroup&amp;gt;
+    &amp;lt;VisualStudioVersion Condition=&amp;quot;&#39;$(VisualStudioVersion)&#39; == &#39;&#39;&amp;quot;&amp;gt;14.0&amp;lt;/VisualStudioVersion&amp;gt;
+    &amp;lt;VSToolsPath Condition=&amp;quot;&#39;$(VSToolsPath)&#39; == &#39;&#39;&amp;quot;&amp;gt;$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)&amp;lt;/VSToolsPath&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+
+  &amp;lt;Import Project=&amp;quot;$(VSToolsPath)\DotNet\Microsoft.DotNet.Props&amp;quot; Condition=&amp;quot;&#39;$(VSToolsPath)&#39; != &#39;&#39;&amp;quot; /&amp;gt;
+  &amp;lt;PropertyGroup Label=&amp;quot;Globals&amp;quot;&amp;gt;
+    &amp;lt;ProjectGuid&amp;gt;7be7fb75-24a9-4728-80bd-86b09c29ebf1&amp;lt;/ProjectGuid&amp;gt;
+    &amp;lt;RootNamespace&amp;gt;MyNewApp&amp;lt;/RootNamespace&amp;gt;
+    &amp;lt;BaseIntermediateOutputPath Condition=&amp;quot;&#39;$(BaseIntermediateOutputPath)&#39;==&#39;&#39; &amp;quot;&amp;gt;.\obj&amp;lt;/BaseIntermediateOutputPath&amp;gt;
+    &amp;lt;OutputPath Condition=&amp;quot;&#39;$(OutputPath)&#39;==&#39;&#39; &amp;quot;&amp;gt;.\bin\&amp;lt;/OutputPath&amp;gt;
+    &amp;lt;TargetFrameworkVersion&amp;gt;v4.5.2&amp;lt;/TargetFrameworkVersion&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+
+  &amp;lt;PropertyGroup&amp;gt;
+    &amp;lt;SchemaVersion&amp;gt;2.0&amp;lt;/SchemaVersion&amp;gt;
+  &amp;lt;/PropertyGroup&amp;gt;
+  &amp;lt;Import Project=&amp;quot;$(VSToolsPath)\DotNet\Microsoft.DotNet.targets&amp;quot; Condition=&amp;quot;&#39;$(VSToolsPath)&#39; != &#39;&#39;&amp;quot; /&amp;gt;
+&amp;lt;/Project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Like the &lt;code&gt;csproj&lt;/code&gt; files of the past, this file bridges between Visual Studio and MSBuild. In the same vein, this is an MSBuild file.&lt;/p&gt;
+&lt;p&gt;Unlike a &lt;code&gt;csproj&lt;/code&gt; file, there isn&amp;rsquo;t really much in here. All of the magic to make this a buildable project is inside the referenced &lt;code&gt;targets&lt;/code&gt; and &lt;code&gt;Props&lt;/code&gt; files, which then defer to the &lt;code&gt;project.json&lt;/code&gt; file for the rest of the information they need.&lt;/p&gt;
+&lt;p&gt;From everything that has been said about the tooling, the balance of power between &lt;code&gt;xproj&lt;/code&gt; and &lt;code&gt;project.json&lt;/code&gt; will change, and we will probably see &lt;code&gt;xproj&lt;/code&gt; swapped back for a &lt;code&gt;csproj&lt;/code&gt; file again in the near future, say Visual Studio 2016 perhaps.&lt;/p&gt;
+&lt;h3 id=&#34;globaljson&#34;&gt;global.json&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;projects&amp;quot;: [ &amp;quot;src&amp;quot;, &amp;quot;test&amp;quot; ],
+  &amp;quot;sdk&amp;quot;: {
+    &amp;quot;version&amp;quot;: &amp;quot;1.0.0-preview2-003121&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is another magic file I still haven&amp;rsquo;t managed to distil down. When I build in Visual Studio, the tooling does seem to use this to discover projects and determine which version of the (tools?) it should download as a dependency.  The folders specified in projects have their top-level only searched for project folders.&lt;/p&gt;
+&lt;p&gt;Some little information on &lt;code&gt;global.json&lt;/code&gt; (and again, the caveat of change) is found &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/articles/core/tools/global-json&#34;&gt;here&lt;/a&gt;. From what I have seen when playing around, even without this file you can still locate other projects as project references, so I am not sure of its true intent/power yet. That page does refer to build system, so it may be more tied to MSBuild​instead, rather than &lt;code&gt;dotnet&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;next-up&#34;&gt;Next up&lt;/h3&gt;
+&lt;p&gt;We now have a bit of an idea. All of the magic tying everything together seems to be locked up in the &lt;code&gt;project.json&lt;/code&gt; file.  Going forward we will try out some common use cases to determine what changes to the &lt;code&gt;project.json&lt;/code&gt; we need to make to achieve our results.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>.Net Core Series - Getting Started</title>
+      <link>https://blogmigration.csmac.nz/post/dotnetcore-getting-started/</link>
+      <pubDate>Thu, 30 Jun 2016 09:25:34 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/dotnetcore-getting-started/</guid>
+      <description>&lt;p&gt;This is a series on the .Net Core 1.0 bits. Looking for &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;.Net Core 2 Series&lt;/a&gt;?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Getting Started &amp;lt;=(We are here)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We finally got some finalised bits in a release this week. So here is a bit of a guide to get you started. I will (probably) be only showing instructions from on Windows, but all dotnet CLI instructions should be cross platform.&lt;/p&gt;
+&lt;h3 id=&#34;installation&#34;&gt;Installation&lt;/h3&gt;
+&lt;p&gt;TL;DR =&amp;gt; Just uninstall and reinstall following the instructions here: &lt;a href=&#34;https://www.microsoft.com/net/core#windows&#34;&gt;https://www.microsoft.com/net/core#windows&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This URL is fun spoken rather than written, &lt;a href=&#34;http://dot.net&#34;&gt;dot.net&lt;/a&gt; (dot dot net).  This is where you go to get started.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Before you start, please remove any previous versions of .NET Core from your system by using Add/Remove programs. Also, please verify that you have all of the Windows dependencies installed.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I &lt;em&gt;didnt&lt;/em&gt; read this. &lt;em&gt;&lt;strong&gt;Read this.&lt;/strong&gt;&lt;/em&gt;  After installing the Visual Studio 2015 Update 3 and &lt;a href=&#34;https://go.microsoft.com/fwlink/?LinkId=817245&#34;&gt;.NET Core for Visual Studio official MSI Installer&lt;/a&gt;, I had to actually go back and uninstall .Net Core RC2 preview 1. As this &lt;a href=&#34;http://stackoverflow.com/a/37308921/2118268&#34;&gt;stack overflow answer&lt;/a&gt; says:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;After you install RC2, Make sure your control panel shows ONLY these for .Net Core&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Microsoft .Net Core 1.0.0 RC2 - VS 2015 Tooling Preview 1 (1.0.20513.14)&lt;/li&gt;
+&lt;li&gt;Microsoft .Net Core 1.0.0 RC2 - SDK Preview 1 (x64) to be version 1.0.0.2702&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Except in my case it is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Microsoft .Net Core 1.0.0 - VS 2015 Tooling Preview 2&lt;/li&gt;
+&lt;li&gt;Microsoft .Net Core 1.0.0 - SDK Preview 2 (x64)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I also had to uninstall something named along the lines of &amp;ldquo;dotnet CLI dev&amp;rdquo; or &amp;ldquo;Microsoft Dotnet CLI for Windows&amp;rdquo; or something like that. Once all that is sorted you should be good to go.&lt;/p&gt;
+&lt;h3 id=&#34;dotnet-cli&#34;&gt;dotnet (CLI)&lt;/h3&gt;
+&lt;p&gt;Ok, so you could just go &lt;a href=&#34;https://www.microsoft.com/net/core#windows&#34;&gt;RTFM&lt;/a&gt;. But I will still go ahead and produce the Hello World of dotnet applications. &lt;a href=&#34;http://www.mirror.co.uk/news/world-news/internet-full-experts-warn-web-5628789&#34;&gt;The internet will be full soon&lt;/a&gt;, I might as well do my bit.&lt;/p&gt;
+&lt;p&gt;Firstly, like with git, we create a new folder and initialise it. In this case, the folder is the equivalent of a project folder.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir MyNewApp
+cd MyNewApp
+dotnet new
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Fun fact: the first time you run &lt;code&gt;dotnet new&lt;/code&gt; you might see this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Welcome to .NET Core!
+---------------------
+Learn more about .NET Core @ https://aka.ms/dotnet-docs. Use dotnet --help to see available commands or go to https://aka.ms/dotnet-cli-docs.
+Telemetry
+--------------
+The .NET Core tools collect usage data in order to improve your experience. The data is anonymous and does not include commandline arguments. The data is collected by Microsoft and shared with the community.
+You can opt out of telemetry by setting a DOTNET_CLI_TELEMETRY_OPTOUT environment variable to 1 using your favorite shell.
+You can read more about .NET Core tools telemetry @ https://aka.ms/dotnet-cli-telemetry.
+Configuring...
+-------------------
+A command is running to initially populate your local package cache, to improve restore speed and enable offline access. This command will take up to a minute to complete and will only happen once.
+Decompressing 100% 6252 ms
+Expanding 100% 45184 ms
+Created new C# project in C:\dev\temp\MyNewApp.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But I digress. We should now have a new application created with two files:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Program.cs&lt;/li&gt;
+&lt;li&gt;project.json&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Technically, this is enough for a dotnet app.&lt;/p&gt;
+&lt;p&gt;First, we need to restore. This is NuGet restore and version locking of the project.json. The project.lock.json file produced is similar to the RubyGem or npm lockfile concept.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet restore
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;log  : Restoring packages for C:\dev\temp\MyNewApp\project.json...
+log  : Writing lock file to disk. Path: C:\dev\temp\MyNewApp\project.lock.json
+log  : C:\dev\temp\MyNewApp\project.json
+log  : Restore completed in 2520ms.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we run a build.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Project MyNewApp (.NETCoreApp,Version=v1.0) will be compiled because expected outputs are missing
+Compiling MyNewApp for .NETCoreApp,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:04.6165052
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And finally, we run the application.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dotnet run
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Project MyNewApp (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
+Hello World!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That&amp;rsquo;s it. We have a fully executable .Net Core Application.&lt;/p&gt;
+&lt;h3 id=&#34;visual-studio&#34;&gt;Visual Studio)&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s repeat with Visual Studio now. Choose File-&amp;gt; New Project and Select the &lt;code&gt;Console Application (.Net Core)&lt;/code&gt; template from under the new &lt;code&gt;.Net Core&lt;/code&gt; C# category.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1467318810/FileNewDotNetCoreApp_ktcsks.png&#34; alt=&#34;Select Console Application .Net Core from File New Project.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;This will create a new Solution with a new Project, a new &lt;code&gt;xproj&lt;/code&gt; format. The folder structure is roughly:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MyNewApp
+&lt;ul&gt;
+&lt;li&gt;src
+&lt;ul&gt;
+&lt;li&gt;MyNewApp
+&lt;ul&gt;
+&lt;li&gt;Properties
+&lt;ul&gt;
+&lt;li&gt;AssemblyInfo.cs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;MyNewApp.xproj&lt;/li&gt;
+&lt;li&gt;Program.cs&lt;/li&gt;
+&lt;li&gt;project.json&lt;/li&gt;
+&lt;li&gt;project.lock.json&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;global.json&lt;/li&gt;
+&lt;li&gt;MyNewApp.sln&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It is worth noting that the tooling is still not finalised, and that the &lt;code&gt;xproj&lt;/code&gt; and msbuild tooling is likely to continue to change, and will the other &lt;code&gt;csproj&lt;/code&gt; folders and the project.json file things.&lt;/p&gt;
+&lt;p&gt;So now we have a project in Visual Studio. If we build and run, both will succeed but there isn&amp;rsquo;t much to see. Let&amp;rsquo;s add the following to our Progam.cs Main method:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;Console.WriteLine(&amp;quot;Hello World!&amp;quot;);
+Console.ReadKey();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now If we build and run, we should see our Hello World app run. (Press any key to exit).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1467319695/HelloWorldCoreApp_xetx7x.png&#34; alt=&#34;Hello World .Net Core app running.&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;easy&#34;&gt;Easy&lt;/h3&gt;
+&lt;p&gt;Next time we will take a deeper look into the &lt;code&gt;project.json&lt;/code&gt; file and start to experiment on ways to build more complex applications with the new .Net Core.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A couple of debugging tips</title>
+      <link>https://blogmigration.csmac.nz/post/a-couple-of-debugging-tips/</link>
+      <pubDate>Mon, 23 May 2016 04:33:09 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/a-couple-of-debugging-tips/</guid>
+      <description>&lt;p&gt;I had an idea of something I wanted to post, but a quick google turns up I &lt;a href=&#34;http://blog.csmac.nz/on-gitversioning-subdirectories/&#34;&gt;posted it 6 months ago&lt;/a&gt;, so here are some debugging tips.&lt;/p&gt;
+&lt;h3 id=&#34;console-break&#34;&gt;Console Break&lt;/h3&gt;
+&lt;p&gt;So you are writing a console app? Cool. Want to see the output? Of course, you do. But when you run it, the app pops up then disappears really quickly right? No? Have you a break point in the last line? Well, that&amp;rsquo;s sensible.&lt;/p&gt;
+&lt;p&gt;But what if you do not want to remember to put that break point in everytime git cleans your directory, or someone pulls the code for the first time?&lt;/p&gt;
+&lt;p&gt;How about this?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        //App goes here
+
+        Console.ReadLine();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nice trick! Now every time the app runs, it waits for a keypress to continue. But what about when you run the app for real. Damn! I didn&amp;rsquo;t really want the app to wait for a key to exit&amp;hellip; I&amp;rsquo;ve got it!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        //App goes here
+
+
+        if(Debugger.IsAttached)
+        {    
+            Console.ReadLine();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, it will only stop if the debugger is attached. Perfect.&lt;/p&gt;
+&lt;p&gt;Performance overhead you say? Really? I wouldn&amp;rsquo;t be worried but if you want we can do this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        //App goes here
+
+
+        BreakOnDebug();
+    }
+
+    [Conditional(&amp;quot;DEBUG&amp;quot;)]
+    private void BreakOnDebug()
+    {
+        if (Debugger.IsAttached)
+        {
+            Console.ReadLine();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Happy?&lt;/p&gt;
+&lt;p&gt;You can also try using &lt;code&gt;if (Debugger.IsAttached) {Debugger.Break(); }&lt;/code&gt; instead of ReadLine to force the code to actually stop and to start debugging the state of your application instead. Although to be fair, at the end of the app, there probably isn&amp;rsquo;t much to see.&lt;/p&gt;
+&lt;h3 id=&#34;command-line-attach&#34;&gt;Command-line attach&lt;/h3&gt;
+&lt;p&gt;But I really want to be able to run this at the command line, from a specific folder, and play with the arguments. And I just found it crashes for some reason.  Well, I let it attach to VS automatically (the dialog does come up), but what I really want to do, is run it attached to the debugger and step through.  How about this?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine(&amp;quot;Attach debugger and press any key to continue&amp;quot;);
+        Console.ReadLine(); 
+
+        //breakpoint goes here
+
+        //App goes here
+        ...    
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now I can run my app and it stops before starting.  I can use the &lt;em&gt;debug =&amp;gt; attach to process&amp;hellip;&lt;/em&gt; menu it Visual Studio to attach, like I would to an IIS site, but instead to the running instance of my console app. Easy. Press a key in the console and any of my breakpoints and I can step through the specific parameters running from the specific folder and get the bottom of this bug.&lt;/p&gt;
+&lt;p&gt;The only catch here is to not forget to remove the code when not running debug builds.  Or we could use the same trick again:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Program
+{
+    static void Main(string[] args)
+    {
+        StopAndWaitOnDebug();
+
+        //breakpoint goes here
+
+        //App goes here
+        ...    
+    }
+    
+    [Conditional(&amp;quot;DEBUG&amp;quot;)]
+    private void StopAndWaitOnDebug()
+    {
+        Console.WriteLine(&amp;quot;Attach debugger and press any key to continue&amp;quot;);
+        Console.ReadLine();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also try using &lt;code&gt;if (Debugger.IsAttached) {Debugger.Break(); }&lt;/code&gt; as well after the ReadLine if you really wanted to.&lt;/p&gt;
+&lt;p&gt;So there you go. Some nice and useful ways to use the &lt;code&gt;Console.ReadLine&lt;/code&gt; method for debugging.&lt;/p&gt;
 </description>
     </item>
     

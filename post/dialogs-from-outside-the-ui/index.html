@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz";
+                window.location = "https:\/\/blogmigration.csmac.nz\/post\/dialogs-from-outside-the-ui\/";
             }
         </script>
 
@@ -18,7 +18,7 @@
     
         <title>Dialogs From Outside the UI - csMACnz&#39;s Blog</title>
         <meta name="description" content="If you are getting the &ldquo;Dialogs must be user-initiated.&rdquo; error in Visual Studio, you are probably calling an OpenFileDialog or SaveFileDialog from the wrong place. The most common &lsquo;wrong place&rsquo; …">
-        <meta name='keywords' content='csMACnz, Gotchas'>
+        <meta name='keywords' content='csMACnz, Tips and Tricks'>
 
         
         <meta property="og:type" content="article"/>
@@ -90,7 +90,7 @@
             "url" : "https:\/\/blogmigration.csmac.nz\/post\/dialogs-from-outside-the-ui\/",
             "datePublished": "2010-10-14T02:17:28.000Z",
             "dateModified" : "2010-10-14T02:17:28.000Z",
-            "keywords" : [ "Gotchas" ]
+            "keywords" : [ "Tips and Tricks" ]
             "description" : "If you are getting the \u0026ldquo;Dialogs must be user-initiated.\u0026rdquo; error in Visual Studio, you are probably calling an OpenFileDialog or SaveFileDialog from the wrong place.\nThe most common \u0026lsquo;wrong place\u0026rsquo; seems to actually be the debugger. If are stepping through your code and try to step over a dialog.ShowDialog() call, you will most definitely get this error. So before you go rewriting your code, try placing the breakpoint after the call, and see if that fixes your problem.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
@@ -130,11 +130,8 @@
 <!--Page Content Begins-->
 
 <article>
-    <div class="content-box" itemscope itemtype=" https://schema.org/Article">
-    
-        <span class="post-meta"><time datetime="2010-10-14"  itemprop="datePublished">14 Oct 10</time> on <a href="/tags/gotchas">Gotchas</a></span>
-    
-        <h1 class="post-title" itemprop="headline">Dialogs From Outside the UI</h1>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2010-10-14"  itemprop="datePublished">14 Oct 10</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/tips-and-tricks">Tips and Tricks</a></span>
+<h1 class="post-title" itemprop="headline">Dialogs From Outside the UI</h1>
     
         <section class="post-content"  itemprop="articleBody">
             <p>If you are getting the &ldquo;Dialogs must be user-initiated.&rdquo; error in Visual Studio, you are probably calling an OpenFileDialog or SaveFileDialog from the wrong place.</p>

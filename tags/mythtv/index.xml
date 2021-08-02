@@ -12,7 +12,28 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Fri, 16 Jan 2009 11:40:36 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/mythtv/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Mar 2010 05:54:01 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/mythtv/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>From MythTV to Windows Media Center</title>
+      <link>https://blogmigration.csmac.nz/post/from-mythtv-to-windows-media-center/</link>
+      <pubDate>Sun, 14 Mar 2010 05:54:01 +0000</pubDate>
+      
+      <guid>https://blogmigration.csmac.nz/post/from-mythtv-to-windows-media-center/</guid>
+      <description>&lt;p&gt;I recently decided to make the leap from Ubuntu and open source MythTV to the professional product, Microsoft&amp;rsquo;s Windows Media Center. Why you may ask? Well to be honest I moved and lost my Freeview reception, then came to the conclusion that without that I no longer had any real use for the machine. But also I have recently become a Windows developer and and using Linux less and less. My Windows partitions on my other machines are getting booted more and more, and with windows 7 out (and getting my hands on a couple of copies) I thought it a good time to change focus and try another media PC software out.&lt;/p&gt;
+&lt;p&gt;So now we have the why out of the way, lets look at some of the things I wanted to say, the reason for this post. Lets start with the more general point.&lt;/p&gt;
+&lt;h3 id=&#34;using-windows-7-with-linux-ext2ext3-partitions&#34;&gt;Using Windows 7 with Linux ext2/ext3 Partitions&lt;/h3&gt;
+&lt;p&gt;Anyone who has dual-booted a machine has come to the point where they need to access their Windows files from their Linux OS, and are glad there is NTFS support in Linux. But of course the other situation arises where you actually needed that file that is currently in the Linux partition, but you need it in Windows now, and you don&amp;rsquo;t want to have to reboot to get at it. You need to be able to access your Linux Partition (ext2/ext3 or even ext4) from Windows, But the disk format is not natively supported.&lt;/p&gt;
+&lt;p&gt;Several utilities are currently available to solve this problem, ext2Ifs, fs-driver&amp;hellip; and a few others. I have up till this point been using ext2Ifs with my Windows XP/Ubuntu and Windows Vista/Ubuntu machines for a while and found it really good. It allows read/write access to ext2, and read for ext3.  It even works with Windows 7, though it needs to be installed and used in Vista Compatibility mode, which is great for most cases. Problem solved.&lt;/p&gt;
+&lt;p&gt;Unfortunately, the lasted version of Ubuntu is now formating it&amp;rsquo;s ext3 partitions using an inode size of 256-byte, where it used to use a size of 128-byte.  It would seem that such a small change has not been considered when the utilities for ext* partitions in Windows were built. That is to say, that ext2Ifs, my trusted partition reader, does not work with my new Ubuntu partition that is using the 256-byte version.&lt;/p&gt;
+&lt;p&gt;I did find a solution in the form of ext2Fsd. This utility can and does support the new inode size, and I can now read my media from my old MythTV install in my new Windows 7 Media Center install.&lt;/p&gt;
+&lt;h3 id=&#34;windows-media-center-and-codecs&#34;&gt;Windows Media Center and Codecs&lt;/h3&gt;
+&lt;p&gt;Media comes in all shapes and sizes, or should I say codecs and containers. Normally in these situations, when  media player doesn&amp;rsquo;t play a particular codec, I install some version of Windows_*_codec_pack and that solves the problem, or rinse and repeat. But luckily today I stumbled upon a post from Chris Lanier from 2007 that points the general punter in the correct direction. His recommendation on codec packs is &amp;ldquo;While a very few of them are built nicely, the majority of built by pirates who know little to nothing about what they are doing&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;His advice is two parts. Install something to handle the containers, and Install something else to handle the codecs. The first thing is &lt;a href=&#34;http://haali.cs.msu.ru/mkv/&#34;&gt;Haali Media Splitter&lt;/a&gt; and the second is &lt;a href=&#34;http://ffdshow-tryout.sourceforge.net/&#34;&gt;ffdshow&lt;/a&gt;. Ffdshow is familiar to me, because it is what i have been using with MythTV as my codecs of choice.&lt;/p&gt;
+&lt;p&gt;The full article can be found &lt;a href=&#34;http://msmvps.com/blogs/chrisl/archive/2007/07/21/1046591.aspx&#34; title=&#34;Guide to Codecs in Vista Media Center&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So there you have it, with that completed I can watch my media from my ext3 hard drive in Windows Media Center under Windows 7. The next step with the Media PC saga will be to move again to get better Freeview HD reception, or buy a satellite and new PVR card and go the Freeview Satellite approach. Time will tell.&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>Myth Update</title>
       <link>https://blogmigration.csmac.nz/post/myth-update/</link>
