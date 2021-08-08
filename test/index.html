@@ -4,7 +4,7 @@
 
         <script>
             if(!/blogmigration\.csmac\.nz/.test(window.location.host)) {
-                window.location = "https:\/\/blogmigration.csmac.nz\/tags\/docker\/";
+                window.location = "https:\/\/blogmigration.csmac.nz\/test\/";
             }
         </script>
 
@@ -16,22 +16,22 @@
         <meta name='medium' content='blog'>
 
     
-        <title>docker - csMACnz&#39;s Blog</title>
-        <meta name="description" content="">
+        <title>Test - csMACnz&#39;s Blog</title>
+        <meta name="description" content=" ">
         <meta name='keywords' content='csMACnz'>
 
         
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="docker"/>
-        <meta property="og:description" content=""/>
+        <meta property="og:title" content="Test"/>
+        <meta property="og:description" content=" "/>
         <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
-        <meta property="og:url" content="https://blogmigration.csmac.nz/tags/docker/"/>
+        <meta property="og:url" content="https://blogmigration.csmac.nz/test/"/>
         <meta property="og:image" content="https://csmac.nz/Content/icon/icon.png"/>
 
         
         <meta name="twitter:card" content="summary"/>
-        <meta name="twitter:title" content="docker"/>
-        <meta name="twitter:description" content=""/>
+        <meta name="twitter:title" content="Test"/>
+        <meta name="twitter:description" content=" "/>
         <meta name="twitter:image" content="https://csmac.nz/Content/icon/icon.png"/>
         <meta name="twitter:site" content="@csMACnz"/>
         <meta name="twitter:creator" content="@csMACnz"/>
@@ -60,7 +60,8 @@
         crossorigin="anonymous"></script>
 
         
-        <link rel="alternate" type="application/rss+xml" title="csMACnz's Blog" href="https://blogmigration.csmac.nz/tags/docker/index.xml" />
+        
+        
         
     </head>
     <body class="blog">
@@ -82,63 +83,29 @@
             <div id="content" class="content-area">
 
 <!--Page Content Begins-->
-
-<main class="content-box" role="main">
-  <h1>docker tags</h1>
-  <span class="post-meta">in <a href="/tags">tags</a></span><div>
-    <header class="post-header">
-        <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/dotnet-docker-tips-and-tricks/" rel="bookmark">.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</a></h2><span class="post-meta"><time datetime="2018-07-16"  itemprop="datePublished">16 Jul 18</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/docker">docker</a>,  <a href="/tags/dotnetcore">dotnetcore</a>,  <a href="/tags/visual-studio">Visual Studio</a></span>
-<a href="/post/dotnet-docker-tips-and-tricks/#disqus_thread"></a>
-    </header>
-
-    <section class="post-excerpt" itemprop="description">
-        <p>I&rsquo;ve started getting into building Docker Containers as deployment packages. These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.
-Start with the defaults Use the built-in tools in Visual Studio to …</p>
-    </section>
-</div><div>
-    <header class="post-header">
-        <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/develop-your-rust-in-docker/" rel="bookmark">Develop your Rust in Docker</a></h2><span class="post-meta"><time datetime="2018-05-14"  itemprop="datePublished">14 May 18</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/rust">Rust</a>,  <a href="/tags/docker">docker</a></span>
-<a href="/post/develop-your-rust-in-docker/#disqus_thread"></a>
-    </header>
-
-    <section class="post-excerpt" itemprop="description">
-        <p>I decided a while ago that the next language I would try to learn is Rust. I don&rsquo;t want to go too much into Rust other than to repeat its own summary:
- Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. &ndash; https://www.rust-lang.org/
- But like …</p>
-    </section>
-</div><div>
-    <header class="post-header">
-        <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/a-windows-service-on-dotnet/" rel="bookmark">A Windows Service using netcoreapp on dotnet</a></h2><span class="post-meta"><time datetime="2018-04-22"  itemprop="datePublished">22 Apr 18</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/dotnetcore">dotnetcore</a>,  <a href="/tags/tips-and-tricks">Tips and Tricks</a>,  <a href="/tags/docker">docker</a></span>
-<a href="/post/a-windows-service-on-dotnet/#disqus_thread"></a>
-    </header>
-
-    <section class="post-excerpt" itemprop="description">
-        <p>I wrote Building a Windows Service with .Net Core and had a bit of flack because I was only using .Net core to build a .Net 4.5.2 application. Technically the title is still valid, it was a windows service, and I built it using .Net Core tools. But since people came looking for the answer to actually hosting a …</p>
-    </section>
-</div><div>
-    <header class="post-header">
-        <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/dotnet-build-targeting-full-net451-on-nanoserver-2/" rel="bookmark">dotnet build, targeting full .Net 4.5.1 on nanoserver docker</a></h2><span class="post-meta"><time datetime="2017-03-31"  itemprop="datePublished">31 Mar 17</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/dotnetcore">dotnetcore</a>,  <a href="/tags/docker">docker</a>,  <a href="/tags/tips-and-tricks">Tips and Tricks</a></span>
-<a href="/post/dotnet-build-targeting-full-net451-on-nanoserver-2/#disqus_thread"></a>
-    </header>
-
-    <section class="post-excerpt" itemprop="description">
-        <p>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
-Basically I was trying this:
-docker run -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 …</p>
-    </section>
-</div><div>
-    <header class="post-header">
-        <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/" rel="bookmark">&#34;failed to peek context header from STDIN&#34; and how to fix</a></h2><span class="post-meta"><time datetime="2016-11-29"  itemprop="datePublished">29 Nov 16</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/tips-and-tricks">Tips and Tricks</a>,  <a href="/tags/docker">docker</a></span>
-<a href="/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/#disqus_thread"></a>
-    </header>
-
-    <section class="post-excerpt" itemprop="description">
-        <p>The docker guidance says you can run docker build piping the dockerfile:
-#On linux$ docker build - &lt; Dockerfile and on Windows it says to do this:
-#PowerShellGet-Content Dockerfile | docker build - Nice. But I&rsquo;ve been getting this error all day&hellip;
-&gt; Get-Content Dockerfile | docker build -unable to …</p>
-    </section>
-</div></main>
+<div id="latestpostframe" data-include-html="/latest/"></div>
+<script>
+(function includeHTML() {
+  var elmnt, file, xhttp;
+  /*loop through a collection of all HTML elements:*/
+  elmnt = document.getElementById("latestpostframe");
+  /*search for elements with a certain atrribute:*/
+  file = elmnt.getAttribute("data-include-html");
+  if (file) {
+    /*make an HTTP request using the attribute value as the file name:*/
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+      }
+    } 
+    xhttp.open("GET", file, true);
+    xhttp.send();
+    /*exit the function:*/
+    return;
+  }
+})()
+</script>
 
 <!--Page Content Ends-->
 
