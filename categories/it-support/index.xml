@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>IT Support on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/categories/it-support/</link>
+    <link>https://blog.csmac.nz/categories/it-support/</link>
     <description>Recent content in IT Support on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 09 Nov 2020 07:11:07 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/it-support/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Nov 2020 07:11:07 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/categories/it-support/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bluetooth Devices keep disconnecting</title>
-      <link>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
+      <link>https://blog.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
       <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
+      <guid>https://blog.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
       <description>&lt;p&gt;It all started when I installed Windows Update 20H2 in October 2020.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve had a stable machine (HP ZBook laptop for reference) for months and months with the same Bluetooth hardware, no issues. But that fateful day I installed the 20H2 update from Microsoft, everything changed.&lt;/p&gt;
 &lt;p&gt;Suddenly I was having disconnect issues. I have a Bluetooth keyboard and Bluetooth mouse connected (I think they are both low energy?) And I found that one of them would reconnect, and the other wouldn&amp;rsquo;t. If I turned one-off, the other would reconnect, but the first one wouldn&amp;rsquo;t be able to when turned back on.&lt;/p&gt;
@@ -32,10 +32,10 @@
     
     <item>
       <title>Sharing audio to Google Hangouts (or Meets)</title>
-      <link>https://blogmigration.csmac.nz/post/sharing-audio-to-google-hangouts-or-meets/</link>
+      <link>https://blog.csmac.nz/post/sharing-audio-to-google-hangouts-or-meets/</link>
       <pubDate>Mon, 15 Oct 2018 05:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/sharing-audio-to-google-hangouts-or-meets/</guid>
+      <guid>https://blog.csmac.nz/post/sharing-audio-to-google-hangouts-or-meets/</guid>
       <description>&lt;p&gt;I work remotely, and I&amp;rsquo;ve used a bunch of solutions over the last few years to be able to route audio from my computer into a meeting call in Google Hangouts. From hardware to virtual audio cable software, every solution has been finicky at best, and wrecks day-to-day audio and video at worst, and requires a bunch of mucking around every time I want to enable or disable the setup.&lt;/p&gt;
 &lt;p&gt;But not anymore.&lt;/p&gt;
 &lt;p&gt;Just recently I discovered that the power of Google Hangouts combined with the power of Chrome Cast is an amazing solution to all your problems!&lt;/p&gt;
@@ -60,10 +60,10 @@
     
     <item>
       <title>Some cool tricks with your Windows Shells</title>
-      <link>https://blogmigration.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</link>
+      <link>https://blog.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</link>
       <pubDate>Mon, 09 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</guid>
+      <guid>https://blog.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (&lt;a href=&#34;https://docs.microsoft.com/en-us/windows/wsl/install-win10&#34;&gt;Windows Subsystem for Linux&lt;/a&gt;).  There are a few of the tricks I have learned recently that help me every day.&lt;/p&gt;
 &lt;h3 id=&#34;f8-searches-history&#34;&gt;F8 searches history!&lt;/h3&gt;
 &lt;p&gt;That&amp;rsquo;s right! When you type into the command line (this work in cmd and PowerShell) and then press F8, it will do a back-in-time search for a historical command that begins with what you typed. This is a nice way to auto-complete an entire command with complex arguments quickly and easily.&lt;/p&gt;
@@ -95,10 +95,10 @@
     
     <item>
       <title>On Screen Shortcut keys for presentations and recordings</title>
-      <link>https://blogmigration.csmac.nz/post/on-screen-shortcut-keys-for-presentations-and-recordings/</link>
+      <link>https://blog.csmac.nz/post/on-screen-shortcut-keys-for-presentations-and-recordings/</link>
       <pubDate>Mon, 26 Feb 2018 04:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/on-screen-shortcut-keys-for-presentations-and-recordings/</guid>
+      <guid>https://blog.csmac.nz/post/on-screen-shortcut-keys-for-presentations-and-recordings/</guid>
       <description>&lt;p&gt;I used this tool a while ago that let me show on-screen what keyboard shortcuts and combinations I was pressing so that others could see them, especially during presentations, and on video recordings.&lt;/p&gt;
 &lt;p&gt;But for the life of me today, on a new machine, I couldn&amp;rsquo;t remember what it was called. Searching didn&amp;rsquo;t help. For future reference, I will remember I wrote this article, and hopefully, others searching for &amp;ldquo;show shortcut keys on screen&amp;rdquo; will find this article as well.&lt;/p&gt;
 &lt;p&gt;The tool I used was called Carnac. Carnac is a &lt;a href=&#34;https://github.com/Code52/carnac&#34;&gt;Code52 project on GitHub&lt;/a&gt;. It nicely shows the shortcut keys you press, such as &lt;code&gt;ctrl+c&lt;/code&gt;, &lt;code&gt;alt+enter&lt;/code&gt; &lt;code&gt;ctrl+.&lt;/code&gt; etc on the screen so that others can see what you pressed.  Since I&amp;rsquo;m recording a few videos of coding at the moment, this will add an extra benefit for those watching them.&lt;/p&gt;
@@ -110,10 +110,10 @@
     
     <item>
       <title>Couldn&#39;t Connect. Get Connected to your Wireless Display Adapter</title>
-      <link>https://blogmigration.csmac.nz/post/fix-wireless-display-connection/</link>
+      <link>https://blog.csmac.nz/post/fix-wireless-display-connection/</link>
       <pubDate>Mon, 13 Nov 2017 06:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/fix-wireless-display-connection/</guid>
+      <guid>https://blog.csmac.nz/post/fix-wireless-display-connection/</guid>
       <description>&lt;p&gt;I was having trouble with connecting my laptops to a remote display with Miricast.&lt;/p&gt;
 &lt;p&gt;Specifically, I was trying to use the functionality built into Windows 10 to connect to a wireless display and had a Microsoft Wireless Display Adapter V2 plugged into my TV.&lt;/p&gt;
 &lt;p&gt;It would say &lt;code&gt;Connecting to ...&lt;/code&gt; for a while and then fail with a message &lt;code&gt;Couldn&#39;t connect&lt;/code&gt;.&lt;/p&gt;
@@ -131,10 +131,10 @@
     
     <item>
       <title>Microsoft &amp; Google, Android Wear support is missing</title>
-      <link>https://blogmigration.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</link>
+      <link>https://blog.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</link>
       <pubDate>Thu, 19 Jan 2017 23:50:24 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</guid>
+      <guid>https://blog.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</guid>
       <description>&lt;p&gt;Ok, so I know I am in the minority as a Windows Phone user, but sometimes I just get frustrated and I wish Microsoft at least tried to achieve parity with their platforms, and not leave it to others who just won&amp;rsquo;t bother.&lt;/p&gt;
 &lt;p&gt;I have a really nice &lt;a href=&#34;https://www.microsoftstore.com/store/msuk/en_GB/pdp/Acer-Liquid-Jade-Primo--Unlocked/productID.5064103000&#34;&gt;Acer Liquid Jade Primo&lt;/a&gt; Windows 10 mobile phone. Continuum, Hexa Core Processor, 3GB memory, nice 5.5&amp;quot; screen, great camera.&lt;/p&gt;
 &lt;p&gt;Yesterday I went shopping and saw the really nice Fossil Q watches. (Further disclaimer: I already own a really nice Fossil Mechanical watch, and a Microsoft Band 2) They were really nice, but I had to walk away. Why? Because they run Android Wear.&lt;/p&gt;
@@ -148,10 +148,10 @@
     
     <item>
       <title>Microsoft Band 2 - The first 24 hours</title>
-      <link>https://blogmigration.csmac.nz/post/microsoft-band-2-the-first-24-hours/</link>
+      <link>https://blog.csmac.nz/post/microsoft-band-2-the-first-24-hours/</link>
       <pubDate>Wed, 18 Nov 2015 09:13:57 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/microsoft-band-2-the-first-24-hours/</guid>
+      <guid>https://blog.csmac.nz/post/microsoft-band-2-the-first-24-hours/</guid>
       <description>&lt;p&gt;My Microsoft Band finally arrived yesterday morning, so obviously I put it straight on (after a charge of course). Here is a chronicle of first impressions.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_800/v1447883120/microsoftbandunboxed_qlnuof.png&#34; alt=&#34;Unboxing the device.&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;setup&#34;&gt;Setup&lt;/h3&gt;
@@ -180,10 +180,10 @@
     
     <item>
       <title>F5 VPN and Windows 10</title>
-      <link>https://blogmigration.csmac.nz/post/f5-vpn-and-windows-10/</link>
+      <link>https://blog.csmac.nz/post/f5-vpn-and-windows-10/</link>
       <pubDate>Thu, 03 Sep 2015 09:24:27 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/f5-vpn-and-windows-10/</guid>
+      <guid>https://blog.csmac.nz/post/f5-vpn-and-windows-10/</guid>
       <description>&lt;p&gt;I recently had the need to VPN into a network using an F5 Networks VPN.  Turns out the provided BIG-IP Edge Client installs ok on Windows 10 but doesn&amp;rsquo;t connect.  I kept getting the &amp;ldquo;Network Access Connection Device was not found.&amp;rdquo; error at the last step of connecting.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1441314642/Error_b6ernt.png&#34; alt=&#34;&amp;ldquo;Network Access Connection Device was not found.&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Turns out that it was adding a &amp;lsquo;device&amp;rsquo; to device manager but not associating a driver to it.  Easily fixed as it happens.&lt;/p&gt;
@@ -214,13 +214,13 @@
     
     <item>
       <title>Keyboard shortcuts for Windows 10 Power Users - Part 2</title>
-      <link>https://blogmigration.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-2/</link>
+      <link>https://blog.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-2/</link>
       <pubDate>Thu, 20 Aug 2015 07:57:16 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-2/</guid>
+      <guid>https://blog.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-2/</guid>
       <description>&lt;p&gt;When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Part 1: &lt;a href=&#34;https://blogmigration.csmac.nz/keyboard-shortcuts-for-windows-10-power-users-1&#34;&gt;What&amp;rsquo;s New&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 1: &lt;a href=&#34;https://blog.csmac.nz/keyboard-shortcuts-for-windows-10-power-users-1&#34;&gt;What&amp;rsquo;s New&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Part 2: Old Classics &amp;lt;=(We are here)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;part-2-old-classics&#34;&gt;Part 2 Old classics&lt;/h2&gt;
@@ -261,14 +261,14 @@
     
     <item>
       <title>Keyboard shortcuts for Windows 10 Power Users - Part 1</title>
-      <link>https://blogmigration.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-1/</link>
+      <link>https://blog.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-1/</link>
       <pubDate>Sun, 16 Aug 2015 07:46:39 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-1/</guid>
+      <guid>https://blog.csmac.nz/post/keyboard-shortcuts-for-windows-10-power-users-1/</guid>
       <description>&lt;p&gt;When Windows 8 came out, I got really into the new shortcuts and found out some had been there for a while that I never knew about. Windows 10 is out now and I&amp;rsquo;ve learned a few more that have been around just as long that I never knew. Since there are a lot of shortcuts, I&amp;rsquo;ve split this into two parts.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Part 1: What&amp;rsquo;s New &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;Part 2: &lt;a href=&#34;https://blogmigration.csmac.nz/keyboard-shortcuts-for-windows-10-power-users-2&#34;&gt;Old Classics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 2: &lt;a href=&#34;https://blog.csmac.nz/keyboard-shortcuts-for-windows-10-power-users-2&#34;&gt;Old Classics&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;part-1-whats-new&#34;&gt;Part 1: Whats new?&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s focus on what is new to Windows 7 users. Some of these are completely new to Windows 10, and some have been around since 8, but they might not do exactly what they used to.&lt;/p&gt;
@@ -320,10 +320,10 @@
     
     <item>
       <title>Windows 10 Animations</title>
-      <link>https://blogmigration.csmac.nz/post/windows-10-animations/</link>
+      <link>https://blog.csmac.nz/post/windows-10-animations/</link>
       <pubDate>Sun, 02 Aug 2015 17:18:45 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/windows-10-animations/</guid>
+      <guid>https://blog.csmac.nz/post/windows-10-animations/</guid>
       <description>&lt;p&gt;You&amp;rsquo;ve upgraded to windows 10 and are really enjoying it. But are you making the most of the visualisations it now provides you?&lt;/p&gt;
 &lt;p&gt;Since &lt;a href=&#34;https://en.wikipedia.org/wiki/Windows_Aero&#34;&gt;Aero&lt;/a&gt; came onto the scene in Vista, Windows has leveraged your graphics card to add heaps of whiz-bang effects to windows. Transparent windows, animating transitions and other such visual effects.  With Windows 10 we have new ones, such as the multiple desktops transition, and the new interpretation of the task switcher labeled Task View.&lt;/p&gt;
 &lt;p&gt;Luckily there has also always been a way to customise how little, or how much of the animations you want to see or use.&lt;/p&gt;
@@ -350,10 +350,10 @@
     
     <item>
       <title>Windows 10 phantom text fix</title>
-      <link>https://blogmigration.csmac.nz/post/windows-10-phantom-text-fix/</link>
+      <link>https://blog.csmac.nz/post/windows-10-phantom-text-fix/</link>
       <pubDate>Wed, 01 Jul 2015 20:35:13 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/windows-10-phantom-text-fix/</guid>
+      <guid>https://blog.csmac.nz/post/windows-10-phantom-text-fix/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been using the Windows 10 Insider Previews on my &lt;a href=&#34;http://www.dell.com/us/dfb/p/latitude-10-st2e/pd&#34;&gt;Dell Latitude ST2E Tablet&lt;/a&gt; for a few months and It has been a bit hit and miss.  I&amp;rsquo;ve really enjoyed the experience of previewing what&amp;rsquo;s coming, but it has been quite buggy up until the 10158/10159 builds leading up to the July 29th RTM.  But there is one bug that has survived for me that, through wishful thinking I had expected to just go away after a while. That is, the phantom text, invisible text, or missing text bug, depending on what you want to call it.&lt;/p&gt;
 &lt;h3 id=&#34;exhibit-a&#34;&gt;Exhibit A&lt;/h3&gt;
 &lt;p&gt;This is a symptom I&amp;rsquo;ve been seeing on one Windows 8 app in particular while using windows 10, the &lt;a href=&#34;http://apps.microsoft.com/windows/en-nz/app/comics/39c58b6e-8b89-4127-a7a3-914cc7918b98&#34;&gt;Comixology App&lt;/a&gt;. Almost all of the buttons, links and text descriptions were completely missing, except maybe becoming visible when you press down on a button.  As of the 10158 release, I have started seeing this also happen on the new Windows 10 Store app as well. It makes it kind of tricky to use the apps when the content is blank.&lt;/p&gt;
@@ -385,10 +385,10 @@
     
     <item>
       <title>New Zealand Public holidays Calendar</title>
-      <link>https://blogmigration.csmac.nz/post/new-zealand-public-holidays-calendar/</link>
+      <link>https://blog.csmac.nz/post/new-zealand-public-holidays-calendar/</link>
       <pubDate>Tue, 02 Dec 2014 14:53:39 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/new-zealand-public-holidays-calendar/</guid>
+      <guid>https://blog.csmac.nz/post/new-zealand-public-holidays-calendar/</guid>
       <description>&lt;p&gt;Want to see all the New Zealand public holidays on your calendar on your Google Calendar, but don&amp;rsquo;t want to have to enter them yourself, or maintain them?&lt;/p&gt;
 &lt;p&gt;I found this great page with &lt;a href=&#34;http://www.dol.govt.nz/er/holidaysandleave/publicholidays/publicholidaydates/&#34;&gt;public holidays and calendars&lt;/a&gt; on the MBIE site.  They have the New Zealand public holidays here for the current, past and future years for your reference. They also have this great link to an icalendar (ics) url for &lt;a href=&#34;http://www.dol.govt.nz/er/holidaysandleave/publicholidays/publicholidaydates/ical/public-holidays-all.ics&#34;&gt;National public holiday dates, including all regional anniversaries&lt;/a&gt; (linked here for your reference) on the &lt;a href=&#34;http://www.dol.govt.nz/er/holidaysandleave/publicholidays/publicholidaydates/ical/index.asp&#34;&gt;NZ public holiday iCalendar feeds&lt;/a&gt; page.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve been using this with my personal and work Google calendars, but it should work for you anywhere *.ics web calendars are. Just right click the &lt;a href=&#34;http://www.dol.govt.nz/er/holidaysandleave/publicholidays/publicholidaydates/ical/public-holidays-all.ics&#34;&gt;ical link&lt;/a&gt;, and select &amp;lsquo;Copy link address&amp;rsquo; (or equivalent in your browser of choice). Then in Google Calendar, click the arrow on the left hand side beside &amp;lsquo;Other Calendars&amp;rsquo; and select &amp;lsquo;Add by URL&amp;rsquo;. paste in the url, click &amp;lsquo;Add Calendar&amp;rsquo; and your done.&lt;/p&gt;
@@ -399,20 +399,20 @@
     
     <item>
       <title>Pulseaudio in system-wide mode</title>
-      <link>https://blogmigration.csmac.nz/post/pulseaudio-in-system-wide-mode/</link>
+      <link>https://blog.csmac.nz/post/pulseaudio-in-system-wide-mode/</link>
       <pubDate>Mon, 12 Oct 2009 02:38:01 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/pulseaudio-in-system-wide-mode/</guid>
+      <guid>https://blog.csmac.nz/post/pulseaudio-in-system-wide-mode/</guid>
       <description>&lt;p&gt;I have my machine set up to use MPD (Music Player Daemon to play my music, and use the minion Firefox plug-in MPD client to control it, all well and good, no troubles there. I use Pulseaudio(PA) for sound on my Ubuntu server, and configuring this with MPD is no trouble, just search for MPD and Pulseaudio and the instructions come up several times in the first page. But the problem is that PA defaults to user-session mode, where the user logged in has control over the speakers through PA. If you also have this problem, the solution is system-wide mode. I found this &lt;a href=&#34;http://ubuntuforums.org/showthread.php?t=1108742&#34;&gt;really nice forum post&lt;/a&gt; with simple concise instructions to fix the problem: /etc/pulse/daemon.conf: daemonize = yes system-instance = yes /etc/default/pulseaudio: PULSEAUDIO_SYSTEM_START=1 Once I did that, it all worked, mpd started and i could hit play without needing to log in. The next step is to get it to remember and continue playing over a restart&amp;hellip;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Strange Monitor issues</title>
-      <link>https://blogmigration.csmac.nz/post/strange-monitor-issues/</link>
+      <link>https://blog.csmac.nz/post/strange-monitor-issues/</link>
       <pubDate>Thu, 12 Feb 2009 22:35:24 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/strange-monitor-issues/</guid>
+      <guid>https://blog.csmac.nz/post/strange-monitor-issues/</guid>
       <description>&lt;p&gt;Just a little backstory to put this in context.  I have a dual-boot Vista/Ubuntu machine.  I updated my hardware and vista needed to re-register, but my internet connection was down. Fine, I&amp;rsquo;ll use Ubuntu till my internets back.&lt;/p&gt;
 &lt;p&gt;All is well until I finally reboot into Vista and re-active my licence online, download all the latest updates and reboot. All of a sudden my LCD screen no longer works. Fortunately, I have two screens but the LCD no longer detects as UPnP and won&amp;rsquo;t take a resolution higher than 1024x768. This is really bad and so I figured it was vista being stupid. So I rebooted into ubuntu and guess what? the screen still doesn&amp;rsquo;t work and the resolution is caped at a rediculous 640x480.&lt;/p&gt;
 &lt;p&gt;This really frustrated me and I tried everything I could think of, let the video card cool down, reset the bios, monitor, x11 setup, everything. Nothing worked.&lt;/p&gt;

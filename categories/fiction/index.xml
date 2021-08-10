@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fiction on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/categories/fiction/</link>
+    <link>https://blog.csmac.nz/categories/fiction/</link>
     <description>Recent content in Fiction on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 06 Nov 2017 06:30:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/fiction/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Nov 2017 06:30:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/categories/fiction/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A story about an intern and dotnet</title>
-      <link>https://blogmigration.csmac.nz/post/a-story-about-an-intern-and-dotnet/</link>
+      <link>https://blog.csmac.nz/post/a-story-about-an-intern-and-dotnet/</link>
       <pubDate>Mon, 06 Nov 2017 06:30:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/a-story-about-an-intern-and-dotnet/</guid>
+      <guid>https://blog.csmac.nz/post/a-story-about-an-intern-and-dotnet/</guid>
       <description>&lt;p&gt;Jack the intern was thrilled. He sat at his computer in front of a cmd prompt ready to learn.&lt;/p&gt;
 &lt;p&gt;&amp;ldquo;It&amp;rsquo;s your first day, and we need you to work out all this new dotnet command line stuff&amp;rdquo;. Jack recalled the words of his new Boss, Joe. &amp;ldquo;We are far too busy to figure this out, we have code to ship, but this should keep you busy for a few months while we ship the Widgets 2.0 interface.&amp;rdquo; She looked very serious whenever she talked about the Widgets thing. It must be a big deal. Jack hadn&amp;rsquo;t really understood the whole widgets thing at induction but was happy to have a job.&lt;/p&gt;
 &lt;p&gt;Luckily for Jack, he had just spent the last few months at Uni learning java and python on Linux and was a pro at the command line stuff. His personal machine ran Windows too so he felt pretty comfortable now staring at the cold black shell covering most of his windows desktop.&lt;/p&gt;
@@ -372,10 +372,10 @@ c:\Users\jackr\internTest&amp;gt;dir
     
     <item>
       <title>Learnin&#39; in the machine</title>
-      <link>https://blogmigration.csmac.nz/post/learnin-in-the-machine/</link>
+      <link>https://blog.csmac.nz/post/learnin-in-the-machine/</link>
       <pubDate>Thu, 17 Nov 2016 09:15:53 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/learnin-in-the-machine/</guid>
+      <guid>https://blog.csmac.nz/post/learnin-in-the-machine/</guid>
       <description>&lt;p&gt;&amp;ldquo;We go live in 6 hours! What&amp;rsquo;s the problem?&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;Jerry Gainsborough had just burst into the development team&amp;rsquo;s pod area and started shouting at the very tired, very forlorn looking group of developers. This project was coming to an end after a long 18 months of hard work, many hours of overtime and a lot of Red Bull.&lt;/p&gt;
 &lt;p&gt;John, the team lead, was about to open his mouth when Jerry, the Projects major stakeholder and self-appointed project manager started on again. &amp;ldquo;We have to be ready, what is this about it not working?&amp;rdquo;&lt;/p&gt;

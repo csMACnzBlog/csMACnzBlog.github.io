@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>NuGet on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/nuget/</link>
+    <link>https://blog.csmac.nz/tags/nuget/</link>
     <description>Recent content in NuGet on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 08 Oct 2018 05:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/nuget/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Oct 2018 05:00:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/nuget/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Speciality NuGet Packing on .Net Core</title>
-      <link>https://blogmigration.csmac.nz/post/speciality-nuget-packing/</link>
+      <link>https://blog.csmac.nz/post/speciality-nuget-packing/</link>
       <pubDate>Mon, 08 Oct 2018 05:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/speciality-nuget-packing/</guid>
-      <description>&lt;p&gt;I recently wrote about &lt;a href=&#34;https://blogmigration.csmac.nz/nuget-packing-on-linux/&#34;&gt;NuGet packing on linux&lt;/a&gt; specifically, and want to continue the theme with other things you can do with NuGet packaging.&lt;/p&gt;
+      <guid>https://blog.csmac.nz/post/speciality-nuget-packing/</guid>
+      <description>&lt;p&gt;I recently wrote about &lt;a href=&#34;https://blog.csmac.nz/nuget-packing-on-linux/&#34;&gt;NuGet packing on linux&lt;/a&gt; specifically, and want to continue the theme with other things you can do with NuGet packaging.&lt;/p&gt;
 &lt;p&gt;As a quick recap you can use a .Net Core &lt;code&gt;*.csproj&lt;/code&gt; as a wrapper around a &lt;code&gt;*.nuspec&lt;/code&gt; file and use &lt;code&gt;dotnet pack&lt;/code&gt; to pack it, cross-platform, without needing &lt;code&gt;nuget.exe&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
 
@@ -34,7 +34,7 @@
 &amp;lt;/Project&amp;gt;
 
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(See the &lt;a href=&#34;https://blogmigration.csmac.nz/nuget-packing-on-linux/&#34;&gt;other article&lt;/a&gt; for more detailed analysis of these properties.)&lt;/p&gt;
+&lt;p&gt;(See the &lt;a href=&#34;https://blog.csmac.nz/nuget-packing-on-linux/&#34;&gt;other article&lt;/a&gt; for more detailed analysis of these properties.)&lt;/p&gt;
 &lt;p&gt;Now for something new.&lt;/p&gt;
 &lt;h3 id=&#34;contentfiles&#34;&gt;ContentFiles&lt;/h3&gt;
 &lt;p&gt;Do you remember Content files? There was(is?) this feature in NuGet files where you can include files, and have those files automatically added to your .Net Framework applications when the Package is Installed. Some libraries used this to distribute code that could be embedded into your application instead of linking to a library dependency.  Dapper was one example that did this, and I think some logging frameworks also distributed some code this way.&lt;/p&gt;
@@ -98,10 +98,10 @@ As well as BuildAction &lt;code&gt;Compile&lt;/code&gt;, there are a couple of o
     
     <item>
       <title>NuGet Packing on Linux</title>
-      <link>https://blogmigration.csmac.nz/post/nuget-packing-on-linux/</link>
+      <link>https://blog.csmac.nz/post/nuget-packing-on-linux/</link>
       <pubDate>Mon, 01 Oct 2018 05:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/nuget-packing-on-linux/</guid>
+      <guid>https://blog.csmac.nz/post/nuget-packing-on-linux/</guid>
       <description>&lt;p&gt;For anyone who has been cutting-edge with .Net for a while will know that the nuget.exe runs under mono. And that you can use nuget.exe to package &lt;code&gt;*.nuspec&lt;/code&gt; files into &lt;code&gt;*.nupkg&lt;/code&gt; files.&lt;/p&gt;
 &lt;p&gt;Anyone who has been doing dotnet cross-platform will also know that you can use &lt;code&gt;dotnet pack&lt;/code&gt; on both Windows and Linux to package your project into a NuGet package containing the &lt;code&gt;dll&lt;/code&gt;. It even does references and multi-targeting correctly out of the box.&lt;/p&gt;
 &lt;p&gt;But did you know that you can also use dotnet pack to package any arbitrary &lt;code&gt;nuspec&lt;/code&gt; file as well?&lt;/p&gt;
@@ -162,20 +162,20 @@ As well as BuildAction &lt;code&gt;Compile&lt;/code&gt;, there are a couple of o
     
     <item>
       <title>.Net Core Series - NuGet</title>
-      <link>https://blogmigration.csmac.nz/post/dotnetcore-nuget/</link>
+      <link>https://blog.csmac.nz/post/dotnetcore-nuget/</link>
       <pubDate>Mon, 01 Aug 2016 08:18:33 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/dotnetcore-nuget/</guid>
-      <description>&lt;p&gt;This is a series on the .Net Core 1.0 bits. Looking for &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;.Net Core 2 Series&lt;/a&gt;?&lt;/p&gt;
+      <guid>https://blog.csmac.nz/post/dotnetcore-nuget/</guid>
+      <description>&lt;p&gt;This is a series on the .Net Core 1.0 bits. Looking for &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-getting-started&#34;&gt;.Net Core 2 Series&lt;/a&gt;?&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-testing&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-testing&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;NuGet &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Let&amp;rsquo;s set aside Application packing for later, and focus our attention on NuGet.&lt;/p&gt;
 &lt;h3 id=&#34;our-demo-library&#34;&gt;Our Demo library&lt;/h3&gt;
@@ -295,10 +295,10 @@ dotnet build
     
     <item>
       <title>SOLID-ifying your Nuget Packaging</title>
-      <link>https://blogmigration.csmac.nz/post/solid-ifying-your-nuget-packaging/</link>
+      <link>https://blog.csmac.nz/post/solid-ifying-your-nuget-packaging/</link>
       <pubDate>Mon, 27 Apr 2015 07:54:17 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/solid-ifying-your-nuget-packaging/</guid>
+      <guid>https://blog.csmac.nz/post/solid-ifying-your-nuget-packaging/</guid>
       <description>&lt;p&gt;The other day we were talking about problems we (as a room of developers) had been having with NuGet, inter-package dependencies, and were quick to relate them back to &lt;strong&gt;DLL Hell&lt;/strong&gt;. But I had this slight epiphany from another comment, where it was observed that our &lt;strong&gt;X.Common package&lt;/strong&gt; had &lt;em&gt;&amp;lsquo;helper code&amp;rsquo;&lt;/em&gt; for database access, base class helpers, mathematical calculations, and domain logic common functions. Not to mention the dependencies it pulls in to allow some of this code to work (libraries, adapters, ORMs, frameworks etc).&lt;/p&gt;
 &lt;p&gt;The second part of this problem, was that other packages pulled in this large common package for one small part, and ended up with all of it&amp;rsquo;s dependencies as well. The applications, once put together had packages that it had no necessity for, and dependency trees that where deep, intertwined, and prone to break when versions of common third-party libraries had breaking changes.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;&amp;ldquo;We should be building our packages with a single responsibility, or split them up until they do&amp;rdquo;&lt;/em&gt; was my statement. At hearing this back out of my own mouth, my brain instantly started thinking about the &lt;a href=&#34;http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)&#34;&gt;&lt;strong&gt;SOLID Principles&lt;/strong&gt;&lt;/a&gt; and the concept of &lt;a href=&#34;http://en.wikipedia.org/wiki/Composition_over_inheritance&#34;&gt;&lt;strong&gt;Composition  over Inheritance&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;

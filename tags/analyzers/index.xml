@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Analyzers on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/analyzers/</link>
+    <link>https://blog.csmac.nz/tags/analyzers/</link>
     <description>Recent content in Analyzers on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 30 Apr 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/analyzers/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Apr 2018 07:00:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/analyzers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Automated OCD with Stylecop</title>
-      <link>https://blogmigration.csmac.nz/post/automated-ocd-with-stylecop/</link>
+      <link>https://blog.csmac.nz/post/automated-ocd-with-stylecop/</link>
       <pubDate>Mon, 30 Apr 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/automated-ocd-with-stylecop/</guid>
+      <guid>https://blog.csmac.nz/post/automated-ocd-with-stylecop/</guid>
       <description>&lt;p&gt;I never really got into Stylecop or FXCop.  I did make use of some of the Resharper autoformatting configuration, and static analysis features, and have in the past automated and configured this.&lt;/p&gt;
 &lt;p&gt;But since starting to use Visual Studio Code, I have been looking for more and more ways to get the benefits of the Visual Studio Gui tools, but as command-line alternatives.  This leads me to the Roslyn Analyzers.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;m gonna preempt typo considerations here. The technology is Rosyln Analyzers, with a Zed (Z), which while hurts my spelling sensibilities, it is a name, so I am going to respect that spelling. Much like using libraries that use color instead of colour, most of us non-US English speakers are used to this anyway. But I digress.&lt;/p&gt;

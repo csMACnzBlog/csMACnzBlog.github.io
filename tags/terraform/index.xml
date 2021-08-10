@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Terraform on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/terraform/</link>
+    <link>https://blog.csmac.nz/tags/terraform/</link>
     <description>Recent content in Terraform on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 13 Jul 2021 19:18:43 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Jul 2021 19:18:43 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</title>
-      <link>https://blogmigration.csmac.nz/post/terraform-newrelic-provider-facepalm/</link>
+      <link>https://blog.csmac.nz/post/terraform-newrelic-provider-facepalm/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/terraform-newrelic-provider-facepalm/</guid>
+      <guid>https://blog.csmac.nz/post/terraform-newrelic-provider-facepalm/</guid>
       <description>&lt;p&gt;Recently I tried upgrading from Terraform 0.12 to 1.0.1. I think the key here is leaving 0.12.&lt;/p&gt;
 &lt;p&gt;Anyway, there was a breaking change in 0.13 around how providers worked, and we got this cryptic error.&lt;/p&gt;
 &lt;p&gt;(Caveat: I don&amp;rsquo;t actually know how much of this has to do with a newrelic provider update as well or instead, but was what we got the week of 2021/07/12.)&lt;/p&gt;

@@ -2,41 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/</link>
+    <link>https://blog.csmac.nz/</link>
     <description>Recent content on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 13 Jul 2021 19:18:43 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Jul 2021 19:18:43 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>https://blogmigration.csmac.nz/</link>
+      <link>https://blog.csmac.nz/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/</guid>
+      <guid>https://blog.csmac.nz/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Categories</title>
-      <link>https://blogmigration.csmac.nz/categories/</link>
+      <link>https://blog.csmac.nz/categories/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/categories/</guid>
+      <guid>https://blog.csmac.nz/categories/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</title>
-      <link>https://blogmigration.csmac.nz/post/terraform-newrelic-provider-facepalm/</link>
+      <link>https://blog.csmac.nz/post/terraform-newrelic-provider-facepalm/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/terraform-newrelic-provider-facepalm/</guid>
+      <guid>https://blog.csmac.nz/post/terraform-newrelic-provider-facepalm/</guid>
       <description>&lt;p&gt;Recently I tried upgrading from Terraform 0.12 to 1.0.1. I think the key here is leaving 0.12.&lt;/p&gt;
 &lt;p&gt;Anyway, there was a breaking change in 0.13 around how providers worked, and we got this cryptic error.&lt;/p&gt;
 &lt;p&gt;(Caveat: I don&amp;rsquo;t actually know how much of this has to do with a newrelic provider update as well or instead, but was what we got the week of 2021/07/12.)&lt;/p&gt;
@@ -94,55 +94,55 @@ provider &amp;quot;newrelic&amp;quot; {
     
     <item>
       <title>Posts</title>
-      <link>https://blogmigration.csmac.nz/post/</link>
+      <link>https://blog.csmac.nz/post/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/</guid>
+      <guid>https://blog.csmac.nz/post/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Software Engineering</title>
-      <link>https://blogmigration.csmac.nz/categories/software-engineering/</link>
+      <link>https://blog.csmac.nz/categories/software-engineering/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/categories/software-engineering/</guid>
+      <guid>https://blog.csmac.nz/categories/software-engineering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tags</title>
-      <link>https://blogmigration.csmac.nz/tags/</link>
+      <link>https://blog.csmac.nz/tags/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/tags/</guid>
+      <guid>https://blog.csmac.nz/tags/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Terraform</title>
-      <link>https://blogmigration.csmac.nz/tags/terraform/</link>
+      <link>https://blog.csmac.nz/tags/terraform/</link>
       <pubDate>Tue, 13 Jul 2021 19:18:43 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/tags/terraform/</guid>
+      <guid>https://blog.csmac.nz/tags/terraform/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kotlin</title>
-      <link>https://blogmigration.csmac.nz/tags/kotlin/</link>
+      <link>https://blog.csmac.nz/tags/kotlin/</link>
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/tags/kotlin/</guid>
+      <guid>https://blog.csmac.nz/tags/kotlin/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kotlin, TeamCity and reflection</title>
-      <link>https://blogmigration.csmac.nz/post/kotlin-teamcity-and-reflection/</link>
+      <link>https://blog.csmac.nz/post/kotlin-teamcity-and-reflection/</link>
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/kotlin-teamcity-and-reflection/</guid>
+      <guid>https://blog.csmac.nz/post/kotlin-teamcity-and-reflection/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.&lt;/p&gt;
 &lt;p&gt;Today&amp;rsquo;s fun little problem was the error message:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -165,19 +165,19 @@ val props = Project::class.declaredMemberProperties
     
     <item>
       <title>TeamCity</title>
-      <link>https://blogmigration.csmac.nz/tags/teamcity/</link>
+      <link>https://blog.csmac.nz/tags/teamcity/</link>
       <pubDate>Tue, 11 May 2021 17:42:06 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/tags/teamcity/</guid>
+      <guid>https://blog.csmac.nz/tags/teamcity/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Bluetooth Devices keep disconnecting</title>
-      <link>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
+      <link>https://blog.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
       <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
+      <guid>https://blog.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
       <description>&lt;p&gt;It all started when I installed Windows Update 20H2 in October 2020.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve had a stable machine (HP ZBook laptop for reference) for months and months with the same Bluetooth hardware, no issues. But that fateful day I installed the 20H2 update from Microsoft, everything changed.&lt;/p&gt;
 &lt;p&gt;Suddenly I was having disconnect issues. I have a Bluetooth keyboard and Bluetooth mouse connected (I think they are both low energy?) And I found that one of them would reconnect, and the other wouldn&amp;rsquo;t. If I turned one-off, the other would reconnect, but the first one wouldn&amp;rsquo;t be able to when turned back on.&lt;/p&gt;
@@ -191,37 +191,37 @@ val props = Project::class.declaredMemberProperties
     
     <item>
       <title>IT Support</title>
-      <link>https://blogmigration.csmac.nz/categories/it-support/</link>
+      <link>https://blog.csmac.nz/categories/it-support/</link>
       <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/categories/it-support/</guid>
+      <guid>https://blog.csmac.nz/categories/it-support/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tips and Tricks</title>
-      <link>https://blogmigration.csmac.nz/tags/tips-and-tricks/</link>
+      <link>https://blog.csmac.nz/tags/tips-and-tricks/</link>
       <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/tags/tips-and-tricks/</guid>
+      <guid>https://blog.csmac.nz/tags/tips-and-tricks/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Windows</title>
-      <link>https://blogmigration.csmac.nz/tags/windows/</link>
+      <link>https://blog.csmac.nz/tags/windows/</link>
       <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/tags/windows/</guid>
+      <guid>https://blog.csmac.nz/tags/windows/</guid>
       <description></description>
     </item>
     
     <item>
       <title>C Sharp</title>
-      <link>https://blogmigration.csmac.nz/tags/c-sharp/</link>
+      <link>https://blog.csmac.nz/tags/c-sharp/</link>
       <pubDate>Sun, 26 Jul 2020 02:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/tags/c-sharp/</guid>
+      <guid>https://blog.csmac.nz/tags/c-sharp/</guid>
       <description></description>
     </item>
     

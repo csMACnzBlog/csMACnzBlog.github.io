@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PowerShell on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/powershell/</link>
+    <link>https://blog.csmac.nz/tags/powershell/</link>
     <description>Recent content in PowerShell on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 09 Jul 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/powershell/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Jul 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/powershell/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Some cool tricks with your Windows Shells</title>
-      <link>https://blogmigration.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</link>
+      <link>https://blog.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</link>
       <pubDate>Mon, 09 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</guid>
+      <guid>https://blog.csmac.nz/post/some-cool-tricks-with-your-windows-shell/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been getting more and more back to the command line, doing more with PowerShell and even Bash scripting on Docker and WSL (&lt;a href=&#34;https://docs.microsoft.com/en-us/windows/wsl/install-win10&#34;&gt;Windows Subsystem for Linux&lt;/a&gt;).  There are a few of the tricks I have learned recently that help me every day.&lt;/p&gt;
 &lt;h3 id=&#34;f8-searches-history&#34;&gt;F8 searches history!&lt;/h3&gt;
 &lt;p&gt;That&amp;rsquo;s right! When you type into the command line (this work in cmd and PowerShell) and then press F8, it will do a back-in-time search for a historical command that begins with what you typed. This is a nice way to auto-complete an entire command with complex arguments quickly and easily.&lt;/p&gt;
@@ -50,10 +50,10 @@
     
     <item>
       <title>A PowerShell Watch Command</title>
-      <link>https://blogmigration.csmac.nz/post/a-powershell-watch-command/</link>
+      <link>https://blog.csmac.nz/post/a-powershell-watch-command/</link>
       <pubDate>Tue, 30 Jan 2018 19:36:30 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/a-powershell-watch-command/</guid>
+      <guid>https://blog.csmac.nz/post/a-powershell-watch-command/</guid>
       <description>&lt;p&gt;I use dotnet-watch a bunch and have used a version via grunt/gulp a little in the past as well.&lt;/p&gt;
 &lt;p&gt;In front of me, I had some TypeScript, &lt;code&gt;tsc&lt;/code&gt; and an &lt;code&gt;app.ts&lt;/code&gt; file. I wanted to watch it and trigger &lt;code&gt;tsc&lt;/code&gt; automatically. But there was no csproj, no NuGet, and no npm in sight.&lt;/p&gt;
 &lt;p&gt;I went searching far and wide for solutions, and some clever people have some insight to add to the quest:&lt;/p&gt;
@@ -106,10 +106,10 @@ watch -Folder &amp;quot;${PWD}&amp;quot; =Filter &amp;quot;*.ts&amp;quot; -Actio
     
     <item>
       <title>Form posts with PowerShell</title>
-      <link>https://blogmigration.csmac.nz/post/formpost-with-powershell/</link>
+      <link>https://blog.csmac.nz/post/formpost-with-powershell/</link>
       <pubDate>Mon, 27 Jun 2016 03:57:16 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/formpost-with-powershell/</guid>
+      <guid>https://blog.csmac.nz/post/formpost-with-powershell/</guid>
       <description>&lt;p&gt;This article is based on an answer found and updated on &lt;a href=&#34;http://stackoverflow.com/a/37729623/2118268&#34;&gt;StackOverflow&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;f you have used PowerShell for much at all, you are probably familiar with &lt;code&gt;Invoke-WebRequest&lt;/code&gt;. But did you know you can carry around a session and have it automatically add and update cookies for you?&lt;/p&gt;
 &lt;h3 id=&#34;the-scenario&#34;&gt;The Scenario&lt;/h3&gt;
@@ -150,10 +150,10 @@ $response.StatusDescription #should be OK
     
     <item>
       <title>Treat Warnings As Errors with this one weird PowerShell Script...</title>
-      <link>https://blogmigration.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</link>
+      <link>https://blog.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</link>
       <pubDate>Mon, 09 May 2016 08:30:59 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
+      <guid>https://blog.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
       <description>&lt;p&gt;There is this great feature in Visual Studio that lets you really dial up the quality of your code. It has been there forever it seems, but very few people use it.&lt;/p&gt;
 &lt;p&gt;The compiler spits out errors, which stop your app compiling. You fix your errors and move on.  But the compiler also spits out a lot of warnings too. And many of these are to do with the quality of your code, and possible code errors you have introduced that could cause you issues later on.&lt;/p&gt;
 &lt;p&gt;Did you know you can get the builds to actually fail to compile from these warnings?&lt;/p&gt;
@@ -211,10 +211,10 @@ $response.StatusDescription #should be OK
     
     <item>
       <title>Make me a sandwich</title>
-      <link>https://blogmigration.csmac.nz/post/make-me-a-sandwich/</link>
+      <link>https://blog.csmac.nz/post/make-me-a-sandwich/</link>
       <pubDate>Sun, 11 Oct 2015 15:57:06 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/make-me-a-sandwich/</guid>
+      <guid>https://blog.csmac.nz/post/make-me-a-sandwich/</guid>
       <description>&lt;p&gt;A lesson in powershell.&lt;/p&gt;
 &lt;p&gt;I typed this:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;&amp;gt; iisreset
@@ -252,10 +252,10 @@ set-alias sudo invoke-assuperuser
     
     <item>
       <title>Aliasing your &#39;git status&#39;</title>
-      <link>https://blogmigration.csmac.nz/post/aliasing-your-git-status/</link>
+      <link>https://blog.csmac.nz/post/aliasing-your-git-status/</link>
       <pubDate>Sat, 18 Apr 2015 13:26:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/aliasing-your-git-status/</guid>
+      <guid>https://blog.csmac.nz/post/aliasing-your-git-status/</guid>
       <description>&lt;p&gt;Anyone else have the bad habit of typing in &lt;code&gt;git statsu&lt;/code&gt; or &lt;code&gt;git stauts&lt;/code&gt;? Or maybe you just end up typing &lt;code&gt;git status&lt;/code&gt; all the time at the command line, and wonder if there was a better way.  Well, there is.&lt;/p&gt;
 &lt;h3 id=&#34;aliases&#34;&gt;Aliases&lt;/h3&gt;
 &lt;p&gt;Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an alternative way to call another command, maybe with implicit parameters baked in that you use all the time. So for me, I want to type &lt;code&gt;gs&lt;/code&gt; to perform a &lt;code&gt;git status&lt;/code&gt; call.&lt;/p&gt;
@@ -278,10 +278,10 @@ New-Alias -Name gs -Value Get-GitStatus
     
     <item>
       <title>Visual Studio PowerShell</title>
-      <link>https://blogmigration.csmac.nz/post/visual-studio-powershell/</link>
+      <link>https://blog.csmac.nz/post/visual-studio-powershell/</link>
       <pubDate>Thu, 29 Jan 2015 17:54:54 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/visual-studio-powershell/</guid>
+      <guid>https://blog.csmac.nz/post/visual-studio-powershell/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been using psake as my build tool and running my builds on Appveyor.  Now Appveyor runs with all the visual studio commands available on the path.  When you install visual studio, It gives you a special cmd shell shortcut that loads you an environment with all the visual studio stuff available, which is cool. But not for PowerShell.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;:  I originally found this solution on this &lt;a href=&#34;http://blogs.msdn.com/b/domgreen/archive/2009/05/03/visual-studio-command-prompt-via-powershell.aspx&#34;&gt;msdn blog&lt;/a&gt;, but tweaked it to work with Visual Studio 2013, and 64bit versions of windows.  Since I kept changing machines and loosing my scripts I decided to blog about it so I knew where to look to find the code again.&lt;/p&gt;
 &lt;p&gt;With that out of the way, here is the code I add to my PowerShell $PROFILE:&lt;/p&gt;

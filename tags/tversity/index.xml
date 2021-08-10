@@ -2,33 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tversity on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/tversity/</link>
+    <link>https://blog.csmac.nz/tags/tversity/</link>
     <description>Recent content in tversity on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 12 Oct 2008 23:56:47 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/tversity/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Oct 2008 23:56:47 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/tversity/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Media PC/Server</title>
-      <link>https://blogmigration.csmac.nz/post/media-pcserver/</link>
+      <link>https://blog.csmac.nz/post/media-pcserver/</link>
       <pubDate>Sun, 12 Oct 2008 23:56:47 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/media-pcserver/</guid>
+      <guid>https://blog.csmac.nz/post/media-pcserver/</guid>
       <description>&lt;p&gt;It has come to the end of another university year and I&amp;rsquo;m ready to once again start being a bit more regular with my blog posts. It also means i have more free time to start working on some projects of my own. The plan for this summer is to get a server running, to do samba/nfs file sharing and ldap authentication, as well as hopefully a mythtv server with a dual-tuner digital terrestrial card for watching and recording freeview here in New Zealand. My Current setup is a powerful multi-purpose machine, with Windows Vista for gaming and Ubuntu for everything else. I am currently running an apache server, samba server and dns off of this machine under Ubuntu, as well as my default Desktop environment, and main ssh server for remote access. The unfortunate side effect of this setup is that when i reboot into Vista for gaming, all of these services become unavailable. The main side effects of this is that no one can access my web site, no one can access my shares, and i can&amp;rsquo;t remote access my computer and files over the internet. Hence the need for a perminent server. At the start of the year i purchased a nice big NVidia geforce 8800 gts graphics card that was great for gaming. the side effect of this powerful card was that it&amp;rsquo;s large heat-sink and fan covered one of my spare pci slots, and the card was so long that i covered all my sata plugs as well as my second IDE plug. I didnt have any sata drives installed but i was using the second ide port for my storage drive. This drive is not plugged into the usb inside an external casing, but that means i have one more power plug in my multibox, and one less free usb port (1 less when i have 8 isnt a big issue really, at least not yet). This isnt directly related to the need of a server directly, but my best option to solve this problem is to but a larger more spacious motherboard. So here is where im at currently. I will purchase a new motherboard and have an old one lying around. i also have a few free hard drives lying around with reasonable capacity to install a server OS on. So my next logical step seemed to be new case, new cpu. I will also point out that my current box has a whopping 4gb of ram in it (ok, now really that whopping these days) but im still using 32bit OSs, which barely recognise or need that extra 1 gb. So ill &amp;lsquo;borrow&amp;rsquo; a gb from my current machine to support the new server. Now i have a plan. I&amp;rsquo;ll have the parts for a server, services i want to be running on a server, and a client machine for gaming and programming and things that nerdy computer science students like to do (no offence to those of you reading who resent these associations). I now started thinking about what else would be usefull to have running on this server. The first thing that came to mind was my vmware installation that i use to run TVersity on Windows XP. Under my current specs that shouldnt be a problem, and i might even be able to play around with other VM client OSs as well. The next thing was a centralised authentication system, and a single shared home directory. LDAP seemed to be the one that would work for me, and figured id use nfs for ubuntu and samba for windows to get it working with both OSs. Now here is where something i did last year came back to me. I managed to build myself a very bugy PVR box with an analog tv tuner card. I found a tv scheduling/recording software that ran on windows and got it stable enough to at least record and play back tv. I even found a xmltv listing and importing program to give me an epg to schedule show recording. Unfortuatly the box i was using to run this software up and died on me and has never recovered. Also it was on windows and i would have liked it to be a linux box. So now my plan is to get a freeview pvr running on this new server im about to setup. Ive found out that the Hauppauge WinTV Nova-T-500 is a dual tuner digital terrestrial UHF tv tuner card that should work with freeview, and has driver support on Ubuntu. With any luck ill be able to have it working with mythtv. The reason thats a good thing is i have this other old maching sitting around doing very little. If i can get it working for me as a myth client box, plugged into a tv&amp;hellip; you see where this is going, i suspect. Although there is the possibility that i could get the same results out of my xbox 360 plugged into the tv, but the thing about the mythtv frontend is that you can schedule recordings from it. But i guess that doesnt need to be on a tv, my desktop will do fine for that purpose. So stay tuned for the next instalment where i have a build pc ready with some servers running on it, and probably a few bugs and tricky bits to report on.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>XBOX 360, a new use for my tversity</title>
-      <link>https://blogmigration.csmac.nz/post/xbox-360-a-new-use-for-my-tversity/</link>
+      <link>https://blog.csmac.nz/post/xbox-360-a-new-use-for-my-tversity/</link>
       <pubDate>Sun, 18 May 2008 04:21:14 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/xbox-360-a-new-use-for-my-tversity/</guid>
+      <guid>https://blog.csmac.nz/post/xbox-360-a-new-use-for-my-tversity/</guid>
       <description>&lt;p&gt;About a month back I finally had enough cash to buy myself an xbox 360. I even managed to get three games with it which was a bonus, since it would be a while before I could afford more. Viva Pinata, Forza Motorsport 2 and Assassin&amp;rsquo;s Creed were the three games I got with it, and within a week I also had a copy of Halo 3, the main reason why anyone would get an xbox over a playstation (right?). Ok, maybe that last sentence is a bit too controversial for both camps, and is something I usually do my best to avoid. The main point of this isn&amp;rsquo;t to compare one with the other, but to give my opinion on what I have experienced. Anyway, on to the features.&lt;/p&gt;
 &lt;p&gt;The xbox 360 supports 4 controllers, which can be of the wired or wireless variety. With two usb ports on the front, and one on the back, it is obviously designed to be used wirelessly, which makes sense when you look at the price of 32 inch+ sized TVs being so affordable to those who can also afford to buy a console, you wouldn&amp;rsquo;t want to have to sit really close because your bound by your controller cord. My package even came with a remote control. That comes as a real bonus for playing movies and music, because you don&amp;rsquo;t have to remember whether the trigger was skip chapter or the bumper was, when trying to use your controller.&lt;/p&gt;
 &lt;p&gt;The reason I wrote this post, as you can tell by the title, is that I now have a new device for tversity to stream to.  This was actually really easy to get going.  On the 360, actively connected to the flat&amp;rsquo;s local network, I just went find file sharing pc, and it instantly found my tversity machine. Navigating through the menus was a breeze. It used the same hierarchy as the web interface does, but through its own menus.  I just navigated into my music, into the artists list and went play all of whatever I felt like listening to.  The movies worked just as well, and I was away laughing.&lt;/p&gt;
@@ -39,10 +39,10 @@
     
     <item>
       <title>Tversity On Linux with vmware</title>
-      <link>https://blogmigration.csmac.nz/post/tversity-on-linux-with-vmware/</link>
+      <link>https://blog.csmac.nz/post/tversity-on-linux-with-vmware/</link>
       <pubDate>Tue, 26 Feb 2008 22:26:15 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/tversity-on-linux-with-vmware/</guid>
+      <guid>https://blog.csmac.nz/post/tversity-on-linux-with-vmware/</guid>
       <description>&lt;p&gt;My struggles with TVersity have come to an end for the moment, and I&amp;rsquo;m quite happy with that. After struggling for many hours to get it working under wine on my ubuntu machine, I decided to try out vmware running virtual windows xp. it took all of a couple of hours, most of which was a windows installation, and i had TVersity working from virtual xp on my ubuntu box. It works well enough to be able to stream music to my psp without any skipping, and I have even tested it with streaming video to an xbox 360. Although I haven&amp;rsquo;t actually confirmed that it does do any conversion, it seems to be do the job for all the videos I have.&lt;/p&gt;
 &lt;p&gt;I used &lt;a href=&#34;http://ubuntu-tutorials.com/2007/11/17/install-vmware-server-on-ubuntu-710-gutsy-gibbon-updated/&#34; title=&#34;Install VMware Server on Ubuntu 7.10 “Gutsy Gibbon” : Updated&#34;&gt;this tutorial&lt;/a&gt; to get vmware installed on my ubuntu gutsy machine, and it was a relatively easy process from there to get windows xp installed. I also found&lt;a href=&#34;http://linux.vanvalkinburgh.org/2007/04/22/streaming-files-to-the-360&#34; title=&#34;Streaming files to the 360&#34;&gt; this little tutorial&lt;/a&gt; to get samba file sharing working as a network location on virtual xp to add files from for TVersity, and some useful advice on codec packs to install, even for mythtv files.  I already had samba file sharing working on my machine, but hopefully it works for others to get theirs working.&lt;/p&gt;
 &lt;p&gt;Although these tutorials are ubuntu gutsy specific, they shouldn&amp;rsquo;t be too different for other versions on ubuntu, or other linux distros.  If you feel you need to, just have a quick search of google for vmware and your distro name, you will probably find several guides to be able to help you.&lt;/p&gt;
@@ -53,10 +53,10 @@
     
     <item>
       <title>TVersity media streaming</title>
-      <link>https://blogmigration.csmac.nz/post/tversity-media-streaming/</link>
+      <link>https://blog.csmac.nz/post/tversity-media-streaming/</link>
       <pubDate>Wed, 16 Jan 2008 02:52:19 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/tversity-media-streaming/</guid>
+      <guid>https://blog.csmac.nz/post/tversity-media-streaming/</guid>
       <description>&lt;p&gt;About a year ago I bought myself a psp off of the local auction website TradeMe, New Zealand&amp;rsquo;s answer to eBay, and have since used it mostly for listening to music and not a lot else. Sure I&amp;rsquo;ve used it for gaming, and struggled with using it for the internet, and just recently I&amp;rsquo;ve started watching videos (though due to the hassle of converting them not many), but music has been its main use. I own a 2gb memory stick duo for my PSP, but still seem to be endlessly copying music on and off from my computer, thinking &amp;ldquo;there must be a better way&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;And it was about half way through last year that I discovered this great program called TVersity. Designed for streaming music and video from a windows machine to external devices, I have slowly watched it grow to be able to support the XBox 360, Playstation 3, PSP, as well as some wifi cell phones and other computers through a web interface. Now what makes this program stand out to me was that it would add my music to rss feeds, that it generates on the fly from album, artist or genre, that i can save to my PSP rss feeds list, and stream music, which has been great to listen to my music around the house across the wireless network without having to transfer it on first. You can also download from the web interface to the PSP if you wanted to do that as well.&lt;/p&gt;
 &lt;p&gt;One of it&amp;rsquo;s other great features, and it is the combination of this and the streaming web interface that make it so great, is that it can stream video, and convert it to streaming formats on the fly. No more converting all your videos into various formats on your computer, having 3 copies of everything and having to spend days creating them. Now I can watch my favourite episode of Stargate or The Simpsons from my TV through my 360 without having to spend time transferring, encoding and copying.&lt;/p&gt;

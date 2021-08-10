@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/categories/projects/</link>
+    <link>https://blog.csmac.nz/categories/projects/</link>
     <description>Recent content in Projects on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 27 Aug 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Aug 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/categories/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data</title>
-      <link>https://blogmigration.csmac.nz/post/time-tracking-analysis/</link>
+      <link>https://blog.csmac.nz/post/time-tracking-analysis/</link>
       <pubDate>Mon, 27 Aug 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/time-tracking-analysis/</guid>
+      <guid>https://blog.csmac.nz/post/time-tracking-analysis/</guid>
       <description>&lt;p&gt;As a remote worker, I need to keep myself honest. This is as much &amp;ldquo;Make sure I do my hours&amp;rdquo; as it is &amp;ldquo;Don&amp;rsquo;t overwork!&amp;rdquo;. Anyone who has worked from home or remotely for a period of time understands what I mean completely.&lt;/p&gt;
 &lt;p&gt;To monitor this, I use &lt;a href=&#34;https://www.toggl.com&#34;&gt;Toggl&lt;/a&gt;. Toggl is time-tracking as a service, which includes cloud tracking data storage, annotating time against projects and clients, and Client applications for most if not all platforms including web, mobile and desktop. Tracking is even done server side so you can start your timer on one device, and stop it from another. As I say, you can annotate your time with Client, Project, even custom tags.&lt;/p&gt;
 &lt;p&gt;Toggl has a bunch of advanced time-coding features to produce reports against different projects. If you pay for their starter plan, it can even handle Billable Time. I don&amp;rsquo;t use any of that. I use their Windows Desktop client (which includes idle time detection to easily clear &lt;a href=&#34;https://www.grammarly.com/blog/afk-meaning/&#34;&gt;AFK&lt;/a&gt; time) and their online data storage, to hold onto my data for me.&lt;/p&gt;
@@ -143,10 +143,10 @@ Copy the data above into a CSV file to make it pretty in a spreadsheet
     
     <item>
       <title>Beefeater - Guard your methods&#39; Ins and Outs.</title>
-      <link>https://blogmigration.csmac.nz/post/beefeater-guards-your/</link>
+      <link>https://blog.csmac.nz/post/beefeater-guards-your/</link>
       <pubDate>Mon, 06 Aug 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/beefeater-guards-your/</guid>
+      <guid>https://blog.csmac.nz/post/beefeater-guards-your/</guid>
       <description>&lt;img align=&#34;right&#34; width=&#34;256px&#34; height=&#34;256px&#34; src=&#34;http://img.csmac.nz/Beefeater-256.svg&#34;&gt;
 &lt;p&gt;A little while back I started paying attention to Rust and got all inspired to have a bit of that it C#. The result was this library I called Beefeater.&lt;/p&gt;
 &lt;p&gt;This library contains helpers to add semantics to the optionality of your parameters and results from method calls. I built it on &lt;code&gt;NetStandard1.0&lt;/code&gt; for maximum compatibility.&lt;/p&gt;
@@ -345,10 +345,10 @@ Result&amp;lt;Unit,string&amp;gt;
     
     <item>
       <title>Coveralls.Net 1.0.0 Release</title>
-      <link>https://blogmigration.csmac.nz/post/coveralls-net-1-0-0-release/</link>
+      <link>https://blog.csmac.nz/post/coveralls-net-1-0-0-release/</link>
       <pubDate>Mon, 04 Jun 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/coveralls-net-1-0-0-release/</guid>
+      <guid>https://blog.csmac.nz/post/coveralls-net-1-0-0-release/</guid>
       <description>&lt;p&gt;Christmas 2014. I was building out projects on GitHub in open source. The obsession with open source even went on to spawn a &lt;a href=&#34;https://blog.csmac.nz/-net-os-1-source-control/&#34;&gt;Series of Blog Posts&lt;/a&gt;. Each tool or library I was building lead onto another tool or library to make the build pipeline, or development process better. Often putting down one project while I sorted out another one first.  This has continued at a slow pace for the last 3 years.&lt;/p&gt;
 &lt;p&gt;Back in January 2015 I &lt;a href=&#34;https://blog.csmac.nz/introducing-coveralls-net/&#34;&gt;Announced Coveralls.Net&lt;/a&gt;. This is a code coverage publisher for publishing your coverage results to the coveralls.io API. Coveralls.io is a coverage tracking service, which is free for open source projects, with a paid service for private use, and now an Enterprise version as well. There was a bunch of python and ruby versions, but I wanted fewer dependencies on those runtimes so built my own.  I even managed to get it listed as one of the two &lt;a href=&#34;https://docs.coveralls.io/dot-net&#34;&gt;recommended .Net coverage integrations&lt;/a&gt; on the coveralls.io docs.&lt;/p&gt;
 &lt;p&gt;While development has been a slow work of labour over the last three years, the announcement of dotnet CLI tools (proper npm-style tools, not the weird interim dotnet-tool stuff&amp;hellip;) with dotnet SDK 2.1, I had to jump in and get on board.&lt;/p&gt;
@@ -403,10 +403,10 @@ Expand-Archive .\coveralls-windows.zip coveralls-windows
     
     <item>
       <title>New Projects - Consolable, ConcurrentConsole &amp; t4tinytypes</title>
-      <link>https://blogmigration.csmac.nz/post/new-projects-consolable-concurrentconsole-t4tinytypes/</link>
+      <link>https://blog.csmac.nz/post/new-projects-consolable-concurrentconsole-t4tinytypes/</link>
       <pubDate>Sun, 14 Aug 2016 21:51:20 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/new-projects-consolable-concurrentconsole-t4tinytypes/</guid>
+      <guid>https://blog.csmac.nz/post/new-projects-consolable-concurrentconsole-t4tinytypes/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been working on some new projects, so thought I would do a quick elevator pitch for each.&lt;/p&gt;
 &lt;h3 id=&#34;consolable&#34;&gt;Consolable&lt;/h3&gt;
 &lt;p&gt;I was having an issue with environment variables as arguments, and with PowerShell replacing &lt;code&gt;&amp;quot;text&amp;quot;&lt;/code&gt; with &lt;code&gt;text&lt;/code&gt; (stripping double-quotes) and how these interacted with my command line arguments. Especially when the environment variable was empty, the error messages were just not clear enough.&lt;/p&gt;
@@ -433,10 +433,10 @@ Expand-Archive .\coveralls-windows.zip coveralls-windows
     
     <item>
       <title>Introducing PublishCoverity</title>
-      <link>https://blogmigration.csmac.nz/post/introducing-publishcoverity/</link>
+      <link>https://blog.csmac.nz/post/introducing-publishcoverity/</link>
       <pubDate>Sun, 08 Mar 2015 17:34:21 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/introducing-publishcoverity/</guid>
+      <guid>https://blog.csmac.nz/post/introducing-publishcoverity/</guid>
       <description>&lt;p&gt;As part of my open source development tooling investigation, I came across &lt;a href=&#34;https://scan.coverity.com/&#34;&gt;Coverity Scan&lt;/a&gt; Static Analysis. And thanks to &lt;a href=&#34;http://arkfps.github.io/2015/01/07/using-coverity-scan-with-appveyor/&#34;&gt;Arkfps&#39; post&lt;/a&gt; I could automate the process of submitting the results. And now &lt;a href=&#34;http://help.appveyor.com/discussions/suggestions/497-coverity-static-analysis-support&#34;&gt;Appveyor includes Coverity on it&amp;rsquo;s images&lt;/a&gt;. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.nuget.org/packages/PublishCoverity&#34;&gt;PublishCoverity&lt;/a&gt; is available on NuGet, and has two use cases: Compress and Publish.&lt;/p&gt;
 &lt;p&gt;Compress takes a directory and compresses it to produce an output zip file.&lt;/p&gt;
@@ -461,10 +461,10 @@ Example:
     
     <item>
       <title>Introducing BCLExtensions</title>
-      <link>https://blogmigration.csmac.nz/post/introducing-bclextensions/</link>
+      <link>https://blog.csmac.nz/post/introducing-bclextensions/</link>
       <pubDate>Sun, 15 Feb 2015 15:25:45 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/introducing-bclextensions/</guid>
+      <guid>https://blog.csmac.nz/post/introducing-bclextensions/</guid>
       <description>&lt;p&gt;It has been a pipe-dream of mine for a while to have my very own C# extensions library. Well now I do.  I&amp;rsquo;ve been chipping away at a library on github for ages (my init commit was &lt;strong&gt;15 Sep 2012!&lt;/strong&gt;) and it is finally a real thing! I&amp;rsquo;ve got a V1.0.0, a Nuget package, and even 100% coverage. I even have the &lt;a href=&#34;https://scan.coverity.com/projects/3770&#34;&gt;coverity report&lt;/a&gt; running, although it&amp;rsquo;s taken so long that I don&amp;rsquo;t have anything to worry about right now.  So far there are 24 Extensions available to use.&lt;/p&gt;
 &lt;p&gt;As a bonus, my library is a PCL using profile 328, which pretty much means it will work with any C# application you are writting.  I even have it building and running all my test on &lt;a href=&#34;https://travis-ci.org/csMACnz/BCLExtensions&#34;&gt;Travis-CI&lt;/a&gt; (252 tests and counting).&lt;/p&gt;
 &lt;p&gt;Please feel free to grab the nuget at &lt;a href=&#34;https://www.nuget.org/packages/BCLExtensions&#34;&gt;nuget.org/packages/BCLExtensions&lt;/a&gt; and check the source as &lt;a href=&#34;https://github.com/csMACnz/BCLExtensions&#34;&gt;github.com/csMACnz/BCLExtensions&lt;/a&gt;.&lt;/p&gt;
@@ -475,10 +475,10 @@ Example:
     
     <item>
       <title>Introducing Coveralls.net</title>
-      <link>https://blogmigration.csmac.nz/post/introducing-coveralls-net/</link>
+      <link>https://blog.csmac.nz/post/introducing-coveralls-net/</link>
       <pubDate>Sat, 24 Jan 2015 14:33:48 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/introducing-coveralls-net/</guid>
+      <guid>https://blog.csmac.nz/post/introducing-coveralls-net/</guid>
       <description>&lt;p&gt;So I&amp;rsquo;ve built an (almost MVP) code coverage publisher for &lt;a href=&#34;http://coveralls.io&#34;&gt;coveralls.io&lt;/a&gt; from C# code, using opencover coverage results.  Checkout the &lt;a href=&#34;https://github.com/csmacnz/coveralls.net&#34;&gt;github repo&lt;/a&gt; and &lt;a href=&#34;https://www.nuget.org/packages/coveralls.net/&#34;&gt;nuget packages&lt;/a&gt; if you want to use it.  I&amp;rsquo;m even dogfooding it on appveyor as part of my &lt;a href=&#34;https://github.com/csmacnz/coveralls.net/blob/master/build.tasks.ps1#L81&#34;&gt;psake build tasks&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;So how do you use it?  Well luckily I used &lt;a href=&#34;https://github.com/docopt/docopt.net&#34;&gt;docopts.net&lt;/a&gt; to give you a bit of a command line experience while you use it, but the gist is this:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;csmacnz.Coveralls.exe --opencover -i opencovertests.xml --repoToken &amp;quot;abcdefghijklmnopqrstuvwxyz&amp;quot; --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
@@ -493,10 +493,10 @@ Example:
     
     <item>
       <title>Hey, I found this thing called Coveralls.io</title>
-      <link>https://blogmigration.csmac.nz/post/hey-i-found-this-thing-called-coveralls-io/</link>
+      <link>https://blog.csmac.nz/post/hey-i-found-this-thing-called-coveralls-io/</link>
       <pubDate>Sun, 14 Dec 2014 19:50:47 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/hey-i-found-this-thing-called-coveralls-io/</guid>
+      <guid>https://blog.csmac.nz/post/hey-i-found-this-thing-called-coveralls-io/</guid>
       <description>&lt;p&gt;In my pursuit to &lt;a href=&#34;//blog.csmac.nz/gulp-vs-net/&#34;&gt;find a build task runner for my code coverage&lt;/a&gt; I stumbled on this whole other side of the internet I didn&amp;rsquo;t know about (from a .Net developer&amp;rsquo;s perspective). I&amp;rsquo;ve been using &lt;a href=&#34;http://www.appveyor.com/&#34;&gt;AppVeyor.com&lt;/a&gt; for my open-source CI build, which is a great option for anyone with a project on the Microsoft Stack. The cool thing about this (and other similar services) is that if you have an open source project on GitHub, you can use these services with your project for free!&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;m aware this isn&amp;rsquo;t new, and there are others like &lt;a href=&#34;http://travis-ci.org/&#34;&gt;Travis-CI.org&lt;/a&gt; which run all the other platforms, but I didn&amp;rsquo;t realise how prolific it really was! Especially how exclusive of microsoft languages they all are. Travis-CI for instance, doesn&amp;rsquo;t seem to support .Net by looking on their &lt;a href=&#34;http://docs.travis-ci.com/&#34;&gt;docs page&lt;/a&gt;, though there does seem to be &lt;a href=&#34;http://docs.travis-ci.com/user/languages/csharp/&#34;&gt;mono support in beta&lt;/a&gt; (and that didnt exist when i looked a week ago, so will keep an eye on this).&lt;/p&gt;
 &lt;p&gt;But my main reason for this post, is that I found this cool new (to me any way) Continuous Code Coverage host called &lt;a href=&#34;https://coveralls.io/&#34;&gt;coveralls.io&lt;/a&gt;. With a cool name like that, and a badge for my project, I&amp;rsquo;m sold. But wait, lets check &lt;a href=&#34;https://coveralls.zendesk.com/hc/en-us&#34;&gt;those docs&lt;/a&gt; again.  Yip as I thought, no C# support.  They even have C/C++, this is wrong!&lt;/p&gt;
@@ -512,10 +512,10 @@ Example:
     
     <item>
       <title>Gulp vs .net</title>
-      <link>https://blogmigration.csmac.nz/post/gulp-vs-net/</link>
+      <link>https://blog.csmac.nz/post/gulp-vs-net/</link>
       <pubDate>Sun, 07 Dec 2014 17:41:40 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/gulp-vs-net/</guid>
+      <guid>https://blog.csmac.nz/post/gulp-vs-net/</guid>
       <description>&lt;p&gt;I wanted to add continuous code coverage to my &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions&#34;&gt;little extension library project&lt;/a&gt;, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!&lt;/p&gt;
 &lt;p&gt;Because I&amp;rsquo;m started to learn more about this nodejs thing as a .Net developer, I figured I should give one of the build automation projects from there a go, even though my project is a .Net library and I dont need node (even if it is a PCL).&lt;/p&gt;
 &lt;h4 id=&#34;a-few-hurdles&#34;&gt;A Few Hurdles&lt;/h4&gt;
@@ -539,10 +539,10 @@ Example:
     
     <item>
       <title>7 Lessons from Building a WP7 Game in 7 days</title>
-      <link>https://blogmigration.csmac.nz/post/7-lessons-from-building-a-wp7-game-in-7-days/</link>
+      <link>https://blog.csmac.nz/post/7-lessons-from-building-a-wp7-game-in-7-days/</link>
       <pubDate>Tue, 05 Jul 2011 18:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/7-lessons-from-building-a-wp7-game-in-7-days/</guid>
+      <guid>https://blog.csmac.nz/post/7-lessons-from-building-a-wp7-game-in-7-days/</guid>
       <description>&lt;p&gt;This is a companion post for my talk at Wellington&amp;rsquo;s SLAMD user group on 6 July 2011.&lt;/p&gt;
 &lt;p&gt;Recently I took part in &lt;a href=&#34;http://blogs.msdn.com/b/nigel/&#34;&gt;Nigel Parker&lt;/a&gt;&amp;rsquo;s &amp;ldquo;&lt;a href=&#34;http://blogs.msdn.com/b/nigel/archive/2011/05/16/release-an-app-for-windows-phone-7-in-7-days-to-win-a-phone.aspx&#34;&gt;Release an App for Windows Phone 7 in 7 Days for a Chance to Win a New HTC 7 Trophy Phone&lt;/a&gt;&amp;rdquo; competition, with the intent of winning a Windows Phone 7 device. Although I didn&amp;rsquo;t manage to win the device, I did get a free 1 year subscription to the App Hub, allowing me to develop and submit apps that I build, had fun doing it, and learned a few lessons along the way. This was my first exposure to the WP7 development ecosystem, as well as my first excursion onto a mobile platform in general.&lt;/p&gt;
 &lt;p&gt;So what follows is a few lessons that I would like to pass on about developing a windows phone application. First though, I will give a quick overview of what exactly I built. The brief was simple, build an application, and have it live on the marketplace by the 6th of June. Not that big of a task, really. The point of this exercise was to both boost awareness of the new development tools, and to increase the footprint of New Zealand-built apps on the marketplace.&lt;/p&gt;
@@ -575,10 +575,10 @@ Example:
     
     <item>
       <title>Time for an update</title>
-      <link>https://blogmigration.csmac.nz/post/time-for-an-update/</link>
+      <link>https://blog.csmac.nz/post/time-for-an-update/</link>
       <pubDate>Fri, 10 Sep 2010 08:33:12 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/time-for-an-update/</guid>
+      <guid>https://blog.csmac.nz/post/time-for-an-update/</guid>
       <description>&lt;p&gt;So I really should have posted something sooner, but I&amp;rsquo;ve been so busy with other things. Anyway, Change should soon be coming, I have a whole backlog of things i need to post about, and I&amp;rsquo;ve started using Twitter, which should result in this post being tweeted about due to a new plugin (fingers crossed). So here is my mental note, to myself and perhaps also a promise to the wider public, of what i hope to get done to this site over the next few months (I hope this is realistic enough :-) ).&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Finish Photo Album Application&lt;/li&gt;
@@ -597,20 +597,20 @@ Example:
     
     <item>
       <title>Playing with Silverlight</title>
-      <link>https://blogmigration.csmac.nz/post/playing-with-silverlight/</link>
+      <link>https://blog.csmac.nz/post/playing-with-silverlight/</link>
       <pubDate>Mon, 21 Sep 2009 22:54:49 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/playing-with-silverlight/</guid>
+      <guid>https://blog.csmac.nz/post/playing-with-silverlight/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve just started to experiment with silverlight, well, silverlight 2 to be exact. Its an interesting combination of C# and xml markup, but i like it none-the-less. So far if made a series of buttons that change elements on the screen, nothing special, but am keen to get stuck into something more substantial. Maybe if i get my traffic simulator working in C++ ill port it over to silverlight? We shall see.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>My First YouTube Post</title>
-      <link>https://blogmigration.csmac.nz/post/my-first-youtube-post/</link>
+      <link>https://blog.csmac.nz/post/my-first-youtube-post/</link>
       <pubDate>Sun, 15 Feb 2009 22:31:58 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/my-first-youtube-post/</guid>
+      <guid>https://blog.csmac.nz/post/my-first-youtube-post/</guid>
       <description>&lt;p&gt;Well here is the YouTube movie I promised, 6 weeks work to make, and im really proud of it.&lt;/p&gt;
 &lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube-nocookie.com/embed/ZMvdaIs1tCo&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;p&gt;This was made using Blender for the animation, and GIMP to prepare the stop motion frames. Be sure to keep posted for the second installment of Fred. :)&lt;/p&gt;
@@ -619,10 +619,10 @@ Example:
     
     <item>
       <title>YouTube</title>
-      <link>https://blogmigration.csmac.nz/post/youtube/</link>
+      <link>https://blog.csmac.nz/post/youtube/</link>
       <pubDate>Wed, 11 Feb 2009 23:18:26 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/youtube/</guid>
+      <guid>https://blog.csmac.nz/post/youtube/</guid>
       <description>&lt;p&gt;I am just about ready to start becoming a contributing member of YouTube. For the last six weeks I&amp;rsquo;ve been taking part in a Summer School Paper at my University to develop and make a short 2-5 minute movie. The paper essentially sums itself up as &amp;lsquo;YouTube for credit&amp;rsquo; according to one of the organisers. This has been a great experience and has the end result of me having a movie showing tomorrow and my video published on the course&amp;rsquo;s YouTube channel.&lt;/p&gt;
 &lt;p&gt;So the movie I made over the last six weeks was about a clay ball who evolves into a clay Person, Fred. Fred goes through an epic journey to overcome love, loss and life to become what he was destined to be. All in the space of 3 minutes, a good achievement i thought. I should also mention this film was made in part with play dough stop motion, and the rest in Blender with 3D animation. This process has lead me to decide that i want to keep making little videos of Fred and other 3D people and objects, and start publishing these on YouTube just for fun. This will also improve my Blender skills which at this point are lacking compared to some of the things i saw on YouTube yesterday.&lt;/p&gt;
 &lt;p&gt;So watch this space and expect some more random videos and animations coming your way from me, hopefully. I still have two assignments to wrap up in the next week, and then another heavy work load will be starting, but the good intentions are there and hopefully this will eventuate into something great. Visit my soon to be full YouTube channel at &lt;a href=&#34;http://www.youtube.com/user/mmclearwater&#34;&gt;http://www.youtube.com/user/mmclearwater&lt;/a&gt;&lt;/p&gt;
@@ -631,10 +631,10 @@ Example:
     
     <item>
       <title>Clay-mation coming soon</title>
-      <link>https://blogmigration.csmac.nz/post/claymation-coming-soon/</link>
+      <link>https://blog.csmac.nz/post/claymation-coming-soon/</link>
       <pubDate>Fri, 16 Jan 2009 11:47:54 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/claymation-coming-soon/</guid>
+      <guid>https://blog.csmac.nz/post/claymation-coming-soon/</guid>
       <description>&lt;p&gt;So I&amp;rsquo;m making a movie. Yes thats right, I am making a short animated film for a class project with a fellow class mate, that will eventually end up on youtube for every one to enjoy. I don&amp;rsquo;t want to give too much away, but will say this: it contains stop-motion play dough. Wait and see!&lt;/p&gt;
 </description>
     </item>

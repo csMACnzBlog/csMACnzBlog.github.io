@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Visual Studio on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/visual-studio/</link>
+    <link>https://blog.csmac.nz/tags/visual-studio/</link>
     <description>Recent content in Visual Studio on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Thu, 17 Jan 2019 20:40:00 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/visual-studio/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Jan 2019 20:40:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/visual-studio/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Looking forward to dotnet in 2019</title>
-      <link>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</link>
+      <link>https://blog.csmac.nz/post/looking-forward-to-dotnet-in-2019/</link>
       <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</guid>
+      <guid>https://blog.csmac.nz/post/looking-forward-to-dotnet-in-2019/</guid>
       <description>&lt;p&gt;It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.&lt;/p&gt;
 &lt;p&gt;The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)&lt;/p&gt;
 &lt;h2 id=&#34;c-8&#34;&gt;C# 8&lt;/h2&gt;
@@ -73,10 +73,10 @@
     
     <item>
       <title>.Net on Docker - What&#39;s in my Dockerfile? Tips and Tricks</title>
-      <link>https://blogmigration.csmac.nz/post/dotnet-docker-tips-and-tricks/</link>
+      <link>https://blog.csmac.nz/post/dotnet-docker-tips-and-tricks/</link>
       <pubDate>Mon, 16 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/dotnet-docker-tips-and-tricks/</guid>
+      <guid>https://blog.csmac.nz/post/dotnet-docker-tips-and-tricks/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve started getting into building Docker Containers as deployment packages.  These are some learnings that I want to share, hopefully helping countless others with a better build, test and debug cycle with .Net on Docker with Visual Studio.&lt;/p&gt;
 &lt;h3 id=&#34;start-with-the-defaults&#34;&gt;Start with the defaults&lt;/h3&gt;
 &lt;p&gt;Use the built-in tools in Visual Studio to docker-ify and docker-compose your projects. The defaults all work, and provide a nice reference implementation of how to do things.&lt;/p&gt;
@@ -201,10 +201,10 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     
     <item>
       <title>Automated OCD with Stylecop</title>
-      <link>https://blogmigration.csmac.nz/post/automated-ocd-with-stylecop/</link>
+      <link>https://blog.csmac.nz/post/automated-ocd-with-stylecop/</link>
       <pubDate>Mon, 30 Apr 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/automated-ocd-with-stylecop/</guid>
+      <guid>https://blog.csmac.nz/post/automated-ocd-with-stylecop/</guid>
       <description>&lt;p&gt;I never really got into Stylecop or FXCop.  I did make use of some of the Resharper autoformatting configuration, and static analysis features, and have in the past automated and configured this.&lt;/p&gt;
 &lt;p&gt;But since starting to use Visual Studio Code, I have been looking for more and more ways to get the benefits of the Visual Studio Gui tools, but as command-line alternatives.  This leads me to the Roslyn Analyzers.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;m gonna preempt typo considerations here. The technology is Rosyln Analyzers, with a Zed (Z), which while hurts my spelling sensibilities, it is a name, so I am going to respect that spelling. Much like using libraries that use color instead of colour, most of us non-US English speakers are used to this anyway. But I digress.&lt;/p&gt;
@@ -417,20 +417,20 @@ ENTRYPOINT [&amp;quot;dotnet&amp;quot;, &amp;quot;MyApp.dll&amp;quot;]
     
     <item>
       <title>.Net Core SDK 2.* Series - Using Multiple Projects</title>
-      <link>https://blogmigration.csmac.nz/post/dotnetcore2-using-multiple-projects/</link>
+      <link>https://blog.csmac.nz/post/dotnetcore2-using-multiple-projects/</link>
       <pubDate>Mon, 05 Feb 2018 04:45:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-using-multiple-projects/</guid>
+      <guid>https://blog.csmac.nz/post/dotnetcore2-using-multiple-projects/</guid>
       <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Using Multiple Projects &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;(At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
 &lt;p&gt;We know how to create new projects, we know how to build and run our application and we know (roughly) what the content in the &lt;code&gt;csproj&lt;/code&gt; file means. But most projects tend to require multiple projects.&lt;/p&gt;
@@ -443,7 +443,7 @@ dotnet new console
 dotnet run
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;file---new-library&#34;&gt;File -&amp;gt; New Library&lt;/h3&gt;
-&lt;p&gt;As well as creating empty console applications, &lt;code&gt;dotnet&lt;/code&gt; can also create other things. If you try typing &lt;code&gt;dotnet new&lt;/code&gt; you will see a full list of all templates available, which you may remember from &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;As well as creating empty console applications, &lt;code&gt;dotnet&lt;/code&gt; can also create other things. If you try typing &lt;code&gt;dotnet new&lt;/code&gt; you will see a full list of all templates available, which you may remember from &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Usage: new [options]
 
 Options:
@@ -502,7 +502,7 @@ Running &#39;dotnet restore&#39; on C:\dev\MyComplexApplicationRepo\MyNewLib\MyN
 
 Restore succeeded.
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We briefly looked at the differences between these projects in the previous section &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;. (Specifically, the app will have an extra &lt;code&gt;&amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;&lt;/code&gt; setting in the &lt;code&gt;csproj&lt;/code&gt; file, and targeting &lt;code&gt;netcoreapp2.0&lt;/code&gt; for the app and &lt;code&gt;netstandard2.0&lt;/code&gt; for the library.)&lt;/p&gt;
+&lt;p&gt;We briefly looked at the differences between these projects in the previous section &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;. (Specifically, the app will have an extra &lt;code&gt;&amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;&lt;/code&gt; setting in the &lt;code&gt;csproj&lt;/code&gt; file, and targeting &lt;code&gt;netcoreapp2.0&lt;/code&gt; for the app and &lt;code&gt;netstandard2.0&lt;/code&gt; for the library.)&lt;/p&gt;
 &lt;p&gt;.Net Standard Compatibility is a bit of a topic on its own. You can review the &lt;a href=&#34;https://github.com/dotnet/standard/blob/master/docs/versions.md&#34;&gt;Version Compatibility Grid&lt;/a&gt; for dotnet to determine which target you want for your library. If you do leave it as &lt;code&gt;netstandard2.0&lt;/code&gt;, then it will be compatible with dotnet core runtime version &lt;code&gt;2.0&lt;/code&gt; or newer, .Net full framework version &lt;code&gt;4.6.1&lt;/code&gt; or newer, Mono &lt;code&gt;5.4&lt;/code&gt;, and Windows UWP version &lt;code&gt;10.0.16299&lt;/code&gt; or newer. Click through to see the full table, including Xamarin and Windows Phone/Silverlight compatibility. The idea is the higher your version, the more base class libraries and methods are available, the lower the version gives you wider compatibility.&lt;/p&gt;
 &lt;p&gt;So the classlib has access to different library classes and methods depending on which version you target. These are implicitly available to you to use (unlike dotnet v1 where the standard library was an explicit dependency). The dotnet application project target &lt;code&gt;netcoreapp2.0&lt;/code&gt; also includes implicitly available core runtime types, classes and methods as well.  Additional libraries are then available from NuGet. (More on that later on in the series)&lt;/p&gt;
 &lt;p&gt;We can build our library, but of course, it cannot be run - its a library.&lt;/p&gt;
@@ -718,20 +718,20 @@ Time Elapsed 00:00:03.77
     
     <item>
       <title>.Net Core SDK 2.* Series - Getting Started</title>
-      <link>https://blogmigration.csmac.nz/post/dotnetcore2-getting-started/</link>
+      <link>https://blog.csmac.nz/post/dotnetcore2-getting-started/</link>
       <pubDate>Mon, 20 Nov 2017 07:00:25 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/dotnetcore2-getting-started/</guid>
+      <guid>https://blog.csmac.nz/post/dotnetcore2-getting-started/</guid>
       <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Getting Started &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;(At the time of writing, 2.0.3. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
 &lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
@@ -835,10 +835,10 @@ dotnet new console
     
     <item>
       <title>Migrating onto dotnet tools 1.0.0</title>
-      <link>https://blogmigration.csmac.nz/post/migrating-onto-dotnet-tools-1-0-0/</link>
+      <link>https://blog.csmac.nz/post/migrating-onto-dotnet-tools-1-0-0/</link>
       <pubDate>Sat, 11 Mar 2017 23:52:52 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/migrating-onto-dotnet-tools-1-0-0/</guid>
+      <guid>https://blog.csmac.nz/post/migrating-onto-dotnet-tools-1-0-0/</guid>
       <description>&lt;p&gt;Since Visual Studio 2017 is out, and we have a 1.0.0 tools release for .Net Core, I&amp;rsquo;m going to try and migrate a simple project from the pre-release tooling, onto the new tooling.&lt;/p&gt;
 &lt;p&gt;The biggest difference is that instead of using a &lt;code&gt;project.json&lt;/code&gt; file, the new tooling now uses a &lt;code&gt;.csproj&lt;/code&gt; file instead.  It will take a few more posts to go into the differences and re-learn how this works, so for now lets just get something building.&lt;/p&gt;
 &lt;h3 id=&#34;a-v-previous-dotnet-new&#34;&gt;A v-previous dotnet new&lt;/h3&gt;
@@ -976,10 +976,10 @@ dotnet run
     
     <item>
       <title>.Net core tests not showing up in VS? Here&#39;s the trick...</title>
-      <link>https://blogmigration.csmac.nz/post/net-core-tests-not-showing/</link>
+      <link>https://blog.csmac.nz/post/net-core-tests-not-showing/</link>
       <pubDate>Tue, 01 Nov 2016 01:38:35 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/net-core-tests-not-showing/</guid>
+      <guid>https://blog.csmac.nz/post/net-core-tests-not-showing/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been using VS Code. Great tool. But it means my tests are running through a command line runner. Essentially I use &lt;code&gt;dotnet test&lt;/code&gt;, which is nice since I am targeting multiple platforms (.Net 4.5, 4.5.2, 4.6 &amp;amp; netcoreapp1.0).&lt;/p&gt;
 &lt;p&gt;But when I open my test project in Visual Studio, I have 0 tests. Thats zero, none, not a single one.&lt;/p&gt;
 &lt;p&gt;Turns out, if you want tests to show up in Visual Studio you have to make sure that in your &lt;code&gt;project.json&lt;/code&gt;, &lt;code&gt;netcoreapp1.0&lt;/code&gt; needs to be the first framework in the &lt;code&gt;frameworks&lt;/code&gt; section. Otherwise it don&amp;rsquo;t work right.&lt;/p&gt;
@@ -990,20 +990,20 @@ dotnet run
     
     <item>
       <title>.Net Core Series - What&#39;s in the box</title>
-      <link>https://blogmigration.csmac.nz/post/dotnetcore-whats-in-the-box/</link>
+      <link>https://blog.csmac.nz/post/dotnetcore-whats-in-the-box/</link>
       <pubDate>Sat, 09 Jul 2016 02:50:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/dotnetcore-whats-in-the-box/</guid>
-      <description>&lt;p&gt;This is a series on the .Net Core 1.0 bits. Looking for &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;.Net Core 2 Series&lt;/a&gt;?&lt;/p&gt;
+      <guid>https://blog.csmac.nz/post/dotnetcore-whats-in-the-box/</guid>
+      <description>&lt;p&gt;This is a series on the .Net Core 1.0 bits. Looking for &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-getting-started&#34;&gt;.Net Core 2 Series&lt;/a&gt;?&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;What&amp;rsquo;s in the box &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Last time we created a new application. Once with dotnet CLI and once with Visual Studio.&lt;/p&gt;
 &lt;p&gt;We will have a look at some of the files and their contents. Since I assume the &lt;code&gt;Program.cs&lt;/code&gt; file is self-explanatory, I will give it a miss.&lt;/p&gt;
@@ -1142,20 +1142,20 @@ We have 4 top-level properties: &lt;code&gt;version&lt;/code&gt;, &lt;code&gt;bu
     
     <item>
       <title>.Net Core Series - Getting Started</title>
-      <link>https://blogmigration.csmac.nz/post/dotnetcore-getting-started/</link>
+      <link>https://blog.csmac.nz/post/dotnetcore-getting-started/</link>
       <pubDate>Thu, 30 Jun 2016 09:25:34 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/dotnetcore-getting-started/</guid>
-      <description>&lt;p&gt;This is a series on the .Net Core 1.0 bits. Looking for &lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore2-getting-started&#34;&gt;.Net Core 2 Series&lt;/a&gt;?&lt;/p&gt;
+      <guid>https://blog.csmac.nz/post/dotnetcore-getting-started/</guid>
+      <description>&lt;p&gt;This is a series on the .Net Core 1.0 bits. Looking for &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-getting-started&#34;&gt;.Net Core 2 Series&lt;/a&gt;?&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Getting Started &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogmigration.csmac.nz/dotnetcore-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-using-multiple-projects&#34;&gt;Using Multiple Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;We finally got some finalised bits in a release this week. So here is a bit of a guide to get you started. I will (probably) be only showing instructions from on Windows, but all dotnet CLI instructions should be cross platform.&lt;/p&gt;
 &lt;h3 id=&#34;installation&#34;&gt;Installation&lt;/h3&gt;
@@ -1277,10 +1277,10 @@ Console.ReadKey();
     
     <item>
       <title>A couple of debugging tips</title>
-      <link>https://blogmigration.csmac.nz/post/a-couple-of-debugging-tips/</link>
+      <link>https://blog.csmac.nz/post/a-couple-of-debugging-tips/</link>
       <pubDate>Mon, 23 May 2016 04:33:09 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/a-couple-of-debugging-tips/</guid>
+      <guid>https://blog.csmac.nz/post/a-couple-of-debugging-tips/</guid>
       <description>&lt;p&gt;I had an idea of something I wanted to post, but a quick google turns up I &lt;a href=&#34;http://blog.csmac.nz/on-gitversioning-subdirectories/&#34;&gt;posted it 6 months ago&lt;/a&gt;, so here are some debugging tips.&lt;/p&gt;
 &lt;h3 id=&#34;console-break&#34;&gt;Console Break&lt;/h3&gt;
 &lt;p&gt;So you are writing a console app? Cool. Want to see the output? Of course, you do. But when you run it, the app pops up then disappears really quickly right? No? Have you a break point in the last line? Well, that&amp;rsquo;s sensible.&lt;/p&gt;
@@ -1380,10 +1380,10 @@ Console.ReadKey();
     
     <item>
       <title>Treat Warnings As Errors with this one weird PowerShell Script...</title>
-      <link>https://blogmigration.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</link>
+      <link>https://blog.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</link>
       <pubDate>Mon, 09 May 2016 08:30:59 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
+      <guid>https://blog.csmac.nz/post/treat-warnings-as-errors-with-this-one-weird-powershell-script/</guid>
       <description>&lt;p&gt;There is this great feature in Visual Studio that lets you really dial up the quality of your code. It has been there forever it seems, but very few people use it.&lt;/p&gt;
 &lt;p&gt;The compiler spits out errors, which stop your app compiling. You fix your errors and move on.  But the compiler also spits out a lot of warnings too. And many of these are to do with the quality of your code, and possible code errors you have introduced that could cause you issues later on.&lt;/p&gt;
 &lt;p&gt;Did you know you can get the builds to actually fail to compile from these warnings?&lt;/p&gt;
@@ -1441,10 +1441,10 @@ Console.ReadKey();
     
     <item>
       <title>Visual Studio 2015 vs Visual Studio 2013</title>
-      <link>https://blogmigration.csmac.nz/post/visual-studio-2015-vs-visual-studio-2013/</link>
+      <link>https://blog.csmac.nz/post/visual-studio-2015-vs-visual-studio-2013/</link>
       <pubDate>Wed, 05 Aug 2015 11:13:12 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/visual-studio-2015-vs-visual-studio-2013/</guid>
+      <guid>https://blog.csmac.nz/post/visual-studio-2015-vs-visual-studio-2013/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been running some numbers over our solution to try and make things more efficient. While I was at it, I figured I would put 2013 head to head with 2015.&lt;/p&gt;
 &lt;p&gt;The main test I ran was to take a solution open in Visual Studio and make sure it builds. I then ran Clean Solution.  Using a stopwatch (so accuracy +- 1-second values) I recorded how long it took to build. I repeated this 5 times, over three machines, once each with 2013 and 2015.  So first, the raw numbers (in seconds):&lt;/p&gt;
 &lt;!---
@@ -1551,10 +1551,10 @@ Really need table support here:
     
     <item>
       <title>Using C# 5.0 with Visual Studio 2015</title>
-      <link>https://blogmigration.csmac.nz/post/using-c5-with-visual-studio-2015/</link>
+      <link>https://blog.csmac.nz/post/using-c5-with-visual-studio-2015/</link>
       <pubDate>Sun, 26 Jul 2015 07:46:16 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/using-c5-with-visual-studio-2015/</guid>
+      <guid>https://blog.csmac.nz/post/using-c5-with-visual-studio-2015/</guid>
       <description>&lt;p&gt;Visual Studio 2015 is out and brings us the new C# 6 language features. We also have the new .Net 4.6 Runtime. But what does that mean?&lt;/p&gt;
 &lt;p&gt;Well, the framework version and language version are two separate concerns. You can practically pick any framework, with any language, and it will work. This means that If you want to use C# 6 features on your .Net 4.0 application, you can. Ok, so some language features require specific framework libraries, like generics, and async, but most features tend to be &lt;a href=&#34;https://en.wikipedia.org/wiki/Syntactic_sugar&#34;&gt;syntactic sugar&lt;/a&gt;. You have to use VS 2015 to have a compiler with the C# 6 features, but you can also use .Net 4.6 in Visual Studio 2013 with C# 5 and older language versions.&lt;/p&gt;
 &lt;p&gt;There is no reason I can think of to not upgrade to Visual Studio 2015 for your application development. But maybe there is some obscure edge case or policy that stops you, or some of your team, from upgrading. By default, projects will use the latest language version when built in Visual Studio, and so early adopters will start seeing hints and suggestions to use these new features. How can we stop ourselves and our team from breaking compilation in VS 2013?&lt;/p&gt;
@@ -1577,10 +1577,10 @@ Really need table support here:
     
     <item>
       <title>Code Demoing with Visual Studio</title>
-      <link>https://blogmigration.csmac.nz/post/code-demoing-with-visual-studio/</link>
+      <link>https://blog.csmac.nz/post/code-demoing-with-visual-studio/</link>
       <pubDate>Sun, 24 May 2015 08:24:28 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/code-demoing-with-visual-studio/</guid>
+      <guid>https://blog.csmac.nz/post/code-demoing-with-visual-studio/</guid>
       <description>&lt;p&gt;I often find myself in a meeting or presentation, Visual Studio open, showing some code. What is the question I can almost guarantee that someone will ask? Can you please make the code bigger.&lt;/p&gt;
 &lt;p&gt;Now I have a trick that I find really useful that saves a lot of hassle and works really well. It comes in the form of a Visual Studio extension called &lt;a href=&#34;https://visualstudiogallery.msdn.microsoft.com/dbcb8670-889e-4a54-a226-a48a15e4cace&#34;&gt;Productivity Power Tools 2013&lt;/a&gt;.  Specifically, the built in presentation feature.&lt;/p&gt;
 &lt;p&gt;Productivity Power Tools 2013 is a Visual Studio extension I use for numerous reasons. One being this awesome present mode feature, but others include coloured tabs, and squiggles for Error visualisations.&lt;/p&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>nodejs on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/nodejs/</link>
+    <link>https://blog.csmac.nz/tags/nodejs/</link>
     <description>Recent content in nodejs on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 07 Dec 2014 17:41:40 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Dec 2014 17:41:40 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gulp vs .net</title>
-      <link>https://blogmigration.csmac.nz/post/gulp-vs-net/</link>
+      <link>https://blog.csmac.nz/post/gulp-vs-net/</link>
       <pubDate>Sun, 07 Dec 2014 17:41:40 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/gulp-vs-net/</guid>
+      <guid>https://blog.csmac.nz/post/gulp-vs-net/</guid>
       <description>&lt;p&gt;I wanted to add continuous code coverage to my &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions&#34;&gt;little extension library project&lt;/a&gt;, and so realised i would need to run one of nCover, dotCover or openCover from the command line on my build server. This calls for a task based build automation library!&lt;/p&gt;
 &lt;p&gt;Because I&amp;rsquo;m started to learn more about this nodejs thing as a .Net developer, I figured I should give one of the build automation projects from there a go, even though my project is a .Net library and I dont need node (even if it is a PCL).&lt;/p&gt;
 &lt;h4 id=&#34;a-few-hurdles&#34;&gt;A Few Hurdles&lt;/h4&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JavaScript on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/javascript/</link>
+    <link>https://blog.csmac.nz/tags/javascript/</link>
     <description>Recent content in JavaScript on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 11 Dec 2017 22:49:19 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Dec 2017 22:49:19 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TypeScript over JavaScript, Always</title>
-      <link>https://blogmigration.csmac.nz/post/typescript-over-javascript-always/</link>
+      <link>https://blog.csmac.nz/post/typescript-over-javascript-always/</link>
       <pubDate>Mon, 11 Dec 2017 22:49:19 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/typescript-over-javascript-always/</guid>
+      <guid>https://blog.csmac.nz/post/typescript-over-javascript-always/</guid>
       <description>&lt;h2 id=&#34;prelude&#34;&gt;Prelude&lt;/h2&gt;
 &lt;p&gt;As a developer, JavaScript is inevitable. Unless you&amp;rsquo;re a dba or mobile app developer I suppose, but I digress.&lt;/p&gt;
 &lt;p&gt;When working with JavaScript applications, you certainly have to be using a build pipeline of some description. If you are not at least bundling and minifying you are certainly doing it wrong, and if that process isn&amp;rsquo;t automated somehow then your not doing it right.&lt;/p&gt;

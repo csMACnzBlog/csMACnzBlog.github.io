@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Windows on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/windows/</link>
+    <link>https://blog.csmac.nz/tags/windows/</link>
     <description>Recent content in Windows on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 09 Nov 2020 07:11:07 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Nov 2020 07:11:07 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bluetooth Devices keep disconnecting</title>
-      <link>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
+      <link>https://blog.csmac.nz/post/bluetooth-devices-keep-disconnecting/</link>
       <pubDate>Mon, 09 Nov 2020 07:11:07 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
+      <guid>https://blog.csmac.nz/post/bluetooth-devices-keep-disconnecting/</guid>
       <description>&lt;p&gt;It all started when I installed Windows Update 20H2 in October 2020.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve had a stable machine (HP ZBook laptop for reference) for months and months with the same Bluetooth hardware, no issues. But that fateful day I installed the 20H2 update from Microsoft, everything changed.&lt;/p&gt;
 &lt;p&gt;Suddenly I was having disconnect issues. I have a Bluetooth keyboard and Bluetooth mouse connected (I think they are both low energy?) And I found that one of them would reconnect, and the other wouldn&amp;rsquo;t. If I turned one-off, the other would reconnect, but the first one wouldn&amp;rsquo;t be able to when turned back on.&lt;/p&gt;
@@ -32,10 +32,10 @@
     
     <item>
       <title>F5 VPN and Windows 10</title>
-      <link>https://blogmigration.csmac.nz/post/f5-vpn-and-windows-10/</link>
+      <link>https://blog.csmac.nz/post/f5-vpn-and-windows-10/</link>
       <pubDate>Thu, 03 Sep 2015 09:24:27 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/f5-vpn-and-windows-10/</guid>
+      <guid>https://blog.csmac.nz/post/f5-vpn-and-windows-10/</guid>
       <description>&lt;p&gt;I recently had the need to VPN into a network using an F5 Networks VPN.  Turns out the provided BIG-IP Edge Client installs ok on Windows 10 but doesn&amp;rsquo;t connect.  I kept getting the &amp;ldquo;Network Access Connection Device was not found.&amp;rdquo; error at the last step of connecting.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1441314642/Error_b6ernt.png&#34; alt=&#34;&amp;ldquo;Network Access Connection Device was not found.&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Turns out that it was adding a &amp;lsquo;device&amp;rsquo; to device manager but not associating a driver to it.  Easily fixed as it happens.&lt;/p&gt;

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Editorial on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/categories/editorial/</link>
+    <link>https://blog.csmac.nz/categories/editorial/</link>
     <description>Recent content in Editorial on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 15 Jul 2019 09:50:55 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/categories/editorial/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Jul 2019 09:50:55 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/categories/editorial/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>We are all 10x engineers, but I don&#39;t think it means what you think it means</title>
-      <link>https://blogmigration.csmac.nz/post/we-are-all-10x/</link>
+      <link>https://blog.csmac.nz/post/we-are-all-10x/</link>
       <pubDate>Mon, 15 Jul 2019 09:50:55 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/we-are-all-10x/</guid>
+      <guid>https://blog.csmac.nz/post/we-are-all-10x/</guid>
       <description>&lt;p&gt;If your reading this blog, and used twitter in the past few days, you have probably already seen this tweet, or some of the replies coming through from the community:&lt;/p&gt;
 &lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;10x engineers&lt;br&gt;&lt;br&gt;Founders if you ever come across this rare breed of engineers, grab them. If you have a 10x engineer as part of your first few engineers, you increase the odds of your startup success significantly.&lt;br&gt;&lt;br&gt;OK, here is a tough question.&lt;br&gt;&lt;br&gt;How do you spot a 10x engineer?&lt;/p&gt;&amp;mdash; Shekhar Kirani (@skirani) &lt;a href=&#34;https://twitter.com/skirani/status/1149302828420067328?ref_src=twsrc%5Etfw&#34;&gt;July 11, 2019&lt;/a&gt;&lt;/blockquote&gt;
 &lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
@@ -76,11 +76,11 @@
     
     <item>
       <title>µCon 2019 - Day 3</title>
-      <link>https://blogmigration.csmac.nz/post/mucon-2019-part2/</link>
+      <link>https://blog.csmac.nz/post/mucon-2019-part2/</link>
       <pubDate>Fri, 31 May 2019 10:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/mucon-2019-part2/</guid>
-      <description>&lt;p&gt;Good morning day 3. So much to absorb already from &lt;a href=&#34;https://blogmigration.csmac.nz/mucon-2019-part1/&#34;&gt;Day 1 and 2&lt;/a&gt; but it isn&amp;rsquo;t over yet.&lt;/p&gt;
+      <guid>https://blog.csmac.nz/post/mucon-2019-part2/</guid>
+      <description>&lt;p&gt;Good morning day 3. So much to absorb already from &lt;a href=&#34;https://blog.csmac.nz/mucon-2019-part1/&#34;&gt;Day 1 and 2&lt;/a&gt; but it isn&amp;rsquo;t over yet.&lt;/p&gt;
 &lt;p&gt;This morning&amp;rsquo;s Keynote &amp;ldquo;Crossing the River by Feeling the Stones&amp;rdquo; from &lt;a href=&#34;https://twitter.com/swardley&#34;&gt;Simon Wardley&lt;/a&gt; is a must see. This was a very educational look at the value of maps, and the importance of knowing the landscape, looking at Evolutionary Flow and not just Process Flow when looking at optimisations. I would recommend the talk from Susanne Kaiser &amp;ldquo;Preparing for a future Microservices journey&amp;rdquo; from the day before as a nice companion to this keynote talk, as she used &amp;ldquo;Wardley Maps&amp;rdquo; to specifically look at the evolution towards microservices. (Though this keynote also shows that journey towards the end as well).&lt;/p&gt;
 &lt;p&gt;&amp;ldquo;Exploring your Microservices Architecture Through Graph Theory&amp;rdquo; from &lt;a href=&#34;https://twitter.com/techiewatt&#34;&gt;Nicki Watt&lt;/a&gt; was a great look at applying Graph Theory to distributed systems, especially with Microservices to gain insight into where architectural smells may exist using different analysis metrics.&lt;/p&gt;
 &lt;p&gt;The before lunch slot was &amp;ldquo;Awesome CI/CD Data Pipelines for Distributed Data-Sources&amp;rdquo; from &lt;a href=&#34;https://twitter.com/ChrisBurrell7&#34;&gt;Chris Burrell&lt;/a&gt;. This was a walkthrough of mining data sources (load and transform) from Microservices into RedShift in a pipeline approach.&lt;/p&gt;
@@ -91,17 +91,17 @@
 &lt;p&gt;And last but not least, we have the final Keynote: &amp;ldquo;Temporal Modelling&amp;rdquo; from &lt;a href=&#34;https://twitter.com/mathiasverraes&#34;&gt;Mathias Verraes&lt;/a&gt;. A really good overview conversation into Event-based systems, Event Storming and why modelling the Events of your system is of greater benefit than to use Entity Modelling instead. Another recommended one to expand your thinking.&lt;/p&gt;
 &lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
 &lt;p&gt;And that&amp;rsquo;s a wrap! 2019 µCon is done and dusted. Lots to take in, lots to revisit from the recordings, and a bunch of sessions missed that need to be watched.&lt;/p&gt;
-&lt;p&gt;The amazing crew doing the filming have been working away getting all the videos up as quickly as possible (on the day recorded for the most part!). You can head over to Skills Matter and watch them all from the links provided off of the &lt;a href=&#34;https://skillsmatter.com/conferences/11982-con-london-2019-the-conference-on-microservices-ddd-and-software-architecture#program&#34;&gt;Schedule here&lt;/a&gt;. Take this and &lt;a href=&#34;https://blogmigration.csmac.nz/mucon-2019-part1/&#34;&gt;the previous part&lt;/a&gt; as a guide for where to begin but continue through all the other amazing talks I didn&amp;rsquo;t have time to attend in person as well.&lt;/p&gt;
+&lt;p&gt;The amazing crew doing the filming have been working away getting all the videos up as quickly as possible (on the day recorded for the most part!). You can head over to Skills Matter and watch them all from the links provided off of the &lt;a href=&#34;https://skillsmatter.com/conferences/11982-con-london-2019-the-conference-on-microservices-ddd-and-software-architecture#program&#34;&gt;Schedule here&lt;/a&gt;. Take this and &lt;a href=&#34;https://blog.csmac.nz/mucon-2019-part1/&#34;&gt;the previous part&lt;/a&gt; as a guide for where to begin but continue through all the other amazing talks I didn&amp;rsquo;t have time to attend in person as well.&lt;/p&gt;
 &lt;p&gt;Happy Learning!&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>µCon 2019 - Day 1 &amp; 2</title>
-      <link>https://blogmigration.csmac.nz/post/mucon-2019-part1/</link>
+      <link>https://blog.csmac.nz/post/mucon-2019-part1/</link>
       <pubDate>Thu, 30 May 2019 20:05:21 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/mucon-2019-part1/</guid>
+      <guid>https://blog.csmac.nz/post/mucon-2019-part1/</guid>
       <description>&lt;p&gt;After a restful night at a London hotel (I learned my lesson from the last time I came in for a London conference) coffee and breakfast at the Business Design Centre in London, muCon 2019 kicks off. muCon (or µCon) is a Conference on Microservices, DDD &amp;amp; Software Architecture. From what I gather, this year for the first time it is an amalgamation of a DDD and Microservices conference into one. I&amp;rsquo;m here for three days. At this point, I&amp;rsquo;ve gotten into a rhythm of blogging about my Conference Experiences so here we go again!&lt;/p&gt;
 &lt;h2 id=&#34;day-1&#34;&gt;Day 1&lt;/h2&gt;
 &lt;p&gt;We kick off with an excellent keynote from &lt;a href=&#34;https://twitter.com/mfeathers&#34;&gt;Michael Feathers&lt;/a&gt; which captures various ideologies and principles applied to team and code architecture both at the class level, microservice level and interpersonal individual and team level as well.&lt;/p&gt;
@@ -148,10 +148,10 @@ from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; 
     
     <item>
       <title>Silverlight 6 with .NetStandard support Announced</title>
-      <link>https://blogmigration.csmac.nz/post/silverlight-6-with-netstandard-support-announced/</link>
+      <link>https://blog.csmac.nz/post/silverlight-6-with-netstandard-support-announced/</link>
       <pubDate>Sun, 31 Mar 2019 16:30:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/silverlight-6-with-netstandard-support-announced/</guid>
+      <guid>https://blog.csmac.nz/post/silverlight-6-with-netstandard-support-announced/</guid>
       <description>&lt;p&gt;&lt;em&gt;Published on April Fools Day, 2019&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Microsoft announced today that they are working on Silverlight 6, which is to include .NetStandard support up to at least NetStandard 2.0.&lt;/p&gt;
 &lt;p&gt;Development Manager &lt;a href=&#34;http://bit.ly/llirpa&#34;&gt;Loof Lirpa&lt;/a&gt; on the Silverlight Development team has confirmed that there is a Silverlight version 6 in the works, and it will be compatible with the .Net Standard and the dotnet cli.&lt;/p&gt;
@@ -163,10 +163,10 @@ from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; 
     
     <item>
       <title>So you wanna be a Rockstar (Developer)?</title>
-      <link>https://blogmigration.csmac.nz/post/so-you-wanna-be-a-rockstar-developer/</link>
+      <link>https://blog.csmac.nz/post/so-you-wanna-be-a-rockstar-developer/</link>
       <pubDate>Tue, 05 Feb 2019 20:13:39 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/so-you-wanna-be-a-rockstar-developer/</guid>
+      <guid>https://blog.csmac.nz/post/so-you-wanna-be-a-rockstar-developer/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;lsquo;Cause we all just wanna be big rockstars
 And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
@@ -199,10 +199,10 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>Looking forward to dotnet in 2019</title>
-      <link>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</link>
+      <link>https://blog.csmac.nz/post/looking-forward-to-dotnet-in-2019/</link>
       <pubDate>Thu, 17 Jan 2019 20:40:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/looking-forward-to-dotnet-in-2019/</guid>
+      <guid>https://blog.csmac.nz/post/looking-forward-to-dotnet-in-2019/</guid>
       <description>&lt;p&gt;It&amp;rsquo;s a new year, and we already have a bunch of dotnet releases to look forward to, thanks to the open development processes that Microsoft is using these days with dotnet.&lt;/p&gt;
 &lt;p&gt;The three big releases I am looking forward to are C# 8 and .Net Core 3.0, and a NetStandard2.1. (Not to mention there is a .Net Framework 4.8 as well. But I&amp;rsquo;ve moved on.)&lt;/p&gt;
 &lt;h2 id=&#34;c-8&#34;&gt;C# 8&lt;/h2&gt;
@@ -257,12 +257,12 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>My first DDD Event and how I made the decision to work a 16 hour Saturday</title>
-      <link>https://blogmigration.csmac.nz/post/my-first-ddd-event-and-how-i-made-the-decision-to-work-a-16-hour-day/</link>
+      <link>https://blog.csmac.nz/post/my-first-ddd-event-and-how-i-made-the-decision-to-work-a-16-hour-day/</link>
       <pubDate>Mon, 24 Sep 2018 02:36:52 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/my-first-ddd-event-and-how-i-made-the-decision-to-work-a-16-hour-day/</guid>
+      <guid>https://blog.csmac.nz/post/my-first-ddd-event-and-how-i-made-the-decision-to-work-a-16-hour-day/</guid>
       <description>&lt;p&gt;In my hand, I have a couple of train tickets. The reservations indicate that I left the house at 5 am Saturday morning to make the first train from Birmingham to Cambridge, and wouldn&amp;rsquo;t get home again until 9 pm. And that is exactly what I did.&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;ve been making more of an effort this year to attend conferences and community events. I had a blast at NDC Oslo 2018 (&lt;a href=&#34;https://blogmigration.csmac.nz/ndc-oslo-2018/&#34;&gt;1&lt;/a&gt;,&lt;a href=&#34;https://blogmigration.csmac.nz/ndc-oslo-2018-part2/&#34;&gt;2&lt;/a&gt;) meeting some amazing people, off the back of that I heard about &lt;a href=&#34;https://blogmigration.csmac.nz/geeking-out-at-altnetbrum-2018/&#34;&gt;Birmingham Alt.Net Unconference&lt;/a&gt;, and then from there, I heard about DDD East Anglea. (Following that trend, next up: &lt;a href=&#34;https://www.meetup.com/en-AU/altnetbrum/events/252629315/&#34;&gt;F# SAFE Stack Hackday
+&lt;p&gt;I&amp;rsquo;ve been making more of an effort this year to attend conferences and community events. I had a blast at NDC Oslo 2018 (&lt;a href=&#34;https://blog.csmac.nz/ndc-oslo-2018/&#34;&gt;1&lt;/a&gt;,&lt;a href=&#34;https://blog.csmac.nz/ndc-oslo-2018-part2/&#34;&gt;2&lt;/a&gt;) meeting some amazing people, off the back of that I heard about &lt;a href=&#34;https://blog.csmac.nz/geeking-out-at-altnetbrum-2018/&#34;&gt;Birmingham Alt.Net Unconference&lt;/a&gt;, and then from there, I heard about DDD East Anglea. (Following that trend, next up: &lt;a href=&#34;https://www.meetup.com/en-AU/altnetbrum/events/252629315/&#34;&gt;F# SAFE Stack Hackday
 @ Birmingham Alt.Net&lt;/a&gt;.)&lt;/p&gt;
 &lt;p&gt;The nice thing about free Saturday Conferences and workshops is they are easy to get business sign-off, that is if you even need to bother :)&lt;/p&gt;
 &lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;Why am I awake this early on a Saturday? Catching a train to &lt;a href=&#34;https://twitter.com/hashtag/DDDEA?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#DDDEA&lt;/a&gt; of course. Should be worth it though!&lt;/p&gt;&amp;mdash; Mark Clearwater (@csMACnz) &lt;a href=&#34;https://twitter.com/csMACnz/status/1043348649596661762?ref_src=twsrc%5Etfw&#34;&gt;September 22, 2018&lt;/a&gt;&lt;/blockquote&gt;
@@ -297,10 +297,10 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>A Little Town called Milton</title>
-      <link>https://blogmigration.csmac.nz/post/a-little-town-called-milton/</link>
+      <link>https://blog.csmac.nz/post/a-little-town-called-milton/</link>
       <pubDate>Mon, 23 Jul 2018 06:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/a-little-town-called-milton/</guid>
+      <guid>https://blog.csmac.nz/post/a-little-town-called-milton/</guid>
       <description>&lt;p&gt;There is a small town in the South Island of New Zealand called Milton. The main road runs right through the town in one side and out the other. Its a nice enough place to stop on a road trip.&lt;/p&gt;
 &lt;p&gt;There is a unique feature to this main road in Miton, you see. When you get to the middle of the town and the road has a massive kink in it.  Why is this here?&lt;/p&gt;
 &lt;p&gt;One story goes that two surveyors were building the road, one from the south and one from the north. A nice straight road.  The problem is that when they go their straight road to the town they realised that it didn&amp;rsquo;t line up. So they had to use the kink to connect it up.&lt;/p&gt;
@@ -316,10 +316,10 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>Geeking out on a Saturday at the Birmingham Alt.Net Unconference</title>
-      <link>https://blogmigration.csmac.nz/post/geeking-out-at-altnetbrum-2018/</link>
+      <link>https://blog.csmac.nz/post/geeking-out-at-altnetbrum-2018/</link>
       <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/geeking-out-at-altnetbrum-2018/</guid>
+      <guid>https://blog.csmac.nz/post/geeking-out-at-altnetbrum-2018/</guid>
       <description>&lt;p&gt;Unlike some unfortunate people who found out on the day and missed out, I had the opportunity to attend the Alt.Net Unconference in Birmingham this Saturday.&lt;/p&gt;
 &lt;p&gt;Now I know some of you think Saturday Conferences are too far outside your work time. But hear me out on this first.  This is a free event, which means no expensive expense approval. It included lunch so no personal cost apart from transport to get there. And if you really struggle with that, you could negotiate some time-in-leu with your manager for the following Monday to attend. The benefit to you and your company from an event like this is massive.  Also, as a social event for the chance to geek out about the technology you love, or love to hate on, it is fantastic.&lt;/p&gt;
 &lt;p&gt;Enough of the sales pitch, what was it like?&lt;/p&gt;
@@ -367,10 +367,10 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>NDC Oslo 2018 - Day 2 &amp; 3</title>
-      <link>https://blogmigration.csmac.nz/post/ndc-oslo-2018-part2/</link>
+      <link>https://blog.csmac.nz/post/ndc-oslo-2018-part2/</link>
       <pubDate>Sun, 24 Jun 2018 20:16:48 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/ndc-oslo-2018-part2/</guid>
+      <guid>https://blog.csmac.nz/post/ndc-oslo-2018-part2/</guid>
       <description>&lt;h2 id=&#34;day-2&#34;&gt;Day 2&lt;/h2&gt;
 &lt;p&gt;Day 2 of NDC Oslo. A bit less productive than the first. I needed a longer lunch and missed a couple of slots, but made the most of talking to some of the speakers for a bit over the break. There is so much going on that it just felt necessary.&lt;/p&gt;
 &lt;p&gt;Never-the-less, I did still pack in a few good choices throughout the day.&lt;/p&gt;
@@ -425,10 +425,10 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>NDC Oslo 2018 - Day 1</title>
-      <link>https://blogmigration.csmac.nz/post/ndc-oslo-2018/</link>
+      <link>https://blog.csmac.nz/post/ndc-oslo-2018/</link>
       <pubDate>Wed, 13 Jun 2018 06:34:40 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/ndc-oslo-2018/</guid>
+      <guid>https://blog.csmac.nz/post/ndc-oslo-2018/</guid>
       <description>&lt;p&gt;With 10 streams on, there has been a lot to choose from at NDC in Oslo.  But as day one ends, I&amp;rsquo;ve now voted with my feet. And since I can&amp;rsquo;t be in two places at once (though the overflow does technically make this possible) these are the decisions I made, and a few takeaways from each.&lt;/p&gt;
 &lt;h3 id=&#34;day-1&#34;&gt;Day 1&lt;/h3&gt;
 &lt;p&gt;I was pretty much jumping from one session to the next today but had a little time to walk the stalls first.  A quick chat with the Guys from Microsoft, Octopus Deploy and a few stickers from some other stalls such as Twilio and JetBrains.&lt;/p&gt;
@@ -464,10 +464,10 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>AWS Summit London 2018</title>
-      <link>https://blogmigration.csmac.nz/post/aws-summit-london-2018/</link>
+      <link>https://blog.csmac.nz/post/aws-summit-london-2018/</link>
       <pubDate>Sun, 20 May 2018 07:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/aws-summit-london-2018/</guid>
+      <guid>https://blog.csmac.nz/post/aws-summit-london-2018/</guid>
       <description>&lt;p&gt;I recently attended the AWS Summit in London and thought I would give some notes on the event from my perspective.&lt;/p&gt;
 &lt;p&gt;As a developer working for a company that uses AWS, there was plenty to get out of an event such as this, and the free attendance makes a great business case to get the time to go.&lt;/p&gt;
 &lt;p&gt;I really enjoyed the schedule of talks that I attended, and the keynote was a good overview of the state of things as AWS, with some exciting insight into partners in Automotive, and Healthcare.&lt;/p&gt;
@@ -499,10 +499,10 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>You can&#39;t out-exercise a bad diet</title>
-      <link>https://blogmigration.csmac.nz/post/you-cant-out-exercise-a-bad-diet/</link>
+      <link>https://blog.csmac.nz/post/you-cant-out-exercise-a-bad-diet/</link>
       <pubDate>Thu, 10 May 2018 20:41:55 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/you-cant-out-exercise-a-bad-diet/</guid>
+      <guid>https://blog.csmac.nz/post/you-cant-out-exercise-a-bad-diet/</guid>
       <description>&lt;p&gt;I heard a great quote yesterday:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;You can&amp;rsquo;t out-exercise a bad diet&lt;/p&gt;
@@ -515,10 +515,10 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>Developers are not lazy, they&#39;re efficient</title>
-      <link>https://blogmigration.csmac.nz/post/developers-are-not-lazy-theyre-efficient/</link>
+      <link>https://blog.csmac.nz/post/developers-are-not-lazy-theyre-efficient/</link>
       <pubDate>Mon, 09 Apr 2018 08:00:00 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/developers-are-not-lazy-theyre-efficient/</guid>
+      <guid>https://blog.csmac.nz/post/developers-are-not-lazy-theyre-efficient/</guid>
       <description>&lt;p&gt;Well, mostly.&lt;/p&gt;
 &lt;p&gt;I hear the excuse a lot from developers, &amp;ldquo;Oh, because I am lazy&amp;rdquo;.  This seems to be some sort of way of justifying the way we do some of our development, automation scripts, bash power-user commands like &lt;code&gt;grep&lt;/code&gt; and &lt;code&gt;awk&lt;/code&gt;, even writing a program to solve something we could do ourselves manually. Unfortunately, even copy+paste development.  We don&amp;rsquo;t do ourselves any favours using the term lazy though, since not all words can have their meanings reversed, unlike &lt;code&gt;literally&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve spent some time trying to analyse this, and determine what we are actually trying to convey, and how accurate we actually are by making such a statement about ourselves, or the work we are completing.&lt;/p&gt;
@@ -536,10 +536,10 @@ And live in hilltop houses, drivin&amp;rsquo; fifteen cars&lt;/p&gt;
     
     <item>
       <title>Microsoft &amp; Google, Android Wear support is missing</title>
-      <link>https://blogmigration.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</link>
+      <link>https://blog.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</link>
       <pubDate>Thu, 19 Jan 2017 23:50:24 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</guid>
+      <guid>https://blog.csmac.nz/post/microsoft-google-android-wear-support-is-missing/</guid>
       <description>&lt;p&gt;Ok, so I know I am in the minority as a Windows Phone user, but sometimes I just get frustrated and I wish Microsoft at least tried to achieve parity with their platforms, and not leave it to others who just won&amp;rsquo;t bother.&lt;/p&gt;
 &lt;p&gt;I have a really nice &lt;a href=&#34;https://www.microsoftstore.com/store/msuk/en_GB/pdp/Acer-Liquid-Jade-Primo--Unlocked/productID.5064103000&#34;&gt;Acer Liquid Jade Primo&lt;/a&gt; Windows 10 mobile phone. Continuum, Hexa Core Processor, 3GB memory, nice 5.5&amp;quot; screen, great camera.&lt;/p&gt;
 &lt;p&gt;Yesterday I went shopping and saw the really nice Fossil Q watches. (Further disclaimer: I already own a really nice Fossil Mechanical watch, and a Microsoft Band 2) They were really nice, but I had to walk away. Why? Because they run Android Wear.&lt;/p&gt;

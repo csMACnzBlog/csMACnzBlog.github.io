@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Storyteller on csMACnz&#39;s Blog</title>
-    <link>https://blogmigration.csmac.nz/tags/storyteller/</link>
+    <link>https://blog.csmac.nz/tags/storyteller/</link>
     <description>Recent content in Storyteller on csMACnz&#39;s Blog</description>
     <image>
-      <url>https://blogmigration.csmac.nz/favicon.png</url>
+      <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
-      <link>https://blogmigration.csmac.nz</link>
+      <link>https://blog.csmac.nz</link>
     </image>
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Thu, 28 Dec 2017 23:41:13 +0000</lastBuildDate><atom:link href="https://blogmigration.csmac.nz/tags/storyteller/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Dec 2017 23:41:13 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/storyteller/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Subcutaneous Testing against React &#43; .Net Applications with Storyteller - A Reply</title>
-      <link>https://blogmigration.csmac.nz/post/storytellerreduxsample/</link>
+      <link>https://blog.csmac.nz/post/storytellerreduxsample/</link>
       <pubDate>Thu, 28 Dec 2017 23:41:13 +0000</pubDate>
       
-      <guid>https://blogmigration.csmac.nz/post/storytellerreduxsample/</guid>
+      <guid>https://blog.csmac.nz/post/storytellerreduxsample/</guid>
       <description>&lt;p&gt;A week or two ago Jeremy Miller posted an article &lt;a href=&#34;https://jeremydmiller.com/2017/12/19/subcutaneous-testing-against-react-net-applications/&#34;&gt;Subcutaneous Testing against React + .Net Applications&lt;/a&gt;. It outlined some early R&amp;amp;D on the new Storyteller.Redux, which allows you to run Storyteller tests against Redux stores using WebSockets.&lt;/p&gt;
 &lt;p&gt;While he had a proven way of communicating between React/Redux and Storyteller, It was lacking the all-important AspNetCore integration that was just casually mentioned.  So I figured I would pull on that thread and see what is actually possible.&lt;/p&gt;
 &lt;h3 id=&#34;first-hurdle&#34;&gt;First Hurdle&lt;/h3&gt;
