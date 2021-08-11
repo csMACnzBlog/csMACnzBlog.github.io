@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ghost on csMACnz&#39;s Blog</title>
-    <link>https://blog.csmac.nz/tags/ghost/</link>
-    <description>Recent content in Ghost on csMACnz&#39;s Blog</description>
+    <title>Hugo on csMACnz&#39;s Blog</title>
+    <link>https://blog.csmac.nz/tags/hugo/</link>
+    <description>Recent content in Hugo on csMACnz&#39;s Blog</description>
     <image>
       <url>https://blog.csmac.nz/favicon.png</url>
       <title>csMACnz&#39;s Blog</title>
@@ -12,7 +12,7 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 10 Aug 2021 20:30:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/ghost/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Aug 2021 20:30:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>An almost seamless transition from Ghost to Hugo</title>
       <link>https://blog.csmac.nz/post/an-almost-seamless-transition-from-ghost-to-hugo/</link>
@@ -49,44 +49,6 @@
 &lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
 &lt;p&gt;Would I choose to do it again? Yes. I am certainly in a better place. So far, I think I&amp;rsquo;ve backed the right horse in Hugo. The workflow seems about as good as it was before, and I am aware of a few tools such as &lt;a href=&#34;https://cloudcannon.com/&#34;&gt;CloudCannon&lt;/a&gt; for better CMS management workflows if I desire. I might miss the Ghost app for drafts, but I mostly write on my desktop anyway. And since it is in GitHub, anything that can commit markdown to there is a way to draft.&lt;/p&gt;
 &lt;p&gt;Now that I have that done, the next step is likely to repeat the whole process with &lt;code&gt;csmac.nz&lt;/code&gt; as well and fix its certs, ads, and content. (That last one has been bugging me since I moved to Ghost to be fair&amp;hellip; &lt;code&gt;¯\_(ツ)_/¯&lt;/code&gt;)&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Ghost Blog Upgrade to 1.* (1.8.4 in fact)</title>
-      <link>https://blog.csmac.nz/post/ghost-blog-upgrade-to-v1/</link>
-      <pubDate>Sat, 09 Sep 2017 10:07:33 +0000</pubDate>
-      
-      <guid>https://blog.csmac.nz/post/ghost-blog-upgrade-to-v1/</guid>
-      <description>&lt;p&gt;While I&amp;rsquo;ve been hapily blogging away on Ghost version 0.8.0 hosted on azure (very much ad-hoc hosting approach) the Ghost Blog team made the leap to a &lt;code&gt;1.*&lt;/code&gt; version, with a very breaking changes along the way, especially to their upgrade process. They&amp;rsquo;ve made it all the way to &lt;code&gt;1.8.4&lt;/code&gt; and so I figured it was time I upgraded.&lt;/p&gt;
-&lt;p&gt;This was going to be a nightmare if it wasn&amp;rsquo;t for two things.&lt;/p&gt;
-&lt;h3 id=&#34;backup-and-import&#34;&gt;Backup and Import&lt;/h3&gt;
-&lt;p&gt;There is a great guide for upgrading put out by the Ghost Blog team: &lt;a href=&#34;https://docs.ghost.org/docs/migrating-to-ghost-1-0-0&#34;&gt;Migrating to 1.0.0&lt;/a&gt;. With this article, you can see the import and export instructions, specifically the &lt;a href=&#34;https://docs.ghost.org/docs/migrating-to-ghost-1-0-0#section-1-backup-your-content&#34;&gt;backup your content section&lt;/a&gt;, and the &lt;a href=&#34;https://docs.ghost.org/docs/migrating-to-ghost-1-0-0#section-3-use-the-ghost-1-0-0-importer&#34;&gt;Use the Ghost 1.0.0 importer section&lt;/a&gt;. Keep track of any themes and content images too.&lt;/p&gt;
-&lt;h3 id=&#34;chadlynet&#34;&gt;chadly.net&lt;/h3&gt;
-&lt;p&gt;Fortunately for me, someone else had also tried hosting ghost on Azure App Service Windows instances. Needless to say, this has a few gotchas so having someone to follow makes all the difference.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.chadly.net/&#34;&gt;chadly.net&lt;/a&gt; is a blog running using Ghost, and helpfully documented how they got a recent version running on Azure in their
-&lt;a href=&#34;https://www.chadly.net/ghost-on-azure/&#34;&gt;Host Ghost 1.0 on Azure for Free&lt;/a&gt; article.&lt;/p&gt;
-&lt;p&gt;Some parts where I got stuck and had to resolve some issues.&lt;/p&gt;
-&lt;p&gt;Firstly, I had to actually use deployments from source control. This is in the instructions and works great as described. Trying to use the hacky way I had been using was no longer working and I should have just done it right in the first place.&lt;/p&gt;
-&lt;p&gt;Secondly, I had to patch my code version the same was as in &lt;a href=&#34;https://www.chadly.net/ghost-on-azure/#newconfigurationsystem&#34;&gt;New Configuration System&lt;/a&gt; section, which comes from &lt;a href=&#34;https://github.com/chadly/ghost/commit/636209c49a115e66e5c8d2078bcd03733494c35b#diff-198522c016d444fe14bb9882f7614d2dR39&#34;&gt;this PR in the repo&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Also, again, I had to actually use the webconfig settings from the chadly repo, my old ones didn&amp;rsquo;t quite work as expected (again, another hack job averted). (Specifically &lt;a href=&#34;https://github.com/chadly/ghost/commit/3d46f6179259fb85fe89c02df7b122b1b4ecffa6&#34;&gt;Whats in this PR&lt;/a&gt;)&lt;/p&gt;
-&lt;p&gt;Don&amp;rsquo;t forget the parts about the config files, and creating and uploading the &lt;code&gt;ghost.db&lt;/code&gt; file manually.&lt;/p&gt;
-&lt;p&gt;So that&amp;rsquo;s me back up and running, a saturday wasted, and now I can use ghost blog editor apps that now require the &lt;code&gt;1.*&lt;/code&gt; api. Thanks &lt;a href=&#34;https://github.com/chadly&#34;&gt;@chadly&lt;/a&gt;!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Ghost blog backups</title>
-      <link>https://blog.csmac.nz/post/ghost-blog-backups/</link>
-      <pubDate>Sun, 14 Jun 2015 17:25:12 +0000</pubDate>
-      
-      <guid>https://blog.csmac.nz/post/ghost-blog-backups/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;ve been using &lt;a href=&#34;https://ghost.org/&#34;&gt;Ghost&lt;/a&gt; to run my blog for a few months now. One thing that was not immediately obvious to me was how to backup the content in my blog. So here is a quick recap on how its done.&lt;/p&gt;
-&lt;p&gt;Its actually pretty easy, although not very discoverable.  When you are logged in, you can head to the URL https://[YourBlogDomain]/ghost/debug. This takes you to the following debug page:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/v1432437154/ghostdebugcontent_pffn97.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;From here you can see the Export button, which exports your blog is a &lt;a href=&#34;https://github.com/TryGhost/Ghost/wiki/Import-format&#34;&gt;Ghost blog custom json format&lt;/a&gt;. Its basically that easy. This is also where you can import the backup back in again, or any other import from WordPress or wherever.  This is also where you can wipe out all the posts in your blog, so be careful.&lt;/p&gt;
-&lt;p&gt;As I said, it appears the debug page is not discoverable, so I hope this helps others looking for how to export backups of their blogs on ghost as well.&lt;/p&gt;
-&lt;p&gt;The only gotcha, you do have to be logged in. Another not very discoverable feature, but if you go to https://[YourBlogDomain]/ghost, it will give you the login page. Then you will have no trouble when you head to https://[YourBlogDomain]/ghost/debug. Thanks goes to &lt;a href=&#34;https://ghost.org/forum/using-ghost/1067-how-to-backup-ghost-content-data/&#34;&gt;this forum post&lt;/a&gt; for showing how its done.&lt;/p&gt;
 </description>
     </item>
     

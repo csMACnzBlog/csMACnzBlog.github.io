@@ -12,7 +12,46 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 13 Jul 2021 19:18:43 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/categories/software-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Aug 2021 20:30:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/categories/software-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>An almost seamless transition from Ghost to Hugo</title>
+      <link>https://blog.csmac.nz/post/an-almost-seamless-transition-from-ghost-to-hugo/</link>
+      <pubDate>Tue, 10 Aug 2021 20:30:00 +0000</pubDate>
+      
+      <guid>https://blog.csmac.nz/post/an-almost-seamless-transition-from-ghost-to-hugo/</guid>
+      <description>&lt;p&gt;Well, I finally did it. Ghost has been sitting on an older version for a long time, my certs were expiring, and I did something about it.&lt;/p&gt;
+&lt;h2 id=&#34;tldr&#34;&gt;TL;DR;&lt;/h2&gt;
+&lt;p&gt;My blog engine and hosting were deteriorating fast, so I moved to GitHub Pages, Hugo, and Static Site Generation, (mostly) without losing or breaking anything.&lt;/p&gt;
+&lt;h2 id=&#34;synopsys&#34;&gt;Synopsys&lt;/h2&gt;
+&lt;p&gt;Years ago I moved from WordPress to Ghost. This let me get on with writing and not worrying about the hosting. I moved it to Azure and even added a dynamic SSL certificate rotator using Lets Encrypt.&lt;/p&gt;
+&lt;p&gt;Eventually, the cert rotator broke, and the blog engine got enough major versions behind to make the upgrade path non-trivial to fix. Not to mention Google Ads decided my site wasn&amp;rsquo;t good enough for them and so disabled any ads that could have shown up. Hosting costs on Azure, while small, were a factor to think about too.&lt;/p&gt;
+&lt;p&gt;Around the time I decided to do something about it, I also started paying attention to other people using static site generation to host their blogs. It didn&amp;rsquo;t take long to find a few really great articles that showed how simple this was going to be. The simplest of which seemed to be &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; on &lt;a href=&#34;https://pages.github.com/&#34;&gt;GitHub Pages&lt;/a&gt;. So that is the path I went down.&lt;/p&gt;
+&lt;h2 id=&#34;what-went-well&#34;&gt;What went well&lt;/h2&gt;
+&lt;p&gt;My initial research was well-founded, and I very easily found the tool &lt;a href=&#34;https://github.com/jbarone/ghostToHugo&#34;&gt;jbarone/ghostToHugo&lt;/a&gt; designed for the job.&lt;/p&gt;
+&lt;p&gt;Initially, everything was super simple, and I had my content in Hugo in under an hour. Mainly I was following youngkin&amp;rsquo;s article: &lt;a href=&#34;https://youngkin.github.io/post/createafreeblogsite/&#34;&gt;Create a Free Blog Site Using GitHub Pages and Hugo&lt;/a&gt;, and then using ghostToHugo for my content.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gohugo.io/getting-started/installing/&#34;&gt;Install Hugo CLI locally&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;create basis repository setup with the suggested theme &lt;a href=&#34;https://youngkin.github.io/post/createafreeblogsite/&#34;&gt;youngkin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ghost.org/help/the-importer/&#34;&gt;export my Ghost backup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;install &lt;a href=&#34;https://github.com/jbarone/ghostToHugo&#34;&gt;ghostToHugo&lt;/a&gt; tool&lt;/li&gt;
+&lt;li&gt;run ghostToHugo to migrate posts into the site&lt;/li&gt;
+&lt;li&gt;run locally to test&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(I&amp;rsquo;m not repeating details here, because &lt;a href=&#34;https://youngkin.github.io/post/createafreeblogsite/&#34;&gt;youngkin&lt;/a&gt; has it nailed.)&lt;/p&gt;
+&lt;p&gt;Getting this running on GitHub Pages was easy following that article too. Even setting a CNAME and DNS (a temporary subdomain while testing of course) was nice and easy to get working. (I use &lt;a href=&#34;https://dnsimple.com/&#34;&gt;DNSimple&lt;/a&gt;.) Job done. Right?&lt;/p&gt;
+&lt;h2 id=&#34;what-went-wrong&#34;&gt;What went wrong&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;RSS.&lt;/strong&gt; My RSS feed has been a bit of an issue really. I knew it would probably break, and it wasn&amp;rsquo;t even available out of the box on Hugo either. So I fevered away adding RSS generation to the site generation and getting a fair approximation of my old feed. I knew it wouldn&amp;rsquo;t be perfect, but I learned a bit about how the templating engine worked along the way. And when that hot cutover day came, it certainly failed. I had a few bugs to fix and all 50 people who have added this blog to their feed probably got a bit of a noisy mess. But hopefully, as they now read this article they now understand why. Also, there are now sub-categories with sub-category RSS feed URLs linked to from the right-hand sidebar now.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Custom Theming.&lt;/strong&gt; I built my custom theme way back when I moved to Ghost. And I didn&amp;rsquo;t really feel like losing it. So I painstakingly mapped it from the Ghost templating engine to the one Hugo uses. This sucked. and it took ages (weeks) to get it right. Along the way, I probably did make some improvements that will be valuable later, like fixing the sidebar and better image handling possibilities. But this was probably the most time-consuming part of the whole process. In the end, retrologs&#39; &lt;a href=&#34;https://retrolog.io/blog/creating-a-hugo-theme-from-scratch/&#34;&gt;Creating a Hugo Theme From Scratch&lt;/a&gt; was super useful at figuring out what went where, but I don&amp;rsquo;t actually understand some parts of the collection lookup code I wrote in some places yet. But it worked. At the very least, my CSS appears to have held the test of time (surprisingly!).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Permalinks.&lt;/strong&gt; Turns out Ghost had a few permalink redirect capabilities. And also the default URLs in Ghost were &lt;code&gt;/slug-for-page/&lt;/code&gt; while Hugo is &lt;code&gt;/post/slug-for-page/&lt;/code&gt;. Luckily the &lt;a href=&#34;https://gohugo.io/content-management/urls/#aliases&#34;&gt;Aliases feature in Hugo&lt;/a&gt; allowed me to add both the draft/preview link (&lt;code&gt;/p/&amp;lt;GUID&amp;gt;/&lt;/code&gt;) as well as the old URL so that hopefully, no one loses my content, and instead get bounced to the right place.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Disqus.&lt;/strong&gt; See the comments at the bottom? I&amp;rsquo;ve been using Disqus to make them available. Turns out this was quite useful in moving to a static hosted solution. For the most part, this went well, because Disqus actually have a &lt;a href=&#34;https://help.disqus.com/en/articles/1717068-migration-tools&#34;&gt;migration tools feature&lt;/a&gt; available to use to move the URL associated with a page. The what went wrong part was that I prepared all the pages that looked like the normal post URL (&lt;code&gt;/slug-for-page/&lt;/code&gt;) before I cut over my DNS, but didn&amp;rsquo;t map any of the preview URLs (&lt;code&gt;/p/&amp;lt;GUID&amp;gt;/&lt;/code&gt;) across. I think what happened is that Ghost provided an id to Disqus as well as a URL, and it uses the first URL it sees as the identifying one. When I preview drafts, that preview URL is the one it saves. Since Hugo is just using the actual URL and not the id anymore, I lost my mapping over a few pages which I neglected to migrate. (My incorrect assumption was the draft ids didn&amp;rsquo;t have comments 😢.) I was without comments on some pages while I remedied that across a couple of evenings. It wasn&amp;rsquo;t too bad to put together a new CSV file for that though in the end.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Google Ads.&lt;/strong&gt; Turns out they are still not happy with my website (and neither am I to be fair) so there is a bit more work to get them reenabled. It barely makes dollars a month, to be honest, but with it not working it makes a lot less of course.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Content.&lt;/strong&gt; I spent far too much time looking at my content. While Ghost had tags, Hugo has both &lt;a href=&#34;https://blog.csmac.nz/tags/&#34;&gt;Tags&lt;/a&gt; and &lt;a href=&#34;https://blog.csmac.nz/categories/&#34;&gt;Categories&lt;/a&gt;. I went through every historic post (193 over 13 and a half years if you can believe it) and updated many tags (deleting a bunch, adding a few) and creating categories for my content. I could have spent days (and still might) tidying up some of the content that never had any attention since coming out of WordPress and getting auto-converted to markdown all those years ago. But I held back, since I wanted to actually get this process done and back to writing. There was a little bit of work migrating some of the image functionality over too, but for the most part that was fine, too.&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Would I choose to do it again? Yes. I am certainly in a better place. So far, I think I&amp;rsquo;ve backed the right horse in Hugo. The workflow seems about as good as it was before, and I am aware of a few tools such as &lt;a href=&#34;https://cloudcannon.com/&#34;&gt;CloudCannon&lt;/a&gt; for better CMS management workflows if I desire. I might miss the Ghost app for drafts, but I mostly write on my desktop anyway. And since it is in GitHub, anything that can commit markdown to there is a way to draft.&lt;/p&gt;
+&lt;p&gt;Now that I have that done, the next step is likely to repeat the whole process with &lt;code&gt;csmac.nz&lt;/code&gt; as well and fix its certs, ads, and content. (That last one has been bugging me since I moved to Ghost to be fair&amp;hellip; &lt;code&gt;¯\_(ツ)_/¯&lt;/code&gt;)&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>Failed to query available provider packages - Terraform NewRelic Provider :facepalm:</title>
       <link>https://blog.csmac.nz/post/terraform-newrelic-provider-facepalm/</link>
@@ -1296,56 +1335,6 @@ public class MyFoo
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;wrapup&#34;&gt;Wrapup&lt;/h3&gt;
 &lt;p&gt;Object initialization had a major revamp in C# 6. How many of these do you use regularly? How many do you notice in your own code bases?  These have been around for a while so expect only to see more of it. Do yourself a favour and start using it if you haven&amp;rsquo;t already. Very readability, much fewer keystrokes. Canonical? You betcha!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Looking back on C# 6: String interpolation</title>
-      <link>https://blog.csmac.nz/post/looking-back-on-csharp6-string-interpolation/</link>
-      <pubDate>Sun, 14 Apr 2019 11:30:00 +0000</pubDate>
-      
-      <guid>https://blog.csmac.nz/post/looking-back-on-csharp6-string-interpolation/</guid>
-      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
-&lt;p&gt;String Interpolation is a great feature that I now use everywhere I can (Except logging - see below).&lt;/p&gt;
-&lt;p&gt;We have efficient libraries to format strings for us, so we don&amp;rsquo;t have to concatenate all the time. This is both convenient and performant.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var string1 = &amp;quot;My name is &amp;quot; + &amp;quot;Mark&amp;quot;;
-var string2 = String.Format(&amp;quot;My name is {0}&amp;quot;, &amp;quot;Mark&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The resulting string above is equivalent but there are many benefits to the second option:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;faster internal string building for larger strings with multiple parameters&lt;/li&gt;
-&lt;li&gt;Lazy execution means you can pass &lt;code&gt;template&lt;/code&gt; + &lt;code&gt;args&lt;/code&gt; down the stack and format later (or never as an optimisation when necessary such as Debug/Verbose logs)&lt;/li&gt;
-&lt;li&gt;Potentially more readable as a template than the concatenation would be (depending on the message).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The problem becomes we have all these index positions. It is very easy with many arguments to either get the positions wrong or to change it and make a mistake.&lt;/p&gt;
-&lt;h2 id=&#34;string-interpolation&#34;&gt;String Interpolation&lt;/h2&gt;
-&lt;p&gt;You can think of String Interpolation as the compiler automatically turning your string into a &lt;code&gt;String.Format&lt;/code&gt; for you. (Oversimplification but useful way to conceptualise it.)  The first piece of magic is the &lt;code&gt;$&lt;/code&gt; character. Adding this to the start of a string makes it into an interpolated string. This now grants special power to the braces (&lt;code&gt;{}&lt;/code&gt;).  When you have a block of braces inside the string, this essentially becomes an expression. You can put whatever code you want in here, and it becomes a format argument. This gives improved readability.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var oldWay = String.Format($&amp;quot;{0} is {1} years old.&amp;quot;, p.Name, p.Age);
-var newWay = $&amp;quot;{p.Name} is {p.Age} years old.&amp;quot;;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;Mistakes are easier to spot&lt;/li&gt;
-&lt;li&gt;compile-time checks performed on the string and its format&lt;/li&gt;
-&lt;li&gt;performant - same benefits of &lt;code&gt;String.Format&lt;/code&gt; applied for optimisations&lt;/li&gt;
-&lt;li&gt;readable - reads like a sentence with clearing understanding of where the arguments come from&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;You can still use &lt;code&gt;{&lt;/code&gt; in your string, you just have to escape it with another &lt;code&gt;{&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var name = &amp;quot;bob&amp;quot;;
-
-// This becomes: {&amp;quot;name&amp;quot;:&amp;quot;bob&amp;quot;}
-var json = &amp;quot;{{&amp;quot;&amp;quot;name&amp;quot;&amp;quot;:&amp;quot;&amp;quot;{name}&amp;quot;&amp;quot;}}&amp;quot;;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is a canonical language feature, and you will expect to see most string-related code using it. That is if you are not already yourself.&lt;/p&gt;
-&lt;h2 id=&#34;why-except-logging&#34;&gt;Why &amp;ldquo;Except Logging&amp;rdquo;?&lt;/h2&gt;
-&lt;p&gt;Turns out, there is a massively useful feature with logging using &lt;code&gt;Microsoft.Extensions.Logging&lt;/code&gt; and ILogger. Semantic Logging, also known as Structured Logging.&lt;/p&gt;
-&lt;p&gt;Semantic/Structured Logging supported is up to the implementor of the logging, but Serilog, Application Insights, NLog and others tend to support this feature, and it is &lt;a href=&#34;https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-2.2#log-message-template&#34;&gt;defined as a first-class part of the API&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The main difference to &lt;code&gt;String.Format&lt;/code&gt; is you give named parameters in the template rather than numbered.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;String.Format(&amp;quot;My name is {0}&amp;quot;, &amp;quot;Mark&amp;quot;);
-_logger.LogInformation(&amp;quot;My name is {FirstName}&amp;quot;, &amp;quot;Mark&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Anyone who has actually monitored their logs knows that templates are really valuable. You can find all instances of a log message quickly with templated arguments, rather than having to do a wildcard search with inlined values because each message is a unique snowflake.  Most logging frameworks add the arguments as named metadata, using the value from the string (in the above example that would be &lt;code&gt;FirstName&lt;/code&gt;).&lt;/p&gt;
-&lt;p&gt;This works great. As long as you don&amp;rsquo;t use the new and useful String Interpolation when you log. String Interpolation results in a string passed to the logger, rather than passing a template and arguments, so it&amp;rsquo;s one or the other at this time.&lt;/p&gt;
-&lt;p&gt;As you would expect, &lt;a href=&#34;https://stackoverflow.com/questions/52200484/why-logging-doesnt-use-string-interpolation&#34;&gt;people really want this&lt;/a&gt; to reverse-engineer from String Interpolation into Semantic Logging automatically, but the argument is that it is both unexpected and a breaking change so you probably won&amp;rsquo;t see that anytime soon &lt;a href=&#34;https://github.com/NLog/NLog/issues/825&#34;&gt;without a custom library or API involved&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
