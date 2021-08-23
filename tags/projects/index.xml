@@ -340,7 +340,7 @@ Example:
 &lt;p&gt;So fastforward another week and I have a working prototype done. It&amp;rsquo;s even showing &lt;a href=&#34;https://coveralls.io/r/csMACnz/coveralls.net&#34;&gt;coverage on coveralls.io&lt;/a&gt;, supporting opencover xml format.&lt;/p&gt;
 &lt;p&gt;So whats left now? finish building it to be reusable by my other projects, publish it to nuget and chocolately and wherever else I need to, and start getting people integrating it into their .Net builds. Probably build out other C# coverage report formats as well, so your not forced to use opencover. Wish me luck!&lt;/p&gt;
 &lt;h6 id=&#34;small-side-note&#34;&gt;small side note&lt;/h6&gt;
-&lt;p&gt;So I also found this other continuous code quality metrics thing for python called &lt;a href=&#34;https://landscape.io/&#34;&gt;landscape.io&lt;/a&gt;. When will we see this type of thing available for .Net as well? Turns out right now. Check out
+&lt;p&gt;So I also found this other continuous code quality metrics thing for python called &lt;a href=&#34;https://landscape.io/&#34;&gt;landscape.io&lt;/a&gt;. When will we see this type of thing available for .Net as well? Turns out right now. Check out 
 &lt;a href=&#34;https://scan.coverity.com/projects/3696&#34;&gt;Coverity Scan Static Analysis&lt;/a&gt; (&lt;a href=&#34;https://scan.coverity.com/projects/3696&#34;&gt;mine&lt;/a&gt; needs you to create an account to use, but no permissions to view.)&lt;/p&gt;
 &lt;p&gt;And two more for fun: &lt;a href=&#34;https://waffle.io/&#34;&gt;waffle.io&lt;/a&gt; &amp;amp; &lt;a href=&#34;https://readthedocs.org/&#34;&gt;readthedocs.org&lt;/a&gt;&lt;/p&gt;
 </description>

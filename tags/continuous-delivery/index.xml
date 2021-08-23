@@ -448,7 +448,7 @@ move-item $TmpFile $FileFullPath -force
 &lt;p&gt;The nice thing about Github, is that it is popular. Its the new hotness, and everyone is using it.  And because everyone is using it, everyone is integrating with it.  If you want to pick the source control provider with the most integration points available to you, Github is probably the right choice.&lt;/p&gt;
 &lt;p&gt;Github also offer an &lt;a href=&#34;https://enterprise.github.com/&#34;&gt;Enterprise&lt;/a&gt;, self-hosted solution.&lt;/p&gt;
 &lt;h3 id=&#34;and-more&#34;&gt;And More&lt;/h3&gt;
-&lt;p&gt;This is only a handful of repository hosts out there, mainly ones I&amp;rsquo;ve had anything to do with over the last 5 years. But there are a ton more source control hosters out there, at varying levels of &amp;lsquo;free&amp;rsquo; and for more information on these there is a page on Wikipedia -
+&lt;p&gt;This is only a handful of repository hosts out there, mainly ones I&amp;rsquo;ve had anything to do with over the last 5 years. But there are a ton more source control hosters out there, at varying levels of &amp;lsquo;free&amp;rsquo; and for more information on these there is a page on Wikipedia - 
 &lt;a href=&#34;http://en.wikipedia.org/wiki/Comparison_of_source_code_software_hosting_facilities&#34;&gt;Comparison of source code software hosting facilities&lt;/a&gt;.  Since I haven&amp;rsquo;t really had anything to do with the rest I&amp;rsquo;ll leave the investigation up to the reader.&lt;/p&gt;
 &lt;p&gt;My picks from the above: I use Visual Studio Online for all my apps, websites and other private work, and github for everything else.&lt;/p&gt;
 &lt;p&gt;So thats it for Source Control. Next up is &lt;a href=&#34;https://blog.csmac.nz/-net-os-2-build/&#34;&gt;Building your hosted Source&lt;/a&gt;.&lt;/p&gt;
@@ -576,7 +576,7 @@ script:
 &lt;p&gt;So fastforward another week and I have a working prototype done. It&amp;rsquo;s even showing &lt;a href=&#34;https://coveralls.io/r/csMACnz/coveralls.net&#34;&gt;coverage on coveralls.io&lt;/a&gt;, supporting opencover xml format.&lt;/p&gt;
 &lt;p&gt;So whats left now? finish building it to be reusable by my other projects, publish it to nuget and chocolately and wherever else I need to, and start getting people integrating it into their .Net builds. Probably build out other C# coverage report formats as well, so your not forced to use opencover. Wish me luck!&lt;/p&gt;
 &lt;h6 id=&#34;small-side-note&#34;&gt;small side note&lt;/h6&gt;
-&lt;p&gt;So I also found this other continuous code quality metrics thing for python called &lt;a href=&#34;https://landscape.io/&#34;&gt;landscape.io&lt;/a&gt;. When will we see this type of thing available for .Net as well? Turns out right now. Check out
+&lt;p&gt;So I also found this other continuous code quality metrics thing for python called &lt;a href=&#34;https://landscape.io/&#34;&gt;landscape.io&lt;/a&gt;. When will we see this type of thing available for .Net as well? Turns out right now. Check out 
 &lt;a href=&#34;https://scan.coverity.com/projects/3696&#34;&gt;Coverity Scan Static Analysis&lt;/a&gt; (&lt;a href=&#34;https://scan.coverity.com/projects/3696&#34;&gt;mine&lt;/a&gt; needs you to create an account to use, but no permissions to view.)&lt;/p&gt;
 &lt;p&gt;And two more for fun: &lt;a href=&#34;https://waffle.io/&#34;&gt;waffle.io&lt;/a&gt; &amp;amp; &lt;a href=&#34;https://readthedocs.org/&#34;&gt;readthedocs.org&lt;/a&gt;&lt;/p&gt;
 </description>
