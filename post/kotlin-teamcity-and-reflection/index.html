@@ -97,7 +97,7 @@
                 "height": 295
             },
             "keywords" : [ "kotlin", "TeamCity" ]
-            "description" : "I\u0026rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.\nToday\u0026rsquo;s fun little problem was the error message:\n Runtime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found\n The canonical stack overflow question that (at the time of writing this) had no answer: https:\/\/stackoverflow.com\/questions\/67199546\/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou\nThe repro was the simplest piece of code in the end.",
+            "description" : "I\u0026rsquo;ve been getting stuck into upskilling in Kotlin. Mostly for TeamCity build automation and trying to produce quality tested code in a space where automation was retrofitted in.\nToday\u0026rsquo;s fun little problem was the error message:\nRuntime error RootProjectId: kotlin.reflect.jvm.internal.impl.builtins.KotlinBuiltIns$3[92]: java.lang.AssertionError: Built-in class kotlin.Any is not found\nThe canonical stack overflow question that (at the time of writing this) had no answer: https:\/\/stackoverflow.com\/questions\/67199546\/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou\nThe repro was the simplest piece of code in the end.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -155,7 +155,7 @@ val props = Project::class.declaredMemberProperties
 <p>At this point in time and with some further testing, I&rsquo;ve come to the conclusion that <strong>reflection just isn&rsquo;t supported on teamcity with Kotlin</strong>. I&rsquo;ve found one or two Issue links to back that up too: <a href="https://youtrack.jetbrains.com/issue/TW-59901">https://youtrack.jetbrains.com/issue/TW-59901</a></p>
 <p>(¬_¬ )</p>
 <p>If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.</p>
-<p>For now, I have replaced the reflection with good ol' verbose fragile code.</p>
+<p>For now, I have replaced the reflection with good ol&rsquo; verbose fragile code.</p>
 <p>Luckily, the tests allow reflection no problem so at least the fragility of this case is covered. If someone adds a property then at least a test fails until the verbose code had been amended.</p>
 </section>
         

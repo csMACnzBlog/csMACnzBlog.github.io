@@ -37,7 +37,7 @@ path-to-application:
   The path to an application .dll file to execute.
   
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;It looks like &amp;lsquo;dotnet &amp;ndash;help&amp;rsquo; is the right next instruction to find out more&amp;rdquo;, he thought to himself, &amp;ldquo;so&amp;hellip;&amp;quot;:&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;It looks like &amp;lsquo;dotnet &amp;ndash;help&amp;rsquo; is the right next instruction to find out more&amp;rdquo;, he thought to himself, &amp;ldquo;so&amp;hellip;&amp;rdquo;:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr&amp;gt;dotnet --help
 .NET Command Line Tools (2.0.0)
 Usage: dotnet [runtime-options] [path-to-application]
@@ -154,7 +154,7 @@ C:.
         internTest.csproj.nuget.g.targets
         project.assets.json
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Jack could see a &lt;code&gt;Program.cs&lt;/code&gt; which must be the console application, an &lt;code&gt;internTest.csproj&lt;/code&gt; (&amp;ldquo;which must have been named after the parent folder&amp;rdquo;, he thought) and an &lt;code&gt;obj&lt;/code&gt; folder full of other files (&amp;quot;&amp;lsquo;obj&amp;rsquo; and &amp;lsquo;bin are build outputs, from memory&amp;rdquo;).&lt;/p&gt;
+&lt;p&gt;Jack could see a &lt;code&gt;Program.cs&lt;/code&gt; which must be the console application, an &lt;code&gt;internTest.csproj&lt;/code&gt; (&amp;ldquo;which must have been named after the parent folder&amp;rdquo;, he thought) and an &lt;code&gt;obj&lt;/code&gt; folder full of other files (&amp;quot;&amp;lsquo;obj&amp;rsquo; and &amp;lsquo;bin are build outputs, from memory&amp;quot;).&lt;/p&gt;
 &lt;p&gt;The next instruction in the original list of commands was &lt;code&gt;restore&lt;/code&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jack\internTest&amp;gt;dotnet restore
   Restore completed in 22.69 ms for C:\Users\jackr\internTest\internTest.csproj.
@@ -163,7 +163,7 @@ C:.
 &lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;dotnet run
 Hello World!
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;Alright, maybe?&amp;rdquo; He figured it best to look at that &lt;code&gt;Program.cs&lt;/code&gt; file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &amp;lsquo;notepad&amp;rsquo;.&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;Alright, maybe?&amp;rdquo; He figured it best to look at that &lt;code&gt;Program.cs&lt;/code&gt; file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &amp;rsquo;notepad&amp;rsquo;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;using System;
 
 namespace internTest
@@ -234,7 +234,7 @@ C:.
                 internTest.dll
                 internTest.pdb
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;That has made a publish folder with a &amp;lsquo;dll&amp;rsquo; in it, but I expected an &amp;lsquo;exe&amp;rsquo;. I wonder if I can find out more on publish&amp;hellip;&amp;rdquo;. He tried &lt;code&gt;dotnet help publish&lt;/code&gt;. For a reason totally unknown to Jack, this launched a web browser window to &lt;a href=&#34;https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x&#34;&gt;https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x&lt;/a&gt; displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&amp;rsquo;t take him away from the shell, he tried &lt;code&gt;dotnet publish --help&lt;/code&gt; instead.&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;That has made a publish folder with a &amp;lsquo;dll&amp;rsquo; in it, but I expected an &amp;rsquo;exe&amp;rsquo;. I wonder if I can find out more on publish&amp;hellip;&amp;rdquo;. He tried &lt;code&gt;dotnet help publish&lt;/code&gt;. For a reason totally unknown to Jack, this launched a web browser window to &lt;a href=&#34;https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x&#34;&gt;https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x&lt;/a&gt; displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&amp;rsquo;t take him away from the shell, he tried &lt;code&gt;dotnet publish --help&lt;/code&gt; instead.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;dotnet publish --help
 Usage: dotnet publish [options]
 

@@ -757,7 +757,7 @@ The MyAppService service is now running, press Control+C to exit.
 &lt;p&gt;There are two places where you can apply your style and convention. Internally in your code, as you write it, and externally in the public API and contracts that your library exposes to other programs to use.&lt;/p&gt;
 &lt;p&gt;Before taking anything else into account, I recommend that any public signatures (e.g. naming conventions - class names, method names, parameter names, properties etc) Should follow the guidance from Microsoft. People using your library should not have to deal with your style and conventions, they should match what the expected C# library conventions are. This can also include protected methods and properties if your library is extensible.&lt;/p&gt;
 &lt;p&gt;Inside your code, its all up to you. Anything private (and protected if the class is sealed) is never exposed to the consumer, you can do what you like. Similarly, the layout of your code (whitespace, braces, class/file distribution) is all up to you (and your team).&lt;/p&gt;
-&lt;h2 id=&#34;check-out-m-style&#34;&gt;Check Out M&#39; Style&lt;/h2&gt;
+&lt;h2 id=&#34;check-out-m-style&#34;&gt;Check Out M&amp;rsquo; Style&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s get specific on how I do.&lt;/p&gt;
 &lt;p&gt;In general my rules are pretty hard to describe, so hopefully, the examples will help (I will use &lt;code&gt;•&lt;/code&gt; as the representative of space and &lt;code&gt;⟶&lt;/code&gt; as the representative of tab - SPOILER: I will never use this tab character&amp;hellip;)&lt;/p&gt;
 &lt;h3 id=&#34;naming-conventions&#34;&gt;Naming Conventions&lt;/h3&gt;
@@ -1020,7 +1020,7 @@ watch -Folder &amp;quot;${PWD}&amp;quot; =Filter &amp;quot;*.ts&amp;quot; -Actio
       
       <guid>https://blog.csmac.nz/post/there-can-be-only-one-return/</guid>
       <description>&lt;p&gt;My opinions and choices on style of coding evolves and changes over time. By blogging about this now, I can refer back later when I change my mind. I can also elicit the opinions of others to influence me to change my ways if I happen to be wrong and not know it yet.&lt;/p&gt;
-&lt;p&gt;Lets talk about returns.  There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (&amp;lsquo;if&amp;rsquo;/&amp;lsquo;else&amp;rsquo;, &amp;lsquo;switch&amp;rsquo;, &amp;lsquo;while&amp;rsquo; commands, for instance). If you don&amp;rsquo;t actually return a result, you can still think about flow of control and where you exit from.&lt;/p&gt;
+&lt;p&gt;Lets talk about returns.  There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (&amp;lsquo;if&amp;rsquo;/&amp;rsquo;else&amp;rsquo;, &amp;lsquo;switch&amp;rsquo;, &amp;lsquo;while&amp;rsquo; commands, for instance). If you don&amp;rsquo;t actually return a result, you can still think about flow of control and where you exit from.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public string WhenIPipeDataIntoOtherFunctions(string fileName)
 {
     var input1 = Loader.LoadInput();
@@ -1064,7 +1064,7 @@ public void DoStuff(string foo, int bar)
 &lt;p&gt;The first one seems self explainatory, but I will come back to that one soon. Lets discuss &amp;lsquo;WhenIUseAResultVar&amp;rsquo;.&lt;/p&gt;
 &lt;h3 id=&#34;wheniusearesultvar&#34;&gt;WhenIUseAResultVar&lt;/h3&gt;
 &lt;p&gt;I have a method with a very awkward control flow. But here is the catch: This control flow actually is enforced (in C#) by the compiler that result must be initialised.&lt;/p&gt;
-&lt;p&gt;My method could decalare at the start that &amp;lsquo;result&amp;rsquo; is initialised to &amp;lsquo;null&amp;rsquo;, telling me that a null could be returned if all logic falls through. In this case I have gone for the opposite, which means the compile ensures that all my cases through my control flow logic will set the value of result. for building and modifying this kind of method is like a free unit test.&lt;/p&gt;
+&lt;p&gt;My method could decalare at the start that &amp;lsquo;result&amp;rsquo; is initialised to &amp;rsquo;null&amp;rsquo;, telling me that a null could be returned if all logic falls through. In this case I have gone for the opposite, which means the compile ensures that all my cases through my control flow logic will set the value of result. for building and modifying this kind of method is like a free unit test.&lt;/p&gt;
 &lt;p&gt;For example, lets modify it as follows:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
 public string WhenIUseAResultVar(int input1, string input2)
@@ -1110,7 +1110,7 @@ public string WhenIUseAResultVar(int input1, string input2)
 &lt;p&gt;I don&amp;rsquo;t usually break this rule. But when I do, I do so strictly and with intent.&lt;/p&gt;
 &lt;p&gt;Preconditions and validations.&lt;/p&gt;
 &lt;p&gt;There is a time and a place to exit early, and it is preconditions and validations. throwing &lt;code&gt;OutOfRangeException&lt;/code&gt; &lt;code&gt;ArgumentNullException&lt;/code&gt; &lt;code&gt;ArgumentException&lt;/code&gt; and other preconditions make sense to exit early.&lt;/p&gt;
-&lt;p&gt;To prove this, Lets try to strictly applying my &amp;lsquo;laws&amp;rsquo; to a slightly more detailed version of the &lt;code&gt;WhenIUseAResultVar&lt;/code&gt; method:&lt;/p&gt;
+&lt;p&gt;To prove this, Lets try to strictly applying my &amp;rsquo;laws&amp;rsquo; to a slightly more detailed version of the &lt;code&gt;WhenIUseAResultVar&lt;/code&gt; method:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public string WhenIUseAResultVar(int input1, string input2)
 {
     string result;
@@ -1142,7 +1142,7 @@ public string WhenIUseAResultVar(int input1, string input2)
     return result;
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Hmmm&amp;hellip; turns out this is a poor example and I can&amp;rsquo;t actually acheive it with exceptions. For arguments sake, lets use &amp;lsquo;null&amp;rsquo; as failed, rather than throwing.&lt;/p&gt;
+&lt;p&gt;Hmmm&amp;hellip; turns out this is a poor example and I can&amp;rsquo;t actually acheive it with exceptions. For arguments sake, lets use &amp;rsquo;null&amp;rsquo; as failed, rather than throwing.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public string WhenIUseAResultVar(int input1, string input2)
 {
     string result;
@@ -1333,7 +1333,7 @@ else if (ASimpleCheckPasses(input1) &amp;amp;&amp;amp; AWebCallCheck(input1, inp
 &lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
 &lt;p&gt;I&amp;rsquo;m not even sure if I have actually convinced myself 100% at this point. Reality is, I have all of these techniques in my tool box, and I will probably pick and choose to enhance readability where applicable. Pragratism usually wins in these matters, but I find it useful to stop and think about concepts like this from time to time.&lt;/p&gt;
 &lt;p&gt;I was originally prompted to write this after reading the lecterror blog article &lt;a href=&#34;http://lecterror.com/articles/view/code-formatting-and-readability&#34;&gt;Code formatting and readability&lt;/a&gt; and related StackOverflow question &lt;a href=&#34;http://programmers.stackexchange.com/questions/18454/should-i-return-from-a-function-early-or-use-an-if-statement&#34;&gt;Should I return from a function early or use an if statement?&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;(I thought, &amp;ldquo;Hey! I have opinions too! And a Blog!&amp;quot;)&lt;/p&gt;
+&lt;p&gt;(I thought, &amp;ldquo;Hey! I have opinions too! And a Blog!&amp;rdquo;)&lt;/p&gt;
 </description>
     </item>
     

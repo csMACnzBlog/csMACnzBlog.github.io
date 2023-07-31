@@ -322,7 +322,7 @@ As well as BuildAction &lt;code&gt;Compile&lt;/code&gt;, there are a couple of o
     &amp;lt;MinClientVersion&amp;gt;2.5&amp;lt;/MinClientVersion&amp;gt;
 &amp;lt;/PropertyGroup&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And with that, you can now augment the build props and tasks in your consumers&#39; projects, and use this approach to include any arbitrary files into your NuGet package.&lt;/p&gt;
+&lt;p&gt;And with that, you can now augment the build props and tasks in your consumers&amp;rsquo; projects, and use this approach to include any arbitrary files into your NuGet package.&lt;/p&gt;
 &lt;h3 id=&#34;metadata-properties&#34;&gt;Metadata properties&lt;/h3&gt;
 &lt;p&gt;The nice thing about using a &lt;code&gt;csproj&lt;/code&gt;, is that with this one file you can set all your assembly metadata, as well as NuGet package metadata.&lt;/p&gt;
 &lt;p&gt;The &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties&#34;&gt;Additions to the csproj format&lt;/a&gt; page gives a great overview of (among other things) all the possible properties you can put into your &lt;code&gt;csproj&lt;/code&gt; files, and where exactly these will go into your file NuGet package metadata. This is the final piece that ensures you don&amp;rsquo;t actually have to hand-craft a &lt;code&gt;nuspec&lt;/code&gt; file at all and can keep all your pack information inside the &lt;code&gt;csproj&lt;/code&gt; file instead.&lt;/p&gt;
@@ -1841,7 +1841,7 @@ dotnet publish -o &amp;quot;..\Pack\MyApp_Net452&amp;quot; -c Release -f net452
 dotnet publish -f net452
 dotnet publish -f netcoreapp2.0
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Remember, if you use &lt;code&gt;build&lt;/code&gt;, &lt;code&gt;pack&lt;/code&gt;, or &lt;code&gt;publish&lt;/code&gt; without using &lt;code&gt;-f &amp;lt;framework&amp;gt;&lt;/code&gt; you will get all target frameworks included. (And if you use &lt;code&gt;-f&lt;/code&gt; and &lt;code&gt;-o&lt;/code&gt; together with &lt;code&gt;publish&lt;/code&gt;, it will dump the targets&#39; output on top of each other in the same folder. Probably don&amp;rsquo;t do that.)&lt;/p&gt;
+&lt;p&gt;Remember, if you use &lt;code&gt;build&lt;/code&gt;, &lt;code&gt;pack&lt;/code&gt;, or &lt;code&gt;publish&lt;/code&gt; without using &lt;code&gt;-f &amp;lt;framework&amp;gt;&lt;/code&gt; you will get all target frameworks included. (And if you use &lt;code&gt;-f&lt;/code&gt; and &lt;code&gt;-o&lt;/code&gt; together with &lt;code&gt;publish&lt;/code&gt;, it will dump the targets&amp;rsquo; output on top of each other in the same folder. Probably don&amp;rsquo;t do that.)&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s take one last look at the file tree in the &lt;code&gt;MyApp&lt;/code&gt; project folder:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;MyPackagedApp
  +-- MyApp

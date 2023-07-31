@@ -152,7 +152,7 @@ path-to-application:
   The path to an application .dll file to execute.
   
 </code></pre>
-<p>&ldquo;It looks like &lsquo;dotnet &ndash;help&rsquo; is the right next instruction to find out more&rdquo;, he thought to himself, &ldquo;so&hellip;&quot;:</p>
+<p>&ldquo;It looks like &lsquo;dotnet &ndash;help&rsquo; is the right next instruction to find out more&rdquo;, he thought to himself, &ldquo;so&hellip;&rdquo;:</p>
 <pre><code class="language-cmd">C:\Users\jackr&gt;dotnet --help
 .NET Command Line Tools (2.0.0)
 Usage: dotnet [runtime-options] [path-to-application]
@@ -269,7 +269,7 @@ C:.
         internTest.csproj.nuget.g.targets
         project.assets.json
 </code></pre>
-<p>Jack could see a <code>Program.cs</code> which must be the console application, an <code>internTest.csproj</code> (&ldquo;which must have been named after the parent folder&rdquo;, he thought) and an <code>obj</code> folder full of other files (&quot;&lsquo;obj&rsquo; and &lsquo;bin are build outputs, from memory&rdquo;).</p>
+<p>Jack could see a <code>Program.cs</code> which must be the console application, an <code>internTest.csproj</code> (&ldquo;which must have been named after the parent folder&rdquo;, he thought) and an <code>obj</code> folder full of other files (&quot;&lsquo;obj&rsquo; and &lsquo;bin are build outputs, from memory&quot;).</p>
 <p>The next instruction in the original list of commands was <code>restore</code>:</p>
 <pre><code class="language-cmd">C:\Users\jack\internTest&gt;dotnet restore
   Restore completed in 22.69 ms for C:\Users\jackr\internTest\internTest.csproj.
@@ -278,7 +278,7 @@ C:.
 <pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet run
 Hello World!
 </code></pre>
-<p>&ldquo;Alright, maybe?&rdquo; He figured it best to look at that <code>Program.cs</code> file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &lsquo;notepad&rsquo;.</p>
+<p>&ldquo;Alright, maybe?&rdquo; He figured it best to look at that <code>Program.cs</code> file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &rsquo;notepad&rsquo;.</p>
 <pre><code class="language-cs">using System;
 
 namespace internTest
@@ -349,7 +349,7 @@ C:.
                 internTest.dll
                 internTest.pdb
 </code></pre>
-<p>&ldquo;That has made a publish folder with a &lsquo;dll&rsquo; in it, but I expected an &lsquo;exe&rsquo;. I wonder if I can find out more on publish&hellip;&rdquo;. He tried <code>dotnet help publish</code>. For a reason totally unknown to Jack, this launched a web browser window to <a href="https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x">https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x</a> displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&rsquo;t take him away from the shell, he tried <code>dotnet publish --help</code> instead.</p>
+<p>&ldquo;That has made a publish folder with a &lsquo;dll&rsquo; in it, but I expected an &rsquo;exe&rsquo;. I wonder if I can find out more on publish&hellip;&rdquo;. He tried <code>dotnet help publish</code>. For a reason totally unknown to Jack, this launched a web browser window to <a href="https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x">https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x</a> displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&rsquo;t take him away from the shell, he tried <code>dotnet publish --help</code> instead.</p>
 <pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet publish --help
 Usage: dotnet publish [options]
 

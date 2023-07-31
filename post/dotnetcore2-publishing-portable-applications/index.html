@@ -91,7 +91,7 @@
             "datePublished": "2018-03-11T06:00:00.000Z",
             "dateModified" : "2018-03-11T06:00:00.000Z",
             "keywords" : [ "dotnetcore" ]
-            "description" : "This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series\n Getting Started What\u0026rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications \u0026lt;=(We are here) Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don\u0026rsquo;t have to!)\nWe can now take everything we have learned and start publishing our applications. Luckily, there is a command for that too.",
+            "description" : "This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series\nGetting Started What\u0026rsquo;s in the box Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications \u0026lt;=(We are here) Self-contained Applications (At the time of writing, 2.1.4. I use windows, you don\u0026rsquo;t have to!)\nWe can now take everything we have learned and start publishing our applications. Luckily, there is a command for that too.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -295,7 +295,7 @@ dotnet publish -o &quot;..\Pack\MyApp_Net452&quot; -c Release -f net452
 dotnet publish -f net452
 dotnet publish -f netcoreapp2.0
 </code></pre>
-<p>Remember, if you use <code>build</code>, <code>pack</code>, or <code>publish</code> without using <code>-f &lt;framework&gt;</code> you will get all target frameworks included. (And if you use <code>-f</code> and <code>-o</code> together with <code>publish</code>, it will dump the targets' output on top of each other in the same folder. Probably don&rsquo;t do that.)</p>
+<p>Remember, if you use <code>build</code>, <code>pack</code>, or <code>publish</code> without using <code>-f &lt;framework&gt;</code> you will get all target frameworks included. (And if you use <code>-f</code> and <code>-o</code> together with <code>publish</code>, it will dump the targets&rsquo; output on top of each other in the same folder. Probably don&rsquo;t do that.)</p>
 <p>Let&rsquo;s take one last look at the file tree in the <code>MyApp</code> project folder:</p>
 <pre><code>MyPackagedApp
  +-- MyApp

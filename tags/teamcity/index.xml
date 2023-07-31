@@ -34,7 +34,7 @@ val props = Project::class.declaredMemberProperties
 &lt;p&gt;At this point in time and with some further testing, I&amp;rsquo;ve come to the conclusion that &lt;strong&gt;reflection just isn&amp;rsquo;t supported on teamcity with Kotlin&lt;/strong&gt;. I&amp;rsquo;ve found one or two Issue links to back that up too: &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-59901&#34;&gt;https://youtrack.jetbrains.com/issue/TW-59901&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;(¬_¬ )&lt;/p&gt;
 &lt;p&gt;If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.&lt;/p&gt;
-&lt;p&gt;For now, I have replaced the reflection with good ol&#39; verbose fragile code.&lt;/p&gt;
+&lt;p&gt;For now, I have replaced the reflection with good ol&amp;rsquo; verbose fragile code.&lt;/p&gt;
 &lt;p&gt;Luckily, the tests allow reflection no problem so at least the fragility of this case is covered. If someone adds a property then at least a test fails until the verbose code had been amended.&lt;/p&gt;
 </description>
     </item>

@@ -138,7 +138,7 @@
 <p>The most common &lsquo;wrong place&rsquo; seems to actually be the debugger.  If are stepping through your code and try to step over a <code>dialog.ShowDialog()</code> call, you will most definitely get this error.  So before you go rewriting your code, try placing the breakpoint after the call, and see if that fixes your problem.  Other causes include calling it from a callback on a different thread, in which case you might want to try using the Dispatcher.</p>
 <p>For good MVVM pattern-type stuff, you might want to set up a service that will call dialogs for you. In fact, you may wish to do this anyway depending on the nature of your ViewModels.</p>
 <p>Hope this helps someone, it sure helped me once I figured it out.</p>
-<p>Happy Coding 
+<p>Happy Coding
 &ndash;csmacnz</p>
 <p><em>UPDATE:</em> There also seems to be a time or space limitation on how long after a user event you can actually call a Dialog, although in my case that time probably shouldn&rsquo;t be being used up on the UI thread anyway.  I guess I need to rethink my usage. Good thing it&rsquo;s just a quick mock-up of code anyway.</p>
 </section>

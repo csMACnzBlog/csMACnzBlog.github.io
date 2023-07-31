@@ -91,7 +91,7 @@
             "datePublished": "2017-12-03T22:15:55.000Z",
             "dateModified" : "2017-12-03T22:15:55.000Z",
             "keywords" : [ "Tips and Tricks", "C Sharp" ]
-            "description" : "My opinions and choices on style of coding evolves and changes over time. By blogging about this now, I can refer back later when I change my mind. I can also elicit the opinions of others to influence me to change my ways if I happen to be wrong and not know it yet.\nLets talk about returns. There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (\u0026lsquo;if\u0026rsquo;\/\u0026lsquo;else\u0026rsquo;, \u0026lsquo;switch\u0026rsquo;, \u0026lsquo;while\u0026rsquo; commands, for instance).",
+            "description" : "My opinions and choices on style of coding evolves and changes over time. By blogging about this now, I can refer back later when I change my mind. I can also elicit the opinions of others to influence me to change my ways if I happen to be wrong and not know it yet.\nLets talk about returns. There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (\u0026lsquo;if\u0026rsquo;\/\u0026rsquo;else\u0026rsquo;, \u0026lsquo;switch\u0026rsquo;, \u0026lsquo;while\u0026rsquo; commands, for instance).",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -135,7 +135,7 @@
     
         <section class="post-content"  itemprop="articleBody">
             <p>My opinions and choices on style of coding evolves and changes over time. By blogging about this now, I can refer back later when I change my mind. I can also elicit the opinions of others to influence me to change my ways if I happen to be wrong and not know it yet.</p>
-<p>Lets talk about returns.  There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (&lsquo;if&rsquo;/&lsquo;else&rsquo;, &lsquo;switch&rsquo;, &lsquo;while&rsquo; commands, for instance). If you don&rsquo;t actually return a result, you can still think about flow of control and where you exit from.</p>
+<p>Lets talk about returns.  There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (&lsquo;if&rsquo;/&rsquo;else&rsquo;, &lsquo;switch&rsquo;, &lsquo;while&rsquo; commands, for instance). If you don&rsquo;t actually return a result, you can still think about flow of control and where you exit from.</p>
 <pre><code class="language-cs">public string WhenIPipeDataIntoOtherFunctions(string fileName)
 {
     var input1 = Loader.LoadInput();
@@ -179,7 +179,7 @@ public void DoStuff(string foo, int bar)
 <p>The first one seems self explainatory, but I will come back to that one soon. Lets discuss &lsquo;WhenIUseAResultVar&rsquo;.</p>
 <h3 id="wheniusearesultvar">WhenIUseAResultVar</h3>
 <p>I have a method with a very awkward control flow. But here is the catch: This control flow actually is enforced (in C#) by the compiler that result must be initialised.</p>
-<p>My method could decalare at the start that &lsquo;result&rsquo; is initialised to &lsquo;null&rsquo;, telling me that a null could be returned if all logic falls through. In this case I have gone for the opposite, which means the compile ensures that all my cases through my control flow logic will set the value of result. for building and modifying this kind of method is like a free unit test.</p>
+<p>My method could decalare at the start that &lsquo;result&rsquo; is initialised to &rsquo;null&rsquo;, telling me that a null could be returned if all logic falls through. In this case I have gone for the opposite, which means the compile ensures that all my cases through my control flow logic will set the value of result. for building and modifying this kind of method is like a free unit test.</p>
 <p>For example, lets modify it as follows:</p>
 <pre><code class="language-cs">
 public string WhenIUseAResultVar(int input1, string input2)
@@ -225,7 +225,7 @@ public string WhenIUseAResultVar(int input1, string input2)
 <p>I don&rsquo;t usually break this rule. But when I do, I do so strictly and with intent.</p>
 <p>Preconditions and validations.</p>
 <p>There is a time and a place to exit early, and it is preconditions and validations. throwing <code>OutOfRangeException</code> <code>ArgumentNullException</code> <code>ArgumentException</code> and other preconditions make sense to exit early.</p>
-<p>To prove this, Lets try to strictly applying my &lsquo;laws&rsquo; to a slightly more detailed version of the <code>WhenIUseAResultVar</code> method:</p>
+<p>To prove this, Lets try to strictly applying my &rsquo;laws&rsquo; to a slightly more detailed version of the <code>WhenIUseAResultVar</code> method:</p>
 <pre><code class="language-cs">public string WhenIUseAResultVar(int input1, string input2)
 {
     string result;
@@ -257,7 +257,7 @@ public string WhenIUseAResultVar(int input1, string input2)
     return result;
 }
 </code></pre>
-<p>Hmmm&hellip; turns out this is a poor example and I can&rsquo;t actually acheive it with exceptions. For arguments sake, lets use &lsquo;null&rsquo; as failed, rather than throwing.</p>
+<p>Hmmm&hellip; turns out this is a poor example and I can&rsquo;t actually acheive it with exceptions. For arguments sake, lets use &rsquo;null&rsquo; as failed, rather than throwing.</p>
 <pre><code class="language-cs">public string WhenIUseAResultVar(int input1, string input2)
 {
     string result;
@@ -448,7 +448,7 @@ else if (ASimpleCheckPasses(input1) &amp;&amp; AWebCallCheck(input1, input2))
 <h3 id="conclusion">Conclusion</h3>
 <p>I&rsquo;m not even sure if I have actually convinced myself 100% at this point. Reality is, I have all of these techniques in my tool box, and I will probably pick and choose to enhance readability where applicable. Pragratism usually wins in these matters, but I find it useful to stop and think about concepts like this from time to time.</p>
 <p>I was originally prompted to write this after reading the lecterror blog article <a href="http://lecterror.com/articles/view/code-formatting-and-readability">Code formatting and readability</a> and related StackOverflow question <a href="http://programmers.stackexchange.com/questions/18454/should-i-return-from-a-function-early-or-use-an-if-statement">Should I return from a function early or use an if statement?</a>.</p>
-<p>(I thought, &ldquo;Hey! I have opinions too! And a Blog!&quot;)</p>
+<p>(I thought, &ldquo;Hey! I have opinions too! And a Blog!&rdquo;)</p>
 </section>
         
         <section class="share">

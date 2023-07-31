@@ -97,7 +97,7 @@
                 "height": 295
             },
             "keywords" : [ "dotnetcore", "NuGet" ]
-            "description" : "I recently wrote about NuGet packing on linux specifically, and want to continue the theme with other things you can do with NuGet packaging.\nAs a quick recap you can use a .Net Core *.csproj as a wrapper around a *.nuspec file and use dotnet pack to pack it, cross-platform, without needing nuget.exe.\n\u0026lt;Project Sdk=\u0026quot;Microsoft.NET.Sdk\u0026quot;\u0026gt;\r\u0026lt;PropertyGroup\u0026gt;\r\u0026lt;TargetFramework\u0026gt;netstandard2.0\u0026lt;\/TargetFramework\u0026gt;\r\u0026lt;NuspecFile\u0026gt;mynewapp.nuspec\u0026lt;\/NuspecFile\u0026gt;\r\u0026lt;GeneratePackageOnBuild\u0026gt;true\u0026lt;\/GeneratePackageOnBuild\u0026gt;\r\u0026lt;SkipCompilerExecution\u0026gt;true\u0026lt;\/SkipCompilerExecution\u0026gt;\r\u0026lt;CopyBuildOutputToOutputDirectory\u0026gt;false\u0026lt;\/CopyBuildOutputToOutputDirectory\u0026gt;\r\u0026lt;\/PropertyGroup\u0026gt;\r\u0026lt;\/Project\u0026gt;\r (See the other article for more detailed analysis of these properties.",
+            "description" : "I recently wrote about NuGet packing on linux specifically, and want to continue the theme with other things you can do with NuGet packaging.\nAs a quick recap you can use a .Net Core *.csproj as a wrapper around a *.nuspec file and use dotnet pack to pack it, cross-platform, without needing nuget.exe.\n\u0026lt;Project Sdk=\u0026quot;Microsoft.NET.Sdk\u0026quot;\u0026gt;\r\u0026lt;PropertyGroup\u0026gt;\r\u0026lt;TargetFramework\u0026gt;netstandard2.0\u0026lt;\/TargetFramework\u0026gt;\r\u0026lt;NuspecFile\u0026gt;mynewapp.nuspec\u0026lt;\/NuspecFile\u0026gt;\r\u0026lt;GeneratePackageOnBuild\u0026gt;true\u0026lt;\/GeneratePackageOnBuild\u0026gt;\r\u0026lt;SkipCompilerExecution\u0026gt;true\u0026lt;\/SkipCompilerExecution\u0026gt;\r\u0026lt;CopyBuildOutputToOutputDirectory\u0026gt;false\u0026lt;\/CopyBuildOutputToOutputDirectory\u0026gt;\r\u0026lt;\/PropertyGroup\u0026gt;\r\u0026lt;\/Project\u0026gt;\r(See the other article for more detailed analysis of these properties.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -201,7 +201,7 @@ As well as BuildAction <code>Compile</code>, there are a couple of others: <code
     &lt;MinClientVersion&gt;2.5&lt;/MinClientVersion&gt;
 &lt;/PropertyGroup&gt;
 </code></pre>
-<p>And with that, you can now augment the build props and tasks in your consumers' projects, and use this approach to include any arbitrary files into your NuGet package.</p>
+<p>And with that, you can now augment the build props and tasks in your consumers&rsquo; projects, and use this approach to include any arbitrary files into your NuGet package.</p>
 <h3 id="metadata-properties">Metadata properties</h3>
 <p>The nice thing about using a <code>csproj</code>, is that with this one file you can set all your assembly metadata, as well as NuGet package metadata.</p>
 <p>The <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties">Additions to the csproj format</a> page gives a great overview of (among other things) all the possible properties you can put into your <code>csproj</code> files, and where exactly these will go into your file NuGet package metadata. This is the final piece that ensures you don&rsquo;t actually have to hand-craft a <code>nuspec</code> file at all and can keep all your pack information inside the <code>csproj</code> file instead.</p>

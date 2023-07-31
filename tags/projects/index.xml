@@ -220,7 +220,7 @@ Expand-Archive .\coveralls-windows.zip coveralls-windows
 &lt;h3 id=&#34;while-youre-at-it&#34;&gt;While you&amp;rsquo;re at it&amp;hellip;&lt;/h3&gt;
 &lt;p&gt;That&amp;rsquo;s what&amp;rsquo;s new, feel free to influence me on what the think you would find valuable to have me finish first. But don&amp;rsquo;t forget the other little projects I&amp;rsquo;ve already put out there and would love feedback on, too.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnz/Beefeater&#34;&gt;Beefeater&lt;/a&gt; - &amp;ldquo;Guard your methods&#39; Ins and Outs.&amp;rdquo; - return and optionality semantics helper library&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnz/Beefeater&#34;&gt;Beefeater&lt;/a&gt; - &amp;ldquo;Guard your methods&amp;rsquo; Ins and Outs.&amp;rdquo; - return and optionality semantics helper library&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/csMACnz/coveralls.net&#34;&gt;coveralls.net&lt;/a&gt; - a publisher for .Net code coverage to &lt;a href=&#34;https://coveralls.io/&#34;&gt;coveralls.io&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/csMACnz/BCLExtensions&#34;&gt;BCLExtensions&lt;/a&gt; - extensive extensions and helpers for primative types&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/csMACnz/coveritypublisher&#34;&gt;coveritypublisher&lt;/a&gt; - a publisher for &lt;a href=&#34;https://scan.coverity.com/&#34;&gt;Coverity Scan&lt;/a&gt; static analysis results&lt;/li&gt;
@@ -235,7 +235,7 @@ Expand-Archive .\coveralls-windows.zip coveralls-windows
       <pubDate>Sun, 08 Mar 2015 17:34:21 +0000</pubDate>
       
       <guid>https://blog.csmac.nz/post/introducing-publishcoverity/</guid>
-      <description>&lt;p&gt;As part of my open source development tooling investigation, I came across &lt;a href=&#34;https://scan.coverity.com/&#34;&gt;Coverity Scan&lt;/a&gt; Static Analysis. And thanks to &lt;a href=&#34;http://arkfps.github.io/2015/01/07/using-coverity-scan-with-appveyor/&#34;&gt;Arkfps&#39; post&lt;/a&gt; I could automate the process of submitting the results. And now &lt;a href=&#34;http://help.appveyor.com/discussions/suggestions/497-coverity-static-analysis-support&#34;&gt;Appveyor includes Coverity on it&amp;rsquo;s images&lt;/a&gt;. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.&lt;/p&gt;
+      <description>&lt;p&gt;As part of my open source development tooling investigation, I came across &lt;a href=&#34;https://scan.coverity.com/&#34;&gt;Coverity Scan&lt;/a&gt; Static Analysis. And thanks to &lt;a href=&#34;http://arkfps.github.io/2015/01/07/using-coverity-scan-with-appveyor/&#34;&gt;Arkfps&amp;rsquo; post&lt;/a&gt; I could automate the process of submitting the results. And now &lt;a href=&#34;http://help.appveyor.com/discussions/suggestions/497-coverity-static-analysis-support&#34;&gt;Appveyor includes Coverity on it&amp;rsquo;s images&lt;/a&gt;. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.nuget.org/packages/PublishCoverity&#34;&gt;PublishCoverity&lt;/a&gt; is available on NuGet, and has two use cases: Compress and Publish.&lt;/p&gt;
 &lt;p&gt;Compress takes a directory and compresses it to produce an output zip file.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;Signature:
@@ -340,7 +340,7 @@ Example:
 &lt;p&gt;So fastforward another week and I have a working prototype done. It&amp;rsquo;s even showing &lt;a href=&#34;https://coveralls.io/r/csMACnz/coveralls.net&#34;&gt;coverage on coveralls.io&lt;/a&gt;, supporting opencover xml format.&lt;/p&gt;
 &lt;p&gt;So whats left now? finish building it to be reusable by my other projects, publish it to nuget and chocolately and wherever else I need to, and start getting people integrating it into their .Net builds. Probably build out other C# coverage report formats as well, so your not forced to use opencover. Wish me luck!&lt;/p&gt;
 &lt;h6 id=&#34;small-side-note&#34;&gt;small side note&lt;/h6&gt;
-&lt;p&gt;So I also found this other continuous code quality metrics thing for python called &lt;a href=&#34;https://landscape.io/&#34;&gt;landscape.io&lt;/a&gt;. When will we see this type of thing available for .Net as well? Turns out right now. Check out 
+&lt;p&gt;So I also found this other continuous code quality metrics thing for python called &lt;a href=&#34;https://landscape.io/&#34;&gt;landscape.io&lt;/a&gt;. When will we see this type of thing available for .Net as well? Turns out right now. Check out
 &lt;a href=&#34;https://scan.coverity.com/projects/3696&#34;&gt;Coverity Scan Static Analysis&lt;/a&gt; (&lt;a href=&#34;https://scan.coverity.com/projects/3696&#34;&gt;mine&lt;/a&gt; needs you to create an account to use, but no permissions to view.)&lt;/p&gt;
 &lt;p&gt;And two more for fun: &lt;a href=&#34;https://waffle.io/&#34;&gt;waffle.io&lt;/a&gt; &amp;amp; &lt;a href=&#34;https://readthedocs.org/&#34;&gt;readthedocs.org&lt;/a&gt;&lt;/p&gt;
 </description>

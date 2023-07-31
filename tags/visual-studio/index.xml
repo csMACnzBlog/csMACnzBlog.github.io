@@ -1051,7 +1051,7 @@ dotnet run
 &lt;p&gt;There are a few differences. So let&amp;rsquo;s start with the similarities.
 We have 4 top-level properties: &lt;code&gt;version&lt;/code&gt;, &lt;code&gt;buildOptions&lt;/code&gt;, &lt;code&gt;dependencies&lt;/code&gt; and &lt;code&gt;frameworks&lt;/code&gt;. Starting with the easy ones.&lt;/p&gt;
 &lt;h4 id=&#34;version&#34;&gt;version&lt;/h4&gt;
-&lt;p&gt;The version property is the minimum required metadata about the artifact you are building. Other meta-data includes &amp;lsquo;name&amp;rsquo;, &lt;code&gt;title&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; and may others.&lt;/p&gt;
+&lt;p&gt;The version property is the minimum required metadata about the artifact you are building. Other meta-data includes &amp;rsquo;name&amp;rsquo;, &lt;code&gt;title&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; and may others.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;name&lt;/code&gt; option by default will use the parent folder name. To make things a bit more precise, you could add &lt;code&gt;&amp;quot;name&amp;quot;: &amp;quot;MyNewApp&amp;quot;,&lt;/code&gt; at the top level.&lt;/p&gt;
 &lt;h4 id=&#34;buildoptions&#34;&gt;buildOptions&lt;/h4&gt;
 &lt;p&gt;The &lt;code&gt;buildOptions&lt;/code&gt; section contains some useful properties to know about. Firstly, we have the &lt;code&gt;emitEntryPoint&lt;/code&gt;. This is used to determine if the binary or exe produced is executable. By default, this means that you have a &lt;code&gt;Program.Main()&lt;/code&gt; method that will be called to begin your program.&lt;/p&gt;
@@ -1078,7 +1078,7 @@ We have 4 top-level properties: &lt;code&gt;version&lt;/code&gt;, &lt;code&gt;bu
     }
   }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The framework &lt;code&gt;netcoreapp1.0&lt;/code&gt; is one of many Target Framework Moniker (TFM) values that can be used here. As well as the old classics &amp;lsquo;net45&amp;rsquo;, &amp;lsquo;net46&amp;rsquo;, we now have some new ones, like this &lt;code&gt;netcoreapp1.0&lt;/code&gt;. These seem to be similar and/or related to the TFMs that are supported as part of NuGet.&lt;/p&gt;
+&lt;p&gt;The framework &lt;code&gt;netcoreapp1.0&lt;/code&gt; is one of many Target Framework Moniker (TFM) values that can be used here. As well as the old classics &amp;rsquo;net45&amp;rsquo;, &amp;rsquo;net46&amp;rsquo;, we now have some new ones, like this &lt;code&gt;netcoreapp1.0&lt;/code&gt;. These seem to be similar and/or related to the TFMs that are supported as part of NuGet.&lt;/p&gt;
 &lt;p&gt;This &lt;a href=&#34;https://blogs.msdn.microsoft.com/cesardelatorre/2016/06/28/running-net-core-apps-on-multiple-frameworks-and-what-the-target-framework-monikers-tfms-are-about/&#34;&gt;article on TFMs&lt;/a&gt; attempts to explain these in a much greater detail than I can fit here in one paragraph.&lt;/p&gt;
 &lt;p&gt;But giving it a go, &lt;code&gt;dotnetcoreapp1.0&lt;/code&gt; is the reference to this release of .Net Core, as a target platform. So if you want to target this Framework(Runtime) Version, this is how.&lt;/p&gt;
 &lt;p&gt;As for &lt;code&gt;&amp;quot;imports&amp;quot;: &amp;quot;dnxcore50&amp;quot;&lt;/code&gt;, It looks like this is just telling the compiler (or runtime, unsure) that if it sees anything targeting &amp;ldquo;dnxcore50&amp;rdquo;, in a package, that is fine to use with this application. Reading that back, it probably is referring exactly to the NuGet Moniker that has been used during the early releases.&lt;/p&gt;

@@ -197,7 +197,7 @@
 <p>There are a few differences. So let&rsquo;s start with the similarities.
 We have 4 top-level properties: <code>version</code>, <code>buildOptions</code>, <code>dependencies</code> and <code>frameworks</code>. Starting with the easy ones.</p>
 <h4 id="version">version</h4>
-<p>The version property is the minimum required metadata about the artifact you are building. Other meta-data includes &lsquo;name&rsquo;, <code>title</code>, <code>description</code> and may others.</p>
+<p>The version property is the minimum required metadata about the artifact you are building. Other meta-data includes &rsquo;name&rsquo;, <code>title</code>, <code>description</code> and may others.</p>
 <p>The <code>name</code> option by default will use the parent folder name. To make things a bit more precise, you could add <code>&quot;name&quot;: &quot;MyNewApp&quot;,</code> at the top level.</p>
 <h4 id="buildoptions">buildOptions</h4>
 <p>The <code>buildOptions</code> section contains some useful properties to know about. Firstly, we have the <code>emitEntryPoint</code>. This is used to determine if the binary or exe produced is executable. By default, this means that you have a <code>Program.Main()</code> method that will be called to begin your program.</p>
@@ -224,7 +224,7 @@ We have 4 top-level properties: <code>version</code>, <code>buildOptions</code>,
     }
   }
 </code></pre>
-<p>The framework <code>netcoreapp1.0</code> is one of many Target Framework Moniker (TFM) values that can be used here. As well as the old classics &lsquo;net45&rsquo;, &lsquo;net46&rsquo;, we now have some new ones, like this <code>netcoreapp1.0</code>. These seem to be similar and/or related to the TFMs that are supported as part of NuGet.</p>
+<p>The framework <code>netcoreapp1.0</code> is one of many Target Framework Moniker (TFM) values that can be used here. As well as the old classics &rsquo;net45&rsquo;, &rsquo;net46&rsquo;, we now have some new ones, like this <code>netcoreapp1.0</code>. These seem to be similar and/or related to the TFMs that are supported as part of NuGet.</p>
 <p>This <a href="https://blogs.msdn.microsoft.com/cesardelatorre/2016/06/28/running-net-core-apps-on-multiple-frameworks-and-what-the-target-framework-monikers-tfms-are-about/">article on TFMs</a> attempts to explain these in a much greater detail than I can fit here in one paragraph.</p>
 <p>But giving it a go, <code>dotnetcoreapp1.0</code> is the reference to this release of .Net Core, as a target platform. So if you want to target this Framework(Runtime) Version, this is how.</p>
 <p>As for <code>&quot;imports&quot;: &quot;dnxcore50&quot;</code>, It looks like this is just telling the compiler (or runtime, unsure) that if it sees anything targeting &ldquo;dnxcore50&rdquo;, in a package, that is fine to use with this application. Reading that back, it probably is referring exactly to the NuGet Moniker that has been used during the early releases.</p>

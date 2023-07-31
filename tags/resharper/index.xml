@@ -19,7 +19,7 @@
       <pubDate>Sun, 02 Aug 2015 08:37:47 +0000</pubDate>
       
       <guid>https://blog.csmac.nz/post/externalannotations-or-how-to-not-depend-on-jetbrains-annotations-dll/</guid>
-      <description>&lt;p&gt;There is some great static analysis stuff that ReSharper does for you.  Specifically around nullability, purity and usage of your code. 
+      <description>&lt;p&gt;There is some great static analysis stuff that ReSharper does for you.  Specifically around nullability, purity and usage of your code.
 From their &lt;em&gt;Code Annotations&lt;/em&gt; page in Visual Studio:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;ReSharper Annotations help reduce false positive warnings, explicitly declare purity and nullability in your code, deal with implicit usages of member, support special semantics of APIs in ASP.NET and XAML frameworks and otherwise increase accuracy of ReSharper code inspections.&lt;/p&gt;

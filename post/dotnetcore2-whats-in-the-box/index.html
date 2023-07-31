@@ -91,7 +91,7 @@
             "datePublished": "2018-01-22T06:00:00.000Z",
             "dateModified" : "2018-01-22T06:00:00.000Z",
             "keywords" : [ "dotnetcore" ]
-            "description" : "This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series\n Getting Started What\u0026rsquo;s in the box \u0026lt;=(We are here) Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications  (At the time of writing, 2.1.4. I use windows, you don\u0026rsquo;t have to!)\nLast time we created a new application. Once with dotnet CLI and once with Visual Studio.",
+            "description" : "This is a series on the latest 2.* .Net Core bits, Following on from the original .Net Core Series\nGetting Started What\u0026rsquo;s in the box \u0026lt;=(We are here) Using Multiple Projects Testing NuGet Multi-targeting Publishing Portable Applications Self-contained Applications (At the time of writing, 2.1.4. I use windows, you don\u0026rsquo;t have to!)\nLast time we created a new application. Once with dotnet CLI and once with Visual Studio.\nNow we will have a look at the csproj file.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -194,7 +194,7 @@
 &lt;/Project&gt;
 </code></pre>
 <p>An xUnit project doesn&rsquo;t need an entry point since it is run by xUnit instead, xUnit provides us with an entry point. We still want it to be executable against a specific runtime version, so we target <code>netcoreapp2.0</code> here as well.  Lastly, we have <code>IsPackable</code> set to false. <code>IsPackable</code> is used by NuGet packaging, so we are setting the project up so that even if you try to <code>dotnet pack</code> this project, is will not create a package. You can add this and set it to true when you want to ensure a project does get packed.</p>
-<p>We see this time an <code>ItemGroup</code> section as well. This is used as a grouping mechanism and can contain lots of different settings. Specifically, in this project, we see 3 <code>PackageReference</code> tags. These are NuGet package references. We also see a 
+<p>We see this time an <code>ItemGroup</code> section as well. This is used as a grouping mechanism and can contain lots of different settings. Specifically, in this project, we see 3 <code>PackageReference</code> tags. These are NuGet package references. We also see a
 <code>DotNetCliToolReference</code>. This is for packages that are development-time dependencies, specifically executables that run against your project. Usually, these enable functionality to run <code>dotnet mycommand</code> from a package <code>dotnet-mycommand</code>. In this case, it gives us <code>dotnet xunit</code>.</p>
 <p>And finally, an MVC web application looks like this from command <code>dotnet new MVC</code>:</p>
 <pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk.Web&quot;&gt;
@@ -262,7 +262,7 @@ Both <code>TargetFramwork</code> and <code>TargetFramworks</code> support all th
 </code></pre>
 <p>This is another magic file you may still find useful, to pin a project to a specific version of the .Net Core SDK. Especially useful since you can have multiple versions installed on the same machine</p>
 <p>Some little information on <code>global.json</code> is found <a href="https://docs.microsoft.com/en-us/dotnet/articles/core/tools/global-json">here</a>.</p>
-<p>If you are installing multiple versions, you may find this helpful, too. 
+<p>If you are installing multiple versions, you may find this helpful, too.
 <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script">dotnet-install-script</a></p>
 <h3 id="next-up">Next up</h3>
 <p>We now have a bit of an idea of how the magic works.  Going forward we will try out some common use cases to determine what changes to the <code>csproj</code> we need to make to achieve our results.</p>
