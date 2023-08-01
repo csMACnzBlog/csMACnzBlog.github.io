@@ -147,15 +147,14 @@
 <p>By default, you also usually have everything relative to a parent directory, such as the source or repository root. This becomes the context you use.  The context can be anywhere you like, but I find shared configs from root as well as the solution file being available is handy. You may even have build scripts here that you include.</p>
 <h3 id="minimum-vs-default">Minimum vs default</h3>
 <p>Let&rsquo;s start with the minimum valid <code>Dockerfile</code> to build our NetCoreApp2.1 application. The application itself doesn&rsquo;t matter, only that it builds.</p>
-<pre><code>FROM microsoft/dotnet:2.1-sdk
+<pre tabindex="0"><code>FROM microsoft/dotnet:2.1-sdk
 WORKDIR /src
 COPY . .
 RUN dotnet publish MyApp.csproj -c Release -o /app
 WORKDIR /app
 COPY /app .
-ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
-</code></pre>
-<p>That&rsquo;s the least you need, but we can do better.</p>
+ENTRYPOINT [&#34;dotnet&#34;, &#34;MyApp.dll&#34;]
+</code></pre><p>That&rsquo;s the least you need, but we can do better.</p>
 <ul>
 <li>This only works if you run build in the context of the project folder</li>
 <li>This will copy over local bin/obj folders (unless you have a <code>.dockerignore</code> file already - Visual Studio may add one for you.)</li>
@@ -163,7 +162,7 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
 <li>Our final container has all the build artifacts in it, making it larger again</li>
 </ul>
 <p>Most of this is solved by following the <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">Best practices</a> which you get for free if you create using Visual Studio.</p>
-<pre><code>FROM microsoft/dotnet:2.1-runtime AS base
+<pre tabindex="0"><code>FROM microsoft/dotnet:2.1-runtime AS base
 WORKDIR /app
 
 FROM microsoft/dotnet:2.1-sdk AS build
@@ -180,10 +179,8 @@ RUN dotnet publish MyApp.csproj -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
-
-</code></pre>
-<h3 id="multiple-stages">Multiple Stages</h3>
+ENTRYPOINT [&#34;dotnet&#34;, &#34;MyApp.dll&#34;]
+</code></pre><h3 id="multiple-stages">Multiple Stages</h3>
 <p>Talking through this file a bit, we have a multi-stage build, that has three parts.
 Note that the actual container instance that matches the tag, is the one that starts with the base container defined in the <code>FROM</code> command, and has run all the instructions up until the next <code>FROM</code> command, or the end of the file.</p>
 <p>First, we have a <code>base </code>(<code>FROM microsoft/dotnet:2.1-runtime AS base</code>) that serves two purposes: it defines the final result container base up front and also gets used by Visual Studio when performing a special debug build. Visual Studio will build just this target in a multi-stage build, and copy in the build results to debug with. We can declare anything here that we might want in our final output container, and also need during debugging.</p>
@@ -194,11 +191,10 @@ Note that the actual container instance that matches the tag, is the one that st
 <p>Briefly about caching. Each build step will cache the results if all previous steps are cached, and with <code>COPY</code> commands, if the hash of the source files hasn&rsquo;t changed.  For this reason, we selectively copy over the project first, run a <code>dotnet restore</code>, and then pull in everything else. This caches the NuGet restore step so we don&rsquo;t have to redownload these every time.</p>
 <h3 id="ignore">Ignore</h3>
 <p>We still have the issue of the bin/obj files being copied in from the source folder. Luckily, Visual Studio would add a <code>.gitignore</code> file to solve this. If you add your own, the ignore lines you want are:</p>
-<pre><code>*/bin
+<pre tabindex="0"><code>*/bin
 */obj
-</code></pre>
-<p>This is relative to the base path, so will match <code>MyApp/bin</code> and <code>MyApp.Tests/bin</code> but not <code>src/MyOtherProject/bin</code>. If you want a more comprehensive version, VS gives you this:</p>
-<pre><code>.dockerignore
+</code></pre><p>This is relative to the base path, so will match <code>MyApp/bin</code> and <code>MyApp.Tests/bin</code> but not <code>src/MyOtherProject/bin</code>. If you want a more comprehensive version, VS gives you this:</p>
+<pre tabindex="0"><code>.dockerignore
 .env
 .git
 .gitignore
@@ -208,12 +204,11 @@ docker-compose.yml
 docker-compose.*.yml
 */bin
 */obj
-</code></pre>
-<p>Note that we don&rsquo;t ignore the <code>Dockerfile</code>, which means changes to the <code>Dockerfile</code> also cache-bust at the <code>COPY</code> step.</p>
+</code></pre><p>Note that we don&rsquo;t ignore the <code>Dockerfile</code>, which means changes to the <code>Dockerfile</code> also cache-bust at the <code>COPY</code> step.</p>
 <h3 id="build-with-testing-in-mind">Build with testing in mind</h3>
 <p>Like the default conventions, I build in a <code>build</code> container, then publish to a <code>publish</code> container. This means the final container has minimal dependencies. But I add a twist.</p>
 <p>When the script does the <code>COPY</code> of the project before the restore (a nice caching enhancement I really like) I also copy the test project file at the same time. This gets restored with the project in another restore. Then after doing the project build, I also run the project Tests. Now I know that my container passed all tests before it built because it has to.</p>
-<pre><code>ARG DOCKER_SKIP_TESTS=
+<pre tabindex="0"><code>ARG DOCKER_SKIP_TESTS=
 
 FROM microsoft/dotnet:2.1-runtime AS base
 WORKDIR /app
@@ -231,8 +226,8 @@ FROM build as test
 ARG DOCKER_SKIP_TESTS
 
 WORKDIR /src
-RUN [ ! -z &quot;$DOCKER_SKIP_TESTS&quot; ] &amp;&amp; : || dotnet build ./MyApp.Tests/MyApp.Tests.csproj --no-restore -c Release
-RUN [ ! -z &quot;$DOCKER_SKIP_TESTS&quot; ] &amp;&amp; : || dotnet test ./MyApp.Tests/MyApp.Tests.csproj --no-restore --no-build -v normal -c Release
+RUN [ ! -z &#34;$DOCKER_SKIP_TESTS&#34; ] &amp;&amp; : || dotnet build ./MyApp.Tests/MyApp.Tests.csproj --no-restore -c Release
+RUN [ ! -z &#34;$DOCKER_SKIP_TESTS&#34; ] &amp;&amp; : || dotnet test ./MyApp.Tests/MyApp.Tests.csproj --no-restore --no-build -v normal -c Release
 
 FROM build AS publish
 WORKDIR /src/MyApp
@@ -241,14 +236,11 @@ RUN dotnet publish MyApp.csproj -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
-
-</code></pre>
-<p>When running build and release against the target project, I also tell it to skip the restore. This avoids any restore invalidation that may occur from doing the <code>COPY</code>, for whatever reason.  Also during the release, I skip the build, so it reuses the build result from the previous step. Splitting up these steps just saves that little bit of rebuild time and duplication along the way.</p>
+ENTRYPOINT [&#34;dotnet&#34;, &#34;MyApp.dll&#34;]
+</code></pre><p>When running build and release against the target project, I also tell it to skip the restore. This avoids any restore invalidation that may occur from doing the <code>COPY</code>, for whatever reason.  Also during the release, I skip the build, so it reuses the build result from the previous step. Splitting up these steps just saves that little bit of rebuild time and duplication along the way.</p>
 <p>I use bash conditional logic to be able to disable the tests from running (to go faster during dev build cycles) as well. The build-arg <code>DOCKER_SKIP_TESTS</code> is unset, and the test commands are run. If I declare this, it will skip running the tests.</p>
-<pre><code>docker build --build-arg DOCKER_SKIP_TESTS=1 -f .\MyApp\Dockerfile .
-</code></pre>
-<p>Having <code>DOCKER_SKIP_TESTS=</code> declared on the first line means the cache is invalidated whenever I switch this setting on and off, so I get a clean build with, or without tests, and not somewhere in between.</p>
+<pre tabindex="0"><code>docker build --build-arg DOCKER_SKIP_TESTS=1 -f .\MyApp\Dockerfile .
+</code></pre><p>Having <code>DOCKER_SKIP_TESTS=</code> declared on the first line means the cache is invalidated whenever I switch this setting on and off, so I get a clean build with, or without tests, and not somewhere in between.</p>
 <p>I&rsquo;ve even managed to convince my <code>Dockerfile</code> it is a ci agent, and it publishes coverage and test results to TeamCity&hellip; but that is for another article I think.</p>
 <h3 id="wrap-up">Wrap up</h3>
 <p>These are some of the tricks that I make use of in my <code>Dockerfile</code>.  Next time, we will take a look at some more advanced features, using an AspNetCore application running in docker and Visual Studio debugging.</p>

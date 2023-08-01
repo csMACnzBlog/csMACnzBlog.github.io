@@ -97,7 +97,7 @@
                 "height": 295
             },
             "keywords" : [ "dotnetcore", "docker", "Tips and Tricks" ]
-            "description" : "I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.\nBasically I was trying this:\ndocker run -v \u0026quot;$(pwd):C:\/work\u0026quot; -w C:\/work -it --rm microsoft\/dotnet:1.1.1-sdk-nanoserver powershell build.ps1\rThis maps the current repository directory to a folder called work on the container, and runs the build inside it. This approach means:",
+            "description" : "I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.\nBasically I was trying this:\ndocker run -v \u0026#34;$(pwd):C:\/work\u0026#34; -w C:\/work -it --rm microsoft\/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This maps the current repository directory to a folder called work on the container, and runs the build inside it. This approach means:",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -142,23 +142,20 @@
         <section class="post-content"  itemprop="articleBody">
             <img class="post-image" src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_400/v1490969296/Container_kacpsc.jpg"><p>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.</p>
 <p>Basically I was trying this:</p>
-<pre><code>docker run -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1
-</code></pre>
-<p>This maps the current repository directory to a folder called <code>work</code> on the container, and runs the build inside it. This approach means:</p>
+<pre tabindex="0"><code>docker run -v &#34;$(pwd):C:/work&#34; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1
+</code></pre><p>This maps the current repository directory to a folder called <code>work</code> on the container, and runs the build inside it. This approach means:</p>
 <ul>
 <li>a) All software dependencies are isolated inside the container (including which version of the dotnet cli tools are installed); and</li>
 <li>b) All resulting files are available on the host machine afterwards.</li>
 </ul>
 <p>The problem is this:</p>
-<pre><code>C:\Program Files\dotnet\sdk\1.0.1\Microsoft.Common.CurrentVersion.targets(1111,5): error MSB3644: The reference assemblies for framework &quot;.NETFramework,Version=v4.5&quot; were not found. To resolve this, install the SDK or Targeting Pack for this framework version or retarget your application to a version of the framework for which you have the SDK or Targeting Pack installed. Note that assemblies will be resolved from the Global Assembly Cache (GAC) and will be used in place of reference assemblies. Therefore your assembly may not be correctly targeted for the framework you intend. [C:\work\project\MyProject\MyProject.csproj]
-</code></pre>
-<p>Basically, this docker image is &ldquo;microsoft/dotnet:1.1.1-sdk-nanoserver&rdquo;, which is docker image targeting windows NanoServer and contains the dotnet core 1.1.1 tools (current latest, first with <code>*.csproj</code> capability).  This image does not contain the full .Net framework (among other things).</p>
+<pre tabindex="0"><code>C:\Program Files\dotnet\sdk\1.0.1\Microsoft.Common.CurrentVersion.targets(1111,5): error MSB3644: The reference assemblies for framework &#34;.NETFramework,Version=v4.5&#34; were not found. To resolve this, install the SDK or Targeting Pack for this framework version or retarget your application to a version of the framework for which you have the SDK or Targeting Pack installed. Note that assemblies will be resolved from the Global Assembly Cache (GAC) and will be used in place of reference assemblies. Therefore your assembly may not be correctly targeted for the framework you intend. [C:\work\project\MyProject\MyProject.csproj]
+</code></pre><p>Basically, this docker image is &ldquo;microsoft/dotnet:1.1.1-sdk-nanoserver&rdquo;, which is docker image targeting windows NanoServer and contains the dotnet core 1.1.1 tools (current latest, first with <code>*.csproj</code> capability).  This image does not contain the full .Net framework (among other things).</p>
 <p>Now I could have decided to use <code>microsoft/dotnet-framework</code> which is built on <code>microsoft/windowsservercore</code> and includes full <code>.Net</code>. However, that is a 4GB base image with another 1Gb image applied on top. Very large.</p>
 <p>This lead me to try a few different things to fix the error on this image, eventually finding the magic combo I needed:</p>
-<pre><code>-e &quot;ReferenceAssemblyRoot=C:\NetReference&quot; -v &quot;C:/Program Files (x86)/Reference Assemblies\Microsoft\Framework:C:/NetReference&quot;
-</code></pre>
-<p>Essentially I map the Reference Assemblies folder to the container as well. Then I use the (rather undiscoverable) Environment Variable <code>ReferenceAssemblyRoot</code> to point to that folder. That folder on my machine looks like:</p>
-<pre><code>Framework
+<pre tabindex="0"><code>-e &#34;ReferenceAssemblyRoot=C:\NetReference&#34; -v &#34;C:/Program Files (x86)/Reference Assemblies\Microsoft\Framework:C:/NetReference&#34;
+</code></pre><p>Essentially I map the Reference Assemblies folder to the container as well. Then I use the (rather undiscoverable) Environment Variable <code>ReferenceAssemblyRoot</code> to point to that folder. That folder on my machine looks like:</p>
+<pre tabindex="0"><code>Framework
  |-- .NETCore
  |    +-- ...
  |-- .NETFramework
@@ -179,13 +176,11 @@
  |    +-- ...
  +-- v3.5
       +-- ...
-</code></pre>
-<p>Basically, every target framework sdk I have installed on the machine.</p>
+</code></pre><p>Basically, every target framework sdk I have installed on the machine.</p>
 <p>And for building libraries, this is all you need.</p>
 <p>The full final command is:</p>
-<pre><code>docker run -e &quot;ReferenceAssemblyRoot=C:\NetReference&quot; -v &quot;C:/Program Files (x86)/Reference Assemblies\Microsoft\Framework:C:/NetReference&quot; -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1
-</code></pre>
-<p>Just make sure that you have the required frameworks on your machine already (which might be your laptop or (in my case) a TeamCity Agent with Windows Docker installed and configured.</p>
+<pre tabindex="0"><code>docker run -e &#34;ReferenceAssemblyRoot=C:\NetReference&#34; -v &#34;C:/Program Files (x86)/Reference Assemblies\Microsoft\Framework:C:/NetReference&#34; -v &#34;$(pwd):C:/work&#34; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1
+</code></pre><p>Just make sure that you have the required frameworks on your machine already (which might be your laptop or (in my case) a TeamCity Agent with Windows Docker installed and configured.</p>
 </section>
         
         <section class="share">

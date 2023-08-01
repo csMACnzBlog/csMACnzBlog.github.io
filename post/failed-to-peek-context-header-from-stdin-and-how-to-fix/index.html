@@ -17,13 +17,13 @@
 
     
         <title>&#34;failed to peek context header from STDIN&#34; and how to fix - csMACnz&#39;s Blog</title>
-        <meta name="description" content="The docker guidance says you can run docker build piping the dockerfile: #On linux $ docker build - &lt; Dockerfile  and on Windows it says to do this: #PowerShell Get-Content Dockerfile | docker build -  Nice. But …">
+        <meta name="description" content="The docker guidance says you can run docker build piping the dockerfile: #On linux $ docker build - &lt; Dockerfile and on Windows it says to do this: #PowerShell Get-Content Dockerfile | docker build - Nice. But …">
         <meta name='keywords' content='csMACnz, Tips and Tricks, docker'>
 
         
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="&#34;failed to peek context header from STDIN&#34; and how to fix"/>
-        <meta property="og:description" content="The docker guidance says you can run docker build piping the dockerfile: #On linux $ docker build - &lt; Dockerfile  and on Windows it says to do this: #PowerShell Get-Content Dockerfile | docker build -  Nice. But …"/>
+        <meta property="og:description" content="The docker guidance says you can run docker build piping the dockerfile: #On linux $ docker build - &lt; Dockerfile and on Windows it says to do this: #PowerShell Get-Content Dockerfile | docker build - Nice. But …"/>
         <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
         <meta property="og:url" content="https://blog.csmac.nz/post/failed-to-peek-context-header-from-stdin-and-how-to-fix/"/>
         <meta property="og:image" content="https://csmac.nz/Content/icon/icon.png"/>
@@ -31,7 +31,7 @@
         
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:title" content="&#34;failed to peek context header from STDIN&#34; and how to fix"/>
-        <meta name="twitter:description" content="The docker guidance says you can run docker build piping the dockerfile: #On linux $ docker build - &lt; Dockerfile  and on Windows it says to do this: #PowerShell Get-Content Dockerfile | docker build -  Nice. But …"/>
+        <meta name="twitter:description" content="The docker guidance says you can run docker build piping the dockerfile: #On linux $ docker build - &lt; Dockerfile and on Windows it says to do this: #PowerShell Get-Content Dockerfile | docker build - Nice. But …"/>
         <meta name="twitter:image" content="https://csmac.nz/Content/icon/icon.png"/>
         <meta name="twitter:site" content="@csMACnz"/>
         <meta name="twitter:creator" content="@csMACnz"/>
@@ -97,7 +97,7 @@
                 "height": 295
             },
             "keywords" : [ "Tips and Tricks", "docker" ]
-            "description" : "The docker guidance says you can run docker build piping the dockerfile:\n#On linux\r$ docker build - \u0026lt; Dockerfile\rand on Windows it says to do this:\n#PowerShell\rGet-Content Dockerfile | docker build -\rNice. But I\u0026rsquo;ve been getting this error all day\u0026hellip;\n\u0026gt; Get-Content Dockerfile | docker build -\runable to prepare context: failed to peek context header from STDIN: Incorrect function.\rWAT After much pain, I figured out the error is because I was running inside conemu.",
+            "description" : "The docker guidance says you can run docker build piping the dockerfile:\n#On linux\r$ docker build - \u0026lt; Dockerfile and on Windows it says to do this:\n#PowerShell\rGet-Content Dockerfile | docker build - Nice. But I\u0026rsquo;ve been getting this error all day\u0026hellip;\n\u0026gt; Get-Content Dockerfile | docker build -\runable to prepare context: failed to peek context header from STDIN: Incorrect function. WAT After much pain, I figured out the error is because I was running inside conemu.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -141,18 +141,15 @@
     
         <section class="post-content"  itemprop="articleBody">
             <img class="post-image" src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_440/v1480439506/dog-1639528_1280_nr9duv.png"><p>The <a href="https://docs.docker.com/engine/reference/commandline/build/#/text-files">docker guidance says</a> you can run docker build piping the dockerfile:</p>
-<pre><code>#On linux
+<pre tabindex="0"><code>#On linux
 $ docker build - &lt; Dockerfile
-</code></pre>
-<p>and on Windows it says to do this:</p>
-<pre><code>#PowerShell
+</code></pre><p>and on Windows it says to do this:</p>
+<pre tabindex="0"><code>#PowerShell
 Get-Content Dockerfile | docker build -
-</code></pre>
-<p>Nice. But I&rsquo;ve been getting this error all day&hellip;</p>
-<pre><code>&gt; Get-Content Dockerfile | docker build -
+</code></pre><p>Nice. But I&rsquo;ve been getting this error all day&hellip;</p>
+<pre tabindex="0"><code>&gt; Get-Content Dockerfile | docker build -
 unable to prepare context: failed to peek context header from STDIN: Incorrect function.
-</code></pre>
-<h3 id="wat">WAT</h3>
+</code></pre><h3 id="wat">WAT</h3>
 <p>After much pain, I figured out the error is because I was running inside <a href="http://conemu.github.io/">conemu</a>. *<em>Sigh</em>*</p>
 <p>Sorry to say I don&rsquo;t know how to fix the problem. But at least I know the cause. The solution for now is to run this command in a Regular PowerShell window and avoid conemu for this command.</p>
 <p>Since I searched this error in google and found nothing, I hope this helps the next person who looks.</p>

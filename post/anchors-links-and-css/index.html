@@ -139,36 +139,34 @@
 <p>I recall a time at uni where I was learning about CSS. The phrase <code>Love, Ha!</code> was etched into my brain to remember the letters <code>LVHA</code>, which stand for the 4 pseudo classes of an anchor (<code>a</code>) tag, which were <code>link</code>, <code>visited</code>, <code>hover</code>, <code>active</code>. Link represents an anchor that has an href, somewhere to go. Anchors are not inherently links, that is just one state they could be. Visited is a link that has been clicked before, traditionally seen as a shade of purple rather than blue after you have used it. Hover is of course mouse over, and Active is mouse down.  The acronym was used because this was the order you should declare their styles, to ensure expected behaviour.  This was back when ie6 was the standard, and XHtml was all the rage. Something to note was that these pseudo-classes only existed on anchors, and hover was only available if it was a link (if my memory serves me correctly).</p>
 <p>So armed with all this information, coming back to write some CSS 7 years later, and the acronym is still present on my memory, as well as the explanation why. But now, armed with all the latest &ldquo;good practice&rdquo; on how to write CSS I want to keep my styles shallow and general. But I&rsquo;m also styling defaults for the page, so I want all my default anchors to look a specific way.  My menu is also a list of anchors so that the semantics of the markup make sense.  On with the show.</p>
 <p>I set up my styles roughly like so:</p>
-<pre><code class="language-css">a:link {
-  color: Orange;
-}
-a:visited {
-  color: DarkOrange;
-}
-a:hover {
-  color: Blue;
-}
-</code></pre>
-<p>Notice the LVH? Didn&rsquo;t need an active right now but will add that in later. Anyway, the next thing was the menu:</p>
-<pre><code class="language-css">.menu-button{
-    display: inline-block;
-    background-color: inherit;
-    color: orange;
-    ...
-}
-.menu-button:link,
-.menu-button:visited {
-    color: orange;
-}
-.menu-button:link:hover {
-    color: pink;
-    background:blue;
-}
-.menu-button-current {
-    color:blue;
-}
-</code></pre>
-<p>You can imagine I have two buttons, one with just <code>.menu-button</code>, and one with <code>.menu-button-current</code> as well.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">a</span>:<span style="color:#a6e22e">link</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">color</span>: Orange;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">a</span>:<span style="color:#a6e22e">visited</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">color</span>: DarkOrange;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">a</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">color</span>: Blue;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice the LVH? Didn&rsquo;t need an active right now but will add that in later. Anyway, the next thing was the menu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">menu-button</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">inline-block</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">inherit</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">orange</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">menu-button</span>:<span style="color:#a6e22e">link</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">menu-button</span>:<span style="color:#a6e22e">visited</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">orange</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">menu-button</span>:<span style="color:#a6e22e">link</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">pink</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>:<span style="color:#66d9ef">blue</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">menu-button-current</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">color</span>:<span style="color:#66d9ef">blue</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>You can imagine I have two buttons, one with just <code>.menu-button</code>, and one with <code>.menu-button-current</code> as well.</p>
 <style>
 .test-base-style:link {
   color: Orange;
@@ -205,46 +203,41 @@ a:hover {
 <a class=".test-base-style test1-menu-button" href="#">Other Page</a></p>
 <p>Several attempts to change it got halfway there, but I ended up with a button where the text was still blue on hover. I tried a whole bunch of other things, which are really hard to reproduce again, that I thought, according to precedence, should have worked.  The real problem actually came back to the default anchor styles, and the three states an anchor can be in.</p>
 <p>An Anchor can be a link, not a link, or visited. Unfortunately, when you hover, it could be hovering in any one of these three states. And best of all, there are only pseudo-classes for two of them. If you explicitly use hover by itself, that&rsquo;s fine, it applies to all three, but where you are trying to distinguish if it is clickable or not, you might decide to add link so that it fixes things :</p>
-<pre><code class="language-css">.menu-button:link:hover {
-    color: pink;
-    background:blue;
-}
-</code></pre>
-<p>What I completely forgot there was that if I had visited the link, this style does not apply. I had to add visited in there as well. So after a lot of mucking around, I came to this conclusion.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">menu-button</span>:<span style="color:#a6e22e">link</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">pink</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>:<span style="color:#66d9ef">blue</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>What I completely forgot there was that if I had visited the link, this style does not apply. I had to add visited in there as well. So after a lot of mucking around, I came to this conclusion.</p>
 <h2 id="tldr">TL;DR</h2>
 <p>If you want to have different styles for links and nonlinks, make sure you remember visited, and apply this to hover as well.</p>
-<pre><code class="language-css">.mybutton {
-    color: black
-}
-.mybutton:link,
-.mybutton:visited {
-    color: blue
-}
-.mybutton:link:hover
-.mybutton:visited:hover {
-    color: pink;
-    background:blue;
-}
-</code></pre>
-<p>This way you have plain with no hover by default, and changed with a hover effect otherwise. Unfortunately, there is no way to turn off hover effects if it is not linked or visited, so getting the order of things right is important.  If you don&rsquo;t want hover on unlinked anchor tags, always use <code>:link:hover</code> and <code>:visited:hover</code> instead of just <code>hover</code> on your classes you use with an anchor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">mybutton</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">black</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">mybutton</span>:<span style="color:#a6e22e">link</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">mybutton</span>:<span style="color:#a6e22e">visited</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">blue</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">mybutton</span>:<span style="color:#a6e22e">link</span>:<span style="color:#a6e22e">hover</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">mybutton</span>:<span style="color:#a6e22e">visited</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">pink</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>:<span style="color:#66d9ef">blue</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This way you have plain with no hover by default, and changed with a hover effect otherwise. Unfortunately, there is no way to turn off hover effects if it is not linked or visited, so getting the order of things right is important.  If you don&rsquo;t want hover on unlinked anchor tags, always use <code>:link:hover</code> and <code>:visited:hover</code> instead of just <code>hover</code> on your classes you use with an anchor.</p>
 <p>An Alternative, and possibly less confusing solution: add a class to your active links that is different to the class (or no class) that you add to inactive links to ensure you only apply the styles in the right places.</p>
-<pre><code class="language-css">.active-button:hover {
-    ...
-}
-</code></pre>
-<p>Or the opposite:</p>
-<pre><code class="language-css">.non-active-button:hover {
-    ... //force the resetting of the properties you don't want.
-}
-</code></pre>
-<p>But I like my solution, less undoing of things along the way.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">active-button</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Or the opposite:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">non-active-button</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">...</span> <span style="color:#960050;background-color:#1e0010">//force</span> <span style="color:#960050;background-color:#1e0010">the</span> <span style="color:#960050;background-color:#1e0010">resetting</span> <span style="color:#960050;background-color:#1e0010">of</span> <span style="color:#960050;background-color:#1e0010">the</span> <span style="color:#960050;background-color:#1e0010">properties</span> <span style="color:#960050;background-color:#1e0010">you</span> <span style="color:#960050;background-color:#1e0010">don&#39;t</span> <span style="color:#960050;background-color:#1e0010">want.</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>But I like my solution, less undoing of things along the way.</p>
 <p>The other thing I did, for my own sanity, was to remove the <code>a:hover</code> in favor of a more accurate:</p>
-<pre><code class="language-css">a:link:hover,
-a:visited:hover {
-    color: #00bbf2;
-}
-</code></pre>
-<p>There, I fixed it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">a</span>:<span style="color:#a6e22e">link</span>:<span style="color:#a6e22e">hover</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">a</span>:<span style="color:#a6e22e">visited</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">color</span>: <span style="color:#ae81ff">#00bbf2</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There, I fixed it.</p>
 </section>
         
         <section class="share">

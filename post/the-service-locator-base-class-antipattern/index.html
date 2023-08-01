@@ -142,108 +142,105 @@
 <p><strong>&lt;<em>/Rant</em>&gt;</strong></p>
 <h2 id="the-antipattern">The antipattern</h2>
 <p>So the antipattern goes like this: We have N classes, with N types of functionality. They derive from a base class, which contains many services that are used across all N derived classes. These services are <strong>Service Located</strong>.</p>
-<pre><code class="language-cs">public class BaseController : Controller
-{
-    public ICustomerService CustomerService
-    {
-        get
-        {
-            return Service.Locate&lt;ICustomerService&gt;();
-        }
-    }
-    
-    public IOrderService OrderService
-    {
-        get
-        {
-            return Service.Locate&lt;IOrderService&gt;();
-        }
-    }
-}
-
-public class OrderController : BaseController 
-{
-    public Order Get(int orderId)
-    {
-        return OrderService.GetOrderById(orderId);
-    }
-}
-
-public class CustomerController : BaseController 
-{
-    public Customer Get(int customerId)
-    {
-        return CustomerService.GetOrderById(orderId);
-    }
-}
-
-</code></pre>
-<p>This is a representative sample of services and controllers. You can imagine that the real number of services in the base class could be anywhere between 5 and 20 services, or more, and that there could be 5 to 20, or more, controllers as well.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseController</span> : Controller
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> ICustomerService CustomerService
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">get</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> Service.Locate&lt;ICustomerService&gt;();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> IOrderService OrderService
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">get</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> Service.Locate&lt;IOrderService&gt;();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderController</span> : BaseController 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Order Get(<span style="color:#66d9ef">int</span> orderId)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> OrderService.GetOrderById(orderId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomerController</span> : BaseController 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Customer Get(<span style="color:#66d9ef">int</span> customerId)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> CustomerService.GetOrderById(orderId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is a representative sample of services and controllers. You can imagine that the real number of services in the base class could be anywhere between 5 and 20 services, or more, and that there could be 5 to 20, or more, controllers as well.</p>
 <p>Also, I have intentionally used Service.Locate because there are many ways to do this approach. You could use some generic <em>Global Static Method</em> or some container specific <em>Global Static variable</em>. It doesn&rsquo;t matter which, both are just as bad as each other.</p>
 <p>So Why is this so bad? Well, when It comes to testing, your Controller now has hidden dependencies. We can no longer tell from the constructor what it requires to be provided to get work done.  But they aren&rsquo;t required right, it is able to resolve them itself?  No, not really.</p>
 <p>There is a dependency on the Service Locator class <code>Service</code> that has to be configured just right for the actual dependencies to show up. And what&rsquo;s worse than hidden dependencies? Singleton dependencies that break your ability to run your tests in parallel.  If you try and run two tests against two controller instances (or any other type that shares the singleton dependency) then your test may periodically fail, from a race condition with the other test. It is never fun to have false negatives in your test suite, you lose all trust and won&rsquo;t see a true negative as a real problem.</p>
 <h3 id="incorrect-solution-1">(Incorrect) Solution 1</h3>
 <p>Ok, so we see the problems, how should we solve them? Let&rsquo;s try fixing the singleton problem with dependency injection through the constructor:</p>
-<pre><code class="language-cs">public class BaseController : Controller
-{
-    private ICustomerService _customerService;
-    public ICustomerService CustomerService
-    {
-        get
-        {
-            return _customerService;
-        }
-    }
-    
-    private IOrderService _orderService;
-    public IOrderService OrderService
-    {
-        get
-        {
-            return _orderService;
-        }
-    }
-    
-    protected BaseController(
-        ICustomerService customerService,
-        IOrderService orderService)
-    {
-        _customerService = customerService;
-        _orderService = orderService;
-    }
-}
-
-public class OrderController : BaseController 
-{
-    public OrderController(
-        ICustomerService customerService,
-        IOrderService orderService)
-        : base(customerService, orderService)
-    {
-    }
-    
-    public Order Get(int orderId)
-    {
-        return OrderService.GetOrderById(orderId);
-    }
-}
-
-public class CustomerController : BaseController 
-{
-    public CustomerController(
-        ICustomerService customerService,
-        IOrderService orderService)
-        : base(customerService, orderService)
-    {
-    }
-    
-    public Customer Get(int customerId)
-    {
-        return CustomerService.GetOrderById(orderId);
-    }
-}
-</code></pre>
-<p>By my rough estimate, we doubled the code, but we did expose our dependencies through the constructor right? Again, not really.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseController</span> : Controller
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> ICustomerService _customerService;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> ICustomerService CustomerService
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">get</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> _customerService;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> IOrderService _orderService;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> IOrderService OrderService
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">get</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> _orderService;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> BaseController(
+</span></span><span style="display:flex;"><span>        ICustomerService customerService,
+</span></span><span style="display:flex;"><span>        IOrderService orderService)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        _customerService = customerService;
+</span></span><span style="display:flex;"><span>        _orderService = orderService;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderController</span> : BaseController 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> OrderController(
+</span></span><span style="display:flex;"><span>        ICustomerService customerService,
+</span></span><span style="display:flex;"><span>        IOrderService orderService)
+</span></span><span style="display:flex;"><span>        : <span style="color:#66d9ef">base</span>(customerService, orderService)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Order Get(<span style="color:#66d9ef">int</span> orderId)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> OrderService.GetOrderById(orderId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomerController</span> : BaseController 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> CustomerController(
+</span></span><span style="display:flex;"><span>        ICustomerService customerService,
+</span></span><span style="display:flex;"><span>        IOrderService orderService)
+</span></span><span style="display:flex;"><span>        : <span style="color:#66d9ef">base</span>(customerService, orderService)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Customer Get(<span style="color:#66d9ef">int</span> customerId)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> CustomerService.GetOrderById(orderId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>By my rough estimate, we doubled the code, but we did expose our dependencies through the constructor right? Again, not really.</p>
 <p>If we take a closer look, we have a dependency on the BaseController for the <code>IOrderService</code>, but we never actually use it on the derived CustomerController. With more and more services loaded up on the base class, the worse this gets. The more likely we are that more of the dependencies the base class requires are not used by any particular controller.</p>
 <p>If you are using a DI Container, you won&rsquo;t feel the pain of creating one of these either, but the pain is still there. This is one of my Pet Peeves with Containers, they hide a lot of the pain from bad usages that only get worse over time, instead of annoying you enough to fix the problem fast.</p>
 <p>And what if we need to add a new dependency?  Well, if we add it to the base class, we have to add it to all (5, or maybe 20) Controllers&rsquo; constructors so that it will compile.  You might not see this as an issue, you just add it to the one that uses the dependency right? Not so. The base class has become a gravity well, all services go there, whether needed by all, or not. It&rsquo;s only logical that the next person along will put their new service there as well.  If there is code in the base class, it may be the only place to add it to surface the functionality to that code.</p>
@@ -251,37 +248,36 @@ public class CustomerController : BaseController
 <p>This leads into a huge con for this approach over the previous one: <a href="http://stackoverflow.com/questions/1299374/what-is-eager-loading">Over-eager loading</a>.  At least with the service locator, the instance and all of its dependencies are only loaded when you ask for the service.  With this approach, all dependencies are loaded before they are injected in, which could add a large amount of overhead to creating your controller. And like we said, not every instance is actually even used in this controller at all!  No, don&rsquo;t do this approach if you can help it. (by that I usually mean as a stop-gap solution to a larger refactoring effort. See <a href="#reality">Reality</a>.)</p>
 <h3 id="the-way-things-should-have-been">The way things should have been</h3>
 <p>Let&rsquo;s try to implement this solution again, with all of this in mind.  We want our classes to only take dependencies on what they actually use:</p>
-<pre><code class="language-cs">public class OrderController : Controller 
-{
-    private IOrderService _orderService;
-
-    public OrderController(IOrderService orderService)
-    {
-        _orderService = orderService;
-    }
-    
-    public Order Get(int orderId)
-    {
-        return _orderService.GetOrderById(orderId);
-    }
-}
-
-public class CustomerController : Controller 
-{
-    private ICustomerService _customerService;
-
-    public CustomerController(ICustomerService customerService)
-    {
-         _customerService = customerService;
-    }
-    
-    public Customer Get(int customerId)
-    {
-        return _customerService.GetOrderById(orderId);
-    }
-}
-</code></pre>
-<p>We can&rsquo;t get away from inheritance completely because of MVC, but we now have one less class to worry about. And in this trivial example, we have the same amount of code. Of course, that bit doesn&rsquo;t necessarily scale, but that&rsquo;s not a problem, really. Have we fixed all our problems? I think so.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderController</span> : Controller 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> IOrderService _orderService;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> OrderController(IOrderService orderService)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        _orderService = orderService;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Order Get(<span style="color:#66d9ef">int</span> orderId)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> _orderService.GetOrderById(orderId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomerController</span> : Controller 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> ICustomerService _customerService;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> CustomerController(ICustomerService customerService)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>         _customerService = customerService;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Customer Get(<span style="color:#66d9ef">int</span> customerId)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> _customerService.GetOrderById(orderId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We can&rsquo;t get away from inheritance completely because of MVC, but we now have one less class to worry about. And in this trivial example, we have the same amount of code. Of course, that bit doesn&rsquo;t necessarily scale, but that&rsquo;s not a problem, really. Have we fixed all our problems? I think so.</p>
 <p>Our controller now takes only the dependencies it needs. We don&rsquo;t need to pass so many things to any particular controller, and It is clear what it actually depends on.  In reality, we might have had to pass the same services to multiple controllers, but that&rsquo;s what composition is all about.</p>
 <p>We no longer have hidden dependencies. Everything a controller needs is passed in. Much easier for testing. You can even run your tests concurrently without the shared static singleton service locator.</p>
 <p>Now since we got rid of the base class, what about any cross-cutting concerns or common code?  Well, it should now become clear that some of that code might need to be a dependency passed into the subset of all controllers that actually use it.  And it that code still needs context-specific knowledge that you can&rsquo;t or don&rsquo;t want to pass in? I suggest looking into Aspect Oriented approaches such as the <a href="https://msdn.microsoft.com/en-us/library/system.web.mvc.filterattribute(v=vs.118).aspx">MVC FilterAttribute</a>.</p>
@@ -291,72 +287,69 @@ public class CustomerController : Controller
 <p>If you do want to tackle this type of refactoring, you would first want to pick one controller, and transform that one first.  This will require code duplication to move your dependencies in, but you should find that not all of them need to be copied over.</p>
 <p>As you refactor out code into attributes and new service classes, think about adding usages from your base class and other controllers at the same time, if the change is small enough to do so.</p>
 <p>Another real-world solution to the Service Location problem, especially for testing is to pass these dependencies in a second constructor and use <em>service location</em> from the default constructor instead.</p>
-<pre><code class="language-cs">public class BaseController : Controller
-{
-    ...
-    
-    protected BaseController()
-    : this(Service.Locate&lt;ICustomerService&gt;(),Service.Locate&lt;IOrderService&gt;())
-    {
-    }
-    
-    protected BaseController(
-        ICustomerService customerService,
-        IOrderService orderService)
-    {
-        _customerService = customerService;
-        _orderService = orderService;
-    }
-}
-
-public class OrderController : BaseController 
-{
-    public OrderController(
-        ICustomerService customerService,
-        IOrderService orderService)
-        : base(customerService, orderService)
-    {
-    }
-    
-    public OrderController() : base()
-    {
-    }
-    
-    ...
-}
-</code></pre>
-<p>This approach allows you to fix your concurrent testing issues, even if you can&rsquo;t fix all of your problems straight away.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseController</span> : Controller
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> BaseController()
+</span></span><span style="display:flex;"><span>    : <span style="color:#66d9ef">this</span>(Service.Locate&lt;ICustomerService&gt;(),Service.Locate&lt;IOrderService&gt;())
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> BaseController(
+</span></span><span style="display:flex;"><span>        ICustomerService customerService,
+</span></span><span style="display:flex;"><span>        IOrderService orderService)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        _customerService = customerService;
+</span></span><span style="display:flex;"><span>        _orderService = orderService;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderController</span> : BaseController 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> OrderController(
+</span></span><span style="display:flex;"><span>        ICustomerService customerService,
+</span></span><span style="display:flex;"><span>        IOrderService orderService)
+</span></span><span style="display:flex;"><span>        : <span style="color:#66d9ef">base</span>(customerService, orderService)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> OrderController() : <span style="color:#66d9ef">base</span>()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This approach allows you to fix your concurrent testing issues, even if you can&rsquo;t fix all of your problems straight away.</p>
 <p>If you can&rsquo;t get rid of the base class at all, look for candidates that are only used in some places, and pull these down, so at least new dependencies added will see this approach, and you have a new gravity well approach for others to follow.</p>
 <h2 id="advanced-topics">Advanced Topics</h2>
 <p>I said I would mention is service injection into methods.  This is something that containers won&rsquo;t do for you, but there are approaches available in other frameworks and libraries that could allow you to follow a similar pattern. Worst-case an <a href="https://en.wikipedia.org/wiki/Adapter_pattern">Adapter</a> could be used to achieve this as another layer in your MVC, or use Lazy objects to at least simulate the run-time benefits this creates.</p>
 <p>The implementation of the method looks as follows:</p>
-<pre><code class="language-cs">
-public class CustomerController : Controller 
-{   
-    public Customer Get(int customerId, ICustomerService customerService)
-    {
-        return CustomerService.GetOrderById(orderId);
-    }
-}
-</code></pre>
-<p>As well as our parameters, we pass the services along here as well. This way, our controller method only requires the services it really uses, not all the services for all methods in this controller. As I said, you <em>should</em> only have services that most of your actions need anyway, of you have a solid single responsibility in this controller.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomerController</span> : Controller 
+</span></span><span style="display:flex;"><span>{   
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Customer Get(<span style="color:#66d9ef">int</span> customerId, ICustomerService customerService)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> CustomerService.GetOrderById(orderId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>As well as our parameters, we pass the services along here as well. This way, our controller method only requires the services it really uses, not all the services for all methods in this controller. As I said, you <em>should</em> only have services that most of your actions need anyway, of you have a solid single responsibility in this controller.</p>
 <p>The way to simulate some of these benefits, as mentioned before, would look something like this:</p>
-<pre><code class="language-cs">public class CustomerController : Controller 
-{
-    private Lazy&lt;ICustomerService&gt; _customerService;
-
-    public CustomerController(Lazy&lt;ICustomerService&gt; customerService)
-    {
-         _customerService = customerService;
-    }
-    
-    public Customer Get(int customerId)
-    {
-        return _customerService.Value.GetOrderById(orderId);
-    }
-}
-</code></pre>
-<p>Given we have a container, we now we only actually create a service and all of its dependencies in the method where we actually use it, and not anywhere else.  Slight gain, but if you are trying to tidy up your controllers, this little trick could come in useful.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomerController</span> : Controller 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Lazy&lt;ICustomerService&gt; _customerService;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> CustomerController(Lazy&lt;ICustomerService&gt; customerService)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>         _customerService = customerService;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Customer Get(<span style="color:#66d9ef">int</span> customerId)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> _customerService.Value.GetOrderById(orderId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Given we have a container, we now we only actually create a service and all of its dependencies in the method where we actually use it, and not anywhere else.  Slight gain, but if you are trying to tidy up your controllers, this little trick could come in useful.</p>
 <h3 id="parting-words">Parting words</h3>
 <p>If you&rsquo;ve made it this far, thanks for sticking with me, I know it has been a long one.  What might render this discussion moot, or highly important is this small piece of advice:</p>
 <blockquote>

@@ -146,7 +146,7 @@
 <p>TopShelf is not a <code>netstandard</code> target, with the current latest version (<a href="https://www.nuget.org/packages/Topshelf/4.0.3">4.0.3</a>) instead targeting .Net 4.5.2. However that is fine since we need a few things from the full framework to host as a Windows Service, anyway. (Don&rsquo;t quote me on that, but for the purposes of using TopShelf today, it will be fine.)</p>
 <h3 id="a-simple-service">A Simple Service</h3>
 <p>Let&rsquo;s look at a simple Windows Service that simply runs a sleep loop and prints to the console. Because lets face it, your service is probably a spin loop of some kind.</p>
-<pre><code>    public class Processor
+<pre tabindex="0"><code>    public class Processor
     {
         private bool _running;
         private Task _myLoop;
@@ -170,33 +170,31 @@
             while(_running)
             {
                 await Task.Delay(5000);
-                System.Console.WriteLine(&quot;Everything is fine.&quot;);
+                System.Console.WriteLine(&#34;Everything is fine.&#34;);
             }
         }
     }
-</code></pre>
-<p>Hopefully this looks somewhat familiar for a service that can be started and stopped to host as a Windows Service.</p>
+</code></pre><p>Hopefully this looks somewhat familiar for a service that can be started and stopped to host as a Windows Service.</p>
 <h3 id="setup-the-application">Setup the application</h3>
 <p>First things first, We need make this a .Net 4.5.2 project and include the <code>TopShelf</code> NuGet package.</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;,
-    &quot;emitEntryPoint&quot;: true
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;,
+    &#34;emitEntryPoint&#34;: true
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;net452&quot;: {
-      &quot;dependencies&quot;: {
-        &quot;TopShelf&quot;: &quot;4.0.3&quot;
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;net452&#34;: {
+      &#34;dependencies&#34;: {
+        &#34;TopShelf&#34;: &#34;4.0.3&#34;
       }
     }
   }
 }
-</code></pre>
-<p>Don&rsquo;t forget to <code>dotnet restore</code></p>
+</code></pre><p>Don&rsquo;t forget to <code>dotnet restore</code></p>
 <p>To host our <code>Processor</code>, we use TopShelf like this:</p>
-<pre><code>    public class Program
+<pre tabindex="0"><code>    public class Program
     {
         /// &lt;summary&gt;
         /// The main entry point for the application.
@@ -226,9 +224,9 @@
                     r.SetResetPeriod(1);
                 });
 
-                x.SetDescription(&quot;My App&quot;);
-                x.SetDisplayName(&quot;MyApp&quot;);
-                x.SetServiceName(&quot;MyApp&quot;);
+                x.SetDescription(&#34;My App&#34;);
+                x.SetDisplayName(&#34;MyApp&#34;);
+                x.SetServiceName(&#34;MyApp&#34;);
             });
         }
 
@@ -238,13 +236,11 @@
             return new Processor();
         }
     }
-</code></pre>
-<p>The nice thing about TopShelf is that you can basically run the application as a console application when it isn&rsquo;t installed, and It runs basically the same loop:</p>
-<pre><code>dotnet build
+</code></pre><p>The nice thing about TopShelf is that you can basically run the application as a console application when it isn&rsquo;t installed, and It runs basically the same loop:</p>
+<pre tabindex="0"><code>dotnet build
 dotnet run
-</code></pre>
-<p><code>Control+C</code> is used to stop the running application. (In case you were wondering, or stuck. Though it does clearly say <code>The MyApp service is now running, press Control+C to exit.</code> in the output.)</p>
-<pre><code>Project MyApp (.NETFramework,Version=v4.5.2) was previously compiled. Skipping compilation.
+</code></pre><p><code>Control+C</code> is used to stop the running application. (In case you were wondering, or stuck. Though it does clearly say <code>The MyApp service is now running, press Control+C to exit.</code> in the output.)</p>
+<pre tabindex="0"><code>Project MyApp (.NETFramework,Version=v4.5.2) was previously compiled. Skipping compilation.
 Configuration Result:
 [Success] Name MyApp
 [Success] Description My App
@@ -255,9 +251,8 @@ Everything is fine.
 Everything is fine.
 Everything is fine.
 Control+C detected, attempting to stop service.
-</code></pre>
-<p>The application build output can be seen below. Take not that as this is a .Net 4.5.2 application, we have a nice little exe file as the output.</p>
-<pre><code>MyApp
+</code></pre><p>The application build output can be seen below. Take not that as this is a .Net 4.5.2 application, we have a nice little exe file as the output.</p>
+<pre tabindex="0"><code>MyApp
 |-- Processor.cs
 |-- Program.cs
 |-- project.json
@@ -271,108 +266,99 @@ Control+C detected, attempting to stop service.
                 |-- MyApp.exe
                 |-- MyApp.pdb
                 |-- Topshelf.dll
-</code></pre>
-<p>Topshelf has a few commands you can use to easily manage it: <code>install</code>, <code>start</code>, <code>stop</code> &amp; <code>uninstall</code>. There require you to be running as administrator.</p>
-<pre><code>dotnet run install
+</code></pre><p>Topshelf has a few commands you can use to easily manage it: <code>install</code>, <code>start</code>, <code>stop</code> &amp; <code>uninstall</code>. There require you to be running as administrator.</p>
+<pre tabindex="0"><code>dotnet run install
 dotnet run start
-</code></pre>
-<p>Alternatively, since it is an exe you can just use:</p>
-<pre><code>.\bin\Debug\net452\win7-x64\MyApp.exe install
+</code></pre><p>Alternatively, since it is an exe you can just use:</p>
+<pre tabindex="0"><code>.\bin\Debug\net452\win7-x64\MyApp.exe install
 .\bin\Debug\net452\win7-x64\MyApp.exe start
-</code></pre>
-<p>Take note though, your app cannot be started in console mode if an instance is already installed on the machine.</p>
+</code></pre><p>Take note though, your app cannot be started in console mode if an instance is already installed on the machine.</p>
 <h3 id="package-your-service">Package your service</h3>
 <p>We can easily package our Service using the following command:</p>
-<pre><code>dotnet publish -c Release -f net452 -r win7-x64 -o ../MyAppPublished
-</code></pre>
-<p>(Update the <code>-c</code> (output directory) and <code>-r</code> (target runtime) as desired.)</p>
+<pre tabindex="0"><code>dotnet publish -c Release -f net452 -r win7-x64 -o ../MyAppPublished
+</code></pre><p>(Update the <code>-c</code> (output directory) and <code>-r</code> (target runtime) as desired.)</p>
 <p>This should give us:</p>
-<pre><code>MyAppPublished
+<pre tabindex="0"><code>MyAppPublished
 |-- MyApp.exe
 |-- MyApp.pdb
 +-- Topshelf.dll
-</code></pre>
-<h3 id="appconfig">App.Config</h3>
+</code></pre><h3 id="appconfig">App.Config</h3>
 <p>If you are migrating onto the dotnet tools, or still have legacy tooling that performs xml transforms on <code>App.config</code> files then your keen eye would have noticed the lack of a <code>MyApp.exe.config</code> file above. Not to worry, I have a solution for that, too.</p>
 <p>First we add an <code>App.config</code> file to the project:</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;configuration&gt;
 &lt;/configuration&gt;
-</code></pre>
-<p>Then we make a few changes to our <code>project.json</code> file.</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;,
-    &quot;emitEntryPoint&quot;: true
+</code></pre><p>Then we make a few changes to our <code>project.json</code> file.</p>
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;,
+    &#34;emitEntryPoint&#34;: true
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;net452&quot;: {
-      &quot;buildOptions&quot;: {
-        &quot;copyToOutput&quot;: {
-          &quot;mappings&quot;: {
-            &quot;MyApp.exe.config&quot;: &quot;App.config&quot;
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;net452&#34;: {
+      &#34;buildOptions&#34;: {
+        &#34;copyToOutput&#34;: {
+          &#34;mappings&#34;: {
+            &#34;MyApp.exe.config&#34;: &#34;App.config&#34;
           }
         }
       },
-      &quot;frameworkAssemblies&quot;: {
-        &quot;System.Configuration&quot;: &quot;4.0.0.0&quot;
+      &#34;frameworkAssemblies&#34;: {
+        &#34;System.Configuration&#34;: &#34;4.0.0.0&#34;
       },
-      &quot;dependencies&quot;: {
-        &quot;TopShelf&quot;: &quot;4.0.3&quot;
+      &#34;dependencies&#34;: {
+        &#34;TopShelf&#34;: &#34;4.0.3&#34;
       }
     }
   }
 }
-</code></pre>
-<p>If you run another publish you should now have your config file, too.</p>
-<pre><code>dotnet restore
+</code></pre><p>If you run another publish you should now have your config file, too.</p>
+<pre tabindex="0"><code>dotnet restore
 dotnet publish -c Release -f net452 -r win7-x64 -o ../MyAppPublished
-</code></pre>
-<h3 id="future-proofing">Future-proofing</h3>
+</code></pre><h3 id="future-proofing">Future-proofing</h3>
 <p>So that&rsquo;s all well and good to get the old school running through the new tooling. But you might want to use the .Net Core App Runtime as well. Luckily I&rsquo;ve got an example using a #Define Compiler Directive to share the same codebase across both runtimes.</p>
 <p>With .Net core, applications are simply console apps. So you just need an app that runs until it stops (or is killed). At this time, TopShelf doesn&rsquo;t have a .Net Core version, so we have two different Compiled versions depending on the Compiler Directive. Here is my sample app.</p>
 <p>The <code>project.json</code>:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;,
-    &quot;emitEntryPoint&quot;: true
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;,
+    &#34;emitEntryPoint&#34;: true
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;netcoreapp1.0&quot;: {
-      &quot;dependencies&quot;: {
-        &quot;Microsoft.NETCore.App&quot;: {
-          &quot;type&quot;: &quot;platform&quot;,
-          &quot;version&quot;: &quot;1.0.0&quot;
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;netcoreapp1.0&#34;: {
+      &#34;dependencies&#34;: {
+        &#34;Microsoft.NETCore.App&#34;: {
+          &#34;type&#34;: &#34;platform&#34;,
+          &#34;version&#34;: &#34;1.0.0&#34;
         }
       }
     },
-    &quot;net452&quot;: {
-      &quot;buildOptions&quot;: {
-        &quot;copyToOutput&quot;: {
-          &quot;mappings&quot;: {
-            &quot;MyApp.exe.config&quot;: &quot;App.config&quot;
+    &#34;net452&#34;: {
+      &#34;buildOptions&#34;: {
+        &#34;copyToOutput&#34;: {
+          &#34;mappings&#34;: {
+            &#34;MyApp.exe.config&#34;: &#34;App.config&#34;
           }
         },
-        &quot;define&quot;: [
-          &quot;WindowsService&quot;
+        &#34;define&#34;: [
+          &#34;WindowsService&#34;
         ]
       },
-      &quot;frameworkAssemblies&quot;: {
-        &quot;System.Configuration&quot;: &quot;4.0.0.0&quot;
+      &#34;frameworkAssemblies&#34;: {
+        &#34;System.Configuration&#34;: &#34;4.0.0.0&#34;
       },
-      &quot;dependencies&quot;: {
-        &quot;TopShelf&quot;: &quot;4.0.3&quot;
+      &#34;dependencies&#34;: {
+        &#34;TopShelf&#34;: &#34;4.0.3&#34;
       }
     }
   }
 }
-</code></pre>
-<p>And a <code>Program.cs</code>:</p>
-<pre><code>using System.Threading.Tasks;
+</code></pre><p>And a <code>Program.cs</code>:</p>
+<pre tabindex="0"><code>using System.Threading.Tasks;
 #if WindowsService
 using Topshelf;
 #endif
@@ -410,9 +396,9 @@ public static void Main()
                     r.SetResetPeriod(1);
                 });
 
-                x.SetDescription(&quot;My App&quot;);
-                x.SetDisplayName(&quot;MyApp&quot;);
-                x.SetServiceName(&quot;MyApp&quot;);
+                x.SetDescription(&#34;My App&#34;);
+                x.SetDisplayName(&#34;MyApp&#34;);
+                x.SetServiceName(&#34;MyApp&#34;);
             });
 #else
             RunAsynchronously().Wait();
@@ -423,7 +409,7 @@ public static void Main()
         {
             var processor = Create();
             await processor.Start();
-            System.Console.WriteLine(&quot;Press any key to stop program&quot;);
+            System.Console.WriteLine(&#34;Press any key to stop program&#34;);
             System.Console.Read();
             await processor.Stop();
         }
@@ -434,8 +420,7 @@ public static void Main()
         }
     }
 }
-</code></pre>
-<p>Swap out your own <code>Processor.cs</code> and you will have a nice Windows Service 4.5.2 app, and a new .Net Core Console app that you can host how you like on Windows and Linux however the new stuff is supposed to be hosted.</p>
+</code></pre><p>Swap out your own <code>Processor.cs</code> and you will have a nice Windows Service 4.5.2 app, and a new .Net Core Console app that you can host how you like on Windows and Linux however the new stuff is supposed to be hosted.</p>
 </section>
         
         <section class="share">

@@ -137,29 +137,27 @@
             <p>We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&rsquo;t it be nice if we could detect that the subdirectory hasn&rsquo;t changed and so has the same version it did last time we built it?</p>
 <p>We use <a href="https://github.com/GitTools/GitVersion">gitversion</a>, so we already have a way to get the version for the current commit.  Maybe we can use that to get the version for a subdirectories latest commit?  Sure we can!</p>
 <p>To get the version for the latest commit, we need the latest commit.  Turns out you can use</p>
-<pre><code class="language-powershell">$pathToFolder = &quot;C:\dev\MyProject\MySubfolder&quot;
-$commitHash = git log -n 1 --format=&quot;%H&quot; -- $pathToFolder
-</code></pre>
-<p>Here we run a <code>git log</code> command to get the full commit hash, which we can save into a variable <code>$commitHash</code>.  Now we have something to give to <code>gitversion</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$pathToFolder = <span style="color:#e6db74">&#34;C:\dev\MyProject\MySubfolder&#34;</span>
+</span></span><span style="display:flex;"><span>$commitHash = git log -n <span style="color:#ae81ff">1</span> --format=<span style="color:#e6db74">&#34;%H&#34;</span> -- $pathToFolder
+</span></span></code></pre></div><p>Here we run a <code>git log</code> command to get the full commit hash, which we can save into a variable <code>$commitHash</code>.  Now we have something to give to <code>gitversion</code>.</p>
 <p>There is a command in <code>gitversion</code>, <code>\c</code>, which takes a commit hash and runs for that instead of for the current commit. All we need to do is the following:</p>
-<pre><code class="language-powershell">$folderVersion = gitversion /c $commitHash | ConvertFrom-Json
-</code></pre>
-<p>and new we have an object in <code>$folderVersion</code> that we can inspect and get out all the version information, from <code>$folderVersion.SemVer</code>, <code>$folderVersion.NuGetVersionV2</code>, and even <code>$folderVersion.FullBuildMetaData</code>!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$folderVersion = gitversion /c $commitHash | ConvertFrom-Json
+</span></span></code></pre></div><p>and new we have an object in <code>$folderVersion</code> that we can inspect and get out all the version information, from <code>$folderVersion.SemVer</code>, <code>$folderVersion.NuGetVersionV2</code>, and even <code>$folderVersion.FullBuildMetaData</code>!</p>
 <p>What you do from here to integrate with the rest of your build scripts is up to you. One I have used is to go through that folder and replace version information, such as in *.nuspec files. Note here my *.nuspec file has a placeholder $version$ as the version number already in place.</p>
-<pre><code>$NewVersion = &quot;&quot; ## Version from some source, like gitversion
-$Sha = &quot;&quot; ## You can include the sha the version is from into the nuspec file
-$FileFullPath = &quot;&quot; ## filepath from some sort of search for *.nuspec files
-$TmpFile = $FileFullPath + &quot;.tmp&quot;
+<pre tabindex="0"><code>$NewVersion = &#34;&#34; ## Version from some source, like gitversion
+$Sha = &#34;&#34; ## You can include the sha the version is from into the nuspec file
+$FileFullPath = &#34;&#34; ## filepath from some sort of search for *.nuspec files
+$TmpFile = $FileFullPath + &#34;.tmp&#34;
 
 [ xml ] $fileContents = Get-Content -Path $o.FullName
 
 if ($fileContents.package.metadata.version -eq $null) {
-  $child = $fileContents.CreateElement(&quot;version&quot;, $fileContents.DocumentElement.NamespaceURI)
+  $child = $fileContents.CreateElement(&#34;version&#34;, $fileContents.DocumentElement.NamespaceURI)
   $fileContents.package.metadata.AppendChild($child)
-  $fileContents.package.metadata.version = &quot;$version$&quot;
+  $fileContents.package.metadata.version = &#34;$version$&#34;
 }
   
-$NewDescription = $fileContents.package.metadata.description + ' (' + $Sha + ')';
+$NewDescription = $fileContents.package.metadata.description + &#39; (&#39; + $Sha + &#39;)&#39;;
 $fileContents.package.metadata.description = $NewDescription
 
 if($Version) {
@@ -169,8 +167,7 @@ if($Version) {
 $fileContents.Save($TmpFile)    
      
 move-item $TmpFile $FileFullPath -force
-</code></pre>
-<p>Another useful use-case is to execute GitVersion with <code>/updateassemblyinfo .\Properties\AssemblyInfo.cs</code> as an argument, to target and update a specific project&rsquo;s assembly info version as well.</p>
+</code></pre><p>Another useful use-case is to execute GitVersion with <code>/updateassemblyinfo .\Properties\AssemblyInfo.cs</code> as an argument, to target and update a specific project&rsquo;s assembly info version as well.</p>
 </section>
         
         <section class="share">

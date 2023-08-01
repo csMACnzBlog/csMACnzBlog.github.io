@@ -150,41 +150,37 @@
 <p><img src="http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1534489912/TogglExport_wzkiix.png" alt="Export Toggl Report data using detailed."></p>
 <p>Make sure that you are Exporting a Detailed report. Your file will be named like &ldquo;Toggl_time_entries_2016-01-01_to_2016-12-31.csv&rdquo;.</p>
 <p>The format of this file should be like this:</p>
-<pre><code>User,Email,Client,Project,Task,Description,Billable,Start date,Start time,End date,End time,Duration,Tags,Amount ()
-First Last,first.last@email.address,,,,&quot;&quot;,No,2016-05-04,10:00:00,2016-05-04,13:00:00,03:00:00,,
-First Last,first.last@email.address,,,,&quot;&quot;,No,2016-05-04,14:00:00,2016-05-04,16:00:00,02:00:00,,
-</code></pre>
-<p>In theory, anyone could create a CSV in this format and this tool will work just fine for them too. I only use the <code>Start date,Start time,End date,End time,Duration</code> fields anyway.</p>
+<pre tabindex="0"><code>User,Email,Client,Project,Task,Description,Billable,Start date,Start time,End date,End time,Duration,Tags,Amount ()
+First Last,first.last@email.address,,,,&#34;&#34;,No,2016-05-04,10:00:00,2016-05-04,13:00:00,03:00:00,,
+First Last,first.last@email.address,,,,&#34;&#34;,No,2016-05-04,14:00:00,2016-05-04,16:00:00,02:00:00,,
+</code></pre><p>In theory, anyone could create a CSV in this format and this tool will work just fine for them too. I only use the <code>Start date,Start time,End date,End time,Duration</code> fields anyway.</p>
 <h4 id="process-the-data">Process the data</h4>
 <p>Now that I have a local CSV file, I can process it through my application.</p>
 <p>I have made this available as a dotnet tool, so you can easily install it globally and run it from anywhere.</p>
-<pre><code class="language-cmd"># install globally
-dotnet tool install -g TogglHeatmap
-
-# if installed globally, this should just be available on your path
-TogglHeatmap &lt;args&gt;
-
-# install into a local folder
-dotnet tool install TogglHeatmap --tools-path tools
-
-# if installed into a tools path, you can run it from there.
-.\tools\TogglHeatmap &lt;args&gt;
-</code></pre>
-<p>For those new to tools, there is also an update option if newer versions come available, as well as a version parameter if you require a specific version:</p>
-<pre><code class="language-cmd">dotnet tool install -g TogglHeatmap --version 1.0.0
-# update doesn't support version but instead gets the latest
-dotnet tool update -g TogglHeatmap
-# to replace with a specific version, first uninstall, then install with specific version required specified.
-</code></pre>
-<p>At this stage, the args for the application are as follows (subject to change, check <code>TogglHeatmap --help</code> for latest):</p>
-<pre><code class="language-cmd"># Start and End dates
-TogglHeatmap dataFile.csv 2018-01-01 2018-06-01
-
-# Start and week count
-TogglHeatmap dataFile.csv 2018-01-01 26
-</code></pre>
-<p>This should produce a nice report of numbers to the console output:</p>
-<pre><code>&gt; TogglHeatmap Toggl_time_entries_2017-08-15_to_2018-08-15.csv 2018-1-1 2018-08-15
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span># install globally
+</span></span><span style="display:flex;"><span>dotnet tool install -g TogglHeatmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># if installed globally, this should just be available on your path
+</span></span><span style="display:flex;"><span>TogglHeatmap &lt;args&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># install into a local folder
+</span></span><span style="display:flex;"><span>dotnet tool install TogglHeatmap --tools-path tools
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># if installed into a tools path, you can run it from there.
+</span></span><span style="display:flex;"><span>.\tools\TogglHeatmap &lt;args&gt;
+</span></span></code></pre></div><p>For those new to tools, there is also an update option if newer versions come available, as well as a version parameter if you require a specific version:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dotnet tool install -g TogglHeatmap --version 1.0.0
+</span></span><span style="display:flex;"><span># update doesn&#39;t support version but instead gets the latest
+</span></span><span style="display:flex;"><span>dotnet tool update -g TogglHeatmap
+</span></span><span style="display:flex;"><span># to replace with a specific version, first uninstall, then install with specific version required specified.
+</span></span></code></pre></div><p>At this stage, the args for the application are as follows (subject to change, check <code>TogglHeatmap --help</code> for latest):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span># Start and End dates
+</span></span><span style="display:flex;"><span>TogglHeatmap dataFile.csv 2018-01-01 2018-06-01
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># Start and week count
+</span></span><span style="display:flex;"><span>TogglHeatmap dataFile.csv 2018-01-01 26
+</span></span></code></pre></div><p>This should produce a nice report of numbers to the console output:</p>
+<pre tabindex="0"><code>&gt; TogglHeatmap Toggl_time_entries_2017-08-15_to_2018-08-15.csv 2018-1-1 2018-08-15
 Data from 1/1/18 0:00:00 to 15/8/18 0:00:00
 First day: Monday
 Number of weeks: 32
@@ -241,8 +237,7 @@ Time,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
 ----
 
 Copy the data above into a CSV file to make it pretty in a spreadsheet
-</code></pre>
-<p>We have our heatmap data, and we can copy and save it to a CSV file. Now we can do whatever makes sense to us to present it.</p>
+</code></pre><p>We have our heatmap data, and we can copy and save it to a CSV file. Now we can do whatever makes sense to us to present it.</p>
 <h4 id="spreadsheet-ui">Spreadsheet UI</h4>
 <p>For instance, you may want to pull it into a Google Sheet. This should be similar for Excel if that is your office suite of choice instead.</p>
 <p>First, create a new Sheet.</p>

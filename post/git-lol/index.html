@@ -143,46 +143,43 @@
 <p>The default output looks something like this:</p>
 </blockquote>
 <p>The <a href="https://gist.github.com/fbettag/748429">missing gist code</a> for this was:</p>
-<pre><code class="language-cmd">$ git log
-commit 9f0349d992f1c3e7f278096d27cd13d8d990c2df
-Author: Franz Bettag &lt;franz@bett.ag&gt;
-Date:   Fri Nov 12 20:46:19 2010 +0100
-
-    Now finally does frickin pull first.
-
-commit 1cc98b07391383addc5b998b4fcf1e5a4233faad
-Author: Franz Bettag &lt;franz@bett.ag&gt;
-Date:   Wed Nov 10 10:37:22 2010 +0100
-
-    Added auto-update.
-
-commit 405970a3947a8fa9f2b462df78a8dcd359051c52
-Author: Franz Bettag &lt;franz@bett.ag&gt;
-Date:   Wed Nov 10 10:24:27 2010 +0100
-
-    Initial import.
-</code></pre>
-<p>He then went on to say:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>$ git log
+</span></span><span style="display:flex;"><span>commit 9f0349d992f1c3e7f278096d27cd13d8d990c2df
+</span></span><span style="display:flex;"><span>Author: Franz Bettag &lt;franz@bett.ag&gt;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Date</span>:   Fri Nov 12 20:46:19 2010 +0100
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Now finally does frickin pull first.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commit 1cc98b07391383addc5b998b4fcf1e5a4233faad
+</span></span><span style="display:flex;"><span>Author: Franz Bettag &lt;franz@bett.ag&gt;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Date</span>:   Wed Nov 10 10:37:22 2010 +0100
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Added auto-update.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commit 405970a3947a8fa9f2b462df78a8dcd359051c52
+</span></span><span style="display:flex;"><span>Author: Franz Bettag &lt;franz@bett.ag&gt;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Date</span>:   Wed Nov 10 10:24:27 2010 +0100
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Initial import.
+</span></span></code></pre></div><p>He then went on to say:</p>
 <blockquote>
 <p>Imagine this for 300+ commits, you literally will never see the end of it.</p>
 </blockquote>
 <p>He then gave <a href="https://gist.github.com/fbettag/748431">a gist for his combination of parameters</a> for the <code>git log</code> command:</p>
-<pre><code class="language-cmd">$ git log --graph --decorate --pretty=oneline --abbrev-commit --all
-* 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
-* 1cc98b0 Added auto-update.
-* 405970a Initial import.
-</code></pre>
-<p>And lastly, the aliasing (<a href="https://gist.github.com/fbettag/748451">with gist</a>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>$ git log --graph --decorate --pretty=oneline --abbrev-commit --all
+</span></span><span style="display:flex;"><span>* 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
+</span></span><span style="display:flex;"><span>* 1cc98b0 Added auto-update.
+</span></span><span style="display:flex;"><span>* 405970a Initial import.
+</span></span></code></pre></div><p>And lastly, the aliasing (<a href="https://gist.github.com/fbettag/748451">with gist</a>):</p>
 <blockquote>
 <p>After diddling around with git log parameters, i’ve come up with this neat constellation.</p>
 </blockquote>
-<pre><code class="language-cmd">$ git config --global --add alias.lol &quot;log --graph --decorate --pretty=oneline --abbrev-commit --all&quot;
-$ git lol
-* 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
-* 1cc98b0 Added auto-update.
-* 405970a Initial import.
-</code></pre>
-<p>So now I have another tool for my tool-belt (or alias of my git config) in adding <code>git lol</code> to my repertoire of git commands.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>$ git config --global --add alias.lol <span style="color:#e6db74">&#34;log --graph --decorate --pretty=oneline --abbrev-commit --all&#34;</span>
+</span></span><span style="display:flex;"><span>$ git lol
+</span></span><span style="display:flex;"><span>* 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
+</span></span><span style="display:flex;"><span>* 1cc98b0 Added auto-update.
+</span></span><span style="display:flex;"><span>* 405970a Initial import.
+</span></span></code></pre></div><p>So now I have another tool for my tool-belt (or alias of my git config) in adding <code>git lol</code> to my repertoire of git commands.</p>
 <p>For those of you new to git log, <code>up arrow</code>, <code>down arrow</code>, <code>page up</code> and <code>page down</code> move you up and down the buffer, and don&rsquo;t forget to press <code>q</code> when your done to close it out.</p>
 </section>
         

@@ -26,11 +26,10 @@
 &lt;/blockquote&gt;
 &lt;p&gt;The canonical stack overflow question that (at the time of writing this) had no answer: &lt;a href=&#34;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&#34;&gt;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (&lt;code&gt;Project&lt;/code&gt;):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import kotlin.reflect.full.declaredMemberProperties
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import kotlin.reflect.full.declaredMemberProperties
 
 val props = Project::class.declaredMemberProperties
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)&lt;/p&gt;
 &lt;p&gt;At this point in time and with some further testing, I&amp;rsquo;ve come to the conclusion that &lt;strong&gt;reflection just isn&amp;rsquo;t supported on teamcity with Kotlin&lt;/strong&gt;. I&amp;rsquo;ve found one or two Issue links to back that up too: &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-59901&#34;&gt;https://youtrack.jetbrains.com/issue/TW-59901&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;(¬_¬ )&lt;/p&gt;
 &lt;p&gt;If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.&lt;/p&gt;

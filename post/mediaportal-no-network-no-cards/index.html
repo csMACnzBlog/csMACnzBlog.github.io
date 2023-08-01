@@ -135,19 +135,18 @@
     
         <section class="post-content"  itemprop="articleBody">
             <p>I just moved house, and of course the first thing to do is plug in the media pc running MediaPortal, so that my shows will record.  But as you would expect, change brings problems.  It doesn&rsquo;t start. The pc boots, everything looks ok, but the TV-Server doesn&rsquo;t seem to be running. When I tried to launch the TV-Server Configuration, pops up an awesome dialog with a stacktrace in it:</p>
-<pre><code class="language-cs">Exception: System.NullReferenceException: Object reference not set to an instance of an object.
-Server stack trace: 
-void TvService.TVController.get_Cards()
-void System.Runtime.Remoting.Messaging.StackBuilderSink._PrivateProcessMessage(IntPtr md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp; outArgs)
-void System.Runtime.Remoting.Messaging.StackBuilderSink.PrivateProcessMessage(RuntimeMethodHandle md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp; outArgs)
-void System.Runtime.Remoting.Messaging.StackBuilderSink.SyncProcessMessage(IMessage msg, Int32 methodPtr, Boolean fExecuteInContext)
-Exception rethrown at [0]: 
-void System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
-void System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp; msgData, Int32 type)
-void TvControl.IController.get_Cards()
-void SetupTv.Startup.Main(String[] arguments)
-</code></pre>
-<p>I have no idea what is wrong at this point. Has my card been damaged in transit? Is there some rogue signal on the satellite cable that is causing issues with the driver? Who knows.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>Exception: System.NullReferenceException: Object reference not <span style="color:#66d9ef">set</span> to an instance of an <span style="color:#66d9ef">object</span>.
+</span></span><span style="display:flex;"><span>Server stack trace: 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> TvService.TVController.get_Cards()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> System.Runtime.Remoting.Messaging.StackBuilderSink._PrivateProcessMessage(IntPtr md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp; outArgs)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> System.Runtime.Remoting.Messaging.StackBuilderSink.PrivateProcessMessage(RuntimeMethodHandle md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp; outArgs)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> System.Runtime.Remoting.Messaging.StackBuilderSink.SyncProcessMessage(IMessage msg, Int32 methodPtr, Boolean fExecuteInContext)
+</span></span><span style="display:flex;"><span>Exception rethrown at [<span style="color:#ae81ff">0</span>]: 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp; msgData, Int32 type)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> TvControl.IController.get_Cards()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> SetupTv.Startup.Main(String[] arguments)
+</span></span></code></pre></div><p>I have no idea what is wrong at this point. Has my card been damaged in transit? Is there some rogue signal on the satellite cable that is causing issues with the driver? Who knows.</p>
 <p>At this stage, I have tried without the aerial, and it still has the same error, tried restarting, ensuring there was enough memory and hard drive space.  The front-end software runs fine so it&rsquo;s only the TV-Service that is the issue.  I didn&rsquo;t have a network cable plugged in, and windows was in a state of no network connection, as apposed to no internet access or connected.</p>
 <p>I casually say to my Wife, while explaining the issue, &ldquo;The Internet isn&rsquo;t connected, but that shouldn&rsquo;t make any difference.&rdquo;  Her reply was &ldquo;are you sure the internet isn&rsquo;t the problem?&rdquo;. <em>Genius</em>.  I remember back to when I had wireless/wired network bridging a while back to pass through connection to my Xbox. The networking would die if the wired network had no signal, which happened whenever the Xbox was off, even though the internet was from the wireless.</p>
 <p>So after much Google searching, and not seeing anything obvious to help my cause, I decided to try plugging in a powered network switch with a patch cable. this gave me a live signal in the cable, but doesn&rsquo;t provide a &rsquo;network&rsquo; as such.  But sure enough, as soon as I has that plugged in, everything came right. No network connected, no internet, not even DHCP resolution, but the fact there was a switch at the other end of the cable was enough, and all is well.</p>

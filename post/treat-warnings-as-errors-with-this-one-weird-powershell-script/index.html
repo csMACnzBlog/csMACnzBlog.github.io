@@ -149,39 +149,38 @@
 <p>So, I mentioned one weird script right?</p>
 <p>If you have an existing solution with lots of projects, you won&rsquo;t want to turn these all on one by one manually. You also don&rsquo;t want to fuss around making sure that if you or someone else has added a bunch of new projects, that these rules are turned on correctly.</p>
 <p>To solve these issues, I have a PowerShell script that runs over a directory, finds all the *.csproj files, and updates their Debug and Release configurations with <code>TreatWarningsAsErrors</code> set to <code>true</code>, and <code>WarningLevel</code> to `4'.</p>
-<pre><code class="language-powershell">get-childitem . -include *.csproj -recurse -ErrorAction SilentlyContinue | %{
-    $_.FullName
-    [xml]$proj = get-content $_.FullName
-    $modified = 0
-    $proj.Project.PropertyGroup | 
-    where-object { $_.Condition -match 'Configuration.*Platform.*(Debug|Release)' } | %{
-        if (-not $_.TreatWarningsAsErrors) {
-            $node = $proj.CreateElement('TreatWarningsAsErrors', $proj.Project.NamespaceURI)
-            $node.InnerText = 'true'
-            $node = $_.AppendChild($node)
-            $modified = 1
-        }
-        if ($_.TreatWarningsAsErrors -ne 'true') {
-            $_.TreatWarningsAsErrors = 'true'
-            $modified = 1
-        }
-        if (-not $_.WarningLevel) {
-            $node = $proj.CreateElement('WarningLevel', $proj.Project.NamespaceURI)
-            $node.InnerText = &quot;4&quot;
-            $node = $_.AppendChild($node)
-            $modified = 1
-        }
-        if ($_.WarningLevel -ne &quot;4&quot;) {
-            $_.WarningLevel.InnerText = &quot;4&quot;
-            $modified = 1
-        }
-    }
-    if ($modified -eq 1) {
-        $proj.Save($_.FullName)
-    }
-}
-</code></pre>
-<p>This is also up on <a href="https://gist.github.com/csMACnz/6b736c9109023af4c09f6f0b9405081b">a gist</a> if you prefer.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>get-childitem . -include *.csproj -recurse -ErrorAction SilentlyContinue | %{
+</span></span><span style="display:flex;"><span>    $_.FullName
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">xml</span>]$proj = get-content $_.FullName
+</span></span><span style="display:flex;"><span>    $modified = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    $proj.Project.PropertyGroup | 
+</span></span><span style="display:flex;"><span>    where-object { $_.Condition <span style="color:#f92672">-match</span> <span style="color:#e6db74">&#39;Configuration.*Platform.*(Debug|Release)&#39;</span> } | %{
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">-not</span> $_.TreatWarningsAsErrors) {
+</span></span><span style="display:flex;"><span>            $node = $proj.CreateElement(<span style="color:#e6db74">&#39;TreatWarningsAsErrors&#39;</span>, $proj.Project.NamespaceURI)
+</span></span><span style="display:flex;"><span>            $node.InnerText = <span style="color:#e6db74">&#39;true&#39;</span>
+</span></span><span style="display:flex;"><span>            $node = $_.AppendChild($node)
+</span></span><span style="display:flex;"><span>            $modified = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ($_.TreatWarningsAsErrors <span style="color:#f92672">-ne</span> <span style="color:#e6db74">&#39;true&#39;</span>) {
+</span></span><span style="display:flex;"><span>            $_.TreatWarningsAsErrors = <span style="color:#e6db74">&#39;true&#39;</span>
+</span></span><span style="display:flex;"><span>            $modified = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">-not</span> $_.WarningLevel) {
+</span></span><span style="display:flex;"><span>            $node = $proj.CreateElement(<span style="color:#e6db74">&#39;WarningLevel&#39;</span>, $proj.Project.NamespaceURI)
+</span></span><span style="display:flex;"><span>            $node.InnerText = <span style="color:#e6db74">&#34;4&#34;</span>
+</span></span><span style="display:flex;"><span>            $node = $_.AppendChild($node)
+</span></span><span style="display:flex;"><span>            $modified = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ($_.WarningLevel <span style="color:#f92672">-ne</span> <span style="color:#e6db74">&#34;4&#34;</span>) {
+</span></span><span style="display:flex;"><span>            $_.WarningLevel.InnerText = <span style="color:#e6db74">&#34;4&#34;</span>
+</span></span><span style="display:flex;"><span>            $modified = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($modified <span style="color:#f92672">-eq</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        $proj.Save($_.FullName)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is also up on <a href="https://gist.github.com/csMACnz/6b736c9109023af4c09f6f0b9405081b">a gist</a> if you prefer.</p>
 <p>That is it. Run that in your solution directory and you should be sorted.  Don&rsquo;t forget to fix the compiler errors before checking your changes back in though.</p>
 <h3 id="caveats">Caveats</h3>
 <p>There is always one project that disobeys with the strict rules. That&rsquo;s ok, just leave it off and come back and fix the issues when you have a spare few moments. Perhaps in a quiet Friday afternoon, or the day after ship day while you wait for those bug reports to come in. Once the problem is fixed, run the script again and hey presto it will be turned on again.</p>

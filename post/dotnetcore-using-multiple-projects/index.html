@@ -155,50 +155,45 @@
 <p>We are going to create and library project, and an application project. We can reference the library from the application, to see how referencing projects work.</p>
 <h3 id="file---new-application">File -&gt; New Application</h3>
 <p>We should be old pros at this bit so let&rsquo;s go:</p>
-<pre><code>mkdir MyNewApp
+<pre tabindex="0"><code>mkdir MyNewApp
 cd MyNewApp
 dotnet new
 dotnet restore
 dotnet build
 dotnet run
-</code></pre>
-<p>With our new project created, we can move on to something new - Libraries.</p>
+</code></pre><p>With our new project created, we can move on to something new - Libraries.</p>
 <h3 id="file---new-library">File -&gt; New Library</h3>
 <p>As well as creating empty console applications (by default), <code>dotnet</code> can also create other things:</p>
-<pre><code>Avaiable types for C# :
+<pre tabindex="0"><code>Avaiable types for C# :
 - Console
 - Web
 - Lib
 - xunittest
-</code></pre>
-<p>(It was actually spelt out as <em>Avaiable</em> in the help text too&hellip; but <a href="https://github.com/dotnet/cli/pull/3822">I fixed it for you</a>)</p>
+</code></pre><p>(It was actually spelt out as <em>Avaiable</em> in the help text too&hellip; but <a href="https://github.com/dotnet/cli/pull/3822">I fixed it for you</a>)</p>
 <p><em>Just a quick reminder that like most things tooling, the way templates will work going forward is <a href="https://github.com/dotnet/cli/issues/2052">subject to change</a>.</em></p>
 <p><code>Web</code> is obviously the ASP.NET core template, which I won&rsquo;t be covering in this series, and the <code>xunittest</code> is a test project, which is the subject of the next article.</p>
 <p>We want a Library so will use <code>Lib</code>. To do so we add the <code>-t|--type &lt;TYPE&gt;</code> argument to the command <code>dotnet new</code>.</p>
-<pre><code>cd ../
+<pre tabindex="0"><code>cd ../
 mkdir MyNewLib
 cd MyNewLib
 dotnet new -t Lib
-</code></pre>
-<pre><code>Created new C# project in C:\dev\MyProject\MyNewLib.
-</code></pre>
-<p>But what&rsquo;s the different between <code>Console</code> and <code>Lib</code> I hear you ask? Patience! It&rsquo;s coming up:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;
+</code></pre><pre tabindex="0"><code>Created new C# project in C:\dev\MyProject\MyNewLib.
+</code></pre><p>But what&rsquo;s the different between <code>Console</code> and <code>Lib</code> I hear you ask? Patience! It&rsquo;s coming up:</p>
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;netstandard1.6&quot;: {
-      &quot;dependencies&quot;: {
-        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;netstandard1.6&#34;: {
+      &#34;dependencies&#34;: {
+        &#34;NETStandard.Library&#34;: &#34;1.6.0&#34;
       }
     }
   }
 }
-</code></pre>
-<p>For starters, the <code>buildOptions</code> value <code>&quot;emitEntryPoint&quot;: true</code> is not present. This is a library, so it doesn&rsquo;t need an entry point.</p>
+</code></pre><p>For starters, the <code>buildOptions</code> value <code>&quot;emitEntryPoint&quot;: true</code> is not present. This is a library, so it doesn&rsquo;t need an entry point.</p>
 <p>And instead of targeting the concrete framework <code>netcoreapp1.0</code>, we instead target the profile of <code>netstandard1.6</code>.</p>
 <p>I briefly covered this <a href="/dotnetcore-whats-in-the-box#netstandardlibrary">in the last article</a>. Essentially <code>netcoreapp1.0</code> and possibly .Net <a href="https://www.reddit.com/r/dotnet/comments/4i5v4k/what_comes_after_462/">4.6.3</a> are (currently) the only implementations of NETStandard version 1.6 (+ mono/Xamarin, though which versions are compatible is unknown to me).</p>
 <p>If we want our library to be more widely usable, such as by older versions of .Net we can lower this to <code>netstandard1.0</code>, which means all .Net 4.5 or greater runtimes are compatible, plus Windows Phone Silverlight (8.0+8.1). It is worth noting that .Net older than version 4.5 is not compatible with this new NetStandard versioning scheme. So if we want to also target .Net 4.0 or .Net3.5, we will have to add these as other frameworks. (More on this in NuGet and Multi-targeting.)</p>
@@ -206,11 +201,10 @@ dotnet new -t Lib
 <p>As mentioned at length last time, there is a the NETStandard.Library.  Our library project declares a dependency on <code>&quot;NETStandard.Library&quot;: &quot;1.6.0&quot;</code>. As discussed, this <a href="https://www.nuget.org/packages/NETStandard.Library/">NuGet package</a> contains the library references for all <code>netstandard</code> versions, so even if we were to change to target <code>netstandard1.0</code> the package version stays 1.6. It gives us all of the NuGet packages for all of the system functionality that comes in the framework, by adding only a single dependency. Later on, we might want to come back, and replace this just with the packages we actually use. For now, while we start development, this gets us going quickly.</p>
 <p>The last thing missing compared to the Console application is the <code>&quot;imports&quot;: &quot;dnxcore50&quot;</code>. Because this is a compatibility measure, for now (as far as I can tell), I hope we don&rsquo;t need to use it with our library. But if we decide to depend on a package that was built using <code>dnxcore</code>, we might need to add it later.</p>
 <p>We can build our library, but of course it cannot be run - its a library.</p>
-<pre><code>dotnet build
-</code></pre>
-<h3 id="ppppppphttpsenwikipediaorgwiki7_ps_military_adage">PPPPPPP(<a href="https://en.wikipedia.org/wiki/7_Ps_(military_adage)">*</a>)</h3>
+<pre tabindex="0"><code>dotnet build
+</code></pre><h3 id="ppppppphttpsenwikipediaorgwiki7_ps_military_adage">PPPPPPP(<a href="https://en.wikipedia.org/wiki/7_Ps_(military_adage)">*</a>)</h3>
 <p>Before we can reference between the two projects, we probably need something to depend on. We can go into the file <code>Library.cs</code> and make a few changes.</p>
-<pre><code>namespace ClassLibrary
+<pre tabindex="0"><code>namespace ClassLibrary
 {
     public class Class1
     {
@@ -219,9 +213,8 @@ dotnet new -t Lib
         }
     }
 }
-</code></pre>
-<p>Change the namespace to match our project name for starters, <code>MyNewLib</code>. Our class can be called <code>Calculator</code>, and we can implement a simple method, <code>Add</code>.</p>
-<pre><code>namespace MyNewLib
+</code></pre><p>Change the namespace to match our project name for starters, <code>MyNewLib</code>. Our class can be called <code>Calculator</code>, and we can implement a simple method, <code>Add</code>.</p>
+<pre tabindex="0"><code>namespace MyNewLib
 {
     public class Calculator
     {
@@ -231,38 +224,36 @@ dotnet new -t Lib
         }
     }
 }
-</code></pre>
-<p>Now it is a bit more interesting, at least.</p>
+</code></pre><p>Now it is a bit more interesting, at least.</p>
 <h3 id="project-references">Project References</h3>
 <p>To reference a project isn&rsquo;t much different to adding a dependency to a NuGet package. The main difference is that we add <code>&quot;target&quot;: &quot;project&quot;</code> as a property. This is similar to the dependency property <code>&quot;type&quot;: &quot;platform&quot;</code> we saw before used with <code>Microsoft.NETCore.App</code>.</p>
 <p>If we add a dependency on our library <code>MyNewLib</code> from our console application <code>MyNewApp</code>, the <code>project.json</code> file in <code>MyNewApp</code> looks like this:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;,
-    &quot;emitEntryPoint&quot;: true
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;,
+    &#34;emitEntryPoint&#34;: true
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;netcoreapp1.0&quot;: {
-      &quot;dependencies&quot;: {
-        &quot;Microsoft.NETCore.App&quot;: {
-          &quot;type&quot;: &quot;platform&quot;,
-          &quot;version&quot;: &quot;1.0.0&quot;
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;netcoreapp1.0&#34;: {
+      &#34;dependencies&#34;: {
+        &#34;Microsoft.NETCore.App&#34;: {
+          &#34;type&#34;: &#34;platform&#34;,
+          &#34;version&#34;: &#34;1.0.0&#34;
         },
-        &quot;MyNewLib&quot;: {
-          &quot;target&quot;: &quot;project&quot;
+        &#34;MyNewLib&#34;: {
+          &#34;target&#34;: &#34;project&#34;
         }
       },
-      &quot;imports&quot;: &quot;dnxcore50&quot;
+      &#34;imports&#34;: &#34;dnxcore50&#34;
     }
   }
 }
-</code></pre>
-<p>Assuming your &ldquo;MyNewApp&rdquo; and &ldquo;MyNewLib&rdquo; folders appear together in the same parent folder, that should be enough to get this thing going.</p>
+</code></pre><p>Assuming your &ldquo;MyNewApp&rdquo; and &ldquo;MyNewLib&rdquo; folders appear together in the same parent folder, that should be enough to get this thing going.</p>
 <p>Two things to note: Whenever you now build MyNewApp, it will recursively try and build the project MyNewLib. The second thing to note is that <strong>build</strong> doesn&rsquo;t perform a <strong>restore</strong>. You need to make sure that both projects have had <code>dotnet restore</code> called before trying to build the application now. Luckily, it turns out that <code>dotnet restore</code> can be run in the parent folder and all direct child folders with a project.json will be restored.</p>
 <p>And we will add some code to make the dependency complete. Open MyNewApp&rsquo;s <code>Program.cs</code> file and add a call to our Calculator.</p>
-<pre><code>using System;
+<pre tabindex="0"><code>using System;
 using MyNewLib;
 
 namespace ConsoleApplication
@@ -273,25 +264,21 @@ namespace ConsoleApplication
         {
             Calculator calc = new Calculator();
             var answer = calc.Add(18, 24);
-            Console.WriteLine($&quot;The answer is {answer}.&quot;);
+            Console.WriteLine($&#34;The answer is {answer}.&#34;);
         }
     }
 }
-</code></pre>
-<p>One last thing, since we changed the <code>project.json</code> file, is to run the restore command:</p>
-<pre><code>dotnet restore
-</code></pre>
-<h3 id="build-and-run">Build and Run</h3>
+</code></pre><p>One last thing, since we changed the <code>project.json</code> file, is to run the restore command:</p>
+<pre tabindex="0"><code>dotnet restore
+</code></pre><h3 id="build-and-run">Build and Run</h3>
 <p>From the MyNewApp folder, we can now build and run our application, including the library code from MyNewLib.</p>
-<pre><code>dotnet build
+<pre tabindex="0"><code>dotnet build
 dotnet run
-</code></pre>
-<p>And we can see from the output that both projects are built and we see the correct output from our application.</p>
-<pre><code>Project MyNewLib (.NETStandard,Version=v1.6) was previously compiled. Skipping compilation.
+</code></pre><p>And we can see from the output that both projects are built and we see the correct output from our application.</p>
+<pre tabindex="0"><code>Project MyNewLib (.NETStandard,Version=v1.6) was previously compiled. Skipping compilation.
 Project MyNewApp2 (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
 The answer is 42.
-</code></pre>
-<h3 id="up-next">Up Next</h3>
+</code></pre><h3 id="up-next">Up Next</h3>
 <p>Of course, we don&rsquo;t just want to build and ship code, we want to test it actually works.  Next time we will create a test project, and write some tests against our library code above.</p>
 </section>
         

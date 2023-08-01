@@ -144,337 +144,322 @@
 <p><a href="https://github.com/dasMulli/dotnet-win32-service">dasMulli/dotnet-win32-service</a> is a project that has created a win32 interop layer over the Windows Service API.  Much like the way the original .Net code probably works, but compiled as a dotnet standard library (<code>netstandard1.3</code> and <code>netstandard2.0</code> compatible versions).  On top of this, there is another library <a href="https://github.com/PeterKottas/DotNetCore.WindowsService">PeterKottas/DotNetCore.WindowsService</a> which also targets <code>netstandard2.0</code> that we will use to give us a nicer install/uninstall interface into our application.</p>
 <h3 id="the-application">The &lsquo;Application&rsquo;</h3>
 <p>Let&rsquo;s use something pretty dumb. Our app will sleep for 1 second, Then try to generate the next number in the Fibonacci Sequence.</p>
-<pre><code class="language-cs">using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace MyApp
-{
-    public class MyApp
-    {
-        private static readonly AutoResetEvent _closeRequested = new AutoResetEvent(false);
-        private long _last = 0;
-        private long _current = 0;
-        private Task _work;
-
-        public MyApp()
-        {
-        }
-
-        public void Start()
-        {
-            _work = Task.Run(() =&gt; DoWorkLoop());
-        }
-
-        public void Stop()
-        {
-            _closeRequested.Set();
-            if (_work != null)
-            {
-                _work.Wait();
-                _work = null;
-            }
-        }
-
-        public void DoWorkLoop()
-        {
-            while (!_closeRequested.WaitOne(1000))
-            {
-                var last = _current;
-                var next = _last + _current;
-                if (next == 0)
-                {
-                    next = 1;
-                }
-                _last = _current;
-                _current = next;
-                Console.WriteLine(next);
-            }
-        }
-    }
-}
-</code></pre>
-<p>I&rsquo;ve added some boiler-plate start/stop logic including a mutex to release the app and wait for it to finish in the stop command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> MyApp
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyApp</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> AutoResetEvent _closeRequested = <span style="color:#66d9ef">new</span> AutoResetEvent(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">long</span> _last = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">long</span> _current = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> Task _work;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> MyApp()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Start()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _work = Task.Run(() =&gt; DoWorkLoop());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Stop()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _closeRequested.Set();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (_work != <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                _work.Wait();
+</span></span><span style="display:flex;"><span>                _work = <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoWorkLoop()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (!_closeRequested.WaitOne(<span style="color:#ae81ff">1000</span>))
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> last = _current;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> next = _last + _current;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (next == <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    next = <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                _last = _current;
+</span></span><span style="display:flex;"><span>                _current = next;
+</span></span><span style="display:flex;"><span>                Console.WriteLine(next);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I&rsquo;ve added some boiler-plate start/stop logic including a mutex to release the app and wait for it to finish in the stop command.</p>
 <p>To run as a console app, I could simply wait for a keypress:</p>
-<pre><code class="language-cs">var app = new MyApp();
-app.Start();
-Console.ReadKey();
-Console.WriteLine(&quot;Stopping&quot;);
-app.Stop();
-</code></pre>
-<p>or I could make use of requiring ctrl+c to exit instead:</p>
-<pre><code class="language-cs">private static readonly AutoResetEvent _closing = new AutoResetEvent(false);
-
-static void Main(string[] args)
-{
-    Console.WriteLine(&quot;Hello World!&quot;);
-    var app = new MyApp();
-    app.Start();
-    Console.CancelKeyPress += new ConsoleCancelEventHandler(OnExit);
-    _closing.WaitOne();
-    Console.WriteLine(&quot;Stopping&quot;);
-    app.Stop();
-}
-
-protected static void OnExit(object sender, ConsoleCancelEventArgs args)
-{
-    Console.WriteLine(&quot;Exit Requested&quot;);
-    _closing.Set();
-    args.Cancel = true;
-    Console.CancelKeyPress -= new ConsoleCancelEventHandler(OnExit);
-}
-</code></pre>
-<p>Either way, we now have a functioning console app, in a format that is compatible with a Windows Service.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> app = <span style="color:#66d9ef">new</span> MyApp();
+</span></span><span style="display:flex;"><span>app.Start();
+</span></span><span style="display:flex;"><span>Console.ReadKey();
+</span></span><span style="display:flex;"><span>Console.WriteLine(<span style="color:#e6db74">&#34;Stopping&#34;</span>);
+</span></span><span style="display:flex;"><span>app.Stop();
+</span></span></code></pre></div><p>or I could make use of requiring ctrl+c to exit instead:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> AutoResetEvent _closing = <span style="color:#66d9ef">new</span> AutoResetEvent(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    Console.WriteLine(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> app = <span style="color:#66d9ef">new</span> MyApp();
+</span></span><span style="display:flex;"><span>    app.Start();
+</span></span><span style="display:flex;"><span>    Console.CancelKeyPress += <span style="color:#66d9ef">new</span> ConsoleCancelEventHandler(OnExit);
+</span></span><span style="display:flex;"><span>    _closing.WaitOne();
+</span></span><span style="display:flex;"><span>    Console.WriteLine(<span style="color:#e6db74">&#34;Stopping&#34;</span>);
+</span></span><span style="display:flex;"><span>    app.Stop();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> OnExit(<span style="color:#66d9ef">object</span> sender, ConsoleCancelEventArgs args)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    Console.WriteLine(<span style="color:#e6db74">&#34;Exit Requested&#34;</span>);
+</span></span><span style="display:flex;"><span>    _closing.Set();
+</span></span><span style="display:flex;"><span>    args.Cancel = <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    Console.CancelKeyPress -= <span style="color:#66d9ef">new</span> ConsoleCancelEventHandler(OnExit);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Either way, we now have a functioning console app, in a format that is compatible with a Windows Service.</p>
 <h3 id="install-the-libraries">Install the libraries</h3>
 <p>As mentioned, we will use <a href="https://github.com/PeterKottas/DotNetCore.WindowsService">PeterKottas/DotNetCore.WindowsService</a> nuget package <a href="https://www.nuget.org/packages/PeterKottas.DotNetCore.WindowsService/">PeterKottas.DotNetCore.WindowsService</a> to make our life easier. (<code>dotnet add package PeterKottas.DotNetCore.WindowsService</code>)</p>
 <h3 id="the-program">The Program</h3>
 <p>Now we can change our program to start using the code from the library, instead of our code:</p>
-<pre><code class="language-cs">using System;
-using System.Threading;
-using PeterKottas.DotNetCore.WindowsService;
-
-namespace MyApp
-{
-    public class Program
-    {
-        static void Main(string[] args)
-        {
-            ServiceRunner&lt;MyApp&gt;.Run(config =&gt;
-            {
-                var name = config.GetDefaultName();
-                config.SetName(&quot;MyAppService&quot;);
-                config.SetDescription(&quot;An example application&quot;);
-                config.SetDisplayName(&quot;MyApp As A Service&quot;);
-                config.Service(serviceConfig =&gt;
-                {
-                    serviceConfig.ServiceFactory((extraArguments, serviceController) =&gt;
-                    {
-                        return new MyApp();
-                    });
-                    serviceConfig.OnStart((service, extraArguments) =&gt;
-                    {
-                        Console.WriteLine(&quot;Service {0} started&quot;, name);
-                        service.Start();
-                    });
-
-                    serviceConfig.OnStop(service =&gt;
-                    {
-                        Console.WriteLine(&quot;Service {0} stopped&quot;, name);
-                        service.Stop();
-                    });
-
-                    serviceConfig.OnInstall(service =&gt;
-                    {
-                        Console.WriteLine(&quot;Service {0} installed&quot;, name);
-                    });
-
-                    serviceConfig.OnUnInstall(service =&gt;
-                    {
-                        Console.WriteLine(&quot;Service {0} uninstalled&quot;, name);
-                    });
-
-                    serviceConfig.OnPause(service =&gt;
-                    {
-                        Console.WriteLine(&quot;Service {0} paused&quot;, name);
-                    });
-
-                    serviceConfig.OnContinue(service =&gt;
-                    {
-                        Console.WriteLine(&quot;Service {0} continued&quot;, name);
-                    });
-
-                    serviceConfig.OnError(e =&gt;
-                    {
-                        Console.WriteLine(&quot;Service {0} errored with exception : {1}&quot;, name, e.Message);
-                    });
-                });
-            });
-        }
-    }
-}
-</code></pre>
-<p>I also had to add the <code>IMicroService</code> interface to <code>MyApp</code>, but otherwise it stayed the same since I already implemented the <code>Start</code>/<code>Stop</code> methods. Yes, it is a tonne more code, but thats just me logging state transitions, your app may not want or need to implement every event handler.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> PeterKottas.DotNetCore.WindowsService;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> MyApp
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            ServiceRunner&lt;MyApp&gt;.Run(config =&gt;
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> name = config.GetDefaultName();
+</span></span><span style="display:flex;"><span>                config.SetName(<span style="color:#e6db74">&#34;MyAppService&#34;</span>);
+</span></span><span style="display:flex;"><span>                config.SetDescription(<span style="color:#e6db74">&#34;An example application&#34;</span>);
+</span></span><span style="display:flex;"><span>                config.SetDisplayName(<span style="color:#e6db74">&#34;MyApp As A Service&#34;</span>);
+</span></span><span style="display:flex;"><span>                config.Service(serviceConfig =&gt;
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    serviceConfig.ServiceFactory((extraArguments, serviceController) =&gt;
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MyApp();
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>                    serviceConfig.OnStart((service, extraArguments) =&gt;
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        Console.WriteLine(<span style="color:#e6db74">&#34;Service {0} started&#34;</span>, name);
+</span></span><span style="display:flex;"><span>                        service.Start();
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    serviceConfig.OnStop(service =&gt;
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        Console.WriteLine(<span style="color:#e6db74">&#34;Service {0} stopped&#34;</span>, name);
+</span></span><span style="display:flex;"><span>                        service.Stop();
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    serviceConfig.OnInstall(service =&gt;
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        Console.WriteLine(<span style="color:#e6db74">&#34;Service {0} installed&#34;</span>, name);
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    serviceConfig.OnUnInstall(service =&gt;
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        Console.WriteLine(<span style="color:#e6db74">&#34;Service {0} uninstalled&#34;</span>, name);
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    serviceConfig.OnPause(service =&gt;
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        Console.WriteLine(<span style="color:#e6db74">&#34;Service {0} paused&#34;</span>, name);
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    serviceConfig.OnContinue(service =&gt;
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        Console.WriteLine(<span style="color:#e6db74">&#34;Service {0} continued&#34;</span>, name);
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    serviceConfig.OnError(e =&gt;
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        Console.WriteLine(<span style="color:#e6db74">&#34;Service {0} errored with exception : {1}&#34;</span>, name, e.Message);
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I also had to add the <code>IMicroService</code> interface to <code>MyApp</code>, but otherwise it stayed the same since I already implemented the <code>Start</code>/<code>Stop</code> methods. Yes, it is a tonne more code, but thats just me logging state transitions, your app may not want or need to implement every event handler.</p>
 <p>Now the app runs two ways:</p>
-<pre><code class="language-powershell">dotnet run
-</code></pre>
-<pre><code class="language-shell">Starting up as a console service host
-Service MyApp.MyApp started
-The MyAppService service is now running, press Control+C to exit.
-1
-1
-2
-3
-5
-8
-13
-21
-Control+C detected, attempting to stop service.
-Service MyApp.MyApp stopped
-The MyAppService service has stopped.
-</code></pre>
-<p>And also installed as a service:</p>
-<pre><code class="language-powershell">dotnet run action:install
-</code></pre>
-<pre><code class="language-shell">Successfully registered and started service &quot;MyAppService&quot; (&quot;An example application&quot;)
-</code></pre>
-<p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1523006256/MyAppService_rtae5s.png" alt="MyApp running as a Service"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>dotnet run
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Starting up as a console service host
+</span></span><span style="display:flex;"><span>Service MyApp.MyApp started
+</span></span><span style="display:flex;"><span>The MyAppService service is now running, press Control+C to exit.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span>Control+C detected, attempting to stop service.
+</span></span><span style="display:flex;"><span>Service MyApp.MyApp stopped
+</span></span><span style="display:flex;"><span>The MyAppService service has stopped.
+</span></span></code></pre></div><p>And also installed as a service:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>dotnet run action<span style="color:#960050;background-color:#1e0010">:</span>install
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Successfully registered and started service <span style="color:#e6db74">&#34;MyAppService&#34;</span> <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;An example application&#34;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1523006256/MyAppService_rtae5s.png" alt="MyApp running as a Service"></p>
 <h3 id="on-linux">On Linux</h3>
 <p>In theory, we can take this app as written and build and run it as a console app on Linux.  This is because all our code is portable dotnet core <code>netstandard</code> and <code>netcoreapp</code> cross-platform code.  Yes, we have some interop code that expects some windows APIs, but in theory, if we never execute that code, it won&rsquo;t cause any issues.  Let&rsquo;s find out.</p>
 <p>The easiest way to run Linux on windows is probably docker, so we can test using that.
 (This assumes you have Docker installed and set up, otherwise, just follow along on any Linux environment you have.)</p>
 <p>I am going to run the <code>Microsoft/aspnetcore-build</code> image, so that the tools are available, and map the dev folder I was already using. I will just start a <code>bash</code> shell so that I basically simulate working on my folder from a Linux machine. (Your networking may vary.)</p>
-<pre><code class="language-powershell"> docker run --rm -it -v &quot;$(pwd):/app&quot; -w /app microsoft/aspnetcore-build bash
-</code></pre>
-<p>This will likely spend some time pulling down the image if you haven&rsquo;t used it before. Once that is done you will be dropped into a bash shell inside an instance of a <code>Microsoft/aspnetcore-build</code> Linux container with the windows folder directory containing out application mapped to the <code>/app</code> folder.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span> docker run --rm -it -v <span style="color:#e6db74">&#34;</span>$(pwd)<span style="color:#e6db74">:/app&#34;</span> -w /app microsoft/aspnetcore-build bash
+</span></span></code></pre></div><p>This will likely spend some time pulling down the image if you haven&rsquo;t used it before. Once that is done you will be dropped into a bash shell inside an instance of a <code>Microsoft/aspnetcore-build</code> Linux container with the windows folder directory containing out application mapped to the <code>/app</code> folder.</p>
 <p>(As mentioned, if you don&rsquo;t have docker, or would rather use a Linux environment you already have, the rest of the instructions should work much the same.)</p>
 <p>All you need to do is build and run, and you should get a working application.</p>
-<pre><code class="language-shell">root@2683f31d537c:/app# ls
-MyApp.cs  MyApp.csproj  Program.cs  bin  obj
-root@2683f31d537c:/app# dotnet build
-Microsoft (R) Build Engine version 15.6.84.34536 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  Restoring packages for /app/MyApp.csproj...
-  Installing System.ServiceProcess.ServiceController 4.4.0.
-  Installing DasMulli.Win32.ServiceUtils 1.0.1.
-  Installing PeterKottas.DotNetCore.CmdArgParser 1.0.5.
-  Installing PeterKottas.DotNetCore.WindowsService 2.0.6.
-  Generating MSBuild file /app/obj/MyApp.csproj.nuget.g.props.
-  Generating MSBuild file /app/obj/MyApp.csproj.nuget.g.targets.
-  Restore completed in 3.08 sec for /app/MyApp.csproj.
-  MyApp -&gt; /app/bin/Debug/netcoreapp2.0/MyApp.dll
-
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:06.79
-root@2683f31d537c:/app# dotnet run
-Starting up as a console service host
-Service MyApp.MyApp started
-The MyAppService service is now running, press Control+C to exit.
-1
-1
-2
-3
-5
-^CControl+C detected, attempting to stop service.
-Service MyApp.MyApp stopped
-The MyAppService service has stopped.
-</code></pre>
-<p>And that&rsquo;s it, the same code compiles on Linux as well, and runs successfully.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root@2683f31d537c:/app# ls
+</span></span><span style="display:flex;"><span>MyApp.cs  MyApp.csproj  Program.cs  bin  obj
+</span></span><span style="display:flex;"><span>root@2683f31d537c:/app# dotnet build
+</span></span><span style="display:flex;"><span>Microsoft <span style="color:#f92672">(</span>R<span style="color:#f92672">)</span> Build Engine version 15.6.84.34536 <span style="color:#66d9ef">for</span> .NET Core
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Restoring packages <span style="color:#66d9ef">for</span> /app/MyApp.csproj...
+</span></span><span style="display:flex;"><span>  Installing System.ServiceProcess.ServiceController 4.4.0.
+</span></span><span style="display:flex;"><span>  Installing DasMulli.Win32.ServiceUtils 1.0.1.
+</span></span><span style="display:flex;"><span>  Installing PeterKottas.DotNetCore.CmdArgParser 1.0.5.
+</span></span><span style="display:flex;"><span>  Installing PeterKottas.DotNetCore.WindowsService 2.0.6.
+</span></span><span style="display:flex;"><span>  Generating MSBuild file /app/obj/MyApp.csproj.nuget.g.props.
+</span></span><span style="display:flex;"><span>  Generating MSBuild file /app/obj/MyApp.csproj.nuget.g.targets.
+</span></span><span style="display:flex;"><span>  Restore completed in 3.08 sec <span style="color:#66d9ef">for</span> /app/MyApp.csproj.
+</span></span><span style="display:flex;"><span>  MyApp -&gt; /app/bin/Debug/netcoreapp2.0/MyApp.dll
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Build succeeded.
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0</span> Warning<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0</span> Error<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Time Elapsed 00:00:06.79
+</span></span><span style="display:flex;"><span>root@2683f31d537c:/app# dotnet run
+</span></span><span style="display:flex;"><span>Starting up as a console service host
+</span></span><span style="display:flex;"><span>Service MyApp.MyApp started
+</span></span><span style="display:flex;"><span>The MyAppService service is now running, press Control+C to exit.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>^CControl+C detected, attempting to stop service.
+</span></span><span style="display:flex;"><span>Service MyApp.MyApp stopped
+</span></span><span style="display:flex;"><span>The MyAppService service has stopped.
+</span></span></code></pre></div><p>And that&rsquo;s it, the same code compiles on Linux as well, and runs successfully.</p>
 <p>I&rsquo;m not currently a Linux user and haven&rsquo;t set up services or daemons for a while, so I will defer to others on the topic of <a href="http://pmcgrath.net/running-a-simple-dotnet-core-linux-daemon">Running a dotnet Core app as a Linux daemon</a></p>
 <h3 id="on-docker">On Docker</h3>
 <p>Let&rsquo;s whip up a Dockerfile to round it off, that will build and pack a new docker image, that we can then start and see it running our task.</p>
 <p>First the docker file (Dockerfile). This is a basic minimalist version, you will likely want to do optimisation steps yourself.</p>
-<pre><code class="language-dockerfile">FROM microsoft/dotnet:2.0-runtime AS base
-WORKDIR /app
-EXPOSE 80
-
-FROM microsoft/aspnetcore-build:2.0 AS build
-WORKDIR /src
-COPY . .
-RUN dotnet build -c Release -o /app
-
-FROM build AS publish
-RUN dotnet publish -c Release -o /app
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app .
-ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
-</code></pre>
-<p>This will use the <code>Microsoft/aspnetcore-build:2.0</code> container image as the build container, publish the results and produce a packed container based on the <code>Microsoft/dotnet:2.0-runtime</code> container image. We are also setting the container with an entry point to start the application process as the main container process. This means that if/when the process stops, the container terminates.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> microsoft/dotnet:2.0-runtime AS base</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 80</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> microsoft/aspnetcore-build:2.0 AS build</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /src</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> dotnet build -c Release -o /app<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> build AS publish</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> dotnet publish -c Release -o /app<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> base AS final</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>publish /app .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;dotnet&#34;</span>, <span style="color:#e6db74">&#34;MyApp.dll&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>This will use the <code>Microsoft/aspnetcore-build:2.0</code> container image as the build container, publish the results and produce a packed container based on the <code>Microsoft/dotnet:2.0-runtime</code> container image. We are also setting the container with an entry point to start the application process as the main container process. This means that if/when the process stops, the container terminates.</p>
 <p>We run the build command, asking it to tag the created image as <code>myapptestcontainer:latest</code> so we can refer to it again in a moment.</p>
-<pre><code class="language-powershell">docker build -t myapptestcontainer:latest .
-</code></pre>
-<pre><code class="language-shell">Sending build context to Docker daemon  136.7kB
-Step 1/13 : FROM microsoft/dotnet:2.0-runtime AS base
- ---&gt; 26314e3adaec
-Step 2/13 : WORKDIR /app
-Removing intermediate container 9296d10905ce
- ---&gt; 8794c7aca866
-Step 3/13 : EXPOSE 80
- ---&gt; Running in 6554f663146f
-Removing intermediate container 6554f663146f
- ---&gt; ad881b2a405e
-Step 4/13 : FROM microsoft/aspnetcore-build:2.0 AS build
- ---&gt; 244f6193d21a
-Step 5/13 : WORKDIR /src
-Removing intermediate container a38fb58535b6
- ---&gt; 5ed2a92fda93
-Step 6/13 : COPY . .
- ---&gt; 8ffd3faa7bc9
-Step 7/13 : RUN dotnet build -c Release -o /app
- ---&gt; Running in 39d44616ea2d
-Microsoft (R) Build Engine version 15.6.82.30579 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  Restoring packages for /src/MyApp.csproj...
-  Installing System.ServiceProcess.ServiceController 4.4.0.
-  Installing PeterKottas.DotNetCore.CmdArgParser 1.0.5.
-  Installing DasMulli.Win32.ServiceUtils 1.0.1.
-  Installing PeterKottas.DotNetCore.WindowsService 2.0.6.
-  Generating MSBuild file /src/obj/MyApp.csproj.nuget.g.props.
-  Restore completed in 2.72 sec for /src/MyApp.csproj.
-  MyApp -&gt; /app/MyApp.dll
-
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:06.14
-Removing intermediate container 39d44616ea2d
- ---&gt; 56b58883d64b
-Step 8/13 : FROM build AS publish
- ---&gt; 56b58883d64b
-Step 9/13 : RUN dotnet publish -c Release -o /app
- ---&gt; Running in 552eb703a748
-Microsoft (R) Build Engine version 15.6.82.30579 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  Restore completed in 131.4 ms for /src/MyApp.csproj.
-  MyApp -&gt; /src/bin/Release/netcoreapp2.0/MyApp.dll
-  MyApp -&gt; /app/
-Removing intermediate container 552eb703a748
- ---&gt; 474498c42be3
-Step 10/13 : FROM base AS final
- ---&gt; ad881b2a405e
-Step 11/13 : WORKDIR /app
-Removing intermediate container c3c0dd6ac31c
- ---&gt; 02c236862201
-Step 12/13 : COPY --from=publish /app .
- ---&gt; 33509849efe0
-Step 13/13 : ENTRYPOINT [&quot;dotnet&quot;, &quot;MyApp.dll&quot;]
- ---&gt; Running in 25b373135eb6
-Removing intermediate container 25b373135eb6
- ---&gt; 511aa92712d1
-Successfully built 511aa92712d1
-Successfully tagged myapptestcontainer:latest
-</code></pre>
-<p>Now that we have a successful image for our app, we can start and run instances of it on docker, as well. We do this using the <code>docker run</code> command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker build -t myapptestcontainer<span style="color:#960050;background-color:#1e0010">:</span>latest .
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Sending build context to Docker daemon  136.7kB
+</span></span><span style="display:flex;"><span>Step 1/13 : FROM microsoft/dotnet:2.0-runtime AS base
+</span></span><span style="display:flex;"><span> ---&gt; 26314e3adaec
+</span></span><span style="display:flex;"><span>Step 2/13 : WORKDIR /app
+</span></span><span style="display:flex;"><span>Removing intermediate container 9296d10905ce
+</span></span><span style="display:flex;"><span> ---&gt; 8794c7aca866
+</span></span><span style="display:flex;"><span>Step 3/13 : EXPOSE <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span> ---&gt; Running in 6554f663146f
+</span></span><span style="display:flex;"><span>Removing intermediate container 6554f663146f
+</span></span><span style="display:flex;"><span> ---&gt; ad881b2a405e
+</span></span><span style="display:flex;"><span>Step 4/13 : FROM microsoft/aspnetcore-build:2.0 AS build
+</span></span><span style="display:flex;"><span> ---&gt; 244f6193d21a
+</span></span><span style="display:flex;"><span>Step 5/13 : WORKDIR /src
+</span></span><span style="display:flex;"><span>Removing intermediate container a38fb58535b6
+</span></span><span style="display:flex;"><span> ---&gt; 5ed2a92fda93
+</span></span><span style="display:flex;"><span>Step 6/13 : COPY . .
+</span></span><span style="display:flex;"><span> ---&gt; 8ffd3faa7bc9
+</span></span><span style="display:flex;"><span>Step 7/13 : RUN dotnet build -c Release -o /app
+</span></span><span style="display:flex;"><span> ---&gt; Running in 39d44616ea2d
+</span></span><span style="display:flex;"><span>Microsoft <span style="color:#f92672">(</span>R<span style="color:#f92672">)</span> Build Engine version 15.6.82.30579 <span style="color:#66d9ef">for</span> .NET Core
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Restoring packages <span style="color:#66d9ef">for</span> /src/MyApp.csproj...
+</span></span><span style="display:flex;"><span>  Installing System.ServiceProcess.ServiceController 4.4.0.
+</span></span><span style="display:flex;"><span>  Installing PeterKottas.DotNetCore.CmdArgParser 1.0.5.
+</span></span><span style="display:flex;"><span>  Installing DasMulli.Win32.ServiceUtils 1.0.1.
+</span></span><span style="display:flex;"><span>  Installing PeterKottas.DotNetCore.WindowsService 2.0.6.
+</span></span><span style="display:flex;"><span>  Generating MSBuild file /src/obj/MyApp.csproj.nuget.g.props.
+</span></span><span style="display:flex;"><span>  Restore completed in 2.72 sec <span style="color:#66d9ef">for</span> /src/MyApp.csproj.
+</span></span><span style="display:flex;"><span>  MyApp -&gt; /app/MyApp.dll
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Build succeeded.
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0</span> Warning<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0</span> Error<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Time Elapsed 00:00:06.14
+</span></span><span style="display:flex;"><span>Removing intermediate container 39d44616ea2d
+</span></span><span style="display:flex;"><span> ---&gt; 56b58883d64b
+</span></span><span style="display:flex;"><span>Step 8/13 : FROM build AS publish
+</span></span><span style="display:flex;"><span> ---&gt; 56b58883d64b
+</span></span><span style="display:flex;"><span>Step 9/13 : RUN dotnet publish -c Release -o /app
+</span></span><span style="display:flex;"><span> ---&gt; Running in 552eb703a748
+</span></span><span style="display:flex;"><span>Microsoft <span style="color:#f92672">(</span>R<span style="color:#f92672">)</span> Build Engine version 15.6.82.30579 <span style="color:#66d9ef">for</span> .NET Core
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Restore completed in 131.4 ms <span style="color:#66d9ef">for</span> /src/MyApp.csproj.
+</span></span><span style="display:flex;"><span>  MyApp -&gt; /src/bin/Release/netcoreapp2.0/MyApp.dll
+</span></span><span style="display:flex;"><span>  MyApp -&gt; /app/
+</span></span><span style="display:flex;"><span>Removing intermediate container 552eb703a748
+</span></span><span style="display:flex;"><span> ---&gt; 474498c42be3
+</span></span><span style="display:flex;"><span>Step 10/13 : FROM base AS final
+</span></span><span style="display:flex;"><span> ---&gt; ad881b2a405e
+</span></span><span style="display:flex;"><span>Step 11/13 : WORKDIR /app
+</span></span><span style="display:flex;"><span>Removing intermediate container c3c0dd6ac31c
+</span></span><span style="display:flex;"><span> ---&gt; 02c236862201
+</span></span><span style="display:flex;"><span>Step 12/13 : COPY --from<span style="color:#f92672">=</span>publish /app .
+</span></span><span style="display:flex;"><span> ---&gt; 33509849efe0
+</span></span><span style="display:flex;"><span>Step 13/13 : ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;dotnet&#34;</span>, <span style="color:#e6db74">&#34;MyApp.dll&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span> ---&gt; Running in 25b373135eb6
+</span></span><span style="display:flex;"><span>Removing intermediate container 25b373135eb6
+</span></span><span style="display:flex;"><span> ---&gt; 511aa92712d1
+</span></span><span style="display:flex;"><span>Successfully built 511aa92712d1
+</span></span><span style="display:flex;"><span>Successfully tagged myapptestcontainer:latest
+</span></span></code></pre></div><p>Now that we have a successful image for our app, we can start and run instances of it on docker, as well. We do this using the <code>docker run</code> command.</p>
 <p>As before, we can run this interactively using the -it command:</p>
-<pre><code class="language-powershell">docker run --rm -it myapptestcontainer:latest
-</code></pre>
-<pre><code class="language-shell">Starting up as a console service host
-Service MyApp.MyApp started
-The MyAppService service is now running, press Control+C to exit.
-1
-1
-2
-3
-5
-8
-13
-21
-34
-55
-89
-^CControl+C detected, attempting to stop service.
-Service MyApp.MyApp stopped
-The MyAppService service has stopped.
-</code></pre>
-<p>And Control+C still works as expected. The real proof is launching it and checking the processes. We will:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker run --rm -it myapptestcontainer<span style="color:#960050;background-color:#1e0010">:</span>latest
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Starting up as a console service host
+</span></span><span style="display:flex;"><span>Service MyApp.MyApp started
+</span></span><span style="display:flex;"><span>The MyAppService service is now running, press Control+C to exit.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">55</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">89</span>
+</span></span><span style="display:flex;"><span>^CControl+C detected, attempting to stop service.
+</span></span><span style="display:flex;"><span>Service MyApp.MyApp stopped
+</span></span><span style="display:flex;"><span>The MyAppService service has stopped.
+</span></span></code></pre></div><p>And Control+C still works as expected. The real proof is launching it and checking the processes. We will:</p>
 <ul>
 <li>Run an instance from our image, detached (<code>docker run -d myapptestcontainer:latest</code>)</li>
 <li>See that it is running using list process (<code>docker ps</code>)</li>
@@ -482,47 +467,45 @@ The MyAppService service has stopped.
 <li>Print the logs (<code>docker logs &lt;pid&gt;</code>)</li>
 <li>Clean up the process (<code>docker rm &lt;pid&gt;</code>)</li>
 </ul>
-<pre><code class="language-shell">&gt; docker run -d myapptestcontainer:latest
-5a11b3ee222d35196f7d7549d634cd8b8c9220bfb4f9dd9f7fd577b094b2bccb
-
-&gt; docker ps
-CONTAINER ID        IMAGE                       COMMAND              CREATED             STATUS              PORTS               NAMES
-5a11b3ee222d        myapptestcontainer:latest   &quot;dotnet MyApp.dll&quot;   2 seconds ago       Up 1 second         80/tcp              musing_montalcini
-
-&gt; docker stop 5a11b
-5a11b
-
-&gt; docker logs 5a11b
-Starting up as a console service host
-Service MyApp.MyApp started
-The MyAppService service is now running, press Control+C to exit.
-1
-1
-2
-3
-5
-
-&gt; docker rm 5a11b
-5a11b
-</code></pre>
-<p>As we can see, the only difference is the termination. Linux is sending the termination message correctly, but the library we are using doesn&rsquo;t subscribe to the correct callback (<code>AppDomain.CurrentDomain.ProcessExit</code> perhaps) and so instead the process is just terminated.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; docker run -d myapptestcontainer:latest
+</span></span><span style="display:flex;"><span>5a11b3ee222d35196f7d7549d634cd8b8c9220bfb4f9dd9f7fd577b094b2bccb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; docker ps
+</span></span><span style="display:flex;"><span>CONTAINER ID        IMAGE                       COMMAND              CREATED             STATUS              PORTS               NAMES
+</span></span><span style="display:flex;"><span>5a11b3ee222d        myapptestcontainer:latest   <span style="color:#e6db74">&#34;dotnet MyApp.dll&#34;</span>   <span style="color:#ae81ff">2</span> seconds ago       Up <span style="color:#ae81ff">1</span> second         80/tcp              musing_montalcini
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; docker stop 5a11b
+</span></span><span style="display:flex;"><span>5a11b
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; docker logs 5a11b
+</span></span><span style="display:flex;"><span>Starting up as a console service host
+</span></span><span style="display:flex;"><span>Service MyApp.MyApp started
+</span></span><span style="display:flex;"><span>The MyAppService service is now running, press Control+C to exit.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; docker rm 5a11b
+</span></span><span style="display:flex;"><span>5a11b
+</span></span></code></pre></div><p>As we can see, the only difference is the termination. Linux is sending the termination message correctly, but the library we are using doesn&rsquo;t subscribe to the correct callback (<code>AppDomain.CurrentDomain.ProcessExit</code> perhaps) and so instead the process is just terminated.</p>
 <p>Now I started raising this as a bug against the library, but had to stop myself and ask &ldquo;Do I really need this?&rdquo;  There are a bunch of reasons and ways your container could get terminated. You need to build in resilience for this termination.  For that reason, you need to allow for you process to die in the middle of any part of your code and figure out ways to gracefully recover as needed. (Think about how SQL Server recovers after a termination to avoid data loss.) For this reason, I don&rsquo;t see the fact that <code>OnShutdown</code> doesn&rsquo;t get called as a bug, but instead an opportunity to write a better process.</p>
 <p>Of course, if you absolutely want this behaviour, you could do something like <a href="https://github.com/PeterKottas/DotNetCore.WindowsService/issues/52#issuecomment-344853011">this stack overflow comment suggests</a> and connect the handler yourself, calling into the appropriate function. Like replacing the Service factory with the following:</p>
-<pre><code class="language-cs">serviceConfig.ServiceFactory((extraArguments, serviceController) =&gt;
-{
-    var myApp = new MyApp();
-    EventHandler handler = null;
-    handler = (sender, _) =&gt;
-    {
-        AppDomain.CurrentDomain.ProcessExit -= handler;
-        Console.WriteLine(&quot;Process Exit triggered&quot;, name);
-        myApp.Stop();
-    };
-    AppDomain.CurrentDomain.ProcessExit += handler;
-    return myApp;
-});
-</code></pre>
-<p>Just make sure if you do decide to use this, that your stop function is <a href="https://en.wikipedia.org/wiki/Idempotence">idempotent</a> and only runs once.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>serviceConfig.ServiceFactory((extraArguments, serviceController) =&gt;
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> myApp = <span style="color:#66d9ef">new</span> MyApp();
+</span></span><span style="display:flex;"><span>    EventHandler handler = <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    handler = (sender, _) =&gt;
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        AppDomain.CurrentDomain.ProcessExit -= handler;
+</span></span><span style="display:flex;"><span>        Console.WriteLine(<span style="color:#e6db74">&#34;Process Exit triggered&#34;</span>, name);
+</span></span><span style="display:flex;"><span>        myApp.Stop();
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    AppDomain.CurrentDomain.ProcessExit += handler;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> myApp;
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>Just make sure if you do decide to use this, that your stop function is <a href="https://en.wikipedia.org/wiki/Idempotence">idempotent</a> and only runs once.</p>
 <h3 id="the-end">The End</h3>
 <p>I hope this article helps others coming to find out how to create cross-platform services with .Net Core. Also hopefully it redeems me for confusing so many people who landed on my <a href="/building-a-windows-service-with-net-core/">Building a Windows Service with .Net Core</a> article as well.</p>
 <p>Simple. Easy. Works<a href="https://blog.codinghorror.com/the-works-on-my-machine-certification-program/">.</a></p>

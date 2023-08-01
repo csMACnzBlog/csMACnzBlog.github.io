@@ -150,14 +150,13 @@
 <p>We are going to create a library project, and an application project. We can reference the library from the application, to see how referencing projects work.</p>
 <h3 id="file---new-application">File -&gt; New Application</h3>
 <p>We should be old pros at this bit so let&rsquo;s go:</p>
-<pre><code>mkdir MyNewApp
+<pre tabindex="0"><code>mkdir MyNewApp
 cd MyNewApp
 dotnet new console
 dotnet run
-</code></pre>
-<h3 id="file---new-library">File -&gt; New Library</h3>
+</code></pre><h3 id="file---new-library">File -&gt; New Library</h3>
 <p>As well as creating empty console applications, <code>dotnet</code> can also create other things. If you try typing <code>dotnet new</code> you will see a full list of all templates available, which you may remember from <a href="/dotnetcore2-getting-started">Getting Started</a>:</p>
-<pre><code>Usage: new [options]
+<pre tabindex="0"><code>Usage: new [options]
 
 Options:
   -h, --help          Displays help for this command.
@@ -166,7 +165,7 @@ Options:
   -o, --output        Location to place the generated output.
   -i, --install       Installs a source or a template pack.
   -u, --uninstall     Uninstalls a source or a template pack.
-  --type              Filters templates based on available types. Predefined values are &quot;project&quot;, &quot;item&quot; or &quot;other&quot;.
+  --type              Filters templates based on available types. Predefined values are &#34;project&#34;, &#34;item&#34; or &#34;other&#34;.
   --force             Forces content to be generated even if it would change existing files.
   -lang, --language   Specifies the language of the template to create.
 
@@ -196,32 +195,28 @@ Examples:
     dotnet new mvc --auth Individual
     dotnet new console
     dotnet new --help
-</code></pre>
-<p>(Again the caveat that mine might be longer than yours because of some extra templates I have installed. This is also much changed since dotnet v1)</p>
+</code></pre><p>(Again the caveat that mine might be longer than yours because of some extra templates I have installed. This is also much changed since dotnet v1)</p>
 <p>We want a Library so will use <code>classlib</code>.</p>
-<pre><code>cd ../
+<pre tabindex="0"><code>cd ../
 mkdir MyNewLib
 cd MyNewLib
 dotnet new classlib
-</code></pre>
-<pre><code>The template &quot;Class library&quot; was created successfully.
+</code></pre><pre tabindex="0"><code>The template &#34;Class library&#34; was created successfully.
 
 Processing post-creation actions...
-Running 'dotnet restore' on C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj...
+Running &#39;dotnet restore&#39; on C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj...
   Restoring packages for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj...
   Generating MSBuild file C:\dev\MyComplexApplicationRepo\MyNewLib\obj\MyNewLib.csproj.nuget.g.props.
   Generating MSBuild file C:\dev\MyComplexApplicationRepo\MyNewLib\obj\MyNewLib.csproj.nuget.g.targets.
   Restore completed in 115.85 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
 
 Restore succeeded.
-</code></pre>
-<p>We briefly looked at the differences between these projects in the previous section <a href="/dotnetcore2-whats-in-the-box">What&rsquo;s in the box</a>. (Specifically, the app will have an extra <code>&lt;OutputType&gt;Exe&lt;/OutputType&gt;</code> setting in the <code>csproj</code> file, and targeting <code>netcoreapp2.0</code> for the app and <code>netstandard2.0</code> for the library.)</p>
+</code></pre><p>We briefly looked at the differences between these projects in the previous section <a href="/dotnetcore2-whats-in-the-box">What&rsquo;s in the box</a>. (Specifically, the app will have an extra <code>&lt;OutputType&gt;Exe&lt;/OutputType&gt;</code> setting in the <code>csproj</code> file, and targeting <code>netcoreapp2.0</code> for the app and <code>netstandard2.0</code> for the library.)</p>
 <p>.Net Standard Compatibility is a bit of a topic on its own. You can review the <a href="https://github.com/dotnet/standard/blob/master/docs/versions.md">Version Compatibility Grid</a> for dotnet to determine which target you want for your library. If you do leave it as <code>netstandard2.0</code>, then it will be compatible with dotnet core runtime version <code>2.0</code> or newer, .Net full framework version <code>4.6.1</code> or newer, Mono <code>5.4</code>, and Windows UWP version <code>10.0.16299</code> or newer. Click through to see the full table, including Xamarin and Windows Phone/Silverlight compatibility. The idea is the higher your version, the more base class libraries and methods are available, the lower the version gives you wider compatibility.</p>
 <p>So the classlib has access to different library classes and methods depending on which version you target. These are implicitly available to you to use (unlike dotnet v1 where the standard library was an explicit dependency). The dotnet application project target <code>netcoreapp2.0</code> also includes implicitly available core runtime types, classes and methods as well.  Additional libraries are then available from NuGet. (More on that later on in the series)</p>
 <p>We can build our library, but of course, it cannot be run - its a library.</p>
-<pre><code>dotnet build
-</code></pre>
-<pre><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
+<pre tabindex="0"><code>dotnet build
+</code></pre><pre tabindex="0"><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
   Restore completed in 22.02 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
@@ -232,18 +227,16 @@ Build succeeded.
     0 Error(s)
 
 Time Elapsed 00:00:01.75
-</code></pre>
-<h3 id="ppppppphttpsenwikipediaorgwiki7_ps_military_adage">PPPPPPP(<a href="https://en.wikipedia.org/wiki/7_Ps_(military_adage)">*</a>)</h3>
+</code></pre><h3 id="ppppppphttpsenwikipediaorgwiki7_ps_military_adage">PPPPPPP(<a href="https://en.wikipedia.org/wiki/7_Ps_(military_adage)">*</a>)</h3>
 <p>Before we can reference between the two projects, we probably need something to depend on. We can go into the file <code>Class1.cs</code> and make a few changes.</p>
-<pre><code>namespace MyNewLib
+<pre tabindex="0"><code>namespace MyNewLib
 {
     public class Class1
     {
     }
 }
-</code></pre>
-<p>Our class can be called <code>Calculator</code>, and we can implement a simple method, <code>Add</code>.</p>
-<pre><code>using System;
+</code></pre><p>Our class can be called <code>Calculator</code>, and we can implement a simple method, <code>Add</code>.</p>
+<pre tabindex="0"><code>using System;
 
 namespace MyNewLib
 {
@@ -255,21 +248,18 @@ namespace MyNewLib
         }
     }
 }
-</code></pre>
-<p>Now it is a bit more interesting, at least.</p>
+</code></pre><p>Now it is a bit more interesting, at least.</p>
 <h3 id="project-references">Project References</h3>
 <p>Last time we briefly glossed over <a href="https://blog.csmac.nz/dotnetcore2-whats-in-the-box/#frameworksanddependencies">Frameworks and Dependencies</a>. Let&rsquo;s go over this again in more detail.</p>
 <p>First, we want to reference our library from our application.</p>
-<pre><code>cd ../MyNewApp
+<pre tabindex="0"><code>cd ../MyNewApp
 dotnet add reference ../MyNewLib/MyNewLib.csproj
-</code></pre>
-<pre><code>Reference `..\MyNewLib\MyNewLib.csproj` added to the project.
-</code></pre>
-<p>If we look at our <code>csproj</code> file now, we can see the reference has been added.</p>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+</code></pre><pre tabindex="0"><code>Reference `..\MyNewLib\MyNewLib.csproj` added to the project.
+</code></pre><p>If we look at our <code>csproj</code> file now, we can see the reference has been added.</p>
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk&#34;&gt;
 
   &lt;ItemGroup&gt;
-    &lt;ProjectReference Include=&quot;..\MyNewLib\MyNewLib.csproj&quot; /&gt;
+    &lt;ProjectReference Include=&#34;..\MyNewLib\MyNewLib.csproj&#34; /&gt;
   &lt;/ItemGroup&gt;
 
   &lt;PropertyGroup&gt;
@@ -278,12 +268,10 @@ dotnet add reference ../MyNewLib/MyNewLib.csproj
   &lt;/PropertyGroup&gt;
 
 &lt;/Project&gt;
-</code></pre>
-<p>You can basically give any relative path to any csproj and this will work.</p>
+</code></pre><p>You can basically give any relative path to any csproj and this will work.</p>
 <p>One to note: Whenever you now build MyNewApp, it will recursively try and build the project MyNewLib as well.</p>
-<pre><code>dotnet build
-</code></pre>
-<pre><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
+<pre tabindex="0"><code>dotnet build
+</code></pre><pre tabindex="0"><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
   Restoring packages for C:\dev\MyComplexApplicationRepo\MyNewApp\MyNewApp.csproj...
@@ -297,9 +285,8 @@ Build succeeded.
     0 Error(s)
 
 Time Elapsed 00:00:02.68
-</code></pre>
-<p>And we will add some code to make the dependency complete. Open MyNewApp&rsquo;s <code>Program.cs</code> file and add a call to our Calculator.</p>
-<pre><code>using System;
+</code></pre><p>And we will add some code to make the dependency complete. Open MyNewApp&rsquo;s <code>Program.cs</code> file and add a call to our Calculator.</p>
+<pre tabindex="0"><code>using System;
 using MyNewLib;
 
 namespace MyNewApp
@@ -310,31 +297,26 @@ namespace MyNewApp
         {
             Calculator calc = new Calculator();
             var answer = calc.Add(18, 24);
-            Console.WriteLine($&quot;The answer is {answer}.&quot;);
+            Console.WriteLine($&#34;The answer is {answer}.&#34;);
         }
     }
 }
-</code></pre>
-<h3 id="build-and-run">Build and Run</h3>
+</code></pre><h3 id="build-and-run">Build and Run</h3>
 <p>From the MyNewApp folder, we can now build and run our application, including the library code from MyNewLib. All of this can be done by just using dotnet run (which will do a restore, if required, as well as a build, if required).</p>
-<pre><code>dotnet run
-</code></pre>
-<p>And we can see from the output that both projects are built and we see the correct output from our application.</p>
-<pre><code>The answer is 42.
-</code></pre>
-<p>Because we used <code>run</code>, the restore and build output has been done silently. This is not the case if it fails, you will see the errors on restore, or errors on build.  Often when errors are encountered, it pays to run the actual command to see all of the output for diagnosis.</p>
+<pre tabindex="0"><code>dotnet run
+</code></pre><p>And we can see from the output that both projects are built and we see the correct output from our application.</p>
+<pre tabindex="0"><code>The answer is 42.
+</code></pre><p>Because we used <code>run</code>, the restore and build output has been done silently. This is not the case if it fails, you will see the errors on restore, or errors on build.  Often when errors are encountered, it pays to run the actual command to see all of the output for diagnosis.</p>
 <p>Now we have 2 projects, and a reference between them. For convenience, though, we probably want to group these into some kind of working solution.</p>
 <h3 id="file---new-solution">File -&gt; New Solution</h3>
 <p>Unlike dotnet v1, dotnet 2.* SDK is using real MSBuild and has native support built into it to not only run against Visual Studio Solution (<code>.sln</code>) files but manage them as well.</p>
 <p>We start by creating a new solution in our parent folder:</p>
-<pre><code>cd ../
+<pre tabindex="0"><code>cd ../
 dotnet new sln
-</code></pre>
-<pre><code>The template &quot;Solution File&quot; was created successfully.
-</code></pre>
-<p>&ldquo;Solution File&rdquo; is just another template available, which shows some of the flexibility and power of the dotnet template engine.  This will have created a file in the parent folder called <code>MyComplexApplicationRepo.sln</code>, which comes from the parent folder. You can rename this file if desired.</p>
+</code></pre><pre tabindex="0"><code>The template &#34;Solution File&#34; was created successfully.
+</code></pre><p>&ldquo;Solution File&rdquo; is just another template available, which shows some of the flexibility and power of the dotnet template engine.  This will have created a file in the parent folder called <code>MyComplexApplicationRepo.sln</code>, which comes from the parent folder. You can rename this file if desired.</p>
 <p>As we have come to expect from the dotnet CLI, a minimal <code>sln</code> file is created:</p>
-<pre><code>Microsoft Visual Studio Solution File, Format Version 12.00
+<pre tabindex="0"><code>Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
@@ -351,19 +333,17 @@ Global
                 HideSolutionNode = FALSE
         EndGlobalSection
 EndGlobal
-</code></pre>
-<p>To fill it up, we add our projects to the solution using the <code>dotnet sln ...</code> commands:</p>
-<pre><code>dotnet sln add .\MyNewApp\MyNewApp.csproj
+</code></pre><p>To fill it up, we add our projects to the solution using the <code>dotnet sln ...</code> commands:</p>
+<pre tabindex="0"><code>dotnet sln add .\MyNewApp\MyNewApp.csproj
 dotnet sln add .\MyNewLib\MyNewLib.csproj
-</code></pre>
-<p>This updates the <code>sln</code> file.</p>
-<pre><code>Microsoft Visual Studio Solution File, Format Version 12.00
+</code></pre><p>This updates the <code>sln</code> file.</p>
+<pre tabindex="0"><code>Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project(&quot;{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}&quot;) = &quot;MyNewApp&quot;, &quot;MyNewApp\MyNewApp.csproj&quot;, &quot;{32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}&quot;
+Project(&#34;{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}&#34;) = &#34;MyNewApp&#34;, &#34;MyNewApp\MyNewApp.csproj&#34;, &#34;{32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}&#34;
 EndProject
-Project(&quot;{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}&quot;) = &quot;MyNewLib&quot;, &quot;MyNewLib\MyNewLib.csproj&quot;, &quot;{76D11E26-4764-4051-B597-9E1D88015259}&quot;
+Project(&#34;{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}&#34;) = &#34;MyNewLib&#34;, &#34;MyNewLib\MyNewLib.csproj&#34;, &#34;{76D11E26-4764-4051-B597-9E1D88015259}&#34;
 EndProject
 Global
         GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -404,12 +384,10 @@ Global
                 {76D11E26-4764-4051-B597-9E1D88015259}.Release|x86.Build.0 = Release|x86
         EndGlobalSection
 EndGlobal
-</code></pre>
-<p>While there is a lot of noise in here, the main thing is the first few lines where the 2 projects are set.</p>
+</code></pre><p>While there is a lot of noise in here, the main thing is the first few lines where the 2 projects are set.</p>
 <p>Now we have a single entry point to be able to build our application.</p>
-<pre><code>dotnet build
-</code></pre>
-<pre><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
+<pre tabindex="0"><code>dotnet build
+</code></pre><pre tabindex="0"><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
   Restore completed in 15.72 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
@@ -422,8 +400,7 @@ Build succeeded.
     0 Error(s)
 
 Time Elapsed 00:00:03.77
-</code></pre>
-<p>You can also explicitly name the solution file when using the commands like <code>dotnet build .\MyComplexApplicationRepo.sln</code>.</p>
+</code></pre><p>You can also explicitly name the solution file when using the commands like <code>dotnet build .\MyComplexApplicationRepo.sln</code>.</p>
 <h3 id="up-next">Up Next</h3>
 <p>Of course, we don&rsquo;t just want to build and ship code, we want to test it actually works.  Next time we will create a test project, and write some tests against our library code above.</p>
 </section>

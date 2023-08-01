@@ -150,22 +150,21 @@
 <p>Now we will have a look at the <code>csproj</code> file. Since I assume the <code>Program.cs</code> file and other code files are self-explanatory, I will give them a miss.</p>
 <h3 id="csproj">csproj</h3>
 <p>Let&rsquo;s take a look at the <code>MyNewLib.csproj</code> file as a result of running <code>dotnet new classlib</code>:</p>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk&#34;&gt;
 
   &lt;PropertyGroup&gt;
     &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
   &lt;/PropertyGroup&gt;
 
 &lt;/Project&gt;
-</code></pre>
-<p>This is not your typical csproj file of old. If you are at all familiar with what a <code>csproj</code> looks like for the full .Net framework, from Visual Studio 2015 and older, you will recall an unwieldy large file explicitly declaring everything.</p>
+</code></pre><p>This is not your typical csproj file of old. If you are at all familiar with what a <code>csproj</code> looks like for the full .Net framework, from Visual Studio 2015 and older, you will recall an unwieldy large file explicitly declaring everything.</p>
 <p>You can relax, now those days are over. Yes, this is still MSBuild. Yes, you can still customise the same way you always have, everything you already know about MSBuild still applies. We just have some new targets that do some conventional magic, so you don&rsquo;t have to.  Yes, there are a few changes but we will get to those.</p>
 <p>The main difference you will see is the <code>&lt;Project /&gt;</code> tag has an <code>Sdk</code> attribute, with the value <code>&quot;Microsoft.NET.Sdk&quot;</code>. This is the part that tells it to use the new magic.</p>
 <p>All your <code>cs</code> files will automatically be added to the project. You may need to manually add some Content files, Embedded files and the likes where you use custom copy to output options, or when you need custom Compile directives, Both advanced topics I will defer on, other than to just give a heads-up to those who know what I am talking about.</p>
 <p>You can see the <code>TargetFramework</code> has been specified as <code>netstandard2.0</code>. And that is all it needs. More on <code>TargetFramework</code> a bit further down this page.</p>
 <p>Next, we will take a quick look at the default console project, test project and web project files, as well.</p>
 <p>A console app&rsquo;s <code>MyNewApp.csproj</code> file with command <code>dotnet new console</code></p>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk&#34;&gt;
 
   &lt;PropertyGroup&gt;
     &lt;OutputType&gt;Exe&lt;/OutputType&gt;
@@ -173,10 +172,9 @@
   &lt;/PropertyGroup&gt;
 
 &lt;/Project&gt;
-</code></pre>
-<p>The default project settings are for a library, so nothing special is required when creating a library. But now we want an application we see an extra parameter defined, <code>OutputType</code> with a value of Exe. This is what tells the compiler you want it to compile an entry point into your application (Main). (Especially worth noting, what this is doing for you, since your Exe will still actually be a <code>.dll</code> in dotnet core.) We are also now targetting <code>netcoreapp2.0</code> as the <code>TargetFramework</code>, so a concrete runtime version of netcoreapp2.0 rather than targetting a dotnet standard compatibility version of <code>netstandard2.0</code> as we did with the library.</p>
+</code></pre><p>The default project settings are for a library, so nothing special is required when creating a library. But now we want an application we see an extra parameter defined, <code>OutputType</code> with a value of Exe. This is what tells the compiler you want it to compile an entry point into your application (Main). (Especially worth noting, what this is doing for you, since your Exe will still actually be a <code>.dll</code> in dotnet core.) We are also now targetting <code>netcoreapp2.0</code> as the <code>TargetFramework</code>, so a concrete runtime version of netcoreapp2.0 rather than targetting a dotnet standard compatibility version of <code>netstandard2.0</code> as we did with the library.</p>
 <p>An xUnit project with command <code>dotnet new xunit</code> looks like this:</p>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk&#34;&gt;
 
   &lt;PropertyGroup&gt;
     &lt;TargetFramework&gt;netcoreapp2.0&lt;/TargetFramework&gt;
@@ -185,65 +183,58 @@
   &lt;/PropertyGroup&gt;
 
   &lt;ItemGroup&gt;
-    &lt;PackageReference Include=&quot;Microsoft.NET.Test.Sdk&quot; Version=&quot;15.5.0&quot; /&gt;
-    &lt;PackageReference Include=&quot;xunit&quot; Version=&quot;2.3.1&quot; /&gt;
-    &lt;PackageReference Include=&quot;xunit.runner.visualstudio&quot; Version=&quot;2.3.1&quot; /&gt;
-    &lt;DotNetCliToolReference Include=&quot;dotnet-xunit&quot; Version=&quot;2.3.1&quot; /&gt;
+    &lt;PackageReference Include=&#34;Microsoft.NET.Test.Sdk&#34; Version=&#34;15.5.0&#34; /&gt;
+    &lt;PackageReference Include=&#34;xunit&#34; Version=&#34;2.3.1&#34; /&gt;
+    &lt;PackageReference Include=&#34;xunit.runner.visualstudio&#34; Version=&#34;2.3.1&#34; /&gt;
+    &lt;DotNetCliToolReference Include=&#34;dotnet-xunit&#34; Version=&#34;2.3.1&#34; /&gt;
   &lt;/ItemGroup&gt;
 
 &lt;/Project&gt;
-</code></pre>
-<p>An xUnit project doesn&rsquo;t need an entry point since it is run by xUnit instead, xUnit provides us with an entry point. We still want it to be executable against a specific runtime version, so we target <code>netcoreapp2.0</code> here as well.  Lastly, we have <code>IsPackable</code> set to false. <code>IsPackable</code> is used by NuGet packaging, so we are setting the project up so that even if you try to <code>dotnet pack</code> this project, is will not create a package. You can add this and set it to true when you want to ensure a project does get packed.</p>
+</code></pre><p>An xUnit project doesn&rsquo;t need an entry point since it is run by xUnit instead, xUnit provides us with an entry point. We still want it to be executable against a specific runtime version, so we target <code>netcoreapp2.0</code> here as well.  Lastly, we have <code>IsPackable</code> set to false. <code>IsPackable</code> is used by NuGet packaging, so we are setting the project up so that even if you try to <code>dotnet pack</code> this project, is will not create a package. You can add this and set it to true when you want to ensure a project does get packed.</p>
 <p>We see this time an <code>ItemGroup</code> section as well. This is used as a grouping mechanism and can contain lots of different settings. Specifically, in this project, we see 3 <code>PackageReference</code> tags. These are NuGet package references. We also see a
 <code>DotNetCliToolReference</code>. This is for packages that are development-time dependencies, specifically executables that run against your project. Usually, these enable functionality to run <code>dotnet mycommand</code> from a package <code>dotnet-mycommand</code>. In this case, it gives us <code>dotnet xunit</code>.</p>
 <p>And finally, an MVC web application looks like this from command <code>dotnet new MVC</code>:</p>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk.Web&quot;&gt;
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk.Web&#34;&gt;
 
   &lt;PropertyGroup&gt;
     &lt;TargetFramework&gt;netcoreapp2.0&lt;/TargetFramework&gt;
   &lt;/PropertyGroup&gt;
 
   &lt;ItemGroup&gt;
-    &lt;PackageReference Include=&quot;Microsoft.AspNetCore.All&quot; Version=&quot;2.0.5&quot; /&gt;
+    &lt;PackageReference Include=&#34;Microsoft.AspNetCore.All&#34; Version=&#34;2.0.5&#34; /&gt;
   &lt;/ItemGroup&gt;
 
   &lt;ItemGroup&gt;
-    &lt;DotNetCliToolReference Include=&quot;Microsoft.VisualStudio.Web.CodeGeneration.Tools&quot; Version=&quot;2.0.2&quot; /&gt;
+    &lt;DotNetCliToolReference Include=&#34;Microsoft.VisualStudio.Web.CodeGeneration.Tools&#34; Version=&#34;2.0.2&#34; /&gt;
   &lt;/ItemGroup&gt;
 
 &lt;/Project&gt;
-</code></pre>
-<p>The only new thing here is the <code>Sdk</code> attribute on the <code>&lt;Project /&gt;</code> tag has changed to <code>&quot;Microsoft.NET.Sdk.Web&quot;</code>. This sets up different MSBuild targets, and we get a slightly different set of defaults to ensure an AspNetCore application is built, which includes handling of some special directories and file types, like <code>wwwroot</code>, and <code>Views</code> containing those <code>cshtml</code> files.</p>
+</code></pre><p>The only new thing here is the <code>Sdk</code> attribute on the <code>&lt;Project /&gt;</code> tag has changed to <code>&quot;Microsoft.NET.Sdk.Web&quot;</code>. This sets up different MSBuild targets, and we get a slightly different set of defaults to ensure an AspNetCore application is built, which includes handling of some special directories and file types, like <code>wwwroot</code>, and <code>Views</code> containing those <code>cshtml</code> files.</p>
 <p>Now we will dive a bit more into these tags and some others that you might find useful at a basic level.</p>
 <h4 id="metadata">Metadata</h4>
 <p>There is a bunch of metadata information you may or may not want to add to your projects. Mostly, this is useful when publishing as source, or packages (more on NuGet later). Some of this information carries over to the <code>dll</code> files produced.</p>
-<pre><code>  &lt;PropertyGroup&gt;
+<pre tabindex="0"><code>  &lt;PropertyGroup&gt;
     &lt;Authors&gt;csMACnz&lt;/Authors&gt;
     &lt;NeutralLanguage&gt;en-NZ&lt;/NeutralLanguage&gt;
     &lt;Company&gt;csMACnz&lt;/Company&gt;
     &lt;Product&gt;MyApp&lt;/Product&gt;
     &lt;Copyright&gt;Copyright © csMACnz 2018&lt;/Copyright&gt;
   &lt;/PropertyGroup&gt;
-</code></pre>
-<h4 id="compiler-options">Compiler Options</h4>
+</code></pre><h4 id="compiler-options">Compiler Options</h4>
 <p>Those of you familiar with Compiler Warnings and Errors may be interested in the following available properties.  These typically go in the main <code>PropertyGroup</code> tag.</p>
-<pre><code>  &lt;PropertyGroup&gt;
+<pre tabindex="0"><code>  &lt;PropertyGroup&gt;
     &lt;DebugType&gt;portable&lt;/DebugType&gt;
     &lt;TreatWarningsAsErrors&gt;true&lt;/TreatWarningsAsErrors&gt;
   &lt;/PropertyGroup&gt;
-</code></pre>
-<p>You should also find most of the settings such as <code>NoWarn</code>, <code>WarningLevel</code> etc still work as expected (<a href="https://msdn.microsoft.com/en-us/library/jj715718.aspx)">https://msdn.microsoft.com/en-us/library/jj715718.aspx)</a>.</p>
+</code></pre><p>You should also find most of the settings such as <code>NoWarn</code>, <code>WarningLevel</code> etc still work as expected (<a href="https://msdn.microsoft.com/en-us/library/jj715718.aspx)">https://msdn.microsoft.com/en-us/library/jj715718.aspx)</a>.</p>
 <h4 id="frameworks-and-dependencies">Frameworks and dependencies</h4>
 <p>There are a few different references that we can use to reference other projects and packages. We have already seen two of these.</p>
-<pre><code>&lt;PackageReference Include=&quot;xunit&quot; Version=&quot;2.3.1&quot; /&gt;
-</code></pre>
-<p>This references a NuGet package called <code>xunit</code>, version <code>2.3.1</code>. This will resolve depending on how your NuGet configuration is set up. Likely it will come from nuget.org, but you can use a <a href="https://docs.microsoft.com/en-us/nuget/schema/nuget-config-file">nuget.config file</a> to change where it looks for your NuGet packages.</p>
-<pre><code>&lt;DotNetCliToolReference Include=&quot;dotnet-xunit&quot; Version=&quot;2.3.1&quot; /&gt;
-</code></pre>
-<p>This is also a NuGet package reference, but will a particular purpose of being a tool available at build time, rather than code available at compile and package time.</p>
-<pre><code>&lt;ProjectReference Include=&quot;..\MyNewLib\MyNewLib.csproj&quot; /&gt;
-</code></pre>
-<p>This is a reference to another project.</p>
+<pre tabindex="0"><code>&lt;PackageReference Include=&#34;xunit&#34; Version=&#34;2.3.1&#34; /&gt;
+</code></pre><p>This references a NuGet package called <code>xunit</code>, version <code>2.3.1</code>. This will resolve depending on how your NuGet configuration is set up. Likely it will come from nuget.org, but you can use a <a href="https://docs.microsoft.com/en-us/nuget/schema/nuget-config-file">nuget.config file</a> to change where it looks for your NuGet packages.</p>
+<pre tabindex="0"><code>&lt;DotNetCliToolReference Include=&#34;dotnet-xunit&#34; Version=&#34;2.3.1&#34; /&gt;
+</code></pre><p>This is also a NuGet package reference, but will a particular purpose of being a tool available at build time, rather than code available at compile and package time.</p>
+<pre tabindex="0"><code>&lt;ProjectReference Include=&#34;..\MyNewLib\MyNewLib.csproj&#34; /&gt;
+</code></pre><p>This is a reference to another project.</p>
 <p>You can add project and package references manually, or you can use the <code>dotnet add package ...</code> and <code>dotnet add reference ...</code> commands instead (see <code>dotnet add -h</code>).</p>
 <h4 id="targetframeworks">TargetFramework(s)</h4>
 <p>The <code>PropertyGroup</code> property <code>TargetFramwork</code> determines the (you guessed it) Target Framework your application or library targets. There is a companion <code>TargetFramworks</code> that lets you input multiple targets (semicolon-separated) and will allow you to target one or all frameworks when you restore, build, run, and (later) pack or publish.  If you specify multiple targets here, you will likely have to specify which target to run against later with <code>dotnet run -f netcoreapp2.0</code> etc.<br>
@@ -254,13 +245,12 @@ Both <code>TargetFramwork</code> and <code>TargetFramworks</code> support all th
 <p>If you are familiar with the previous <code>project.json</code> file, you may find it informative to read <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/project-json-to-csproj">A mapping between project.json and csproj properties</a>.</p>
 <p>Much more detail then I have gone into here can be found at <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/csproj">Additions to the csproj format for .NET Core</a>.</p>
 <h3 id="globaljson">global.json</h3>
-<pre><code>{
-  &quot;sdk&quot;: {
-    &quot;version&quot;: &quot;2.0.3&quot;
+<pre tabindex="0"><code>{
+  &#34;sdk&#34;: {
+    &#34;version&#34;: &#34;2.0.3&#34;
   }
 }
-</code></pre>
-<p>This is another magic file you may still find useful, to pin a project to a specific version of the .Net Core SDK. Especially useful since you can have multiple versions installed on the same machine</p>
+</code></pre><p>This is another magic file you may still find useful, to pin a project to a specific version of the .Net Core SDK. Especially useful since you can have multiple versions installed on the same machine</p>
 <p>Some little information on <code>global.json</code> is found <a href="https://docs.microsoft.com/en-us/dotnet/articles/core/tools/global-json">here</a>.</p>
 <p>If you are installing multiple versions, you may find this helpful, too.
 <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script">dotnet-install-script</a></p>

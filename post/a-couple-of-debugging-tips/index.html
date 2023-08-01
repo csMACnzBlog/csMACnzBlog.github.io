@@ -139,7 +139,7 @@
 <p>So you are writing a console app? Cool. Want to see the output? Of course, you do. But when you run it, the app pops up then disappears really quickly right? No? Have you a break point in the last line? Well, that&rsquo;s sensible.</p>
 <p>But what if you do not want to remember to put that break point in everytime git cleans your directory, or someone pulls the code for the first time?</p>
 <p>How about this?</p>
-<pre><code>class Program
+<pre tabindex="0"><code>class Program
 {
     static void Main(string[] args)
     {
@@ -148,9 +148,8 @@
         Console.ReadLine();
     }
 }
-</code></pre>
-<p>Nice trick! Now every time the app runs, it waits for a keypress to continue. But what about when you run the app for real. Damn! I didn&rsquo;t really want the app to wait for a key to exit&hellip; I&rsquo;ve got it!</p>
-<pre><code>class Program
+</code></pre><p>Nice trick! Now every time the app runs, it waits for a keypress to continue. But what about when you run the app for real. Damn! I didn&rsquo;t really want the app to wait for a key to exit&hellip; I&rsquo;ve got it!</p>
+<pre tabindex="0"><code>class Program
 {
     static void Main(string[] args)
     {
@@ -163,10 +162,9 @@
         }
     }
 }
-</code></pre>
-<p>Now, it will only stop if the debugger is attached. Perfect.</p>
+</code></pre><p>Now, it will only stop if the debugger is attached. Perfect.</p>
 <p>Performance overhead you say? Really? I wouldn&rsquo;t be worried but if you want we can do this:</p>
-<pre><code>class Program
+<pre tabindex="0"><code>class Program
 {
     static void Main(string[] args)
     {
@@ -176,7 +174,7 @@
         BreakOnDebug();
     }
 
-    [Conditional(&quot;DEBUG&quot;)]
+    [Conditional(&#34;DEBUG&#34;)]
     private void BreakOnDebug()
     {
         if (Debugger.IsAttached)
@@ -185,16 +183,15 @@
         }
     }
 }
-</code></pre>
-<p>Happy?</p>
+</code></pre><p>Happy?</p>
 <p>You can also try using <code>if (Debugger.IsAttached) {Debugger.Break(); }</code> instead of ReadLine to force the code to actually stop and to start debugging the state of your application instead. Although to be fair, at the end of the app, there probably isn&rsquo;t much to see.</p>
 <h3 id="command-line-attach">Command-line attach</h3>
 <p>But I really want to be able to run this at the command line, from a specific folder, and play with the arguments. And I just found it crashes for some reason.  Well, I let it attach to VS automatically (the dialog does come up), but what I really want to do, is run it attached to the debugger and step through.  How about this?</p>
-<pre><code>class Program
+<pre tabindex="0"><code>class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine(&quot;Attach debugger and press any key to continue&quot;);
+        Console.WriteLine(&#34;Attach debugger and press any key to continue&#34;);
         Console.ReadLine(); 
 
         //breakpoint goes here
@@ -203,10 +200,9 @@
         ...    
     }
 }
-</code></pre>
-<p>Now I can run my app and it stops before starting.  I can use the <em>debug =&gt; attach to process&hellip;</em> menu it Visual Studio to attach, like I would to an IIS site, but instead to the running instance of my console app. Easy. Press a key in the console and any of my breakpoints and I can step through the specific parameters running from the specific folder and get the bottom of this bug.</p>
+</code></pre><p>Now I can run my app and it stops before starting.  I can use the <em>debug =&gt; attach to process&hellip;</em> menu it Visual Studio to attach, like I would to an IIS site, but instead to the running instance of my console app. Easy. Press a key in the console and any of my breakpoints and I can step through the specific parameters running from the specific folder and get the bottom of this bug.</p>
 <p>The only catch here is to not forget to remove the code when not running debug builds.  Or we could use the same trick again:</p>
-<pre><code>class Program
+<pre tabindex="0"><code>class Program
 {
     static void Main(string[] args)
     {
@@ -218,15 +214,14 @@
         ...    
     }
     
-    [Conditional(&quot;DEBUG&quot;)]
+    [Conditional(&#34;DEBUG&#34;)]
     private void StopAndWaitOnDebug()
     {
-        Console.WriteLine(&quot;Attach debugger and press any key to continue&quot;);
+        Console.WriteLine(&#34;Attach debugger and press any key to continue&#34;);
         Console.ReadLine();
     }
 }
-</code></pre>
-<p>You can also try using <code>if (Debugger.IsAttached) {Debugger.Break(); }</code> as well after the ReadLine if you really wanted to.</p>
+</code></pre><p>You can also try using <code>if (Debugger.IsAttached) {Debugger.Break(); }</code> as well after the ReadLine if you really wanted to.</p>
 <p>So there you go. Some nice and useful ways to use the <code>Console.ReadLine</code> method for debugging.</p>
 </section>
         

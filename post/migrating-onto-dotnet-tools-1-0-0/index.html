@@ -144,51 +144,48 @@
 <p>The biggest difference is that instead of using a <code>project.json</code> file, the new tooling now uses a <code>.csproj</code> file instead.  It will take a few more posts to go into the differences and re-learn how this works, so for now lets just get something building.</p>
 <h3 id="a-v-previous-dotnet-new">A v-previous dotnet new</h3>
 <p>I have a standard project created with <code>dotnet new</code> in my folder. This is an app (the default when you use <code>new</code> without parameters) and has two files: <code>project.json</code> and <code>program.cs</code>.</p>
-<pre><code class="language-cs">using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MyNewApp
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            Console.WriteLine(&quot;Hello World!&quot;);
-            if(!Console.IsInputRedirected){
-            Console.ReadKey();
-            }
-        }
-    }
-}
-</code></pre>
-<pre><code class="language-json">{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;emitEntryPoint&quot;: true,
-    &quot;debugType&quot;: &quot;portable&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;Microsoft.NETCore.App&quot;: {
-      &quot;type&quot;: &quot;platform&quot;,
-      &quot;version&quot;: &quot;1.0.0&quot;
-    }
-  },
-
-  &quot;frameworks&quot;: {
-    &quot;netcoreapp1.0&quot;: {
-      &quot;imports&quot;: &quot;dnxcore50&quot;
-    }
-  }
-}
-</code></pre>
-<p>Now that I have VS 2016 installed, I can&rsquo;t build this project. I get an error:</p>
-<pre><code>MSBUILD : error MSB1003: Specify a project or solution file. The current working directory does not contain a project or solution file.
-</code></pre>
-<h3 id="migration">Migration</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Collections.Generic;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Linq;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> MyNewApp
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            Console.WriteLine(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(!Console.IsInputRedirected){
+</span></span><span style="display:flex;"><span>            Console.ReadKey();
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;1.0.0-*&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;buildOptions&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;emitEntryPoint&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;debugType&#34;</span>: <span style="color:#e6db74">&#34;portable&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;dependencies&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Microsoft.NETCore.App&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;platform&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;1.0.0&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;frameworks&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;netcoreapp1.0&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;imports&#34;</span>: <span style="color:#e6db74">&#34;dnxcore50&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now that I have VS 2016 installed, I can&rsquo;t build this project. I get an error:</p>
+<pre tabindex="0"><code>MSBUILD : error MSB1003: Specify a project or solution file. The current working directory does not contain a project or solution file.
+</code></pre><h3 id="migration">Migration</h3>
 <p>Luckily, there is a <code>dotnet migrate</code> command. If you run <code>dotnet help migrate</code> you get some useful usage information:</p>
-<pre><code>.NET Migrate Command
+<pre tabindex="0"><code>.NET Migrate Command
 
 Usage: dotnet migrate [arguments] [options]
 
@@ -209,20 +206,18 @@ Options:
   -r|--report-file              Output migration report to the given file in addition to the console.
   --format-report-file-json     Output migration report file as json rather than user messages.
   --skip-backup                 Skip moving project.json, global.json, and *.xproj to a `backup` directory after successful migration.
-</code></pre>
-<p>So as you can see, you can migrate a solution, a project, or use a <code>global.json</code> to migrate multiple projects. You can even use <code>-t</code> to migrate as a specific type of project. Since this defaults to the same template used for <code>dotnet new</code>, and that I am running this from the project folder, I can just use <code>dotnet migrate</code>.</p>
+</code></pre><p>So as you can see, you can migrate a solution, a project, or use a <code>global.json</code> to migrate multiple projects. You can even use <code>-t</code> to migrate as a specific type of project. Since this defaults to the same template used for <code>dotnet new</code>, and that I am running this from the project folder, I can just use <code>dotnet migrate</code>.</p>
 <p>This produces the following results:</p>
-<pre><code>Project dotnetprevious migration succeeded (C:\dev\temp\dotnetprevious).
+<pre tabindex="0"><code>Project dotnetprevious migration succeeded (C:\dev\temp\dotnetprevious).
 Summary
 Total Projects: 1
 Succeeded Projects: 1
 Failed Projects: 0
 
-The project migration has finished. Please visit https://aka.ms/coremigration to report any issues you've encountered or ask for help.
+The project migration has finished. Please visit https://aka.ms/coremigration to report any issues you&#39;ve encountered or ask for help.
 Files backed up to C:\dev\temp\dotnetprevious\backup\
-</code></pre>
-<p>Let&rsquo;s see where we are:</p>
-<pre><code>dotnetprevious
+</code></pre><p>Let&rsquo;s see where we are:</p>
+<pre tabindex="0"><code>dotnetprevious
  |-- dotnetprevious.csproj
  |-- Program.cs
  |-- backup
@@ -230,19 +225,16 @@ Files backed up to C:\dev\temp\dotnetprevious\backup\
  |
  +-- obj
       |-- ...
-</code></pre>
-<p>So we can see that our <code>project.json</code> has been moved out of the way and replaces with a <code>.csproj</code> file. We still have our <code>project.json</code> file to refer to as well, in case anything is missing.</p>
+</code></pre><p>So we can see that our <code>project.json</code> has been moved out of the way and replaces with a <code>.csproj</code> file. We still have our <code>project.json</code> file to refer to as well, in case anything is missing.</p>
 <h3 id="build-it">Build it</h3>
 <p>Now we have migrated, we can restore, build and run:</p>
-<pre><code class="language-powershell">dotnet restore
-dotnet build
-dotnet run
-</code></pre>
-<p>Success!</p>
-<pre><code>Hello World!
-</code></pre>
-<h3 id="the-csproj">The csproj</h3>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>dotnet restore
+</span></span><span style="display:flex;"><span>dotnet build
+</span></span><span style="display:flex;"><span>dotnet run
+</span></span></code></pre></div><p>Success!</p>
+<pre tabindex="0"><code>Hello World!
+</code></pre><h3 id="the-csproj">The csproj</h3>
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk&#34;&gt;
 
   &lt;PropertyGroup&gt;
     &lt;TargetFramework&gt;netcoreapp1.0&lt;/TargetFramework&gt;
@@ -255,23 +247,21 @@ dotnet run
   &lt;/PropertyGroup&gt;
 
 &lt;/Project&gt;
-</code></pre>
-<p>A pretty simple xml file, with a property group for some of the (familiar) properties we might want set on our project. We see that <code>TargetFramework</code> is netcoreapp1.0, which is what makes this a new <code>.csproj</code> vs the older .<code>csproj</code> files.</p>
+</code></pre><p>A pretty simple xml file, with a property group for some of the (familiar) properties we might want set on our project. We see that <code>TargetFramework</code> is netcoreapp1.0, which is what makes this a new <code>.csproj</code> vs the older .<code>csproj</code> files.</p>
 <h3 id="conclusion">Conclusion</h3>
 <p>Simple migration seems to work, and is simple to apply. I am hoping as more complex project migration comes around it is just as easy. Don&rsquo;t forget that <code>-t</code> argument to use the right app, web, lib or test template as you migrate if required.</p>
 <p><del>Also be aware that after migration, everyone will have to move to Visual Studio 2017, and the new dotnet 1.0.0 sdk before they can now build and run this now migrated project.</del></p>
 <h3 id="update-133">Update (13/3)</h3>
 <p>I have since learned that you can safely have all versions installed and running on the same machine. To make this work, just specify the correct sdk version in your global.json file, and the correct version of the sdk will be used.</p>
-<pre><code>{
-  &quot;projects&quot;: [
-    &quot;.&quot;
+<pre tabindex="0"><code>{
+  &#34;projects&#34;: [
+    &#34;.&#34;
   ],
-  &quot;sdk&quot;: {
-    &quot;version&quot;: &quot;1.0.0-preview2-003131&quot;
+  &#34;sdk&#34;: {
+    &#34;version&#34;: &#34;1.0.0-preview2-003131&#34;
   }
 }
-</code></pre>
-<p>There is also a separate setting used for <code>launchsettings.json</code>, but I won&rsquo;t give specifics on that since I am unfamiliar with it.</p>
+</code></pre><p>There is also a separate setting used for <code>launchsettings.json</code>, but I won&rsquo;t give specifics on that since I am unfamiliar with it.</p>
 </section>
         
         <section class="share">

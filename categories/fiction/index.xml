@@ -24,306 +24,292 @@
 &lt;p&gt;Luckily for Jack, he had just spent the last few months at Uni learning java and python on Linux and was a pro at the command line stuff. His personal machine ran Windows too so he felt pretty comfortable now staring at the cold black shell covering most of his windows desktop.&lt;/p&gt;
 &lt;p&gt;Joe had at least told him where to install dotnet from (&lt;a href=&#34;https://www.microsoft.com/net/core&#34;&gt;www.microsoft.com/net/core&lt;/a&gt;) and it practically installed itself. It was no &lt;code&gt;apt-get install&lt;/code&gt;, but hey, it&amp;rsquo;s for Windows people. He had also been told to start with the command &amp;lsquo;dotnet&amp;rsquo; so he was all set.&lt;/p&gt;
 &lt;p&gt;Jack started typing and looked at the results. First, he typed &lt;code&gt;dotnet&lt;/code&gt; to see what it would tell him.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr&amp;gt;dotnet
-
-Usage: dotnet [options]
-Usage: dotnet [path-to-application]
-
-Options:
-  -h|--help            Display help.
-  --version         Display version.
-
-path-to-application:
-  The path to an application .dll file to execute.
-  
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;It looks like &amp;lsquo;dotnet &amp;ndash;help&amp;rsquo; is the right next instruction to find out more&amp;rdquo;, he thought to himself, &amp;ldquo;so&amp;hellip;&amp;rdquo;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr&amp;gt;dotnet --help
-.NET Command Line Tools (2.0.0)
-Usage: dotnet [runtime-options] [path-to-application]
-Usage: dotnet [sdk-options] [command] [arguments] [command-options]
-
-path-to-application:
-  The path to an application .dll file to execute.
-
-SDK commands:
-  new              Initialize .NET projects.
-  restore          Restore dependencies specified in the .NET project.
-  run              Compiles and immediately executes a .NET project.
-  build            Builds a .NET project.
-  publish          Publishes a .NET project for deployment (including the runtime).
-  test             Runs unit tests using the test runner specified in the project.
-  pack             Creates a NuGet package.
-  migrate          Migrates a project.json based project to a msbuild based project.
-  clean            Clean build output(s).
-  sln              Modify solution (SLN) files.
-  add              Add reference to the project.
-  remove           Remove reference from the project.
-  list             List reference in the project.
-  nuget            Provides additional NuGet commands.
-  msbuild          Runs Microsoft Build Engine (MSBuild).
-  vstest           Runs Microsoft Test Execution Command Line Tool.
-
-Common options:
-  -v|--verbosity        Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
-  -h|--help             Show help.
-
-Run &#39;dotnet COMMAND --help&#39; for more information on a command.
-
-sdk-options:
-  --version        Display .NET Core SDK version.
-  --info           Display .NET Core information.
-  -d|--diagnostics Enable diagnostic output.
-
-runtime-options:
-  --additionalprobingpath &amp;lt;path&amp;gt;    Path containing probing policy and assemblies to probe for.
-  --fx-version &amp;lt;version&amp;gt;            Version of the installed Shared Framework to use to run the application.
-  --roll-forward-on-no-candidate-fx Roll forward on no candidate shared framework is enabled.
-  --additional-deps &amp;lt;path&amp;gt;          Path to additonal deps.json file.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;Well, that is a lot of information, where to start?&amp;rdquo; The first instruction &lt;code&gt;new&lt;/code&gt; seemed to jump out as a reasonable place to start. but first, somewhere to put the files:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr&amp;gt;mkdir internTest
-C:\Users\jackr&amp;gt;cd internTest
-C:\Users\jackr\internTest&amp;gt;dotnet new
-Usage: new [options]
-
-Options:
-  -h, --help          Displays help for this command.
-  -l, --list          Lists templates containing the specified name. If no name is specified, lists all templates.
-  -n, --name          The name for the output being created. If no name is specified, the name of the current directory is used.
-  -o, --output        Location to place the generated output.
-  -i, --install       Installs a source or a template pack.
-  -u, --uninstall     Uninstalls a source or a template pack.
-  --type              Filters templates based on available types. Predefined values are &amp;quot;project&amp;quot;, &amp;quot;item&amp;quot; or &amp;quot;other&amp;quot;.
-  --force             Forces content to be generated even if it would change existing files.
-  -lang, --language   Specifies the language of the template to create.
-
-
-Templates                                         Short Name       Language          Tags
---------------------------------------------------------------------------------------------------------
-Console Application                               console          [C#], F#, VB      Common/Console
-Class library                                     classlib         [C#], F#, VB      Common/Library
-Unit Test Project                                 mstest           [C#], F#, VB      Test/MSTest
-xUnit Test Project                                xunit            [C#], F#, VB      Test/xUnit
-ASP.NET Core Empty                                web              [C#], F#          Web/Empty
-ASP.NET Core Web App (Model-View-Controller)      mvc              [C#], F#          Web/MVC
-ASP.NET Core Web App                              razor            [C#]              Web/MVC/Razor Pages
-ASP.NET Core with Angular                         angular          [C#]              Web/MVC/SPA
-ASP.NET Core with React.js                        react            [C#]              Web/MVC/SPA
-ASP.NET Core with React.js and Redux              reactredux       [C#]              Web/MVC/SPA
-ASP.NET Core Web API                              webapi           [C#], F#          Web/WebAPI
-global.json file                                  globaljson                         Config
-Nuget Config                                      nugetconfig                        Config
-Web Config                                        webconfig                          Config
-Solution File                                     sln                                Solution
-Razor Page                                        page                               Web/ASP.NET
-MVC ViewImports                                   viewimports                        Web/ASP.NET
-MVC ViewStart                                     viewstart                          Web/ASP.NET
-
-
-Examples:
-    dotnet new mvc --auth Individual
-    dotnet new xunit
-    dotnet new --help
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;Right, I have to tell it what template to use at least, and I can pick C#, F# or even VB. (what is VB?)&amp;rdquo;  Jack had played around a bit with visual studio, so he knew that there were projects and solutions, and websites, console applications and tests. Figuring a website might be too complicated, he decided to give the Console Application option a go:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;dotnet new console
-The template &amp;quot;Console Application&amp;quot; was created successfully.
-
-Processing post-creation actions...
-Running &#39;dotnet restore&#39; on C:\Users\jackr\internTest\internTest.csproj...
-  Restoring packages for C:\Users\jackr\internTest\internTest.csproj...
-  Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.props.
-  Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.targets.
-  Restore completed in 261.64 ms for C:\Users\jackr\internTest\internTest.csproj.
-
-
-Restore succeeded.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;What&amp;rsquo;s it done, I wonder?&amp;rdquo;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;tree /F /A
-Folder PATH listing for volume Windows
-Volume serial number is 000000D8 BC96:4BCD
-C:.
-|   internTest.csproj
-|   Program.cs
-|
-\---obj
-        internTest.csproj.nuget.cache
-        internTest.csproj.nuget.g.props
-        internTest.csproj.nuget.g.targets
-        project.assets.json
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Jack could see a &lt;code&gt;Program.cs&lt;/code&gt; which must be the console application, an &lt;code&gt;internTest.csproj&lt;/code&gt; (&amp;ldquo;which must have been named after the parent folder&amp;rdquo;, he thought) and an &lt;code&gt;obj&lt;/code&gt; folder full of other files (&amp;quot;&amp;lsquo;obj&amp;rsquo; and &amp;lsquo;bin are build outputs, from memory&amp;quot;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Usage: dotnet [options]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Usage: dotnet [path-to-application]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Options:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -h|--help            Display help.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --version         Display version.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;path-to-application:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  The path to an application .dll file to execute.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;It looks like &amp;lsquo;dotnet &amp;ndash;help&amp;rsquo; is the right next instruction to find out more&amp;rdquo;, he thought to himself, &amp;ldquo;so&amp;hellip;&amp;rdquo;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet --help&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.NET Command Line Tools (2.0.0)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Usage: dotnet [runtime-options] [path-to-application]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Usage: dotnet [sdk-options] [command] [arguments] [command-options]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;path-to-application:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  The path to an application .dll file to execute.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;SDK commands:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  new              Initialize .NET projects.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  restore          Restore dependencies specified in the .NET project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  run              Compiles and immediately executes a .NET project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  build            Builds a .NET project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  publish          Publishes a .NET project for deployment (including the runtime).
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  test             Runs unit tests using the test runner specified in the project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  pack             Creates a NuGet package.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  migrate          Migrates a project.json based project to a msbuild based project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  clean            Clean build output(s).
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  sln              Modify solution (SLN) files.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  add              Add reference to the project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  remove           Remove reference from the project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  list             List reference in the project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  nuget            Provides additional NuGet commands.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  msbuild          Runs Microsoft Build Engine (MSBuild).
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  vstest           Runs Microsoft Test Execution Command Line Tool.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Common options:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -v|--verbosity        Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -h|--help             Show help.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Run &amp;#39;dotnet COMMAND --help&amp;#39; for more information on a command.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sdk-options:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --version        Display .NET Core SDK version.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --info           Display .NET Core information.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -d|--diagnostics Enable diagnostic output.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;runtime-options:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --additionalprobingpath &amp;lt;path&amp;gt;    Path containing probing policy and assemblies to probe for.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --fx-version &amp;lt;version&amp;gt;            Version of the installed Shared Framework to use to run the application.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --roll-forward-on-no-candidate-fx Roll forward on no candidate shared framework is enabled.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --additional-deps &amp;lt;path&amp;gt;          Path to additonal deps.json file.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;Well, that is a lot of information, where to start?&amp;rdquo; The first instruction &lt;code&gt;new&lt;/code&gt; seemed to jump out as a reasonable place to start. but first, somewhere to put the files:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;mkdir internTest&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;cd internTest&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet new&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Usage: new [options]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Options:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -h, --help          Displays help for this command.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -l, --list          Lists templates containing the specified name. If no name is specified, lists all templates.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -n, --name          The name for the output being created. If no name is specified, the name of the current directory is used.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -o, --output        Location to place the generated output.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -i, --install       Installs a source or a template pack.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -u, --uninstall     Uninstalls a source or a template pack.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --type              Filters templates based on available types. Predefined values are &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;project&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;item&amp;#34;&lt;/span&gt; or &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;other&amp;#34;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --force             Forces content to be generated even if it would change existing files.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -lang, --language   Specifies the language of the template to create.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Templates                                         Short Name       Language          Tags
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;--------------------------------------------------------------------------------------------------------
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Console Application                               console          [C#], F#, VB      Common/Console
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Class library                                     classlib         [C#], F#, VB      Common/Library
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Unit Test Project                                 mstest           [C#], F#, VB      Test/MSTest
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xUnit Test Project                                xunit            [C#], F#, VB      Test/xUnit
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ASP.NET Core Empty                                web              [C#], F#          Web/Empty
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ASP.NET Core Web App (Model-View-Controller)      mvc              [C#], F#          Web/MVC
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ASP.NET Core Web App                              razor            [C#]              Web/MVC/Razor Pages
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ASP.NET Core with Angular                         angular          [C#]              Web/MVC/SPA
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ASP.NET Core with React.js                        react            [C#]              Web/MVC/SPA
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ASP.NET Core with React.js and Redux              reactredux       [C#]              Web/MVC/SPA
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ASP.NET Core Web API                              webapi           [C#], F#          Web/WebAPI
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;global.json file                                  globaljson                         Config
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Nuget Config                                      nugetconfig                        Config
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Web Config                                        webconfig                          Config
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Solution File                                     sln                                Solution
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Razor Page                                        page                               Web/ASP.NET
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;MVC ViewImports                                   viewimports                        Web/ASP.NET
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;MVC ViewStart                                     viewstart                          Web/ASP.NET
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Examples:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    dotnet new mvc --auth Individual
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    dotnet new xunit
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    dotnet new --help
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;Right, I have to tell it what template to use at least, and I can pick C#, F# or even VB. (what is VB?)&amp;rdquo;  Jack had played around a bit with visual studio, so he knew that there were projects and solutions, and websites, console applications and tests. Figuring a website might be too complicated, he decided to give the Console Application option a go:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet new console&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;The template &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Console Application&amp;#34;&lt;/span&gt; was created successfully.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Processing post-creation actions...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Running &amp;#39;dotnet restore&amp;#39; on C:\Users\jackr\internTest\internTest.csproj...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Restoring packages for C:\Users\jackr\internTest\internTest.csproj...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.props.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.targets.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Restore completed in 261.64 ms for C:\Users\jackr\internTest\internTest.csproj.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Restore succeeded.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;What&amp;rsquo;s it done, I wonder?&amp;rdquo;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;tree /F /A&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Folder PATH listing for volume Windows
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Volume serial number is 000000D8 BC96:4BCD
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|   internTest.csproj
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|   Program.cs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;\---obj
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        internTest.csproj.nuget.cache
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        internTest.csproj.nuget.g.props
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        internTest.csproj.nuget.g.targets
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        project.assets.json
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Jack could see a &lt;code&gt;Program.cs&lt;/code&gt; which must be the console application, an &lt;code&gt;internTest.csproj&lt;/code&gt; (&amp;ldquo;which must have been named after the parent folder&amp;rdquo;, he thought) and an &lt;code&gt;obj&lt;/code&gt; folder full of other files (&amp;quot;&amp;lsquo;obj&amp;rsquo; and &amp;lsquo;bin are build outputs, from memory&amp;quot;).&lt;/p&gt;
 &lt;p&gt;The next instruction in the original list of commands was &lt;code&gt;restore&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jack\internTest&amp;gt;dotnet restore
-  Restore completed in 22.69 ms for C:\Users\jackr\internTest\internTest.csproj.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;&amp;lsquo;Restore completed&amp;rsquo;, that&amp;rsquo;s what is said after I ran &amp;lsquo;dotnet new&amp;rsquo;, so it must have run that for me automatically.&amp;rdquo; The next two options were &lt;code&gt;run&lt;/code&gt; and &lt;code&gt;build&lt;/code&gt;. Since Jack was following the order given, he figured he might as well use &lt;code&gt;run&lt;/code&gt; first and see what happens.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;dotnet run
-Hello World!
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;Alright, maybe?&amp;rdquo; He figured it best to look at that &lt;code&gt;Program.cs&lt;/code&gt; file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &amp;rsquo;notepad&amp;rsquo;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;using System;
-
-namespace internTest
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine(&amp;quot;Hello World!&amp;quot;);
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Guessing the program has worked as expected he moved onto the next command, &lt;code&gt;build&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;dotnet build
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  internTest -&amp;gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\internTest.dll
-
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:05.12
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;So &amp;lsquo;build&amp;rsquo; appears to do what you would think it does.  Moving on to &amp;lsquo;publish&amp;rsquo;:&amp;rdquo;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;dotnet publish
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  internTest -&amp;gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\internTest.dll
-  internTest -&amp;gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\publish\
-C:\Users\jackr\internTest&amp;gt;tree /F /A
-Folder PATH listing for volume Windows
-Volume serial number is 00000093 BC96:4BCD
-C:.
-|   internTest.csproj
-|   Program.cs
-|
-+---bin
-|   \---Debug
-|       \---netcoreapp2.0
-|           |   internTest.deps.json
-|           |   internTest.dll
-|           |   internTest.pdb
-|           |   internTest.runtimeconfig.dev.json
-|           |   internTest.runtimeconfig.json
-|           |
-|           \---publish
-|                   internTest.deps.json
-|                   internTest.dll
-|                   internTest.pdb
-|                   internTest.runtimeconfig.json
-|
-\---obj
-    |   internTest.csproj.nuget.cache
-    |   internTest.csproj.nuget.g.props
-    |   internTest.csproj.nuget.g.targets
-    |   project.assets.json
-    |
-    \---Debug
-        \---netcoreapp2.0
-                internTest.AssemblyInfo.cs
-                internTest.AssemblyInfoInputs.cache
-                internTest.csproj.CoreCompileInputs.cache
-                internTest.csproj.FileListAbsolute.txt
-                internTest.dll
-                internTest.pdb
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;ldquo;That has made a publish folder with a &amp;lsquo;dll&amp;rsquo; in it, but I expected an &amp;rsquo;exe&amp;rsquo;. I wonder if I can find out more on publish&amp;hellip;&amp;rdquo;. He tried &lt;code&gt;dotnet help publish&lt;/code&gt;. For a reason totally unknown to Jack, this launched a web browser window to &lt;a href=&#34;https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x&#34;&gt;https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x&lt;/a&gt; displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&amp;rsquo;t take him away from the shell, he tried &lt;code&gt;dotnet publish --help&lt;/code&gt; instead.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;dotnet publish --help
-Usage: dotnet publish [options]
-
-Options:
-  -h, --help                            Show help information.
-  -o, --output &amp;lt;OUTPUT_DIR&amp;gt;             Output directory in which to place the published artifacts.
-  -f, --framework &amp;lt;FRAMEWORK&amp;gt;           Target framework to publish for. The target framework has to be specified in the project file.
-  -r, --runtime &amp;lt;RUNTIME_IDENTIFIER&amp;gt;    Publish the project for a given runtime. This is used when creating self-contained deployment. Default is to publish a framework-dependent app.
-  -c, --configuration &amp;lt;CONFIGURATION&amp;gt;   Configuration to use for building the project.  Default for most projects is  &amp;quot;Debug&amp;quot;.
-  --version-suffix &amp;lt;VERSION_SUFFIX&amp;gt;     Defines the value for the $(VersionSuffix) property in the project.
-  --manifest &amp;lt;manifest.xml&amp;gt;             The path to a target manifest file that contains the list of packages to be excluded from the publish step.
-  --self-contained                      Publish the .NET Core runtime with your application so the runtime doesn&#39;t need to be installed on the target machine. Defaults to &#39;true&#39; if a runtime identifier is specified.
-  --no-restore                          Does not do an implicit restore when executing the command.
-  -v, --verbosity                       Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
-  --no-dependencies                     Set this flag to ignore project to project references and only restore the root project.
-  --force                               Set this flag to force all dependencies to be resolved even if the last restore was successful. This is equivalent to deleting project.assets.json.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There were at least two useful finds in this bunch: &lt;code&gt;--output&lt;/code&gt; or &lt;code&gt;-o&lt;/code&gt; would let him choose a different location to publish to. &lt;code&gt;--self-contained&lt;/code&gt; seemed like it might give him an &lt;code&gt;exe&lt;/code&gt;, perhaps.  Jack tried a few combinations, which resulted in some errors. He tried to correct them as he went.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;dotnet publish -o C:\publish\interntestoutput --self-contained
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-C:\Program Files\dotnet\sdk\2.0.0\Sdks\Microsoft.NET.Sdk\build\Microsoft.NET.RuntimeIdentifierInference.targets(116,5): error : It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier.  Please either specify a RuntimeIdentifier or set SelfContained to false. [C:\Users\jackr\internTest\internTest.csproj]
-
-C:\Users\jackr\internTest&amp;gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r windows
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\build\netcoreapp2.0\Microsoft.NETCore.App.targets(19,5): error : Project is targeting runtime &#39;windows&#39; but did not resolve any runtime-specific packages for the &#39;Microsoft.NETCore.App&#39; package.  This runtime may not be supported by .NET Core. [C:\Users\mclea\internTest\internTest.csproj]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So firstly &lt;code&gt;It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier&lt;/code&gt; seems to be a thing. and &lt;code&gt;windows&lt;/code&gt; as a value results in &lt;code&gt;Project is targeting runtime &#39;windows&#39; but did not resolve any runtime-specific packages for the &#39;Microsoft.NETCore.App&#39; package&lt;/code&gt;. After going back to that web page that launched when he typed in &lt;code&gt;dotnet help publish&lt;/code&gt; he found more info on that option:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jack\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet restore&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Restore completed in 22.69 ms for C:\Users\jackr\internTest\internTest.csproj.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;&amp;lsquo;Restore completed&amp;rsquo;, that&amp;rsquo;s what is said after I ran &amp;lsquo;dotnet new&amp;rsquo;, so it must have run that for me automatically.&amp;rdquo; The next two options were &lt;code&gt;run&lt;/code&gt; and &lt;code&gt;build&lt;/code&gt;. Since Jack was following the order given, he figured he might as well use &lt;code&gt;run&lt;/code&gt; first and see what happens.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet run&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Hello World!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;Alright, maybe?&amp;rdquo; He figured it best to look at that &lt;code&gt;Program.cs&lt;/code&gt; file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &amp;rsquo;notepad&amp;rsquo;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; System;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;namespace&lt;/span&gt; internTest
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Program&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Main(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;[] args)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            Console.WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello World!&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Guessing the program has worked as expected he moved onto the next command, &lt;code&gt;build&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet build&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Copyright (C) Microsoft Corporation. All rights reserved.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  internTest -&amp;gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\internTest.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Build succeeded.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    0 Warning(s)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    0 Error(s)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Time&lt;/span&gt; Elapsed 00:00:05.12
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;So &amp;lsquo;build&amp;rsquo; appears to do what you would think it does.  Moving on to &amp;lsquo;publish&amp;rsquo;:&amp;rdquo;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet publish&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Copyright (C) Microsoft Corporation. All rights reserved.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  internTest -&amp;gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\internTest.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  internTest -&amp;gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\publish\
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;tree /F /A&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Folder PATH listing for volume Windows
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Volume serial number is 00000093 BC96:4BCD
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|   internTest.csproj
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|   Program.cs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;+---bin
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|   \---Debug
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|       \---netcoreapp2.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|           |   internTest.deps.json
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|           |   internTest.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|           |   internTest.pdb
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|           |   internTest.runtimeconfig.dev.json
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|           |   internTest.runtimeconfig.json
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|           |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|           \---publish
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|                   internTest.deps.json
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|                   internTest.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|                   internTest.pdb
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|                   internTest.runtimeconfig.json
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;\---obj
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    |   internTest.csproj.nuget.cache
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    |   internTest.csproj.nuget.g.props
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    |   internTest.csproj.nuget.g.targets
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    |   project.assets.json
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    \---Debug
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        \---netcoreapp2.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                internTest.AssemblyInfo.cs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                internTest.AssemblyInfoInputs.cache
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                internTest.csproj.CoreCompileInputs.cache
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                internTest.csproj.FileListAbsolute.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                internTest.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                internTest.pdb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;ldquo;That has made a publish folder with a &amp;lsquo;dll&amp;rsquo; in it, but I expected an &amp;rsquo;exe&amp;rsquo;. I wonder if I can find out more on publish&amp;hellip;&amp;rdquo;. He tried &lt;code&gt;dotnet help publish&lt;/code&gt;. For a reason totally unknown to Jack, this launched a web browser window to &lt;a href=&#34;https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x&#34;&gt;https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x&lt;/a&gt; displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&amp;rsquo;t take him away from the shell, he tried &lt;code&gt;dotnet publish --help&lt;/code&gt; instead.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet publish --help&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Usage: dotnet publish [options]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Options:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -h, --help                            Show help information.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -o, --output &amp;lt;OUTPUT_DIR&amp;gt;             Output directory in which to place the published artifacts.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -f, --framework &amp;lt;FRAMEWORK&amp;gt;           Target framework to publish for. The target framework has to be specified in the project file.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -r, --runtime &amp;lt;RUNTIME_IDENTIFIER&amp;gt;    Publish the project for a given runtime. This is used when creating self-contained deployment. Default is to publish a framework-dependent app.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -c, --configuration &amp;lt;CONFIGURATION&amp;gt;   Configuration to use for building the project.  Default for most projects is  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Debug&amp;#34;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --version-suffix &amp;lt;VERSION_SUFFIX&amp;gt;     Defines the value for the $(VersionSuffix) property in the project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --manifest &amp;lt;manifest.xml&amp;gt;             The path to a target manifest file that contains the list of packages to be excluded from the publish step.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --self-contained                      Publish the .NET Core runtime with your application so the runtime doesn&amp;#39;t need to be installed on the target machine. Defaults to &amp;#39;true&amp;#39; if a runtime identifier is specified.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --no-restore                          Does not do an implicit restore when executing the command.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -v, --verbosity                       Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --no-dependencies                     Set this flag to ignore project to project references and only restore the root project.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --force                               Set this flag to force all dependencies to be resolved even if the last restore was successful. This is equivalent to deleting project.assets.json.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There were at least two useful finds in this bunch: &lt;code&gt;--output&lt;/code&gt; or &lt;code&gt;-o&lt;/code&gt; would let him choose a different location to publish to. &lt;code&gt;--self-contained&lt;/code&gt; seemed like it might give him an &lt;code&gt;exe&lt;/code&gt;, perhaps.  Jack tried a few combinations, which resulted in some errors. He tried to correct them as he went.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet publish -o C:\publish\interntestoutput --self-contained&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Copyright (C) Microsoft Corporation. All rights reserved.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Program&lt;span style=&#34;color:#75715e&#34;&gt; Files\dotnet\sdk\2.0.0\Sdks\Microsoft.NET.Sdk\build\Microsoft.NET.RuntimeIdentifierInference.targets(116,5): error : It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier.  Please either specify a RuntimeIdentifier or set SelfContained to false. [C:\Users\jackr\internTest\internTest.csproj]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r windows&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Copyright (C) Microsoft Corporation. All rights reserved.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Program&lt;span style=&#34;color:#75715e&#34;&gt; Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\build\netcoreapp2.0\Microsoft.NETCore.App.targets(19,5): error : Project is targeting runtime &amp;#39;windows&amp;#39; but did not resolve any runtime-specific packages for the &amp;#39;Microsoft.NETCore.App&amp;#39; package.  This runtime may not be supported by .NET Core. [C:\Users\mclea\internTest\internTest.csproj]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So firstly &lt;code&gt;It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier&lt;/code&gt; seems to be a thing. and &lt;code&gt;windows&lt;/code&gt; as a value results in &lt;code&gt;Project is targeting runtime &#39;windows&#39; but did not resolve any runtime-specific packages for the &#39;Microsoft.NETCore.App&#39; package&lt;/code&gt;. After going back to that web page that launched when he typed in &lt;code&gt;dotnet help publish&lt;/code&gt; he found more info on that option:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;-r|&amp;ndash;runtime &amp;lt;RUNTIME_IDENTIFIER&amp;gt;&lt;/p&gt;
 &lt;p&gt;Publishes the application for a given runtime. This is used when creating a &lt;a href=&#34;https://docs.microsoft.com/en-gb/dotnet/core/deploying/index#self-contained-deployments-scd&#34;&gt;self-contained deployment (SCD)&lt;/a&gt;. For a list of Runtime Identifiers (RIDs), see the &lt;a href=&#34;https://docs.microsoft.com/en-gb/dotnet/core/rid-catalog&#34;&gt;RID catalog&lt;/a&gt;. Default is to publish a &lt;a href=&#34;https://docs.microsoft.com/en-gb/dotnet/core/deploying/index#framework-dependent-deployments-fdd&#34;&gt;framework-dependent deployment (FDD)&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Clicking on the link for RID catalog found that he needed to use one of &lt;code&gt;linux-x64&lt;/code&gt;, &lt;code&gt;ubuntu.14.04-x64&lt;/code&gt;, &lt;code&gt;win7-x64&lt;/code&gt;, or &lt;code&gt;osx.10.12-x64&lt;/code&gt; as the runtime value. Must be &lt;code&gt;win7-x64&lt;/code&gt;, then. Trying again:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;C:\Users\jackr\internTest&amp;gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r win7-x64
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  internTest -&amp;gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\win7-x64\internTest.dll
-  internTest -&amp;gt; C:\publish\interntestoutput\
-C:\Users\jackr\internTest&amp;gt;cd c:\publish\interntestoutput
-
-c:\publish\interntestoutput&amp;gt;tree /F /A
-Folder PATH listing for volume Windows
-Volume serial number is 00000062 BC96:4BCD
-C:.
-    api-ms-win-*.dll  &amp;lt;-- truncated for your reading pleasure
-    clrcompression.dll
-    clretwrc.dll
-    clrjit.dll
-    coreclr.dll
-    dbgshim.dll
-    hostfxr.dll
-    hostpolicy.dll
-    internTest.deps.json
-    internTest.dll
-    internTest.exe
-    internTest.pdb
-    internTest.runtimeconfig.json
-    Microsoft.CSharp.dll
-    Microsoft.DiaSymReader.Native.amd64.dll
-    Microsoft.VisualBasic.dll
-    Microsoft.Win32.Primitives.dll
-    Microsoft.Win32.Registry.dll
-    mscordaccore.dll
-    mscordaccore_amd64_amd64_4.6.00001.0.dll
-    mscordbi.dll
-    mscorlib.dll
-    mscorrc.debug.dll
-    mscorrc.dll
-    netstandard.dll
-    sos.dll
-    SOS.NETCore.dll
-    sos_amd64_amd64_4.6.00001.0.dll
-    System.*.dll &amp;lt;-- also truncated for readability, phew!
-    ucrtbase.dll
-    WindowsBase.dll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Finally! An &lt;code&gt;internTest.exe&lt;/code&gt; as expected. Jack makes a note that this folder is a whopping &lt;code&gt;61.7 MB&lt;/code&gt; in size, though! Let&amp;rsquo;s run it for complete satisfaction:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;c:\publish\interntestoutput&amp;gt;internTest.exe
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r win7-x64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Copyright (C) Microsoft Corporation. All rights reserved.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  internTest -&amp;gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\win7-x64\internTest.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  internTest -&amp;gt; C:\publish\interntestoutput\
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:\Users\jackr\internTest&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;cd c:\publish\interntestoutput&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;c:\publish\interntestoutput&lt;span style=&#34;color:#75715e&#34;&gt;&amp;gt;tree /F /A&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Folder PATH listing for volume Windows
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Volume serial number is 00000062 BC96:4BCD
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    api-ms-win-*.dll  &amp;lt;-- truncated for your reading pleasure
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    clrcompression.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    clretwrc.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    clrjit.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    coreclr.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    dbgshim.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    hostfxr.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    hostpolicy.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    internTest.deps.json
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    internTest.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    internTest.exe
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    internTest.pdb
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    internTest.runtimeconfig.json
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Microsoft.CSharp.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Microsoft.DiaSymReader.Native.amd64.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Microsoft.VisualBasic.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Microsoft.Win32.Primitives.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Microsoft.Win32.Registry.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    mscordaccore.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    mscordaccore_amd64_amd64_4.6.00001.0.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    mscordbi.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    mscorlib.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    mscorrc.debug.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    mscorrc.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    netstandard.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sos.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    SOS.NETCore.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sos_amd64_amd64_4.6.00001.0.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    System.*.dll &amp;lt;-- also truncated for readability, phew!
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ucrtbase.dll
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    WindowsBase.dll
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally! An &lt;code&gt;internTest.exe&lt;/code&gt; as expected. Jack makes a note that this folder is a whopping &lt;code&gt;61.7 MB&lt;/code&gt; in size, though! Let&amp;rsquo;s run it for complete satisfaction:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;c:\publish\interntestoutput&amp;gt;internTest.exe
 Hello World!
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Jack remembered seeing Solution File (&lt;code&gt;sln&lt;/code&gt;) back in the &lt;code&gt;dotnet new&lt;/code&gt; help window.  He went back to his original project to see how he might add a solution to it. Pretty quickly he has this sussed out, too.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;c:\publish\interntestoutput&amp;gt;cd c:\Users\jackr\internTest
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Jack remembered seeing Solution File (&lt;code&gt;sln&lt;/code&gt;) back in the &lt;code&gt;dotnet new&lt;/code&gt; help window.  He went back to his original project to see how he might add a solution to it. Pretty quickly he has this sussed out, too.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;c:\publish\interntestoutput&amp;gt;cd c:\Users\jackr\internTest
 
 c:\Users\jackr\internTest&amp;gt;dotnet new sln
-The template &amp;quot;Solution File&amp;quot; was created successfully.
+The template &amp;#34;Solution File&amp;#34; was created successfully.
 
 c:\Users\jackr\internTest&amp;gt;dotnet sln
 Required command was not provided.
@@ -342,7 +328,7 @@ Commands:
 c:\Users\jackr\internTest&amp;gt;dotnet sln add internTest.csproj
 Project `internTest.csproj` added to the solution.
 c:\Users\jackr\internTest&amp;gt;ls
-&#39;ls&#39; is not recognized as an internal or external command,
+&amp;#39;ls&amp;#39; is not recognized as an internal or external command,
 operable program or batch file.
 c:\Users\jackr\internTest&amp;gt;dir
  Volume in drive C is Windows
@@ -359,8 +345,7 @@ c:\Users\jackr\internTest&amp;gt;dir
 23/09/2017  17:30               192 Program.cs
                3 File(s)          2,061 bytes
                4 Dir(s)   2,718,973,952 bytes free
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;with two simple commands, &lt;code&gt;dotnet new sln&lt;/code&gt; and &lt;code&gt;dotnet sln add internTest.csproj&lt;/code&gt; Jack was able to create a Visual Studio &lt;code&gt;sln&lt;/code&gt; file and add the project to it. Mint.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;with two simple commands, &lt;code&gt;dotnet new sln&lt;/code&gt; and &lt;code&gt;dotnet sln add internTest.csproj&lt;/code&gt; Jack was able to create a Visual Studio &lt;code&gt;sln&lt;/code&gt; file and add the project to it. Mint.&lt;/p&gt;
 &lt;p&gt;In total this had only taken Jack an hour (far less time than this Author took to write this whole farce up) and he took his findings back to Joe.&lt;/p&gt;
 &lt;p&gt;&amp;ldquo;What? Done already. Dammit, Intern! You&amp;rsquo;re not meant to be so productive! I&amp;rsquo;ll have to get you fetching coffees and making team flight suits. How are you at working a sewing machine?  First things first though. Write up your findings and get ready to present to the entire department tomorrow, at the cross-team catchup!&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;Jack left feeling a mix of achievement and pressure while wondering if she was serious about those jumpsuits&amp;hellip;&lt;/p&gt;
@@ -395,7 +380,7 @@ c:\Users\jackr\internTest&amp;gt;dir
 &lt;p&gt;As the clapping of the crowd subsided, Jerry opened his mouth to continue his self-congratulatory speech. But instead a worried look appeared across his face and he started to clasp at his chest.&lt;/p&gt;
 &lt;p&gt;&amp;ldquo;Quick! He&amp;rsquo;s having a heart attack!&amp;rdquo; was the last thing he heard before everything went dark.&lt;/p&gt;
 &lt;hr&gt;
-&lt;pre&gt;&lt;code&gt;2016/09/23 13:01:57 PM [JRG.ML.App.Startup] Scranton Automated Hospital Care System 2016
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;2016/09/23 13:01:57 PM [JRG.ML.App.Startup] Scranton Automated Hospital Care System 2016
 2016/09/23 13:01:57 PM [JRG.ML.App.Startup] Startup Engaged
 2016/09/23 13:01:58 PM [JRG.ML.Engine.Core] Processing Parameters
 2016/09/23 13:03:58 PM [JRG.ML.Engine.Core] Checking Probabilities
@@ -406,8 +391,7 @@ c:\Users\jackr\internTest&amp;gt;dir
 2016/09/23 13:05:27 PM [JRG.ML.Engine.Core] Pacemaker remote disablement complete
 2016/09/23 13:05:28 PM [JRG.ML.Engine.Core] Updating Projections
 2016/09/23 13:05:49 PM [JRG.ML.Engine.Core] System stable
-&lt;/code&gt;&lt;/pre&gt;
-&lt;hr&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
 &lt;p&gt;Title image: &lt;a href=&#34;https://www.flickr.com/photos/centralasian/3988758904&#34;&gt;&amp;ldquo;NetBridge&amp;rdquo;&lt;/a&gt; by &lt;a href=&#34;https://www.flickr.com/photos/centralasian/&#34;&gt;cea+&lt;/a&gt; is licensed under &lt;a href=&#34;https://creativecommons.org/licenses/by/2.0/&#34;&gt;CC BY 2.0&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>

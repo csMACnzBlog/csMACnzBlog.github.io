@@ -143,16 +143,15 @@
             <img class="post-image" src="https://images.unsplash.com/photo-1502426899022-660e3522a15a?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ"><p>With C# 8 on our doorstep, I wanted to go through some of the C# 6 and 7 language features I have been using that you may have missed.</p>
 <p>Another feature that I avoided for a while, but have really starting to use a lot more. <code>using</code> brings a namespace into the scope of the file. This allows us to write <code>Console.WriteLine(&quot;Hi&quot;);</code> instead of <code>System.Console.WriteLine(&quot;Hi&quot;);</code>. But with this language feature, we introduce a Static class into scope. So instead we could write <code>WriteLine(&quot;Hi&quot;);</code>. This looks a bit strange to start with because the code appears the same as calling a method in the current class (or base class).</p>
 <p>The syntax to make this works is rather straight forward.</p>
-<pre><code class="language-cs">// This is a standard 'using'
-using System;
-
-// To pull in for the example above you would use the new syntax:
-using static System.Console;
-
-// But you can import any static class you like
-using static MySystem.Helpers.LookupTables;
-</code></pre>
-<p>Used sparingly, this can reduce the noise in the code for strong domain concepts that you use everywhere, and improve readability as well as save keystrokes. The example always used is <code>System.Math</code>. but use this however best suits the domain you are working in.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#75715e">// This is a standard &#39;using&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// To pull in for the example above you would use the new syntax:</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> static System.Console;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// But you can import any static class you like</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> static MySystem.Helpers.LookupTables;
+</span></span></code></pre></div><p>Used sparingly, this can reduce the noise in the code for strong domain concepts that you use everywhere, and improve readability as well as save keystrokes. The example always used is <code>System.Math</code>. but use this however best suits the domain you are working in.</p>
 <p>As a language feature reaches a large enough common usage status, it becomes canonical in its usage. For me, this language feature has reached that point. Expect to see more of this strategically used in code going forward.</p>
 </section>
         

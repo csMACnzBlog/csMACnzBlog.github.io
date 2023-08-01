@@ -143,48 +143,44 @@
             <img class="post-image" src="https://images.unsplash.com/photo-1530226406379-f84b9edd291b?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ"><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
 <h3 id="what-are-out-parameters">What are out parameters?</h3>
 <p>Sometimes you want a method to pass back a value by reference. In <code>C</code> and <code>C++</code> this is done by passing the address in as an argument. In C#, we use the <code>out</code> keyword.</p>
-<pre><code class="language-cs">public bool HasCount(string str, out int length)
-{
-    length = 0;
-    if (str.Length &gt; 0)
-    {
-        length = str.Length;
-        return true;
-    }
-}
-
-string myString = &quot;A String&quot;;
-int length;
-if (HasCount(myString, out length))
-{
-    // Do some stuff here.
-}
-</code></pre>
-<p>A method must initialise the out parameter value, but the caller doesn&rsquo;t have to initialise it first. Callers must use the <code>out</code> keyword when calling a method with an out parameter. This helps with readability making it unambiguous how it works.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">bool</span> HasCount(<span style="color:#66d9ef">string</span> str, <span style="color:#66d9ef">out</span> <span style="color:#66d9ef">int</span> length)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    length = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (str.Length &gt; <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        length = str.Length;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">string</span> myString = <span style="color:#e6db74">&#34;A String&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> length;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (HasCount(myString, <span style="color:#66d9ef">out</span> length))
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Do some stuff here.</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A method must initialise the out parameter value, but the caller doesn&rsquo;t have to initialise it first. Callers must use the <code>out</code> keyword when calling a method with an out parameter. This helps with readability making it unambiguous how it works.</p>
 <p>More details of this for those unfamiliar with the concept can be <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-parameter-modifier">found here</a>.</p>
 <p>In the libraries, there are a few methods that use this, for instance <code>Int32.TryParse</code>.</p>
-<pre><code class="language-cs">int number;
-if (Int32.TryParse(numberAsString, out number))
-{
-    // use `number` as an integer value. 
-}
-</code></pre>
-<p>It also comes in useful when you are building C-style interops. But not something you see very much these days.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> number;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (Int32.TryParse(numberAsString, <span style="color:#66d9ef">out</span> number))
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// use `number` as an integer value. </span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It also comes in useful when you are building C-style interops. But not something you see very much these days.</p>
 <h3 id="new-out-variables">New out variables</h3>
 <p>This syntax always felt a bit clunky. Modern APIs would suggest using a return value over an out parameter, and the early use cases tended to be either cross-compatibility with C libraries or parse scenarios. Primarily it was discouraged for readability reasons, though there are benefits from using it in certain places.</p>
 <p>However, with C# 7, a new syntax was introduced, allowing inline declaration of out parameters.</p>
-<pre><code class="language-cs">if (Int32.TryParse(numberAsString, out int number))
-{
-    // use `number` as an integer value. 
-}
-</code></pre>
-<p>You can now declare the parameter inline, without needing the empty declaration line that was essentially wasting line-count. The other benefit is you can now use <code>var</code> instead of an explicit type.</p>
-<pre><code class="language-cs">if (Int32.TryParse(numberAsString, out var number))
-{
-    // use `number` as an integer value. 
-}
-</code></pre>
-<p>In C# 7.3, this <code>out</code> variable syntax was extended to include field initializers, property initializers, constructor initializers, and query clauses. Basically, you have the power to use this everywhere that you can use out parameters.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (Int32.TryParse(numberAsString, <span style="color:#66d9ef">out</span> <span style="color:#66d9ef">int</span> number))
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// use `number` as an integer value. </span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>You can now declare the parameter inline, without needing the empty declaration line that was essentially wasting line-count. The other benefit is you can now use <code>var</code> instead of an explicit type.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (Int32.TryParse(numberAsString, <span style="color:#66d9ef">out</span> <span style="color:#66d9ef">var</span> number))
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// use `number` as an integer value. </span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In C# 7.3, this <code>out</code> variable syntax was extended to include field initializers, property initializers, constructor initializers, and query clauses. Basically, you have the power to use this everywhere that you can use out parameters.</p>
 <p>With the new changes, readability has hugely increased, the risk of using the value before initialisation has been removed, and it is probably something worth encouraging using again in those methods that could benefit with having out parameters for clean APIs, and performance.</p>
 <p>A small but simple improvement to the language that I would replace in every place you use <code>out</code> parameters.</p>
 </section>

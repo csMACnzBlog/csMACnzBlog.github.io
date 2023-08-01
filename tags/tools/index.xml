@@ -24,7 +24,7 @@
 &lt;p&gt;While development has been a slow work of labour over the last three years, the announcement of dotnet CLI tools (proper npm-style tools, not the weird interim dotnet-tool stuff&amp;hellip;) with dotnet SDK 2.1, I had to jump in and get on board.&lt;/p&gt;
 &lt;h3 id=&#34;announcing-100&#34;&gt;Announcing 1.0.0&lt;/h3&gt;
 &lt;p&gt;Which brings me to announcing Coveralls.Net 1.0.0. This is a dotnet CLI tools compatible version of &lt;code&gt;csmacnz.Coveralls&lt;/code&gt;. Easier to install. Easier to update. And a whole bunch new features, including more coverage options, and better autodetection processes in AppVeyor.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# install globally
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# install globally
 dotnet tool install -g coveralls.net --version 1.0.0
 
 # if installed globally, this should just be available on your path
@@ -35,21 +35,19 @@ dotnet tool install coveralls.net --version 1.0.0 --tools-path tools
 
 # if installed into a tools path, you can run it from there.
 .\tools\csmacnz.Coveralls &amp;lt;args&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now, I&amp;rsquo;ve been struggling a bit with beta 0.8.0. It hasn&amp;rsquo;t been easy to find time to test the new stuff I added, get others to test, and be happy to call it a stable release. But there was a bunch of new stuff and fixes in there. These have all rolled forward into the 1.0.0 Release now. (I might go back and call 0.8.0 stable now since it still works the old way. But for now the old way still works with stable &lt;code&gt;0.7.0&lt;/code&gt; and &lt;code&gt;0.8.0-beta003&lt;/code&gt;.)&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now, I&amp;rsquo;ve been struggling a bit with beta 0.8.0. It hasn&amp;rsquo;t been easy to find time to test the new stuff I added, get others to test, and be happy to call it a stable release. But there was a bunch of new stuff and fixes in there. These have all rolled forward into the 1.0.0 Release now. (I might go back and call 0.8.0 stable now since it still works the old way. But for now the old way still works with stable &lt;code&gt;0.7.0&lt;/code&gt; and &lt;code&gt;0.8.0-beta003&lt;/code&gt;.)&lt;/p&gt;
 &lt;p&gt;Still not happy/comfortable with using CLI tools? Not using 2.1? That&amp;rsquo;s ok. I&amp;rsquo;ve used the power of the &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-self-contained-applications/&#34;&gt;self-contained app&lt;/a&gt; to provide a &lt;code&gt;windows&lt;/code&gt;, &lt;code&gt;linux&lt;/code&gt; and &lt;code&gt;osx&lt;/code&gt; native version (Linux targets the cross-compat Linux target) in a zip file under &lt;a href=&#34;https://github.com/csMACnz/coveralls.net/releases/tag/1.0.0&#34;&gt;the Releases folder on GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;For windows in PowerShell you would use it something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# The TLS change was necessary on my development machine
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# The TLS change was necessary on my development machine
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$zipDownloadPath=&amp;quot;https://github.com/csMACnz/coveralls.net/releases/download/1.0.0/coveralls.net.1.0.0-windows.zip&amp;quot;
+$zipDownloadPath=&amp;#34;https://github.com/csMACnz/coveralls.net/releases/download/1.0.0/coveralls.net.1.0.0-windows.zip&amp;#34;
 Invoke-WebRequest -UseBasicParsing $zipDownloadPath -OutFile coveralls-windows.zip
 mkdir coveralls-windows
 Expand-Archive .\coveralls-windows.zip coveralls-windows
 
 .\coveralls-windows\csmacnz.Coveralls.exe
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I hope to get more details added on the GitHub Wiki for linux and mac usage of the self-contained app, as well as updating all the samples over at &lt;a href=&#34;https://github.com/csMACnz/Coveralls.net-Samples/&#34;&gt;Coveralls.net-Samples&lt;/a&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I hope to get more details added on the GitHub Wiki for linux and mac usage of the self-contained app, as well as updating all the samples over at &lt;a href=&#34;https://github.com/csMACnz/Coveralls.net-Samples/&#34;&gt;Coveralls.net-Samples&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;more-targets&#34;&gt;More targets&lt;/h3&gt;
 &lt;p&gt;Since the first release, targeting OpenCover coverage files (the most popular at the time), this has been expanded to include Visual Studio Coverage, monocov, Report Generator, Chutzpah javascript coverage, lcov, NCover and &lt;a href=&#34;https://github.com/tonerdo/coverlet&#34;&gt;Coverlet&lt;/a&gt; cross-platform .Net coverage (via its opencover file format).&lt;/p&gt;
 &lt;h3 id=&#34;whats-next&#34;&gt;What&amp;rsquo;s Next?&lt;/h3&gt;

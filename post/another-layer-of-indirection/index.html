@@ -153,15 +153,13 @@
 <p>Let&rsquo;s take a system. There is a part of the code in this system that has <code>N</code> layers of redirection. We define <code>N</code> as being too Many layers. We also make the observation that <code>N</code> is greater than 5. I feel confident to say too many layers is greater than 5.</p>
 <p>We locate a seam between layers <code>1</code> and <code>2</code>, and another between <code>N-1</code> and <code>N</code>. Between these seams, we add another layer of indirection.  Let&rsquo;s call these <code>LX</code> and <code>LY</code>.</p>
 <p>Now, we will remove the <code>M</code> layers between <code>LX</code> and <code>LY</code> into a single new Layer, called <code>LZ</code>.  What do we have left?</p>
-<pre><code>L1-&gt;LX-&gt;LZ-&gt;LY-&gt;LN
-</code></pre>
-<p>We have 5 layers of indirection now. That is less than <code>N</code>, by the assumption that <code>N</code> was greater than 5 right?</p>
+<pre tabindex="0"><code>L1-&gt;LX-&gt;LZ-&gt;LY-&gt;LN
+</code></pre><p>We have 5 layers of indirection now. That is less than <code>N</code>, by the assumption that <code>N</code> was greater than 5 right?</p>
 <p>To me, this feels like the proof for my hypotheses.</p>
 <h3 id="questions">Questions</h3>
 <p>What if your definition of &ldquo;too many layers&rdquo; is actually less than or equal to 5? Well maybe that is a special case, and you should add your layers before 1 and after N? That would get you down to three layers instead?</p>
-<pre><code>LX-&gt;LZ-&gt;LY
-</code></pre>
-<p>I&rsquo;ll leave it to you to deal with the case where N is not greater than 3 if you&rsquo;re interested.</p>
+<pre tabindex="0"><code>LX-&gt;LZ-&gt;LY
+</code></pre><p>I&rsquo;ll leave it to you to deal with the case where N is not greater than 3 if you&rsquo;re interested.</p>
 <p>Another argument I&rsquo;ve heard (yes, I actually do have discussions on these kinds of things!)  was that technically the adding of the layer didn&rsquo;t solve the problem but it was actually the removing of layers that made it possible. I like to think that in reality, the latter cannot really be achieved without the former, so the additional layer or indirection is the crucial step one to the whole 2-step process.</p>
 <p>Thanks for taking some time to read this. I realise it&rsquo;s probably not something anyone really needs to think about, but I had, so I thought I would share.</p>
 </section>

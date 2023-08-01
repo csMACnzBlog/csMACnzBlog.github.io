@@ -137,67 +137,61 @@
             <p>I&rsquo;ve been using psake as my build tool and running my builds on Appveyor.  Now Appveyor runs with all the visual studio commands available on the path.  When you install visual studio, It gives you a special cmd shell shortcut that loads you an environment with all the visual studio stuff available, which is cool. But not for PowerShell.</p>
 <p><strong>DISCLAIMER</strong>:  I originally found this solution on this <a href="http://blogs.msdn.com/b/domgreen/archive/2009/05/03/visual-studio-command-prompt-via-powershell.aspx">msdn blog</a>, but tweaked it to work with Visual Studio 2013, and 64bit versions of windows.  Since I kept changing machines and loosing my scripts I decided to blog about it so I knew where to look to find the code again.</p>
 <p>With that out of the way, here is the code I add to my PowerShell $PROFILE:</p>
-<pre><code class="language-powershell">#### Functions Used to Load VS Command Prompt #####
- 
-function Get-Batchfile ($file) {
-    $cmd = &quot;`&quot;$file`&quot; &amp; set&quot;
-    cmd /c $cmd | Foreach-Object {
-        $p, $v = $_.split('=')
-        Set-Item -path env:$p -value $v
-    }
-}
- 
-function VisualStudioVars()
-{
-    $version = &quot;12.0&quot;
-    $key = &quot;HKLM:SOFTWARE\Wow6432Node\Microsoft\VisualStudio\&quot; + $version
-    $VsKey = Get-ItemProperty $key
-    $VsInstallPath = [System.IO.Path]::GetDirectoryName($VsKey.InstallDir)
-    $VsInstallDir = [System.IO.Path]::GetDirectoryName($VsInstallPath)
-    $VsToolsDir = [System.IO.Path]::Combine($VsInstallDir, &quot;Tools&quot;)
-    $vs120comntools = (Get-ChildItem env:VS120COMNTOOLS).Value    
-    $batchFile = [System.IO.Path]::Combine($vs120comntools, &quot;vsvars32.bat&quot;)
-    Get-Batchfile $batchFile
-}
- 
-###### Run at startup ######
-VisualStudioVars
-</code></pre>
-<p>This basically finds the cmd file vsvars32.bat for visual studio 2013(VS12.0) and loads the specified files to the environment path for this session. Now I have access to devenv.exe and other visual studio tools from PowerShell.  For new versions of Visual Studio, just update the version number references and you&rsquo;re golden.  Note that if you are using a 32bit version of windows, remove the <code>Wow6432Node</code> from the key path, making it:</p>
-<pre><code class="language-powershell">$key = &quot;HKLM:SOFTWARE\Microsoft\VisualStudio\&quot; + $version
-</code></pre>
-<p>Bonus content:</p>
-<pre><code class="language-powershell">$env:path += &quot;;&quot; + (Get-Item &quot;Env:ProgramFiles&quot;).Value + &quot;\Git\bin&quot;
-$env:path += &quot;;&quot; + (Get-Item &quot;Env:ProgramFiles&quot;).Value + &quot;\nodejs&quot;
-</code></pre>
-<p>This is a quick addition of git and node to my PowerShell so I can run these as well.  Extend these as needed for other installed executables.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">#### Functions Used to Load VS Command Prompt #####</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> Get-Batchfile ($file) {
+</span></span><span style="display:flex;"><span>    $cmd = <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">`&#34;</span>$file<span style="color:#ae81ff">`&#34;</span><span style="color:#e6db74"> &amp; set&#34;</span>
+</span></span><span style="display:flex;"><span>    cmd /c $cmd | Foreach-Object {
+</span></span><span style="display:flex;"><span>        $p, $v = $_.split(<span style="color:#e6db74">&#39;=&#39;</span>)
+</span></span><span style="display:flex;"><span>        Set-Item -path env<span style="color:#960050;background-color:#1e0010">:</span>$p -value $v
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> VisualStudioVars()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    $version = <span style="color:#e6db74">&#34;12.0&#34;</span>
+</span></span><span style="display:flex;"><span>    $key = <span style="color:#e6db74">&#34;HKLM:SOFTWARE\Wow6432Node\Microsoft\VisualStudio\&#34;</span> + $version
+</span></span><span style="display:flex;"><span>    $VsKey = Get-ItemProperty $key
+</span></span><span style="display:flex;"><span>    $VsInstallPath = [<span style="color:#66d9ef">System.IO.Path</span>]::GetDirectoryName($VsKey.InstallDir)
+</span></span><span style="display:flex;"><span>    $VsInstallDir = [<span style="color:#66d9ef">System.IO.Path</span>]::GetDirectoryName($VsInstallPath)
+</span></span><span style="display:flex;"><span>    $VsToolsDir = [<span style="color:#66d9ef">System.IO.Path</span>]::Combine($VsInstallDir, <span style="color:#e6db74">&#34;Tools&#34;</span>)
+</span></span><span style="display:flex;"><span>    $vs120comntools = (Get-ChildItem env<span style="color:#960050;background-color:#1e0010">:</span>VS120COMNTOOLS).Value    
+</span></span><span style="display:flex;"><span>    $batchFile = [<span style="color:#66d9ef">System.IO.Path</span>]::Combine($vs120comntools, <span style="color:#e6db74">&#34;vsvars32.bat&#34;</span>)
+</span></span><span style="display:flex;"><span>    Get-Batchfile $batchFile
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###### Run at startup ######</span>
+</span></span><span style="display:flex;"><span>VisualStudioVars
+</span></span></code></pre></div><p>This basically finds the cmd file vsvars32.bat for visual studio 2013(VS12.0) and loads the specified files to the environment path for this session. Now I have access to devenv.exe and other visual studio tools from PowerShell.  For new versions of Visual Studio, just update the version number references and you&rsquo;re golden.  Note that if you are using a 32bit version of windows, remove the <code>Wow6432Node</code> from the key path, making it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$key = <span style="color:#e6db74">&#34;HKLM:SOFTWARE\Microsoft\VisualStudio\&#34;</span> + $version
+</span></span></code></pre></div><p>Bonus content:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$env:path += <span style="color:#e6db74">&#34;;&#34;</span> + (Get-Item <span style="color:#e6db74">&#34;Env:ProgramFiles&#34;</span>).Value + <span style="color:#e6db74">&#34;\Git\bin&#34;</span>
+</span></span><span style="display:flex;"><span>$env:path += <span style="color:#e6db74">&#34;;&#34;</span> + (Get-Item <span style="color:#e6db74">&#34;Env:ProgramFiles&#34;</span>).Value + <span style="color:#e6db74">&#34;\nodejs&#34;</span>
+</span></span></code></pre></div><p>This is a quick addition of git and node to my PowerShell so I can run these as well.  Extend these as needed for other installed executables.</p>
 <p>When setting up a new machine I also install ps-get and posh-git based on <a href="http://haacked.com/archive/2011/12/13/better-git-with-powershell.aspx/">Phil Haack&rsquo;s blog post</a>.  Check it out for the full instructions of what you need to do, but for my own reference and your second, third and twentieth time, use the following commands</p>
-<pre><code class="language-powershell"># Set the execution policy to allow random scripts from the web
-Set-ExecutionPolicy RemoteSigned
-# install ps-get
-(new-object Net.WebClient).DownloadString(&quot;http://psget.net/GetPsGet.ps1&quot;) | iex
-# install posh-git
-install-module posh-git
-</code></pre>
-<p>And that&rsquo;s my PowerShell $PROFLE information. Hope this helps someone other than just me next time I set up a new development machine, or reinstall Windows.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Set the execution policy to allow random scripts from the web</span>
+</span></span><span style="display:flex;"><span>Set-ExecutionPolicy RemoteSigned
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># install ps-get</span>
+</span></span><span style="display:flex;"><span>(new-object Net.WebClient).DownloadString(<span style="color:#e6db74">&#34;http://psget.net/GetPsGet.ps1&#34;</span>) | iex
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># install posh-git</span>
+</span></span><span style="display:flex;"><span>install-module posh-git
+</span></span></code></pre></div><p>And that&rsquo;s my PowerShell $PROFLE information. Hope this helps someone other than just me next time I set up a new development machine, or reinstall Windows.</p>
 <h4 id="2015-05-12-update">2015-05-12 Update:</h4>
 <p>I use chocolatey to install other helpful components to my shell.</p>
-<pre><code class="language-powershell">iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
-</code></pre>
-<p>Some common tools I like to have installed are:</p>
-<pre><code class="language-powershell">choco install -y paint.net
-choco install -y autohotkey
-choco install -y git
-choco install -y gitpad
-choco install -y gitextensions
-choco install -y nuget.CommandLine
-choco install -y github
-choco install -y atom
-choco install -y colorcop
-choco install -y console2
-choco install -y f.lux
-</code></pre>
-</section>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>iex ((new-object net.webclient).DownloadString(<span style="color:#e6db74">&#39;https://chocolatey.org/install.ps1&#39;</span>))
+</span></span></code></pre></div><p>Some common tools I like to have installed are:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>choco install -y paint.net
+</span></span><span style="display:flex;"><span>choco install -y autohotkey
+</span></span><span style="display:flex;"><span>choco install -y git
+</span></span><span style="display:flex;"><span>choco install -y gitpad
+</span></span><span style="display:flex;"><span>choco install -y gitextensions
+</span></span><span style="display:flex;"><span>choco install -y nuget.CommandLine
+</span></span><span style="display:flex;"><span>choco install -y github
+</span></span><span style="display:flex;"><span>choco install -y atom
+</span></span><span style="display:flex;"><span>choco install -y colorcop
+</span></span><span style="display:flex;"><span>choco install -y console2
+</span></span><span style="display:flex;"><span>choco install -y f.lux
+</span></span></code></pre></div></section>
         
         <section class="share">
             Share: 

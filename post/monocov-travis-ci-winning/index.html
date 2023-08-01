@@ -141,20 +141,19 @@ The coverage results don&rsquo;t seem accurate just yet, but jump to the end to 
 <p>So I started building a <a href="https://github.com/csMACnz/Coveralls.net-Samples">sample library</a> with CI on github and very easily got examples working for AppVeyor on windows.  But I wanted to get monocov working as a sample with Travis-CI before I built support for it.  I found pretty quickly that monocov is not installed on Travis-ci, and in fact there is no package available to install it either that I could find.</p>
 <p>Thanks to github forks, I found someone else had forked and updated the source for monocov to work with a newer Xamarin version of the mono installation.  So naturally I forked this fork so I could make my own changes if necessary.</p>
 <p>Using a few tricks I was able to get my Travis-CI build to clone down the git fork, build it and install it on the build server.  I did have to change a compile setting and set a variable based on <a href="http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13">this blog post</a>, and I had to pull down the <a href="https://www.nuget.org/packages/Mono.Cecil/">mono.cecil nuget package</a> so I had the Mono.Cecil.dll file required by the C# side of monocov. I also made to install gtk-sharp2 for the GUI library to build with make, although I don&rsquo;t use it. After all these steps I finally got it to a point where it was installed.  The Travis-CI code ended up using these instructions in the install section:</p>
-<pre><code class="language-yaml">- sudo apt-get install gtk-sharp2
-- curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip
-- unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil
-- cp /tmp/cecil/lib/net40/Mono.Cecil.dll .
-- cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/
-- git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov
-- cd ../../csMACnz/monocov
-- cp /tmp/cecil/Mono.Cecil.dll .
-- ./configure
-- make
-- sudo make install
-- cd ../../csMACnz/Coveralls.net-Samples 
-</code></pre>
-<p>Note I changed directories a few times, and pulled monocov into a directory beside my actual repo build folder.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#ae81ff">sudo apt-get install gtk-sharp2</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">cp /tmp/cecil/lib/net40/Mono.Cecil.dll .</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">cd ../../csMACnz/monocov</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">cp /tmp/cecil/Mono.Cecil.dll .</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">./configure</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">make</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">sudo make install</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">cd ../../csMACnz/Coveralls.net-Samples </span>
+</span></span></code></pre></div><p>Note I changed directories a few times, and pulled monocov into a directory beside my actual repo build folder.</p>
 <p>To get it to run over my tests, I had to use a couple of options:</p>
 <ul>
 <li>set the load library path as seen in the <a href="http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13">blog post</a> I mentioned earlier.</li>
@@ -164,37 +163,35 @@ The coverage results don&rsquo;t seem accurate just yet, but jump to the end to 
 <li>run a second step afterwards to convert the *.cov file into a folder of detailed xml files</li>
 </ul>
 <p>The resulting code for this looked like this:</p>
-<pre><code class="language-yaml">- export LD_LIBRARY_PATH=/usr/local/lib
-- mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow
-- monocov --export-xml=monocovCoverage monocovCoverage.cov
-</code></pre>
-<p>So whats the next steps? Well now I have actual results I will get <a href="https://github.com/csMACnz/coveralls.net">coveralls.net</a> support written and get it published to nuget and usable on my Travis-CI build, so it is passing.  After that I will look at the accuracy of the existing code, since my initial results haven&rsquo;t really looked that accurate.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#ae81ff">export LD_LIBRARY_PATH=/usr/local/lib</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">monocov --export-xml=monocovCoverage monocovCoverage.cov</span>
+</span></span></code></pre></div><p>So whats the next steps? Well now I have actual results I will get <a href="https://github.com/csMACnz/coveralls.net">coveralls.net</a> support written and get it published to nuget and usable on my Travis-CI build, so it is passing.  After that I will look at the accuracy of the existing code, since my initial results haven&rsquo;t really looked that accurate.</p>
 <p>In summary, and If you just skipped to the end, my full <code>travis.yml</code> file running monocov over my .net project on Travis-CI looks like this:</p>
-<pre><code class="language-yaml">language: csharp
-solution: ./src/GameOfLife.sln
-install:
-  - nuget restore ./src/GameOfLife.sln
-  - chmod +x ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe
-  - sudo apt-get install nunit-console
-  - sudo apt-get install gtk-sharp2
-  - curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip
-  - unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil
-  - cp /tmp/cecil/lib/net40/Mono.Cecil.dll .
-  - cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/
-  - git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov
-  - cd ../../csMACnz/monocov
-  - cp /tmp/cecil/Mono.Cecil.dll .
-  - ./configure
-  - make
-  - sudo make install
-  - cd ../../csMACnz/Coveralls.net-Samples
-script:
-  - xbuild /p:Configuration=Release ./src/GameOfLife.sln
-  - export LD_LIBRARY_PATH=/usr/local/lib
-  - mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow
-  - monocov --export-xml=monocovCoverage monocovCoverage.cov
-</code></pre>
-<p>Hope someone finds this useful, and stay tuned for the coveralls.io update.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">language</span>: <span style="color:#ae81ff">csharp</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">solution</span>: <span style="color:#ae81ff">./src/GameOfLife.sln</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">install</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">nuget restore ./src/GameOfLife.sln</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">chmod +x ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">sudo apt-get install nunit-console</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">sudo apt-get install gtk-sharp2</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">cp /tmp/cecil/lib/net40/Mono.Cecil.dll .</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">cd ../../csMACnz/monocov</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">cp /tmp/cecil/Mono.Cecil.dll .</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">./configure</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">make</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">sudo make install</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">cd ../../csMACnz/Coveralls.net-Samples</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">xbuild /p:Configuration=Release ./src/GameOfLife.sln</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">export LD_LIBRARY_PATH=/usr/local/lib</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">monocov --export-xml=monocovCoverage monocovCoverage.cov</span>
+</span></span></code></pre></div><p>Hope someone finds this useful, and stay tuned for the coveralls.io update.</p>
 </section>
         
         <section class="share">

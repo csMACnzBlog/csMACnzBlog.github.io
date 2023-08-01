@@ -137,115 +137,110 @@
             <p>When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&rsquo;t call it <code>firstNameString</code>, or <code>cfnString</code>, and we have also lost the bad habit of <code>firstNameStr</code> or <code>strFirstName</code>.  The implementation detail simply doesn&rsquo;t matter. Semantically, it represents the customer&rsquo;s first name, so we use <code>customerFirstName</code>. Or if we are clearly in the context of the customer we can simply use <code>firstName</code> or <code>customer.FirstName</code>.</p>
 <p>By describing things by what they represent and not how they are represented, we make them more resistant to implementation changes, and we also make it clearer what it is we expect from their use. Why then do we not treat types the same way?</p>
 <p>Well we do, you might say. Sure we name our classes well. We have <code>Customer</code>, which is an class which has a name that matches it&rsquo;s semantic meaning. But why does it have a constructor signature like this?</p>
-<pre><code class="language-cs">public Customer(string firstName, string surname, string preferredName, int age, decimal weight, decimal height) {...}
-</code></pre>
-<p>Can you tell from this constructor what each positional parameter represents? What if we did the following, is it still obvious?</p>
-<pre><code class="language-cs">public Customer(string a, string b, string c, int d, decimal e, decimal f) {...}
-</code></pre>
-<p>Ok so my example is contrived, but my point is simple. Positional parameters of value types are indistinguishable to the compiler, which neither knows nor cares what they mean, just that the types match so it can compile.  If you called this method using <code>new Customer(&quot;Jones&quot;, &quot;Bobby&quot;, &quot;Robert&quot;, 24, 1.68m, 91.3m)</code> the compiler doesn&rsquo;t care that you created the lightest giant in the world called Jones Bobby with a nickname of Robert, how is it to know that&rsquo;s not what you meant?  What we need is a way to add semantic meaning to the positional parameters, which adds extra meaning to the data being passed around, and helps us avoid this transposition of errors, among other things.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Customer(<span style="color:#66d9ef">string</span> firstName, <span style="color:#66d9ef">string</span> surname, <span style="color:#66d9ef">string</span> preferredName, <span style="color:#66d9ef">int</span> age, <span style="color:#66d9ef">decimal</span> weight, <span style="color:#66d9ef">decimal</span> height) {...}
+</span></span></code></pre></div><p>Can you tell from this constructor what each positional parameter represents? What if we did the following, is it still obvious?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Customer(<span style="color:#66d9ef">string</span> a, <span style="color:#66d9ef">string</span> b, <span style="color:#66d9ef">string</span> c, <span style="color:#66d9ef">int</span> d, <span style="color:#66d9ef">decimal</span> e, <span style="color:#66d9ef">decimal</span> f) {...}
+</span></span></code></pre></div><p>Ok so my example is contrived, but my point is simple. Positional parameters of value types are indistinguishable to the compiler, which neither knows nor cares what they mean, just that the types match so it can compile.  If you called this method using <code>new Customer(&quot;Jones&quot;, &quot;Bobby&quot;, &quot;Robert&quot;, 24, 1.68m, 91.3m)</code> the compiler doesn&rsquo;t care that you created the lightest giant in the world called Jones Bobby with a nickname of Robert, how is it to know that&rsquo;s not what you meant?  What we need is a way to add semantic meaning to the positional parameters, which adds extra meaning to the data being passed around, and helps us avoid this transposition of errors, among other things.</p>
 <p>I have come across several names for this technique, <em>Tiny Types</em>, <em>Value Types</em>, <em>Micro Types</em> and <em>Semantic Types</em>.  I think my favourite is Semantic Types personally, but in discussion with others you may come across all of these and more.  The point is that we create new types in our system that might be domain specific, or may be valid across various disparate systems.  These types encapsulate the implementation types used to represent the data and stand in their place as an immutable value object.</p>
 <p>It is worth noting that Enumerations are a kind of tiny type, but you do get some interesting behaviour with these sometimes when the int implementation leaks out, especially when casting and serialisation is involved.</p>
 <p>Lets go back to our example and see what the end result looks like, and work backwards with an implementation. Here is our constructor in more detail this time.</p>
-<pre><code class="language-cs">public Customer
-{
-    ... [Auto properties probably here]
-    
-    public Customer(FirstName firstName, FamilyName familyName, PreferredName preferredName, 
-                    Age age, Weight weight, Height height)
-    {
-    ...
-    }
-}
-</code></pre>
-<p>Ok now lets look at what we have here.  The types of the parameters are objects that encapsulate the data they represent. Now whether you split your names like this or have a <em>Name</em> type that represents this as a whole is up to you, but the point is that you can&rsquo;t mix us the height with the weight since the types won&rsquo;t match, and it won&rsquo;t compile.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Customer
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ... [Auto properties probably here]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Customer(FirstName firstName, FamilyName familyName, PreferredName preferredName, 
+</span></span><span style="display:flex;"><span>                    Age age, Weight weight, Height height)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Ok now lets look at what we have here.  The types of the parameters are objects that encapsulate the data they represent. Now whether you split your names like this or have a <em>Name</em> type that represents this as a whole is up to you, but the point is that you can&rsquo;t mix us the height with the weight since the types won&rsquo;t match, and it won&rsquo;t compile.</p>
 <p>There are other benefits other then transposing parameters.  Overloads that expect different types of data can be created instead of having unique names just for overloading what string represents. If you use calculations on the data, you won&rsquo;t add or subtract things that are not compatible accidentally, like our height and our weight.  Even something as simple as wrapping your entity keys in semantic types means you can&rsquo;t pass a <code>CustomerKey</code> into a method like <code>public Document[] GetForms(AccountKey key)</code> because the compiler will catch it for you.  If you need to change your representation, this is also easy, without having to update all references to the implementation type everywhere, say if you need to add precision to your int by using decimal.</p>
 <p>Lets take a look now at what implementing a tiny type might look like.  Basically its an object. It will have a property to expose the primitive implementation, since at some point this will have to interface with something outside your control (see suggested exercises for more on this).  You will also need to overload the equality operations to ensure you can compare these objects without any issue.</p>
-<pre><code class="language-cs">public class Height: IEquatable&lt;Height&gt;
-{
-    private readonly decimal _value;
-
-    public Height(decimal dataValue)
-    {
-        _value = dataValue;
-    }
-
-    public decimal Value { get { return _value; } }
-
-    public override bool Equals(System.Object obj)
-    {
-        // If parameter is null return false.
-        if (obj == null)
-        {
-            return false;
-        }
-
-        // If parameter cannot be cast to Height return false.
-        Height h = obj as Height;
-        if ((System.Object)h == null)
-        {
-            return false;
-        }
-
-        // Return true if the fields match:
-        return Value == h.Value;
-    }
-
-    public bool Equals(Height h)
-    {
-        // If parameter is null return false:
-        if ((object)h == null)
-        {
-            return false;
-        }
-
-        // Return true if the fields match:
-        return Value == h.Value;
-    }
-
-    public override int GetHashCode()
-    {
-        return Value.GetHashCode();
-    }
-
-    public static bool operator ==(Height a, Height b)
-    {
-        // If both are null, or both are same instance, return true.
-        if (System.Object.ReferenceEquals(a, b))
-        {
-            return true;
-        }
-
-        // If one is null, but not both, return false.
-        if (((object)a == null) || ((object)b == null))
-        {
-            return false;
-        }
-
-        // Return true if the fields match:
-        return a.Value == b.Value;
-    }
-
-    public static bool operator !=(Height a, Height b)
-    {
-        return !(a == b);
-    }
-}
-</code></pre>
-<p>(If your interest, my implementation is based on <a href="http://msdn.microsoft.com/en-us/library/ms173147%28v=vs.80%29.aspx">this msdn guide</a>.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Height</span>: IEquatable&lt;Height&gt;
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> <span style="color:#66d9ef">decimal</span> _value;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Height(<span style="color:#66d9ef">decimal</span> dataValue)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        _value = dataValue;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">decimal</span> Value { <span style="color:#66d9ef">get</span> { <span style="color:#66d9ef">return</span> _value; } }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">bool</span> Equals(System.Object obj)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If parameter is null return false.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (obj == <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If parameter cannot be cast to Height return false.</span>
+</span></span><span style="display:flex;"><span>        Height h = obj <span style="color:#66d9ef">as</span> Height;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ((System.Object)h == <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Return true if the fields match:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Value == h.Value;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">bool</span> Equals(Height h)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If parameter is null return false:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ((<span style="color:#66d9ef">object</span>)h == <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Return true if the fields match:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Value == h.Value;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">int</span> GetHashCode()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Value.GetHashCode();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span> ==(Height a, Height b)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If both are null, or both are same instance, return true.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (System.Object.ReferenceEquals(a, b))
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If one is null, but not both, return false.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (((<span style="color:#66d9ef">object</span>)a == <span style="color:#66d9ef">null</span>) || ((<span style="color:#66d9ef">object</span>)b == <span style="color:#66d9ef">null</span>))
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Return true if the fields match:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a.Value == b.Value;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span> !=(Height a, Height b)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> !(a == b);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>(If your interest, my implementation is based on <a href="http://msdn.microsoft.com/en-us/library/ms173147%28v=vs.80%29.aspx">this msdn guide</a>.)</p>
 <p>There&rsquo;s a lot of code here, so lets look at it in pieces. First its a class with a property value that we can set in the constructor.  We make it a getter only with a read only backing field, making it immutable.</p>
-<pre><code class="language-cs">public class Height: IEquatable&lt;Height&gt;
-{
-    private readonly decimal _value;
-
-    public Height(decimal dataValue)
-    {
-        _value = dataValue;
-    }
-
-    public decimal Value { get { return _value; } }
-    ...
-</code></pre>
-<p>To make sure we can compare our tiny types in a standard way, we implement a bunch of the comparable implementation details. Specifically we override GetHashCode and Equals.  We also overload the == and != operator to make it even easier to use correctly, and lastly we implement IEquatable&lt;Height&gt; so we can compare two instances of the same type without all the object reference stuff all the time.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Height</span>: IEquatable&lt;Height&gt;
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> <span style="color:#66d9ef">decimal</span> _value;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Height(<span style="color:#66d9ef">decimal</span> dataValue)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        _value = dataValue;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">decimal</span> Value { <span style="color:#66d9ef">get</span> { <span style="color:#66d9ef">return</span> _value; } }
+</span></span><span style="display:flex;"><span>    ...
+</span></span></code></pre></div><p>To make sure we can compare our tiny types in a standard way, we implement a bunch of the comparable implementation details. Specifically we override GetHashCode and Equals.  We also overload the == and != operator to make it even easier to use correctly, and lastly we implement IEquatable&lt;Height&gt; so we can compare two instances of the same type without all the object reference stuff all the time.</p>
 <p>Obviously you could take this approach and build out a generic base class with most of the common logic.  Here is a list of things you might want to try out to get your head around the approach of building these types of objects on your own.</p>
 <ul>
 <li>Implement a generic base class representing a single primitive value wrapped in a Semantic Type.</li>

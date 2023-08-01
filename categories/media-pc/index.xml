@@ -20,19 +20,18 @@
       
       <guid>https://blog.csmac.nz/post/mediaportal-no-network-no-cards/</guid>
       <description>&lt;p&gt;I just moved house, and of course the first thing to do is plug in the media pc running MediaPortal, so that my shows will record.  But as you would expect, change brings problems.  It doesn&amp;rsquo;t start. The pc boots, everything looks ok, but the TV-Server doesn&amp;rsquo;t seem to be running. When I tried to launch the TV-Server Configuration, pops up an awesome dialog with a stacktrace in it:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;Exception: System.NullReferenceException: Object reference not set to an instance of an object.
-Server stack trace: 
-void TvService.TVController.get_Cards()
-void System.Runtime.Remoting.Messaging.StackBuilderSink._PrivateProcessMessage(IntPtr md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp;amp; outArgs)
-void System.Runtime.Remoting.Messaging.StackBuilderSink.PrivateProcessMessage(RuntimeMethodHandle md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp;amp; outArgs)
-void System.Runtime.Remoting.Messaging.StackBuilderSink.SyncProcessMessage(IMessage msg, Int32 methodPtr, Boolean fExecuteInContext)
-Exception rethrown at [0]: 
-void System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
-void System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp;amp; msgData, Int32 type)
-void TvControl.IController.get_Cards()
-void SetupTv.Startup.Main(String[] arguments)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I have no idea what is wrong at this point. Has my card been damaged in transit? Is there some rogue signal on the satellite cable that is causing issues with the driver? Who knows.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Exception: System.NullReferenceException: Object reference not &lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt; to an instance of an &lt;span style=&#34;color:#66d9ef&#34;&gt;object&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Server stack trace: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; TvService.TVController.get_Cards()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; System.Runtime.Remoting.Messaging.StackBuilderSink._PrivateProcessMessage(IntPtr md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp;amp; outArgs)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; System.Runtime.Remoting.Messaging.StackBuilderSink.PrivateProcessMessage(RuntimeMethodHandle md, Object[] args, Object server, Int32 methodPtr, Boolean fExecuteInContext, Object[]&amp;amp; outArgs)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; System.Runtime.Remoting.Messaging.StackBuilderSink.SyncProcessMessage(IMessage msg, Int32 methodPtr, Boolean fExecuteInContext)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Exception rethrown at [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp;amp; msgData, Int32 type)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; TvControl.IController.get_Cards()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; SetupTv.Startup.Main(String[] arguments)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I have no idea what is wrong at this point. Has my card been damaged in transit? Is there some rogue signal on the satellite cable that is causing issues with the driver? Who knows.&lt;/p&gt;
 &lt;p&gt;At this stage, I have tried without the aerial, and it still has the same error, tried restarting, ensuring there was enough memory and hard drive space.  The front-end software runs fine so it&amp;rsquo;s only the TV-Service that is the issue.  I didn&amp;rsquo;t have a network cable plugged in, and windows was in a state of no network connection, as apposed to no internet access or connected.&lt;/p&gt;
 &lt;p&gt;I casually say to my Wife, while explaining the issue, &amp;ldquo;The Internet isn&amp;rsquo;t connected, but that shouldn&amp;rsquo;t make any difference.&amp;rdquo;  Her reply was &amp;ldquo;are you sure the internet isn&amp;rsquo;t the problem?&amp;rdquo;. &lt;em&gt;Genius&lt;/em&gt;.  I remember back to when I had wireless/wired network bridging a while back to pass through connection to my Xbox. The networking would die if the wired network had no signal, which happened whenever the Xbox was off, even though the internet was from the wireless.&lt;/p&gt;
 &lt;p&gt;So after much Google searching, and not seeing anything obvious to help my cause, I decided to try plugging in a powered network switch with a patch cable. this gave me a live signal in the cable, but doesn&amp;rsquo;t provide a &amp;rsquo;network&amp;rsquo; as such.  But sure enough, as soon as I has that plugged in, everything came right. No network connected, no internet, not even DHCP resolution, but the fact there was a switch at the other end of the cable was enough, and all is well.&lt;/p&gt;
@@ -72,34 +71,31 @@ void SetupTv.Startup.Main(String[] arguments)
       <description>&lt;p&gt;Ive had my mythbox up and running for about a month now, and its working perfectly. Here are a few wee changes i had to make from the default xfce mythbuntu 8.10 I had to make. Mythwelcome I have my mythbox set up to autologin and run with the remote, without a keyboard and mouse. for this reason i needed it to have some way of getting back into mythtv frontend without having to remote login or plug in a keyboard.&lt;/p&gt;
 &lt;p&gt;I went into the autostart folder for xfce and changed the mythtv.desktop file to run mythwelcome instead.&lt;/p&gt;
 &lt;p&gt;The problem that arose from this was that when i closed mythtv, mythwelcome would hide itself and left me at the desktop without a keyboard. I have found two ways of fixing this, both work equally well. The first is from a bug post for mythbuntu, &lt;a href=&#34;https://bugs.launchpad.net/mythbuntu/+bug/260429&#34;&gt;https://bugs.launchpad.net/mythbuntu/+bug/260429&lt;/a&gt; which outlines in the comments a way to get it working by adding the following to mythfrontend.sh.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/usr/share/mythtv/mythfrontend.sh
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/usr/share/mythtv/mythfrontend.sh
 ================================
 #source our dialog functions .
 /usr/share/mythtv/dialog_functions.sh +
 # deletes .ICEauthority resolves problems with mytharchive and mythwelcome +
 rm /home/gaby/.ICEauthority
 ================================
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The second option was to restart gdm using &lt;code&gt;sudo /etc/init.d/gdm restart&lt;/code&gt; which is run when i press a button on the remote.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The second option was to restart gdm using &lt;code&gt;sudo /etc/init.d/gdm restart&lt;/code&gt; which is run when i press a button on the remote.&lt;/p&gt;
 &lt;p&gt;to get this to work i had to add &lt;code&gt;mythuser &amp;quot;ALL = NOPASSWD: /etc/init.d/gdm&amp;quot;&lt;/code&gt; to the end of &lt;code&gt;/etc/sudoers&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Just a small note to myself mainly, don&amp;rsquo;t chmod /etc/sudoers, that ends badly, use sudo visudo. To get it working with my remote i just added a fwe lines to my .lircrc file (or in my case inside the .lirc directory, with mythbuntu&amp;rsquo;s mythbuntu-lirc-generator).&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;begin
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;begin
     remote = NOVA-T500
     prog = irexec
     button = Go
     config = sudo /etc/init.d/gdm restart
 end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This added the command to my Go button on my remote and gave me a working Restart Gnome button. Terrestrial Freeview I have been using a UHF digital tuner card with New Zealand&amp;rsquo;s freeview, and this has been really good, nice high-definition quality tv. To get this working well i have been using a repository belonging to Paul Kendall, &lt;a href=&#34;https://launchpad.net/~paul-kcbbs/+archive&#34;&gt;https://launchpad.net/~paul-kcbbs/+archive&lt;/a&gt; using the following lines in &lt;code&gt;/etc/apt/sources.list deb http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main deb-src http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main&lt;/code&gt; This was the most important step in getting Terrestrial Freeview working on my Mythbox.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This added the command to my Go button on my remote and gave me a working Restart Gnome button. Terrestrial Freeview I have been using a UHF digital tuner card with New Zealand&amp;rsquo;s freeview, and this has been really good, nice high-definition quality tv. To get this working well i have been using a repository belonging to Paul Kendall, &lt;a href=&#34;https://launchpad.net/~paul-kcbbs/+archive&#34;&gt;https://launchpad.net/~paul-kcbbs/+archive&lt;/a&gt; using the following lines in &lt;code&gt;/etc/apt/sources.list deb http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main deb-src http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main&lt;/code&gt; This was the most important step in getting Terrestrial Freeview working on my Mythbox.&lt;/p&gt;
 &lt;p&gt;I haven&amp;rsquo;t tryed the latest intrepid mythtv build of mythtv, but this works for me and i dont want to try anything while it works. Unfortunately the Freeview Broadcast EPG only shows previous, current and next, leaving me no chance to schedule recordings for anymore then an hour away usually. luckily there is a good python script that is compatable with the mythtv epg grabber settings that are built in. It was as easy as adding the py file into the right directory. &lt;a href=&#34;http://www.htpcnz.net/Setting_up_EPG_data#Linux&#34;&gt;http://www.htpcnz.net/Setting_up_EPG_data#Linux&lt;/a&gt; has the details of how and where to get the script.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ wget [http://nice.net.nz/scripts/tv_grab_nz-py](http://nice.net.nz/scripts/tv_grab_nz-py &amp;quot;http://nice.net.nz/scripts/tv_grab_nz-py&amp;quot;)
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ wget [http://nice.net.nz/scripts/tv_grab_nz-py](http://nice.net.nz/scripts/tv_grab_nz-py &amp;#34;http://nice.net.nz/scripts/tv_grab_nz-py&amp;#34;)
 # Download the file
 $ sudo mv tv_grab_nz-py /usr/local/bin/
 # Put it in a system directory
 $ sudo chmod 755 /usr/local/bin/tv_grab_nz-py
 # Make it executable 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then just find and use it from myth-setup&amp;rsquo;s video sources menus and it should be in the list of available grabbers. Whats next for me? Well I have a few more things to get working.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then just find and use it from myth-setup&amp;rsquo;s video sources menus and it should be in the list of available grabbers. Whats next for me? Well I have a few more things to get working.&lt;/p&gt;
 &lt;p&gt;I havent tried burning to dvds through mythtv yet. I also want to get auto encoding working too, these 4 or 5 gigabyte files are much too large to be storing for too long and nuvexport just doesnt want to work for me with xvid yet.&lt;/p&gt;
 </description>
     </item>

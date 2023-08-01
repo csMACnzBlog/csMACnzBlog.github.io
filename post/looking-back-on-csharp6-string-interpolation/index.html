@@ -143,10 +143,9 @@
             <img class="post-image" src="https://images.unsplash.com/photo-1502426899022-660e3522a15a?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ"><p>With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.</p>
 <p>String Interpolation is a great feature that I now use everywhere I can (Except logging - see below).</p>
 <p>We have efficient libraries to format strings for us, so we don&rsquo;t have to concatenate all the time. This is both convenient and performant.</p>
-<pre><code class="language-cs">var string1 = &quot;My name is &quot; + &quot;Mark&quot;;
-var string2 = String.Format(&quot;My name is {0}&quot;, &quot;Mark&quot;);
-</code></pre>
-<p>The resulting string above is equivalent but there are many benefits to the second option:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> string1 = <span style="color:#e6db74">&#34;My name is &#34;</span> + <span style="color:#e6db74">&#34;Mark&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> string2 = String.Format(<span style="color:#e6db74">&#34;My name is {0}&#34;</span>, <span style="color:#e6db74">&#34;Mark&#34;</span>);
+</span></span></code></pre></div><p>The resulting string above is equivalent but there are many benefits to the second option:</p>
 <ul>
 <li>faster internal string building for larger strings with multiple parameters</li>
 <li>Lazy execution means you can pass <code>template</code> + <code>args</code> down the stack and format later (or never as an optimisation when necessary such as Debug/Verbose logs)</li>
@@ -155,30 +154,27 @@ var string2 = String.Format(&quot;My name is {0}&quot;, &quot;Mark&quot;);
 <p>The problem becomes we have all these index positions. It is very easy with many arguments to either get the positions wrong or to change it and make a mistake.</p>
 <h2 id="string-interpolation">String Interpolation</h2>
 <p>You can think of String Interpolation as the compiler automatically turning your string into a <code>String.Format</code> for you. (Oversimplification but useful way to conceptualise it.)  The first piece of magic is the <code>$</code> character. Adding this to the start of a string makes it into an interpolated string. This now grants special power to the braces (<code>{}</code>).  When you have a block of braces inside the string, this essentially becomes an expression. You can put whatever code you want in here, and it becomes a format argument. This gives improved readability.</p>
-<pre><code class="language-cs">var oldWay = String.Format($&quot;{0} is {1} years old.&quot;, p.Name, p.Age);
-var newWay = $&quot;{p.Name} is {p.Age} years old.&quot;;
-</code></pre>
-<ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> oldWay = String.Format(<span style="color:#e6db74">$&#34;{0} is {1} years old.&#34;</span>, p.Name, p.Age);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> newWay = <span style="color:#e6db74">$&#34;{p.Name} is {p.Age} years old.&#34;</span>;
+</span></span></code></pre></div><ul>
 <li>Mistakes are easier to spot</li>
 <li>compile-time checks performed on the string and its format</li>
 <li>performant - same benefits of <code>String.Format</code> applied for optimisations</li>
 <li>readable - reads like a sentence with clearing understanding of where the arguments come from</li>
 </ul>
 <p>You can still use <code>{</code> in your string, you just have to escape it with another <code>{</code>:</p>
-<pre><code class="language-cs">var name = &quot;bob&quot;;
-
-// This becomes: {&quot;name&quot;:&quot;bob&quot;}
-var json = &quot;{{&quot;&quot;name&quot;&quot;:&quot;&quot;{name}&quot;&quot;}}&quot;;
-</code></pre>
-<p>This is a canonical language feature, and you will expect to see most string-related code using it. That is if you are not already yourself.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> name = <span style="color:#e6db74">&#34;bob&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// This becomes: {&#34;name&#34;:&#34;bob&#34;}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> json = <span style="color:#e6db74">&#34;{{&#34;&#34;name&#34;&#34;:&#34;&#34;{name}&#34;&#34;}}&#34;</span>;
+</span></span></code></pre></div><p>This is a canonical language feature, and you will expect to see most string-related code using it. That is if you are not already yourself.</p>
 <h2 id="why-except-logging">Why &ldquo;Except Logging&rdquo;?</h2>
 <p>Turns out, there is a massively useful feature with logging using <code>Microsoft.Extensions.Logging</code> and ILogger. Semantic Logging, also known as Structured Logging.</p>
 <p>Semantic/Structured Logging supported is up to the implementor of the logging, but Serilog, Application Insights, NLog and others tend to support this feature, and it is <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-2.2#log-message-template">defined as a first-class part of the API</a>.</p>
 <p>The main difference to <code>String.Format</code> is you give named parameters in the template rather than numbered.</p>
-<pre><code class="language-cs">String.Format(&quot;My name is {0}&quot;, &quot;Mark&quot;);
-_logger.LogInformation(&quot;My name is {FirstName}&quot;, &quot;Mark&quot;);
-</code></pre>
-<p>Anyone who has actually monitored their logs knows that templates are really valuable. You can find all instances of a log message quickly with templated arguments, rather than having to do a wildcard search with inlined values because each message is a unique snowflake.  Most logging frameworks add the arguments as named metadata, using the value from the string (in the above example that would be <code>FirstName</code>).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>String.Format(<span style="color:#e6db74">&#34;My name is {0}&#34;</span>, <span style="color:#e6db74">&#34;Mark&#34;</span>);
+</span></span><span style="display:flex;"><span>_logger.LogInformation(<span style="color:#e6db74">&#34;My name is {FirstName}&#34;</span>, <span style="color:#e6db74">&#34;Mark&#34;</span>);
+</span></span></code></pre></div><p>Anyone who has actually monitored their logs knows that templates are really valuable. You can find all instances of a log message quickly with templated arguments, rather than having to do a wildcard search with inlined values because each message is a unique snowflake.  Most logging frameworks add the arguments as named metadata, using the value from the string (in the above example that would be <code>FirstName</code>).</p>
 <p>This works great. As long as you don&rsquo;t use the new and useful String Interpolation when you log. String Interpolation results in a string passed to the logger, rather than passing a template and arguments, so it&rsquo;s one or the other at this time.</p>
 <p>As you would expect, <a href="https://stackoverflow.com/questions/52200484/why-logging-doesnt-use-string-interpolation">people really want this</a> to reverse-engineer from String Interpolation into Semantic Logging automatically, but the argument is that it is both unexpected and a breaking change so you probably won&rsquo;t see that anytime soon <a href="https://github.com/NLog/NLog/issues/825">without a custom library or API involved</a>.</p>
 </section>

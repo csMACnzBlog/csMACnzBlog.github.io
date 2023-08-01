@@ -21,7 +21,7 @@
       <guid>https://blog.csmac.nz/post/speciality-nuget-packing/</guid>
       <description>&lt;p&gt;I recently wrote about &lt;a href=&#34;https://blog.csmac.nz/nuget-packing-on-linux/&#34;&gt;NuGet packing on linux&lt;/a&gt; specifically, and want to continue the theme with other things you can do with NuGet packaging.&lt;/p&gt;
 &lt;p&gt;As a quick recap you can use a .Net Core &lt;code&gt;*.csproj&lt;/code&gt; as a wrapper around a &lt;code&gt;*.nuspec&lt;/code&gt; file and use &lt;code&gt;dotnet pack&lt;/code&gt; to pack it, cross-platform, without needing &lt;code&gt;nuget.exe&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;#34;Microsoft.NET.Sdk&amp;#34;&amp;gt;
 
   &amp;lt;PropertyGroup&amp;gt;
     &amp;lt;TargetFramework&amp;gt;netstandard2.0&amp;lt;/TargetFramework&amp;gt;
@@ -32,9 +32,7 @@
   &amp;lt;/PropertyGroup&amp;gt;
 
 &amp;lt;/Project&amp;gt;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(See the &lt;a href=&#34;https://blog.csmac.nz/nuget-packing-on-linux/&#34;&gt;other article&lt;/a&gt; for more detailed analysis of these properties.)&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(See the &lt;a href=&#34;https://blog.csmac.nz/nuget-packing-on-linux/&#34;&gt;other article&lt;/a&gt; for more detailed analysis of these properties.)&lt;/p&gt;
 &lt;p&gt;Now for something new.&lt;/p&gt;
 &lt;h3 id=&#34;contentfiles&#34;&gt;ContentFiles&lt;/h3&gt;
 &lt;p&gt;Do you remember Content files? There was(is?) this feature in NuGet files where you can include files, and have those files automatically added to your .Net Framework applications when the Package is Installed. Some libraries used this to distribute code that could be embedded into your application instead of linking to a library dependency.  Dapper was one example that did this, and I think some logging frameworks also distributed some code this way.&lt;/p&gt;
@@ -43,20 +41,19 @@
 &lt;p&gt;Luckily, there is a replacement to &lt;code&gt;Content&lt;/code&gt; files, and that is &lt;code&gt;ContentFiles&lt;/code&gt;. &lt;a href=&#34;https://blog.nuget.org/20160126/nuget-contentFiles-demystified.html&#34;&gt;NuGet ContentFiles Demystified
 &lt;/a&gt; seems to be the canonical reference post on what these are and how they work, and if you want to read the spec for how to use these with &lt;code&gt;nuspec&lt;/code&gt;, that is &lt;a href=&#34;https://docs.microsoft.com/en-us/nuget/reference/nuspec#contentfiles&#34;&gt;documented here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;How do we make this work with &lt;code&gt;dotnet pack&lt;/code&gt; without using the &lt;code&gt;nuspec&lt;/code&gt; trick above? Say you are already packaging a DLL, and want to add an extra file to the mix?  Here is the answer:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;#34;Microsoft.NET.Sdk&amp;#34;&amp;gt;
 
   &amp;lt;PropertyGroup&amp;gt;
     &amp;lt;TargetFramework&amp;gt;netstandard2.0&amp;lt;/TargetFramework&amp;gt;
   &amp;lt;/PropertyGroup&amp;gt;
 
   &amp;lt;ItemGroup&amp;gt;
-    &amp;lt;Compile Remove=&amp;quot;IncludedFile.cs&amp;quot; /&amp;gt;
-    &amp;lt;Content Include=&amp;quot;IncludedFile.cs&amp;quot; BuildAction=&amp;quot;Compile&amp;quot; /&amp;gt;
+    &amp;lt;Compile Remove=&amp;#34;IncludedFile.cs&amp;#34; /&amp;gt;
+    &amp;lt;Content Include=&amp;#34;IncludedFile.cs&amp;#34; BuildAction=&amp;#34;Compile&amp;#34; /&amp;gt;
   &amp;lt;/ItemGroup&amp;gt;
 
 &amp;lt;/Project&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Let&amp;rsquo;s say this is an application with a bunch of source files. We have one source file that rather than compile it in, we want to include into the project that uses the package at compile time.  First, we remove our file from compiling inside our app, then we make it &lt;code&gt;Content&lt;/code&gt;.  By default, any &lt;code&gt;Content&lt;/code&gt; files will become &lt;code&gt;contentFiles&lt;/code&gt; in the NuGet package.  It is that easy.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s say this is an application with a bunch of source files. We have one source file that rather than compile it in, we want to include into the project that uses the package at compile time.  First, we remove our file from compiling inside our app, then we make it &lt;code&gt;Content&lt;/code&gt;.  By default, any &lt;code&gt;Content&lt;/code&gt; files will become &lt;code&gt;contentFiles&lt;/code&gt; in the NuGet package.  It is that easy.&lt;/p&gt;
 &lt;p&gt;There is one cool trick you can do here, too. if you call your file &lt;code&gt;*.cs.pp&lt;/code&gt;, you can run transforms over it. The most (and only) useful one for us is the namespace placeholder. Anywhere in the file you write &lt;code&gt;$rootnamespace$&lt;/code&gt; it will be replaced by the namespace of the project that imports the package, before that library compiles this file. Very handy to ensure that the user&amp;rsquo;s own namespace is used when compiling this file.&lt;/p&gt;
 &lt;p&gt;A few notes:&lt;/p&gt;
 &lt;ul&gt;
@@ -70,17 +67,15 @@ As well as BuildAction &lt;code&gt;Compile&lt;/code&gt;, there are a couple of o
 &lt;p&gt;It turns out it is that simple to do &lt;code&gt;contentFiles&lt;/code&gt; out of the box.&lt;/p&gt;
 &lt;h3 id=&#34;build-props-and-targets&#34;&gt;build props and targets&lt;/h3&gt;
 &lt;p&gt;You can arbitrarily include any file into any location in the NuGet package if you like. There is a special folder called &lt;code&gt;build&lt;/code&gt; that contains props and targets to extend MSBuild. For instance, we might want to have a props file&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;None Include=&amp;quot;MyNewApp.props&amp;quot; PackagePath=&amp;quot;build/$(TargetFramework)&amp;quot; Pack=&amp;quot;true&amp;quot; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If you wanted the same file to work for all targets, you could simply just use &lt;code&gt;PackagePath=&amp;quot;build&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;None Include=&amp;#34;MyNewApp.props&amp;#34; PackagePath=&amp;#34;build/$(TargetFramework)&amp;#34; Pack=&amp;#34;true&amp;#34; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If you wanted the same file to work for all targets, you could simply just use &lt;code&gt;PackagePath=&amp;quot;build&amp;quot;&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;When using props and targets, you want your entry file to be the same name as the project/package, so that it will get loaded by the project that consumes your NuGet package.&lt;/p&gt;
 &lt;p&gt;More about how the &lt;code&gt;nuspec&lt;/code&gt; file is supposed to look for props and targets &lt;a href=&#34;https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#including-msbuild-props-and-targets-in-a-package&#34;&gt;can be found here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Note they recommend using a min client version to let clients know you are using this feature:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;PropertyGroup&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;PropertyGroup&amp;gt;
     &amp;lt;MinClientVersion&amp;gt;2.5&amp;lt;/MinClientVersion&amp;gt;
 &amp;lt;/PropertyGroup&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And with that, you can now augment the build props and tasks in your consumers&amp;rsquo; projects, and use this approach to include any arbitrary files into your NuGet package.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And with that, you can now augment the build props and tasks in your consumers&amp;rsquo; projects, and use this approach to include any arbitrary files into your NuGet package.&lt;/p&gt;
 &lt;h3 id=&#34;metadata-properties&#34;&gt;Metadata properties&lt;/h3&gt;
 &lt;p&gt;The nice thing about using a &lt;code&gt;csproj&lt;/code&gt;, is that with this one file you can set all your assembly metadata, as well as NuGet package metadata.&lt;/p&gt;
 &lt;p&gt;The &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties&#34;&gt;Additions to the csproj format&lt;/a&gt; page gives a great overview of (among other things) all the possible properties you can put into your &lt;code&gt;csproj&lt;/code&gt; files, and where exactly these will go into your file NuGet package metadata. This is the final piece that ensures you don&amp;rsquo;t actually have to hand-craft a &lt;code&gt;nuspec&lt;/code&gt; file at all and can keep all your pack information inside the &lt;code&gt;csproj&lt;/code&gt; file instead.&lt;/p&gt;
@@ -106,38 +101,36 @@ As well as BuildAction &lt;code&gt;Compile&lt;/code&gt;, there are a couple of o
 &lt;p&gt;Anyone who has been doing dotnet cross-platform will also know that you can use &lt;code&gt;dotnet pack&lt;/code&gt; on both Windows and Linux to package your project into a NuGet package containing the &lt;code&gt;dll&lt;/code&gt;. It even does references and multi-targeting correctly out of the box.&lt;/p&gt;
 &lt;p&gt;But did you know that you can also use dotnet pack to package any arbitrary &lt;code&gt;nuspec&lt;/code&gt; file as well?&lt;/p&gt;
 &lt;p&gt;First, let&amp;rsquo;s look at a simple &lt;code&gt;nuspec&lt;/code&gt; file that only has package references (an aggregate package).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
-&amp;lt;package xmlns=&amp;quot;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&amp;quot;&amp;gt;
-  &amp;lt;metadata&amp;gt;
-    &amp;lt;id&amp;gt;MyNewApp&amp;lt;/id&amp;gt;
-    &amp;lt;version&amp;gt;1.0.0&amp;lt;/version&amp;gt;
-    &amp;lt;authors&amp;gt;csMACnz&amp;lt;/authors&amp;gt;
-    &amp;lt;description&amp;gt;An aggregate package example&amp;lt;/description&amp;gt;
-    &amp;lt;tags&amp;gt;utils example&amp;lt;/tags&amp;gt;
-
-    &amp;lt;dependencies&amp;gt;
-      &amp;lt;dependency id=&amp;quot;Newtonsoft.Json&amp;quot; version=&amp;quot;11.0.2&amp;quot; /&amp;gt;
-      &amp;lt;dependency id=&amp;quot;Beefeater&amp;quot; version=&amp;quot;0.5.0&amp;quot; /&amp;gt;
-    &amp;lt;/dependencies&amp;gt;
-  &amp;lt;/metadata&amp;gt;
-  &amp;lt;files&amp;gt;
-    &amp;lt;!-- empty files tag avoids copying all files --&amp;gt;
-  &amp;lt;/files&amp;gt;
-&amp;lt;/package&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We could use &lt;code&gt;nuget.exe pack&lt;/code&gt; but that wouldn&amp;rsquo;t work on Linux. Instead, we create a csproj file designed to do the pack for us in a standard &lt;code&gt;dotnet pack&lt;/code&gt; kind of way.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
-
-  &amp;lt;PropertyGroup&amp;gt;
-    &amp;lt;TargetFramework&amp;gt;netstandard2.0&amp;lt;/TargetFramework&amp;gt;
-    &amp;lt;NuspecFile&amp;gt;newapp.nuspec&amp;lt;/NuspecFile&amp;gt;
-    &amp;lt;NuspecProperties&amp;gt;&amp;lt;/NuspecProperties&amp;gt;
-    &amp;lt;NuspecBasePath&amp;gt;&amp;lt;/NuspecBasePath&amp;gt;
-  &amp;lt;/PropertyGroup&amp;gt;
-
-&amp;lt;/Project&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The magic is these three properties (only one required, really):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;metadata&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;MyNewApp&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0.0&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;authors&amp;gt;&lt;/span&gt;csMACnz&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/authors&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;An aggregate package example&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;tags&amp;gt;&lt;/span&gt;utils example&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/tags&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependency&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Newtonsoft.Json&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;11.0.2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependency&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Beefeater&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0.5.0&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/metadata&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;files&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- empty files tag avoids copying all files --&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/files&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/package&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We could use &lt;code&gt;nuget.exe pack&lt;/code&gt; but that wouldn&amp;rsquo;t work on Linux. Instead, we create a csproj file designed to do the pack for us in a standard &lt;code&gt;dotnet pack&lt;/code&gt; kind of way.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;Project&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Sdk=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Microsoft.NET.Sdk&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;PropertyGroup&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;TargetFramework&amp;gt;&lt;/span&gt;netstandard2.0&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/TargetFramework&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;NuspecFile&amp;gt;&lt;/span&gt;newapp.nuspec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/NuspecFile&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;NuspecProperties&amp;gt;&amp;lt;/NuspecProperties&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;NuspecBasePath&amp;gt;&amp;lt;/NuspecBasePath&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/PropertyGroup&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/Project&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The magic is these three properties (only one required, really):&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;&amp;lt;NuspecFile&amp;gt;&lt;/code&gt; - Required to tell dotnet to use the hand-crafted &lt;code&gt;nuspec&lt;/code&gt; file&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;&amp;lt;NuspecProperties&amp;gt;&lt;/code&gt; - (Optional) ability to generate and send &lt;code&gt;nuspec&lt;/code&gt; &lt;a href=&#34;https://docs.microsoft.com/en-us/nuget/reference/nuspec#replacement-tokens&#34;&gt;replacement tokens&lt;/a&gt;&lt;/li&gt;
@@ -180,14 +173,13 @@ As well as BuildAction &lt;code&gt;Compile&lt;/code&gt;, there are a couple of o
 &lt;p&gt;Let&amp;rsquo;s set aside Application packing for later, and focus our attention on NuGet.&lt;/p&gt;
 &lt;h3 id=&#34;our-demo-library&#34;&gt;Our Demo library&lt;/h3&gt;
 &lt;p&gt;Again we will quickly whip up a library to use:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir mynewpackage
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mkdir mynewpackage
 cd mynewpackage
 dotnet new -t Lib
 dotnet restore
 dotnet build
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Some quick touch-ups to make it more interesting. Replace Library.cs with this again:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;namespace mynewpackage
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Some quick touch-ups to make it more interesting. Replace Library.cs with this again:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;namespace mynewpackage
 {
     public class Calculator
     {
@@ -197,14 +189,12 @@ dotnet build
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At least now our package contains something interesting.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;At least now our package contains something interesting.&lt;/p&gt;
 &lt;h3 id=&#34;simple-packing&#34;&gt;Simple Packing&lt;/h3&gt;
 &lt;p&gt;It isn&amp;rsquo;t very difficult to turn our library into a &lt;code&gt;nupkg&lt;/code&gt; (pronounced &lt;a href=&#34;https://twitter.com/csharpfritz/status/519927456191758336&#34;&gt;NUP-KEG&lt;/a&gt;, of course).&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;dotnet pack
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This leaves us with a directory structure like so:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mynewpackage  
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dotnet pack
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This leaves us with a directory structure like so:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mynewpackage  
 |-- Library.cs
 |-- project.json
 |-- project.lock.json
@@ -216,29 +206,26 @@ dotnet build
                |-- mynewpackage.deps.json
                |-- mynewpackage.dll
                +-- mynewpackage.pdb
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(Note that I have left out the &lt;code&gt;obj&lt;/code&gt; folder), we can see two new files have been created under &lt;code&gt;/bin/Debug&lt;/code&gt;: &lt;code&gt;mynewpackage.1.0.0.nupkg&lt;/code&gt; and &lt;code&gt;mynewpackage.1.0.0.symbols.nupkg&lt;/code&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(Note that I have left out the &lt;code&gt;obj&lt;/code&gt; folder), we can see two new files have been created under &lt;code&gt;/bin/Debug&lt;/code&gt;: &lt;code&gt;mynewpackage.1.0.0.nupkg&lt;/code&gt; and &lt;code&gt;mynewpackage.1.0.0.symbols.nupkg&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;These are the NuGet packages. Pretty easy huh?  The version number comes from the &lt;code&gt;project.json&lt;/code&gt; file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;version&amp;quot;: &amp;quot;1.0.0-*&amp;quot;,
-  &amp;quot;buildOptions&amp;quot;: {
-    &amp;quot;debugType&amp;quot;: &amp;quot;portable&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{
+  &amp;#34;version&amp;#34;: &amp;#34;1.0.0-*&amp;#34;,
+  &amp;#34;buildOptions&amp;#34;: {
+    &amp;#34;debugType&amp;#34;: &amp;#34;portable&amp;#34;
   },
-  &amp;quot;dependencies&amp;quot;: {},
-  &amp;quot;frameworks&amp;quot;: {
-    &amp;quot;netstandard1.6&amp;quot;: {
-      &amp;quot;dependencies&amp;quot;: {
-        &amp;quot;NETStandard.Library&amp;quot;: &amp;quot;1.6.0&amp;quot;
+  &amp;#34;dependencies&amp;#34;: {},
+  &amp;#34;frameworks&amp;#34;: {
+    &amp;#34;netstandard1.6&amp;#34;: {
+      &amp;#34;dependencies&amp;#34;: {
+        &amp;#34;NETStandard.Library&amp;#34;: &amp;#34;1.6.0&amp;#34;
       }
     }
   }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;But that was a &lt;code&gt;Debug&lt;/code&gt; build. To produce a release build instead:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;dotnet pack -c Release
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we have some new files:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mynewpackage  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;But that was a &lt;code&gt;Debug&lt;/code&gt; build. To produce a release build instead:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dotnet pack -c Release
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now we have some new files:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mynewpackage  
 |-- Library.cs
 |-- project.json
 |-- project.lock.json
@@ -257,20 +244,18 @@ dotnet build
                |-- mynewpackage.deps.json
                |-- mynewpackage.dll
                |-- mynewpackage.pdb
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We can see that we now have a &lt;code&gt;Release&lt;/code&gt; folder (containing a &lt;code&gt;netstandard1.6&lt;/code&gt; folder, thanks to an automatic build before the pack) and in the &lt;code&gt;Release&lt;/code&gt; folder, we again have &lt;code&gt;mynewpackage.1.0.0.nupkg&lt;/code&gt; and &lt;code&gt;mynewpackage.1.0.0.symbols.nupkg&lt;/code&gt; files.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We can see that we now have a &lt;code&gt;Release&lt;/code&gt; folder (containing a &lt;code&gt;netstandard1.6&lt;/code&gt; folder, thanks to an automatic build before the pack) and in the &lt;code&gt;Release&lt;/code&gt; folder, we again have &lt;code&gt;mynewpackage.1.0.0.nupkg&lt;/code&gt; and &lt;code&gt;mynewpackage.1.0.0.symbols.nupkg&lt;/code&gt; files.&lt;/p&gt;
 &lt;h3 id=&#34;crack-open-a-nupkg&#34;&gt;Crack open a nupkg&lt;/h3&gt;
 &lt;p&gt;What do these &lt;code&gt;nupkg&lt;/code&gt; files look like on the inside? Using a tool like &lt;a href=&#34;https://github.com/NuGetPackageExplorer/NuGetPackageExplorer&#34;&gt;NuGet Package Explorer&lt;/a&gt; we can take a look. The Release version looks like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mynewpackage.1.0.0.nupkg
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mynewpackage.1.0.0.nupkg
 |-- mynewpackage.nuspec
 +-- lib
      +-- netstandard1.6
           +-- mynewpackage.dll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Some things to observe. We only have a lib file for &lt;code&gt;netstandard1.6&lt;/code&gt; target profile. This means that our NuGet package only works with new .Net Core applications targeting NetStandard1.6 (and the upcoming 4.6.3).&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Some things to observe. We only have a lib file for &lt;code&gt;netstandard1.6&lt;/code&gt; target profile. This means that our NuGet package only works with new .Net Core applications targeting NetStandard1.6 (and the upcoming 4.6.3).&lt;/p&gt;
 &lt;p&gt;Changing our attention to the contents of the &lt;code&gt;nuspec&lt;/code&gt; file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
-&amp;lt;package xmlns=&amp;quot;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&amp;quot;&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?&amp;gt;
+&amp;lt;package xmlns=&amp;#34;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&amp;#34;&amp;gt;
     &amp;lt;metadata&amp;gt;
         &amp;lt;id&amp;gt;mynewpackage&amp;lt;/id&amp;gt;
         &amp;lt;version&amp;gt;1.0.0&amp;lt;/version&amp;gt;
@@ -279,14 +264,13 @@ dotnet build
         &amp;lt;requireLicenseAcceptance&amp;gt;false&amp;lt;/requireLicenseAcceptance&amp;gt;
         &amp;lt;description&amp;gt;mynewpackage&amp;lt;/description&amp;gt;
         &amp;lt;dependencies&amp;gt;
-            &amp;lt;group targetFramework=&amp;quot;.NETStandard1.6&amp;quot;&amp;gt;
-                &amp;lt;dependency id=&amp;quot;NETStandard.Library&amp;quot; version=&amp;quot;1.6.0&amp;quot; /&amp;gt;
+            &amp;lt;group targetFramework=&amp;#34;.NETStandard1.6&amp;#34;&amp;gt;
+                &amp;lt;dependency id=&amp;#34;NETStandard.Library&amp;#34; version=&amp;#34;1.6.0&amp;#34; /&amp;gt;
             &amp;lt;/group&amp;gt;
         &amp;lt;/dependencies&amp;gt;
     &amp;lt;/metadata&amp;gt;
 &amp;lt;/package&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We didn&amp;rsquo;t override any properties in our &lt;code&gt;project.json&lt;/code&gt; file. But we can see here that the project folder name &lt;code&gt;mynewpackage&lt;/code&gt; is used to populate the package &lt;code&gt;id&lt;/code&gt;, &lt;code&gt;authors&lt;/code&gt;, &lt;code&gt;owners&lt;/code&gt; and &lt;code&gt;description&lt;/code&gt;. Play around for yourself at setting the correct properties in the &lt;code&gt;project.json&lt;/code&gt; to produce your desired &lt;code&gt;nupkg&lt;/code&gt; values.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We didn&amp;rsquo;t override any properties in our &lt;code&gt;project.json&lt;/code&gt; file. But we can see here that the project folder name &lt;code&gt;mynewpackage&lt;/code&gt; is used to populate the package &lt;code&gt;id&lt;/code&gt;, &lt;code&gt;authors&lt;/code&gt;, &lt;code&gt;owners&lt;/code&gt; and &lt;code&gt;description&lt;/code&gt;. Play around for yourself at setting the correct properties in the &lt;code&gt;project.json&lt;/code&gt; to produce your desired &lt;code&gt;nupkg&lt;/code&gt; values.&lt;/p&gt;
 &lt;p&gt;We also see that under dependencies there is a &lt;code&gt;targetFramework=&amp;quot;.NETStandard1.6&amp;quot;&lt;/code&gt; group, with a dependency on &lt;code&gt;NETStandard.Library&lt;/code&gt; version &lt;code&gt;1.6.0&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;and-the-next-time&#34;&gt;And the next time&amp;hellip;&lt;/h3&gt;
 &lt;p&gt;We can build packages to be used by new .Net Core applications. But we probably want to build libraries that can be used from our .Net 4.0, Windows Phone and UWP applications as well.  Next up, we see how to extend our package to handle just these situations.&lt;/p&gt;

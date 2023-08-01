@@ -158,40 +158,37 @@
 <p>But who has time for that? Automation anyone?</p>
 <p>There are a set of <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script">dotnet-install scripts</a>, both in Bash and PowerShell formats, that allow you to script the installation of dotnet runtimes. By default, these scripts will install the latest version into your user profile, but there are a tonne of options you can choose from.</p>
 <p>There are a couple of ways to run the script, either download and execute as one command, or save the file, then execute it. (Shown below in PowerShell command format.)</p>
-<pre><code class="language-ps"># Download and Execute the script in one command
-&quot;&amp;([scriptblock]::Create((Invoke-WebRequest -useb 'https://dot.net/v1/dotnet-install.ps1'))) -DryRun&quot;
-
-#Alternatively save the script, then execute it
-Invoke-WebRequest -useb 'https://dot.net/v1/dotnet-install.ps1' -OutFile &quot;dotn
-et-install.ps1&quot;
-.\dotnet-install.ps1 -DryRun
-</code></pre>
-<p>(I&rsquo;ve used <code>-DryRun</code> argument to test the script parameters, before actually making changes.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ps" data-lang="ps"><span style="display:flex;"><span><span style="color:#a6e22e">#</span> <span style="color:#a6e22e">Download</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">Execute</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">script</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">one</span> <span style="color:#a6e22e">command</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">&#34;&amp;</span><span style="color:#e6db74">([scriptblock]::Create((Invoke-WebRequest -useb &#39;https://dot.net/v1/dotnet-install.ps1&#39;)))</span> <span style="color:#a6e22e">-DryRun&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">#Alternatively</span> <span style="color:#a6e22e">save</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">script,</span> <span style="color:#a6e22e">then</span> <span style="color:#a6e22e">execute</span> <span style="color:#a6e22e">it</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Invoke-WebRequest</span> <span style="color:#a6e22e">-useb</span> <span style="color:#a6e22e">&#39;https:</span><span style="color:#960050;background-color:#1e0010">/</span>/dot.net/v1/dotnet-install.ps1&#39; <span style="color:#a6e22e">-OutFile</span> <span style="color:#a6e22e">&#34;dotn</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">et-install.ps1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">.\dotnet-install.ps1</span> <span style="color:#a6e22e">-DryRun</span>
+</span></span></code></pre></div><p>(I&rsquo;ve used <code>-DryRun</code> argument to test the script parameters, before actually making changes.)</p>
 <p>Let&rsquo;s see how to use the script in two ways: First to install the equivalent of the way the installers would onto your machine. (You will need an Administrator Prompt for this.)</p>
-<pre><code># This assumes your ${Env:ProgramFiles(x86)} is set to &quot;C:\Program Files (x86)&quot;
+<pre tabindex="0"><code># This assumes your ${Env:ProgramFiles(x86)} is set to &#34;C:\Program Files (x86)&#34;
 # Your default Program Files directory might be different otherwise.
 
-.\dotnet-install.ps1 -Version 2.1.4 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
+.\dotnet-install.ps1 -Version 2.1.4 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34;
 
 # You can do this for other SDK versions
-.\dotnet-install.ps1 -Version 2.0.3 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
-.\dotnet-install.ps1 -Version 1.1.7 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
-.\dotnet-install.ps1 -Version 1.1.5 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
-.\dotnet-install.ps1 -Version 1.0.4 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot;
+.\dotnet-install.ps1 -Version 2.0.3 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34;
+.\dotnet-install.ps1 -Version 1.1.7 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34;
+.\dotnet-install.ps1 -Version 1.1.5 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34;
+.\dotnet-install.ps1 -Version 1.0.4 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34;
 
 # And for other runtimes
-.\dotnet-install.ps1 -Version 2.0.5 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
-.\dotnet-install.ps1 -Version 2.0.3 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
-.\dotnet-install.ps1 -Version 2.0.0 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
-.\dotnet-install.ps1 -Version 1.1.6 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
-.\dotnet-install.ps1 -Version 1.1.5 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
-.\dotnet-install.ps1 -Version 1.0.9 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
-.\dotnet-install.ps1 -Version 1.0.8 -InstallDir &quot;C:\Program Files (x86)\dotnet&quot; -SharedRuntime
-
-</code></pre>
-<p>If you haven&rsquo;t already run an installer for any versions of dotnet SDK, you will probably have to manually add <code>C:\Program Files (x86)\dotnet</code> to your PATH Environment Variable. By default it will be made immediately available for the current console window session.</p>
+.\dotnet-install.ps1 -Version 2.0.5 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34; -SharedRuntime
+.\dotnet-install.ps1 -Version 2.0.3 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34; -SharedRuntime
+.\dotnet-install.ps1 -Version 2.0.0 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34; -SharedRuntime
+.\dotnet-install.ps1 -Version 1.1.6 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34; -SharedRuntime
+.\dotnet-install.ps1 -Version 1.1.5 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34; -SharedRuntime
+.\dotnet-install.ps1 -Version 1.0.9 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34; -SharedRuntime
+.\dotnet-install.ps1 -Version 1.0.8 -InstallDir &#34;C:\Program Files (x86)\dotnet&#34; -SharedRuntime
+</code></pre><p>If you haven&rsquo;t already run an installer for any versions of dotnet SDK, you will probably have to manually add <code>C:\Program Files (x86)\dotnet</code> to your PATH Environment Variable. By default it will be made immediately available for the current console window session.</p>
 <p>Next let&rsquo;s look at doing the same thing into a stand-alone folder on your machine instead.</p>
-<pre><code># Install the latest/current stable SDK first
+<pre tabindex="0"><code># Install the latest/current stable SDK first
 .\dotnet-install.ps1 -Channel Current -InstallDir C:\dotnet-cli
 
 # Now other required SDKs
@@ -215,9 +212,7 @@ et-install.ps1&quot;
 .\dotnet-install.ps1 -Version 1.0.8 -InstallDir C:\dotnet-cli -SharedRuntime
 .\dotnet-install.ps1 -Version 1.0.4 -InstallDir C:\dotnet-cli -SharedRuntime
 .\dotnet-install.ps1 -Version 1.0.3 -InstallDir C:\dotnet-cli -SharedRuntime
-
-</code></pre>
-<p>As mentioned before, for the current session you will find the newly installed <code>dotnet.exe</code> set in your path pointing at the new folders, but You will also need to manually put this into your PATH Environment variable to make this version always available as the default <code>dotnet</code> command.</p>
+</code></pre><p>As mentioned before, for the current session you will find the newly installed <code>dotnet.exe</code> set in your path pointing at the new folders, but You will also need to manually put this into your PATH Environment variable to make this version always available as the default <code>dotnet</code> command.</p>
 <h3 id="but-why-a-runtime">But why a Runtime?</h3>
 <p>Why do we need to install the target runtime? Well, mainly it is because we want to keep our application distribution small. We do this by leaving out a bunch of common framework executable code, that we entrust to a runtime distribution to deliver to the target machine for us.  This runtime can be shared across applications and so they will all get the benefit of being smaller.</p>
 <p>But what if we don&rsquo;t want to share? Traditionally this hasn&rsquo;t been much of an option. For certain <code>dll</code> files, we can distribute them with our app to ensure the correct one is chosen, rather than relying on the system to find them for us. But this isn&rsquo;t generally true for all parts of the framework, especially more crucial low-level system details. (And sometimes the installed framework will override us anyway - &ldquo;GAC DLL hell&rdquo; or &ldquo;dee el hell&rdquo; is what we called it.)</p>
@@ -236,7 +231,7 @@ et-install.ps1&quot;
 </ul>
 <p>It is up to you to decide the trade-offs that make the most sense for your application.</p>
 <h3 id="show-me-the-code">Show me the Code!</h3>
-<pre><code>mkdir MySelfContainedApp
+<pre tabindex="0"><code>mkdir MySelfContainedApp
 cd MySelfContainedApp
 mkdir MyApp
 cd MyApp
@@ -245,16 +240,14 @@ cd ../
 dotnet new sln
 dotnet sln add .\MyApp\MyApp.csproj
 dotnet build
-</code></pre>
-<p>Once we have an app to use, this is how we package it with its own runtime:</p>
-<pre><code>dotnet publish --self-contained --runtime win7-x64
-</code></pre>
-<p>(Not using Windows? Other runtime values include <code>osx.10.12-x64</code> and <code>ubuntu.16.04-x64</code>. A full list and description of them all can be found in the <a href="https://docs.microsoft.com/en-nz/dotnet/core/rid-catalog">rid catalog</a>)</p>
+</code></pre><p>Once we have an app to use, this is how we package it with its own runtime:</p>
+<pre tabindex="0"><code>dotnet publish --self-contained --runtime win7-x64
+</code></pre><p>(Not using Windows? Other runtime values include <code>osx.10.12-x64</code> and <code>ubuntu.16.04-x64</code>. A full list and description of them all can be found in the <a href="https://docs.microsoft.com/en-nz/dotnet/core/rid-catalog">rid catalog</a>)</p>
 <p>The runtime identifier <code>win7-x64</code> means we will package with a runtime compatible with the Windows 7(&amp; Windows Server 2008 R2) Operating System, 64-bit Architecture. This means that it will run on those Operating Systems, and should be forward-compatible to newer systems (compatibility). (It also means there may be performance optimisations from newer systems like <code>Win8</code> and <code>Win10</code> that won&rsquo;t be taken advantage of when it runs in Compatability mode on the newer OS versions.)  It also states that it requires a 64-bit Architecture. no 32-bit Architecture machines will be able to run the application. (You may recall building apps in the past that could target <code>AnyCPU</code>. This isn&rsquo;t it.)</p>
 <p>In general, you can identify Operating System, OS Version, and architecture from the parts of an rid. This is representative, and should not be relied on as a composition of any OS/Version/Arch into an rid. Use the reference guide to ensure you are using valid identifiers.</p>
 <p>As well as specific runtimes, SDK 2.0 introduces Portable rids. <code>Win-x64</code>, <code>linux-x64</code> and <code>osx-x64</code> give you version-agnostic Operating System Targets. (Most useful for Linux, since it is across multiple distros - Ubuntu, Tizen, Red Hat, Fedora etc etc.) This doesn&rsquo;t necessarily affect the size, mostly just the compatibility. (Affects Performance/Optimisations? Possibly. Perf test if you want to find out! 😉 )</p>
 <p>Let&rsquo;s take a look at the output from our publish command:</p>
-<pre><code>MySelfContainedApp
+<pre tabindex="0"><code>MySelfContainedApp
 |-- MySelfContainedApp.sln
 +---MyApp
     |-- MyApp.csproj
@@ -493,8 +486,7 @@ dotnet build
                         |-- System.Xml.XPath.XDocument.dll
                         |-- ucrtbase.dll
                         \-- WindowsBase.dll
-</code></pre>
-<p>That publish folder is 62.7 MB! Compare that to the size of the files in <code>MySelfContainedApp\MyApp\bin\Debug\netcoreapp2.0</code>, which are only 5.76 KB. Compared to the app, that is a lot of Runtime to carry around. (The application is less than a percent of the total distributable size)</p>
+</code></pre><p>That publish folder is 62.7 MB! Compare that to the size of the files in <code>MySelfContainedApp\MyApp\bin\Debug\netcoreapp2.0</code>, which are only 5.76 KB. Compared to the app, that is a lot of Runtime to carry around. (The application is less than a percent of the total distributable size)</p>
 <p>This is a considerable tradeoff and should be considered carefully when making the decision between packing portable or distributing the runtime.</p>
 <h3 id="the-cake-is-a-lie">The Cake is a Lie</h3>
 <p>I said earlier that one of the benefits of distributing the runtime was <code>We do not require anything* to be pre-installed on the target machine.</code></p>

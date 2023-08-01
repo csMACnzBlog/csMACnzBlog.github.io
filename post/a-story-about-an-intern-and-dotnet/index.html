@@ -139,306 +139,292 @@
 <p>Luckily for Jack, he had just spent the last few months at Uni learning java and python on Linux and was a pro at the command line stuff. His personal machine ran Windows too so he felt pretty comfortable now staring at the cold black shell covering most of his windows desktop.</p>
 <p>Joe had at least told him where to install dotnet from (<a href="https://www.microsoft.com/net/core">www.microsoft.com/net/core</a>) and it practically installed itself. It was no <code>apt-get install</code>, but hey, it&rsquo;s for Windows people. He had also been told to start with the command &lsquo;dotnet&rsquo; so he was all set.</p>
 <p>Jack started typing and looked at the results. First, he typed <code>dotnet</code> to see what it would tell him.</p>
-<pre><code class="language-cmd">C:\Users\jackr&gt;dotnet
-
-Usage: dotnet [options]
-Usage: dotnet [path-to-application]
-
-Options:
-  -h|--help            Display help.
-  --version         Display version.
-
-path-to-application:
-  The path to an application .dll file to execute.
-  
-</code></pre>
-<p>&ldquo;It looks like &lsquo;dotnet &ndash;help&rsquo; is the right next instruction to find out more&rdquo;, he thought to himself, &ldquo;so&hellip;&rdquo;:</p>
-<pre><code class="language-cmd">C:\Users\jackr&gt;dotnet --help
-.NET Command Line Tools (2.0.0)
-Usage: dotnet [runtime-options] [path-to-application]
-Usage: dotnet [sdk-options] [command] [arguments] [command-options]
-
-path-to-application:
-  The path to an application .dll file to execute.
-
-SDK commands:
-  new              Initialize .NET projects.
-  restore          Restore dependencies specified in the .NET project.
-  run              Compiles and immediately executes a .NET project.
-  build            Builds a .NET project.
-  publish          Publishes a .NET project for deployment (including the runtime).
-  test             Runs unit tests using the test runner specified in the project.
-  pack             Creates a NuGet package.
-  migrate          Migrates a project.json based project to a msbuild based project.
-  clean            Clean build output(s).
-  sln              Modify solution (SLN) files.
-  add              Add reference to the project.
-  remove           Remove reference from the project.
-  list             List reference in the project.
-  nuget            Provides additional NuGet commands.
-  msbuild          Runs Microsoft Build Engine (MSBuild).
-  vstest           Runs Microsoft Test Execution Command Line Tool.
-
-Common options:
-  -v|--verbosity        Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
-  -h|--help             Show help.
-
-Run 'dotnet COMMAND --help' for more information on a command.
-
-sdk-options:
-  --version        Display .NET Core SDK version.
-  --info           Display .NET Core information.
-  -d|--diagnostics Enable diagnostic output.
-
-runtime-options:
-  --additionalprobingpath &lt;path&gt;    Path containing probing policy and assemblies to probe for.
-  --fx-version &lt;version&gt;            Version of the installed Shared Framework to use to run the application.
-  --roll-forward-on-no-candidate-fx Roll forward on no candidate shared framework is enabled.
-  --additional-deps &lt;path&gt;          Path to additonal deps.json file.
-</code></pre>
-<p>&ldquo;Well, that is a lot of information, where to start?&rdquo; The first instruction <code>new</code> seemed to jump out as a reasonable place to start. but first, somewhere to put the files:</p>
-<pre><code class="language-cmd">C:\Users\jackr&gt;mkdir internTest
-C:\Users\jackr&gt;cd internTest
-C:\Users\jackr\internTest&gt;dotnet new
-Usage: new [options]
-
-Options:
-  -h, --help          Displays help for this command.
-  -l, --list          Lists templates containing the specified name. If no name is specified, lists all templates.
-  -n, --name          The name for the output being created. If no name is specified, the name of the current directory is used.
-  -o, --output        Location to place the generated output.
-  -i, --install       Installs a source or a template pack.
-  -u, --uninstall     Uninstalls a source or a template pack.
-  --type              Filters templates based on available types. Predefined values are &quot;project&quot;, &quot;item&quot; or &quot;other&quot;.
-  --force             Forces content to be generated even if it would change existing files.
-  -lang, --language   Specifies the language of the template to create.
-
-
-Templates                                         Short Name       Language          Tags
---------------------------------------------------------------------------------------------------------
-Console Application                               console          [C#], F#, VB      Common/Console
-Class library                                     classlib         [C#], F#, VB      Common/Library
-Unit Test Project                                 mstest           [C#], F#, VB      Test/MSTest
-xUnit Test Project                                xunit            [C#], F#, VB      Test/xUnit
-ASP.NET Core Empty                                web              [C#], F#          Web/Empty
-ASP.NET Core Web App (Model-View-Controller)      mvc              [C#], F#          Web/MVC
-ASP.NET Core Web App                              razor            [C#]              Web/MVC/Razor Pages
-ASP.NET Core with Angular                         angular          [C#]              Web/MVC/SPA
-ASP.NET Core with React.js                        react            [C#]              Web/MVC/SPA
-ASP.NET Core with React.js and Redux              reactredux       [C#]              Web/MVC/SPA
-ASP.NET Core Web API                              webapi           [C#], F#          Web/WebAPI
-global.json file                                  globaljson                         Config
-Nuget Config                                      nugetconfig                        Config
-Web Config                                        webconfig                          Config
-Solution File                                     sln                                Solution
-Razor Page                                        page                               Web/ASP.NET
-MVC ViewImports                                   viewimports                        Web/ASP.NET
-MVC ViewStart                                     viewstart                          Web/ASP.NET
-
-
-Examples:
-    dotnet new mvc --auth Individual
-    dotnet new xunit
-    dotnet new --help
-</code></pre>
-<p>&ldquo;Right, I have to tell it what template to use at least, and I can pick C#, F# or even VB. (what is VB?)&rdquo;  Jack had played around a bit with visual studio, so he knew that there were projects and solutions, and websites, console applications and tests. Figuring a website might be too complicated, he decided to give the Console Application option a go:</p>
-<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet new console
-The template &quot;Console Application&quot; was created successfully.
-
-Processing post-creation actions...
-Running 'dotnet restore' on C:\Users\jackr\internTest\internTest.csproj...
-  Restoring packages for C:\Users\jackr\internTest\internTest.csproj...
-  Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.props.
-  Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.targets.
-  Restore completed in 261.64 ms for C:\Users\jackr\internTest\internTest.csproj.
-
-
-Restore succeeded.
-</code></pre>
-<p>&ldquo;What&rsquo;s it done, I wonder?&rdquo;</p>
-<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;tree /F /A
-Folder PATH listing for volume Windows
-Volume serial number is 000000D8 BC96:4BCD
-C:.
-|   internTest.csproj
-|   Program.cs
-|
-\---obj
-        internTest.csproj.nuget.cache
-        internTest.csproj.nuget.g.props
-        internTest.csproj.nuget.g.targets
-        project.assets.json
-</code></pre>
-<p>Jack could see a <code>Program.cs</code> which must be the console application, an <code>internTest.csproj</code> (&ldquo;which must have been named after the parent folder&rdquo;, he thought) and an <code>obj</code> folder full of other files (&quot;&lsquo;obj&rsquo; and &lsquo;bin are build outputs, from memory&quot;).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr<span style="color:#75715e">&gt;dotnet</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Usage: dotnet [options]
+</span></span><span style="display:flex;"><span>Usage: dotnet [path-to-application]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Options:
+</span></span><span style="display:flex;"><span>  -h|--help            Display help.
+</span></span><span style="display:flex;"><span>  --version         Display version.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>path-to-application:
+</span></span><span style="display:flex;"><span>  The path to an application .dll file to execute.
+</span></span><span style="display:flex;"><span>  
+</span></span></code></pre></div><p>&ldquo;It looks like &lsquo;dotnet &ndash;help&rsquo; is the right next instruction to find out more&rdquo;, he thought to himself, &ldquo;so&hellip;&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr<span style="color:#75715e">&gt;dotnet --help</span>
+</span></span><span style="display:flex;"><span>.NET Command Line Tools (2.0.0)
+</span></span><span style="display:flex;"><span>Usage: dotnet [runtime-options] [path-to-application]
+</span></span><span style="display:flex;"><span>Usage: dotnet [sdk-options] [command] [arguments] [command-options]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>path-to-application:
+</span></span><span style="display:flex;"><span>  The path to an application .dll file to execute.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SDK commands:
+</span></span><span style="display:flex;"><span>  new              Initialize .NET projects.
+</span></span><span style="display:flex;"><span>  restore          Restore dependencies specified in the .NET project.
+</span></span><span style="display:flex;"><span>  run              Compiles and immediately executes a .NET project.
+</span></span><span style="display:flex;"><span>  build            Builds a .NET project.
+</span></span><span style="display:flex;"><span>  publish          Publishes a .NET project for deployment (including the runtime).
+</span></span><span style="display:flex;"><span>  test             Runs unit tests using the test runner specified in the project.
+</span></span><span style="display:flex;"><span>  pack             Creates a NuGet package.
+</span></span><span style="display:flex;"><span>  migrate          Migrates a project.json based project to a msbuild based project.
+</span></span><span style="display:flex;"><span>  clean            Clean build output(s).
+</span></span><span style="display:flex;"><span>  sln              Modify solution (SLN) files.
+</span></span><span style="display:flex;"><span>  add              Add reference to the project.
+</span></span><span style="display:flex;"><span>  remove           Remove reference from the project.
+</span></span><span style="display:flex;"><span>  list             List reference in the project.
+</span></span><span style="display:flex;"><span>  nuget            Provides additional NuGet commands.
+</span></span><span style="display:flex;"><span>  msbuild          Runs Microsoft Build Engine (MSBuild).
+</span></span><span style="display:flex;"><span>  vstest           Runs Microsoft Test Execution Command Line Tool.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Common options:
+</span></span><span style="display:flex;"><span>  -v|--verbosity        Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+</span></span><span style="display:flex;"><span>  -h|--help             Show help.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Run &#39;dotnet COMMAND --help&#39; for more information on a command.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sdk-options:
+</span></span><span style="display:flex;"><span>  --version        Display .NET Core SDK version.
+</span></span><span style="display:flex;"><span>  --info           Display .NET Core information.
+</span></span><span style="display:flex;"><span>  -d|--diagnostics Enable diagnostic output.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>runtime-options:
+</span></span><span style="display:flex;"><span>  --additionalprobingpath &lt;path&gt;    Path containing probing policy and assemblies to probe for.
+</span></span><span style="display:flex;"><span>  --fx-version &lt;version&gt;            Version of the installed Shared Framework to use to run the application.
+</span></span><span style="display:flex;"><span>  --roll-forward-on-no-candidate-fx Roll forward on no candidate shared framework is enabled.
+</span></span><span style="display:flex;"><span>  --additional-deps &lt;path&gt;          Path to additonal deps.json file.
+</span></span></code></pre></div><p>&ldquo;Well, that is a lot of information, where to start?&rdquo; The first instruction <code>new</code> seemed to jump out as a reasonable place to start. but first, somewhere to put the files:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr<span style="color:#75715e">&gt;mkdir internTest</span>
+</span></span><span style="display:flex;"><span>C:\Users\jackr<span style="color:#75715e">&gt;cd internTest</span>
+</span></span><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet new</span>
+</span></span><span style="display:flex;"><span>Usage: new [options]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Options:
+</span></span><span style="display:flex;"><span>  -h, --help          Displays help for this command.
+</span></span><span style="display:flex;"><span>  -l, --list          Lists templates containing the specified name. If no name is specified, lists all templates.
+</span></span><span style="display:flex;"><span>  -n, --name          The name for the output being created. If no name is specified, the name of the current directory is used.
+</span></span><span style="display:flex;"><span>  -o, --output        Location to place the generated output.
+</span></span><span style="display:flex;"><span>  -i, --install       Installs a source or a template pack.
+</span></span><span style="display:flex;"><span>  -u, --uninstall     Uninstalls a source or a template pack.
+</span></span><span style="display:flex;"><span>  --type              Filters templates based on available types. Predefined values are <span style="color:#e6db74">&#34;project&#34;</span>, <span style="color:#e6db74">&#34;item&#34;</span> or <span style="color:#e6db74">&#34;other&#34;</span>.
+</span></span><span style="display:flex;"><span>  --force             Forces content to be generated even if it would change existing files.
+</span></span><span style="display:flex;"><span>  -lang, --language   Specifies the language of the template to create.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Templates                                         Short Name       Language          Tags
+</span></span><span style="display:flex;"><span>--------------------------------------------------------------------------------------------------------
+</span></span><span style="display:flex;"><span>Console Application                               console          [C#], F#, VB      Common/Console
+</span></span><span style="display:flex;"><span>Class library                                     classlib         [C#], F#, VB      Common/Library
+</span></span><span style="display:flex;"><span>Unit Test Project                                 mstest           [C#], F#, VB      Test/MSTest
+</span></span><span style="display:flex;"><span>xUnit Test Project                                xunit            [C#], F#, VB      Test/xUnit
+</span></span><span style="display:flex;"><span>ASP.NET Core Empty                                web              [C#], F#          Web/Empty
+</span></span><span style="display:flex;"><span>ASP.NET Core Web App (Model-View-Controller)      mvc              [C#], F#          Web/MVC
+</span></span><span style="display:flex;"><span>ASP.NET Core Web App                              razor            [C#]              Web/MVC/Razor Pages
+</span></span><span style="display:flex;"><span>ASP.NET Core with Angular                         angular          [C#]              Web/MVC/SPA
+</span></span><span style="display:flex;"><span>ASP.NET Core with React.js                        react            [C#]              Web/MVC/SPA
+</span></span><span style="display:flex;"><span>ASP.NET Core with React.js and Redux              reactredux       [C#]              Web/MVC/SPA
+</span></span><span style="display:flex;"><span>ASP.NET Core Web API                              webapi           [C#], F#          Web/WebAPI
+</span></span><span style="display:flex;"><span>global.json file                                  globaljson                         Config
+</span></span><span style="display:flex;"><span>Nuget Config                                      nugetconfig                        Config
+</span></span><span style="display:flex;"><span>Web Config                                        webconfig                          Config
+</span></span><span style="display:flex;"><span>Solution File                                     sln                                Solution
+</span></span><span style="display:flex;"><span>Razor Page                                        page                               Web/ASP.NET
+</span></span><span style="display:flex;"><span>MVC ViewImports                                   viewimports                        Web/ASP.NET
+</span></span><span style="display:flex;"><span>MVC ViewStart                                     viewstart                          Web/ASP.NET
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Examples:
+</span></span><span style="display:flex;"><span>    dotnet new mvc --auth Individual
+</span></span><span style="display:flex;"><span>    dotnet new xunit
+</span></span><span style="display:flex;"><span>    dotnet new --help
+</span></span></code></pre></div><p>&ldquo;Right, I have to tell it what template to use at least, and I can pick C#, F# or even VB. (what is VB?)&rdquo;  Jack had played around a bit with visual studio, so he knew that there were projects and solutions, and websites, console applications and tests. Figuring a website might be too complicated, he decided to give the Console Application option a go:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet new console</span>
+</span></span><span style="display:flex;"><span>The template <span style="color:#e6db74">&#34;Console Application&#34;</span> was created successfully.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Processing post-creation actions...
+</span></span><span style="display:flex;"><span>Running &#39;dotnet restore&#39; on C:\Users\jackr\internTest\internTest.csproj...
+</span></span><span style="display:flex;"><span>  Restoring packages for C:\Users\jackr\internTest\internTest.csproj...
+</span></span><span style="display:flex;"><span>  Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.props.
+</span></span><span style="display:flex;"><span>  Generating MSBuild file C:\Users\jackr\internTest\obj\internTest.csproj.nuget.g.targets.
+</span></span><span style="display:flex;"><span>  Restore completed in 261.64 ms for C:\Users\jackr\internTest\internTest.csproj.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Restore succeeded.
+</span></span></code></pre></div><p>&ldquo;What&rsquo;s it done, I wonder?&rdquo;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;tree /F /A</span>
+</span></span><span style="display:flex;"><span>Folder PATH listing for volume Windows
+</span></span><span style="display:flex;"><span>Volume serial number is 000000D8 BC96:4BCD
+</span></span><span style="display:flex;"><span>C:.
+</span></span><span style="display:flex;"><span>|   internTest.csproj
+</span></span><span style="display:flex;"><span>|   Program.cs
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>\---obj
+</span></span><span style="display:flex;"><span>        internTest.csproj.nuget.cache
+</span></span><span style="display:flex;"><span>        internTest.csproj.nuget.g.props
+</span></span><span style="display:flex;"><span>        internTest.csproj.nuget.g.targets
+</span></span><span style="display:flex;"><span>        project.assets.json
+</span></span></code></pre></div><p>Jack could see a <code>Program.cs</code> which must be the console application, an <code>internTest.csproj</code> (&ldquo;which must have been named after the parent folder&rdquo;, he thought) and an <code>obj</code> folder full of other files (&quot;&lsquo;obj&rsquo; and &lsquo;bin are build outputs, from memory&quot;).</p>
 <p>The next instruction in the original list of commands was <code>restore</code>:</p>
-<pre><code class="language-cmd">C:\Users\jack\internTest&gt;dotnet restore
-  Restore completed in 22.69 ms for C:\Users\jackr\internTest\internTest.csproj.
-</code></pre>
-<p>&ldquo;&lsquo;Restore completed&rsquo;, that&rsquo;s what is said after I ran &lsquo;dotnet new&rsquo;, so it must have run that for me automatically.&rdquo; The next two options were <code>run</code> and <code>build</code>. Since Jack was following the order given, he figured he might as well use <code>run</code> first and see what happens.</p>
-<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet run
-Hello World!
-</code></pre>
-<p>&ldquo;Alright, maybe?&rdquo; He figured it best to look at that <code>Program.cs</code> file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &rsquo;notepad&rsquo;.</p>
-<pre><code class="language-cs">using System;
-
-namespace internTest
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine(&quot;Hello World!&quot;);
-        }
-    }
-}
-</code></pre>
-<p>Guessing the program has worked as expected he moved onto the next command, <code>build</code>.</p>
-<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet build
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\internTest.dll
-
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:05.12
-</code></pre>
-<p>&ldquo;So &lsquo;build&rsquo; appears to do what you would think it does.  Moving on to &lsquo;publish&rsquo;:&rdquo;</p>
-<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet publish
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\internTest.dll
-  internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\publish\
-C:\Users\jackr\internTest&gt;tree /F /A
-Folder PATH listing for volume Windows
-Volume serial number is 00000093 BC96:4BCD
-C:.
-|   internTest.csproj
-|   Program.cs
-|
-+---bin
-|   \---Debug
-|       \---netcoreapp2.0
-|           |   internTest.deps.json
-|           |   internTest.dll
-|           |   internTest.pdb
-|           |   internTest.runtimeconfig.dev.json
-|           |   internTest.runtimeconfig.json
-|           |
-|           \---publish
-|                   internTest.deps.json
-|                   internTest.dll
-|                   internTest.pdb
-|                   internTest.runtimeconfig.json
-|
-\---obj
-    |   internTest.csproj.nuget.cache
-    |   internTest.csproj.nuget.g.props
-    |   internTest.csproj.nuget.g.targets
-    |   project.assets.json
-    |
-    \---Debug
-        \---netcoreapp2.0
-                internTest.AssemblyInfo.cs
-                internTest.AssemblyInfoInputs.cache
-                internTest.csproj.CoreCompileInputs.cache
-                internTest.csproj.FileListAbsolute.txt
-                internTest.dll
-                internTest.pdb
-</code></pre>
-<p>&ldquo;That has made a publish folder with a &lsquo;dll&rsquo; in it, but I expected an &rsquo;exe&rsquo;. I wonder if I can find out more on publish&hellip;&rdquo;. He tried <code>dotnet help publish</code>. For a reason totally unknown to Jack, this launched a web browser window to <a href="https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x">https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x</a> displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&rsquo;t take him away from the shell, he tried <code>dotnet publish --help</code> instead.</p>
-<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet publish --help
-Usage: dotnet publish [options]
-
-Options:
-  -h, --help                            Show help information.
-  -o, --output &lt;OUTPUT_DIR&gt;             Output directory in which to place the published artifacts.
-  -f, --framework &lt;FRAMEWORK&gt;           Target framework to publish for. The target framework has to be specified in the project file.
-  -r, --runtime &lt;RUNTIME_IDENTIFIER&gt;    Publish the project for a given runtime. This is used when creating self-contained deployment. Default is to publish a framework-dependent app.
-  -c, --configuration &lt;CONFIGURATION&gt;   Configuration to use for building the project.  Default for most projects is  &quot;Debug&quot;.
-  --version-suffix &lt;VERSION_SUFFIX&gt;     Defines the value for the $(VersionSuffix) property in the project.
-  --manifest &lt;manifest.xml&gt;             The path to a target manifest file that contains the list of packages to be excluded from the publish step.
-  --self-contained                      Publish the .NET Core runtime with your application so the runtime doesn't need to be installed on the target machine. Defaults to 'true' if a runtime identifier is specified.
-  --no-restore                          Does not do an implicit restore when executing the command.
-  -v, --verbosity                       Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
-  --no-dependencies                     Set this flag to ignore project to project references and only restore the root project.
-  --force                               Set this flag to force all dependencies to be resolved even if the last restore was successful. This is equivalent to deleting project.assets.json.
-</code></pre>
-<p>There were at least two useful finds in this bunch: <code>--output</code> or <code>-o</code> would let him choose a different location to publish to. <code>--self-contained</code> seemed like it might give him an <code>exe</code>, perhaps.  Jack tried a few combinations, which resulted in some errors. He tried to correct them as he went.</p>
-<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet publish -o C:\publish\interntestoutput --self-contained
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-C:\Program Files\dotnet\sdk\2.0.0\Sdks\Microsoft.NET.Sdk\build\Microsoft.NET.RuntimeIdentifierInference.targets(116,5): error : It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier.  Please either specify a RuntimeIdentifier or set SelfContained to false. [C:\Users\jackr\internTest\internTest.csproj]
-
-C:\Users\jackr\internTest&gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r windows
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\build\netcoreapp2.0\Microsoft.NETCore.App.targets(19,5): error : Project is targeting runtime 'windows' but did not resolve any runtime-specific packages for the 'Microsoft.NETCore.App' package.  This runtime may not be supported by .NET Core. [C:\Users\mclea\internTest\internTest.csproj]
-</code></pre>
-<p>So firstly <code>It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier</code> seems to be a thing. and <code>windows</code> as a value results in <code>Project is targeting runtime 'windows' but did not resolve any runtime-specific packages for the 'Microsoft.NETCore.App' package</code>. After going back to that web page that launched when he typed in <code>dotnet help publish</code> he found more info on that option:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jack\internTest<span style="color:#75715e">&gt;dotnet restore</span>
+</span></span><span style="display:flex;"><span>  Restore completed in 22.69 ms for C:\Users\jackr\internTest\internTest.csproj.
+</span></span></code></pre></div><p>&ldquo;&lsquo;Restore completed&rsquo;, that&rsquo;s what is said after I ran &lsquo;dotnet new&rsquo;, so it must have run that for me automatically.&rdquo; The next two options were <code>run</code> and <code>build</code>. Since Jack was following the order given, he figured he might as well use <code>run</code> first and see what happens.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet run</span>
+</span></span><span style="display:flex;"><span>Hello World!
+</span></span></code></pre></div><p>&ldquo;Alright, maybe?&rdquo; He figured it best to look at that <code>Program.cs</code> file to see what was what. Having not set up his machine with emacs for windows yet, the file was promptly opened in &rsquo;notepad&rsquo;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> internTest
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            Console.WriteLine(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Guessing the program has worked as expected he moved onto the next command, <code>build</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet build</span>
+</span></span><span style="display:flex;"><span>Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+</span></span><span style="display:flex;"><span>Copyright (C) Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\internTest.dll
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Build succeeded.
+</span></span><span style="display:flex;"><span>    0 Warning(s)
+</span></span><span style="display:flex;"><span>    0 Error(s)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Time</span> Elapsed 00:00:05.12
+</span></span></code></pre></div><p>&ldquo;So &lsquo;build&rsquo; appears to do what you would think it does.  Moving on to &lsquo;publish&rsquo;:&rdquo;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish</span>
+</span></span><span style="display:flex;"><span>Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+</span></span><span style="display:flex;"><span>Copyright (C) Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\internTest.dll
+</span></span><span style="display:flex;"><span>  internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\publish\
+</span></span><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;tree /F /A</span>
+</span></span><span style="display:flex;"><span>Folder PATH listing for volume Windows
+</span></span><span style="display:flex;"><span>Volume serial number is 00000093 BC96:4BCD
+</span></span><span style="display:flex;"><span>C:.
+</span></span><span style="display:flex;"><span>|   internTest.csproj
+</span></span><span style="display:flex;"><span>|   Program.cs
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>+---bin
+</span></span><span style="display:flex;"><span>|   \---Debug
+</span></span><span style="display:flex;"><span>|       \---netcoreapp2.0
+</span></span><span style="display:flex;"><span>|           |   internTest.deps.json
+</span></span><span style="display:flex;"><span>|           |   internTest.dll
+</span></span><span style="display:flex;"><span>|           |   internTest.pdb
+</span></span><span style="display:flex;"><span>|           |   internTest.runtimeconfig.dev.json
+</span></span><span style="display:flex;"><span>|           |   internTest.runtimeconfig.json
+</span></span><span style="display:flex;"><span>|           |
+</span></span><span style="display:flex;"><span>|           \---publish
+</span></span><span style="display:flex;"><span>|                   internTest.deps.json
+</span></span><span style="display:flex;"><span>|                   internTest.dll
+</span></span><span style="display:flex;"><span>|                   internTest.pdb
+</span></span><span style="display:flex;"><span>|                   internTest.runtimeconfig.json
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>\---obj
+</span></span><span style="display:flex;"><span>    |   internTest.csproj.nuget.cache
+</span></span><span style="display:flex;"><span>    |   internTest.csproj.nuget.g.props
+</span></span><span style="display:flex;"><span>    |   internTest.csproj.nuget.g.targets
+</span></span><span style="display:flex;"><span>    |   project.assets.json
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    \---Debug
+</span></span><span style="display:flex;"><span>        \---netcoreapp2.0
+</span></span><span style="display:flex;"><span>                internTest.AssemblyInfo.cs
+</span></span><span style="display:flex;"><span>                internTest.AssemblyInfoInputs.cache
+</span></span><span style="display:flex;"><span>                internTest.csproj.CoreCompileInputs.cache
+</span></span><span style="display:flex;"><span>                internTest.csproj.FileListAbsolute.txt
+</span></span><span style="display:flex;"><span>                internTest.dll
+</span></span><span style="display:flex;"><span>                internTest.pdb
+</span></span></code></pre></div><p>&ldquo;That has made a publish folder with a &lsquo;dll&rsquo; in it, but I expected an &rsquo;exe&rsquo;. I wonder if I can find out more on publish&hellip;&rdquo;. He tried <code>dotnet help publish</code>. For a reason totally unknown to Jack, this launched a web browser window to <a href="https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x">https://docs.microsoft.com/en-gb/dotnet/core/tools/dotnet-publish?tabs=netcore2x</a> displaying help for the publish command, reminiscent of a MAN page. Trying again for something that didn&rsquo;t take him away from the shell, he tried <code>dotnet publish --help</code> instead.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish --help</span>
+</span></span><span style="display:flex;"><span>Usage: dotnet publish [options]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Options:
+</span></span><span style="display:flex;"><span>  -h, --help                            Show help information.
+</span></span><span style="display:flex;"><span>  -o, --output &lt;OUTPUT_DIR&gt;             Output directory in which to place the published artifacts.
+</span></span><span style="display:flex;"><span>  -f, --framework &lt;FRAMEWORK&gt;           Target framework to publish for. The target framework has to be specified in the project file.
+</span></span><span style="display:flex;"><span>  -r, --runtime &lt;RUNTIME_IDENTIFIER&gt;    Publish the project for a given runtime. This is used when creating self-contained deployment. Default is to publish a framework-dependent app.
+</span></span><span style="display:flex;"><span>  -c, --configuration &lt;CONFIGURATION&gt;   Configuration to use for building the project.  Default for most projects is  <span style="color:#e6db74">&#34;Debug&#34;</span>.
+</span></span><span style="display:flex;"><span>  --version-suffix &lt;VERSION_SUFFIX&gt;     Defines the value for the $(VersionSuffix) property in the project.
+</span></span><span style="display:flex;"><span>  --manifest &lt;manifest.xml&gt;             The path to a target manifest file that contains the list of packages to be excluded from the publish step.
+</span></span><span style="display:flex;"><span>  --self-contained                      Publish the .NET Core runtime with your application so the runtime doesn&#39;t need to be installed on the target machine. Defaults to &#39;true&#39; if a runtime identifier is specified.
+</span></span><span style="display:flex;"><span>  --no-restore                          Does not do an implicit restore when executing the command.
+</span></span><span style="display:flex;"><span>  -v, --verbosity                       Set the verbosity level of the command. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic].
+</span></span><span style="display:flex;"><span>  --no-dependencies                     Set this flag to ignore project to project references and only restore the root project.
+</span></span><span style="display:flex;"><span>  --force                               Set this flag to force all dependencies to be resolved even if the last restore was successful. This is equivalent to deleting project.assets.json.
+</span></span></code></pre></div><p>There were at least two useful finds in this bunch: <code>--output</code> or <code>-o</code> would let him choose a different location to publish to. <code>--self-contained</code> seemed like it might give him an <code>exe</code>, perhaps.  Jack tried a few combinations, which resulted in some errors. He tried to correct them as he went.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish -o C:\publish\interntestoutput --self-contained</span>
+</span></span><span style="display:flex;"><span>Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+</span></span><span style="display:flex;"><span>Copyright (C) Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Program<span style="color:#75715e"> Files\dotnet\sdk\2.0.0\Sdks\Microsoft.NET.Sdk\build\Microsoft.NET.RuntimeIdentifierInference.targets(116,5): error : It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier.  Please either specify a RuntimeIdentifier or set SelfContained to false. [C:\Users\jackr\internTest\internTest.csproj]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r windows</span>
+</span></span><span style="display:flex;"><span>Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+</span></span><span style="display:flex;"><span>Copyright (C) Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Program<span style="color:#75715e"> Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\build\netcoreapp2.0\Microsoft.NETCore.App.targets(19,5): error : Project is targeting runtime &#39;windows&#39; but did not resolve any runtime-specific packages for the &#39;Microsoft.NETCore.App&#39; package.  This runtime may not be supported by .NET Core. [C:\Users\mclea\internTest\internTest.csproj]</span>
+</span></span></code></pre></div><p>So firstly <code>It is not supported to build or publish a self-contained application without specifying a RuntimeIdentifier</code> seems to be a thing. and <code>windows</code> as a value results in <code>Project is targeting runtime 'windows' but did not resolve any runtime-specific packages for the 'Microsoft.NETCore.App' package</code>. After going back to that web page that launched when he typed in <code>dotnet help publish</code> he found more info on that option:</p>
 <blockquote>
 <p>-r|&ndash;runtime &lt;RUNTIME_IDENTIFIER&gt;</p>
 <p>Publishes the application for a given runtime. This is used when creating a <a href="https://docs.microsoft.com/en-gb/dotnet/core/deploying/index#self-contained-deployments-scd">self-contained deployment (SCD)</a>. For a list of Runtime Identifiers (RIDs), see the <a href="https://docs.microsoft.com/en-gb/dotnet/core/rid-catalog">RID catalog</a>. Default is to publish a <a href="https://docs.microsoft.com/en-gb/dotnet/core/deploying/index#framework-dependent-deployments-fdd">framework-dependent deployment (FDD)</a>.</p>
 </blockquote>
 <p>Clicking on the link for RID catalog found that he needed to use one of <code>linux-x64</code>, <code>ubuntu.14.04-x64</code>, <code>win7-x64</code>, or <code>osx.10.12-x64</code> as the runtime value. Must be <code>win7-x64</code>, then. Trying again:</p>
-<pre><code class="language-cmd">C:\Users\jackr\internTest&gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r win7-x64
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\win7-x64\internTest.dll
-  internTest -&gt; C:\publish\interntestoutput\
-C:\Users\jackr\internTest&gt;cd c:\publish\interntestoutput
-
-c:\publish\interntestoutput&gt;tree /F /A
-Folder PATH listing for volume Windows
-Volume serial number is 00000062 BC96:4BCD
-C:.
-    api-ms-win-*.dll  &lt;-- truncated for your reading pleasure
-    clrcompression.dll
-    clretwrc.dll
-    clrjit.dll
-    coreclr.dll
-    dbgshim.dll
-    hostfxr.dll
-    hostpolicy.dll
-    internTest.deps.json
-    internTest.dll
-    internTest.exe
-    internTest.pdb
-    internTest.runtimeconfig.json
-    Microsoft.CSharp.dll
-    Microsoft.DiaSymReader.Native.amd64.dll
-    Microsoft.VisualBasic.dll
-    Microsoft.Win32.Primitives.dll
-    Microsoft.Win32.Registry.dll
-    mscordaccore.dll
-    mscordaccore_amd64_amd64_4.6.00001.0.dll
-    mscordbi.dll
-    mscorlib.dll
-    mscorrc.debug.dll
-    mscorrc.dll
-    netstandard.dll
-    sos.dll
-    SOS.NETCore.dll
-    sos_amd64_amd64_4.6.00001.0.dll
-    System.*.dll &lt;-- also truncated for readability, phew!
-    ucrtbase.dll
-    WindowsBase.dll
-</code></pre>
-<p>Finally! An <code>internTest.exe</code> as expected. Jack makes a note that this folder is a whopping <code>61.7 MB</code> in size, though! Let&rsquo;s run it for complete satisfaction:</p>
-<pre><code>c:\publish\interntestoutput&gt;internTest.exe
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;dotnet publish -o C:\publish\interntestoutput --self-contained -r win7-x64</span>
+</span></span><span style="display:flex;"><span>Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+</span></span><span style="display:flex;"><span>Copyright (C) Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  internTest -&gt; C:\Users\jackr\internTest\bin\Debug\netcoreapp2.0\win7-x64\internTest.dll
+</span></span><span style="display:flex;"><span>  internTest -&gt; C:\publish\interntestoutput\
+</span></span><span style="display:flex;"><span>C:\Users\jackr\internTest<span style="color:#75715e">&gt;cd c:\publish\interntestoutput</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c:\publish\interntestoutput<span style="color:#75715e">&gt;tree /F /A</span>
+</span></span><span style="display:flex;"><span>Folder PATH listing for volume Windows
+</span></span><span style="display:flex;"><span>Volume serial number is 00000062 BC96:4BCD
+</span></span><span style="display:flex;"><span>C:.
+</span></span><span style="display:flex;"><span>    api-ms-win-*.dll  &lt;-- truncated for your reading pleasure
+</span></span><span style="display:flex;"><span>    clrcompression.dll
+</span></span><span style="display:flex;"><span>    clretwrc.dll
+</span></span><span style="display:flex;"><span>    clrjit.dll
+</span></span><span style="display:flex;"><span>    coreclr.dll
+</span></span><span style="display:flex;"><span>    dbgshim.dll
+</span></span><span style="display:flex;"><span>    hostfxr.dll
+</span></span><span style="display:flex;"><span>    hostpolicy.dll
+</span></span><span style="display:flex;"><span>    internTest.deps.json
+</span></span><span style="display:flex;"><span>    internTest.dll
+</span></span><span style="display:flex;"><span>    internTest.exe
+</span></span><span style="display:flex;"><span>    internTest.pdb
+</span></span><span style="display:flex;"><span>    internTest.runtimeconfig.json
+</span></span><span style="display:flex;"><span>    Microsoft.CSharp.dll
+</span></span><span style="display:flex;"><span>    Microsoft.DiaSymReader.Native.amd64.dll
+</span></span><span style="display:flex;"><span>    Microsoft.VisualBasic.dll
+</span></span><span style="display:flex;"><span>    Microsoft.Win32.Primitives.dll
+</span></span><span style="display:flex;"><span>    Microsoft.Win32.Registry.dll
+</span></span><span style="display:flex;"><span>    mscordaccore.dll
+</span></span><span style="display:flex;"><span>    mscordaccore_amd64_amd64_4.6.00001.0.dll
+</span></span><span style="display:flex;"><span>    mscordbi.dll
+</span></span><span style="display:flex;"><span>    mscorlib.dll
+</span></span><span style="display:flex;"><span>    mscorrc.debug.dll
+</span></span><span style="display:flex;"><span>    mscorrc.dll
+</span></span><span style="display:flex;"><span>    netstandard.dll
+</span></span><span style="display:flex;"><span>    sos.dll
+</span></span><span style="display:flex;"><span>    SOS.NETCore.dll
+</span></span><span style="display:flex;"><span>    sos_amd64_amd64_4.6.00001.0.dll
+</span></span><span style="display:flex;"><span>    System.*.dll &lt;-- also truncated for readability, phew!
+</span></span><span style="display:flex;"><span>    ucrtbase.dll
+</span></span><span style="display:flex;"><span>    WindowsBase.dll
+</span></span></code></pre></div><p>Finally! An <code>internTest.exe</code> as expected. Jack makes a note that this folder is a whopping <code>61.7 MB</code> in size, though! Let&rsquo;s run it for complete satisfaction:</p>
+<pre tabindex="0"><code>c:\publish\interntestoutput&gt;internTest.exe
 Hello World!
-</code></pre>
-<p>Jack remembered seeing Solution File (<code>sln</code>) back in the <code>dotnet new</code> help window.  He went back to his original project to see how he might add a solution to it. Pretty quickly he has this sussed out, too.</p>
-<pre><code>c:\publish\interntestoutput&gt;cd c:\Users\jackr\internTest
+</code></pre><p>Jack remembered seeing Solution File (<code>sln</code>) back in the <code>dotnet new</code> help window.  He went back to his original project to see how he might add a solution to it. Pretty quickly he has this sussed out, too.</p>
+<pre tabindex="0"><code>c:\publish\interntestoutput&gt;cd c:\Users\jackr\internTest
 
 c:\Users\jackr\internTest&gt;dotnet new sln
-The template &quot;Solution File&quot; was created successfully.
+The template &#34;Solution File&#34; was created successfully.
 
 c:\Users\jackr\internTest&gt;dotnet sln
 Required command was not provided.
@@ -457,7 +443,7 @@ Commands:
 c:\Users\jackr\internTest&gt;dotnet sln add internTest.csproj
 Project `internTest.csproj` added to the solution.
 c:\Users\jackr\internTest&gt;ls
-'ls' is not recognized as an internal or external command,
+&#39;ls&#39; is not recognized as an internal or external command,
 operable program or batch file.
 c:\Users\jackr\internTest&gt;dir
  Volume in drive C is Windows
@@ -474,8 +460,7 @@ c:\Users\jackr\internTest&gt;dir
 23/09/2017  17:30               192 Program.cs
                3 File(s)          2,061 bytes
                4 Dir(s)   2,718,973,952 bytes free
-</code></pre>
-<p>with two simple commands, <code>dotnet new sln</code> and <code>dotnet sln add internTest.csproj</code> Jack was able to create a Visual Studio <code>sln</code> file and add the project to it. Mint.</p>
+</code></pre><p>with two simple commands, <code>dotnet new sln</code> and <code>dotnet sln add internTest.csproj</code> Jack was able to create a Visual Studio <code>sln</code> file and add the project to it. Mint.</p>
 <p>In total this had only taken Jack an hour (far less time than this Author took to write this whole farce up) and he took his findings back to Joe.</p>
 <p>&ldquo;What? Done already. Dammit, Intern! You&rsquo;re not meant to be so productive! I&rsquo;ll have to get you fetching coffees and making team flight suits. How are you at working a sewing machine?  First things first though. Write up your findings and get ready to present to the entire department tomorrow, at the cross-team catchup!&rdquo;</p>
 <p>Jack left feeling a mix of achievement and pressure while wondering if she was serious about those jumpsuits&hellip;</p>

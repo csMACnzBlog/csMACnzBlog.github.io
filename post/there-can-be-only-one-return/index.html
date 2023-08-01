@@ -136,306 +136,295 @@
         <section class="post-content"  itemprop="articleBody">
             <p>My opinions and choices on style of coding evolves and changes over time. By blogging about this now, I can refer back later when I change my mind. I can also elicit the opinions of others to influence me to change my ways if I happen to be wrong and not know it yet.</p>
 <p>Lets talk about returns.  There is an opinion that methods should only have a single return. This gives them a precise flow of control, and forces you to essentially either process data through a few processes and return the final result (which can be very functional) or store a result variable and correctly populate it within control flow logic (&lsquo;if&rsquo;/&rsquo;else&rsquo;, &lsquo;switch&rsquo;, &lsquo;while&rsquo; commands, for instance). If you don&rsquo;t actually return a result, you can still think about flow of control and where you exit from.</p>
-<pre><code class="language-cs">public string WhenIPipeDataIntoOtherFunctions(string fileName)
-{
-    var input1 = Loader.LoadInput();
-    
-    var input2 = FileStore.ReadAllContent(fileName);
-    
-    return WhenIUseAResultVar(input1, input2);
-}
-
-public string WhenIUseAResultVar(int input1, string input2)
-{
-    string result;
-    
-    if (input1 &gt; 5)
-    {
-        var part1 = new string('a', input1);
-        result = part1 + &quot; &quot; + input2;
-    }
-    else
-    {
-        result = null;
-    }
-    
-    return result;
-}
-
-public void DoStuff(string foo, int bar)
-{
-    if (bar &gt; 10)
-    {
-        var something = WhenIUseAResultVar(bar, foo);
-        OutputGuy.Take(something);
-    }
-    else
-    {
-        var somethingElse = WhenIPipeDataIntoOtherFunctions();
-        Printer.Print(somethingElse);
-    }
-}
-</code></pre>
-<p>The first one seems self explainatory, but I will come back to that one soon. Lets discuss &lsquo;WhenIUseAResultVar&rsquo;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> WhenIPipeDataIntoOtherFunctions(<span style="color:#66d9ef">string</span> fileName)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> input1 = Loader.LoadInput();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> input2 = FileStore.ReadAllContent(fileName);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> WhenIUseAResultVar(input1, input2);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> WhenIUseAResultVar(<span style="color:#66d9ef">int</span> input1, <span style="color:#66d9ef">string</span> input2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> result;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &gt; <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> part1 = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">string</span>(<span style="color:#e6db74">&#39;a&#39;</span>, input1);
+</span></span><span style="display:flex;"><span>        result = part1 + <span style="color:#e6db74">&#34; &#34;</span> + input2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        result = <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff(<span style="color:#66d9ef">string</span> foo, <span style="color:#66d9ef">int</span> bar)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (bar &gt; <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> something = WhenIUseAResultVar(bar, foo);
+</span></span><span style="display:flex;"><span>        OutputGuy.Take(something);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> somethingElse = WhenIPipeDataIntoOtherFunctions();
+</span></span><span style="display:flex;"><span>        Printer.Print(somethingElse);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The first one seems self explainatory, but I will come back to that one soon. Lets discuss &lsquo;WhenIUseAResultVar&rsquo;.</p>
 <h3 id="wheniusearesultvar">WhenIUseAResultVar</h3>
 <p>I have a method with a very awkward control flow. But here is the catch: This control flow actually is enforced (in C#) by the compiler that result must be initialised.</p>
 <p>My method could decalare at the start that &lsquo;result&rsquo; is initialised to &rsquo;null&rsquo;, telling me that a null could be returned if all logic falls through. In this case I have gone for the opposite, which means the compile ensures that all my cases through my control flow logic will set the value of result. for building and modifying this kind of method is like a free unit test.</p>
 <p>For example, lets modify it as follows:</p>
-<pre><code class="language-cs">
-public string WhenIUseAResultVar(int input1, string input2)
-{
-    string result;
-    
-    if (input1 &gt; 5)
-    {
-        var part1 = new string('a', input1);
-        if (input2 == &quot;Business&quot;)
-        {
-            result = part1 + &quot; &quot; + input2;
-        }
-    }
-    else
-    {
-        result = null;
-    }
-    
-    return result;
-}
-</code></pre>
-<p>This code actually will not compile. It has compiler error <code>CS0165</code> <code>Use of unassigned local variable 'result</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> WhenIUseAResultVar(<span style="color:#66d9ef">int</span> input1, <span style="color:#66d9ef">string</span> input2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> result;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &gt; <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> part1 = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">string</span>(<span style="color:#e6db74">&#39;a&#39;</span>, input1);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (input2 == <span style="color:#e6db74">&#34;Business&#34;</span>)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            result = part1 + <span style="color:#e6db74">&#34; &#34;</span> + input2;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        result = <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This code actually will not compile. It has compiler error <code>CS0165</code> <code>Use of unassigned local variable 'result</code>.</p>
 <p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1510945400/ControlFlowFail_kfkzq1.png" alt="Use of unassigned local variable &lsquo;result"></p>
 <p>For me, this is gold.</p>
 <h3 id="breaking-example-three">Breaking Example Three</h3>
 <p>To explain later why I like doing this, even when there is no return value, lets look at an alternative way to write &lsquo;DoStuff&rsquo;:</p>
-<pre><code class="language-cs">public void DoStuff(string foo, int bar)
-{
-    if(bar &gt; 10)
-    {
-        var something = WhenIUseAResultVar(bar, foo);
-        OutputGuy.Take(something);
-        return;
-    }
-    
-    var somethingElse = WhenIPipeDataIntoOtherFunctions();
-    Printer.Print(somethingElse);
-}
-</code></pre>
-<p>It might look better to you for now, but stick with me. I will refer back to this in a moment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff(<span style="color:#66d9ef">string</span> foo, <span style="color:#66d9ef">int</span> bar)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(bar &gt; <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> something = WhenIUseAResultVar(bar, foo);
+</span></span><span style="display:flex;"><span>        OutputGuy.Take(something);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> somethingElse = WhenIPipeDataIntoOtherFunctions();
+</span></span><span style="display:flex;"><span>    Printer.Print(somethingElse);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It might look better to you for now, but stick with me. I will refer back to this in a moment.</p>
 <h3 id="why-i-break-my-own-rules">Why I break my own rules.</h3>
 <p>I don&rsquo;t usually break this rule. But when I do, I do so strictly and with intent.</p>
 <p>Preconditions and validations.</p>
 <p>There is a time and a place to exit early, and it is preconditions and validations. throwing <code>OutOfRangeException</code> <code>ArgumentNullException</code> <code>ArgumentException</code> and other preconditions make sense to exit early.</p>
 <p>To prove this, Lets try to strictly applying my &rsquo;laws&rsquo; to a slightly more detailed version of the <code>WhenIUseAResultVar</code> method:</p>
-<pre><code class="language-cs">public string WhenIUseAResultVar(int input1, string input2)
-{
-    string result;
-    if (input1 &lt;= 0)
-    {
-        // Technically, this is already an early return.
-        throw new IndexOutOfRangeException();
-    }
-    if (string.isNullOrEmpty(input2))
-    {
-        // Technically, this is already an early return.
-        throw new IndexOutOfRangeException();
-    }
-    
-    if (input1 &gt; 100)
-    {
-        string result = &quot;Case 1 Result&quot;;
-    }
-    else if (input1 &gt; 5)
-    {
-        var part1 = new string('a', input1);
-        result = part1 + &quot; &quot; + input2;
-    }
-    else
-    {
-        result = &quot;Some Fallback Result&quot;;
-    }
-    
-    return result;
-}
-</code></pre>
-<p>Hmmm&hellip; turns out this is a poor example and I can&rsquo;t actually acheive it with exceptions. For arguments sake, lets use &rsquo;null&rsquo; as failed, rather than throwing.</p>
-<pre><code class="language-cs">public string WhenIUseAResultVar(int input1, string input2)
-{
-    string result;
-    if (input1 &lt;= 0)
-    {
-        result = null;
-    }
-    else if (string.isNullOrEmpty(input2))
-    {
-        result = null;
-    }
-    else if (input1 &gt; 100)
-    {
-        string result = &quot;Case 1 Result&quot;;
-    }
-    else if (input1 &gt; 5)
-    {
-        var part1 = new string('a', input1);
-        result = part1 + &quot; &quot; + input2;
-    }
-    else
-    {
-        result = &quot;Some Fallback Result&quot;;
-    }
-    
-    return result;
-}
-</code></pre>
-<p>I can already feel the pain of this.  What I would actually do:</p>
-<pre><code class="language-cs">public string WhenIUseAResultVar(int input1, string input2)
-{
-    if (input1 &lt;= 0) return null;
-    if (string.isNullOrEmpty(input2)) return null;
-    
-    string result;
-    
-    if (input2 &gt; 100)
-    {
-        string result = &quot;Case 1 Result&quot;;
-    }
-    else if (input1 &gt; 5)
-    {
-        var part1 = new string('a', input1);
-        result = part1 + &quot; &quot; + input2;
-    }
-    else
-    {
-        result = &quot;Some Fallback Result&quot;;
-    }
-    
-    return result;
-}
-</code></pre>
-<p>I may even use the single line format above without the braces on my returns, to further distinguish them for critical method logic.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> WhenIUseAResultVar(<span style="color:#66d9ef">int</span> input1, <span style="color:#66d9ef">string</span> input2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> result;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &lt;= <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Technically, this is already an early return.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IndexOutOfRangeException();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">string</span>.isNullOrEmpty(input2))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Technically, this is already an early return.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IndexOutOfRangeException();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &gt; <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> result = <span style="color:#e6db74">&#34;Case 1 Result&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (input1 &gt; <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> part1 = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">string</span>(<span style="color:#e6db74">&#39;a&#39;</span>, input1);
+</span></span><span style="display:flex;"><span>        result = part1 + <span style="color:#e6db74">&#34; &#34;</span> + input2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        result = <span style="color:#e6db74">&#34;Some Fallback Result&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Hmmm&hellip; turns out this is a poor example and I can&rsquo;t actually acheive it with exceptions. For arguments sake, lets use &rsquo;null&rsquo; as failed, rather than throwing.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> WhenIUseAResultVar(<span style="color:#66d9ef">int</span> input1, <span style="color:#66d9ef">string</span> input2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> result;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &lt;= <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        result = <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">string</span>.isNullOrEmpty(input2))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        result = <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (input1 &gt; <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> result = <span style="color:#e6db74">&#34;Case 1 Result&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (input1 &gt; <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> part1 = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">string</span>(<span style="color:#e6db74">&#39;a&#39;</span>, input1);
+</span></span><span style="display:flex;"><span>        result = part1 + <span style="color:#e6db74">&#34; &#34;</span> + input2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        result = <span style="color:#e6db74">&#34;Some Fallback Result&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I can already feel the pain of this.  What I would actually do:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> WhenIUseAResultVar(<span style="color:#66d9ef">int</span> input1, <span style="color:#66d9ef">string</span> input2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &lt;= <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">string</span>.isNullOrEmpty(input2)) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> result;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input2 &gt; <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> result = <span style="color:#e6db74">&#34;Case 1 Result&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (input1 &gt; <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> part1 = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">string</span>(<span style="color:#e6db74">&#39;a&#39;</span>, input1);
+</span></span><span style="display:flex;"><span>        result = part1 + <span style="color:#e6db74">&#34; &#34;</span> + input2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        result = <span style="color:#e6db74">&#34;Some Fallback Result&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I may even use the single line format above without the braces on my returns, to further distinguish them for critical method logic.</p>
 <h3 id="when-there-isnt-any-return-value">When there isn&rsquo;t any return value</h3>
 <p>Even when you have a &lsquo;void&rsquo; method, the method still returns.</p>
 <p>Remember <code>DoSomething</code> from above? Let&rsquo;s do something similar to above and strictly apply a single point of return (i.e. the end of the method).</p>
-<pre><code class="language-cs">public void DoStuff(string foo, int bar)
-{
-    if (input1 &gt; 0 &amp;&amp;!string.isNullOrEmpty(input2) &amp;&amp; input2 &lt; 100)
-    {
-        if (bar &gt; 10)
-        {
-            var something = WhenIUseAResultVar(bar, foo);
-            OutputGuy.Take(something);
-        }
-        else
-        {
-            var somethingElse = WhenIPipeDataIntoOtherFunctions();
-            Printer.Print(somethingElse);
-        }
-    }
-}
-</code></pre>
-<p>Or</p>
-<pre><code class="language-cs">public void DoStuff(string foo, int bar)
-{
-    if (input1 &gt; 0)
-    {
-        if (!string.isNullOrEmpty(input2))
-        {
-            if (input2 &lt; 100)
-            {
-                if (bar &gt; 10)
-                {
-                    var something = WhenIUseAResultVar(bar, foo);
-                    OutputGuy.Take(something);
-                }
-                else
-                {
-                    var somethingElse = WhenIPipeDataIntoOtherFunctions();
-                    Printer.Print(somethingElse);
-                }
-            }
-        }
-    }
-}
-</code></pre>
-<p>Or</p>
-<pre><code class="language-cs">public void DoStuff(string foo, int bar)
-{
-    if (input1 &lt;= 0)
-    {
-    }
-    else if (string.isNullOrEmpty(input2))
-    {
-    }
-    else if (input2 &gt; 100)
-    {
-    }
-    else if (bar &gt; 10)
-    {
-        var something = WhenIUseAResultVar(bar, foo);
-        OutputGuy.Take(something);
-    }
-    else
-    {
-        var somethingElse = WhenIPipeDataIntoOtherFunctions();
-        Printer.Print(somethingElse);
-    }
-}
-</code></pre>
-<p>Is this an improvement over alternatives? Not really in my opinion. (Remember I said this was my all about my opinions?) I actually felt worse and worse as I typed out each successive example. (I think I am trying to extract out intent by the above refactorings, but by this point I can&rsquo;t be sure).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff(<span style="color:#66d9ef">string</span> foo, <span style="color:#66d9ef">int</span> bar)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &gt; <span style="color:#ae81ff">0</span> &amp;&amp;!<span style="color:#66d9ef">string</span>.isNullOrEmpty(input2) &amp;&amp; input2 &lt; <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (bar &gt; <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> something = WhenIUseAResultVar(bar, foo);
+</span></span><span style="display:flex;"><span>            OutputGuy.Take(something);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> somethingElse = WhenIPipeDataIntoOtherFunctions();
+</span></span><span style="display:flex;"><span>            Printer.Print(somethingElse);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Or</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff(<span style="color:#66d9ef">string</span> foo, <span style="color:#66d9ef">int</span> bar)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &gt; <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (!<span style="color:#66d9ef">string</span>.isNullOrEmpty(input2))
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (input2 &lt; <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (bar &gt; <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">var</span> something = WhenIUseAResultVar(bar, foo);
+</span></span><span style="display:flex;"><span>                    OutputGuy.Take(something);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">var</span> somethingElse = WhenIPipeDataIntoOtherFunctions();
+</span></span><span style="display:flex;"><span>                    Printer.Print(somethingElse);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Or</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff(<span style="color:#66d9ef">string</span> foo, <span style="color:#66d9ef">int</span> bar)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &lt;= <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">string</span>.isNullOrEmpty(input2))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (input2 &gt; <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (bar &gt; <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> something = WhenIUseAResultVar(bar, foo);
+</span></span><span style="display:flex;"><span>        OutputGuy.Take(something);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> somethingElse = WhenIPipeDataIntoOtherFunctions();
+</span></span><span style="display:flex;"><span>        Printer.Print(somethingElse);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Is this an improvement over alternatives? Not really in my opinion. (Remember I said this was my all about my opinions?) I actually felt worse and worse as I typed out each successive example. (I think I am trying to extract out intent by the above refactorings, but by this point I can&rsquo;t be sure).</p>
 <p>Again, with breaking the rule on purpose:</p>
-<pre><code class="language-cs">public void DoStuff(string foo, int bar)
-{
-    if (input1 &lt;= 0) return;
-    if (string.isNullOrEmpty(input2)) return;
-    if (input2 &gt; 100) return;
-    
-    if (bar &gt; 10)
-    {
-        var something = WhenIUseAResultVar(bar, foo);
-        OutputGuy.Take(something);
-    }
-    else
-    {
-        var somethingElse = WhenIPipeDataIntoOtherFunctions();
-        Printer.Print(somethingElse);
-    }
-}
-</code></pre>
-<p>I&rsquo;m liking this. Get validation out of the way, get on with main logic control flow.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff(<span style="color:#66d9ef">string</span> foo, <span style="color:#66d9ef">int</span> bar)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &lt;= <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">string</span>.isNullOrEmpty(input2)) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input2 &gt; <span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (bar &gt; <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> something = WhenIUseAResultVar(bar, foo);
+</span></span><span style="display:flex;"><span>        OutputGuy.Take(something);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> somethingElse = WhenIPipeDataIntoOtherFunctions();
+</span></span><span style="display:flex;"><span>        Printer.Print(somethingElse);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I&rsquo;m liking this. Get validation out of the way, get on with main logic control flow.</p>
 <h3 id="exceptions">Exceptions</h3>
 <p>I&rsquo;ve already touched on this. Exceptions break the flow of control.  Exceptions are early returns already. They also shouldn&rsquo;t be actually used for flow of control. So it&rsquo;s probably fine?  And since I am happy with validations performing early return, these fit that case anyway. Consistency! (Phew!)</p>
 <p>If my method actually returns Errors as a use case, I opt for something like I do with my <a href="https://github.com/csMACnz/Beefeater">Beefeater</a> library and have <code>Result&lt;TValue,TError&gt;</code> response objects, and control flow rule (and early-return-for-validation exception-to-sed-rule)  applies again.</p>
 <h3 id="an-extra-section-about-short-circuiting">An extra section about short circuiting</h3>
 <p>I&rsquo;ve written these on the assumption that you do not want to evaluate more conditions than you need to.</p>
 <p>For instance, to make the <code>WhenIUseAResultVar</code> example more readable we could have pulled the conditional checks into named variables:</p>
-<pre><code class="language-cs">public string WhenIUseAResultVar(int input1, string input2)
-{
-    if (input1 &lt;= 0) return null;
-    if (string.isNullOrEmpty(input2)) return null;
-    
-    string result;
-    
-    var isLargeCase = input2 &gt; 100;
-    var isSmallCase = input1 &gt; 5;
-    if (isLargeCase)
-    {
-        string result = &quot;Case 1 Result&quot;;
-    }
-    else if (isSmallCase)
-    {
-        var part1 = new string('a', input1);
-        result = part1 + &quot; &quot; + input2;
-    }
-    else
-    {
-        result = &quot;Some Fallback Result&quot;;
-    }
-    
-    return result;
-}
-</code></pre>
-<p>This aids readability, but is functionally different to the first example.  Even if <code>isLargeCase</code> is true, we still evaluate and execute <code>isSmallCase</code>. In the original example, <code>isLargeCase</code> being true shortcircuits and stops the evaluation of <code>isSmallCase</code> entirely.  If this was a real example, and <code>isSmallCase</code> required extra database access or web calls, you probably don&rsquo;t want to always evaluate this up front.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> WhenIUseAResultVar(<span style="color:#66d9ef">int</span> input1, <span style="color:#66d9ef">string</span> input2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input1 &lt;= <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">string</span>.isNullOrEmpty(input2)) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> result;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> isLargeCase = input2 &gt; <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> isSmallCase = input1 &gt; <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (isLargeCase)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> result = <span style="color:#e6db74">&#34;Case 1 Result&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (isSmallCase)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> part1 = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">string</span>(<span style="color:#e6db74">&#39;a&#39;</span>, input1);
+</span></span><span style="display:flex;"><span>        result = part1 + <span style="color:#e6db74">&#34; &#34;</span> + input2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        result = <span style="color:#e6db74">&#34;Some Fallback Result&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This aids readability, but is functionally different to the first example.  Even if <code>isLargeCase</code> is true, we still evaluate and execute <code>isSmallCase</code>. In the original example, <code>isLargeCase</code> being true shortcircuits and stops the evaluation of <code>isSmallCase</code> entirely.  If this was a real example, and <code>isSmallCase</code> required extra database access or web calls, you probably don&rsquo;t want to always evaluate this up front.</p>
 <p>Having said that, If the cost of execution is low, and the improvement to readability and comprehensibility is high, Then do it. Also if the condition is that complex, push it out into a method call anyway:</p>
-<pre><code>if(theSkyIsBlue(timeOfDay))
+<pre tabindex="0"><code>if(theSkyIsBlue(timeOfDay))
 {
     ...
 }
@@ -443,8 +432,7 @@ else if (ASimpleCheckPasses(input1) &amp;&amp; AWebCallCheck(input1, input2))
 {
     ....
 }
-</code></pre>
-<p>(Thanks [Graham Mace}(https://github.com/maceage) for the addition. )</p>
+</code></pre><p>(Thanks [Graham Mace}(https://github.com/maceage) for the addition. )</p>
 <h3 id="conclusion">Conclusion</h3>
 <p>I&rsquo;m not even sure if I have actually convinced myself 100% at this point. Reality is, I have all of these techniques in my tool box, and I will probably pick and choose to enhance readability where applicable. Pragratism usually wins in these matters, but I find it useful to stop and think about concepts like this from time to time.</p>
 <p>I was originally prompted to write this after reading the lecterror blog article <a href="http://lecterror.com/articles/view/code-formatting-and-readability">Code formatting and readability</a> and related StackOverflow question <a href="http://programmers.stackexchange.com/questions/18454/should-i-return-from-a-function-early-or-use-an-if-statement">Should I return from a function early or use an if statement?</a>.</p>

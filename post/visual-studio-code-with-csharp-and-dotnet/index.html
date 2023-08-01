@@ -157,15 +157,14 @@ C# for Visual Studio Code (<a href="https://marketplace.visualstudio.com/items?i
 <p>Apart from a spinner at the bottom right, there isn&rsquo;t much to see. We should open the Output window using either <code>Ctrl + Shift + U</code> or from the menu <code>View -&gt; Toggle Output</code>. Now we can see the output produced from our build.</p>
 <p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467488343/dotnetCoreBuildOutput_p9wcnt.png" alt="Output showing a successful build."></p>
 <p>To add a run command, we just need to modify our task runner. Add the following json below the <code>build</code> command:</p>
-<pre><code>,
+<pre tabindex="0"><code>,
         {
-            &quot;taskName&quot;: &quot;run&quot;,
-            &quot;args&quot;: [ ],
-            &quot;showOutput&quot;: &quot;always&quot;
+            &#34;taskName&#34;: &#34;run&#34;,
+            &#34;args&#34;: [ ],
+            &#34;showOutput&#34;: &#34;always&#34;
         }
-</code></pre>
-<p>Now use <code>Ctrl + p</code>, type <code>task run</code> and press enter. You should now see the following output in the Output window:</p>
-<pre><code>Project MyNewApp (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified
+</code></pre><p>Now use <code>Ctrl + p</code>, type <code>task run</code> and press enter. You should now see the following output in the Output window:</p>
+<pre tabindex="0"><code>Project MyNewApp (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified
 Compiling MyNewApp for .NETCoreApp,Version=v1.0
 Compilation succeeded.
     0 Warning(s)
@@ -173,8 +172,7 @@ Compilation succeeded.
 Time elapsed 00:00:01.4849643
  
 Hello World!
-</code></pre>
-<p>Now we have a .Net Core application successfully running inside Visual Studio Code.</p>
+</code></pre><p>Now we have a .Net Core application successfully running inside Visual Studio Code.</p>
 <h3 id="debug">Debug</h3>
 <p>Of course, we probably want to be able to debug as well as run the application, so let&rsquo;s look at that next.</p>
 <p>Switching to debug mode can be done using the Bug icon tab on the left-hand side, by using the menu <code>View -&gt; Debug</code> or by using the shortcut key <code>Ctrl + Shift + D</code>. (<code>Ctrl + Shift + E</code> gets you back to the <strong>E</strong>xplorer View where the files are).</p>
@@ -182,63 +180,56 @@ Hello World!
 <p>There is a familiar debug play button in the top of this panel. There is a dropdown beside it that says <code>No Configurations</code>. When we press play for the first time, we will see the Command Palette open again with a selection list. Select the <code>.Net Core</code> option and press enter (or just click on it, both work). Now we will have a <code>launch.json</code> file added into the .vscode folder as well.</p>
 <p>When we look back at the dropdown beside the green Debugger button we see it has 3 options in it: <code>.NET Core Launch (console)</code>, <code>.NET Core Launch (web)</code> and <code>.NET Core Attach</code>. These match the names of the three Configurations in the <code>launch.json</code> file.</p>
 <p>One thing we need to change is the path in the program variable.</p>
-<pre><code>&quot;program&quot;: &quot;${workspaceRoot}/bin/Debug/&lt;target-framework&gt;/&lt;project-name.dll&gt;&quot;,
-</code></pre>
-<p>Needs to be replaced with:</p>
-<pre><code>&quot;program&quot;: &quot;${workspaceRoot}/bin/Debug/netcoreapp1.0/MyNewApp.dll&quot;,
-</code></pre>
-<p>With the <code>.NET Core Launch (console)</code> option selected in the Configurations dropdown, press the Debugger green play button.</p>
+<pre tabindex="0"><code>&#34;program&#34;: &#34;${workspaceRoot}/bin/Debug/&lt;target-framework&gt;/&lt;project-name.dll&gt;&#34;,
+</code></pre><p>Needs to be replaced with:</p>
+<pre tabindex="0"><code>&#34;program&#34;: &#34;${workspaceRoot}/bin/Debug/netcoreapp1.0/MyNewApp.dll&#34;,
+</code></pre><p>With the <code>.NET Core Launch (console)</code> option selected in the Configurations dropdown, press the Debugger green play button.</p>
 <p>Two things might happen here, depending on If you used Visual studio to create your project, or if you used the <code>dotnet new</code> command.</p>
 <h4 id="because-i-used-an-xproj">Because I used an xproj&hellip;</h4>
 <p>When we pressed play, we might see it successfully produce output similar to the one below.</p>
-<pre><code>Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll'. Cannot find or open the symbol file.
-WARNING: Could not load symbols for 'MyNewApp.dll'. 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb' is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
-Loaded 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll'. Cannot find or open the symbol file.
+<pre tabindex="0"><code>Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll&#39;. Cannot find or open the symbol file.
+WARNING: Could not load symbols for &#39;MyNewApp.dll&#39;. &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb&#39; is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
+Loaded &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll&#39;. Cannot find or open the symbol file.
 Hello World!
-The program 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll' has exited with code 0 (0x00000000).
-
-</code></pre>
-<p>It turns out that this is <em>WARNING</em> near the start is important:</p>
-<pre><code>WARNING: Could not load symbols for 'MyNewApp.dll'. 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb' is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
-</code></pre>
-<p>If you don&rsquo;t actually see this warning in your output, just skip ahead to the next <a href="#debugworking">Debug Working</a> section.</p>
+The program &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll&#39; has exited with code 0 (0x00000000).
+</code></pre><p>It turns out that this is <em>WARNING</em> near the start is important:</p>
+<pre tabindex="0"><code>WARNING: Could not load symbols for &#39;MyNewApp.dll&#39;. &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.pdb&#39; is a Windows PDB. These are not supported by the cross-platform .NET Core debugger.
+</code></pre><p>If you don&rsquo;t actually see this warning in your output, just skip ahead to the next <a href="#debugworking">Debug Working</a> section.</p>
 <p>If we try to debug at the moment, the breakpoint doesn&rsquo;t get hit. We are missing a setting in our <code>project.json</code> file. The <code>buildOptions</code> section needs a <code>debugType</code> value of <code>portable</code> added, to correctly produce the right kind of <code>pdb</code> files for debugging with Visual Studio Code. Modify your <code>project.json</code> file as below to add <code>&quot;debugType&quot;: &quot;portable&quot;</code> to <code>buildOptions</code></p>
-<pre><code>{
+<pre tabindex="0"><code>{
   ...
-  &quot;buildOptions&quot;: {
+  &#34;buildOptions&#34;: {
     ...
-    &quot;debugType&quot;: &quot;portable&quot;
+    &#34;debugType&#34;: &#34;portable&#34;
   },
   ...
 }
-</code></pre>
-<p>Now we can continue and we should no longer see the warning.</p>
+</code></pre><p>Now we can continue and we should no longer see the warning.</p>
 <h4 id="debug-working">Debug Working</h4>
 <p>When we run the debugger now we should see the following output:</p>
-<pre><code>Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll'. Cannot find or open the symbol file.
-Loaded 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll'. Symbols loaded.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll'. Cannot find or open the symbol file.
-Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll'. Cannot find or open the symbol file.
+<pre tabindex="0"><code>Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Private.CoreLib.ni.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll&#39;. Symbols loaded.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Runtime.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\mscorlib.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Console.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.IO.FileSystem.Primitives.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Text.Encoding.Extensions.dll&#39;. Cannot find or open the symbol file.
+Loaded &#39;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\1.0.0\System.Threading.Tasks.dll&#39;. Cannot find or open the symbol file.
 Hello World!
-The program 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll' has exited with code 0 (0x00000000).
-</code></pre>
-<p>As we can see, apart from some issues loading framework symbols, our app has run correctly.</p>
+The program &#39;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\MyNewApp.dll&#39; has exited with code 0 (0x00000000).
+</code></pre><p>As we can see, apart from some issues loading framework symbols, our app has run correctly.</p>
 <p>We can now go into our <code>Program.cs</code> file, add a breakpoint, and successfully break inside our code. Yay!</p>
 <p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467551946/VSCodeDebuggerAttached_yoxcwb.png" alt="Breakpoint hit during debugging on Visual Studio Code."></p>
 <p>Thanks to <a href="http://codeclimber.net.nz/archive/2016/05/20/How-to-debug-NET-Core-RC2-app-with-Visual-Studio.aspx">CodeClimber</a> for getting me out when I got stuck in places, too.</p>
@@ -284,33 +275,30 @@ The program 'c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\bin\Debug\netcoreapp1.0\
 <p>This time from the options we will select <code>msbuild</code>. We want to be able to build and run our solution, rather than use the dotnet CLI on a single project.</p>
 <p>As earlier, we should now have a <code>tasks.json</code> file inside a <code>.vscode</code> folder inside the top-level folder you Opened earlier. This time, however, it is set up to run MSBuild.</p>
 <p>Now we can run it again as we did last time with <code>Ctrl + p</code>, type <code>task build</code> and Enter.</p>
-<pre><code>Failed to launch external program msbuild /property:GenerateFullPaths=true.
+<pre tabindex="0"><code>Failed to launch external program msbuild /property:GenerateFullPaths=true.
 spawn msbuild ENOENT
-</code></pre>
-<p>On my machine, it looks like <code>msbuild.exe</code> is not in the path. In my case I am going to add the MSBuild version 14.0 that came with Visual Studio 2015 into my %PATH% environment variable:</p>
-<pre><code>C:\Program Files (x86)\MSBuild\14.0\Bin
-</code></pre>
-<p>And restart Visual Studio Code. (It is nice that it remembers the last folder I had open, too.)</p>
+</code></pre><p>On my machine, it looks like <code>msbuild.exe</code> is not in the path. In my case I am going to add the MSBuild version 14.0 that came with Visual Studio 2015 into my %PATH% environment variable:</p>
+<pre tabindex="0"><code>C:\Program Files (x86)\MSBuild\14.0\Bin
+</code></pre><p>And restart Visual Studio Code. (It is nice that it remembers the last folder I had open, too.)</p>
 <p>One more <code>Ctrl + Shift + B</code> (or &lsquo;Ctrl + p&rsquo;, <code>task build</code>, Enter) and It looks successful:</p>
-<pre><code>Microsoft (R) Build Engine version 14.0.25420.1
+<pre tabindex="0"><code>Microsoft (R) Build Engine version 14.0.25420.1
 Copyright (C) Microsoft Corporation. All rights reserved.
-Building the projects in this solution one at a time. To enable parallel build, please add the &quot;/m&quot; switch.
+Building the projects in this solution one at a time. To enable parallel build, please add the &#34;/m&#34; switch.
 Build started 03/07/2016 16:44:02.
-Project &quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&quot; on node 1 (build target(s)).
+Project &#34;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&#34; on node 1 (build target(s)).
 ValidateSolutionConfiguration:
-  Building solution configuration &quot;Debug|Any CPU&quot;.
-Project &quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&quot; (1) is building &quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&quot; (2) on node 1 (default targets).
+  Building solution configuration &#34;Debug|Any CPU&#34;.
+Project &#34;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&#34; (1) is building &#34;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&#34; (2) on node 1 (default targets).
 CoreCompile:
-  C:\Program Files\dotnet\dotnet.exe build &quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp&quot; --configuration Debug --no-dependencies
+  C:\Program Files\dotnet\dotnet.exe build &#34;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp&#34; --configuration Debug --no-dependencies
   Project MyNewApp (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
-Done Building Project &quot;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&quot; (default targets).
-Done Building Project &quot;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&quot; (build target(s)).
+Done Building Project &#34;c:\dev\temp\MyNewApp\MyNewApp\src\MyNewApp\MyNewApp.xproj&#34; (default targets).
+Done Building Project &#34;c:\dev\temp\MyNewApp\MyNewApp\MyNewApp.sln&#34; (build target(s)).
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 Time Elapsed 00:00:02.08
-</code></pre>
-<p>So now I can build my Visual Studio <code>xproj</code> using MSBuild inside Visual Studio Code.</p>
+</code></pre><p>So now I can build my Visual Studio <code>xproj</code> using MSBuild inside Visual Studio Code.</p>
 <h4 id="debug-1">Debug</h4>
 <p>Just like before, we can set up Debugging with just a few changes:</p>
 <ul>
@@ -321,9 +309,8 @@ Time Elapsed 00:00:02.08
 <li>Change the path in the program variable.</li>
 </ul>
 <p>This time, though, we change the path to be a bit longer since we are in a different root directory.</p>
-<pre><code>&quot;program&quot;: &quot;${workspaceRoot}/src/MyNewApp/bin/Debug/netcoreapp1.0/MyNewApp.dll&quot;,
-</code></pre>
-<p>Now we should be ready to place a breakpoint and debug our code.  If you already <a href="#becauseiusedanxproj">followed the earlier instructions</a> with the same project, (or you created it using <code>dotnet new</code>), the <code>&quot;debugType&quot;: &quot;portable&quot;</code> fix should already be there, otherwise, you can apply that now.</p>
+<pre tabindex="0"><code>&#34;program&#34;: &#34;${workspaceRoot}/src/MyNewApp/bin/Debug/netcoreapp1.0/MyNewApp.dll&#34;,
+</code></pre><p>Now we should be ready to place a breakpoint and debug our code.  If you already <a href="#becauseiusedanxproj">followed the earlier instructions</a> with the same project, (or you created it using <code>dotnet new</code>), the <code>&quot;debugType&quot;: &quot;portable&quot;</code> fix should already be there, otherwise, you can apply that now.</p>
 <p>Place a breakpoint into <code>Program.cs</code> and hit the green Debug play button. Alternatively, you can use the familiar <code>F5</code> shortcut key to start debugging.  Success!</p>
 <h3 id="whats-next">Whats Next?</h3>
 <p>So now we can build and debug our application using Visual Studio Code either at the Solution-level or at the project-level.  Going forward we will want to start thinking about tests and running those as well. But I want to go a bit further into how to test using .Net Core from the command-line for a bit before I double back and tackle it in Visual Studio Code.</p>

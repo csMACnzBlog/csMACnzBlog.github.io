@@ -144,55 +144,52 @@
 <p>Throwing Exceptions is both a blessing and a curse in C#. You can throw from anywhere to unwind the stack. But adding exception throwing and handling code can cause overheads that you need to be wary of. Not to mention making the code harder to reason about with control flow.</p>
 <p>Regardless, we have them, and we use them, so the language should make that as easy as possible to do so. with C# 7 this was enhanced to support using <code>throw</code> as an expression. Up until this point, it was always a statement, which means there are places in the code that throw could not go.</p>
 <p>One new language feature that only supports expressions and not statements is the Elvis Operator (or Null Conditional Operator, which we <a href="looking-back-on-csharp6-elvis-operator/">already looked back at</a>) and another is the null coalescing operator. When it comes to validating code, these two features shine together.</p>
-<pre><code class="language-cs">public MyClass(string firstArg, string secondArg, Widget widget)
-{
-    if(firstArg is null)
-    {
-        throw new ArgumentNullException(nameof(firstArg));
-    }
-    if(secondArg is null)
-    {
-        throw new ArgumentNullException(nameof(secondArg));
-    }
-    if(widget is null)
-    {
-        throw new ArgumentNullException(nameof(widget));
-    }
-    
-    _firstArg = firstArg;
-    _secondArgLength = secondArg.Length;
-    _widget = widget;
-}
-</code></pre>
-<p>So verbose! wouldn&rsquo;t it be nice to collapse it together a bit?  With throw expressions, we can.</p>
-<pre><code class="language-cs">public MyClass(string firstArg, string secondArg, Widget widget)
-{
-    _firstArg = firstArg ?? throw new ArgumentNullException(nameof(firstArg));
-    _secondArg = secondArg?.Length ?? throw new ArgumentNullException(nameof(secondArg));
-    _widget = widget ?? throw new ArgumentNullException(nameof(widget));
-}
-</code></pre>
-<p>So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> MyClass(<span style="color:#66d9ef">string</span> firstArg, <span style="color:#66d9ef">string</span> secondArg, Widget widget)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(firstArg <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(firstArg));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(secondArg <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(secondArg));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(widget <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(widget));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    _firstArg = firstArg;
+</span></span><span style="display:flex;"><span>    _secondArgLength = secondArg.Length;
+</span></span><span style="display:flex;"><span>    _widget = widget;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>So verbose! wouldn&rsquo;t it be nice to collapse it together a bit?  With throw expressions, we can.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> MyClass(<span style="color:#66d9ef">string</span> firstArg, <span style="color:#66d9ef">string</span> secondArg, Widget widget)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    _firstArg = firstArg ?? <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(firstArg));
+</span></span><span style="display:flex;"><span>    _secondArg = secondArg?.Length ?? <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(secondArg));
+</span></span><span style="display:flex;"><span>    _widget = widget ?? <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(widget));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.</p>
 <p>Also remember how we looked at <a href="/looking-back-on-csharp6-expression-body-members">Expression body members in C# 6</a> and <a href="looking-back-on-csharp7-more-expression-body-members">more in c# 7</a>? Well as the name suggests, the body <em>is</em> an expression. Now that we have throw expressions, the bodies can use them too!</p>
-<pre><code class="language-cs">public class Widget
-{
-    public Widget() =&gt; throw new ArgumentException(&quot;Requires arguments, none provided.&quot;);
-    
-    public ~Widget() =&gt; throw new NotSupportedException(&quot;What are you building that needs a destructor, anyway? (Just curious.)&quot;);
-    
-    public string MyValueProperty =&gt; throw new NotImplementedException();
-    
-    public decimal CalculateTheAnswer() =&gt; throw new NotImplementedException();
- 
-    private T[] _items = new T[100];
-    public T this[int i]
-    {
-        get =&gt; _items?[i] ?? throw new Exception(&quot;Not initialised somehow.&quot;);
-        set =&gt; throw new NotSupportedException(&quot;An interface made me do this.&quot;);
-    }
-}
-</code></pre>
-<p>There are other use-cases out there, expressions are used all over the place. But I will leave that as an exercise to the reader to discover along the way.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Widget</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Widget() =&gt; <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentException(<span style="color:#e6db74">&#34;Requires arguments, none provided.&#34;</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> ~Widget() =&gt; <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NotSupportedException(<span style="color:#e6db74">&#34;What are you building that needs a destructor, anyway? (Just curious.)&#34;</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> MyValueProperty =&gt; <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NotImplementedException();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">decimal</span> CalculateTheAnswer() =&gt; <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NotImplementedException();
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> T[] _items = <span style="color:#66d9ef">new</span> T[<span style="color:#ae81ff">100</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> T <span style="color:#66d9ef">this</span>[<span style="color:#66d9ef">int</span> i]
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">get</span> =&gt; _items?[i] ?? <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Exception(<span style="color:#e6db74">&#34;Not initialised somehow.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">set</span> =&gt; <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NotSupportedException(<span style="color:#e6db74">&#34;An interface made me do this.&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There are other use-cases out there, expressions are used all over the place. But I will leave that as an exercise to the reader to discover along the way.</p>
 </section>
         
         <section class="share">

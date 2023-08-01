@@ -33,49 +33,46 @@ From their &lt;em&gt;Code Annotations&lt;/em&gt; page in Visual Studio:&lt;/p&gt
 &lt;p&gt;Say you have a library DLL called &lt;code&gt;Beefeater.dll&lt;/code&gt;. You would simply create &lt;a href=&#34;https://github.com/csMACnz/Beefeater/blob/master/src/Beefeater/Beefeater.ExternalAnnotations.xml&#34;&gt;a file&lt;/a&gt; called &lt;code&gt;Beefeater.ExternalAnnotations.xml&lt;/code&gt; that gets packaged into your NuGet file, in the same folder as the DLL. The naming convention is simply &lt;code&gt;*.ExternalAnnotations.xml&lt;/code&gt; where &lt;code&gt;*&lt;/code&gt; matches the name of your library without the &lt;code&gt;.dll&lt;/code&gt; extension. (Notice the not so subtle plug for my library &lt;a href=&#34;https://www.nuget.org/packages/Beefeater&#34;&gt;Beefeater&lt;/a&gt;. More on that in another post.)&lt;/p&gt;
 &lt;p&gt;So what do we put in this file?  Well it&amp;rsquo;s based on the &lt;a href=&#34;https://msdn.microsoft.com/en-us/library/b2s063f7.aspx&#34;&gt;XML Documentation&lt;/a&gt; format. You know, the one you use in your comments, that can be exported to produce documentation? If you didn&amp;rsquo;t know, watch out for more on that in a later post as well.  All you really need to know is that it describes the signature of a method and allows you do define attributes against the method, or it&amp;rsquo;s parameters. Wherever you would put the attribute in code, you put it in that place in the file.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s look at a specific example:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
-public struct NotNull&amp;lt;T&amp;gt;
-{
-    ...
-    public NotNull(T value) : this()
-    {
-        ...
-    }
-}
-
-public static class OptionExtensions
-{
-    ...
-    public static void Match&amp;lt;TValue&amp;gt;(
-      this Option&amp;lt;TValue&amp;gt; option, 
-      Action&amp;lt;TValue&amp;gt; some, 
-      Action none)
-    {
-        ...
-    }
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;assembly name=&amp;quot;Beefeater&amp;quot;&amp;gt;
-    &amp;lt;member name=&amp;quot;M:Beefeater.NotNull`1.#ctor(`0)&amp;quot;&amp;gt;
-        &amp;lt;parameter name=&amp;quot;value&amp;quot;&amp;gt;
-            &amp;lt;attribute ctor=&amp;quot;M:JetBrains.Annotations.NotNullAttribute.#ctor&amp;quot; /&amp;gt;
-        &amp;lt;/parameter&amp;gt;
-    &amp;lt;/member&amp;gt;
-    &amp;lt;member name=&amp;quot;M:Beefeater.OptionExtensions.Match``1(Beefeater.Option{``0},System.Action{``0},System.Action)&amp;quot;&amp;gt;
-        &amp;lt;parameter name=&amp;quot;some&amp;quot;&amp;gt;
-            &amp;lt;attribute ctor=&amp;quot;M:JetBrains.Annotations.NotNullAttribute.#ctor&amp;quot; /&amp;gt;
-        &amp;lt;/parameter&amp;gt;
-        &amp;lt;parameter name=&amp;quot;none&amp;quot;&amp;gt;
-            &amp;lt;attribute ctor=&amp;quot;M:JetBrains.Annotations.NotNullAttribute.#ctor&amp;quot; /&amp;gt;
-        &amp;lt;/parameter&amp;gt;
-    &amp;lt;/member&amp;gt;
-    &amp;lt;member name=&amp;quot;P:Beefeater.Result`2.Error&amp;quot;&amp;gt;
-        &amp;lt;attribute ctor=&amp;quot;M:JetBrains.Annotations.NotNullAttribute.#ctor&amp;quot; /&amp;gt;
-    &amp;lt;/member&amp;gt;
-&amp;lt;/assembly&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We have good examples of a few different features so I will step through them with a bit of an explanation for each.  We start with the assembly, giving its name. Then we list many members inside this tag, one for each method we want to annotate.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;NotNull&lt;/span&gt;&amp;lt;T&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; NotNull(T &lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt;) : &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;OptionExtensions&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Match&amp;lt;TValue&amp;gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt; Option&amp;lt;TValue&amp;gt; option, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      Action&amp;lt;TValue&amp;gt; some, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      Action none)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;assembly&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Beefeater&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;member&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;M:Beefeater.NotNull`1.#ctor(`0)&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;parameter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;attribute&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctor=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;M:JetBrains.Annotations.NotNullAttribute.#ctor&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/parameter&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/member&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;member&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;M:Beefeater.OptionExtensions.Match``1(Beefeater.Option{``0},System.Action{``0},System.Action)&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;parameter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;some&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;attribute&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctor=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;M:JetBrains.Annotations.NotNullAttribute.#ctor&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/parameter&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;parameter&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;none&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;attribute&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctor=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;M:JetBrains.Annotations.NotNullAttribute.#ctor&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/parameter&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/member&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;member&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;P:Beefeater.Result`2.Error&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;attribute&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctor=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;M:JetBrains.Annotations.NotNullAttribute.#ctor&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/member&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/assembly&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We have good examples of a few different features so I will step through them with a bit of an explanation for each.  We start with the assembly, giving its name. Then we list many members inside this tag, one for each method we want to annotate.&lt;/p&gt;
 &lt;p&gt;To annotate a constructor, We use the &lt;code&gt;M:&lt;/code&gt; prefix, to define that this is for a method. We add the full namespace to the type, in this case, our class is &lt;code&gt;Beefeater.NotNull&amp;lt;T&amp;gt;&lt;/code&gt;.  Our type is generic, so we use the &lt;code&gt; `1&lt;/code&gt; syntax to declare that the type has a single generic type parameter. If we had 2 parameters we would have used &lt;code&gt; `2&lt;/code&gt;. Because it is a constructor, we use the #ctor to represent its name.  Our constructor takes one parameter, and it is of type &lt;code&gt;T&lt;/code&gt; from the generic, so we use &lt;code&gt; `0&lt;/code&gt; to declare the first (zero-based indexing, of course) of the generic types.&lt;/p&gt;
 &lt;p&gt;Next we have a nested parameter tag. This one declares the name of the parameter and contains any attributes applied to that parameter. The attribute has a &lt;code&gt;ctor&lt;/code&gt; attribute where we put the fully qualified name of the constructor we use on that attribute. This is a repeat of the above syntax described for the member name.&lt;/p&gt;
 &lt;p&gt;Our second method has a few extra bits of information to know.  Firstly, we are using the name .&lt;code&gt;Match``1&lt;/code&gt; which is the actually method name since it isn&amp;rsquo;t a constructor, and is generic since the method is generic, like the class was last time. Secondly, with parameters that are known types, we use their fully qualified name. We see the last parameter is a &lt;code&gt;System.Action&lt;/code&gt;. The other two are generic types. This took me a while to figure out, but if your method is generic, your parameters are generic, and you need to match these together, you use the &lt;code&gt;{``0}&lt;/code&gt; syntax, to say it has a generic argument, of type &lt;code&gt;`0&lt;/code&gt;, where &lt;code&gt;`0&lt;/code&gt; matches the first argument of the generics from the method (or class).&lt;/p&gt;

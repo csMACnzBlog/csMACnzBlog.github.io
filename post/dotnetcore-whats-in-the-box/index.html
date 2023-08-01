@@ -155,46 +155,44 @@
 <p>We will have a look at some of the files and their contents. Since I assume the <code>Program.cs</code> file is self-explanatory, I will give it a miss.</p>
 <h3 id="projectjson">project.json</h3>
 <p>Take a look at the two versions of <code>project.json</code>. Firstly, from our <code>xproj</code> project via Visual Studio:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;emitEntryPoint&quot;: true
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;emitEntryPoint&#34;: true
   },
-  &quot;dependencies&quot;: {
-    &quot;Microsoft.NETCore.App&quot;: {
-      &quot;type&quot;: &quot;platform&quot;,
-      &quot;version&quot;: &quot;1.0.0&quot;
+  &#34;dependencies&#34;: {
+    &#34;Microsoft.NETCore.App&#34;: {
+      &#34;type&#34;: &#34;platform&#34;,
+      &#34;version&#34;: &#34;1.0.0&#34;
     }
   },
-  &quot;frameworks&quot;: {
-    &quot;netcoreapp1.0&quot;: {
-      &quot;imports&quot;: &quot;dnxcore50&quot;
+  &#34;frameworks&#34;: {
+    &#34;netcoreapp1.0&#34;: {
+      &#34;imports&#34;: &#34;dnxcore50&#34;
     }
   }
 }
-</code></pre>
-<p>And a very similar one from <code>dotnet new</code>:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;,
-    &quot;emitEntryPoint&quot;: true
+</code></pre><p>And a very similar one from <code>dotnet new</code>:</p>
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;,
+    &#34;emitEntryPoint&#34;: true
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;netcoreapp1.0&quot;: {
-      &quot;dependencies&quot;: {
-        &quot;Microsoft.NETCore.App&quot;: {
-          &quot;type&quot;: &quot;platform&quot;,
-          &quot;version&quot;: &quot;1.0.0&quot;
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;netcoreapp1.0&#34;: {
+      &#34;dependencies&#34;: {
+        &#34;Microsoft.NETCore.App&#34;: {
+          &#34;type&#34;: &#34;platform&#34;,
+          &#34;version&#34;: &#34;1.0.0&#34;
         }
       },
-      &quot;imports&quot;: &quot;dnxcore50&quot;
+      &#34;imports&#34;: &#34;dnxcore50&#34;
     }
   }
 }
-</code></pre>
-<p>There are a few differences. So let&rsquo;s start with the similarities.
+</code></pre><p>There are a few differences. So let&rsquo;s start with the similarities.
 We have 4 top-level properties: <code>version</code>, <code>buildOptions</code>, <code>dependencies</code> and <code>frameworks</code>. Starting with the easy ones.</p>
 <h4 id="version">version</h4>
 <p>The version property is the minimum required metadata about the artifact you are building. Other meta-data includes &rsquo;name&rsquo;, <code>title</code>, <code>description</code> and may others.</p>
@@ -209,22 +207,20 @@ We have 4 top-level properties: <code>version</code>, <code>buildOptions</code>,
 <p>So with our examples above, we can see that the Visual Studio and dotnet CLI versions define the same result, just in two different ways. If we wanted to add new framework target, then we would need to work out which dependency configuration works best for us going forward.</p>
 <h4 id="microsoftnetcoreapp">Microsoft.NETCore.App</h4>
 <p>Let&rsquo;s look a bit closer at <code>Microsoft.NETCore.App</code>:</p>
-<pre><code>&quot;Microsoft.NETCore.App&quot;: {
-      &quot;type&quot;: &quot;platform&quot;,
-      &quot;version&quot;: &quot;1.0.0&quot;
+<pre tabindex="0"><code>&#34;Microsoft.NETCore.App&#34;: {
+      &#34;type&#34;: &#34;platform&#34;,
+      &#34;version&#34;: &#34;1.0.0&#34;
     }
-</code></pre>
-<p>This is a dependency. This is a platform dependency. It&rsquo;s also a <a href="https://www.nuget.org/packages/Microsoft.NETCore.App/">Nuget Package</a>, which contains within it a bunch of system library NuGet packages.</p>
+</code></pre><p>This is a dependency. This is a platform dependency. It&rsquo;s also a <a href="https://www.nuget.org/packages/Microsoft.NETCore.App/">Nuget Package</a>, which contains within it a bunch of system library NuGet packages.</p>
 <p>Documentation for these is still a little unclear to me, so I will leave this as it is for now, and revisit when we need to change it later when we look at multi-targeting, referencing, and publishing.</p>
 <h4 id="netcoreapp10">netcoreapp1.0</h4>
 <p>Let&rsquo;s look a bit closer at <code>netcoreapp1.0</code>:</p>
-<pre><code>&quot;frameworks&quot;: {
-    &quot;netcoreapp1.0&quot;: {
-      &quot;imports&quot;: &quot;dnxcore50&quot;
+<pre tabindex="0"><code>&#34;frameworks&#34;: {
+    &#34;netcoreapp1.0&#34;: {
+      &#34;imports&#34;: &#34;dnxcore50&#34;
     }
   }
-</code></pre>
-<p>The framework <code>netcoreapp1.0</code> is one of many Target Framework Moniker (TFM) values that can be used here. As well as the old classics &rsquo;net45&rsquo;, &rsquo;net46&rsquo;, we now have some new ones, like this <code>netcoreapp1.0</code>. These seem to be similar and/or related to the TFMs that are supported as part of NuGet.</p>
+</code></pre><p>The framework <code>netcoreapp1.0</code> is one of many Target Framework Moniker (TFM) values that can be used here. As well as the old classics &rsquo;net45&rsquo;, &rsquo;net46&rsquo;, we now have some new ones, like this <code>netcoreapp1.0</code>. These seem to be similar and/or related to the TFMs that are supported as part of NuGet.</p>
 <p>This <a href="https://blogs.msdn.microsoft.com/cesardelatorre/2016/06/28/running-net-core-apps-on-multiple-frameworks-and-what-the-target-framework-monikers-tfms-are-about/">article on TFMs</a> attempts to explain these in a much greater detail than I can fit here in one paragraph.</p>
 <p>But giving it a go, <code>dotnetcoreapp1.0</code> is the reference to this release of .Net Core, as a target platform. So if you want to target this Framework(Runtime) Version, this is how.</p>
 <p>As for <code>&quot;imports&quot;: &quot;dnxcore50&quot;</code>, It looks like this is just telling the compiler (or runtime, unsure) that if it sees anything targeting &ldquo;dnxcore50&rdquo;, in a package, that is fine to use with this application. Reading that back, it probably is referring exactly to the NuGet Moniker that has been used during the early releases.</p>
@@ -246,40 +242,38 @@ We have 4 top-level properties: <code>version</code>, <code>buildOptions</code>,
 <p>You can check this file into source control, but you also don&rsquo;t have to, since running <code>dotnet restore</code> will rebuild it for you.</p>
 <h3 id="mynewappxproj">MyNewApp.xproj</h3>
 <p>Taking a bit of a turn, we will look at the <code>xproj</code> file.</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;Project ToolsVersion=&quot;14.0&quot; DefaultTargets=&quot;Build&quot; xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
+<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;Project ToolsVersion=&#34;14.0&#34; DefaultTargets=&#34;Build&#34; xmlns=&#34;http://schemas.microsoft.com/developer/msbuild/2003&#34;&gt;
   &lt;PropertyGroup&gt;
-    &lt;VisualStudioVersion Condition=&quot;'$(VisualStudioVersion)' == ''&quot;&gt;14.0&lt;/VisualStudioVersion&gt;
-    &lt;VSToolsPath Condition=&quot;'$(VSToolsPath)' == ''&quot;&gt;$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)&lt;/VSToolsPath&gt;
+    &lt;VisualStudioVersion Condition=&#34;&#39;$(VisualStudioVersion)&#39; == &#39;&#39;&#34;&gt;14.0&lt;/VisualStudioVersion&gt;
+    &lt;VSToolsPath Condition=&#34;&#39;$(VSToolsPath)&#39; == &#39;&#39;&#34;&gt;$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)&lt;/VSToolsPath&gt;
   &lt;/PropertyGroup&gt;
 
-  &lt;Import Project=&quot;$(VSToolsPath)\DotNet\Microsoft.DotNet.Props&quot; Condition=&quot;'$(VSToolsPath)' != ''&quot; /&gt;
-  &lt;PropertyGroup Label=&quot;Globals&quot;&gt;
+  &lt;Import Project=&#34;$(VSToolsPath)\DotNet\Microsoft.DotNet.Props&#34; Condition=&#34;&#39;$(VSToolsPath)&#39; != &#39;&#39;&#34; /&gt;
+  &lt;PropertyGroup Label=&#34;Globals&#34;&gt;
     &lt;ProjectGuid&gt;7be7fb75-24a9-4728-80bd-86b09c29ebf1&lt;/ProjectGuid&gt;
     &lt;RootNamespace&gt;MyNewApp&lt;/RootNamespace&gt;
-    &lt;BaseIntermediateOutputPath Condition=&quot;'$(BaseIntermediateOutputPath)'=='' &quot;&gt;.\obj&lt;/BaseIntermediateOutputPath&gt;
-    &lt;OutputPath Condition=&quot;'$(OutputPath)'=='' &quot;&gt;.\bin\&lt;/OutputPath&gt;
+    &lt;BaseIntermediateOutputPath Condition=&#34;&#39;$(BaseIntermediateOutputPath)&#39;==&#39;&#39; &#34;&gt;.\obj&lt;/BaseIntermediateOutputPath&gt;
+    &lt;OutputPath Condition=&#34;&#39;$(OutputPath)&#39;==&#39;&#39; &#34;&gt;.\bin\&lt;/OutputPath&gt;
     &lt;TargetFrameworkVersion&gt;v4.5.2&lt;/TargetFrameworkVersion&gt;
   &lt;/PropertyGroup&gt;
 
   &lt;PropertyGroup&gt;
     &lt;SchemaVersion&gt;2.0&lt;/SchemaVersion&gt;
   &lt;/PropertyGroup&gt;
-  &lt;Import Project=&quot;$(VSToolsPath)\DotNet\Microsoft.DotNet.targets&quot; Condition=&quot;'$(VSToolsPath)' != ''&quot; /&gt;
+  &lt;Import Project=&#34;$(VSToolsPath)\DotNet\Microsoft.DotNet.targets&#34; Condition=&#34;&#39;$(VSToolsPath)&#39; != &#39;&#39;&#34; /&gt;
 &lt;/Project&gt;
-</code></pre>
-<p>Like the <code>csproj</code> files of the past, this file bridges between Visual Studio and MSBuild. In the same vein, this is an MSBuild file.</p>
+</code></pre><p>Like the <code>csproj</code> files of the past, this file bridges between Visual Studio and MSBuild. In the same vein, this is an MSBuild file.</p>
 <p>Unlike a <code>csproj</code> file, there isn&rsquo;t really much in here. All of the magic to make this a buildable project is inside the referenced <code>targets</code> and <code>Props</code> files, which then defer to the <code>project.json</code> file for the rest of the information they need.</p>
 <p>From everything that has been said about the tooling, the balance of power between <code>xproj</code> and <code>project.json</code> will change, and we will probably see <code>xproj</code> swapped back for a <code>csproj</code> file again in the near future, say Visual Studio 2016 perhaps.</p>
 <h3 id="globaljson">global.json</h3>
-<pre><code>{
-  &quot;projects&quot;: [ &quot;src&quot;, &quot;test&quot; ],
-  &quot;sdk&quot;: {
-    &quot;version&quot;: &quot;1.0.0-preview2-003121&quot;
+<pre tabindex="0"><code>{
+  &#34;projects&#34;: [ &#34;src&#34;, &#34;test&#34; ],
+  &#34;sdk&#34;: {
+    &#34;version&#34;: &#34;1.0.0-preview2-003121&#34;
   }
 }
-</code></pre>
-<p>This is another magic file I still haven&rsquo;t managed to distil down. When I build in Visual Studio, the tooling does seem to use this to discover projects and determine which version of the (tools?) it should download as a dependency.  The folders specified in projects have their top-level only searched for project folders.</p>
+</code></pre><p>This is another magic file I still haven&rsquo;t managed to distil down. When I build in Visual Studio, the tooling does seem to use this to discover projects and determine which version of the (tools?) it should download as a dependency.  The folders specified in projects have their top-level only searched for project folders.</p>
 <p>Some little information on <code>global.json</code> (and again, the caveat of change) is found <a href="https://docs.microsoft.com/en-us/dotnet/articles/core/tools/global-json">here</a>. From what I have seen when playing around, even without this file you can still locate other projects as project references, so I am not sure of its true intent/power yet. That page does refer to build system, so it may be more tied to MSBuild​instead, rather than <code>dotnet</code>.</p>
 <h3 id="next-up">Next up</h3>
 <p>We now have a bit of an idea. All of the magic tying everything together seems to be locked up in the <code>project.json</code> file.  Going forward we will try out some common use cases to determine what changes to the <code>project.json</code> we need to make to achieve our results.</p>

@@ -97,7 +97,7 @@
                 "height": 295
             },
             "keywords" : [ "C Sharp", "dotnetcore" ]
-            "description" : "The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely. However, there is one niggly workaround that I\u0026rsquo;m not a fan of, and that is = default!;\nproblem definition \/\/ This class is used to serialise\/deserialise a payload from a server\rpublic class MyContractDTO\r{\rpublic string Value { get; set; } = default!;\r}\rMy codebase is now littered with this code hack to get it to compile because nullable says it can\u0026rsquo;t guarantee that this property is not null.",
+            "description" : "The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely. However, there is one niggly workaround that I\u0026rsquo;m not a fan of, and that is = default!;\nproblem definition \/\/ This class is used to serialise\/deserialise a payload from a server public class MyContractDTO { public string Value { get; set; } = default!; } My codebase is now littered with this code hack to get it to compile because nullable says it can\u0026rsquo;t guarantee that this property is not null.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -142,27 +142,25 @@
         <section class="post-content"  itemprop="articleBody">
             <img class="post-image" src="https://images.unsplash.com/photo-1523318140688-03662c0cba35?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ"><p>The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&rsquo;m not a fan of, and that is <code>= default!;</code></p>
 <h2 id="problem-definition">problem definition</h2>
-<pre><code class="language-cs">// This class is used to serialise/deserialise a payload from a server
-public class MyContractDTO
-{
-    public string Value { get; set; } = default!;
-}
-</code></pre>
-<p>My codebase is now littered with this code hack to get it to compile because nullable says it can&rsquo;t guarantee that this property is not null.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#75715e">// This class is used to serialise/deserialise a payload from a server</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyContractDTO</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>!;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>My codebase is now littered with this code hack to get it to compile because nullable says it can&rsquo;t guarantee that this property is not null.</p>
 <p>Let&rsquo;s take a closer look at what we are saying.</p>
-<pre><code class="language-cs">
-// With the Nullable feature enabled, I need to ensure Value is not null:
-// - either in the constructor from a notnull argument
-// - or giving it a default non-null value.
-public string Value { get; set; }
-
-// Initialise the property to its default value (which for reference types like string is null)
-public string Value { get; set; } = default;
-
-// The '!' says to treat the value as if it is notnull, the developer knows better
-public string Value { get; set; } = default!;
-</code></pre>
-<p>What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&rsquo;t like it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// With the Nullable feature enabled, I need to ensure Value is not null:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// - either in the constructor from a notnull argument</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// - or giving it a default non-null value.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Initialise the property to its default value (which for reference types like string is null)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The &#39;!&#39; says to treat the value as if it is notnull, the developer knows better</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>!;
+</span></span></code></pre></div><p>What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&rsquo;t like it.</p>
 <h2 id="normal-solutions">Normal solutions</h2>
 <p>There are two solution paths to take here:</p>
 <ul>
@@ -183,15 +181,13 @@ For all domain and application logic, This is what I have done successfully so f
 </ul>
 <p>Again we can make the call to acknowledge that it might be null and make it nullable.  But there are drawbacks here. If you do this, you have to add all the error-handling for dealing with nullable checks. And if you control both server and client in this situation, then you might be writing and testing code for something you never plan to, nor may never need to ever support. Being null is an exceptional/fatal situation you don&rsquo;t want to have to constantly guard against.</p>
 <p>Which leads us back to the de-facto solution currently being advocated and used:</p>
-<pre><code class="language-cs">public string Value { get; set; } = default!;
-</code></pre>
-<p>I&rsquo;m still not happy. So why don&rsquo;t we work on that?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>!;
+</span></span></code></pre></div><p>I&rsquo;m still not happy. So why don&rsquo;t we work on that?</p>
 <h2 id="the-json-may-or-may-not-include-the-field-or-it-might-be-null">The JSON may or may not include the field or it might be null</h2>
 <p>Luckily for us, this concern is fairly easy to address. Say we are using Newtonsoft.Json and want this extra piece of reassurance.</p>
-<pre><code class="language-cs">[JsonProperty(Required = Required.Always)]
-public string Value { get; set; } = default!;
-</code></pre>
-<p>The <code>Required</code> attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a <code>JsonSerializationException</code> for free.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#a6e22e">[JsonProperty(Required = Required.Always)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#66d9ef">default</span>!;
+</span></span></code></pre></div><p>The <code>Required</code> attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a <code>JsonSerializationException</code> for free.</p>
 <p>This ensures we:</p>
 <ul>
 <li>have minimal code doing the null checking</li>
@@ -201,7 +197,7 @@ public string Value { get; set; } = default!;
 <p>This still doesn&rsquo;t stop any other piece of code from creating an invalid object state, though. But this may be the easiest solution to add those missing guarantees alongside using <code>default!</code>.</p>
 <h2 id="use-constructors">Use Constructors</h2>
 <p>Newtonsoft.Json helps once again by supporting constructors. Make sure all the mandatory non-nullable properties are in the constructor. And as long as there is no default constructor (which when doing nullable right you can&rsquo;t anyway) and the constructor parameters have names matching the properties, this just works as expected.</p>
-<pre><code>public class MyContractDTO
+<pre tabindex="0"><code>public class MyContractDTO
 {
     public MyContractDTO(string value)
     {
@@ -211,8 +207,7 @@ public string Value { get; set; } = default!;
     
     public string Value { get; set; };
 }
-</code></pre>
-<p>You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.</p>
+</code></pre><p>You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.</p>
 <p>Once more, Newtonsoft.Json with constructors also means support for read-only (immutable) objects.</p>
 <h2 id="what-about-not-using-newtonsoftjson">What about not using Newtonsoft.Json?</h2>
 <p>There is a new kid on the block - <code>System.Text.Json</code>. However, this is one area where it doesn&rsquo;t shine so bright compared to Newtonsoft.Json.</p>
@@ -220,93 +215,92 @@ public string Value { get; set; } = default!;
 <p>More on <a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to">what does and does not translate across from Newtonsoft.Json is documented here</a>.</p>
 <p>Instead, you will need to write your own converter and manually deserialise your object with your own explicit null checks (which could be done inside the constructor).</p>
 <p>For example, given our simple type above, we might do the following:</p>
-<pre><code class="language-cs">[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]
-public class MyContractDTO
-{
-    public MyContractDTO(string value)
-    {
-        if (value is null) throw new ArgumentNullException(nameof(value));
-        Value = value;
-    }
-    
-    public string Value { get; }
-}
-
-// Made using the examples given at https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#required-properties
-// Your decisions may vary.
-// e.g. this only supports {&quot;value&quot;: &quot;...&quot;} format, no extra properties allowed.
-// For a more complex object, you would probably be more flexible.
-// Better guides here: https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to
-public class MyContractDTOConverter : JsonConverter&lt;MyContractDTO&gt;
-{
-    private readonly JsonEncodedText ValueName = JsonEncodedText.Encode(&quot;value&quot;);
-
-    public override Implementation Read(
-        ref Utf8JsonReader reader,
-        Type typeToConvert,
-        JsonSerializerOptions options)
-    {
-        if (reader.TokenType != JsonTokenType.StartObject)
-        {
-            throw new JsonException();
-        };
-
-        string? value = default;
-
-        reader.Read();
-        // One property must exist
-        if (reader.TokenType != JsonTokenType.PropertyName)
-        {
-            throw new JsonException();
-        }
-
-        // That property must have the right name
-        if (reader.ValueTextEquals(ValueName.EncodedUtf8Bytes))
-        {
-            value = ReadProperty(ref reader, options);
-        }
-        else
-        {
-            throw new JsonException();
-        }
-
-        reader.Read();
-        // There must be no other properties
-        if (reader.TokenType != JsonTokenType.EndObject)
-        {
-            throw new JsonException();
-        }
-
-        return new MyContractDTO(value);
-    }
-
-    private string ReadProperty(ref Utf8JsonReader reader, JsonSerializerOptions options)
-    {
-        Debug.Assert(reader.TokenType == JsonTokenType.PropertyName);
-
-        reader.Read();
-
-        return reader.GetString();
-    }
-
-    private void WriteProperty(Utf8JsonWriter writer, JsonEncodedText name, string stringValue, JsonSerializerOptions options)
-    {
-        writer.WritePropertyName(name);
-        writer.WriteStringValue(stringValue);
-    }
-
-    public override void Write(
-        Utf8JsonWriter writer,
-        Implementation implementation,
-        JsonSerializerOptions options)
-    {
-        writer.WriteStartObject();
-        WriteProperty(writer, ValueName, implementation.Value, options);
-        writer.WriteEndObject();
-    }
-}
-</code></pre>
-<p>At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#a6e22e">[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyContractDTO</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> MyContractDTO(<span style="color:#66d9ef">string</span> <span style="color:#66d9ef">value</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">value</span> <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(<span style="color:#66d9ef">value</span>));
+</span></span><span style="display:flex;"><span>        Value = <span style="color:#66d9ef">value</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Value { <span style="color:#66d9ef">get</span>; }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Made using the examples given at https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#required-properties</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Your decisions may vary.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// e.g. this only supports {&#34;value&#34;: &#34;...&#34;} format, no extra properties allowed.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// For a more complex object, you would probably be more flexible.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Better guides here: https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyContractDTOConverter</span> : JsonConverter&lt;MyContractDTO&gt;
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> JsonEncodedText ValueName = JsonEncodedText.Encode(<span style="color:#e6db74">&#34;value&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> Implementation Read(
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">ref</span> Utf8JsonReader reader,
+</span></span><span style="display:flex;"><span>        Type typeToConvert,
+</span></span><span style="display:flex;"><span>        JsonSerializerOptions options)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (reader.TokenType != JsonTokenType.StartObject)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> JsonException();
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string?</span> <span style="color:#66d9ef">value</span> = <span style="color:#66d9ef">default</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        reader.Read();
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// One property must exist</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (reader.TokenType != JsonTokenType.PropertyName)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> JsonException();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// That property must have the right name</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (reader.ValueTextEquals(ValueName.EncodedUtf8Bytes))
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">value</span> = ReadProperty(<span style="color:#66d9ef">ref</span> reader, options);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> JsonException();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        reader.Read();
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// There must be no other properties</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (reader.TokenType != JsonTokenType.EndObject)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> JsonException();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MyContractDTO(<span style="color:#66d9ef">value</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">string</span> ReadProperty(<span style="color:#66d9ef">ref</span> Utf8JsonReader reader, JsonSerializerOptions options)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Debug.Assert(reader.TokenType == JsonTokenType.PropertyName);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        reader.Read();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> reader.GetString();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> WriteProperty(Utf8JsonWriter writer, JsonEncodedText name, <span style="color:#66d9ef">string</span> stringValue, JsonSerializerOptions options)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        writer.WritePropertyName(name);
+</span></span><span style="display:flex;"><span>        writer.WriteStringValue(stringValue);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">void</span> Write(
+</span></span><span style="display:flex;"><span>        Utf8JsonWriter writer,
+</span></span><span style="display:flex;"><span>        Implementation implementation,
+</span></span><span style="display:flex;"><span>        JsonSerializerOptions options)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        writer.WriteStartObject();
+</span></span><span style="display:flex;"><span>        WriteProperty(writer, ValueName, implementation.Value, options);
+</span></span><span style="display:flex;"><span>        writer.WriteEndObject();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.</p>
 <h2 id="decisions-decisions">Decisions, Decisions</h2>
 <p>So what would I recommend?</p>
 <p>Firstly, don&rsquo;t just use <code>default!</code> on your serialised types.</p>

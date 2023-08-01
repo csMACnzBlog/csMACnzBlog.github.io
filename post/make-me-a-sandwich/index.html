@@ -17,13 +17,13 @@
 
     
         <title>Make me a sandwich - csMACnz&#39;s Blog</title>
-        <meta name="description" content="A lesson in powershell. I typed this: &gt; iisreset  Which responded with this: Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator …">
+        <meta name="description" content="A lesson in powershell. I typed this: &gt; iisreset Which responded with this: Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator …">
         <meta name='keywords' content='csMACnz, Tips and Tricks, PowerShell'>
 
         
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Make me a sandwich"/>
-        <meta property="og:description" content="A lesson in powershell. I typed this: &gt; iisreset  Which responded with this: Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator …"/>
+        <meta property="og:description" content="A lesson in powershell. I typed this: &gt; iisreset Which responded with this: Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator …"/>
         <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
         <meta property="og:url" content="https://blog.csmac.nz/post/make-me-a-sandwich/"/>
         <meta property="og:image" content="https://csmac.nz/Content/icon/icon.png"/>
@@ -31,7 +31,7 @@
         
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:title" content="Make me a sandwich"/>
-        <meta name="twitter:description" content="A lesson in powershell. I typed this: &gt; iisreset  Which responded with this: Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator …"/>
+        <meta name="twitter:description" content="A lesson in powershell. I typed this: &gt; iisreset Which responded with this: Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator …"/>
         <meta name="twitter:image" content="https://csmac.nz/Content/icon/icon.png"/>
         <meta name="twitter:site" content="@csMACnz"/>
         <meta name="twitter:creator" content="@csMACnz"/>
@@ -91,7 +91,7 @@
             "datePublished": "2015-10-11T15:57:06.000Z",
             "dateModified" : "2015-10-11T15:57:06.000Z",
             "keywords" : [ "Tips and Tricks", "PowerShell" ]
-            "description" : "A lesson in powershell.\nI typed this:\n\u0026gt; iisreset\rWhich responded with this:\nAccess denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group.\rSo I typed this:\n\u0026gt; sudo iisreset\rI was thinking this: But got this:\nsudo : The term \u0027sudo\u0027 is not recognized as the name of a cmdlet, function, script file, or operable program.",
+            "description" : "A lesson in powershell.\nI typed this:\n\u0026gt; iisreset Which responded with this:\nAccess denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group. So I typed this:\n\u0026gt; sudo iisreset I was thinking this: But got this:\nsudo : The term \u0026#39;sudo\u0026#39; is not recognized as the name of a cmdlet, function, script file, or operable program.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -136,35 +136,29 @@
         <section class="post-content"  itemprop="articleBody">
             <p>A lesson in powershell.</p>
 <p>I typed this:</p>
-<pre><code class="language-powershell">&gt; iisreset
-</code></pre>
-<p>Which responded with this:</p>
-<pre><code class="language-powershell">Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group.
-</code></pre>
-<p>So I typed this:</p>
-<pre><code class="language-powershell">&gt; sudo iisreset
-</code></pre>
-<p>I was thinking this:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>&gt; iisreset
+</span></span></code></pre></div><p>Which responded with this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group.
+</span></span></code></pre></div><p>So I typed this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>&gt; sudo iisreset
+</span></span></code></pre></div><p>I was thinking this:
 <a href="https://xkcd.com/149/"><img src="https://imgs.xkcd.com/comics/sandwich.png" alt=""></a></p>
 <p>But got this:</p>
-<pre><code class="language-powershell">sudo : The term 'sudo' is not recognized as the name of a cmdlet, function,  
-script file, or operable program. Check the spelling of the name, or if a    
-path was included, verify that the path is correct and try again.            
-At line:1 char:1                                                             
-+ sudo import-module webadministration                                       
-+ ~~~~                                                                       
-    + CategoryInfo          : ObjectNotFound: (sudo:String) [], CommandNotFoundException
-    + FullyQualifiedErrorId : CommandNotFoundException
-                                                                             
-</code></pre>
-<p>So I added to my $PROFILE:</p>
-<pre><code class="language-powershell">function invoke-assuperuser { Start-Process powershell -Verb runAs $args }
-set-alias sudo invoke-assuperuser
-</code></pre>
-<p>Now I can:</p>
-<pre><code class="language-powershell">&gt; sudo iisreset
-</code></pre>
-<p>And it works (In a new window, via UAC)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>sudo <span style="color:#960050;background-color:#1e0010">:</span> The term <span style="color:#e6db74">&#39;sudo&#39;</span> is not recognized as the name of a cmdlet, function,  
+</span></span><span style="display:flex;"><span>script file, or operable program. Check the spelling of the name, or <span style="color:#66d9ef">if</span> a    
+</span></span><span style="display:flex;"><span>path was included, verify that the path is correct and <span style="color:#66d9ef">try</span> again.            
+</span></span><span style="display:flex;"><span>At line<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">1</span> char<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">1</span>                                                             
+</span></span><span style="display:flex;"><span>+ sudo import-module webadministration                                       
+</span></span><span style="display:flex;"><span>+ ~~~~                                                                       
+</span></span><span style="display:flex;"><span>    + CategoryInfo          <span style="color:#960050;background-color:#1e0010">:</span> ObjectNotFound<span style="color:#960050;background-color:#1e0010">:</span> (sudo<span style="color:#960050;background-color:#1e0010">:</span>String) [], CommandNotFoundException
+</span></span><span style="display:flex;"><span>    + FullyQualifiedErrorId <span style="color:#960050;background-color:#1e0010">:</span> CommandNotFoundException
+</span></span><span style="display:flex;"><span>                                                                             
+</span></span></code></pre></div><p>So I added to my $PROFILE:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> invoke-assuperuser { Start-Process powershell -Verb runAs $args }
+</span></span><span style="display:flex;"><span>set-alias sudo invoke-assuperuser
+</span></span></code></pre></div><p>Now I can:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>&gt; sudo iisreset
+</span></span></code></pre></div><p>And it works (In a new window, via UAC)</p>
 <p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1444625794/yayanimated_syyjd8.gif" alt=""></p>
 </section>
         

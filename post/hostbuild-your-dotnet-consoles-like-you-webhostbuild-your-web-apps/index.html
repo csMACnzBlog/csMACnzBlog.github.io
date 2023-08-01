@@ -149,59 +149,58 @@
 </blockquote>
 <p>If you are used to the WebHostBuilder (<code>WebHost.CreateWebHostBuilder(args).Build().Run();</code>) then you will find the contracts for this very similar.  Let&rsquo;s look at an example of what a console app using this new library might look like.</p>
 <p>Like last time, we will use this simple application that will sleep for 1 second, then try to generate the next number in the Fibonacci Sequence and print it out.</p>
-<pre><code class="language-cs">using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace MyApp
-{
-    public class MyApp
-    {
-        private static readonly AutoResetEvent _closeRequested = new AutoResetEvent(false);
-        private long _last = 0;
-        private long _current = 0;
-        private Task _work;
-
-        public MyApp()
-        {
-        }
-
-        public void Start()
-        {
-            _work = Task.Run(() =&gt; DoWorkLoop());
-        }
-
-        public void Stop()
-        {
-            _closeRequested.Set();
-            if (_work != null)
-            {
-                _work.Wait();
-                _work = null;
-            }
-        }
-
-        public void DoWorkLoop()
-        {
-            while (!_closeRequested.WaitOne(1000))
-            {
-                var last = _current;
-                var next = _last + _current;
-                if (next == 0)
-                {
-                    next = 1;
-                }
-                _last = _current;
-                _current = next;
-                Console.WriteLine(next);
-            }
-        }
-    }
-}
-</code></pre>
-<p>So how can we use this hosted in the new <code>HostBuilder</code>?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> MyApp
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyApp</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> AutoResetEvent _closeRequested = <span style="color:#66d9ef">new</span> AutoResetEvent(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">long</span> _last = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">long</span> _current = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> Task _work;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> MyApp()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Start()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _work = Task.Run(() =&gt; DoWorkLoop());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Stop()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _closeRequested.Set();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (_work != <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                _work.Wait();
+</span></span><span style="display:flex;"><span>                _work = <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoWorkLoop()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (!_closeRequested.WaitOne(<span style="color:#ae81ff">1000</span>))
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> last = _current;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> next = _last + _current;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (next == <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    next = <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                _last = _current;
+</span></span><span style="display:flex;"><span>                _current = next;
+</span></span><span style="display:flex;"><span>                Console.WriteLine(next);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>So how can we use this hosted in the new <code>HostBuilder</code>?</p>
 <p>First, we have to use the new <code>IHostedService</code> interface:</p>
-<pre><code>public interface IHostedService
+<pre tabindex="0"><code>public interface IHostedService
 {
     // Called when the host is ready to start the service
     Task StartAsync(CancellationToken cancellationToken);
@@ -209,107 +208,101 @@ namespace MyApp
     // Called on graceful shutdown by the host
     Task StopAsync(CancellationToken cancellationToken);
 }
-</code></pre>
-<p>Notice the interface uses <code>CancellationToken</code>. This is called when the host needs to cancel the action (such as termination of the application during startup, or if you take too long during shutdown).</p>
+</code></pre><p>Notice the interface uses <code>CancellationToken</code>. This is called when the host needs to cancel the action (such as termination of the application during startup, or if you take too long during shutdown).</p>
 <p>Our app class can be modified to meet these requirements:</p>
-<pre><code class="language-cs">public class MyApp : IHostedService
-{
-    private static readonly AutoResetEvent _closeRequested = new AutoResetEvent(false);
-    ...
-    private Task _work;
-
-    Task StartAsync(CancellationToken cancellationToken)
-    {
-        _work = Task.Run(() =&gt; DoWorkLoop());
-        return Task.CompletedTask;
-    }
-
-    Task StopAsync(CancellationToken cancellationToken)
-    {
-        _closeRequested.Set();
-        if (_work != null)
-        {
-            _task.Wait(cancellationToken);
-            _work.Dispose();
-            _work = null;
-        }
-
-        return Task.CompletedTask;
-    }
-
-    public void DoWorkLoop()
-    {
-        ...
-    }
-}
-</code></pre>
-<p>Now we meet the expected interface, we can build our startup code like so:</p>
-<pre><code class="language-cs">public static class Program
-{
-    public static async Task Main(string[] args)
-    {
-        await new HostBuilder()
-            .UseHostedService&lt;MyApp&gt;()
-            .RunConsoleAsync();
-    }
-}
-</code></pre>
-<p>This is basically the minimum to get this working. But there is so much more you can do now you have a host builder.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyApp</span> : IHostedService
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> AutoResetEvent _closeRequested = <span style="color:#66d9ef">new</span> AutoResetEvent(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Task _work;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Task StartAsync(CancellationToken cancellationToken)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        _work = Task.Run(() =&gt; DoWorkLoop());
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Task.CompletedTask;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Task StopAsync(CancellationToken cancellationToken)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        _closeRequested.Set();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (_work != <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _task.Wait(cancellationToken);
+</span></span><span style="display:flex;"><span>            _work.Dispose();
+</span></span><span style="display:flex;"><span>            _work = <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Task.CompletedTask;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoWorkLoop()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now we meet the expected interface, we can build our startup code like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">async</span> Task Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> HostBuilder()
+</span></span><span style="display:flex;"><span>            .UseHostedService&lt;MyApp&gt;()
+</span></span><span style="display:flex;"><span>            .RunConsoleAsync();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is basically the minimum to get this working. But there is so much more you can do now you have a host builder.</p>
 <p>Let&rsquo;s break this down into what those extensions are actually doing for you. The above is essentially equivalent to this:</p>
-<pre><code class="language-cs">var host = new HostBuilder()
-    .ConfigureServices(services =&gt;
-        services.AddHostedService&lt;MyApp&gt;())
-    .UseConsoleLifetime()
-    .Build();
-
-using (host)
-{
-    await host.StartAsync();
-
-    await host.WaitForShutdownAsync();
-}
-</code></pre>
-<p><code>UseConsoleLifetime</code>, which is used by <code>RunConsoleAsync()</code> internally, waits for Ctrl+C/SIGINT or SIGTERM commands from the OS (windows mac and Linux where applicable) to make the application compatible with graceful shutdown scenarios.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> host = <span style="color:#66d9ef">new</span> HostBuilder()
+</span></span><span style="display:flex;"><span>    .ConfigureServices(services =&gt;
+</span></span><span style="display:flex;"><span>        services.AddHostedService&lt;MyApp&gt;())
+</span></span><span style="display:flex;"><span>    .UseConsoleLifetime()
+</span></span><span style="display:flex;"><span>    .Build();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> (host)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> host.StartAsync();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> host.WaitForShutdownAsync();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>UseConsoleLifetime</code>, which is used by <code>RunConsoleAsync()</code> internally, waits for Ctrl+C/SIGINT or SIGTERM commands from the OS (windows mac and Linux where applicable) to make the application compatible with graceful shutdown scenarios.</p>
 <p><code>RunConsoleAsync()</code> also bootstraps the <code>Start</code> and <code>WaitForShutdown</code> usage, making it a really handy helper function to know and use.</p>
 <p><code>ConfigureServices</code> is identical to that you are familiar with on the WebHostBuilder, and Startup classes.  This is your <code>ServiceCollection</code> where you can register dependencies. That&rsquo;s right, this has AspNetCore&rsquo;s Dependency Resolution structure.  <code>AddHostedService</code> is just a shorthand to register you class as an implementation of <code>IHostedService</code> that the Generic <em>Host</em> can later resolve to start and stop for you.</p>
 <p>While talking about <code>AddHostedService</code>, I should mention you can have as many <code>IHostedService</code> instances registered that you want to have running. Multiple worker processes hosted in one app essentially.</p>
 <p>Let&rsquo;s talk about configuration.</p>
 <p>AspNetCore introduced the <code>IConfiguration</code> and the <code>appsettings.json</code> files.  I&rsquo;ve found that adding the following code gives you a very similar experience:</p>
-<pre><code class="language-cs">new HostBuilder()
-   .UseEnvironment(Environment.GetEnvironmentVariable(&quot;ASPNETCORE_ENVIRONMENT&quot;))
-    .ConfigureAppConfiguration((hostContext, configApp) =&gt;
-    {
-        // ConfigureAppConfiguration makes sure the config is available
-        // as runtime in the IConfiguration.
-        // You can use ConfigureHostConfiguration which configures the
-        // IHostingEnvironment's Build-type Configuration instead if you
-        // care to make the distinction.
-        // ConfigureAppConfiguration changes are also still visible on
-        // IHostingEnvironment as well ¯\_(ツ)_/¯
-        configApp
-            .AddJsonFile(&quot;appsettings.json&quot;, optional: false, reloadOnChange: false)
-            .AddJsonFile($&quot;appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json&quot;, optional: true)
-            .AddEnvironmentVariables()
-            .AddCommandLine(args);
-    })
-    .ConfigureServices(services =&gt;
-    {
-        ...
-        
-        services.AddHostedService&lt;MyApp&gt;();
-    }
-    .Build();
-</code></pre>
-<p>This configuration should give you the appsettings loading, including the <code>Environment</code>-specific  config files using the same <code>ASPNETCORE_ENVIRONMENT</code> EnvironmentVariable you are used to (though you could call this whatever you want, really). It also loads EnvironmentVariables as config overrides, and enables command line argument overrides as well (as highest priority).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">new</span> HostBuilder()
+</span></span><span style="display:flex;"><span>   .UseEnvironment(Environment.GetEnvironmentVariable(<span style="color:#e6db74">&#34;ASPNETCORE_ENVIRONMENT&#34;</span>))
+</span></span><span style="display:flex;"><span>    .ConfigureAppConfiguration((hostContext, configApp) =&gt;
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ConfigureAppConfiguration makes sure the config is available</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// as runtime in the IConfiguration.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// You can use ConfigureHostConfiguration which configures the</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// IHostingEnvironment&#39;s Build-type Configuration instead if you</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// care to make the distinction.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ConfigureAppConfiguration changes are also still visible on</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// IHostingEnvironment as well ¯\_(ツ)_/¯</span>
+</span></span><span style="display:flex;"><span>        configApp
+</span></span><span style="display:flex;"><span>            .AddJsonFile(<span style="color:#e6db74">&#34;appsettings.json&#34;</span>, optional: <span style="color:#66d9ef">false</span>, reloadOnChange: <span style="color:#66d9ef">false</span>)
+</span></span><span style="display:flex;"><span>            .AddJsonFile(<span style="color:#e6db74">$&#34;appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json&#34;</span>, optional: <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>            .AddEnvironmentVariables()
+</span></span><span style="display:flex;"><span>            .AddCommandLine(args);
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>    .ConfigureServices(services =&gt;
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        services.AddHostedService&lt;MyApp&gt;();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    .Build();
+</span></span></code></pre></div><p>This configuration should give you the appsettings loading, including the <code>Environment</code>-specific  config files using the same <code>ASPNETCORE_ENVIRONMENT</code> EnvironmentVariable you are used to (though you could call this whatever you want, really). It also loads EnvironmentVariables as config overrides, and enables command line argument overrides as well (as highest priority).</p>
 <p>I will leave you with a mention of logging.</p>
-<pre><code class="language-cs">.ConfigureLogging((hostcontext, loggingBuilder) =&gt;
-{
-    // I'm thinking you should go do your own reading on this one, I'm not going to give you ALL the code to copy-paste from!
-    // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.1#configurelogging
-    ...
-})
-</code></pre>
-<p>Happy Coding!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>.ConfigureLogging((hostcontext, loggingBuilder) =&gt;
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// I&#39;m thinking you should go do your own reading on this one, I&#39;m not going to give you ALL the code to copy-paste from!</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.1#configurelogging</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>Happy Coding!</p>
 </section>
         
         <section class="share">

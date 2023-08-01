@@ -165,7 +165,7 @@
 <h3 id="show-me-the-code">Show me the code!</h3>
 <h4 id="optiont">Option<T></h4>
 <p>As a simple example you may have a method like this:</p>
-<pre><code>public string Modify(string first, string second)
+<pre tabindex="0"><code>public string Modify(string first, string second)
 {
     if (first == null)
     {
@@ -177,41 +177,38 @@
     }
     return first + second;
 }
-</code></pre>
-<p>Typical code. A bit of error checking, and some switch logic based on an optional argument.</p>
+</code></pre><p>Typical code. A bit of error checking, and some switch logic based on an optional argument.</p>
 <p>I don&rsquo;t know about you, but it is hard for me to know that <code>first</code> is required, but <code>second</code> is optional. At least not without comments, or a thorough inspection of the code. Shouldn&rsquo;t the signature tell me this? (C# 8 says it will.)</p>
 <p>Lets take a look at this using Beefeater:</p>
-<pre><code>public Option&lt;string&gt; Modify(NotNull&lt;string&gt; first, Option&lt;string&gt; second)
+<pre tabindex="0"><code>public Option&lt;string&gt; Modify(NotNull&lt;string&gt; first, Option&lt;string&gt; second)
 {
     return second.Match(
         v =&gt; first + v,
         () =&gt; Option&lt;string&gt;.None);
 }
 
-var x = Modify(&quot;Hello&quot;, &quot;World&quot;);
-var y = Modify(&quot;Hello&quot;, null);
-</code></pre>
-<p>That is very clean to me. First, the signature tells us everything we need to know.</p>
+var x = Modify(&#34;Hello&#34;, &#34;World&#34;);
+var y = Modify(&#34;Hello&#34;, null);
+</code></pre><p>That is very clean to me. First, the signature tells us everything we need to know.</p>
 <p>And when we look at the calling syntax, it is seamless. it works exactly as you expect. With one difference.</p>
 <p><code>x</code> and <code>y</code> in the example are both <code>Option&lt;string&gt;</code> type. This means you cannot pass this to a method that requires <code>NotNull&lt;string&gt;</code>, or even <code>string</code> itself.</p>
 <p>Why? Well, clearly you have no idea if that result is safe. You know it is either a Nothing or a non-null string. (Is it both?  Schrodinger&rsquo;s <code>Option&lt;T&gt;</code>?)</p>
 <p>The only sensible thing to do is to check, right? It would be unsafe not to.  Thus the value of the library is revealed.</p>
 <p>That check can use the <code>Match</code> method, too.</p>
-<pre><code>var x = Modify(&quot;Hello&quot;, &quot;World&quot;);
+<pre tabindex="0"><code>var x = Modify(&#34;Hello&#34;, &#34;World&#34;);
 
 var outputMessage = x.Match(
-  some: value =&gt; $&quot;The result is {value}&quot;,
-  none: () =&gt; &quot;There wasn't anything to report&quot;);
+  some: value =&gt; $&#34;The result is {value}&#34;,
+  none: () =&gt; &#34;There wasn&#39;t anything to report&#34;);
 
 Console.WriteLine(outputMessage);
-</code></pre>
-<p>Your code will start to become very functional, but you will also get compile-type checks to ensure you are handling error cases correctly.</p>
+</code></pre><p>Your code will start to become very functional, but you will also get compile-type checks to ensure you are handling error cases correctly.</p>
 <p>If you really want to live dangerously, though, there is an explicit cast back to the original type, that will throw a <code>PanicException</code>. This is basically the library equivalent to the <code>NullReferenceException</code>, but should normally throw earlier in your code when the Null is first observed, rather than late at dereference.</p>
 <p>Much like async/await, this library is contagious and will ripple through your code, just FYI.</p>
 <h4 id="resulttvalue-terror">Result&lt;TValue, TError&gt;</h4>
 <p>Apart from <code>Option&lt;T&gt;</code>, the other most useful is the <code>Result&lt;TValue, TError&gt;</code>.</p>
 <p>Again, you might have written:</p>
-<pre><code>public bool Create(string filePath, string second)
+<pre tabindex="0"><code>public bool Create(string filePath, string second)
 {
     if (filePath == null)
     {
@@ -230,11 +227,10 @@ Console.WriteLine(outputMessage);
     }
     return true;
 }
-</code></pre>
-<p>Again, a little cruft. Optionality unclear. But there is more.  This method can and will throw a bunch of exceptions. FileNotFound, UnauthorizedAccess, and others. Your calling code is either going to handle many exceptions, or the app will crash. We could put the logic into the method, and the code would get complex. But how do we handle the return? returns <code>true</code>, <code>false</code> or Throws exception, how do you translate that into a concise return type of <code>true</code>, <code>false</code> or FileNotFound or Unauthorized or Other?</p>
+</code></pre><p>Again, a little cruft. Optionality unclear. But there is more.  This method can and will throw a bunch of exceptions. FileNotFound, UnauthorizedAccess, and others. Your calling code is either going to handle many exceptions, or the app will crash. We could put the logic into the method, and the code would get complex. But how do we handle the return? returns <code>true</code>, <code>false</code> or Throws exception, how do you translate that into a concise return type of <code>true</code>, <code>false</code> or FileNotFound or Unauthorized or Other?</p>
 <p>Beefeater says like this:
 (Rust too, actually&hellip;)</p>
-<pre><code>public enum ErrorResult
+<pre tabindex="0"><code>public enum ErrorResult
 {
     UnknownError,
     FileNotFound,
@@ -273,33 +269,31 @@ public Result&lt;bool, ErrorResult&gt; Create(NotNull&lt;string&gt; filePath, Op
             () =&gt; false);
     }
 }
-</code></pre>
-<p>To me, the business logic is very easy to read from this code. Again the signature is clear what to expect and how to use the result.</p>
-<pre><code>var result = Create(&quot;myfile.txt&quot;, someVar);
+</code></pre><p>To me, the business logic is very easy to read from this code. Again the signature is clear what to expect and how to use the result.</p>
+<pre tabindex="0"><code>var result = Create(&#34;myfile.txt&#34;, someVar);
 var outputMessage = result.Match(
   isCreated =&gt; isCreated
-    ? &quot;The file was created with someVar&quot;
-    : &quot;The file was not created because someVar&quot;,
+    ? &#34;The file was created with someVar&#34;
+    : &#34;The file was not created because someVar&#34;,
   error =&gt; 
   {
       switch(error)
       {
           case FileNotFound:
-              return &quot;File Not Found&quot;;
+              return &#34;File Not Found&#34;;
           case Unauthorized:
-              return &quot;The file is secure and you can't get it.&quot;;
+              return &#34;The file is secure and you can&#39;t get it.&#34;;
           case UnknownError:
           default:
-              return &quot;An unknown Error occurred&quot;;
+              return &#34;An unknown Error occurred&#34;;
       }
   });
 
 Console.WriteLine(outputMessage);
-</code></pre>
-<p>Just like that, every code-branch/edge-case has to be covered, or it will not compile. (Enum notwithstanding.)</p>
+</code></pre><p>Just like that, every code-branch/edge-case has to be covered, or it will not compile. (Enum notwithstanding.)</p>
 <h4 id="either">Either</h4>
 <p><code>Either&lt;T1, T2&gt;</code> is very similar to Result, except the semantic meaning differs. It allows a method to return either one type or another type.</p>
-<pre><code>public Either&lt;long, double&gt; DivideByTwo(int aNumber)
+<pre tabindex="0"><code>public Either&lt;long, double&gt; DivideByTwo(int aNumber)
 {
     if (aNumber % 2 == 0)
         return aNumber / 2;
@@ -308,15 +302,13 @@ Console.WriteLine(outputMessage);
 
 var x = DivideByTwo(10);
 var x = DivideByTwo(5);
-</code></pre>
-<h4 id="recursion">Recursion?</h4>
+</code></pre><h4 id="recursion">Recursion?</h4>
 <p>You could even nest these things:</p>
-<pre><code>Either&lt;Option&lt;string&gt;, NotNull&lt;int&gt;&gt;
+<pre tabindex="0"><code>Either&lt;Option&lt;string&gt;, NotNull&lt;int&gt;&gt;
 Option&lt;Either&lt;Foo, Bar&gt;&gt;
 Result&lt;Option&lt;string&gt;,CustomError&gt;
 Result&lt;Unit,string&gt;
-</code></pre>
-<p>Different combinations will provide different value in different situations.</p>
+</code></pre><p>Different combinations will provide different value in different situations.</p>
 <p><code>Unit</code>? Yeah. When you go functional, representing <code>void</code> as a type is much helpful. I have another library where I get my Unit from, but there are literally dozens on Nuget.</p>
 <h3 id="c-8">C# 8</h3>
 <p>I&rsquo;ve hung a lot of stuff on C# 8 in this article. At some point, I should cover what is coming (though at this stage nothing is certain). Basically, though, this library has been hanging around for a while, before nullable reference types was even being discussed publicly. So whether nullable reference types happens in 8, 8.1 or C# 9, this library is here today and can get you started thinking about different states of optionality in your code today.</p>

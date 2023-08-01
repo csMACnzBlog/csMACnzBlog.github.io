@@ -117,9 +117,8 @@ Really need table support here:
 &lt;p&gt;This test only ran across one solution with 30 C# projects, across 3 very similar machines, only 5 times each. For a more conclusive answer, you would want to run this across a whole range of extra solutions and machines. But from this limited view, I&amp;rsquo;m really impressed by the perf increase of builds that 2015 provides me, for my particular code base, at this point in time.&lt;/p&gt;
 &lt;h3 id=&#34;other-findings&#34;&gt;Other Findings&lt;/h3&gt;
 &lt;p&gt;During this exercise of measuring I can across one other nice conclusion as well. Restoring NuGet packages on a large solution with a complex dependency graph is much faster when using the command line, rather than letting visual studio load them on demand right before a build.  I didn&amp;rsquo;t get any hard numbers yet, but it feels significant. It took 2-4 minutes for VS to finish loading NuGet packages before it started building, versus the same dependencies loaded from the command line in 20 or 30 seconds.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;nuget restore src\mySolution.sln
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It is true that I am using a locally hosted NuGet 2 server, and that could be a factor, so your mileage may vary. But I usually find that command line tasks do come out faster compared to GUI ones, and this is one I will change my habits over.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nuget restore src\mySolution.sln
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It is true that I am using a locally hosted NuGet 2 server, and that could be a factor, so your mileage may vary. But I usually find that command line tasks do come out faster compared to GUI ones, and this is one I will change my habits over.&lt;/p&gt;
 </description>
     </item>
     

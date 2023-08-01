@@ -61,52 +61,48 @@
       <description>&lt;p&gt;Recently I tried upgrading from Terraform 0.12 to 1.0.1. I think the key here is leaving 0.12.&lt;/p&gt;
 &lt;p&gt;Anyway, there was a breaking change in 0.13 around how providers worked, and we got this cryptic error.&lt;/p&gt;
 &lt;p&gt;(Caveat: I don&amp;rsquo;t actually know how much of this has to do with a newrelic provider update as well or instead, but was what we got the week of 2021/07/12.)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;Initializing provider plugins...
-- Reusing previous version of newrelic/newrelic from the dependency lock file
-- Finding latest version of hashicorp/newrelic...
-- Using previously-installed newrelic/newrelic v2.23.0
-╷
-│ Error: Failed to query available provider packages
-│
-│ Could not retrieve the list of available versions for provider hashicorp/newrelic: provider registry registry.terraform.io does not have a provider 
-│ named registry.terraform.io/hashicorp/newrelic
-│
-│ Did you intend to use newrelic/newrelic? If so, you must specify that source address in each module which requires that provider. To see which      
-│ modules are currently depending on hashicorp/newrelic, run the following command:
-│     terraform providers
-|
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So I&amp;rsquo;d already added this at my root module but this error still occurred.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-hcl&#34;&gt;terraform {
-  required_providers {
-    newrelic = {
-      source  = &amp;quot;newrelic/newrelic&amp;quot;
-      version = &amp;quot;2.23.0&amp;quot;
-    }
-  }
-}
-
-provider &amp;quot;newrelic&amp;quot; {
-  api_key    = &amp;quot;12345&amp;quot;
-  account_id = &amp;quot;12345&amp;quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It took a while to find the right docs to understand this one.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Initializing provider plugins...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- Reusing previous version of newrelic/newrelic from the dependency lock file
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- Finding latest version of hashicorp/newrelic...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- Using previously-installed newrelic/newrelic v2.23.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;╷&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;│&lt;/span&gt; Error&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt; Failed to query available provider packages
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;│&lt;/span&gt; Could not retrieve the list of available versions &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; provider hashicorp/newrelic&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt; provider registry registry.terraform.io does not have a provider 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;│&lt;/span&gt; named registry.terraform.io/hashicorp/newrelic
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;│&lt;/span&gt; Did you intend to use newrelic/newrelic? &lt;span style=&#34;color:#66d9ef&#34;&gt;If&lt;/span&gt; so, you must specify that source address &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; each module which requires that provider. To see which      
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;│&lt;/span&gt; modules are currently depending on hashicorp/newrelic, run the following command&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;│&lt;/span&gt;     terraform providers
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;|
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So I&amp;rsquo;d already added this at my root module but this error still occurred.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;terraform&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;required_providers&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    newrelic &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      source  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;newrelic/newrelic&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2.23.0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;provider&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;newrelic&amp;#34;&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  api_key    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;12345&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  account_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;12345&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It took a while to find the right docs to understand this one.&lt;/p&gt;
 &lt;p&gt;The key message from above is the &lt;code&gt;You must specify that source address in each module which requires that provider.&lt;/code&gt; message. We are using modules, and the breaking change to 0.13 and above is that modules can specify &lt;code&gt;required_providers&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;What they don&amp;rsquo;t tell you clearly, is that when trying to resolve &amp;ldquo;newrelic&amp;rdquo; provider by default, it will look for &amp;ldquo;hashicorp/newrelic&amp;rdquo;. However the actual provider source is &amp;ldquo;newrelic/newrelic&amp;rdquo;. So to make this work the optional &lt;code&gt;required_providers&lt;/code&gt; is actually mandatory, and actually needs the &lt;code&gt;source  = &amp;quot;newrelic/newrelic&amp;quot;&lt;/code&gt; property.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-hcl&#34;&gt;terraform {
-  required_providers {
-    newrelic = {
-      source = &amp;quot;newrelic/newrelic&amp;quot;
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Adding this to every module that uses newrelic solved the problem.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;terraform&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;required_providers&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    newrelic &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      source &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;newrelic/newrelic&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Adding this to every module that uses newrelic solved the problem.&lt;/p&gt;
 &lt;p&gt;If you are doing this, you might also need to migrate your state over as well. Do this after running &lt;code&gt;terraform init&lt;/code&gt; from inside your config folder. This migrates the data in your state file to correctly map to the new provider.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;terraform state replace-provider newrelic newrelic/newrelic
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;More details here: &lt;a href=&#34;https://www.terraform.io/docs/cli/commands/state/replace-provider.html&#34;&gt;https://www.terraform.io/docs/cli/commands/state/replace-provider.html&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform state replace-provider newrelic newrelic/newrelic
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;More details here: &lt;a href=&#34;https://www.terraform.io/docs/cli/commands/state/replace-provider.html&#34;&gt;https://www.terraform.io/docs/cli/commands/state/replace-provider.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;If you do migrate 0.12 to 0.13 first, instead of stupidly jumping straight to 1.0.1, you can follow a more useful migration guide and the &lt;code&gt;0.13upgrade&lt;/code&gt; command instead. 🤦‍♂️&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.terraform.io/docs/cli/commands/0.13upgrade.html&#34;&gt;https://www.terraform.io/docs/cli/commands/0.13upgrade.html&lt;/a&gt;
 &lt;a href=&#34;https://www.terraform.io/upgrade-guides/0-13.html&#34;&gt;https://www.terraform.io/upgrade-guides/0-13.html&lt;/a&gt;&lt;/p&gt;
@@ -126,11 +122,10 @@ provider &amp;quot;newrelic&amp;quot; {
 &lt;/blockquote&gt;
 &lt;p&gt;The canonical stack overflow question that (at the time of writing this) had no answer: &lt;a href=&#34;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&#34;&gt;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (&lt;code&gt;Project&lt;/code&gt;):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import kotlin.reflect.full.declaredMemberProperties
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import kotlin.reflect.full.declaredMemberProperties
 
 val props = Project::class.declaredMemberProperties
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)&lt;/p&gt;
 &lt;p&gt;At this point in time and with some further testing, I&amp;rsquo;ve come to the conclusion that &lt;strong&gt;reflection just isn&amp;rsquo;t supported on teamcity with Kotlin&lt;/strong&gt;. I&amp;rsquo;ve found one or two Issue links to back that up too: &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-59901&#34;&gt;https://youtrack.jetbrains.com/issue/TW-59901&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;(¬_¬ )&lt;/p&gt;
 &lt;p&gt;If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.&lt;/p&gt;
@@ -164,27 +159,25 @@ val props = Project::class.declaredMemberProperties
       <guid>https://blog.csmac.nz/post/nullable-and-notnull-serialisation-properties/</guid>
       <description>&lt;p&gt;The C# 8 feature Nullable has been well received by myself and others into our workflows and has improved code bases immensely.  However, there is one niggly workaround that I&amp;rsquo;m not a fan of, and that is &lt;code&gt;= default!;&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;problem-definition&#34;&gt;problem definition&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// This class is used to serialise/deserialise a payload from a server
-public class MyContractDTO
-{
-    public string Value { get; set; } = default!;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;My codebase is now littered with this code hack to get it to compile because nullable says it can&amp;rsquo;t guarantee that this property is not null.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// This class is used to serialise/deserialise a payload from a server&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MyContractDTO&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; Value { &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt;; } = &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;!;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;My codebase is now littered with this code hack to get it to compile because nullable says it can&amp;rsquo;t guarantee that this property is not null.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s take a closer look at what we are saying.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
-// With the Nullable feature enabled, I need to ensure Value is not null:
-// - either in the constructor from a notnull argument
-// - or giving it a default non-null value.
-public string Value { get; set; }
-
-// Initialise the property to its default value (which for reference types like string is null)
-public string Value { get; set; } = default;
-
-// The &#39;!&#39; says to treat the value as if it is notnull, the developer knows better
-public string Value { get; set; } = default!;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&amp;rsquo;t like it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// With the Nullable feature enabled, I need to ensure Value is not null:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// - either in the constructor from a notnull argument&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// - or giving it a default non-null value.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; Value { &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Initialise the property to its default value (which for reference types like string is null)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; Value { &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt;; } = &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// The &amp;#39;!&amp;#39; says to treat the value as if it is notnull, the developer knows better&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; Value { &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt;; } = &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;!;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;What does this achieve? Well, the compiler ignores the fact that it could be null, and we initialise it to be null. This is a contradiction if ever I saw one, and I don&amp;rsquo;t like it.&lt;/p&gt;
 &lt;h2 id=&#34;normal-solutions&#34;&gt;Normal solutions&lt;/h2&gt;
 &lt;p&gt;There are two solution paths to take here:&lt;/p&gt;
 &lt;ul&gt;
@@ -205,15 +198,13 @@ For all domain and application logic, This is what I have done successfully so f
 &lt;/ul&gt;
 &lt;p&gt;Again we can make the call to acknowledge that it might be null and make it nullable.  But there are drawbacks here. If you do this, you have to add all the error-handling for dealing with nullable checks. And if you control both server and client in this situation, then you might be writing and testing code for something you never plan to, nor may never need to ever support. Being null is an exceptional/fatal situation you don&amp;rsquo;t want to have to constantly guard against.&lt;/p&gt;
 &lt;p&gt;Which leads us back to the de-facto solution currently being advocated and used:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public string Value { get; set; } = default!;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I&amp;rsquo;m still not happy. So why don&amp;rsquo;t we work on that?&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; Value { &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt;; } = &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;!;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I&amp;rsquo;m still not happy. So why don&amp;rsquo;t we work on that?&lt;/p&gt;
 &lt;h2 id=&#34;the-json-may-or-may-not-include-the-field-or-it-might-be-null&#34;&gt;The JSON may or may not include the field or it might be null&lt;/h2&gt;
 &lt;p&gt;Luckily for us, this concern is fairly easy to address. Say we are using Newtonsoft.Json and want this extra piece of reassurance.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[JsonProperty(Required = Required.Always)]
-public string Value { get; set; } = default!;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The &lt;code&gt;Required&lt;/code&gt; attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a &lt;code&gt;JsonSerializationException&lt;/code&gt; for free.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;[JsonProperty(Required = Required.Always)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; Value { &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt;; } = &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;!;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;Required&lt;/code&gt; attribute annotation is designed for exactly this situation. When we use Newtonsoft.Json as our deserialiser, we can get a &lt;code&gt;JsonSerializationException&lt;/code&gt; for free.&lt;/p&gt;
 &lt;p&gt;This ensures we:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;have minimal code doing the null checking&lt;/li&gt;
@@ -223,7 +214,7 @@ public string Value { get; set; } = default!;
 &lt;p&gt;This still doesn&amp;rsquo;t stop any other piece of code from creating an invalid object state, though. But this may be the easiest solution to add those missing guarantees alongside using &lt;code&gt;default!&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;use-constructors&#34;&gt;Use Constructors&lt;/h2&gt;
 &lt;p&gt;Newtonsoft.Json helps once again by supporting constructors. Make sure all the mandatory non-nullable properties are in the constructor. And as long as there is no default constructor (which when doing nullable right you can&amp;rsquo;t anyway) and the constructor parameters have names matching the properties, this just works as expected.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;public class MyContractDTO
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public class MyContractDTO
 {
     public MyContractDTO(string value)
     {
@@ -233,8 +224,7 @@ public string Value { get; set; } = default!;
     
     public string Value { get; set; };
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You do however have to write your null-guard into the constructor to ensure it fails with an appropriate error message. Without this, null might still sneak through, even if you annotate the property.&lt;/p&gt;
 &lt;p&gt;Once more, Newtonsoft.Json with constructors also means support for read-only (immutable) objects.&lt;/p&gt;
 &lt;h2 id=&#34;what-about-not-using-newtonsoftjson&#34;&gt;What about not using Newtonsoft.Json?&lt;/h2&gt;
 &lt;p&gt;There is a new kid on the block - &lt;code&gt;System.Text.Json&lt;/code&gt;. However, this is one area where it doesn&amp;rsquo;t shine so bright compared to Newtonsoft.Json.&lt;/p&gt;
@@ -242,93 +232,92 @@ public string Value { get; set; } = default!;
 &lt;p&gt;More on &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to&#34;&gt;what does and does not translate across from Newtonsoft.Json is documented here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Instead, you will need to write your own converter and manually deserialise your object with your own explicit null checks (which could be done inside the constructor).&lt;/p&gt;
 &lt;p&gt;For example, given our simple type above, we might do the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]
-public class MyContractDTO
-{
-    public MyContractDTO(string value)
-    {
-        if (value is null) throw new ArgumentNullException(nameof(value));
-        Value = value;
-    }
-    
-    public string Value { get; }
-}
-
-// Made using the examples given at https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#required-properties
-// Your decisions may vary.
-// e.g. this only supports {&amp;quot;value&amp;quot;: &amp;quot;...&amp;quot;} format, no extra properties allowed.
-// For a more complex object, you would probably be more flexible.
-// Better guides here: https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to
-public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
-{
-    private readonly JsonEncodedText ValueName = JsonEncodedText.Encode(&amp;quot;value&amp;quot;);
-
-    public override Implementation Read(
-        ref Utf8JsonReader reader,
-        Type typeToConvert,
-        JsonSerializerOptions options)
-    {
-        if (reader.TokenType != JsonTokenType.StartObject)
-        {
-            throw new JsonException();
-        };
-
-        string? value = default;
-
-        reader.Read();
-        // One property must exist
-        if (reader.TokenType != JsonTokenType.PropertyName)
-        {
-            throw new JsonException();
-        }
-
-        // That property must have the right name
-        if (reader.ValueTextEquals(ValueName.EncodedUtf8Bytes))
-        {
-            value = ReadProperty(ref reader, options);
-        }
-        else
-        {
-            throw new JsonException();
-        }
-
-        reader.Read();
-        // There must be no other properties
-        if (reader.TokenType != JsonTokenType.EndObject)
-        {
-            throw new JsonException();
-        }
-
-        return new MyContractDTO(value);
-    }
-
-    private string ReadProperty(ref Utf8JsonReader reader, JsonSerializerOptions options)
-    {
-        Debug.Assert(reader.TokenType == JsonTokenType.PropertyName);
-
-        reader.Read();
-
-        return reader.GetString();
-    }
-
-    private void WriteProperty(Utf8JsonWriter writer, JsonEncodedText name, string stringValue, JsonSerializerOptions options)
-    {
-        writer.WritePropertyName(name);
-        writer.WriteStringValue(stringValue);
-    }
-
-    public override void Write(
-        Utf8JsonWriter writer,
-        Implementation implementation,
-        JsonSerializerOptions options)
-    {
-        writer.WriteStartObject();
-        WriteProperty(writer, ValueName, implementation.Value, options);
-        writer.WriteEndObject();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;[System.Text.Json.Serialization.JsonConverter(typeof(MyContractDTOConverter))]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MyContractDTO&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; MyContractDTO(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(&lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Value = &lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; Value { &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Made using the examples given at https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#required-properties&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Your decisions may vary.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// e.g. this only supports {&amp;#34;value&amp;#34;: &amp;#34;...&amp;#34;} format, no extra properties allowed.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// For a more complex object, you would probably be more flexible.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Better guides here: https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MyContractDTOConverter&lt;/span&gt; : JsonConverter&amp;lt;MyContractDTO&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;readonly&lt;/span&gt; JsonEncodedText ValueName = JsonEncodedText.Encode(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;override&lt;/span&gt; Implementation Read(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;ref&lt;/span&gt; Utf8JsonReader reader,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Type typeToConvert,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        JsonSerializerOptions options)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (reader.TokenType != JsonTokenType.StartObject)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; JsonException();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        };
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;string?&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt; = &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        reader.Read();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// One property must exist&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (reader.TokenType != JsonTokenType.PropertyName)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; JsonException();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// That property must have the right name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (reader.ValueTextEquals(ValueName.EncodedUtf8Bytes))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt; = ReadProperty(&lt;span style=&#34;color:#66d9ef&#34;&gt;ref&lt;/span&gt; reader, options);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; JsonException();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        reader.Read();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// There must be no other properties&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (reader.TokenType != JsonTokenType.EndObject)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; JsonException();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; MyContractDTO(&lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; ReadProperty(&lt;span style=&#34;color:#66d9ef&#34;&gt;ref&lt;/span&gt; Utf8JsonReader reader, JsonSerializerOptions options)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Debug.Assert(reader.TokenType == JsonTokenType.PropertyName);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        reader.Read();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; reader.GetString();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; WriteProperty(Utf8JsonWriter writer, JsonEncodedText name, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; stringValue, JsonSerializerOptions options)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        writer.WritePropertyName(name);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        writer.WriteStringValue(stringValue);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;override&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Write(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Utf8JsonWriter writer,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Implementation implementation,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        JsonSerializerOptions options)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        writer.WriteStartObject();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        WriteProperty(writer, ValueName, implementation.Value, options);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        writer.WriteEndObject();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;At which point you now have a bunch more code and logic to look after, but can achieve the same/similar results to what Newtonsoft.Json could do. Depending on your situation, maintaining this code may be more effort than declaring it nullable and maintaining checks around that in consuming code. Up to you.&lt;/p&gt;
 &lt;h2 id=&#34;decisions-decisions&#34;&gt;Decisions, Decisions&lt;/h2&gt;
 &lt;p&gt;So what would I recommend?&lt;/p&gt;
 &lt;p&gt;Firstly, don&amp;rsquo;t just use &lt;code&gt;default!&lt;/code&gt; on your serialised types.&lt;/p&gt;
@@ -434,98 +423,90 @@ public class MyContractDTOConverter : JsonConverter&amp;lt;MyContractDTO&amp;gt;
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;p&gt;Pattern matching is a powerful feature that has been unlocked against various language constructs in C#.  The idea is to take existing features like &lt;code&gt;case&lt;/code&gt; from switches and &lt;code&gt;is&lt;/code&gt; and extract their capabilities into a &amp;ldquo;pattern matching&amp;rdquo; concept over types and values. This can then be applied back to these language features, and other places in the future.&lt;/p&gt;
 &lt;p&gt;Before the new concept of patterns, &lt;code&gt;case&lt;/code&gt; accepted a constant as an argument, and &lt;code&gt;is&lt;/code&gt; would accept a type.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// Check the type of the variable &amp;quot;is assignable to&amp;quot; Shape
-if(widget is Shape)
-{
-    switch ((widget as Shape).Type)
-    {
-        // When value matches the constant &amp;quot;Square&amp;quot;
-        case &amp;quot;Square&amp;quot;:
-            // ...
-            break;
-        default:
-            break;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;With the introduction of C# 7.0, both of these language features have been enhanced to use the new Pattern Matching syntax.  This is a backwards-compatible change, meaning that the pattern type can be a const or a type. As well as these existing cases, it also includes &lt;code&gt;when&lt;/code&gt; clauses and var patterns as well.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Check the type of the variable &amp;#34;is assignable to&amp;#34; Shape&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(widget &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; Shape)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;switch&lt;/span&gt; ((widget &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; Shape).Type)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// When value matches the constant &amp;#34;Square&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Square&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;// ...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With the introduction of C# 7.0, both of these language features have been enhanced to use the new Pattern Matching syntax.  This is a backwards-compatible change, meaning that the pattern type can be a const or a type. As well as these existing cases, it also includes &lt;code&gt;when&lt;/code&gt; clauses and var patterns as well.&lt;/p&gt;
 &lt;h3 id=&#34;is-expression&#34;&gt;is Expression&lt;/h3&gt;
 &lt;p&gt;Originally, &lt;code&gt;is&lt;/code&gt; was able to check a type. This could create more readable code but often left casting or &lt;code&gt;as&lt;/code&gt; operator usage in the aftermath.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (widget is Shape)
-{
-    var myShape = widget as Shape;
-    // var myShape = (Shape)widget;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This has been improved by the pattern matching. First, we have constant checking:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (widget.Type is null)
-{
-    // ...
-}
-
-if (widget.Type is &amp;quot;FOO&amp;quot;)
-{
-    // ...
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;As well as this, the Type checking Pattern now includes support to create a scoped variable of the correct type, similar to the new out parameter functionality. This language feature is collectively known as &amp;ldquo;expression variables&amp;rdquo;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (widget is Shape shape)
-{
-    // ... use `shape`
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;switch-statement&#34;&gt;Switch Statement&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (widget &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; Shape)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; myShape = widget &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; Shape;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// var myShape = (Shape)widget;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This has been improved by the pattern matching. First, we have constant checking:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (widget.Type &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// ...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (widget.Type &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;FOO&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// ...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As well as this, the Type checking Pattern now includes support to create a scoped variable of the correct type, similar to the new out parameter functionality. This language feature is collectively known as &amp;ldquo;expression variables&amp;rdquo;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (widget &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; Shape shape)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// ... use `shape`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;switch-statement&#34;&gt;Switch Statement&lt;/h3&gt;
 &lt;p&gt;A switch used to only match on constants, but with the new pattern matching, we can do so much more.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;void SwitchIt(object value)
-{
-    var result = 0;
-    switch (value)
-    {
-        // We can still switch on constants, even when the types don&#39;t match
-        case 0:
-            break;
-        // We can switch on type, and even create a scoped variable (like with `is`)
-        case IEnumerable&amp;lt;int&amp;gt; childSequence:
-        {
-            foreach(var item in childSequence)
-                result += (item &amp;gt; 0) ? item : 0;
-            break;
-        }
-        // using `when`, we can do range or bounds checking
-        case int n when n &amp;gt; 0:
-            result += n;
-            break;
-        // We can constant check against null
-        case null:
-            throw new NullReferenceException(&amp;quot;Null found in sequence&amp;quot;);
-        default:
-            throw new InvalidOperationException(&amp;quot;Unrecognized type&amp;quot;);
-    }
-
-    return result;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There is another new pattern that is useful with switch, which is the var pattern. The &amp;ldquo;var pattern&amp;rdquo; is similar to the type pattern, except that it always matches, but creates a variable with the assigned value.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;switch(shape)
-{
-    case Circle c:
-        WriteLine($&amp;quot;circle with radius {c.Radius}&amp;quot;);
-        break;
-    case Rectangle s when (s.Length == s.Height):
-        WriteLine($&amp;quot;{s.Length} x {s.Height} square&amp;quot;);
-        break;
-    case Rectangle r:
-        WriteLine($&amp;quot;{r.Length} x {r.Height} rectangle&amp;quot;);
-        break;
-    case var s:
-        // Always matches (similar to default) but gives access to the value as `s`
-        WriteLine($&amp;quot;This is some kind of {s.Name} shape&amp;quot;);
-        break;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It is worth pointing out that the order of your &lt;code&gt;case&lt;/code&gt; arguments now matters. while not a logical breaking change, since it never mattered what order constants where declared, it would always match the right answer, this is a conceptual change you need to be aware of. Mixing and matching patterns in a switch mean that the order does matter, and the first pattern that matches will get executed. To repeat, when all cases are constants this wouldn&amp;rsquo;t make any difference to the outcome but more advanced checks will.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; SwitchIt(&lt;span style=&#34;color:#66d9ef&#34;&gt;object&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; result = &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;switch&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;value&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// We can still switch on constants, even when the types don&amp;#39;t match&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// We can switch on type, and even create a scoped variable (like with `is`)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; IEnumerable&amp;lt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&amp;gt; childSequence:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;foreach&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; item &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; childSequence)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                result += (item &amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) ? item : &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// using `when`, we can do range or bounds checking&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; n when n &amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            result += n;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// We can constant check against null&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; NullReferenceException(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Null found in sequence&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InvalidOperationException(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Unrecognized type&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There is another new pattern that is useful with switch, which is the var pattern. The &amp;ldquo;var pattern&amp;rdquo; is similar to the type pattern, except that it always matches, but creates a variable with the assigned value.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;switch&lt;/span&gt;(shape)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; Circle c:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;$&amp;#34;circle with radius {c.Radius}&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; Rectangle s when (s.Length == s.Height):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;$&amp;#34;{s.Length} x {s.Height} square&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; Rectangle r:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;$&amp;#34;{r.Length} x {r.Height} rectangle&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; s:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// Always matches (similar to default) but gives access to the value as `s`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;$&amp;#34;This is some kind of {s.Name} shape&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It is worth pointing out that the order of your &lt;code&gt;case&lt;/code&gt; arguments now matters. while not a logical breaking change, since it never mattered what order constants where declared, it would always match the right answer, this is a conceptual change you need to be aware of. Mixing and matching patterns in a switch mean that the order does matter, and the first pattern that matches will get executed. To repeat, when all cases are constants this wouldn&amp;rsquo;t make any difference to the outcome but more advanced checks will.&lt;/p&gt;
 &lt;p&gt;In C# 7.1, the patterns were extended to work correctly with generic variables as well. In C# 7.0, you could use these type patterns as expected by first casting the &lt;code&gt;T foo&lt;/code&gt; value to an &lt;code&gt;Object&lt;/code&gt; (which could cause Boxing) and then the type checking would all work. In C# 7.1, this cast is no longer necessary, and also avoids any boxing and unboxing along the way. &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch#type-pattern&#34;&gt;The docs&lt;/a&gt; go over this is more detail with an example comparing the two implementations, as there are a few subtle differences, especially around null/default cases.&lt;/p&gt;
 &lt;h3 id=&#34;pattern-matching-coming-soon&#34;&gt;Pattern Matching coming soon&lt;/h3&gt;
 &lt;p&gt;This feature is an interesting one in the sense that it is both newer and probably under-used and less known. You can program away happily in C# never needing to use it and not coming across it.&lt;/p&gt;
@@ -548,49 +529,47 @@ if (widget.Type is &amp;quot;FOO&amp;quot;)
 &lt;p&gt;The foundation of how it all works rests on the shoulders of a Library, the Task Parallel Library, or TPL. Tasks have been around since 2010 and were part of the .Net 4 Framework. Similar to what &lt;a href=&#34;https://developers.google.com/web/fundamentals/primers/promises&#34;&gt;Promises provide in javascript&lt;/a&gt;, this library allowed a logical chain of execution across waiting for blocking or longrunning execution while releasing the UI thread from being blocked. This was the introduction of &lt;code&gt;TaskFactory&lt;/code&gt; and &lt;code&gt;Task&lt;/code&gt;, in a fairly similar form to what we have today.  This was a huge improvement from the days of callback chaining because it reduced heavy nesting of lambdas into more of a linear pipeline and a clear place for error handling to take place.&lt;/p&gt;
 &lt;p&gt;When C# 5 introduced async/await as a first-class language feature, it was able to leverage the library and extend on it to give us more readable code. It even handled Exceptions by throwing them in the place where &lt;code&gt;await&lt;/code&gt; appeared, making &lt;code&gt;try/catch&lt;/code&gt; blocks useful in asynchronous code.&lt;/p&gt;
 &lt;p&gt;What does async/await look like in C# 5?&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// A classic synchronous method
-public string MakeAWebRequest(Uri uri)
-{
-    // WebClient has synchronous methods, but it is recommended to use HttpClient for newer apps
-    var client = new WebClient();
-    return client.DownloadString(uri);
-}
-
-// It&#39;s async younger brother
-public async Task&amp;lt;string&amp;gt; MakeAWebRequestAsync(Uri uri)
-{
-    // I use WebClient again for better comparing. Use HttpClient!
-    var client = new WebClient();
-    return await client.DownloadStringAsync(uri);
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There are two distinctive features in this comparison. The return type is wrapped in a &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt;, and there is a keyword &lt;code&gt;async&lt;/code&gt; on the method signature with &lt;code&gt;await&lt;/code&gt; beside method calls that return &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt; results. Otherwise, the linear execution flow is largely unchanged.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// A classic synchronous method&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; MakeAWebRequest(Uri uri)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// WebClient has synchronous methods, but it is recommended to use HttpClient for newer apps&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; client = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; WebClient();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; client.DownloadString(uri);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// It&amp;#39;s async younger brother&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; Task&amp;lt;&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;&amp;gt; MakeAWebRequestAsync(Uri uri)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// I use WebClient again for better comparing. Use HttpClient!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; client = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; WebClient();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; client.DownloadStringAsync(uri);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are two distinctive features in this comparison. The return type is wrapped in a &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt;, and there is a keyword &lt;code&gt;async&lt;/code&gt; on the method signature with &lt;code&gt;await&lt;/code&gt; beside method calls that return &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt; results. Otherwise, the linear execution flow is largely unchanged.&lt;/p&gt;
 &lt;p&gt;You can easily use the return type without the keywords. In this case, the code works and operates as normal, passing object references around without any async state. The result object captures the state required for the caller to do the asynchronous work in the future, or respond to its completion.  However, if you do use &lt;code&gt;async&lt;/code&gt; and &lt;code&gt;await&lt;/code&gt;, then you should always return either &lt;code&gt;Task&lt;/code&gt; (where usually returns void) or &lt;code&gt;Task&amp;lt;T&amp;gt;&lt;/code&gt; (where usually returns T). (In my opinion, there are no reasons left to ever do async without Task - there used to be but not anymore.)&lt;/p&gt;
 &lt;p&gt;Now we have that out of the way, let&amp;rsquo;s move forward to C# 6 and beyond!&lt;/p&gt;
 &lt;h2 id=&#34;async-and-exceptions&#34;&gt;Async and Exceptions&lt;/h2&gt;
 &lt;p&gt;Exception handling was a big part of this feature on day one. You could simply wrap your async calls in a &lt;code&gt;try{}catch{}&lt;/code&gt; and it would work as you would expect it to. The task you are awaiting throws an Exception, your catch triggers.&lt;/p&gt;
 &lt;p&gt;But initially, this did not work inside the catch or finally blocks in any expected way. In fact, it caused a compiler error. In C# 6 await in &lt;code&gt;catch&lt;/code&gt;/&lt;code&gt;finally&lt;/code&gt; blocks were given proper compiler support to do the right thing.&lt;/p&gt;
 &lt;p&gt;Using the example from &lt;a href=&#34;https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6#await-in-catch-and-finally-blocks&#34;&gt;The new language feature docs&lt;/a&gt; directly:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;Resource res = null;
-try
-{
-    res = await Resource.OpenAsync(…);       // You could do this.
-    …
-} 
-catch(ResourceException e)
-{
-    await Resource.LogAsync(res, e);         // Now you can do this …
-}
-finally
-{
-    if (res != null) await res.CloseAsync(); // … and this.
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;async-and-console-apps&#34;&gt;Async and Console Apps&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Resource res = &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    res = &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; Resource.OpenAsync(&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;…&lt;/span&gt;);       &lt;span style=&#34;color:#75715e&#34;&gt;// You could do this.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;…&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;} 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt;(ResourceException e)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; Resource.LogAsync(res, e);         &lt;span style=&#34;color:#75715e&#34;&gt;// Now you can do this …&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;finally&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (res != &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; res.CloseAsync(); &lt;span style=&#34;color:#75715e&#34;&gt;// … and this.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;async-and-console-apps&#34;&gt;Async and Console Apps&lt;/h2&gt;
 &lt;p&gt;The language version was C# 7. We had async everywhere, and the &lt;code&gt;NetStandard&lt;/code&gt;s and Frameworks were full of async API calls and interfaces. It was a contagious thing, and you really had to jump through hoops to try &lt;a href=&#34;https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/&#34;&gt;to call a red function from a blue one&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;And then there was main. That pesky little entry point into your application. The one the compiler generates for you that kicks off all of the application execution. The one that had to call into your top-most async method to &lt;code&gt;RunAsync&lt;/code&gt;. And it had to be &lt;code&gt;public static void Main(string[] args)&lt;/code&gt; or &lt;code&gt;public static int Main()&lt;/code&gt;. That is not an async method.&lt;/p&gt;
 &lt;p&gt;Luckily, with the first ever minor language update, C# 7.1, we were given the mighty and powerful async main!&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;// You can finaly use Task&amp;lt;int&amp;gt;!
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// You can finaly use Task&amp;lt;int&amp;gt;!
 public static async Task&amp;lt;int&amp;gt; Main()
 {
 ...
@@ -601,12 +580,10 @@ public static async Task Main()
 {
 ...
 }
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;async-and-tests&#34;&gt;Async and Tests&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;async-and-tests&#34;&gt;Async and Tests&lt;/h2&gt;
 &lt;p&gt;We have a tonne of async methods in our system. But we should also be testing that code.  And our testing frameworks were synchronous.&lt;/p&gt;
 &lt;p&gt;Luckily our testing frameworks have finally caught up, and with XUnit we can write tests that return Task and are async&lt;code&gt;, and we also have the &lt;/code&gt;IAsyncLifetime` interface.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;// This is what we had to do to test async
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// This is what we had to do to test async
 public class MyTestCase
 {
     private readonly MyClass _systemUnderTest;
@@ -626,39 +603,37 @@ public class MyTestCase
         Assert.True(result);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Using &lt;code&gt;Task.Run&lt;/code&gt; and &lt;code&gt;GetAwaiter&lt;/code&gt; or other synchronising methods can be very error-prone, and &lt;a href=&#34;https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html#preventing-the-deadlock&#34;&gt;prone to deadlocks&lt;/a&gt;. Avoiding these is the best approach always (though still not always avoidable).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;The best way to tet with async
-public class MyTestCase : IAsyncLifetime
-{
-    private readonly MyClass _systemUnderTest;
-
-    public MyTestCase()
-    {
-        _systemUnderTest = MyClass();
-    }
-    
-    public async Task InitializeAsync()
-    {
-        await _systemUnderTest.Init();
-    }
-
-
-    public Task DisposeAsync()
-    {
-        return Task.CompletedTask;
-    }
-
-    public async Task CanRunSuccessfully()
-    {
-   
-        var result = await _systemUnderTest.Run();
-        
-        Assert.True(result);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I&amp;rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Using &lt;code&gt;Task.Run&lt;/code&gt; and &lt;code&gt;GetAwaiter&lt;/code&gt; or other synchronising methods can be very error-prone, and &lt;a href=&#34;https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html#preventing-the-deadlock&#34;&gt;prone to deadlocks&lt;/a&gt;. Avoiding these is the best approach always (though still not always avoidable).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;The best way to tet with &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MyTestCase&lt;/span&gt; : IAsyncLifetime
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;readonly&lt;/span&gt; MyClass _systemUnderTest;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; MyTestCase()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _systemUnderTest = MyClass();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; Task InitializeAsync()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; _systemUnderTest.Init();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Task DisposeAsync()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Task.CompletedTask;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; Task CanRunSuccessfully()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; result = &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; _systemUnderTest.Run();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Assert.True(result);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I&amp;rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.&lt;/p&gt;
 &lt;h2 id=&#34;valuetask&#34;&gt;ValueTask&lt;/h2&gt;
 &lt;p&gt;The original implementation of the async/await language feature was strongly tied to the &lt;code&gt;Task&lt;/code&gt; and `Task&lt;T&gt; types.&lt;/p&gt;
 &lt;p&gt;In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the &lt;a href=&#34;https://blog.csmac.nz/looking-back-on-csharp6-initializers/&#34;&gt;Add for the initialiser syntax&lt;/a&gt;). Specifically, the &lt;code&gt;GetAwaiter&lt;/code&gt; method must be available on the type used with the &lt;code&gt;await&lt;/code&gt; keyword.&lt;/p&gt;
@@ -692,32 +667,31 @@ public class MyTestCase : IAsyncLifetime
 &lt;/ul&gt;
 &lt;p&gt;These rules ensure the safety of your code and ensure readability, that it is clear about what is happening.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;m going to blatantly steal &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7#ref-locals-and-returns&#34;&gt;the Microsoft examples&lt;/a&gt; for this because I don&amp;rsquo;t want to invent an example and get it wrong.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;// We declare the method as returning by reference (rather than copy)
-public ref int Find(int number, int[] numbers)
-{
-    for (int i = 0; i &amp;lt; numbers.Length; i++)
-    {
-        if (numbers[i] == number)
-        {
-            // All returns must use the `ref` keyword
-            return ref numbers[i]; // return the storage location, not the value
-        }
-    }
-    // We can still throw an exception if necessary
-    throw new IndexOutOfRangeException($&amp;quot;{nameof(number)} not found&amp;quot;);
-}
-
-// arrays are already allocated to the heap and passed by reference rather than by value
-// (see the `stackalloc` keyword for stack allocating arrays, though)
-int[] array = { 1, 15, -39, 0, 7, 14, -12 };
-
-// We have to use `ref` to call the method
-// We choose to declare `place` as a reference
-ref int place = ref Find(7, array); // aliases 7&#39;s place in the array
-place = 9; // replaces 7 with 9 in the array
-WriteLine(array[4]); // prints 9
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In the above example, we could have chosen to declare &lt;code&gt;place&lt;/code&gt; without the &lt;code&gt;ref&lt;/code&gt; keyword and the value returned would be copied instead. However, in this case, the assignment of &lt;code&gt;place = 9;&lt;/code&gt; would be overriding the local copy, and not modifying the original array.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// We declare the method as returning by reference (rather than copy)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;ref&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; Find(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; number, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;[] numbers)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; i &amp;lt; numbers.Length; i++)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (numbers[i] == number)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;// All returns must use the `ref` keyword&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;ref&lt;/span&gt; numbers[i]; &lt;span style=&#34;color:#75715e&#34;&gt;// return the storage location, not the value&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// We can still throw an exception if necessary&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; IndexOutOfRangeException(&lt;span style=&#34;color:#e6db74&#34;&gt;$&amp;#34;{nameof(number)} not found&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// arrays are already allocated to the heap and passed by reference rather than by value&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// (see the `stackalloc` keyword for stack allocating arrays, though)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;[] array = { &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;, -&lt;span style=&#34;color:#ae81ff&#34;&gt;39&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt;, -&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt; };
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// We have to use `ref` to call the method&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// We choose to declare `place` as a reference&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;ref&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; place = &lt;span style=&#34;color:#66d9ef&#34;&gt;ref&lt;/span&gt; Find(&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;, array); &lt;span style=&#34;color:#75715e&#34;&gt;// aliases 7&amp;#39;s place in the array&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;place = &lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;// replaces 7 with 9 in the array&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;WriteLine(array[&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]); &lt;span style=&#34;color:#75715e&#34;&gt;// prints 9&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In the above example, we could have chosen to declare &lt;code&gt;place&lt;/code&gt; without the &lt;code&gt;ref&lt;/code&gt; keyword and the value returned would be copied instead. However, in this case, the assignment of &lt;code&gt;place = 9;&lt;/code&gt; would be overriding the local copy, and not modifying the original array.&lt;/p&gt;
 &lt;p&gt;Why would you use these pass by reference additions? Huge performance enhancements can be achieved by avoiding stack and heap copying or dereferencing of values in certain algorithms. Performance is the name of the game here.&lt;/p&gt;
 &lt;p&gt;In C# 7.2, the conditional operator (&lt;code&gt;isTrue ? x : y&lt;/code&gt; syntax) can now evaluate to a reference result when both operands (&lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; above) are also references.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;ref var r = ref (arr != null ? ref arr[0] : ref otherArr[0]);&lt;/code&gt;&lt;/p&gt;
@@ -740,48 +714,44 @@ WriteLine(array[4]); // prints 9
       <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
 &lt;h3 id=&#34;what-are-out-parameters&#34;&gt;What are out parameters?&lt;/h3&gt;
 &lt;p&gt;Sometimes you want a method to pass back a value by reference. In &lt;code&gt;C&lt;/code&gt; and &lt;code&gt;C++&lt;/code&gt; this is done by passing the address in as an argument. In C#, we use the &lt;code&gt;out&lt;/code&gt; keyword.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public bool HasCount(string str, out int length)
-{
-    length = 0;
-    if (str.Length &amp;gt; 0)
-    {
-        length = str.Length;
-        return true;
-    }
-}
-
-string myString = &amp;quot;A String&amp;quot;;
-int length;
-if (HasCount(myString, out length))
-{
-    // Do some stuff here.
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;A method must initialise the out parameter value, but the caller doesn&amp;rsquo;t have to initialise it first. Callers must use the &lt;code&gt;out&lt;/code&gt; keyword when calling a method with an out parameter. This helps with readability making it unambiguous how it works.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; HasCount(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; str, &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; length)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    length = &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (str.Length &amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        length = str.Length;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; myString = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;A String&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; length;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (HasCount(myString, &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt; length))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Do some stuff here.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A method must initialise the out parameter value, but the caller doesn&amp;rsquo;t have to initialise it first. Callers must use the &lt;code&gt;out&lt;/code&gt; keyword when calling a method with an out parameter. This helps with readability making it unambiguous how it works.&lt;/p&gt;
 &lt;p&gt;More details of this for those unfamiliar with the concept can be &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-parameter-modifier&#34;&gt;found here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;In the libraries, there are a few methods that use this, for instance &lt;code&gt;Int32.TryParse&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;int number;
-if (Int32.TryParse(numberAsString, out number))
-{
-    // use `number` as an integer value. 
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It also comes in useful when you are building C-style interops. But not something you see very much these days.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; number;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (Int32.TryParse(numberAsString, &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt; number))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// use `number` as an integer value. &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It also comes in useful when you are building C-style interops. But not something you see very much these days.&lt;/p&gt;
 &lt;h3 id=&#34;new-out-variables&#34;&gt;New out variables&lt;/h3&gt;
 &lt;p&gt;This syntax always felt a bit clunky. Modern APIs would suggest using a return value over an out parameter, and the early use cases tended to be either cross-compatibility with C libraries or parse scenarios. Primarily it was discouraged for readability reasons, though there are benefits from using it in certain places.&lt;/p&gt;
 &lt;p&gt;However, with C# 7, a new syntax was introduced, allowing inline declaration of out parameters.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (Int32.TryParse(numberAsString, out int number))
-{
-    // use `number` as an integer value. 
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You can now declare the parameter inline, without needing the empty declaration line that was essentially wasting line-count. The other benefit is you can now use &lt;code&gt;var&lt;/code&gt; instead of an explicit type.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;if (Int32.TryParse(numberAsString, out var number))
-{
-    // use `number` as an integer value. 
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In C# 7.3, this &lt;code&gt;out&lt;/code&gt; variable syntax was extended to include field initializers, property initializers, constructor initializers, and query clauses. Basically, you have the power to use this everywhere that you can use out parameters.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (Int32.TryParse(numberAsString, &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; number))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// use `number` as an integer value. &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can now declare the parameter inline, without needing the empty declaration line that was essentially wasting line-count. The other benefit is you can now use &lt;code&gt;var&lt;/code&gt; instead of an explicit type.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (Int32.TryParse(numberAsString, &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; number))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// use `number` as an integer value. &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In C# 7.3, this &lt;code&gt;out&lt;/code&gt; variable syntax was extended to include field initializers, property initializers, constructor initializers, and query clauses. Basically, you have the power to use this everywhere that you can use out parameters.&lt;/p&gt;
 &lt;p&gt;With the new changes, readability has hugely increased, the risk of using the value before initialisation has been removed, and it is probably something worth encouraging using again in those methods that could benefit with having out parameters for clean APIs, and performance.&lt;/p&gt;
 &lt;p&gt;A small but simple improvement to the language that I would replace in every place you use &lt;code&gt;out&lt;/code&gt; parameters.&lt;/p&gt;
 </description>
@@ -799,182 +769,172 @@ if (Int32.TryParse(numberAsString, out number))
 &lt;p&gt;&amp;ldquo;Anonymous&amp;rdquo; refers to the fact that the function has no name, and is not tied to an actual class or instance. The term comes from functional programming.&lt;/p&gt;
 &lt;p&gt;In terms of implementation details, there are two categories of lambdas, those which stand alone and are pure functions, and those that have a captured scope, known as a closure. Closure, again, is a functional programming term. We capture variables from the scope of the parent and encapsulate them into this anonymous function instance.&lt;/p&gt;
 &lt;p&gt;Pure functions can easily be refactored into a public static function in a static class very easily, and the compilation is very similar.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
-static Action&amp;lt;int&amp;gt; GetRandomValueFunction()
-{
-    Console.WriteLine(&amp;quot;Use static value for counter: {0}&amp;quot;, counter);
-    return () =&amp;gt; 5;
-}
-
-// These two methods are the same as the above
-static Action&amp;lt;int&amp;gt; GetRandomValueFunction()
-{
-    Console.WriteLine(&amp;quot;Use static value for counter: {0}&amp;quot;, counter);
-    return StaticValueFunction;
-}
-
-static int StaticValueFunction()
-{
-    return 5;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There is no simple construct equivalent for closures. Hopefully, by example, we can see how these transform into simple static methods anyway. (In an example stolen from &lt;a href=&#34;https://stackoverflow.com/a/5438331/2118268&#34;&gt;SO&lt;/a&gt;)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt; static Action CreateShowAndIncrementAction()
-{
-    Random rng = new Random();
-    int counter = rng.Next(10);
-    Console.WriteLine(&amp;quot;Initial value for counter: {0}&amp;quot;, counter);
-    return () =&amp;gt;
-    {
-        Console.WriteLine(counter);
-        counter++;
-    };
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Given the above C# code, the compiled code will more closely resemble the below:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
-static Action CreateShowAndIncrementAction()
-{
-    ActionHelper helper = new ActionHelper();        
-    Random rng = new Random();
-    helper.counter = rng.Next(10);
-    Console.WriteLine(&amp;quot;Initial value for counter: {0}&amp;quot;, helper.counter);
-
-    // 
-    return helper.DoAction;
-}
-
-class ActionHelper
-{
-    public int counter;
-
-    public void DoAction()
-    {
-        Console.WriteLine(counter);
-        counter++;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Because the compiler generates these, it also controls access and visibility, so that you cannot actually access it in this way from your code directly. But it does all this automatically for you, and with fewer lines of code to achieve the same logical execution. It is also clearer from the lambda version that the calling method is the owner of the function, and no one else can or should share it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Action&amp;lt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&amp;gt; GetRandomValueFunction()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Console.WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Use static value for counter: {0}&amp;#34;&lt;/span&gt;, counter);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; () =&amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// These two methods are the same as the above&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Action&amp;lt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&amp;gt; GetRandomValueFunction()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Console.WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Use static value for counter: {0}&amp;#34;&lt;/span&gt;, counter);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; StaticValueFunction;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; StaticValueFunction()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There is no simple construct equivalent for closures. Hopefully, by example, we can see how these transform into simple static methods anyway. (In an example stolen from &lt;a href=&#34;https://stackoverflow.com/a/5438331/2118268&#34;&gt;SO&lt;/a&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Action CreateShowAndIncrementAction()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Random rng = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Random();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; counter = rng.Next(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Console.WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Initial value for counter: {0}&amp;#34;&lt;/span&gt;, counter);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; () =&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Console.WriteLine(counter);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        counter++;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    };
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Given the above C# code, the compiled code will more closely resemble the below:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Action CreateShowAndIncrementAction()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ActionHelper helper = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ActionHelper();        
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Random rng = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Random();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    helper.counter = rng.Next(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Console.WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Initial value for counter: {0}&amp;#34;&lt;/span&gt;, helper.counter);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; helper.DoAction;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ActionHelper&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; counter;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; DoAction()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Console.WriteLine(counter);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        counter++;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Because the compiler generates these, it also controls access and visibility, so that you cannot actually access it in this way from your code directly. But it does all this automatically for you, and with fewer lines of code to achieve the same logical execution. It is also clearer from the lambda version that the calling method is the owner of the function, and no one else can or should share it.&lt;/p&gt;
 &lt;p&gt;Clearly, lambdas reduce our lines of code and are superior.&lt;/p&gt;
 &lt;h2 id=&#34;working-with-lambdas&#34;&gt;working with lambdas&lt;/h2&gt;
 &lt;p&gt;Sometimes, though, your lambdas get complicated. When you have big complicated lambdas inside LINQ pipelines, it gets messy fast.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
-{
-    var restriction =  _store.GetRestriction(restrictionNumber);
-    
-    
-    // This `where` clause is only going to get more complicated from here.
-    _store
-        .GetWidgets()
-        .Where(w =&amp;gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction == restriction)
-        .Select(Map)
-        .ToList();
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We have a few options prior to C# 7:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
-{
-    var restriction =  _store.GetRestriction(restrictionNumber);
-    
-    _store
-        .GetWidgets()
-        .Where(w =&amp;gt; Filter(w, plumb, restriction))
-        .Select(Map)
-        .ToList();
-}
-
-private bool Filter(Widget widget, string plumb, Restriction restriction)
-{
-    return (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction &amp;gt; restriction;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There are a couple of problems with this. We are now passing all the parameters through to the nested function. This is fine, but from a maintenance point of view, we might add more parameters and we now end up maintaining two signatures every time we change.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; plumb, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; restrictionNumber)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; restriction =  _store.GetRestriction(restrictionNumber);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// This `where` clause is only going to get more complicated from here.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _store
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .GetWidgets()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Where(w =&amp;gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction == restriction)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Select(Map)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .ToList();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We have a few options prior to C# 7:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; plumb, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; restrictionNumber)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; restriction =  _store.GetRestriction(restrictionNumber);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _store
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .GetWidgets()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Where(w =&amp;gt; Filter(w, plumb, restriction))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Select(Map)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .ToList();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; Filter(Widget widget, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; plumb, Restriction restriction)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction &amp;gt; restriction;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are a couple of problems with this. We are now passing all the parameters through to the nested function. This is fine, but from a maintenance point of view, we might add more parameters and we now end up maintaining two signatures every time we change.&lt;/p&gt;
 &lt;p&gt;Also, we open up for another function to start using the &amp;ldquo;sharable&amp;rdquo; filter function. Now we would be coupled to that new function. We can&amp;rsquo;t change our own filter without affecting that other new function, and that adds brittle fragility. Sometimes duplicating logic that has different reasons to change is worth the duplication, but the architecture of this code does not guard against this.&lt;/p&gt;
 &lt;p&gt;Another example is to pull the lambda into a variable:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
-{
-    var restriction =  _store.GetRestriction(restrictionNumber);
-    
-    var filter = w =&amp;gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction == restriction);
-    
-    _store
-        .GetWidgets()
-        .Where(filter)
-        .Select(Map)
-        .ToList();
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Looking at the example, it adds some simplification. Because like the original example this lambda is a closure, the lambda can match the expected signature of the &lt;code&gt;Where&lt;/code&gt; LINQ Extension.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; plumb, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; restrictionNumber)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; restriction =  _store.GetRestriction(restrictionNumber);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; filter = w =&amp;gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;amp;&amp;amp; w.Restriction == restriction);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _store
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .GetWidgets()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Where(filter)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Select(Map)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .ToList();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Looking at the example, it adds some simplification. Because like the original example this lambda is a closure, the lambda can match the expected signature of the &lt;code&gt;Where&lt;/code&gt; LINQ Extension.&lt;/p&gt;
 &lt;p&gt;However, sometimes this approach causes issues with type interpolation. That is, if you pull out into a variable, often you can&amp;rsquo;t use &lt;code&gt;var&lt;/code&gt; or need to add explicit type casting to help the compiler out, or it will not compile.&lt;/p&gt;
 &lt;p&gt;I don&amp;rsquo;t think we have actually helped with the readability as much as we would like. It may not be obvious on the first pass of reading the function that this is a lambda, not a statement. This is also a simple example, and they can get more complex fast.&lt;/p&gt;
 &lt;h2 id=&#34;put-functions-inside-your-functions&#34;&gt;Put functions inside your functions!&lt;/h2&gt;
 &lt;p&gt;With C# 7, we can now use a nested function. This gives us the benefits of not polluting the namespace of the class, while also making it more readable. It also makes it clearer that the function is owned by the caller as the only consumer.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
-{
-    var restriction =  _store.GetRestriction(restrictionNumber);
-    
-    bool Filter(Widget widget)
-    {
-        return (w.PlumbBob.StartsWith(plumb) || w.PlumbBob.EndsWith(plumb)) &amp;amp;&amp;amp; w.Restriction &amp;gt; restriction;
-    }
-    
-    _store
-        .GetWidgets()
-        .Where(Filter)
-        .Select(Map)
-        .ToList();
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Our compiler now ensures no one else can use this function. It is only callable from this method and gives the reader the knowledge that this is a specific implementation detail for this function only and not a shared common piece of logic. (Encapsulation.)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; List&amp;lt;Widget&amp;gt; GetWidgetsByPlumbob(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; plumb, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; restrictionNumber)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; restriction =  _store.GetRestriction(restrictionNumber);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; Filter(Widget widget)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (w.PlumbBob.StartsWith(plumb) || w.PlumbBob.EndsWith(plumb)) &amp;amp;&amp;amp; w.Restriction &amp;gt; restriction;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _store
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .GetWidgets()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Where(Filter)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Select(Map)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .ToList();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Our compiler now ensures no one else can use this function. It is only callable from this method and gives the reader the knowledge that this is a specific implementation detail for this function only and not a shared common piece of logic. (Encapsulation.)&lt;/p&gt;
 &lt;p&gt;In this example it also still allows us to use the simplified &lt;code&gt;Where&lt;/code&gt; call.&lt;/p&gt;
 &lt;p&gt;The best example of where this is really useful is recursion.&lt;/p&gt;
 &lt;p&gt;Often a recursive algorithm has a bootstrap function, that then calls the recursive part. Let&amp;rsquo;s print a tree of items with indentations.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public static void PrintLines(TextWriter out, Tree items)
-{
-    out.WriteLine(items.Title);
-    foreach(var node in items.Children)
-    {
-        Print(out, node, &amp;quot;&amp;quot;);
-    }
-}
-
-private void Print(TextWriter out, TreeNode node, string indent)
-{
-    out.WriteLine(&amp;quot;{0}{1}&amp;quot;, indent, items.Title);
-    if(node.HasChildren)
-    {
-        foreach(var node in items.Children)
-        {
-            Print(out, node indent + &amp;quot;    &amp;quot;);
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For simplicity you can now write this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public static void PrintLines(TextWriter out, Tree items)
-{
-    void Print(TreeNode node, string indent)
-    {
-        out.WriteLine(&amp;quot;{0}{1}&amp;quot;, indent, items.Title);
-        if(node.HasChildren)
-        {
-            foreach(var node in items.Children)
-            {
-                Print(out, node indent + &amp;quot;    &amp;quot;);
-            }
-        }
-    }
-
-    out.WriteLine(items.Title);
-    foreach(var node in items.Children)
-    {
-        Print(node, &amp;quot;&amp;quot;);
-    }
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This example may not reduce lines of code by much, but the cognitive load of the encapsulation can be hugely beneficial when in a class with more service methods as well.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; PrintLines(TextWriter &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;, Tree items)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;.WriteLine(items.Title);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;foreach&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; node &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; items.Children)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Print(&lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;, node, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Print(TextWriter &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;, TreeNode node, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; indent)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;.WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{0}{1}&amp;#34;&lt;/span&gt;, indent, items.Title);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(node.HasChildren)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;foreach&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; node &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; items.Children)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            Print(&lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;, node indent + &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;    &amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For simplicity you can now write this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; PrintLines(TextWriter &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;, Tree items)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Print(TreeNode node, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; indent)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;.WriteLine(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{0}{1}&amp;#34;&lt;/span&gt;, indent, items.Title);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(node.HasChildren)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;foreach&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; node &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; items.Children)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                Print(&lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;, node indent + &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;    &amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;out&lt;/span&gt;.WriteLine(items.Title);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;foreach&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; node &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; items.Children)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Print(node, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This example may not reduce lines of code by much, but the cognitive load of the encapsulation can be hugely beneficial when in a class with more service methods as well.&lt;/p&gt;
 &lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
 &lt;p&gt;The cliché &amp;ldquo;another tool in the toolbelt&amp;rdquo; comes to mind but this is certainly that, and sprinkled through code strategically can really help with readability and maintainability. Not a &amp;ldquo;use often&amp;rdquo; but certainly something I can and have used in my dotnet apps.&lt;/p&gt;
 </description>
@@ -1062,55 +1022,52 @@ from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; 
 &lt;p&gt;Throwing Exceptions is both a blessing and a curse in C#. You can throw from anywhere to unwind the stack. But adding exception throwing and handling code can cause overheads that you need to be wary of. Not to mention making the code harder to reason about with control flow.&lt;/p&gt;
 &lt;p&gt;Regardless, we have them, and we use them, so the language should make that as easy as possible to do so. with C# 7 this was enhanced to support using &lt;code&gt;throw&lt;/code&gt; as an expression. Up until this point, it was always a statement, which means there are places in the code that throw could not go.&lt;/p&gt;
 &lt;p&gt;One new language feature that only supports expressions and not statements is the Elvis Operator (or Null Conditional Operator, which we &lt;a href=&#34;looking-back-on-csharp6-elvis-operator/&#34;&gt;already looked back at&lt;/a&gt;) and another is the null coalescing operator. When it comes to validating code, these two features shine together.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public MyClass(string firstArg, string secondArg, Widget widget)
-{
-    if(firstArg is null)
-    {
-        throw new ArgumentNullException(nameof(firstArg));
-    }
-    if(secondArg is null)
-    {
-        throw new ArgumentNullException(nameof(secondArg));
-    }
-    if(widget is null)
-    {
-        throw new ArgumentNullException(nameof(widget));
-    }
-    
-    _firstArg = firstArg;
-    _secondArgLength = secondArg.Length;
-    _widget = widget;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So verbose! wouldn&amp;rsquo;t it be nice to collapse it together a bit?  With throw expressions, we can.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public MyClass(string firstArg, string secondArg, Widget widget)
-{
-    _firstArg = firstArg ?? throw new ArgumentNullException(nameof(firstArg));
-    _secondArg = secondArg?.Length ?? throw new ArgumentNullException(nameof(secondArg));
-    _widget = widget ?? throw new ArgumentNullException(nameof(widget));
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; MyClass(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; firstArg, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; secondArg, Widget widget)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(firstArg &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(firstArg));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(secondArg &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(secondArg));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(widget &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(widget));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _firstArg = firstArg;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _secondArgLength = secondArg.Length;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _widget = widget;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So verbose! wouldn&amp;rsquo;t it be nice to collapse it together a bit?  With throw expressions, we can.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; MyClass(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; firstArg, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; secondArg, Widget widget)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _firstArg = firstArg ?? &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(firstArg));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _secondArg = secondArg?.Length ?? &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(secondArg));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _widget = widget ?? &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(widget));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.&lt;/p&gt;
 &lt;p&gt;Also remember how we looked at &lt;a href=&#34;https://blog.csmac.nz/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt; and &lt;a href=&#34;looking-back-on-csharp7-more-expression-body-members&#34;&gt;more in c# 7&lt;/a&gt;? Well as the name suggests, the body &lt;em&gt;is&lt;/em&gt; an expression. Now that we have throw expressions, the bodies can use them too!&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Widget
-{
-    public Widget() =&amp;gt; throw new ArgumentException(&amp;quot;Requires arguments, none provided.&amp;quot;);
-    
-    public ~Widget() =&amp;gt; throw new NotSupportedException(&amp;quot;What are you building that needs a destructor, anyway? (Just curious.)&amp;quot;);
-    
-    public string MyValueProperty =&amp;gt; throw new NotImplementedException();
-    
-    public decimal CalculateTheAnswer() =&amp;gt; throw new NotImplementedException();
- 
-    private T[] _items = new T[100];
-    public T this[int i]
-    {
-        get =&amp;gt; _items?[i] ?? throw new Exception(&amp;quot;Not initialised somehow.&amp;quot;);
-        set =&amp;gt; throw new NotSupportedException(&amp;quot;An interface made me do this.&amp;quot;);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There are other use-cases out there, expressions are used all over the place. But I will leave that as an exercise to the reader to discover along the way.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Widget&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Widget() =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentException(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Requires arguments, none provided.&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; ~Widget() =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; NotSupportedException(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;What are you building that needs a destructor, anyway? (Just curious.)&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; MyValueProperty =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; NotImplementedException();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; CalculateTheAnswer() =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; NotImplementedException();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; T[] _items = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; T[&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; T &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt; =&amp;gt; _items?[i] ?? &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Exception(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Not initialised somehow.&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt; =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; NotSupportedException(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;An interface made me do this.&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are other use-cases out there, expressions are used all over the place. But I will leave that as an exercise to the reader to discover along the way.&lt;/p&gt;
 </description>
     </item>
     

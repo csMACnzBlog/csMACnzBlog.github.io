@@ -97,7 +97,7 @@
                 "height": 295
             },
             "keywords" : [ "C Sharp", "dotnetcore" ]
-            "description" : "This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?\nGetting Started What\u0026rsquo;s in the box Using Multiple Projects Testing \u0026lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications We want to be able to test our application code that we build. Let\u0026rsquo;s get started.\nThe Setup Like before, we will rattle off a new project.\nmkdir testdemo\rcd testdemo\rmkdir mylib\rcd mylib\rdotnet new -t Lib\rRecall that we can use the -t argument switch to generate different project types.",
+            "description" : "This is a series on the .Net Core 1.0 bits. Looking for .Net Core 2 Series?\nGetting Started What\u0026rsquo;s in the box Using Multiple Projects Testing \u0026lt;=(We are here) NuGet Multi-targeting Publishing Portable Applications Self-contained Applications We want to be able to test our application code that we build. Let\u0026rsquo;s get started.\nThe Setup Like before, we will rattle off a new project.\nmkdir testdemo\rcd testdemo\rmkdir mylib\rcd mylib\rdotnet new -t Lib Recall that we can use the -t argument switch to generate different project types.",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -154,15 +154,14 @@
 <p>We want to be able to test our application code that we build. Let&rsquo;s get started.</p>
 <h3 id="the-setup">The Setup</h3>
 <p>Like before, we will rattle off a new project.</p>
-<pre><code>mkdir testdemo
+<pre tabindex="0"><code>mkdir testdemo
 cd testdemo
 mkdir mylib
 cd mylib
 dotnet new -t Lib
-</code></pre>
-<p>Recall that we can use the <code>-t</code> argument switch to generate different project types.</p>
+</code></pre><p>Recall that we can use the <code>-t</code> argument switch to generate different project types.</p>
 <p>And we will also replace Library.cs:</p>
-<pre><code>namespace mylib  
+<pre tabindex="0"><code>namespace mylib  
 {
     public class Calculator
     {
@@ -172,41 +171,36 @@ dotnet new -t Lib
         }
     }
 }
-</code></pre>
-<p>And to be sure that everything is working, we can do a restore and build.</p>
-<pre><code>dotnet restore
+</code></pre><p>And to be sure that everything is working, we can do a restore and build.</p>
+<pre tabindex="0"><code>dotnet restore
 dotnet build
-</code></pre>
-<p>This puts us in a similar situation to the <a href="https://blog.csmac.nz/dotnetcore-using-multiple-projects/">last post</a>.</p>
+</code></pre><p>This puts us in a similar situation to the <a href="https://blog.csmac.nz/dotnetcore-using-multiple-projects/">last post</a>.</p>
 <h3 id="add-a-test-project">Add a test project</h3>
 <p>On with the testing. Getting the project set up is not much different to the way we linked a library and app last time. However, we will have to make some changes to work around some nuances in the Release Preview.</p>
-<pre><code>cd ../
+<pre tabindex="0"><code>cd ../
 mkdir testit
 cd testit
 dotnet new -t xunittest
-</code></pre>
-<p>Now if we look on the <a href="https://xunit.github.io/docs/getting-started-dotnet-core.html">Getting started with xUnit.net (.NET Core / ASP.NET Core)</a> page we will see that we have to change the <code>project.json</code> file.</p>
+</code></pre><p>Now if we look on the <a href="https://xunit.github.io/docs/getting-started-dotnet-core.html">Getting started with xUnit.net (.NET Core / ASP.NET Core)</a> page we will see that we have to change the <code>project.json</code> file.</p>
 <blockquote>
 <p>Note: Specific versions of xUnit.net only support specific versions of .NET CLI.</p>
 </blockquote>
 <p>This will change again after the RTM I&rsquo;m sure, but for now, for version <code>1.0.0-preview2-003121</code> we need to change the <code>project.json</code> dependencies.</p>
-<pre><code>  &quot;dependencies&quot;: {
-    &quot;System.Runtime.Serialization.Primitives&quot;: &quot;4.1.1&quot;,
-    &quot;xunit&quot;: &quot;2.1.0&quot;,
-    &quot;dotnet-test-xunit&quot;: &quot;1.0.0-rc2-192208-24&quot;
+<pre tabindex="0"><code>  &#34;dependencies&#34;: {
+    &#34;System.Runtime.Serialization.Primitives&#34;: &#34;4.1.1&#34;,
+    &#34;xunit&#34;: &#34;2.1.0&#34;,
+    &#34;dotnet-test-xunit&#34;: &#34;1.0.0-rc2-192208-24&#34;
   }
-</code></pre>
-<p>This needs to be changed to:</p>
-<pre><code>  &quot;dependencies&quot;: {
-    &quot;System.Runtime.Serialization.Primitives&quot;: &quot;4.1.1&quot;,
-    &quot;xunit&quot;: &quot;2.2.0-beta2-build3300&quot;,
-    &quot;dotnet-test-xunit&quot;: &quot;2.2.0-preview2-build1029&quot;
+</code></pre><p>This needs to be changed to:</p>
+<pre tabindex="0"><code>  &#34;dependencies&#34;: {
+    &#34;System.Runtime.Serialization.Primitives&#34;: &#34;4.1.1&#34;,
+    &#34;xunit&#34;: &#34;2.2.0-beta2-build3300&#34;,
+    &#34;dotnet-test-xunit&#34;: &#34;2.2.0-preview2-build1029&#34;
   }
-</code></pre>
-<p>Now seems like a good time to test that this test project works.</p>
+</code></pre><p>Now seems like a good time to test that this test project works.</p>
 <h3 id="test-the-project">Test the project!</h3>
 <p>If we open up the <code>Tests.cs</code> file we see:</p>
-<pre><code>using System;
+<pre tabindex="0"><code>using System;
 using Xunit;
 
 namespace Tests
@@ -220,13 +214,11 @@ namespace Tests
         }
     }
 }
-</code></pre>
-<p>Pretty straight forward. So if everything is set up correctly we should be able to just build and run.</p>
-<pre><code>dotnet restore
+</code></pre><p>Pretty straight forward. So if everything is set up correctly we should be able to just build and run.</p>
+<pre tabindex="0"><code>dotnet restore
 dotnet build
 dotnet test
-</code></pre>
-<pre><code>Project testit (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
+</code></pre><pre tabindex="0"><code>Project testit (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
 xUnit.net .NET CLI test runner (64-bit .NET Core win10-x64)
   Discovering: testit
   Discovered:  testit
@@ -235,55 +227,46 @@ xUnit.net .NET CLI test runner (64-bit .NET Core win10-x64)
 === TEST EXECUTION SUMMARY ===
    testit  Total: 1, Errors: 0, Failed: 0, Skipped: 0, Time: 0.162s
 SUMMARY: Total: 1 targets, Passed: 1, Failed: 0.
-</code></pre>
-<p>A successful test run. Though not doing much for us yet.</p>
+</code></pre><p>A successful test run. Though not doing much for us yet.</p>
 <p>A note for next time, calling <code>dotnet test</code> also causes a build, if it is required, so next time we can skip the call to <code>dotnet build</code>.</p>
 <h3 id="reference-the-project">Reference the project</h3>
 <p>Opening up the <code>project.json</code> we can add a reference to the <code>mylib</code> project from the beginning.</p>
-<pre><code>  &quot;dependencies&quot;: {
-    &quot;System.Runtime.Serialization.Primitives&quot;: &quot;4.1.1&quot;,
-    &quot;xunit&quot;: &quot;2.2.0-beta2-build3300&quot;,
-    &quot;dotnet-test-xunit&quot;: &quot;2.2.0-preview2-build1029&quot;,
-    &quot;mylib&quot;: {
-      &quot;target&quot;: &quot;project&quot;
+<pre tabindex="0"><code>  &#34;dependencies&#34;: {
+    &#34;System.Runtime.Serialization.Primitives&#34;: &#34;4.1.1&#34;,
+    &#34;xunit&#34;: &#34;2.2.0-beta2-build3300&#34;,
+    &#34;dotnet-test-xunit&#34;: &#34;2.2.0-preview2-build1029&#34;,
+    &#34;mylib&#34;: {
+      &#34;target&#34;: &#34;project&#34;
     }
   },
-</code></pre>
-<p>I&rsquo;ve decided to add it at the top level with the <code>xunit</code> dependencies since we only have a single framework. It could have also gone into the dependencies inside the <code>netcoreapp1.0</code> framework as well.</p>
+</code></pre><p>I&rsquo;ve decided to add it at the top level with the <code>xunit</code> dependencies since we only have a single framework. It could have also gone into the dependencies inside the <code>netcoreapp1.0</code> framework as well.</p>
 <p>To make sure this has worked, we run restore again.</p>
-<pre><code>dotnet restore
-</code></pre>
-<pre><code>log  : Restoring packages for C:\dev\temp\testdemo\testit\project.json...
+<pre tabindex="0"><code>dotnet restore
+</code></pre><pre tabindex="0"><code>log  : Restoring packages for C:\dev\temp\testdemo\testit\project.json...
 log  : Writing lock file to disk. Path: C:\dev\temp\testdemo\testit\project.lock.json
 log  : C:\dev\temp\testdemo\testit\project.json
 log  : Restore completed in 1520ms.
-</code></pre>
-<p>To make sure we are in good order:</p>
-<pre><code>dotnet build
+</code></pre><p>To make sure we are in good order:</p>
+<pre tabindex="0"><code>dotnet build
 dotnet test
-</code></pre>
-<p>Remember from last time if you see:</p>
-<pre><code>Project mylib does not have a lock file. Please run &quot;dotnet restore&quot; to generate a new lock file.
-</code></pre>
-<p>This means you need to go back and run <code>dotnet restore</code> on the <code>mylib</code> project.</p>
+</code></pre><p>Remember from last time if you see:</p>
+<pre tabindex="0"><code>Project mylib does not have a lock file. Please run &#34;dotnet restore&#34; to generate a new lock file.
+</code></pre><p>This means you need to go back and run <code>dotnet restore</code> on the <code>mylib</code> project.</p>
 <h3 id="test-the-library">Test the library</h3>
 <p>It&rsquo;s one thing to reference the project, it is another to actually use its code.</p>
 <p>First we will add a using to our <code>Test.cs</code> file:</p>
-<pre><code>using mylib;
-</code></pre>
-<p>And add another test:</p>
-<pre><code>[Fact]
+<pre tabindex="0"><code>using mylib;
+</code></pre><p>And add another test:</p>
+<pre tabindex="0"><code>[Fact]
 public void OnePlusOneIsTwo()
 {
     var calculator = new Calculator();
     var result = calculator.Add(1, 1);
     Assert.Equal(2, result);
 }
-</code></pre>
-<p>Since we can build and test with one command, run:</p>
-<pre><code>dotnet test
-</code></pre>
-<pre><code>Project mylib (.NETStandard,Version=v1.6) was previously compiled. Skipping compilation.
+</code></pre><p>Since we can build and test with one command, run:</p>
+<pre tabindex="0"><code>dotnet test
+</code></pre><pre tabindex="0"><code>Project mylib (.NETStandard,Version=v1.6) was previously compiled. Skipping compilation.
 Project testit (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified
 Compiling testit for .NETCoreApp,Version=v1.0
 
@@ -302,8 +285,7 @@ xUnit.net .NET CLI test runner (64-bit .NET Core win10-x64)
 === TEST EXECUTION SUMMARY ===
    testit  Total: 2, Errors: 0, Failed: 0, Skipped: 0, Time: 0.189s
 SUMMARY: Total: 1 targets, Passed: 1, Failed: 0.
-</code></pre>
-<p>We have a successful test passing in the xUnit.net CLI test runner using code from our own .Net Core library.</p>
+</code></pre><p>We have a successful test passing in the xUnit.net CLI test runner using code from our own .Net Core library.</p>
 <h3 id="stay-tuned">Stay Tuned&hellip;</h3>
 <p>Before we can think about publishing our awesome library we need a way to pack it up. Tune in next week.</p>
 </section>

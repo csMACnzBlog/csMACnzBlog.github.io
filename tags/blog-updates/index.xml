@@ -24,36 +24,34 @@
 &lt;p&gt;I recall a time at uni where I was learning about CSS. The phrase &lt;code&gt;Love, Ha!&lt;/code&gt; was etched into my brain to remember the letters &lt;code&gt;LVHA&lt;/code&gt;, which stand for the 4 pseudo classes of an anchor (&lt;code&gt;a&lt;/code&gt;) tag, which were &lt;code&gt;link&lt;/code&gt;, &lt;code&gt;visited&lt;/code&gt;, &lt;code&gt;hover&lt;/code&gt;, &lt;code&gt;active&lt;/code&gt;. Link represents an anchor that has an href, somewhere to go. Anchors are not inherently links, that is just one state they could be. Visited is a link that has been clicked before, traditionally seen as a shade of purple rather than blue after you have used it. Hover is of course mouse over, and Active is mouse down.  The acronym was used because this was the order you should declare their styles, to ensure expected behaviour.  This was back when ie6 was the standard, and XHtml was all the rage. Something to note was that these pseudo-classes only existed on anchors, and hover was only available if it was a link (if my memory serves me correctly).&lt;/p&gt;
 &lt;p&gt;So armed with all this information, coming back to write some CSS 7 years later, and the acronym is still present on my memory, as well as the explanation why. But now, armed with all the latest &amp;ldquo;good practice&amp;rdquo; on how to write CSS I want to keep my styles shallow and general. But I&amp;rsquo;m also styling defaults for the page, so I want all my default anchors to look a specific way.  My menu is also a list of anchors so that the semantics of the markup make sense.  On with the show.&lt;/p&gt;
 &lt;p&gt;I set up my styles roughly like so:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;a:link {
-  color: Orange;
-}
-a:visited {
-  color: DarkOrange;
-}
-a:hover {
-  color: Blue;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Notice the LVH? Didn&amp;rsquo;t need an active right now but will add that in later. Anyway, the next thing was the menu:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.menu-button{
-    display: inline-block;
-    background-color: inherit;
-    color: orange;
-    ...
-}
-.menu-button:link,
-.menu-button:visited {
-    color: orange;
-}
-.menu-button:link:hover {
-    color: pink;
-    background:blue;
-}
-.menu-button-current {
-    color:blue;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You can imagine I have two buttons, one with just &lt;code&gt;.menu-button&lt;/code&gt;, and one with &lt;code&gt;.menu-button-current&lt;/code&gt; as well.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;link&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: Orange;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;visited&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: DarkOrange;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;hover&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: Blue;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice the LVH? Didn&amp;rsquo;t need an active right now but will add that in later. Anyway, the next thing was the menu:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;menu-button&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;display&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;inline-block&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;background-color&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;inherit&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;orange&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;menu-button&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;link&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;menu-button&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;visited&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;orange&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;menu-button&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;link&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;hover&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;pink&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#66d9ef&#34;&gt;blue&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;menu-button-current&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;:&lt;span style=&#34;color:#66d9ef&#34;&gt;blue&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can imagine I have two buttons, one with just &lt;code&gt;.menu-button&lt;/code&gt;, and one with &lt;code&gt;.menu-button-current&lt;/code&gt; as well.&lt;/p&gt;
 &lt;style&gt;
 .test-base-style:link {
   color: Orange;
@@ -90,46 +88,41 @@ a:hover {
 &lt;a class=&#34;.test-base-style test1-menu-button&#34; href=&#34;#&#34;&gt;Other Page&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Several attempts to change it got halfway there, but I ended up with a button where the text was still blue on hover. I tried a whole bunch of other things, which are really hard to reproduce again, that I thought, according to precedence, should have worked.  The real problem actually came back to the default anchor styles, and the three states an anchor can be in.&lt;/p&gt;
 &lt;p&gt;An Anchor can be a link, not a link, or visited. Unfortunately, when you hover, it could be hovering in any one of these three states. And best of all, there are only pseudo-classes for two of them. If you explicitly use hover by itself, that&amp;rsquo;s fine, it applies to all three, but where you are trying to distinguish if it is clickable or not, you might decide to add link so that it fixes things :&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.menu-button:link:hover {
-    color: pink;
-    background:blue;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;What I completely forgot there was that if I had visited the link, this style does not apply. I had to add visited in there as well. So after a lot of mucking around, I came to this conclusion.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;menu-button&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;link&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;hover&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;pink&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#66d9ef&#34;&gt;blue&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;What I completely forgot there was that if I had visited the link, this style does not apply. I had to add visited in there as well. So after a lot of mucking around, I came to this conclusion.&lt;/p&gt;
 &lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;
 &lt;p&gt;If you want to have different styles for links and nonlinks, make sure you remember visited, and apply this to hover as well.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.mybutton {
-    color: black
-}
-.mybutton:link,
-.mybutton:visited {
-    color: blue
-}
-.mybutton:link:hover
-.mybutton:visited:hover {
-    color: pink;
-    background:blue;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This way you have plain with no hover by default, and changed with a hover effect otherwise. Unfortunately, there is no way to turn off hover effects if it is not linked or visited, so getting the order of things right is important.  If you don&amp;rsquo;t want hover on unlinked anchor tags, always use &lt;code&gt;:link:hover&lt;/code&gt; and &lt;code&gt;:visited:hover&lt;/code&gt; instead of just &lt;code&gt;hover&lt;/code&gt; on your classes you use with an anchor.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mybutton&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;black&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mybutton&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;link&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mybutton&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;visited&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;blue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mybutton&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;link&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;hover&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mybutton&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;visited&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;hover&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;pink&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#66d9ef&#34;&gt;blue&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This way you have plain with no hover by default, and changed with a hover effect otherwise. Unfortunately, there is no way to turn off hover effects if it is not linked or visited, so getting the order of things right is important.  If you don&amp;rsquo;t want hover on unlinked anchor tags, always use &lt;code&gt;:link:hover&lt;/code&gt; and &lt;code&gt;:visited:hover&lt;/code&gt; instead of just &lt;code&gt;hover&lt;/code&gt; on your classes you use with an anchor.&lt;/p&gt;
 &lt;p&gt;An Alternative, and possibly less confusing solution: add a class to your active links that is different to the class (or no class) that you add to inactive links to ensure you only apply the styles in the right places.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.active-button:hover {
-    ...
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Or the opposite:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.non-active-button:hover {
-    ... //force the resetting of the properties you don&#39;t want.
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;But I like my solution, less undoing of things along the way.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;active-button&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;hover&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or the opposite:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;non-active-button&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;hover&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;...&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;//force&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;resetting&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;of&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;properties&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;you&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;don&amp;#39;t&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;want.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;But I like my solution, less undoing of things along the way.&lt;/p&gt;
 &lt;p&gt;The other thing I did, for my own sanity, was to remove the &lt;code&gt;a:hover&lt;/code&gt; in favor of a more accurate:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;a:link:hover,
-a:visited:hover {
-    color: #00bbf2;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There, I fixed it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;link&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;hover&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;visited&lt;/span&gt;:&lt;span style=&#34;color:#a6e22e&#34;&gt;hover&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;#00bbf2&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There, I fixed it.&lt;/p&gt;
 </description>
     </item>
     

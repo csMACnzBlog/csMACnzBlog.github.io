@@ -153,7 +153,7 @@ You probably also want to keep complex parsing out of constructors too. Don&rsqu
 <p>That last bit probably needs an example.</p>
 <h3 id="an-example">An Example</h3>
 <p>Suppose we have the following code:</p>
-<pre><code>public class WidgetService
+<pre tabindex="0"><code>public class WidgetService
 {
     private readonly IReviewSubmitService _rss;
     public WidgetService(IReviewSubmitService rss)
@@ -170,9 +170,8 @@ You probably also want to keep complex parsing out of constructors too. Don&rsqu
         _rss.PostReport(data);
     }
 }
-</code></pre>
-<p>A better solution would be to refactor to the following:</p>
-<pre><code>public class WidgetService
+</code></pre><p>A better solution would be to refactor to the following:</p>
+<pre tabindex="0"><code>public class WidgetService
 {
     public WidgetService()
     {
@@ -192,11 +191,10 @@ You probably also want to keep complex parsing out of constructors too. Don&rsqu
 
 var dataReport = _widgetService.GenerateUsageReport();
 _rss.PostReport(dataReport);
-</code></pre>
-<p>For those paying attention, this is also a more functional way of programming. More generally, we refactor code flow so instead of <code>A=&gt;B=&gt;C=&gt;D</code> we have <code>A=&gt;B, A=&gt;C, A=&gt;D</code>. The dependencies are much less coupled from either other.</p>
+</code></pre><p>For those paying attention, this is also a more functional way of programming. More generally, we refactor code flow so instead of <code>A=&gt;B=&gt;C=&gt;D</code> we have <code>A=&gt;B, A=&gt;C, A=&gt;D</code>. The dependencies are much less coupled from either other.</p>
 <h3 id="the-servicelocator-pattern">The ServiceLocator Pattern</h3>
 <p>Myself (and many others) absolutely hate the ServiceLocator pattern. But it is often thrust upon us as we work on legacy applications or with mis-informed technical leads. But that is another article. In this instance, I will take the stance that you have to use ServiceLocator.  Here is a typical (in my opinion WRONG) example of a constructor:</p>
-<pre><code>public class WidgetService
+<pre tabindex="0"><code>public class WidgetService
 {
     private readonly IReviewSubmitService _rss;
     private readonly IRepositoryServiceFactory _rsf;
@@ -209,9 +207,8 @@ _rss.PostReport(dataReport);
         _omg = ServiceLocator.Resolve&lt;IOptimisedMarkupGenerator&gt;();
     }
 }
-</code></pre>
-<p>and now the good example:</p>
-<pre><code>public class WidgetService
+</code></pre><p>and now the good example:</p>
+<pre tabindex="0"><code>public class WidgetService
 {
     private readonly IReviewSubmitService _reviewSubmitService;
     private readonly IRepositoryServiceFactory _repositoryServiceFactory;
@@ -237,8 +234,7 @@ _rss.PostReport(dataReport);
         _optimisedMarkupGenerator= optimisedMarkupGenerator
     }
 }
-</code></pre>
-<p>(I know I need another post around that formatting too&hellip;)</p>
+</code></pre><p>(I know I need another post around that formatting too&hellip;)</p>
 <p>So what has changed? The main difference is that you <em>can</em> inject different implementations of the interfaces, without needing to configure a static ServiceLocator. <strong>Big Win.</strong> This dual constructor setup shown in this example has the following benefits:</p>
 <ul>
 <li>You can pass dependencies into the instance. For example, from Unit Tests.</li>
@@ -249,7 +245,7 @@ _rss.PostReport(dataReport);
 <h3 id="validation">Validation</h3>
 <p>Something that is also helpful, to avoid the dreaded latent <code>ObjectNullReferenceException</code>, is to validate your inputs. Check they are within the valid range at the first opportunity:</p>
 <p>(only showing the constructor for simplicity.)</p>
-<pre><code>    public WidgetService(
+<pre tabindex="0"><code>    public WidgetService(
         IReviewSubmitService reviewSubmitService,
         IRepositoryServiceFactory repositoryServiceFactory,
         IOptimisedMarkupGenerator optimisedMarkupGenerator,
@@ -259,16 +255,15 @@ _rss.PostReport(dataReport);
         if(reviewSubmitService == null) throw new ArgumentNullException(nameof(reviewSubmitService));
         if(repositoryServiceFactory == null) throw new ArgumentNullException(nameof(repositoryServiceFactory));
         if(optimisedMarkupGenerator == null) throw new ArgumentNullException(nameof(optimisedMarkupGenerator));
-        if(someIndex &lt; 0) throw new OutOfRangeException($&quot;'{nameof(someIndex)}' must be a positive number.&quot;);
+        if(someIndex &lt; 0) throw new OutOfRangeException($&#34;&#39;{nameof(someIndex)}&#39; must be a positive number.&#34;);
 
         _reviewSubmitService = reviewSubmitService;
         _repositoryServiceFactory = repositoryServiceFactory;
         _optimisedMarkupGenerator= optimisedMarkupGenerator
     }
-</code></pre>
-<p>Validate your arguments at construction time, and you will always find your <code>null</code> references and out of range values as soon as they appear and not deep down during a complex method execution, or worse, down the road when invalid data is read back from a database.</p>
+</code></pre><p>Validate your arguments at construction time, and you will always find your <code>null</code> references and out of range values as soon as they appear and not deep down during a complex method execution, or worse, down the road when invalid data is read back from a database.</p>
 <h3 id="multiple-settings">Multiple Settings</h3>
-<pre><code>    public WidgetService(
+<pre tabindex="0"><code>    public WidgetService(
         int index,
         int length,
         string moduleName,
@@ -280,24 +275,21 @@ _rss.PostReport(dataReport);
         _moduleName = moduleName;
         _conversion = conversion;
     }
-</code></pre>
-<p>We have several values being passed in. During development it is likely we will be adding/removing the types and numbers of variables passed in. Lets encompass these in a datatype so that it is more maintainable, since we can foresee the usefulness of this.</p>
-<pre><code>public class WidgetServiceSettings
+</code></pre><p>We have several values being passed in. During development it is likely we will be adding/removing the types and numbers of variables passed in. Lets encompass these in a datatype so that it is more maintainable, since we can foresee the usefulness of this.</p>
+<pre tabindex="0"><code>public class WidgetServiceSettings
 {
         public int Index { get; set; }
         public int Length { get; set; }
         public string ModuleName { get; set; }
         public decimal Conversion { get; set; }
 }
-</code></pre>
-<pre><code>    public WidgetService(
+</code></pre><pre tabindex="0"><code>    public WidgetService(
         WidgetServiceSettings settings,
     )
     {
         _settings = settings;
     }
-</code></pre>
-<p>Now the constructor won&rsquo;t have to change, as we add and remove extra settings required by the service, and it&rsquo;s various related methods.  Image the benifit this has when you have a mixture of Settings values and Services passed into the constructor if we didn&rsquo;t do this?</p>
+</code></pre><p>Now the constructor won&rsquo;t have to change, as we add and remove extra settings required by the service, and it&rsquo;s various related methods.  Image the benifit this has when you have a mixture of Settings values and Services passed into the constructor if we didn&rsquo;t do this?</p>
 <h3 id="wrapup">Wrapup</h3>
 <p>A brief overview of my thoughts on Constructors. Hopefully these behaviours help make your code more composable, more testable, and more readable.</p>
 <p>Did I miss something? Let me know.</p>

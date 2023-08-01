@@ -26,11 +26,10 @@
 &lt;/blockquote&gt;
 &lt;p&gt;The canonical stack overflow question that (at the time of writing this) had no answer: &lt;a href=&#34;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&#34;&gt;https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (&lt;code&gt;Project&lt;/code&gt;):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import kotlin.reflect.full.declaredMemberProperties
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import kotlin.reflect.full.declaredMemberProperties
 
 val props = Project::class.declaredMemberProperties
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)&lt;/p&gt;
 &lt;p&gt;At this point in time and with some further testing, I&amp;rsquo;ve come to the conclusion that &lt;strong&gt;reflection just isn&amp;rsquo;t supported on teamcity with Kotlin&lt;/strong&gt;. I&amp;rsquo;ve found one or two Issue links to back that up too: &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-59901&#34;&gt;https://youtrack.jetbrains.com/issue/TW-59901&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;(¬_¬ )&lt;/p&gt;
 &lt;p&gt;If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.&lt;/p&gt;
@@ -50,37 +49,37 @@ val props = Project::class.declaredMemberProperties
 &lt;p&gt;Now, the decision makes perfect sense to me. The new format is more expressive, gives more information and is the future. And vendors need to start using it and move away from the old format. But as you can imagine, JetBrains just hasn&amp;rsquo;t gotten around to &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-46195&#34;&gt;getting it right yet&lt;/a&gt;. (There is some support in TC 10.0.2 but it seems there might be some teething issues and many of us are still on TC 9.X anyway.)&lt;/p&gt;
 &lt;p&gt;So what do I do about this? Solve it with code of course! And the solution is xslt (Hey! it gets the job done ok?)&lt;/p&gt;
 &lt;p&gt;Thanks to &lt;a href=&#34;https://issues.jenkins-ci.org/browse/JENKINS-32999&#34;&gt;some notes on this related Jenkins issue&lt;/a&gt; from &lt;a href=&#34;https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=tenwit&#34;&gt;Paul Hicks&lt;/a&gt;, I have this xslt page (with a small tweak to fix a value casing issue):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
-&amp;lt;xsl:stylesheet version=&amp;quot;2.0&amp;quot; xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;&amp;gt;
-  &amp;lt;xsl:output method=&amp;quot;xml&amp;quot; indent=&amp;quot;yes&amp;quot;/&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?&amp;gt;
+&amp;lt;xsl:stylesheet version=&amp;#34;2.0&amp;#34; xmlns:xsl=&amp;#34;http://www.w3.org/1999/XSL/Transform&amp;#34;&amp;gt;
+  &amp;lt;xsl:output method=&amp;#34;xml&amp;#34; indent=&amp;#34;yes&amp;#34;/&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;/test-run&amp;quot;&amp;gt;
-    &amp;lt;testsuites tests=&amp;quot;{@testcasecount}&amp;quot; failures=&amp;quot;{@failed}&amp;quot; disabled=&amp;quot;{@skipped}&amp;quot; time=&amp;quot;{@duration}&amp;quot;&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;/test-run&amp;#34;&amp;gt;
+    &amp;lt;testsuites tests=&amp;#34;{@testcasecount}&amp;#34; failures=&amp;#34;{@failed}&amp;#34; disabled=&amp;#34;{@skipped}&amp;#34; time=&amp;#34;{@duration}&amp;#34;&amp;gt;
       &amp;lt;xsl:apply-templates/&amp;gt;
     &amp;lt;/testsuites&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-suite&amp;quot;&amp;gt;
-    &amp;lt;xsl:if test=&amp;quot;test-case&amp;quot;&amp;gt;
-      &amp;lt;testsuite tests=&amp;quot;{@testcasecount}&amp;quot; time=&amp;quot;{@duration}&amp;quot; errors=&amp;quot;{@testcasecount - @passed - @skipped - @failed}&amp;quot; failures=&amp;quot;{@failed}&amp;quot; skipped=&amp;quot;{@skipped}&amp;quot; timestamp=&amp;quot;{@start-time}&amp;quot;&amp;gt;
-        &amp;lt;xsl:attribute name=&amp;quot;name&amp;quot;&amp;gt;
-          &amp;lt;xsl:for-each select=&amp;quot;ancestor-or-self::test-suite/@name&amp;quot;&amp;gt;
-            &amp;lt;xsl:value-of select=&amp;quot;concat(., &#39;.&#39;)&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-suite&amp;#34;&amp;gt;
+    &amp;lt;xsl:if test=&amp;#34;test-case&amp;#34;&amp;gt;
+      &amp;lt;testsuite tests=&amp;#34;{@testcasecount}&amp;#34; time=&amp;#34;{@duration}&amp;#34; errors=&amp;#34;{@testcasecount - @passed - @skipped - @failed}&amp;#34; failures=&amp;#34;{@failed}&amp;#34; skipped=&amp;#34;{@skipped}&amp;#34; timestamp=&amp;#34;{@start-time}&amp;#34;&amp;gt;
+        &amp;lt;xsl:attribute name=&amp;#34;name&amp;#34;&amp;gt;
+          &amp;lt;xsl:for-each select=&amp;#34;ancestor-or-self::test-suite/@name&amp;#34;&amp;gt;
+            &amp;lt;xsl:value-of select=&amp;#34;concat(., &amp;#39;.&amp;#39;)&amp;#34;/&amp;gt;
           &amp;lt;/xsl:for-each&amp;gt;
         &amp;lt;/xsl:attribute&amp;gt;
-        &amp;lt;xsl:apply-templates select=&amp;quot;test-case&amp;quot;/&amp;gt;
+        &amp;lt;xsl:apply-templates select=&amp;#34;test-case&amp;#34;/&amp;gt;
       &amp;lt;/testsuite&amp;gt;
-      &amp;lt;xsl:apply-templates select=&amp;quot;test-suite&amp;quot;/&amp;gt;
+      &amp;lt;xsl:apply-templates select=&amp;#34;test-suite&amp;#34;/&amp;gt;
     &amp;lt;/xsl:if&amp;gt;
-    &amp;lt;xsl:if test=&amp;quot;not(test-case)&amp;quot;&amp;gt;
+    &amp;lt;xsl:if test=&amp;#34;not(test-case)&amp;#34;&amp;gt;
       &amp;lt;xsl:apply-templates/&amp;gt;
     &amp;lt;/xsl:if&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-case&amp;quot;&amp;gt;
-    &amp;lt;xsl:variable name=&amp;quot;lowerResult&amp;quot; select=&amp;quot;translate(@result,&#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;, &#39;abcdefghijklmnopqrstuvwxyz&#39;)&amp;quot;/&amp;gt;
-    &amp;lt;testcase name=&amp;quot;{@name}&amp;quot; assertions=&amp;quot;{@asserts}&amp;quot; time=&amp;quot;{@duration}&amp;quot; status=&amp;quot;{$lowerResult}&amp;quot; classname=&amp;quot;{@classname}&amp;quot;&amp;gt;
-      &amp;lt;xsl:if test=&amp;quot;@runstate = &#39;Skipped&#39; or @runstate = &#39;Ignored&#39;&amp;quot;&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-case&amp;#34;&amp;gt;
+    &amp;lt;xsl:variable name=&amp;#34;lowerResult&amp;#34; select=&amp;#34;translate(@result,&amp;#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#39;, &amp;#39;abcdefghijklmnopqrstuvwxyz&amp;#39;)&amp;#34;/&amp;gt;
+    &amp;lt;testcase name=&amp;#34;{@name}&amp;#34; assertions=&amp;#34;{@asserts}&amp;#34; time=&amp;#34;{@duration}&amp;#34; status=&amp;#34;{$lowerResult}&amp;#34; classname=&amp;#34;{@classname}&amp;#34;&amp;gt;
+      &amp;lt;xsl:if test=&amp;#34;@runstate = &amp;#39;Skipped&amp;#39; or @runstate = &amp;#39;Ignored&amp;#39;&amp;#34;&amp;gt;
         &amp;lt;skipped/&amp;gt;
       &amp;lt;/xsl:if&amp;gt;
       
@@ -88,48 +87,45 @@ val props = Project::class.declaredMemberProperties
     &amp;lt;/testcase&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;command-line&amp;quot;/&amp;gt;
-  &amp;lt;xsl:template match=&amp;quot;settings&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;command-line&amp;#34;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;settings&amp;#34;/&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;output&amp;quot;&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;output&amp;#34;&amp;gt;
     &amp;lt;system-out&amp;gt;
-      &amp;lt;xsl:value-of select=&amp;quot;output&amp;quot;/&amp;gt;
+      &amp;lt;xsl:value-of select=&amp;#34;output&amp;#34;/&amp;gt;
     &amp;lt;/system-out&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;stack-trace&amp;quot;&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;stack-trace&amp;#34;&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-case/failure&amp;quot;&amp;gt;
-    &amp;lt;failure message=&amp;quot;{./message}&amp;quot;&amp;gt;
-      &amp;lt;xsl:value-of select=&amp;quot;./stack-trace&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-case/failure&amp;#34;&amp;gt;
+    &amp;lt;failure message=&amp;#34;{./message}&amp;#34;&amp;gt;
+      &amp;lt;xsl:value-of select=&amp;#34;./stack-trace&amp;#34;/&amp;gt;
     &amp;lt;/failure&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-suite/failure&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-suite/failure&amp;#34;/&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-case/reason&amp;quot;&amp;gt;
-    &amp;lt;skipped message=&amp;quot;{./message}&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-case/reason&amp;#34;&amp;gt;
+    &amp;lt;skipped message=&amp;#34;{./message}&amp;#34;/&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-suite/reason&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-suite/reason&amp;#34;/&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;properties&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;properties&amp;#34;/&amp;gt;
 &amp;lt;/xsl:stylesheet&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And we can use this in a TeamCity runner:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;$xslt = new-object system.xml.xsl.xslcompiledtransform
-$xslt.load(&#39;%system.teamcity.build.workingDir%\nunit3-junit.xslt&#39;)
-$xslt.Transform(&#39;%system.teamcity.build.workingDir%\TestResult.xml&#39;, &#39;%system.teamcity.build.workingDir%\TransformedTestResult.xml&#39;)
-Write-Host &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedTestResult.xml&#39;]&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which is PowerShell, and so this works well under windows.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And we can use this in a TeamCity runner:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$xslt = new-object system.xml.xsl.xslcompiledtransform
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$xslt.load(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;%system.teamcity.build.workingDir%\nunit3-junit.xslt&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$xslt.Transform(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;%system.teamcity.build.workingDir%\TestResult.xml&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;%system.teamcity.build.workingDir%\TransformedTestResult.xml&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Write-Host &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;##teamcity[importData type=&amp;#39;junit&amp;#39; path=&amp;#39;TransformedTestResult.xml&amp;#39;]&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Which is PowerShell, and so this works well under windows.&lt;/p&gt;
 &lt;p&gt;But our latest thing is .Net Core in Docker containers on Linux, right? (right?) So we don&amp;rsquo;t have PowerShell available. And it also seems that &lt;a href=&#34;https://github.com/dotnet/corefx/issues/5593&#34;&gt;there is currently no xslt support in .Net Core&lt;/a&gt;, so that option is out. But there is another way:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;apt-get install libsaxon-java
-saxon-xslt -o TransformedTestResult.xml TestResult.xml nunit3-junit.xslt
-echo &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedTestResult.xml&#39;]&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You may want to just run the &lt;code&gt;apt-get&lt;/code&gt; command on all your agents, rather than putting it into your build step.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apt-get install libsaxon-java
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;saxon-xslt -o TransformedTestResult.xml TestResult.xml nunit3-junit.xslt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;##teamcity[importData type=&amp;#39;junit&amp;#39; path=&amp;#39;TransformedTestResult.xml&amp;#39;]&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You may want to just run the &lt;code&gt;apt-get&lt;/code&gt; command on all your agents, rather than putting it into your build step.&lt;/p&gt;
 &lt;p&gt;And with that, we can publish our test results to TeamCity on Windows and on Linux build agents.&lt;/p&gt;
 </description>
     </item>

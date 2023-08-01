@@ -138,68 +138,58 @@
 <p>I noticed that if all my project folders were next to each other it didn&rsquo;t matter. So here is my experiment, and the results.</p>
 <h3 id="globaljson">global.json</h3>
 <p>The default file I end up with in Visual Studio looks <em>roughly</em> like this:</p>
-<pre><code>{
-  &quot;projects&quot;: [ &quot;src&quot;, &quot;test&quot; ],
-  &quot;sdk&quot;: {
-    &quot;version&quot;: &quot;1.0.0-preview2-003121&quot;
+<pre tabindex="0"><code>{
+  &#34;projects&#34;: [ &#34;src&#34;, &#34;test&#34; ],
+  &#34;sdk&#34;: {
+    &#34;version&#34;: &#34;1.0.0-preview2-003121&#34;
   }
 }
-</code></pre>
-<h3 id="setup">Setup</h3>
+</code></pre><h3 id="setup">Setup</h3>
 <p>To start with, I created a folder to work in:</p>
-<pre><code>mkdir globaltest
+<pre tabindex="0"><code>mkdir globaltest
 cd globaltest
-</code></pre>
-<p>This will be the root folder of my testing today.</p>
+</code></pre><p>This will be the root folder of my testing today.</p>
 <h3 id="side-by-side">Side-by-Side</h3>
 <p>For starters, I will create two folders side by side, inside a folder called <code>src</code>.</p>
-<pre><code>mkdir src
+<pre tabindex="0"><code>mkdir src
 cd src
-</code></pre>
-<p>First a library:</p>
-<pre><code>mkdir mylib
+</code></pre><p>First a library:</p>
+<pre tabindex="0"><code>mkdir mylib
 cd mylib
 dotnet new -t lib
 dotnet restore
 dotnet build
-</code></pre>
-<p>Next, a sibling app project:</p>
-<pre><code>cd ../
+</code></pre><p>Next, a sibling app project:</p>
+<pre tabindex="0"><code>cd ../
 mkdir app1
 cd app1
 dotnet new
-</code></pre>
-<p>And to make sure they are linked, I add a project reference to the app&rsquo;s <code>project.json</code> file:</p>
-<pre><code>&quot;mylib&quot;: {
-    &quot;target&quot;: &quot;Project&quot;,
-    &quot;version&quot;: &quot;*&quot;
+</code></pre><p>And to make sure they are linked, I add a project reference to the app&rsquo;s <code>project.json</code> file:</p>
+<pre tabindex="0"><code>&#34;mylib&#34;: {
+    &#34;target&#34;: &#34;Project&#34;,
+    &#34;version&#34;: &#34;*&#34;
 }
-</code></pre>
-<p>And test that it works</p>
-<pre><code>dotnet restore
+</code></pre><p>And test that it works</p>
+<pre tabindex="0"><code>dotnet restore
 dotnet build
-</code></pre>
-<p>And it does. Sibling project folders without a <code>global.json</code> file work successfully with project references.</p>
+</code></pre><p>And it does. Sibling project folders without a <code>global.json</code> file work successfully with project references.</p>
 <h3 id="cousin-projects">Cousin projects</h3>
 <p>This time, I want to see what happens when there are two projects with an extra layer up between them. First back up to our root:</p>
-<pre><code>cd ../../
-</code></pre>
-<p>Now beside the original <code>src</code> folder we will create an <code>other</code> folder, and Inside it, a second app:</p>
-<pre><code>mkdir other
+<pre tabindex="0"><code>cd ../../
+</code></pre><p>Now beside the original <code>src</code> folder we will create an <code>other</code> folder, and Inside it, a second app:</p>
+<pre tabindex="0"><code>mkdir other
 cd other
 mkdir app2
 cd app2
 dotnet new
-</code></pre>
-<p>Again we add a project reference to the original lib project that is inside the <code>src</code> folder:</p>
+</code></pre><p>Again we add a project reference to the original lib project that is inside the <code>src</code> folder:</p>
 <p>project.json</p>
-<pre><code>&quot;mylib&quot;: {
-    &quot;target&quot;: &quot;Project&quot;,
-    &quot;version&quot;: &quot;*&quot;
+<pre tabindex="0"><code>&#34;mylib&#34;: {
+    &#34;target&#34;: &#34;Project&#34;,
+    &#34;version&#34;: &#34;*&#34;
 }
-</code></pre>
-<p>So now we have the following:</p>
-<pre><code>globaltest
+</code></pre><p>So now we have the following:</p>
+<pre tabindex="0"><code>globaltest
 |-- src
 |    |-- mylib
 |    |    |-- Library.cs
@@ -211,31 +201,25 @@ dotnet new
      +-- app2
           |-- Program.cs
           +-- project.json
-</code></pre>
-<p>For the moment of truth, we test if we can do a restore from app2:</p>
-<pre><code>dotnet restore
-</code></pre>
-<p>Fail.</p>
-<pre><code>error: Unable to resolve 'mylib' for '.NETCoreApp,Version=v1.0'.
-</code></pre>
-<p>Looks like we might need the <code>global.json</code> file for just this situation:</p>
-<pre><code>cd ../../
+</code></pre><p>For the moment of truth, we test if we can do a restore from app2:</p>
+<pre tabindex="0"><code>dotnet restore
+</code></pre><p>Fail.</p>
+<pre tabindex="0"><code>error: Unable to resolve &#39;mylib&#39; for &#39;.NETCoreApp,Version=v1.0&#39;.
+</code></pre><p>Looks like we might need the <code>global.json</code> file for just this situation:</p>
+<pre tabindex="0"><code>cd ../../
 touch global.json
-</code></pre>
-<p>lets put the following in there:</p>
-<pre><code>{
-  &quot;projects&quot;: [ &quot;src&quot;, &quot;other&quot; ],
-  &quot;sdk&quot;: {
-    &quot;version&quot;: &quot;1.0.0-preview2-003121&quot;
+</code></pre><p>lets put the following in there:</p>
+<pre tabindex="0"><code>{
+  &#34;projects&#34;: [ &#34;src&#34;, &#34;other&#34; ],
+  &#34;sdk&#34;: {
+    &#34;version&#34;: &#34;1.0.0-preview2-003121&#34;
   }
 }
-</code></pre>
-<p>And one more time now:</p>
-<pre><code>cd other/app2
+</code></pre><p>And one more time now:</p>
+<pre tabindex="0"><code>cd other/app2
 dotnet restore
 dotnet build
-</code></pre>
-<p>Success!</p>
+</code></pre><p>Success!</p>
 <h3 id="conclusion">Conclusion</h3>
 <p>So why do when do we need a <code>global.json</code>? When our projects are spread out across different levels at different nesting. When can we do without? When the projects that need to reference each other are in folders right next to each other.</p>
 <p>There are more complex scenarios I could have tried, but I&rsquo;m happy to stop here. But please, keep testing to look for other cases that interest you, by all means.</p>

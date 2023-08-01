@@ -175,12 +175,11 @@
 <h3 id="dotnet-cli">dotnet (CLI)</h3>
 <p>Ok, so you could just go <a href="https://www.microsoft.com/net/core#windows">RTFM</a>. But I will still go ahead and produce the Hello World of dotnet applications. <a href="http://www.mirror.co.uk/news/world-news/internet-full-experts-warn-web-5628789">The internet will be full soon</a>, I might as well do my bit.</p>
 <p>Firstly, like with git, we create a new folder and initialise it. In this case, the folder is the equivalent of a project folder.</p>
-<pre><code>mkdir MyNewApp
+<pre tabindex="0"><code>mkdir MyNewApp
 cd MyNewApp
 dotnet new
-</code></pre>
-<p>Fun fact: the first time you run <code>dotnet new</code> you might see this:</p>
-<pre><code>Welcome to .NET Core!
+</code></pre><p>Fun fact: the first time you run <code>dotnet new</code> you might see this:</p>
+<pre tabindex="0"><code>Welcome to .NET Core!
 ---------------------
 Learn more about .NET Core @ https://aka.ms/dotnet-docs. Use dotnet --help to see available commands or go to https://aka.ms/dotnet-cli-docs.
 Telemetry
@@ -194,25 +193,21 @@ A command is running to initially populate your local package cache, to improve 
 Decompressing 100% 6252 ms
 Expanding 100% 45184 ms
 Created new C# project in C:\dev\temp\MyNewApp.
-</code></pre>
-<p>But I digress. We should now have a new application created with two files:</p>
+</code></pre><p>But I digress. We should now have a new application created with two files:</p>
 <ul>
 <li>Program.cs</li>
 <li>project.json</li>
 </ul>
 <p>Technically, this is enough for a dotnet app.</p>
 <p>First, we need to restore. This is NuGet restore and version locking of the project.json. The project.lock.json file produced is similar to the RubyGem or npm lockfile concept.</p>
-<pre><code>dotnet restore
-</code></pre>
-<pre><code>log  : Restoring packages for C:\dev\temp\MyNewApp\project.json...
+<pre tabindex="0"><code>dotnet restore
+</code></pre><pre tabindex="0"><code>log  : Restoring packages for C:\dev\temp\MyNewApp\project.json...
 log  : Writing lock file to disk. Path: C:\dev\temp\MyNewApp\project.lock.json
 log  : C:\dev\temp\MyNewApp\project.json
 log  : Restore completed in 2520ms.
-</code></pre>
-<p>Now we run a build.</p>
-<pre><code>dotnet build
-</code></pre>
-<pre><code>Project MyNewApp (.NETCoreApp,Version=v1.0) will be compiled because expected outputs are missing
+</code></pre><p>Now we run a build.</p>
+<pre tabindex="0"><code>dotnet build
+</code></pre><pre tabindex="0"><code>Project MyNewApp (.NETCoreApp,Version=v1.0) will be compiled because expected outputs are missing
 Compiling MyNewApp for .NETCoreApp,Version=v1.0
 
 Compilation succeeded.
@@ -220,14 +215,11 @@ Compilation succeeded.
     0 Error(s)
 
 Time elapsed 00:00:04.6165052
-</code></pre>
-<p>And finally, we run the application.</p>
-<pre><code>dotnet run
-</code></pre>
-<pre><code>Project MyNewApp (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
+</code></pre><p>And finally, we run the application.</p>
+<pre tabindex="0"><code>dotnet run
+</code></pre><pre tabindex="0"><code>Project MyNewApp (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
 Hello World!
-</code></pre>
-<p>That&rsquo;s it. We have a fully executable .Net Core Application.</p>
+</code></pre><p>That&rsquo;s it. We have a fully executable .Net Core Application.</p>
 <h3 id="visual-studio">Visual Studio)</h3>
 <p>Let&rsquo;s repeat with Visual Studio now. Choose File-&gt; New Project and Select the <code>Console Application (.Net Core)</code> template from under the new <code>.Net Core</code> C# category.</p>
 <p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467318810/FileNewDotNetCoreApp_ktcsks.png" alt="Select Console Application .Net Core from File New Project."></p>
@@ -259,10 +251,9 @@ Hello World!
 </ul>
 <p>It is worth noting that the tooling is still not finalised, and that the <code>xproj</code> and msbuild tooling is likely to continue to change, and will the other <code>csproj</code> folders and the project.json file things.</p>
 <p>So now we have a project in Visual Studio. If we build and run, both will succeed but there isn&rsquo;t much to see. Let&rsquo;s add the following to our Progam.cs Main method:</p>
-<pre><code class="language-cs">Console.WriteLine(&quot;Hello World!&quot;);
-Console.ReadKey();
-</code></pre>
-<p>Now If we build and run, we should see our Hello World app run. (Press any key to exit).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>Console.WriteLine(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>Console.ReadKey();
+</span></span></code></pre></div><p>Now If we build and run, we should see our Hello World app run. (Press any key to exit).</p>
 <p><img src="http://res.cloudinary.com/csmacnz/image/upload/v1467319695/HelloWorldCoreApp_xetx7x.png" alt="Hello World .Net Core app running."></p>
 <h3 id="easy">Easy</h3>
 <p>Next time we will take a deeper look into the <code>project.json</code> file and start to experiment on ways to build more complex applications with the new .Net Core.</p>

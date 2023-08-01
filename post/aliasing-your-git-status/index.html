@@ -139,16 +139,14 @@
 <p>Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an alternative way to call another command, maybe with implicit parameters baked in that you use all the time. So for me, I want to type <code>gs</code> to perform a <code>git status</code> call.</p>
 <h3 id="powershell">PowerShell</h3>
 <p>As a .Net developer, I use PowerShell as my preferred command line shell. This means when it comes to git, <a href="http://blog.csmac.nz/visual-studio-powershell/">I have PowerShell set up just so</a>, and it can give me all these nice indicators around what branch I&rsquo;m on etc.  But when It comes to aliases, PowerShell requires a native command to attach that alias to (of which <code>git status</code> isn&rsquo;t). It also doesn&rsquo;t allow default arguments when you make these aliases.  But it can be done. The trick is to wrap it in a function:</p>
-<pre><code class="language-powershell">function Get-GitStatus { &amp; git status }
-New-Alias -Name gs -Value Get-GitStatus
-</code></pre>
-<p>First we define a function that represents the command we want to execute (<code>git status</code> in this case), then we call the New-Alias PowerShell command, and provide a name (<code>gs</code>) and the defined function as the value. Easy.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> Get-GitStatus { &amp; git status }
+</span></span><span style="display:flex;"><span>New-Alias -Name gs -Value Get-GitStatus
+</span></span></code></pre></div><p>First we define a function that represents the command we want to execute (<code>git status</code> in this case), then we call the New-Alias PowerShell command, and provide a name (<code>gs</code>) and the defined function as the value. Easy.</p>
 <p>As a convenience, I added these two lines to my <code>Microsoft.PowerShell_profile.ps1</code> file (you can find this using the <code>$PROFILE</code> variable in your PowerShell) so that the alias is always available when PowerShell starts.</p>
 <h3 id="bash">BASH</h3>
 <p>While Bash is not my primary shell, it is the go-to for most developers using. It is easy to get an alias set up in Bash. All you would need is to run the following command:</p>
-<pre><code class="language-powershell">alias gs='git status'
-</code></pre>
-<p>Now whenever you type <code>gs</code> it will run the <code>git status</code> command. Again, you could put this in your <a href="http://tldp.org/LDP/abs/html/sample-bashrc.html">.bashrc file</a> (or <a href="http://stackoverflow.com/questions/6883760/git-for-windows-bashrc-or-equivalent-config-files-for-git-bash-shell">windows equivalent</a> to make this available whenever you launch the shell.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>alias gs=<span style="color:#e6db74">&#39;git status&#39;</span>
+</span></span></code></pre></div><p>Now whenever you type <code>gs</code> it will run the <code>git status</code> command. Again, you could put this in your <a href="http://tldp.org/LDP/abs/html/sample-bashrc.html">.bashrc file</a> (or <a href="http://stackoverflow.com/questions/6883760/git-for-windows-bashrc-or-equivalent-config-files-for-git-bash-shell">windows equivalent</a> to make this available whenever you launch the shell.</p>
 <h3 id="til">TIL</h3>
 <p>So I was watching someone else give an introduction to git today, and found out that for some commands in git have built in, well established aliases already. one of these is the <code>status</code> command, using <code>st</code>. So if <code>git status</code> is giving you trouble, maybe just look at using <code>git st</code> instead. No custom aliasing required. I&rsquo;m still going to keep using my <code>gs</code> though, its still faster.</p>
 </section>

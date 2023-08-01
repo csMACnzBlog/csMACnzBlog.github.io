@@ -140,7 +140,7 @@
 <p>The basic idea is that we have a <code>Startup.cs</code> file, where we configure our application. This becomes a dumping ground for all sorts of configuration of both services, and pipeline if we let it.  This is a simple pattern to avoid the mess and organise your code.</p>
 <p>It is a simple &lsquo;what&rsquo; vs &lsquo;how&rsquo; situation.  In your <code>Startup.cs</code> you want to see the &lsquo;what&rsquo;. The &lsquo;how&rsquo; should be abstracted away to go look at separately.</p>
 <p>The simple example given in the original example by OdeToCode is the final code that looks like this:</p>
-<pre><code>public void ConfigureServices(IServiceCollection services)
+<pre tabindex="0"><code>public void ConfigureServices(IServiceCollection services)
 {
     // ...
     services.AddCustomizedMvc();
@@ -148,13 +148,12 @@
     services.AddDataStores();
     // ...
 }
-</code></pre>
-<h3 id="unpacking-the-idea">Unpacking the idea</h3>
+</code></pre><h3 id="unpacking-the-idea">Unpacking the idea</h3>
 <p>I have a few specific implementation details I have taken away from this.</p>
 <h4 id="naming">Naming</h4>
 <p>The first is a naming convention.  We already have extension methods for <code>IApplicationBuilder</code> in <code>Configure</code> and <code>IServiceCollection</code> in <code>ConfigureServices</code>. These follow a convention of <code>AddX</code> and <code>UseX</code> and are pipelines that take and return the Builder/Services.  If you are building extensions in a library, this convention should be followed for these.</p>
 <p>If you are creating these application-specific Extensions, the naming convention <code>UseCustomisedX</code> and <code>AddCustomisedX</code> works well, both showing their intent while distinguishing local vs library items.</p>
-<pre><code>public static IServiceCollection AddCustomisedMvc(this IServiceCollection services)
+<pre tabindex="0"><code>public static IServiceCollection AddCustomisedMvc(this IServiceCollection services)
 {
     // ...
     return services;
@@ -165,10 +164,9 @@ public static IApplicationBuilder UseCustomisedMvc(this IApplicationBuilder app)
     // ...
     return app;
 }
-</code></pre>
-<h4 id="cohesion">Cohesion</h4>
+</code></pre><h4 id="cohesion">Cohesion</h4>
 <p>Most, but not all, components added to Startup have both an <code>Add</code> and a <code>Use</code>. That is, you register services, and you add to the pipeline. Now that we pull the &lsquo;how&rsquo; of these out into extensions methods, we can group them together in the same file. It just makes sense.  So if we have our MVC customisations, we create a <code>MvcExtensions</code> class.</p>
-<pre><code>public static class MvcExtensions
+<pre tabindex="0"><code>public static class MvcExtensions
 {
     public static IServiceCollection AddCustomisedMvc(this IServiceCollection services)
     {
@@ -182,21 +180,20 @@ public static IApplicationBuilder UseCustomisedMvc(this IApplicationBuilder app)
         app.UseMvc(routes =&gt;
         {
             routes.MapRoute(
-                name: &quot;default&quot;,
-                template: &quot;{controller=Home}/{action=Index}/{id?}&quot;);
+                name: &#34;default&#34;,
+                template: &#34;{controller=Home}/{action=Index}/{id?}&#34;);
         });
 
         return app;
     }
 }
-</code></pre>
-<h4 id="namespacing">Namespacing</h4>
+</code></pre><h4 id="namespacing">Namespacing</h4>
 <p>I would love to put these Extensions in a folder called Startup. But it is bad practice to have a Class and Namespace called the same thing. So instead I use <code>StartupExtensions</code> as the namespace/folder. inside are all the <code>XExtensions</code> classes that our system is using.</p>
 <h4 id="pass-through-dependencies">Pass through dependencies</h4>
 <p>You may find that your extension needs <code>IConfiguration</code> or <code>IHostingEnvironment</code>. That is fine. You can pass these into the method as necessary in the normal way.</p>
 <h4 id="piping">Piping</h4>
 <p>If you correctly build your customised methods as both Extension Methods, and as pipes, you can keep the code even cleaner. You could use the lambda syntax to create a functional version of each method like this:</p>
-<pre><code>
+<pre tabindex="0"><code>
 public void ConfigureServices(IServiceCollection services) =&gt; services
     .AddCustomisedCookies()
     .AddCustomisedMvc();
@@ -206,12 +203,11 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env) =&gt; ap
     .UseHttpsRedirection()
     .UseStaticFiles()
     .UseCustomisedMvc();
-</code></pre>
-<h3 id="conditional-flow">Conditional Flow</h3>
+</code></pre><h3 id="conditional-flow">Conditional Flow</h3>
 <p>You may have conditional flow in your middleware pipeline. I have two different options, you can pick the right one for the right situation.</p>
 <h4 id="put-it-in-the-extensions">Put it in the Extensions</h4>
 <p>If the logic fits nicely into one particular aspect of your setup (such as Error Handling and Development mode) you can just keep the conditions you need but inside that extension.</p>
-<pre><code>public static IApplicationBuilder UseCustomisedErrorHandling(this IApplicationBuilder app, IHostingEnvironment env)
+<pre tabindex="0"><code>public static IApplicationBuilder UseCustomisedErrorHandling(this IApplicationBuilder app, IHostingEnvironment env)
 {
     if (env.IsDevelopment())
     {
@@ -219,15 +215,14 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env) =&gt; ap
     }
     else
     {
-        app.UseExceptionHandler(&quot;/Home/Error&quot;);
+        app.UseExceptionHandler(&#34;/Home/Error&#34;);
     }
 
     return app;
 }
-</code></pre>
-<h4 id="branching-middleware">Branching middleware</h4>
+</code></pre><h4 id="branching-middleware">Branching middleware</h4>
 <p>If your middleware has complex pipeline branching, you probably should consider that more of a <code>what</code> than a <code>how</code>.  I would recommend keeping this in the Startup, still. An example of this might be:</p>
-<pre><code>app.UseCustomisedErrorHandling();
+<pre tabindex="0"><code>app.UseCustomisedErrorHandling();
 app.MapWhen(
     ctx =&gt; IsAdminArea(ctx.Request.Path),
     builder =&gt;
@@ -236,8 +231,7 @@ app.MapWhen(
         builder.UseCustomisedMvc();
     });
 app.UseCustomisedMvc();
-</code></pre>
-<p>What you can see here at a high level is &lsquo;what&rsquo; is configured for each of the branches, while still abstracting away the &lsquo;how&rsquo;.</p>
+</code></pre><p>What you can see here at a high level is &lsquo;what&rsquo; is configured for each of the branches, while still abstracting away the &lsquo;how&rsquo;.</p>
 <p>However, if you have a more aspect-specific <code>MapWhen</code>, (such as &ldquo;When the URL is <code>/ping</code> return a 200&rdquo;) this can probably still be pulled out into an Extension. The above only really applies when you have branched complex middleware pipelines.</p>
 <h3 id="sample">Sample</h3>
 <p>I ran a <code>dotnet new mvc</code> to produce a new project. I created a before and after version and you can see an example of the refactoring following the above rules. This can be found at <a href="https://github.com/csMacnzBlog/CleanStartup">github.com/csMacnzBlog/CleanStartup</a>. There is also a <a href="https://github.com/csMacnzBlog/CleanStartup/blob/FullPipeline/after/Startup.cs">Full Pipeline branched version</a> available.</p>

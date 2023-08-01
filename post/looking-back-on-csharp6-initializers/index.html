@@ -144,143 +144,129 @@
 <p>Initializers have had a few upgrades since the early C# days. But before we look at more recent changes, we will review what came before.</p>
 <p>Initializers or Object Initializers is a name given to code that performs the initial setup of a piece of memory (a struct or an object). Constructors are part of this but the idea goes more towards the holistic setup of the object data for all of the state you care to set up.</p>
 <p>Taking a look at C for even more background, we have initializers like so:</p>
-<pre><code class="language-c">struct MyType { char s; int n; };
-
-// We can initialize a variable using a curly brace syntax:
-MyType x = { 'a', 42 };
-</code></pre>
-<p>What we see above is that we are initializing our variable <code>x</code> to have its data for <code>.s</code> and <code>.n</code> set to <code>'a'</code> and <code>42</code> respectively. This is initialization. Now using C#, something more familiar:</p>
-<pre><code class="language-cs">public class Foo
-{
-    public string Name { get; set; }
-    public int Number { get; set; }
-}
-
-// Without using initializers:
-Foo myFoo = new Foo();
-myFoo.Name = &quot;a&quot;;
-myFoo.Number = 42;
-
-// In C# we can initialize in a similar way to C.
-// This code compiles to the same instructions as above:
-Foo myFoo = new Foo() { Name = &quot;a&quot;, Number = 24 };
-
-// Collections also support initialization
-int[] myArray = new int[] { 1, 1, 2, 3, 5, 8 };
-</code></pre>
-<p>I won&rsquo;t go into how C has advanced its own initializers, that it a different topic. Instead, we will look at how C# has taken this simple initializer above and enhanced in C# 6 on top of this initial syntax in C# 3.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> MyType { <span style="color:#66d9ef">char</span> s; <span style="color:#66d9ef">int</span> n; };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// We can initialize a variable using a curly brace syntax:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>MyType x <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#ae81ff">42</span> };
+</span></span></code></pre></div><p>What we see above is that we are initializing our variable <code>x</code> to have its data for <code>.s</code> and <code>.n</code> set to <code>'a'</code> and <code>42</code> respectively. This is initialization. Now using C#, something more familiar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Number { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Without using initializers:</span>
+</span></span><span style="display:flex;"><span>Foo myFoo = <span style="color:#66d9ef">new</span> Foo();
+</span></span><span style="display:flex;"><span>myFoo.Name = <span style="color:#e6db74">&#34;a&#34;</span>;
+</span></span><span style="display:flex;"><span>myFoo.Number = <span style="color:#ae81ff">42</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// In C# we can initialize in a similar way to C.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// This code compiles to the same instructions as above:</span>
+</span></span><span style="display:flex;"><span>Foo myFoo = <span style="color:#66d9ef">new</span> Foo() { Name = <span style="color:#e6db74">&#34;a&#34;</span>, Number = <span style="color:#ae81ff">24</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Collections also support initialization</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>[] myArray = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[] { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span> };
+</span></span></code></pre></div><p>I won&rsquo;t go into how C has advanced its own initializers, that it a different topic. Instead, we will look at how C# has taken this simple initializer above and enhanced in C# 6 on top of this initial syntax in C# 3.</p>
 <h3 id="add-extension-support-for-collections">Add Extension support for collections</h3>
 <p>When Initializers were implemented (or not long after if my memory deceives me) there was a little magic that made this work. Namely, the code written was simpler and more concise, but the implementation transformed into something more familiar.</p>
 <p>The same is true for Collection initialization. If we review the example from above we can see this:</p>
-<pre><code class="language-cs">
-// Collection initialization
-int[] myArray = new int[] { 1, 1, 2, 3, 5, 8 };
-
-// The same code, more verbosely:
-int[] myArray = new int[];
-myArray.Add(1);
-myArray.Add(1);
-myArray.Add(2);
-myArray.Add(3);
-myArray.Add(5);
-myArray.Add(8);
-</code></pre>
-<p>Basically, the syntax is a shorthand for calling <code>Add(</code> on the collection. This allows for more complex situations where <code>Add</code> can take multiple arguments.</p>
-<pre><code class="language-cs">var myDict = new Dictionary&lt;int, string&gt;() { { 1, &quot;One&quot; }, { 2, &quot;Two&quot; } };
-
-// This worked the same way as the last example. The same code is:
-var myDict = new Dictionary&lt;int, string&gt;();
-myDict.Add(1, &quot;One&quot;);
-myDict.Add(2, &quot;Two&quot;);
-</code></pre>
-<p>Again, this is all existing syntax. With C# 6, an ability was added so that instead of needing to implement <code>Add</code> on your type, you could create extension methods as well:</p>
-<pre><code>public static void Add(this Dictionary&lt;int, string&gt; dict, Foo value)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Collection initialization</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>[] myArray = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[] { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The same code, more verbosely:</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>[] myArray = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[];
+</span></span><span style="display:flex;"><span>myArray.Add(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>myArray.Add(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>myArray.Add(<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>myArray.Add(<span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>myArray.Add(<span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>myArray.Add(<span style="color:#ae81ff">8</span>);
+</span></span></code></pre></div><p>Basically, the syntax is a shorthand for calling <code>Add(</code> on the collection. This allows for more complex situations where <code>Add</code> can take multiple arguments.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> myDict = <span style="color:#66d9ef">new</span> Dictionary&lt;<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">string</span>&gt;() { { <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;One&#34;</span> }, { <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;Two&#34;</span> } };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// This worked the same way as the last example. The same code is:</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> myDict = <span style="color:#66d9ef">new</span> Dictionary&lt;<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">string</span>&gt;();
+</span></span><span style="display:flex;"><span>myDict.Add(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;One&#34;</span>);
+</span></span><span style="display:flex;"><span>myDict.Add(<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;Two&#34;</span>);
+</span></span></code></pre></div><p>Again, this is all existing syntax. With C# 6, an ability was added so that instead of needing to implement <code>Add</code> on your type, you could create extension methods as well:</p>
+<pre tabindex="0"><code>public static void Add(this Dictionary&lt;int, string&gt; dict, Foo value)
 {
     dict.Add(value.Number, value.Name);
 }
 
-Foo foo1 = new Foo() { Name = &quot;One&quot;, Number = 1 };
-Foo foo2 = new Foo() { Name = &quot;Two&quot;, Number = 2 };
+Foo foo1 = new Foo() { Name = &#34;One&#34;, Number = 1 };
+Foo foo2 = new Foo() { Name = &#34;Two&#34;, Number = 2 };
 var myDict = new Dictionary&lt;int, string&gt;() { foo1, foo2 };
-</code></pre>
-<p>At this point, the possibilities are endless and fully customizable to create your own Domain-Specific-Language (DSL). You don&rsquo;t even have to use Collections because anything can have an <code>Add</code> overload added via an extension.</p>
+</code></pre><p>At this point, the possibilities are endless and fully customizable to create your own Domain-Specific-Language (DSL). You don&rsquo;t even have to use Collections because anything can have an <code>Add</code> overload added via an extension.</p>
 <h3 id="index-initializer">Index Initializer</h3>
 <p>Dictionary syntax is a bit odd. Add isn&rsquo;t really the right approach. And we already have indexer syntax:</p>
-<pre><code class="language-cs">var myDict = new Dictionary&lt;int, string&gt;();
-myDict[7] = &quot;seven&quot;;
-myDict[9] = &quot;nine&quot;;
-myDict[13] = &quot;thirteen;
-</code></pre>
-<p>Why not extend Initializers to use the indexer as well? They did. C# 6 again.</p>
-<pre><code class="language-cs">
-var numbers = new Dictionary&lt;int, string&gt; {
-    [7] = &quot;seven&quot;,
-    [9] = &quot;nine&quot;,
-    [13] = &quot;thirteen&quot;
-};
-</code></pre>
-<p>Works as expected, and is the same result as the code above. This works off of the same existing indexer pattern( in a similar manner to the <code>Add</code> usage earlier), so works with any custom indexer on any custom type.</p>
-<pre><code>// Using an existing type from Newtonsoft.Json:
-var x = new JObject { [&quot;x&quot;] = 3 };
-</code></pre>
-<h3 id="auto-property-initializers">Auto property initializers</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> myDict = <span style="color:#66d9ef">new</span> Dictionary&lt;<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">string</span>&gt;();
+</span></span><span style="display:flex;"><span>myDict[<span style="color:#ae81ff">7</span>] = <span style="color:#e6db74">&#34;seven&#34;</span>;
+</span></span><span style="display:flex;"><span>myDict[<span style="color:#ae81ff">9</span>] = <span style="color:#e6db74">&#34;nine&#34;</span>;
+</span></span><span style="display:flex;"><span>myDict[<span style="color:#ae81ff">13</span>] = <span style="color:#e6db74">&#34;thirteen;
+</span></span></span></code></pre></div><p>Why not extend Initializers to use the indexer as well? They did. C# 6 again.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> numbers = <span style="color:#66d9ef">new</span> Dictionary&lt;<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">string</span>&gt; {
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">    [7]</span> = <span style="color:#e6db74">&#34;seven&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">    [9]</span> = <span style="color:#e6db74">&#34;nine&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">    [13]</span> = <span style="color:#e6db74">&#34;thirteen&#34;</span>
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Works as expected, and is the same result as the code above. This works off of the same existing indexer pattern( in a similar manner to the <code>Add</code> usage earlier), so works with any custom indexer on any custom type.</p>
+<pre tabindex="0"><code>// Using an existing type from Newtonsoft.Json:
+var x = new JObject { [&#34;x&#34;] = 3 };
+</code></pre><h3 id="auto-property-initializers">Auto property initializers</h3>
 <p>That is a bunch of consumer side initialization. There was more added behind the scenes in C# 6 as well.</p>
 <p>The humble Auto Property:</p>
-<pre><code class="language-cs">public int X { get; set; }
-</code></pre>
-<p>First, we can now give a default initialization:</p>
-<pre><code>// This is the same as `X = 4` in the constructor
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> X { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span></code></pre></div><p>First, we can now give a default initialization:</p>
+<pre tabindex="0"><code>// This is the same as `X = 4` in the constructor
 public int X { get; set; } = 4;    
-</code></pre>
-<p>And to make this trick even more complete, we have the getter-only property:</p>
-<pre><code class="language-cs">public int Y { get; } = 42;    
-</code></pre>
-<p>As well as the ability to initialize this from a constructor instead:</p>
-<pre><code class="language-cs">public class MyFoo
-{
-    public int Y { get; };    
-    
-    pubilc MyFoo()
-    {
-        Y = 42;
-    }
-}
-</code></pre>
-<p>Sometimes you may have many constructor overloads, using the property initializer is less code duplication.  Sometimes you may want to have different values for different overloads, then you can initialize in the constructor.</p>
+</code></pre><p>And to make this trick even more complete, we have the getter-only property:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Y { <span style="color:#66d9ef">get</span>; } = <span style="color:#ae81ff">42</span>;    
+</span></span></code></pre></div><p>As well as the ability to initialize this from a constructor instead:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyFoo</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Y { <span style="color:#66d9ef">get</span>; };    
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    pubilc MyFoo()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Y = <span style="color:#ae81ff">42</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Sometimes you may have many constructor overloads, using the property initializer is less code duplication.  Sometimes you may want to have different values for different overloads, then you can initialize in the constructor.</p>
 <p>Either way, this gives you true power over you read-only without the verbose equivalent you used to have to write:</p>
-<pre><code class="language-cs">// Same code as above in &quot;full&quot;:
-public class MyFoo
-{
-    private readonly int _y;
-    public int Y
-    {
-        get
-        {
-            return _y;
-        }
-    };    
-    
-    pubilc MyFoo()
-    {
-        _y = 42;
-    }
-}
-</code></pre>
-<p>The newer way is much more concise, especially when there are many properties:</p>
-<pre><code class="language-cs">// Just imagine how many lines of code this would be the old way!
-public class MyFoo
-{
-    public string X { get; } = &quot;Foo&quot;;    
-    public int Y { get; } = 42;    
-    public decimal Z { get; } = 54m;
-    public object Key { get; } = new object{};
-    
-    // Other read/write props
-    public int Another { get; set; }
-    public bool Widgets { get; set; }
-}
-</code></pre>
-<h3 id="wrapup">Wrapup</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#75715e">// Same code as above in &#34;full&#34;:</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyFoo</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> <span style="color:#66d9ef">int</span> _y;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Y
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">get</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> _y;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };    
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    pubilc MyFoo()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        _y = <span style="color:#ae81ff">42</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The newer way is much more concise, especially when there are many properties:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#75715e">// Just imagine how many lines of code this would be the old way!</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyFoo</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> X { <span style="color:#66d9ef">get</span>; } = <span style="color:#e6db74">&#34;Foo&#34;</span>;    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Y { <span style="color:#66d9ef">get</span>; } = <span style="color:#ae81ff">42</span>;    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">decimal</span> Z { <span style="color:#66d9ef">get</span>; } = <span style="color:#ae81ff">54</span>m;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">object</span> Key { <span style="color:#66d9ef">get</span>; } = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>{};
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Other read/write props</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Another { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">bool</span> Widgets { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="wrapup">Wrapup</h3>
 <p>Object initialization had a major revamp in C# 6. How many of these do you use regularly? How many do you notice in your own code bases?  These have been around for a while so expect only to see more of it. Do yourself a favour and start using it if you haven&rsquo;t already. Very readability, much fewer keystrokes. Canonical? You betcha!</p>
 </section>
         

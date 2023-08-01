@@ -143,7 +143,7 @@
             <img class="post-image" src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ&amp;s=f65e1693556799db15c78c259fb0aee2"><p>It came up in a recent code review that we had a method that did stuff, then called a method that did stuff, that then called a method. Eventually, the last method in the chain bubbled back up and out.</p>
 <p>This is a bit of an anti-pattern in my eyes. Essentially you are coupling these methods (functions) together.</p>
 <p>As a quick diversion, let&rsquo;s look at the idea of layered architecture.</p>
-<pre><code>   UI
+<pre tabindex="0"><code>   UI
    |
    v
  Domain
@@ -153,11 +153,10 @@ DataAccess
    |
    v
 SqlServer
-</code></pre>
-<p>As we know, in this architecture we have coupled out UI indirectly to our database.  We know this is a bad design, and we use Dependency Inversion to solve it.</p>
+</code></pre><p>As we know, in this architecture we have coupled out UI indirectly to our database.  We know this is a bad design, and we use Dependency Inversion to solve it.</p>
 <p>Now we look at a code example as described above:
 (don&rsquo;t trust this code as correct, I wrote it without a compiler and made up a bunch of method names)</p>
-<pre><code>public List&lt;string&gt; GetList(string filter, OrderBy ordering)
+<pre tabindex="0"><code>public List&lt;string&gt; GetList(string filter, OrderBy ordering)
 {
     return BuildRequest(filter, ordering);
 }
@@ -165,8 +164,8 @@ SqlServer
 private List&lt;string&gt; BuildRequest(string filter, OrderBy ordering)
 {
     var request = new HttpRequest();
-    request.Url = $&quot;/list?filter={Escape(filter)}&amp;order=Map(ordering)&quot;;
-    request.Method = &quot;GET&quot;;
+    request.Url = $&#34;/list?filter={Escape(filter)}&amp;order=Map(ordering)&#34;;
+    request.Method = &#34;GET&#34;;
     request.Auth = LoadAuth(User.Guest);
     
     return GetResults(request);
@@ -187,14 +186,12 @@ private List&lt;string&gt; ParseResponse(HttpResponse response)
     
     return resultList;
 }
-</code></pre>
-<p>So what&rsquo;s the problem? Well like above with our layer dependency, we have method dependency.</p>
-<pre><code>GetList =&gt; BuildRequest =&gt; GetResults =&gt; ParseResponse
-</code></pre>
-<p>While this might seem fine to you perhaps, it means we can&rsquo;t actually test any of these methods in isolation. It may not seem like it would be that useful in this contrived example, but you can imagine cases where it might.</p>
+</code></pre><p>So what&rsquo;s the problem? Well like above with our layer dependency, we have method dependency.</p>
+<pre tabindex="0"><code>GetList =&gt; BuildRequest =&gt; GetResults =&gt; ParseResponse
+</code></pre><p>While this might seem fine to you perhaps, it means we can&rsquo;t actually test any of these methods in isolation. It may not seem like it would be that useful in this contrived example, but you can imagine cases where it might.</p>
 <p>For readability, it also makes it hard to see the structure of execution, because it is hidden in the implementation details.</p>
 <p>In contrast, let&rsquo;s flatten the structure and make our methods more like pure functions.</p>
-<pre><code>public List&lt;string&gt; GetList(string filter, OrderBy ordering)
+<pre tabindex="0"><code>public List&lt;string&gt; GetList(string filter, OrderBy ordering)
 {
     var request = BuildRequest(filter, ordering);
     var response = GetResponse(request);
@@ -206,8 +203,8 @@ private List&lt;string&gt; ParseResponse(HttpResponse response)
 private HttpRequest BuildRequest(string filter, OrderBy ordering)
 {
     var request = new HttpRequest();
-    request.Url = $&quot;/list?filter={Escape(filter)}&amp;order=Map(ordering)&quot;;
-    request.Method = &quot;GET&quot;;
+    request.Url = $&#34;/list?filter={Escape(filter)}&amp;order=Map(ordering)&#34;;
+    request.Method = &#34;GET&#34;;
     request.Auth = LoadAuth(User.Guest);
     
     return request;
@@ -228,8 +225,7 @@ private List&lt;string&gt; ParseResponse(HttpResponse response)
     
     return resultList;
 }
-</code></pre>
-<p>The only method that didn&rsquo;t change was the last one. But doesn&rsquo;t that already help readability?  From the top method, we can clearly see the workflow of the public method, without diving into the implementation details of each method.</p>
+</code></pre><p>The only method that didn&rsquo;t change was the last one. But doesn&rsquo;t that already help readability?  From the top method, we can clearly see the workflow of the public method, without diving into the implementation details of each method.</p>
 <p>As an added benefit, some of these methods are now more generic. We could reuse the <code>GetResponse</code> method in future public methods without modification. We could also potentially reuse <code>ParseResponse</code> with Generics as a minor modification if we wanted.</p>
 <p>Let&rsquo;s talk about a couple of the techniques I used above:</p>
 <h3 id="dont-mix-level-of-abstraction">Don&rsquo;t mix level of abstraction</h3>

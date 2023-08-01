@@ -32,9 +32,8 @@
 &lt;p&gt;Ok for playing around, but not sufficient, especially if you want to write custom &lt;a href=&#34;https://en.wikipedia.org/wiki/Intellectual_property&#34;&gt;IP&lt;/a&gt;, or start doing IO for instance.&lt;/p&gt;
 &lt;h3 id=&#34;why-not-docker&#34;&gt;Why not docker?&lt;/h3&gt;
 &lt;p&gt;On windows, I can build and run Rust on Docker, without installing Rust. Since I already have Docker installed, this is the fastest way to get going.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;docker run -it -v &amp;quot;$(pwd):/usr/src/myapp&amp;quot; -w /usr/src/myapp --rm rust:latest cargo test
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This PowerShell-compatible command launches and tests my application in docker. Breaking it down:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -it -v &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$(pwd)&lt;span style=&#34;color:#e6db74&#34;&gt;:/usr/src/myapp&amp;#34;&lt;/span&gt; -w /usr/src/myapp --rm rust&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;latest cargo test
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This PowerShell-compatible command launches and tests my application in docker. Breaking it down:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;docker run&lt;/code&gt; says we are executing a container from an image&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;-it&lt;/code&gt; specifies we want it to be an interactive session (show me the console logs)&lt;/li&gt;
@@ -55,39 +54,34 @@
 &lt;p&gt;In Rust, there is a tool called Cargo, which works a lot like &lt;code&gt;dotnet&lt;/code&gt; for C#.  There is also a compiler &lt;code&gt;rustc&lt;/code&gt; that will compile a single file. You could just run the above command with &lt;code&gt;rustc main.rs&lt;/code&gt; instead of &lt;code&gt;cargo test&lt;/code&gt; and it will build the &lt;code&gt;main.rs&lt;/code&gt; file from inside the container.&lt;/p&gt;
 &lt;p&gt;Instead, we will use cargo.&lt;/p&gt;
 &lt;p&gt;(As a caveat, we need to declare a &lt;code&gt;$USER&lt;/code&gt; environment variable for cargo new since this appears to be unset on this Docker container image.)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;mkdir rustroot
-cd rustroot
-docker run -e USER=MyUser -it -v &amp;quot;$(pwd):/usr/src&amp;quot; -w /usr/src --rm rust:latest cargo new --bin myApp
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If everything went well, you should now have a local file structure on your machine:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rustroot
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir rustroot
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd rustroot
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -e USER=MyUser -it -v &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$(pwd)&lt;span style=&#34;color:#e6db74&#34;&gt;:/usr/src&amp;#34;&lt;/span&gt; -w /usr/src --rm rust&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;latest cargo new --bin myApp
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If everything went well, you should now have a local file structure on your machine:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;rustroot
 +-- myApp
     |-- Cargo.toml
     +-- src
         \-- main.rs
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Let&amp;rsquo;s move into the newly created directory.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cd myApp
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;build-and-test&#34;&gt;build and test&lt;/h4&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s move into the newly created directory.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd myApp
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;build-and-test&#34;&gt;build and test&lt;/h4&gt;
 &lt;p&gt;From inside the &lt;code&gt;myApp&lt;/code&gt; folder, we can once again launch a docker instance to perform our build and test:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;docker run -it -v &amp;quot;$(pwd):/usr/src/myapp&amp;quot; -w /usr/src/myapp --rm rust:latest cargo test
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You should now see the following successful output:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;&amp;gt; docker run -it -v &amp;quot;$(pwd):/usr/src/myapp&amp;quot; -w /usr/src/myapp --rm rust:latest cargo test
-   Compiling myApp v0.1.0 (file:///usr/src/myapp)
-warning: crate `myApp` should have a snake case name such as `my_app`
-  |
-  = note: #[warn(non_snake_case)] on by default
-
-    Finished dev [unoptimized + debuginfo] target(s) in 1.4 secs
-     Running target/debug/deps/myApp-f7629208065f5316
-
-running 0 tests
-
-test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At some point, I had an error trying to run this a second time. I used &lt;code&gt;rm -r ./target&lt;/code&gt; to fix it, possibly because of some sort of locking? I&amp;rsquo;m not sure. All I knew at the time was that if I didn&amp;rsquo;t remove it, it didn&amp;rsquo;t build a second time. It seems to work fine now though. &lt;em&gt;shrug&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -it -v &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$(pwd)&lt;span style=&#34;color:#e6db74&#34;&gt;:/usr/src/myapp&amp;#34;&lt;/span&gt; -w /usr/src/myapp --rm rust&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;latest cargo test
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You should now see the following successful output:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; docker run -it -v &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;pwd&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;:/usr/src/myapp&amp;#34;&lt;/span&gt; -w /usr/src/myapp --rm rust:latest cargo test
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   Compiling myApp v0.1.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;file:///usr/src/myapp&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;warning: crate &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;myApp&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; should have a snake &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; name such as &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;my_app&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; note: &lt;span style=&#34;color:#75715e&#34;&gt;#[warn(non_snake_case)] on by default&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Finished dev &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;unoptimized + debuginfo&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; target&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;s&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; in 1.4 secs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     Running target/debug/deps/myApp-f7629208065f5316
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;running &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; tests
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;test result: ok. &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; passed; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; failed; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ignored; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; measured; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; filtered out
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;At some point, I had an error trying to run this a second time. I used &lt;code&gt;rm -r ./target&lt;/code&gt; to fix it, possibly because of some sort of locking? I&amp;rsquo;m not sure. All I knew at the time was that if I didn&amp;rsquo;t remove it, it didn&amp;rsquo;t build a second time. It seems to work fine now though. &lt;em&gt;shrug&lt;/em&gt;&lt;/p&gt;
 &lt;h3 id=&#34;the-end&#34;&gt;The End&lt;/h3&gt;
 &lt;p&gt;Long term I will still want to install a development environment for Rust, but to get going fast and for just learning the syntax and libraries, this is a nice quick way to get started. (And if you want to run a Rust workshop/lesson, it may be easier to get certain groups up and running if you know they already have docker - like your team at work, perhaps.)&lt;/p&gt;
 </description>

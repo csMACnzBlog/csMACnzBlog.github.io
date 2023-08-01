@@ -147,9 +147,8 @@
 <p>Ok for playing around, but not sufficient, especially if you want to write custom <a href="https://en.wikipedia.org/wiki/Intellectual_property">IP</a>, or start doing IO for instance.</p>
 <h3 id="why-not-docker">Why not docker?</h3>
 <p>On windows, I can build and run Rust on Docker, without installing Rust. Since I already have Docker installed, this is the fastest way to get going.</p>
-<pre><code class="language-powershell">docker run -it -v &quot;$(pwd):/usr/src/myapp&quot; -w /usr/src/myapp --rm rust:latest cargo test
-</code></pre>
-<p>This PowerShell-compatible command launches and tests my application in docker. Breaking it down:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker run -it -v <span style="color:#e6db74">&#34;</span>$(pwd)<span style="color:#e6db74">:/usr/src/myapp&#34;</span> -w /usr/src/myapp --rm rust<span style="color:#960050;background-color:#1e0010">:</span>latest cargo test
+</span></span></code></pre></div><p>This PowerShell-compatible command launches and tests my application in docker. Breaking it down:</p>
 <ul>
 <li><code>docker run</code> says we are executing a container from an image</li>
 <li><code>-it</code> specifies we want it to be an interactive session (show me the console logs)</li>
@@ -170,39 +169,34 @@
 <p>In Rust, there is a tool called Cargo, which works a lot like <code>dotnet</code> for C#.  There is also a compiler <code>rustc</code> that will compile a single file. You could just run the above command with <code>rustc main.rs</code> instead of <code>cargo test</code> and it will build the <code>main.rs</code> file from inside the container.</p>
 <p>Instead, we will use cargo.</p>
 <p>(As a caveat, we need to declare a <code>$USER</code> environment variable for cargo new since this appears to be unset on this Docker container image.)</p>
-<pre><code class="language-powershell">mkdir rustroot
-cd rustroot
-docker run -e USER=MyUser -it -v &quot;$(pwd):/usr/src&quot; -w /usr/src --rm rust:latest cargo new --bin myApp
-</code></pre>
-<p>If everything went well, you should now have a local file structure on your machine:</p>
-<pre><code>rustroot
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>mkdir rustroot
+</span></span><span style="display:flex;"><span>cd rustroot
+</span></span><span style="display:flex;"><span>docker run -e USER=MyUser -it -v <span style="color:#e6db74">&#34;</span>$(pwd)<span style="color:#e6db74">:/usr/src&#34;</span> -w /usr/src --rm rust<span style="color:#960050;background-color:#1e0010">:</span>latest cargo new --bin myApp
+</span></span></code></pre></div><p>If everything went well, you should now have a local file structure on your machine:</p>
+<pre tabindex="0"><code>rustroot
 +-- myApp
     |-- Cargo.toml
     +-- src
         \-- main.rs
-</code></pre>
-<p>Let&rsquo;s move into the newly created directory.</p>
-<pre><code>cd myApp
-</code></pre>
-<h4 id="build-and-test">build and test</h4>
+</code></pre><p>Let&rsquo;s move into the newly created directory.</p>
+<pre tabindex="0"><code>cd myApp
+</code></pre><h4 id="build-and-test">build and test</h4>
 <p>From inside the <code>myApp</code> folder, we can once again launch a docker instance to perform our build and test:</p>
-<pre><code class="language-powershell">docker run -it -v &quot;$(pwd):/usr/src/myapp&quot; -w /usr/src/myapp --rm rust:latest cargo test
-</code></pre>
-<p>You should now see the following successful output:</p>
-<pre><code class="language-bash">&gt; docker run -it -v &quot;$(pwd):/usr/src/myapp&quot; -w /usr/src/myapp --rm rust:latest cargo test
-   Compiling myApp v0.1.0 (file:///usr/src/myapp)
-warning: crate `myApp` should have a snake case name such as `my_app`
-  |
-  = note: #[warn(non_snake_case)] on by default
-
-    Finished dev [unoptimized + debuginfo] target(s) in 1.4 secs
-     Running target/debug/deps/myApp-f7629208065f5316
-
-running 0 tests
-
-test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
-</code></pre>
-<p>At some point, I had an error trying to run this a second time. I used <code>rm -r ./target</code> to fix it, possibly because of some sort of locking? I&rsquo;m not sure. All I knew at the time was that if I didn&rsquo;t remove it, it didn&rsquo;t build a second time. It seems to work fine now though. <em>shrug</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker run -it -v <span style="color:#e6db74">&#34;</span>$(pwd)<span style="color:#e6db74">:/usr/src/myapp&#34;</span> -w /usr/src/myapp --rm rust<span style="color:#960050;background-color:#1e0010">:</span>latest cargo test
+</span></span></code></pre></div><p>You should now see the following successful output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; docker run -it -v <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">:/usr/src/myapp&#34;</span> -w /usr/src/myapp --rm rust:latest cargo test
+</span></span><span style="display:flex;"><span>   Compiling myApp v0.1.0 <span style="color:#f92672">(</span>file:///usr/src/myapp<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>warning: crate <span style="color:#e6db74">`</span>myApp<span style="color:#e6db74">`</span> should have a snake <span style="color:#66d9ef">case</span> name such as <span style="color:#e6db74">`</span>my_app<span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>  |
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">=</span> note: <span style="color:#75715e">#[warn(non_snake_case)] on by default</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Finished dev <span style="color:#f92672">[</span>unoptimized + debuginfo<span style="color:#f92672">]</span> target<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> in 1.4 secs
+</span></span><span style="display:flex;"><span>     Running target/debug/deps/myApp-f7629208065f5316
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>running <span style="color:#ae81ff">0</span> tests
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test result: ok. <span style="color:#ae81ff">0</span> passed; <span style="color:#ae81ff">0</span> failed; <span style="color:#ae81ff">0</span> ignored; <span style="color:#ae81ff">0</span> measured; <span style="color:#ae81ff">0</span> filtered out
+</span></span></code></pre></div><p>At some point, I had an error trying to run this a second time. I used <code>rm -r ./target</code> to fix it, possibly because of some sort of locking? I&rsquo;m not sure. All I knew at the time was that if I didn&rsquo;t remove it, it didn&rsquo;t build a second time. It seems to work fine now though. <em>shrug</em></p>
 <h3 id="the-end">The End</h3>
 <p>Long term I will still want to install a development environment for Rust, but to get going fast and for just learning the syntax and libraries, this is a nice quick way to get started. (And if you want to run a Rust workshop/lesson, it may be easier to get certain groups up and running if you know they already have docker - like your team at work, perhaps.)</p>
 </section>

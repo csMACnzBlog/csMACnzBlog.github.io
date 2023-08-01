@@ -147,11 +147,10 @@
 </blockquote>
 <p>The canonical stack overflow question that (at the time of writing this) had no answer: <a href="https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou">https://stackoverflow.com/questions/67199546/why-am-i-getting-java-lang-assertionerror-built-in-class-kotlin-any-is-not-fou</a></p>
 <p>The repro was the simplest piece of code in the end. I was even able to point it at a teamcity class over my own (<code>Project</code>):</p>
-<pre><code>import kotlin.reflect.full.declaredMemberProperties
+<pre tabindex="0"><code>import kotlin.reflect.full.declaredMemberProperties
 
 val props = Project::class.declaredMemberProperties
-</code></pre>
-<p>(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)</p>
+</code></pre><p>(For reference, i tried a few version configurations, but they were mainly kotlin version 1.3.31 teamcity version 2019.2 and kotlin version 1.4.31 and teamcity version 202.2.2)</p>
 <p>At this point in time and with some further testing, I&rsquo;ve come to the conclusion that <strong>reflection just isn&rsquo;t supported on teamcity with Kotlin</strong>. I&rsquo;ve found one or two Issue links to back that up too: <a href="https://youtrack.jetbrains.com/issue/TW-59901">https://youtrack.jetbrains.com/issue/TW-59901</a></p>
 <p>(¬_¬ )</p>
 <p>If anyone else managed to find a solution that works, or if any future version adds the missing puzzle pieces that make this work, I would be greatful to hear.</p>

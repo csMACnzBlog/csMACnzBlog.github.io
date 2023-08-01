@@ -141,18 +141,17 @@
 <h3 id="sessionvariable">SessionVariable</h3>
 <p>It turns out that the command <code>Invoke-WebRequest</code> has an argument <code>-SessionVariable</code> where you can provide an object to store session state.  On subsequent requests, you can pass it along again using the argument <code>-WebSession</code>.</p>
 <p>So we know how to store the session, how do we post a form? Well, clearly you get the page with the form on it, then post that form back. If you have a proper classic HTML page with a <code>Form</code> on it, you can do a <code>GET</code> to that page and use it by filling it out and executing the provided command.</p>
-<pre><code>$myUrl = &quot;http://mydomain.url&quot;  
+<pre tabindex="0"><code>$myUrl = &#34;http://mydomain.url&#34;  
 
 $response = Invoke-WebRequest -Uri $myUrl -Method GET -SessionVariable mySession
 
 $form = $response.Forms[0]
-$form.Fields[&quot;username&quot;] = &quot;username&quot;
-$form.Fields[&quot;password&quot;] = &quot;password&quot;
+$form.Fields[&#34;username&#34;] = &#34;username&#34;
+$form.Fields[&#34;password&#34;] = &#34;password&#34;
 
 $response = Invoke-WebRequest -Uri ($myUrl + $form.Action) -WebSession $mySession -Method POST 
 $response.StatusDescription #should be OK
-</code></pre>
-<p>You may have to check exactly what format <code>$form.Action</code> takes to see if it is absolute or relative URL, or if it includes the domain or not.</p>
+</code></pre><p>You may have to check exactly what format <code>$form.Action</code> takes to see if it is absolute or relative URL, or if it includes the domain or not.</p>
 <p>Also, check what your form fields are called. I have a mistake in mine where the field was called <code>user</code> rather than <code>username</code> on one page.</p>
 <p>Note that in the first request when you use the <code>-SessionVariable</code> argument, you just provide the name of the variable, and not a variable itself. That is, use <code>mySession</code> rather than <code>$mySession</code>.</p>
 <p>If you complete this correctly you should have all the correct cookies passed around. This means that both:</p>
@@ -163,12 +162,10 @@ $response.StatusDescription #should be OK
 <h3 id="csrf">CSRF</h3>
 <p>Part two is that I had to parse out csrf. I am still not sure why the requests require the csrf token, probably because it&rsquo;s a <a href="samnewman.io/patterns/architectural/bff/">BFF</a> API.</p>
 <p>Luckily, the login form had a token in the original form, so I was able to just provide that in subsequent requests.</p>
-<pre><code>$payload = @{_csrf = $form.Fields[&quot;_csrf&quot;]; data = &quot;more data&quot;}
-</code></pre>
-<p>and then can just use the payload as normal:</p>
-<pre><code>$response = Invoke-WebRequest -Uri ($myUrl + $form.Action) -WebSession $mySession -Method POST -Body $payload
-</code></pre>
-<p>Of course, your mileage may vary. But this worked for me. The other option would have been to parse out the value from the page, from cookies, or actually, just fix the service to not need it I guess?</p>
+<pre tabindex="0"><code>$payload = @{_csrf = $form.Fields[&#34;_csrf&#34;]; data = &#34;more data&#34;}
+</code></pre><p>and then can just use the payload as normal:</p>
+<pre tabindex="0"><code>$response = Invoke-WebRequest -Uri ($myUrl + $form.Action) -WebSession $mySession -Method POST -Body $payload
+</code></pre><p>Of course, your mileage may vary. But this worked for me. The other option would have been to parse out the value from the page, from cookies, or actually, just fix the service to not need it I guess?</p>
 </section>
         
         <section class="share">

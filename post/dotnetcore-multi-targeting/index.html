@@ -158,14 +158,13 @@
 <p>Further reading can be found on the NuGet.org <a href="https://docs.nuget.org/create/targetframeworks">target frameworks</a> page.</p>
 <h3 id="setup">Setup</h3>
 <p>If you have been following the series right through, you should be able to follow what the next script does to set up our starting project:</p>
-<pre><code>mkdir mynewpackage
+<pre tabindex="0"><code>mkdir mynewpackage
 cd mynewpackage
 dotnet new -t Lib
 dotnet restore
 dotnet build
-</code></pre>
-<p>Like before, you may wish to replace <code>Library.cs</code> with a <code>Calculator</code> class.</p>
-<pre><code>namespace mynewpackage  
+</code></pre><p>Like before, you may wish to replace <code>Library.cs</code> with a <code>Calculator</code> class.</p>
+<pre tabindex="0"><code>namespace mynewpackage  
 {
     public class Calculator
     {
@@ -175,57 +174,52 @@ dotnet build
         }
     }
 }
-</code></pre>
-<p>One more:</p>
-<pre><code>dotnet build
-</code></pre>
-<h3 id="on-with-the-show">On with the show!</h3>
+</code></pre><p>One more:</p>
+<pre tabindex="0"><code>dotnet build
+</code></pre><h3 id="on-with-the-show">On with the show!</h3>
 <p>This all boils down to the <code>project.json</code> file. I&rsquo;ll probably come back and revisit this when that <a href="http://fizzylogic.nl/2016/05/11/project-json-is-going-away-and-it-s-a-good-thing/">finally goes away</a> but for now this is what you need to do.</p>
 <p>Starting with the initial <code>project.json</code> file:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;netstandard1.6&quot;: {
-      &quot;dependencies&quot;: {
-        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;netstandard1.6&#34;: {
+      &#34;dependencies&#34;: {
+        &#34;NETStandard.Library&#34;: &#34;1.6.0&#34;
       }
     }
   }
 }
-</code></pre>
-<p>Say we wanted to target <code>netstandard1.0</code> instead. It would be as simple as changing <code>&quot;netstandard1.6&quot;</code> to <code>&quot;netstandard1.0&quot;</code>.</p>
+</code></pre><p>Say we wanted to target <code>netstandard1.0</code> instead. It would be as simple as changing <code>&quot;netstandard1.6&quot;</code> to <code>&quot;netstandard1.0&quot;</code>.</p>
 <p>Using some examples might help here. Let&rsquo;s say we want to use some <code>netstandard1.6</code> features, if they are available. But we also want to be compatible with <code>netstandard1.0</code>, with limited functionality, or alternative features used.  We would do this to our <code>project.json</code>.</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;netstandard1.0&quot;: {
-      &quot;dependencies&quot;: {
-        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;netstandard1.0&#34;: {
+      &#34;dependencies&#34;: {
+        &#34;NETStandard.Library&#34;: &#34;1.6.0&#34;
       }
     },
-    &quot;netstandard1.6&quot;: {
-      &quot;dependencies&quot;: {
-        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+    &#34;netstandard1.6&#34;: {
+      &#34;dependencies&#34;: {
+        &#34;NETStandard.Library&#34;: &#34;1.6.0&#34;
       }
     }
   }
 }
-</code></pre>
-<p>By adding new frameworks, we can target multiple platforms. By default, a build with now build all the frameworks.</p>
+</code></pre><p>By adding new frameworks, we can target multiple platforms. By default, a build with now build all the frameworks.</p>
 <p>I mentioned in a previous article, <code>&quot;NETStandard.Library&quot;: &quot;1.6.0&quot;</code> is a Package, and version 1.6 actually contains the required parts for all <code>netstandard*</code> dependencies in the same package. So you don&rsquo;t change the version of this, even when we do change the <code>netstandard*</code> one.</p>
 <p>As whenever we change the <code>project.json</code> we run restore and build.</p>
-<pre><code>dotnet restore
+<pre tabindex="0"><code>dotnet restore
 dotnet build
-</code></pre>
-<pre><code>Project mynewpackage (.NETStandard,Version=v1.0) will be compiled because expected outputs are missing
+</code></pre><pre tabindex="0"><code>Project mynewpackage (.NETStandard,Version=v1.0) will be compiled because expected outputs are missing
 Compiling mynewpackage for .NETStandard,Version=v1.0
 
 Compilation succeeded.
@@ -243,9 +237,8 @@ Compilation succeeded.
     0 Error(s)
 
 Time elapsed 00:00:01.5280100
-</code></pre>
-<p>What does this do to our file tree?</p>
-<pre><code>mynewpackage
+</code></pre><p>What does this do to our file tree?</p>
+<pre tabindex="0"><code>mynewpackage
 |-- Library.cs
 |-- project.json
 |-- project.lock.json
@@ -259,60 +252,54 @@ Time elapsed 00:00:01.5280100
                |-- mynewpackage.deps.json
                |-- mynewpackage.dll
                +-- mynewpackage.pdb
-
-</code></pre>
-<p>We now have two target outputs, and two <code>dll</code> files, which target different frameworks.</p>
+</code></pre><p>We now have two target outputs, and two <code>dll</code> files, which target different frameworks.</p>
 <h3 id="dependencies">Dependencies</h3>
 <p>As we can see from the above, there are three places where we can put dependencies. I&rsquo;ve <a href="/dotnetcore-whats-in-the-box/#frameworksanddependencies">discussed this before</a>, but let&rsquo;s recap. If you put a dependency in the top level section, it will be available to all target frameworks. This means that it needs to contain a compatible target version to match every framework you have used.  If you want to use a dependency only for a specific target, or you want to use different dependencies depending on the target, these can go in <code>dependencies</code> under that specific framework.</p>
 <p>You might use this feature to include a bridging library against an older framework when the newer framework might contain it. An example of this is the <a href="https://www.nuget.org/packages/Microsoft.Bcl.Async/">Microsoft.Bcl.Async</a> package. Or you might want to use a full framework package when targeting <code>net40</code>, and a dotnet core package when targeting <code>netframework1.3</code>.</p>
 <h3 id="conditional-compilation">Conditional Compilation</h3>
 <p>If we are targeting different frameworks, we likely have to adjust the code as well. We do this using the <code>define</code> <code>buildOption</code>.</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;netstandard1.0&quot;: {
-      &quot;buildOptions&quot;: {
-        &quot;define&quot;: [&quot;netstandard&quot;]
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;netstandard1.0&#34;: {
+      &#34;buildOptions&#34;: {
+        &#34;define&#34;: [&#34;netstandard&#34;]
       },
-      &quot;dependencies&quot;: {
-        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      &#34;dependencies&#34;: {
+        &#34;NETStandard.Library&#34;: &#34;1.6.0&#34;
       }
     },
-    &quot;netstandard1.6&quot;: {
-      &quot;buildOptions&quot;: {
-        &quot;define&quot;: [&quot;netstandard&quot;]
+    &#34;netstandard1.6&#34;: {
+      &#34;buildOptions&#34;: {
+        &#34;define&#34;: [&#34;netstandard&#34;]
       },
-      &quot;dependencies&quot;: {
-        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      &#34;dependencies&#34;: {
+        &#34;NETStandard.Library&#34;: &#34;1.6.0&#34;
       }
     }
   }
 }
-</code></pre>
-<p>By defining <code>netstandard</code> above, we can include it as part of a conditional compile in our code:</p>
-<pre><code>#if netstandard
+</code></pre><p>By defining <code>netstandard</code> above, we can include it as part of a conditional compile in our code:</p>
+<pre tabindex="0"><code>#if netstandard
         //Extra code for netstandard
         var x = 0;
 #endif
-</code></pre>
-<p>Like before, if we add defines to the to <code>buildOption</code> section it will be defined for all targets. If we add it to a specific framework, it will only be defined when building against that target.</p>
+</code></pre><p>Like before, if we add defines to the to <code>buildOption</code> section it will be defined for all targets. If we add it to a specific framework, it will only be defined when building against that target.</p>
 <h3 id="packaging">Packaging</h3>
 <p>Packaging into a <code>nupkg</code> file works the same as before.</p>
-<pre><code>dotnet pack
-</code></pre>
-<pre><code>Project mynewpackage (.NETStandard,Version=v1.0) was previously compiled. Skipping compilation.
+<pre tabindex="0"><code>dotnet pack
+</code></pre><pre tabindex="0"><code>Project mynewpackage (.NETStandard,Version=v1.0) was previously compiled. Skipping compilation.
 Project mynewpackage (.NETStandard,Version=v1.6) was previously compiled. Skipping compilation.
-Producing nuget package &quot;mynewpackage.1.0.0&quot; for mynewpackage
+Producing nuget package &#34;mynewpackage.1.0.0&#34; for mynewpackage
 mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpackage.1.0.0.nupkg
-Producing nuget package &quot;mynewpackage.1.0.0.symbols&quot; for mynewpackage
+Producing nuget package &#34;mynewpackage.1.0.0.symbols&#34; for mynewpackage
 mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpackage.1.0.0.symbols.nupkg
-</code></pre>
-<p>And results in some new files:</p>
-<pre><code>mynewpackage
+</code></pre><p>And results in some new files:</p>
+<pre tabindex="0"><code>mynewpackage
 |-- Library.cs
 |-- project.json
 |-- project.lock.json
@@ -328,69 +315,64 @@ mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpacka
                |-- mynewpackage.deps.json
                |-- mynewpackage.dll
                +-- mynewpackage.pdb
-</code></pre>
-<p>Instead of getting a package per target, we get one package that contains both targets.</p>
-<pre><code>mynewpackage.1.0.0.nupkg  
+</code></pre><p>Instead of getting a package per target, we get one package that contains both targets.</p>
+<pre tabindex="0"><code>mynewpackage.1.0.0.nupkg  
 |-- mynewpackage.nuspec
 +-- lib
      +-- netstandard1.0
      |    +-- mynewpackage.dll
      +-- netstandard1.6
           +-- mynewpackage.dll
-</code></pre>
-<h3 id="a-sidenote-on-running">A sidenote on running</h3>
+</code></pre><h3 id="a-sidenote-on-running">A sidenote on running</h3>
 <p>You can also use multi-targeting on an application. When you want to run an application with multiple targets, you can use the <code>dotnet run</code> command with the <code>-f</code> flag.</p>
-<pre><code>dotnet run -f netcoreapp1.0
-</code></pre>
-<p>Of course, <code>netcoreapp1.0</code> is the application target for the .Net Core runtime, compared to using <code>net45</code> perhaps to target .Net 4.5 runtime instead.</p>
+<pre tabindex="0"><code>dotnet run -f netcoreapp1.0
+</code></pre><p>Of course, <code>netcoreapp1.0</code> is the application target for the .Net Core runtime, compared to using <code>net45</code> perhaps to target .Net 4.5 runtime instead.</p>
 <h3 id="net40">net40</h3>
 <p>The target <code>netstandard1.0</code> is compatible with .Net 4.5 and newer, UWP apps, Windows 8 &amp; Windows Phone 8 or newer, Mono and Xamarin, and of course new .Net Core applications.  But we all know that there are a ton of applications out there targeting .Net 4.0, and even .Net 3.5 that we still maintain and support that we might want our library packages to target.</p>
 <p>So we can easily target net40 and net35 as well.</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;net35&quot;: {
-      &quot;buildOptions&quot;: {
-        &quot;define&quot;: [&quot;net35&quot;]
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;net35&#34;: {
+      &#34;buildOptions&#34;: {
+        &#34;define&#34;: [&#34;net35&#34;]
       },
-      &quot;dependencies&quot;: {
+      &#34;dependencies&#34;: {
       }
     },
-    &quot;net40&quot;: {
-      &quot;buildOptions&quot;: {
-        &quot;define&quot;: [&quot;net40&quot;]
+    &#34;net40&#34;: {
+      &#34;buildOptions&#34;: {
+        &#34;define&#34;: [&#34;net40&#34;]
       },
-      &quot;dependencies&quot;: {
+      &#34;dependencies&#34;: {
       }
     },
-    &quot;netstandard1.0&quot;: {
-      &quot;buildOptions&quot;: {
-        &quot;define&quot;: [&quot;netstandard&quot;]
+    &#34;netstandard1.0&#34;: {
+      &#34;buildOptions&#34;: {
+        &#34;define&#34;: [&#34;netstandard&#34;]
       },
-      &quot;dependencies&quot;: {
-        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      &#34;dependencies&#34;: {
+        &#34;NETStandard.Library&#34;: &#34;1.6.0&#34;
       }
     },
-    &quot;netstandard1.6&quot;: {
-      &quot;buildOptions&quot;: {
-        &quot;define&quot;: [&quot;netstandard&quot;]
+    &#34;netstandard1.6&#34;: {
+      &#34;buildOptions&#34;: {
+        &#34;define&#34;: [&#34;netstandard&#34;]
       },
-      &quot;dependencies&quot;: {
-        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+      &#34;dependencies&#34;: {
+        &#34;NETStandard.Library&#34;: &#34;1.6.0&#34;
       }
     }
   }
 }
-</code></pre>
-<p>This simple library doesn&rsquo;t need anything outside the standard library, bu if it did, we would add in target-specific packages and libraries to the <code>net35</code> and <code>net40</code> targets as well.</p>
-<pre><code>dotnet restore
+</code></pre><p>This simple library doesn&rsquo;t need anything outside the standard library, bu if it did, we would add in target-specific packages and libraries to the <code>net35</code> and <code>net40</code> targets as well.</p>
+<pre tabindex="0"><code>dotnet restore
 dotnet build
-</code></pre>
-<pre><code>Project mynewpackage (.NETFramework,Version=v3.5) will be compiled because expected outputs are missing
+</code></pre><pre tabindex="0"><code>Project mynewpackage (.NETFramework,Version=v3.5) will be compiled because expected outputs are missing
 Compiling mynewpackage for .NETFramework,Version=v3.5
 
 Compilation succeeded.
@@ -428,21 +410,18 @@ Compilation succeeded.
     0 Error(s)
 
 Time elapsed 00:00:01.0806550
-</code></pre>
-<p>We can pack this.</p>
-<pre><code>dotnet pack
-</code></pre>
-<pre><code>Project mynewpackage (.NETFramework,Version=v3.5) was previously compiled. Skipping compilation.
+</code></pre><p>We can pack this.</p>
+<pre tabindex="0"><code>dotnet pack
+</code></pre><pre tabindex="0"><code>Project mynewpackage (.NETFramework,Version=v3.5) was previously compiled. Skipping compilation.
 Project mynewpackage (.NETFramework,Version=v4.0) was previously compiled. Skipping compilation.
 Project mynewpackage (.NETStandard,Version=v1.0) was previously compiled. Skipping compilation.
 Project mynewpackage (.NETStandard,Version=v1.6) was previously compiled. Skipping compilation.
-Producing nuget package &quot;mynewpackage.1.0.0&quot; for mynewpackage
+Producing nuget package &#34;mynewpackage.1.0.0&#34; for mynewpackage
 mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpackage.1.0.0.nupkg
-Producing nuget package &quot;mynewpackage.1.0.0.symbols&quot; for mynewpackage
+Producing nuget package &#34;mynewpackage.1.0.0.symbols&#34; for mynewpackage
 mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpackage.1.0.0.symbols.nupkg
-</code></pre>
-<p>Then we will get:</p>
-<pre><code>mynewpackage
+</code></pre><p>Then we will get:</p>
+<pre tabindex="0"><code>mynewpackage
 |-- Library.cs
 |-- project.json
 |-- project.lock.json
@@ -464,9 +443,8 @@ mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpacka
                |-- mynewpackage.deps.json
                |-- mynewpackage.dll
                +-- mynewpackage.pdb
-</code></pre>
-<p>And:</p>
-<pre><code>mynewpackage.1.0.0.nupkg  
+</code></pre><p>And:</p>
+<pre tabindex="0"><code>mynewpackage.1.0.0.nupkg  
 |-- mynewpackage.nuspec
 +-- lib
      +-- net35
@@ -477,8 +455,7 @@ mynewpackage -&gt; C:\dev\temp\multitargetting\mynewpackage\bin\Debug\mynewpacka
      |    +-- mynewpackage.dll
      +-- netstandard1.6
           +-- mynewpackage.dll
-</code></pre>
-<h3 id="whats-left">What&rsquo;s Left?</h3>
+</code></pre><h3 id="whats-left">What&rsquo;s Left?</h3>
 <p>That should give you a reasonable (albeit simple) overview of multi-targeting libraries.  The last focus is on applications, and how we publish and distribute these using the dotnet CLI tools.  Up Next!</p>
 </section>
         

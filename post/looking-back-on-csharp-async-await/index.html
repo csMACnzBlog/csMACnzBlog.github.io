@@ -148,49 +148,47 @@
 <p>The foundation of how it all works rests on the shoulders of a Library, the Task Parallel Library, or TPL. Tasks have been around since 2010 and were part of the .Net 4 Framework. Similar to what <a href="https://developers.google.com/web/fundamentals/primers/promises">Promises provide in javascript</a>, this library allowed a logical chain of execution across waiting for blocking or longrunning execution while releasing the UI thread from being blocked. This was the introduction of <code>TaskFactory</code> and <code>Task</code>, in a fairly similar form to what we have today.  This was a huge improvement from the days of callback chaining because it reduced heavy nesting of lambdas into more of a linear pipeline and a clear place for error handling to take place.</p>
 <p>When C# 5 introduced async/await as a first-class language feature, it was able to leverage the library and extend on it to give us more readable code. It even handled Exceptions by throwing them in the place where <code>await</code> appeared, making <code>try/catch</code> blocks useful in asynchronous code.</p>
 <p>What does async/await look like in C# 5?</p>
-<pre><code class="language-cs">// A classic synchronous method
-public string MakeAWebRequest(Uri uri)
-{
-    // WebClient has synchronous methods, but it is recommended to use HttpClient for newer apps
-    var client = new WebClient();
-    return client.DownloadString(uri);
-}
-
-// It's async younger brother
-public async Task&lt;string&gt; MakeAWebRequestAsync(Uri uri)
-{
-    // I use WebClient again for better comparing. Use HttpClient!
-    var client = new WebClient();
-    return await client.DownloadStringAsync(uri);
-}
-</code></pre>
-<p>There are two distinctive features in this comparison. The return type is wrapped in a <code>Task&lt;T&gt;</code>, and there is a keyword <code>async</code> on the method signature with <code>await</code> beside method calls that return <code>Task&lt;T&gt;</code> results. Otherwise, the linear execution flow is largely unchanged.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#75715e">// A classic synchronous method</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> MakeAWebRequest(Uri uri)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// WebClient has synchronous methods, but it is recommended to use HttpClient for newer apps</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> client = <span style="color:#66d9ef">new</span> WebClient();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> client.DownloadString(uri);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// It&#39;s async younger brother</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;<span style="color:#66d9ef">string</span>&gt; MakeAWebRequestAsync(Uri uri)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// I use WebClient again for better comparing. Use HttpClient!</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> client = <span style="color:#66d9ef">new</span> WebClient();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> client.DownloadStringAsync(uri);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There are two distinctive features in this comparison. The return type is wrapped in a <code>Task&lt;T&gt;</code>, and there is a keyword <code>async</code> on the method signature with <code>await</code> beside method calls that return <code>Task&lt;T&gt;</code> results. Otherwise, the linear execution flow is largely unchanged.</p>
 <p>You can easily use the return type without the keywords. In this case, the code works and operates as normal, passing object references around without any async state. The result object captures the state required for the caller to do the asynchronous work in the future, or respond to its completion.  However, if you do use <code>async</code> and <code>await</code>, then you should always return either <code>Task</code> (where usually returns void) or <code>Task&lt;T&gt;</code> (where usually returns T). (In my opinion, there are no reasons left to ever do async without Task - there used to be but not anymore.)</p>
 <p>Now we have that out of the way, let&rsquo;s move forward to C# 6 and beyond!</p>
 <h2 id="async-and-exceptions">Async and Exceptions</h2>
 <p>Exception handling was a big part of this feature on day one. You could simply wrap your async calls in a <code>try{}catch{}</code> and it would work as you would expect it to. The task you are awaiting throws an Exception, your catch triggers.</p>
 <p>But initially, this did not work inside the catch or finally blocks in any expected way. In fact, it caused a compiler error. In C# 6 await in <code>catch</code>/<code>finally</code> blocks were given proper compiler support to do the right thing.</p>
 <p>Using the example from <a href="https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6#await-in-catch-and-finally-blocks">The new language feature docs</a> directly:</p>
-<pre><code class="language-cs">Resource res = null;
-try
-{
-    res = await Resource.OpenAsync(…);       // You could do this.
-    …
-} 
-catch(ResourceException e)
-{
-    await Resource.LogAsync(res, e);         // Now you can do this …
-}
-finally
-{
-    if (res != null) await res.CloseAsync(); // … and this.
-}
-</code></pre>
-<h2 id="async-and-console-apps">Async and Console Apps</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>Resource res = <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    res = <span style="color:#66d9ef">await</span> Resource.OpenAsync(<span style="color:#960050;background-color:#1e0010">…</span>);       <span style="color:#75715e">// You could do this.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">…</span>
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">catch</span>(ResourceException e)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> Resource.LogAsync(res, e);         <span style="color:#75715e">// Now you can do this …</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">finally</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (res != <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">await</span> res.CloseAsync(); <span style="color:#75715e">// … and this.</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="async-and-console-apps">Async and Console Apps</h2>
 <p>The language version was C# 7. We had async everywhere, and the <code>NetStandard</code>s and Frameworks were full of async API calls and interfaces. It was a contagious thing, and you really had to jump through hoops to try <a href="https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">to call a red function from a blue one</a>.</p>
 <p>And then there was main. That pesky little entry point into your application. The one the compiler generates for you that kicks off all of the application execution. The one that had to call into your top-most async method to <code>RunAsync</code>. And it had to be <code>public static void Main(string[] args)</code> or <code>public static int Main()</code>. That is not an async method.</p>
 <p>Luckily, with the first ever minor language update, C# 7.1, we were given the mighty and powerful async main!</p>
-<pre><code>// You can finaly use Task&lt;int&gt;!
+<pre tabindex="0"><code>// You can finaly use Task&lt;int&gt;!
 public static async Task&lt;int&gt; Main()
 {
 ...
@@ -201,12 +199,10 @@ public static async Task Main()
 {
 ...
 }
-
-</code></pre>
-<h2 id="async-and-tests">Async and Tests</h2>
+</code></pre><h2 id="async-and-tests">Async and Tests</h2>
 <p>We have a tonne of async methods in our system. But we should also be testing that code.  And our testing frameworks were synchronous.</p>
 <p>Luckily our testing frameworks have finally caught up, and with XUnit we can write tests that return Task and are async<code>, and we also have the </code>IAsyncLifetime` interface.</p>
-<pre><code>// This is what we had to do to test async
+<pre tabindex="0"><code>// This is what we had to do to test async
 public class MyTestCase
 {
     private readonly MyClass _systemUnderTest;
@@ -226,39 +222,37 @@ public class MyTestCase
         Assert.True(result);
     }
 }
-</code></pre>
-<p>Using <code>Task.Run</code> and <code>GetAwaiter</code> or other synchronising methods can be very error-prone, and <a href="https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html#preventing-the-deadlock">prone to deadlocks</a>. Avoiding these is the best approach always (though still not always avoidable).</p>
-<pre><code class="language-cs">The best way to tet with async
-public class MyTestCase : IAsyncLifetime
-{
-    private readonly MyClass _systemUnderTest;
-
-    public MyTestCase()
-    {
-        _systemUnderTest = MyClass();
-    }
-    
-    public async Task InitializeAsync()
-    {
-        await _systemUnderTest.Init();
-    }
-
-
-    public Task DisposeAsync()
-    {
-        return Task.CompletedTask;
-    }
-
-    public async Task CanRunSuccessfully()
-    {
-   
-        var result = await _systemUnderTest.Run();
-        
-        Assert.True(result);
-    }
-}
-</code></pre>
-<p>I&rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.</p>
+</code></pre><p>Using <code>Task.Run</code> and <code>GetAwaiter</code> or other synchronising methods can be very error-prone, and <a href="https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html#preventing-the-deadlock">prone to deadlocks</a>. Avoiding these is the best approach always (though still not always avoidable).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>The best way to tet with <span style="color:#66d9ef">async</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTestCase</span> : IAsyncLifetime
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> MyClass _systemUnderTest;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> MyTestCase()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        _systemUnderTest = MyClass();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task InitializeAsync()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> _systemUnderTest.Init();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Task DisposeAsync()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Task.CompletedTask;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task CanRunSuccessfully()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> result = <span style="color:#66d9ef">await</span> _systemUnderTest.Run();
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        Assert.True(result);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I&rsquo;m not sure if other test runners are able to handle async as well as XUnit does, so I always just use XUnit.</p>
 <h2 id="valuetask">ValueTask</h2>
 <p>The original implementation of the async/await language feature was strongly tied to the <code>Task</code> and `Task<T> types.</p>
 <p>In C# 7, the language feature was enhanced, similar to other features, to use a pattern based on method signatures (like the <a href="/looking-back-on-csharp6-initializers/">Add for the initialiser syntax</a>). Specifically, the <code>GetAwaiter</code> method must be available on the type used with the <code>await</code> keyword.</p>

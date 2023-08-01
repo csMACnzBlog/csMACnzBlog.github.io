@@ -68,41 +68,37 @@
 &lt;p&gt;&lt;img src=&#34;http://res.cloudinary.com/csmacnz/image/upload/c_scale,w_600/v1534489912/TogglExport_wzkiix.png&#34; alt=&#34;Export Toggl Report data using detailed.&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Make sure that you are Exporting a Detailed report. Your file will be named like &amp;ldquo;Toggl_time_entries_2016-01-01_to_2016-12-31.csv&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;The format of this file should be like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;User,Email,Client,Project,Task,Description,Billable,Start date,Start time,End date,End time,Duration,Tags,Amount ()
-First Last,first.last@email.address,,,,&amp;quot;&amp;quot;,No,2016-05-04,10:00:00,2016-05-04,13:00:00,03:00:00,,
-First Last,first.last@email.address,,,,&amp;quot;&amp;quot;,No,2016-05-04,14:00:00,2016-05-04,16:00:00,02:00:00,,
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In theory, anyone could create a CSV in this format and this tool will work just fine for them too. I only use the &lt;code&gt;Start date,Start time,End date,End time,Duration&lt;/code&gt; fields anyway.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;User,Email,Client,Project,Task,Description,Billable,Start date,Start time,End date,End time,Duration,Tags,Amount ()
+First Last,first.last@email.address,,,,&amp;#34;&amp;#34;,No,2016-05-04,10:00:00,2016-05-04,13:00:00,03:00:00,,
+First Last,first.last@email.address,,,,&amp;#34;&amp;#34;,No,2016-05-04,14:00:00,2016-05-04,16:00:00,02:00:00,,
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In theory, anyone could create a CSV in this format and this tool will work just fine for them too. I only use the &lt;code&gt;Start date,Start time,End date,End time,Duration&lt;/code&gt; fields anyway.&lt;/p&gt;
 &lt;h4 id=&#34;process-the-data&#34;&gt;Process the data&lt;/h4&gt;
 &lt;p&gt;Now that I have a local CSV file, I can process it through my application.&lt;/p&gt;
 &lt;p&gt;I have made this available as a dotnet tool, so you can easily install it globally and run it from anywhere.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;# install globally
-dotnet tool install -g TogglHeatmap
-
-# if installed globally, this should just be available on your path
-TogglHeatmap &amp;lt;args&amp;gt;
-
-# install into a local folder
-dotnet tool install TogglHeatmap --tools-path tools
-
-# if installed into a tools path, you can run it from there.
-.\tools\TogglHeatmap &amp;lt;args&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For those new to tools, there is also an update option if newer versions come available, as well as a version parameter if you require a specific version:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;dotnet tool install -g TogglHeatmap --version 1.0.0
-# update doesn&#39;t support version but instead gets the latest
-dotnet tool update -g TogglHeatmap
-# to replace with a specific version, first uninstall, then install with specific version required specified.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At this stage, the args for the application are as follows (subject to change, check &lt;code&gt;TogglHeatmap --help&lt;/code&gt; for latest):&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;# Start and End dates
-TogglHeatmap dataFile.csv 2018-01-01 2018-06-01
-
-# Start and week count
-TogglHeatmap dataFile.csv 2018-01-01 26
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This should produce a nice report of numbers to the console output:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;gt; TogglHeatmap Toggl_time_entries_2017-08-15_to_2018-08-15.csv 2018-1-1 2018-08-15
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# install globally
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet tool install -g TogglHeatmap
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# if installed globally, this should just be available on your path
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;TogglHeatmap &amp;lt;args&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# install into a local folder
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet tool install TogglHeatmap --tools-path tools
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# if installed into a tools path, you can run it from there.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.\tools\TogglHeatmap &amp;lt;args&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For those new to tools, there is also an update option if newer versions come available, as well as a version parameter if you require a specific version:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet tool install -g TogglHeatmap --version 1.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# update doesn&amp;#39;t support version but instead gets the latest
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet tool update -g TogglHeatmap
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# to replace with a specific version, first uninstall, then install with specific version required specified.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;At this stage, the args for the application are as follows (subject to change, check &lt;code&gt;TogglHeatmap --help&lt;/code&gt; for latest):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# Start and End dates
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;TogglHeatmap dataFile.csv 2018-01-01 2018-06-01
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# Start and week count
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;TogglHeatmap dataFile.csv 2018-01-01 26
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This should produce a nice report of numbers to the console output:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt; TogglHeatmap Toggl_time_entries_2017-08-15_to_2018-08-15.csv 2018-1-1 2018-08-15
 Data from 1/1/18 0:00:00 to 15/8/18 0:00:00
 First day: Monday
 Number of weeks: 32
@@ -159,8 +155,7 @@ Time,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
 ----
 
 Copy the data above into a CSV file to make it pretty in a spreadsheet
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We have our heatmap data, and we can copy and save it to a CSV file. Now we can do whatever makes sense to us to present it.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We have our heatmap data, and we can copy and save it to a CSV file. Now we can do whatever makes sense to us to present it.&lt;/p&gt;
 &lt;h4 id=&#34;spreadsheet-ui&#34;&gt;Spreadsheet UI&lt;/h4&gt;
 &lt;p&gt;For instance, you may want to pull it into a Google Sheet. This should be similar for Excel if that is your office suite of choice instead.&lt;/p&gt;
 &lt;p&gt;First, create a new Sheet.&lt;/p&gt;
@@ -217,7 +212,7 @@ Copy the data above into a CSV file to make it pretty in a spreadsheet
 &lt;h3 id=&#34;show-me-the-code&#34;&gt;Show me the code!&lt;/h3&gt;
 &lt;h4 id=&#34;optiont&#34;&gt;Option&lt;T&gt;&lt;/h4&gt;
 &lt;p&gt;As a simple example you may have a method like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;public string Modify(string first, string second)
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public string Modify(string first, string second)
 {
     if (first == null)
     {
@@ -229,41 +224,38 @@ Copy the data above into a CSV file to make it pretty in a spreadsheet
     }
     return first + second;
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Typical code. A bit of error checking, and some switch logic based on an optional argument.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Typical code. A bit of error checking, and some switch logic based on an optional argument.&lt;/p&gt;
 &lt;p&gt;I don&amp;rsquo;t know about you, but it is hard for me to know that &lt;code&gt;first&lt;/code&gt; is required, but &lt;code&gt;second&lt;/code&gt; is optional. At least not without comments, or a thorough inspection of the code. Shouldn&amp;rsquo;t the signature tell me this? (C# 8 says it will.)&lt;/p&gt;
 &lt;p&gt;Lets take a look at this using Beefeater:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;public Option&amp;lt;string&amp;gt; Modify(NotNull&amp;lt;string&amp;gt; first, Option&amp;lt;string&amp;gt; second)
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public Option&amp;lt;string&amp;gt; Modify(NotNull&amp;lt;string&amp;gt; first, Option&amp;lt;string&amp;gt; second)
 {
     return second.Match(
         v =&amp;gt; first + v,
         () =&amp;gt; Option&amp;lt;string&amp;gt;.None);
 }
 
-var x = Modify(&amp;quot;Hello&amp;quot;, &amp;quot;World&amp;quot;);
-var y = Modify(&amp;quot;Hello&amp;quot;, null);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;That is very clean to me. First, the signature tells us everything we need to know.&lt;/p&gt;
+var x = Modify(&amp;#34;Hello&amp;#34;, &amp;#34;World&amp;#34;);
+var y = Modify(&amp;#34;Hello&amp;#34;, null);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;That is very clean to me. First, the signature tells us everything we need to know.&lt;/p&gt;
 &lt;p&gt;And when we look at the calling syntax, it is seamless. it works exactly as you expect. With one difference.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; in the example are both &lt;code&gt;Option&amp;lt;string&amp;gt;&lt;/code&gt; type. This means you cannot pass this to a method that requires &lt;code&gt;NotNull&amp;lt;string&amp;gt;&lt;/code&gt;, or even &lt;code&gt;string&lt;/code&gt; itself.&lt;/p&gt;
 &lt;p&gt;Why? Well, clearly you have no idea if that result is safe. You know it is either a Nothing or a non-null string. (Is it both?  Schrodinger&amp;rsquo;s &lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt;?)&lt;/p&gt;
 &lt;p&gt;The only sensible thing to do is to check, right? It would be unsafe not to.  Thus the value of the library is revealed.&lt;/p&gt;
 &lt;p&gt;That check can use the &lt;code&gt;Match&lt;/code&gt; method, too.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;var x = Modify(&amp;quot;Hello&amp;quot;, &amp;quot;World&amp;quot;);
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var x = Modify(&amp;#34;Hello&amp;#34;, &amp;#34;World&amp;#34;);
 
 var outputMessage = x.Match(
-  some: value =&amp;gt; $&amp;quot;The result is {value}&amp;quot;,
-  none: () =&amp;gt; &amp;quot;There wasn&#39;t anything to report&amp;quot;);
+  some: value =&amp;gt; $&amp;#34;The result is {value}&amp;#34;,
+  none: () =&amp;gt; &amp;#34;There wasn&amp;#39;t anything to report&amp;#34;);
 
 Console.WriteLine(outputMessage);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Your code will start to become very functional, but you will also get compile-type checks to ensure you are handling error cases correctly.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Your code will start to become very functional, but you will also get compile-type checks to ensure you are handling error cases correctly.&lt;/p&gt;
 &lt;p&gt;If you really want to live dangerously, though, there is an explicit cast back to the original type, that will throw a &lt;code&gt;PanicException&lt;/code&gt;. This is basically the library equivalent to the &lt;code&gt;NullReferenceException&lt;/code&gt;, but should normally throw earlier in your code when the Null is first observed, rather than late at dereference.&lt;/p&gt;
 &lt;p&gt;Much like async/await, this library is contagious and will ripple through your code, just FYI.&lt;/p&gt;
 &lt;h4 id=&#34;resulttvalue-terror&#34;&gt;Result&amp;lt;TValue, TError&amp;gt;&lt;/h4&gt;
 &lt;p&gt;Apart from &lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt;, the other most useful is the &lt;code&gt;Result&amp;lt;TValue, TError&amp;gt;&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Again, you might have written:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;public bool Create(string filePath, string second)
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public bool Create(string filePath, string second)
 {
     if (filePath == null)
     {
@@ -282,11 +274,10 @@ Console.WriteLine(outputMessage);
     }
     return true;
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Again, a little cruft. Optionality unclear. But there is more.  This method can and will throw a bunch of exceptions. FileNotFound, UnauthorizedAccess, and others. Your calling code is either going to handle many exceptions, or the app will crash. We could put the logic into the method, and the code would get complex. But how do we handle the return? returns &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; or Throws exception, how do you translate that into a concise return type of &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; or FileNotFound or Unauthorized or Other?&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Again, a little cruft. Optionality unclear. But there is more.  This method can and will throw a bunch of exceptions. FileNotFound, UnauthorizedAccess, and others. Your calling code is either going to handle many exceptions, or the app will crash. We could put the logic into the method, and the code would get complex. But how do we handle the return? returns &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; or Throws exception, how do you translate that into a concise return type of &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; or FileNotFound or Unauthorized or Other?&lt;/p&gt;
 &lt;p&gt;Beefeater says like this:
 (Rust too, actually&amp;hellip;)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;public enum ErrorResult
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public enum ErrorResult
 {
     UnknownError,
     FileNotFound,
@@ -325,33 +316,31 @@ public Result&amp;lt;bool, ErrorResult&amp;gt; Create(NotNull&amp;lt;string&amp;
             () =&amp;gt; false);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To me, the business logic is very easy to read from this code. Again the signature is clear what to expect and how to use the result.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;var result = Create(&amp;quot;myfile.txt&amp;quot;, someVar);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To me, the business logic is very easy to read from this code. Again the signature is clear what to expect and how to use the result.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var result = Create(&amp;#34;myfile.txt&amp;#34;, someVar);
 var outputMessage = result.Match(
   isCreated =&amp;gt; isCreated
-    ? &amp;quot;The file was created with someVar&amp;quot;
-    : &amp;quot;The file was not created because someVar&amp;quot;,
+    ? &amp;#34;The file was created with someVar&amp;#34;
+    : &amp;#34;The file was not created because someVar&amp;#34;,
   error =&amp;gt; 
   {
       switch(error)
       {
           case FileNotFound:
-              return &amp;quot;File Not Found&amp;quot;;
+              return &amp;#34;File Not Found&amp;#34;;
           case Unauthorized:
-              return &amp;quot;The file is secure and you can&#39;t get it.&amp;quot;;
+              return &amp;#34;The file is secure and you can&amp;#39;t get it.&amp;#34;;
           case UnknownError:
           default:
-              return &amp;quot;An unknown Error occurred&amp;quot;;
+              return &amp;#34;An unknown Error occurred&amp;#34;;
       }
   });
 
 Console.WriteLine(outputMessage);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Just like that, every code-branch/edge-case has to be covered, or it will not compile. (Enum notwithstanding.)&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Just like that, every code-branch/edge-case has to be covered, or it will not compile. (Enum notwithstanding.)&lt;/p&gt;
 &lt;h4 id=&#34;either&#34;&gt;Either&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;Either&amp;lt;T1, T2&amp;gt;&lt;/code&gt; is very similar to Result, except the semantic meaning differs. It allows a method to return either one type or another type.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;public Either&amp;lt;long, double&amp;gt; DivideByTwo(int aNumber)
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public Either&amp;lt;long, double&amp;gt; DivideByTwo(int aNumber)
 {
     if (aNumber % 2 == 0)
         return aNumber / 2;
@@ -360,15 +349,13 @@ Console.WriteLine(outputMessage);
 
 var x = DivideByTwo(10);
 var x = DivideByTwo(5);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;recursion&#34;&gt;Recursion?&lt;/h4&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;recursion&#34;&gt;Recursion?&lt;/h4&gt;
 &lt;p&gt;You could even nest these things:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Either&amp;lt;Option&amp;lt;string&amp;gt;, NotNull&amp;lt;int&amp;gt;&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Either&amp;lt;Option&amp;lt;string&amp;gt;, NotNull&amp;lt;int&amp;gt;&amp;gt;
 Option&amp;lt;Either&amp;lt;Foo, Bar&amp;gt;&amp;gt;
 Result&amp;lt;Option&amp;lt;string&amp;gt;,CustomError&amp;gt;
 Result&amp;lt;Unit,string&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Different combinations will provide different value in different situations.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Different combinations will provide different value in different situations.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Unit&lt;/code&gt;? Yeah. When you go functional, representing &lt;code&gt;void&lt;/code&gt; as a type is much helpful. I have another library where I get my Unit from, but there are literally dozens on Nuget.&lt;/p&gt;
 &lt;h3 id=&#34;c-8&#34;&gt;C# 8&lt;/h3&gt;
 &lt;p&gt;I&amp;rsquo;ve hung a lot of stuff on C# 8 in this article. At some point, I should cover what is coming (though at this stage nothing is certain). Basically, though, this library has been hanging around for a while, before nullable reference types was even being discussed publicly. So whether nullable reference types happens in 8, 8.1 or C# 9, this library is here today and can get you started thinking about different states of optionality in your code today.&lt;/p&gt;
@@ -393,7 +380,7 @@ Result&amp;lt;Unit,string&amp;gt;
 &lt;p&gt;While development has been a slow work of labour over the last three years, the announcement of dotnet CLI tools (proper npm-style tools, not the weird interim dotnet-tool stuff&amp;hellip;) with dotnet SDK 2.1, I had to jump in and get on board.&lt;/p&gt;
 &lt;h3 id=&#34;announcing-100&#34;&gt;Announcing 1.0.0&lt;/h3&gt;
 &lt;p&gt;Which brings me to announcing Coveralls.Net 1.0.0. This is a dotnet CLI tools compatible version of &lt;code&gt;csmacnz.Coveralls&lt;/code&gt;. Easier to install. Easier to update. And a whole bunch new features, including more coverage options, and better autodetection processes in AppVeyor.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# install globally
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# install globally
 dotnet tool install -g coveralls.net --version 1.0.0
 
 # if installed globally, this should just be available on your path
@@ -404,21 +391,19 @@ dotnet tool install coveralls.net --version 1.0.0 --tools-path tools
 
 # if installed into a tools path, you can run it from there.
 .\tools\csmacnz.Coveralls &amp;lt;args&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now, I&amp;rsquo;ve been struggling a bit with beta 0.8.0. It hasn&amp;rsquo;t been easy to find time to test the new stuff I added, get others to test, and be happy to call it a stable release. But there was a bunch of new stuff and fixes in there. These have all rolled forward into the 1.0.0 Release now. (I might go back and call 0.8.0 stable now since it still works the old way. But for now the old way still works with stable &lt;code&gt;0.7.0&lt;/code&gt; and &lt;code&gt;0.8.0-beta003&lt;/code&gt;.)&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now, I&amp;rsquo;ve been struggling a bit with beta 0.8.0. It hasn&amp;rsquo;t been easy to find time to test the new stuff I added, get others to test, and be happy to call it a stable release. But there was a bunch of new stuff and fixes in there. These have all rolled forward into the 1.0.0 Release now. (I might go back and call 0.8.0 stable now since it still works the old way. But for now the old way still works with stable &lt;code&gt;0.7.0&lt;/code&gt; and &lt;code&gt;0.8.0-beta003&lt;/code&gt;.)&lt;/p&gt;
 &lt;p&gt;Still not happy/comfortable with using CLI tools? Not using 2.1? That&amp;rsquo;s ok. I&amp;rsquo;ve used the power of the &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-self-contained-applications/&#34;&gt;self-contained app&lt;/a&gt; to provide a &lt;code&gt;windows&lt;/code&gt;, &lt;code&gt;linux&lt;/code&gt; and &lt;code&gt;osx&lt;/code&gt; native version (Linux targets the cross-compat Linux target) in a zip file under &lt;a href=&#34;https://github.com/csMACnz/coveralls.net/releases/tag/1.0.0&#34;&gt;the Releases folder on GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;For windows in PowerShell you would use it something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# The TLS change was necessary on my development machine
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# The TLS change was necessary on my development machine
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$zipDownloadPath=&amp;quot;https://github.com/csMACnz/coveralls.net/releases/download/1.0.0/coveralls.net.1.0.0-windows.zip&amp;quot;
+$zipDownloadPath=&amp;#34;https://github.com/csMACnz/coveralls.net/releases/download/1.0.0/coveralls.net.1.0.0-windows.zip&amp;#34;
 Invoke-WebRequest -UseBasicParsing $zipDownloadPath -OutFile coveralls-windows.zip
 mkdir coveralls-windows
 Expand-Archive .\coveralls-windows.zip coveralls-windows
 
 .\coveralls-windows\csmacnz.Coveralls.exe
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I hope to get more details added on the GitHub Wiki for linux and mac usage of the self-contained app, as well as updating all the samples over at &lt;a href=&#34;https://github.com/csMACnz/Coveralls.net-Samples/&#34;&gt;Coveralls.net-Samples&lt;/a&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I hope to get more details added on the GitHub Wiki for linux and mac usage of the self-contained app, as well as updating all the samples over at &lt;a href=&#34;https://github.com/csMACnz/Coveralls.net-Samples/&#34;&gt;Coveralls.net-Samples&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;more-targets&#34;&gt;More targets&lt;/h3&gt;
 &lt;p&gt;Since the first release, targeting OpenCover coverage files (the most popular at the time), this has been expanded to include Visual Studio Coverage, monocov, Report Generator, Chutzpah javascript coverage, lcov, NCover and &lt;a href=&#34;https://github.com/tonerdo/coverlet&#34;&gt;Coverlet&lt;/a&gt; cross-platform .Net coverage (via its opencover file format).&lt;/p&gt;
 &lt;h3 id=&#34;whats-next&#34;&gt;What&amp;rsquo;s Next?&lt;/h3&gt;
@@ -479,20 +464,18 @@ Expand-Archive .\coveralls-windows.zip coveralls-windows
       <description>&lt;p&gt;As part of my open source development tooling investigation, I came across &lt;a href=&#34;https://scan.coverity.com/&#34;&gt;Coverity Scan&lt;/a&gt; Static Analysis. And thanks to &lt;a href=&#34;http://arkfps.github.io/2015/01/07/using-coverity-scan-with-appveyor/&#34;&gt;Arkfps&amp;rsquo; post&lt;/a&gt; I could automate the process of submitting the results. And now &lt;a href=&#34;http://help.appveyor.com/discussions/suggestions/497-coverity-static-analysis-support&#34;&gt;Appveyor includes Coverity on it&amp;rsquo;s images&lt;/a&gt;. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.nuget.org/packages/PublishCoverity&#34;&gt;PublishCoverity&lt;/a&gt; is available on NuGet, and has two use cases: Compress and Publish.&lt;/p&gt;
 &lt;p&gt;Compress takes a directory and compresses it to produce an output zip file.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;Signature:
-    PublishCoverity compress [-o &amp;lt;file&amp;gt;] [-i &amp;lt;folder&amp;gt;] [--overwrite] [--dryrun]
-
-Example:
-    PublishCoverity compress -o results.zip -i cov-int
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Publish takes that file and some of your project data and posts it off to Coverity for you.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;Signature:
-    PublishCoverity publish -t &amp;lt;token&amp;gt; -e &amp;lt;email&amp;gt; [-r &amp;lt;name&amp;gt;] [-z &amp;lt;file&amp;gt;] [-d &amp;lt;desc&amp;gt;] [--codeVersion &amp;lt;version&amp;gt;] [--dryrun] [--nologo]
-    
-Example:
-    PublishCoverity publish -t COVERITYTOKEN -e example@example.com -r MyUser/MyProject -z results.zip -d &amp;quot;my project&amp;quot; --codeVersion 0.1.2.3
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Although this is still evolving, the gist of what is above will be available to compress and/or publish your results to Coverity Scan. The idea is that anything that I can reasonably determine for you I will try and make optional. Such as your repository name from the AppVeyor Build Environment variables.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Signature:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    PublishCoverity compress [-o &amp;lt;file&amp;gt;] [-i &amp;lt;folder&amp;gt;] [--overwrite] [--dryrun]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Example:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    PublishCoverity compress -o results.zip -i cov-int
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Publish takes that file and some of your project data and posts it off to Coverity for you.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Signature:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    PublishCoverity publish -t &amp;lt;token&amp;gt; -e &amp;lt;email&amp;gt; [-r &amp;lt;name&amp;gt;] [-z &amp;lt;file&amp;gt;] [-d &amp;lt;desc&amp;gt;] [--codeVersion &amp;lt;version&amp;gt;] [--dryrun] [--nologo]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Example:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    PublishCoverity publish -t COVERITYTOKEN -e example@example.com -r MyUser/MyProject -z results.zip -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;my project&amp;#34;&lt;/span&gt; --codeVersion 0.1.2.3
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Although this is still evolving, the gist of what is above will be available to compress and/or publish your results to Coverity Scan. The idea is that anything that I can reasonably determine for you I will try and make optional. Such as your repository name from the AppVeyor Build Environment variables.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ve already had a request to add some guards around the results to ensure they are valid and complete before sending, but right now version 0.9 is available on NuGet for you to install and use, and the source is &lt;a href=&#34;https://github.com/csMACnz/coveritypublisher&#34;&gt;available on GitHub&lt;/a&gt;  All feedback and features requests welcome as GitHub issues, or just comment on this post.&lt;/p&gt;
 &lt;p&gt;Enjoy!&lt;/p&gt;
 </description>
@@ -520,9 +503,8 @@ Example:
       <guid>https://blog.csmac.nz/post/introducing-coveralls-net/</guid>
       <description>&lt;p&gt;So I&amp;rsquo;ve built an (almost MVP) code coverage publisher for &lt;a href=&#34;http://coveralls.io&#34;&gt;coveralls.io&lt;/a&gt; from C# code, using opencover coverage results.  Checkout the &lt;a href=&#34;https://github.com/csmacnz/coveralls.net&#34;&gt;github repo&lt;/a&gt; and &lt;a href=&#34;https://www.nuget.org/packages/coveralls.net/&#34;&gt;nuget packages&lt;/a&gt; if you want to use it.  I&amp;rsquo;m even dogfooding it on appveyor as part of my &lt;a href=&#34;https://github.com/csmacnz/coveralls.net/blob/master/build.tasks.ps1#L81&#34;&gt;psake build tasks&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;So how do you use it?  Well luckily I used &lt;a href=&#34;https://github.com/docopt/docopt.net&#34;&gt;docopts.net&lt;/a&gt; to give you a bit of a command line experience while you use it, but the gist is this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;csmacnz.Coveralls.exe --opencover -i opencovertests.xml --repoToken &amp;quot;abcdefghijklmnopqrstuvwxyz&amp;quot; --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This will locate the xml file opencovertests.xml as a result from running opencover on your c# project, and publish it to your coveralls project based on the repoToken &amp;ldquo;abcdefghijklmnopqrstuvwxyz&amp;rdquo; (using your repo token found on your coveralls.io project page) along with the git commit and branch details pulled out of appveyor.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;csmacnz.Coveralls.exe --opencover -i opencovertests.xml --repoToken &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;abcdefghijklmnopqrstuvwxyz&amp;#34;&lt;/span&gt; --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will locate the xml file opencovertests.xml as a result from running opencover on your c# project, and publish it to your coveralls project based on the repoToken &amp;ldquo;abcdefghijklmnopqrstuvwxyz&amp;rdquo; (using your repo token found on your coveralls.io project page) along with the git commit and branch details pulled out of appveyor.&lt;/p&gt;
 &lt;p&gt;So what does this mean to you? How will you use it? Well you can replace the appveyor environment variables above with the actual values found in your build server, get your repo token from coveralls.io, and plus this in on top of your existing opencover coverage CI.&lt;/p&gt;
 &lt;p&gt;If you don&amp;rsquo;t currently have opencover hooked up, there are tutorials all over the place for your specific build server, I&amp;rsquo;ll leave you to figure out the best way to get this running.&lt;/p&gt;
 &lt;p&gt;Don&amp;rsquo;t use/want to use opencover? The next steps for me is to get other coverage reports working with coveralls.net so stay tuned, or go +1 some of my features listed in the &lt;a href=&#34;https://github.com/csmacnz/coveralls.net/issues&#34;&gt;repository issues&lt;/a&gt;.&lt;/p&gt;

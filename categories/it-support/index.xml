@@ -84,9 +84,8 @@
 &lt;p&gt;Windows Subsystem for Linux (wsl) is an interesting new development. With this, I can install Ubuntu and have a bash shell I can run Linux commands in. This is what Cygwin always wanted to grow up to be.&lt;/p&gt;
 &lt;p&gt;The neat thing is you can pass commands back and forward from Powershell and wsl.&lt;/p&gt;
 &lt;p&gt;In powershell, you can type a command such as:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;wsl find . -name *.csproj | % { cat $_ | wsl grep Framework }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This command will execute the command &lt;code&gt;wsl find . -name *.csproj&lt;/code&gt; from the current directory in Linux, pass list of file paths generated back to Powershell, then for each path, execute a &lt;code&gt;grep&lt;/code&gt; search on Linux again. We could now take the collection of results and pipe them once more through PowerShell, or another Linux command for further processing. Clever.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wsl find . -name *.csproj | % { cat $_ | wsl grep Framework }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This command will execute the command &lt;code&gt;wsl find . -name *.csproj&lt;/code&gt; from the current directory in Linux, pass list of file paths generated back to Powershell, then for each path, execute a &lt;code&gt;grep&lt;/code&gt; search on Linux again. We could now take the collection of results and pipe them once more through PowerShell, or another Linux command for further processing. Clever.&lt;/p&gt;
 &lt;p&gt;If you are already a Linux Shell Pro, you will probably find this ability a true PowerUser feature for you.&lt;/p&gt;
 &lt;h3 id=&#34;wrap-up&#34;&gt;Wrap up&lt;/h3&gt;
 &lt;p&gt;These are just a few of the Shell features I have been loving to use lately. There are so many more cool tips and tricks out there. What are your favourites?&lt;/p&gt;

@@ -197,7 +197,7 @@ It would say Connecting to ... for a while and then fail with …</p>
     <section class="post-excerpt" itemprop="description">
         <p>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
 Basically I was trying this:
-docker run -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 …</p>
+docker run -v &#34;$(pwd):C:/work&#34; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This …</p>
     </section>
 </div><div>
     <header class="post-header">
@@ -267,8 +267,8 @@ In short, ligatures are where two or more actual characters are printed as a sin
 
     <section class="post-excerpt" itemprop="description">
         <p>The docker guidance says you can run docker build piping the dockerfile:
-#On linux$ docker build - &lt; Dockerfileand on Windows it says to do this:
-#PowerShellGet-Content Dockerfile | docker build -Nice. But I&rsquo;ve been getting this error all day&hellip;
+#On linux$ docker build - &lt; Dockerfile and on Windows it says to do this:
+#PowerShellGet-Content Dockerfile | docker build - Nice. But I&rsquo;ve been getting this error all day&hellip;
 &gt; Get-Content Dockerfile | docker build -unable to …</p>
     </section>
 </div><div>

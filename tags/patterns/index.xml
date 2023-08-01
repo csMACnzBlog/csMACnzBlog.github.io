@@ -51,108 +51,105 @@
 &lt;p&gt;&lt;strong&gt;&amp;lt;&lt;em&gt;/Rant&lt;/em&gt;&amp;gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;the-antipattern&#34;&gt;The antipattern&lt;/h2&gt;
 &lt;p&gt;So the antipattern goes like this: We have N classes, with N types of functionality. They derive from a base class, which contains many services that are used across all N derived classes. These services are &lt;strong&gt;Service Located&lt;/strong&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class BaseController : Controller
-{
-    public ICustomerService CustomerService
-    {
-        get
-        {
-            return Service.Locate&amp;lt;ICustomerService&amp;gt;();
-        }
-    }
-    
-    public IOrderService OrderService
-    {
-        get
-        {
-            return Service.Locate&amp;lt;IOrderService&amp;gt;();
-        }
-    }
-}
-
-public class OrderController : BaseController 
-{
-    public Order Get(int orderId)
-    {
-        return OrderService.GetOrderById(orderId);
-    }
-}
-
-public class CustomerController : BaseController 
-{
-    public Customer Get(int customerId)
-    {
-        return CustomerService.GetOrderById(orderId);
-    }
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is a representative sample of services and controllers. You can imagine that the real number of services in the base class could be anywhere between 5 and 20 services, or more, and that there could be 5 to 20, or more, controllers as well.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;BaseController&lt;/span&gt; : Controller
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; ICustomerService CustomerService
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Service.Locate&amp;lt;ICustomerService&amp;gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; IOrderService OrderService
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Service.Locate&amp;lt;IOrderService&amp;gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;OrderController&lt;/span&gt; : BaseController 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Order Get(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; orderId)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; OrderService.GetOrderById(orderId);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CustomerController&lt;/span&gt; : BaseController 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Customer Get(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; customerId)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; CustomerService.GetOrderById(orderId);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is a representative sample of services and controllers. You can imagine that the real number of services in the base class could be anywhere between 5 and 20 services, or more, and that there could be 5 to 20, or more, controllers as well.&lt;/p&gt;
 &lt;p&gt;Also, I have intentionally used Service.Locate because there are many ways to do this approach. You could use some generic &lt;em&gt;Global Static Method&lt;/em&gt; or some container specific &lt;em&gt;Global Static variable&lt;/em&gt;. It doesn&amp;rsquo;t matter which, both are just as bad as each other.&lt;/p&gt;
 &lt;p&gt;So Why is this so bad? Well, when It comes to testing, your Controller now has hidden dependencies. We can no longer tell from the constructor what it requires to be provided to get work done.  But they aren&amp;rsquo;t required right, it is able to resolve them itself?  No, not really.&lt;/p&gt;
 &lt;p&gt;There is a dependency on the Service Locator class &lt;code&gt;Service&lt;/code&gt; that has to be configured just right for the actual dependencies to show up. And what&amp;rsquo;s worse than hidden dependencies? Singleton dependencies that break your ability to run your tests in parallel.  If you try and run two tests against two controller instances (or any other type that shares the singleton dependency) then your test may periodically fail, from a race condition with the other test. It is never fun to have false negatives in your test suite, you lose all trust and won&amp;rsquo;t see a true negative as a real problem.&lt;/p&gt;
 &lt;h3 id=&#34;incorrect-solution-1&#34;&gt;(Incorrect) Solution 1&lt;/h3&gt;
 &lt;p&gt;Ok, so we see the problems, how should we solve them? Let&amp;rsquo;s try fixing the singleton problem with dependency injection through the constructor:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class BaseController : Controller
-{
-    private ICustomerService _customerService;
-    public ICustomerService CustomerService
-    {
-        get
-        {
-            return _customerService;
-        }
-    }
-    
-    private IOrderService _orderService;
-    public IOrderService OrderService
-    {
-        get
-        {
-            return _orderService;
-        }
-    }
-    
-    protected BaseController(
-        ICustomerService customerService,
-        IOrderService orderService)
-    {
-        _customerService = customerService;
-        _orderService = orderService;
-    }
-}
-
-public class OrderController : BaseController 
-{
-    public OrderController(
-        ICustomerService customerService,
-        IOrderService orderService)
-        : base(customerService, orderService)
-    {
-    }
-    
-    public Order Get(int orderId)
-    {
-        return OrderService.GetOrderById(orderId);
-    }
-}
-
-public class CustomerController : BaseController 
-{
-    public CustomerController(
-        ICustomerService customerService,
-        IOrderService orderService)
-        : base(customerService, orderService)
-    {
-    }
-    
-    public Customer Get(int customerId)
-    {
-        return CustomerService.GetOrderById(orderId);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;By my rough estimate, we doubled the code, but we did expose our dependencies through the constructor right? Again, not really.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;BaseController&lt;/span&gt; : Controller
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; ICustomerService _customerService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; ICustomerService CustomerService
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _customerService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; IOrderService _orderService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; IOrderService OrderService
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _orderService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;protected&lt;/span&gt; BaseController(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ICustomerService customerService,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        IOrderService orderService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _customerService = customerService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _orderService = orderService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;OrderController&lt;/span&gt; : BaseController 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; OrderController(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ICustomerService customerService,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        IOrderService orderService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        : &lt;span style=&#34;color:#66d9ef&#34;&gt;base&lt;/span&gt;(customerService, orderService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Order Get(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; orderId)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; OrderService.GetOrderById(orderId);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CustomerController&lt;/span&gt; : BaseController 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; CustomerController(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ICustomerService customerService,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        IOrderService orderService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        : &lt;span style=&#34;color:#66d9ef&#34;&gt;base&lt;/span&gt;(customerService, orderService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Customer Get(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; customerId)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; CustomerService.GetOrderById(orderId);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By my rough estimate, we doubled the code, but we did expose our dependencies through the constructor right? Again, not really.&lt;/p&gt;
 &lt;p&gt;If we take a closer look, we have a dependency on the BaseController for the &lt;code&gt;IOrderService&lt;/code&gt;, but we never actually use it on the derived CustomerController. With more and more services loaded up on the base class, the worse this gets. The more likely we are that more of the dependencies the base class requires are not used by any particular controller.&lt;/p&gt;
 &lt;p&gt;If you are using a DI Container, you won&amp;rsquo;t feel the pain of creating one of these either, but the pain is still there. This is one of my Pet Peeves with Containers, they hide a lot of the pain from bad usages that only get worse over time, instead of annoying you enough to fix the problem fast.&lt;/p&gt;
 &lt;p&gt;And what if we need to add a new dependency?  Well, if we add it to the base class, we have to add it to all (5, or maybe 20) Controllers&amp;rsquo; constructors so that it will compile.  You might not see this as an issue, you just add it to the one that uses the dependency right? Not so. The base class has become a gravity well, all services go there, whether needed by all, or not. It&amp;rsquo;s only logical that the next person along will put their new service there as well.  If there is code in the base class, it may be the only place to add it to surface the functionality to that code.&lt;/p&gt;
@@ -160,37 +157,36 @@ public class CustomerController : BaseController
 &lt;p&gt;This leads into a huge con for this approach over the previous one: &lt;a href=&#34;http://stackoverflow.com/questions/1299374/what-is-eager-loading&#34;&gt;Over-eager loading&lt;/a&gt;.  At least with the service locator, the instance and all of its dependencies are only loaded when you ask for the service.  With this approach, all dependencies are loaded before they are injected in, which could add a large amount of overhead to creating your controller. And like we said, not every instance is actually even used in this controller at all!  No, don&amp;rsquo;t do this approach if you can help it. (by that I usually mean as a stop-gap solution to a larger refactoring effort. See &lt;a href=&#34;#reality&#34;&gt;Reality&lt;/a&gt;.)&lt;/p&gt;
 &lt;h3 id=&#34;the-way-things-should-have-been&#34;&gt;The way things should have been&lt;/h3&gt;
 &lt;p&gt;Let&amp;rsquo;s try to implement this solution again, with all of this in mind.  We want our classes to only take dependencies on what they actually use:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class OrderController : Controller 
-{
-    private IOrderService _orderService;
-
-    public OrderController(IOrderService orderService)
-    {
-        _orderService = orderService;
-    }
-    
-    public Order Get(int orderId)
-    {
-        return _orderService.GetOrderById(orderId);
-    }
-}
-
-public class CustomerController : Controller 
-{
-    private ICustomerService _customerService;
-
-    public CustomerController(ICustomerService customerService)
-    {
-         _customerService = customerService;
-    }
-    
-    public Customer Get(int customerId)
-    {
-        return _customerService.GetOrderById(orderId);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We can&amp;rsquo;t get away from inheritance completely because of MVC, but we now have one less class to worry about. And in this trivial example, we have the same amount of code. Of course, that bit doesn&amp;rsquo;t necessarily scale, but that&amp;rsquo;s not a problem, really. Have we fixed all our problems? I think so.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;OrderController&lt;/span&gt; : Controller 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; IOrderService _orderService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; OrderController(IOrderService orderService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _orderService = orderService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Order Get(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; orderId)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _orderService.GetOrderById(orderId);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CustomerController&lt;/span&gt; : Controller 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; ICustomerService _customerService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; CustomerController(ICustomerService customerService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         _customerService = customerService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Customer Get(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; customerId)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _customerService.GetOrderById(orderId);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can&amp;rsquo;t get away from inheritance completely because of MVC, but we now have one less class to worry about. And in this trivial example, we have the same amount of code. Of course, that bit doesn&amp;rsquo;t necessarily scale, but that&amp;rsquo;s not a problem, really. Have we fixed all our problems? I think so.&lt;/p&gt;
 &lt;p&gt;Our controller now takes only the dependencies it needs. We don&amp;rsquo;t need to pass so many things to any particular controller, and It is clear what it actually depends on.  In reality, we might have had to pass the same services to multiple controllers, but that&amp;rsquo;s what composition is all about.&lt;/p&gt;
 &lt;p&gt;We no longer have hidden dependencies. Everything a controller needs is passed in. Much easier for testing. You can even run your tests concurrently without the shared static singleton service locator.&lt;/p&gt;
 &lt;p&gt;Now since we got rid of the base class, what about any cross-cutting concerns or common code?  Well, it should now become clear that some of that code might need to be a dependency passed into the subset of all controllers that actually use it.  And it that code still needs context-specific knowledge that you can&amp;rsquo;t or don&amp;rsquo;t want to pass in? I suggest looking into Aspect Oriented approaches such as the &lt;a href=&#34;https://msdn.microsoft.com/en-us/library/system.web.mvc.filterattribute(v=vs.118).aspx&#34;&gt;MVC FilterAttribute&lt;/a&gt;.&lt;/p&gt;
@@ -200,72 +196,69 @@ public class CustomerController : Controller
 &lt;p&gt;If you do want to tackle this type of refactoring, you would first want to pick one controller, and transform that one first.  This will require code duplication to move your dependencies in, but you should find that not all of them need to be copied over.&lt;/p&gt;
 &lt;p&gt;As you refactor out code into attributes and new service classes, think about adding usages from your base class and other controllers at the same time, if the change is small enough to do so.&lt;/p&gt;
 &lt;p&gt;Another real-world solution to the Service Location problem, especially for testing is to pass these dependencies in a second constructor and use &lt;em&gt;service location&lt;/em&gt; from the default constructor instead.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class BaseController : Controller
-{
-    ...
-    
-    protected BaseController()
-    : this(Service.Locate&amp;lt;ICustomerService&amp;gt;(),Service.Locate&amp;lt;IOrderService&amp;gt;())
-    {
-    }
-    
-    protected BaseController(
-        ICustomerService customerService,
-        IOrderService orderService)
-    {
-        _customerService = customerService;
-        _orderService = orderService;
-    }
-}
-
-public class OrderController : BaseController 
-{
-    public OrderController(
-        ICustomerService customerService,
-        IOrderService orderService)
-        : base(customerService, orderService)
-    {
-    }
-    
-    public OrderController() : base()
-    {
-    }
-    
-    ...
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This approach allows you to fix your concurrent testing issues, even if you can&amp;rsquo;t fix all of your problems straight away.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;BaseController&lt;/span&gt; : Controller
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;protected&lt;/span&gt; BaseController()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    : &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;(Service.Locate&amp;lt;ICustomerService&amp;gt;(),Service.Locate&amp;lt;IOrderService&amp;gt;())
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;protected&lt;/span&gt; BaseController(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ICustomerService customerService,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        IOrderService orderService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _customerService = customerService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _orderService = orderService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;OrderController&lt;/span&gt; : BaseController 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; OrderController(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ICustomerService customerService,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        IOrderService orderService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        : &lt;span style=&#34;color:#66d9ef&#34;&gt;base&lt;/span&gt;(customerService, orderService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; OrderController() : &lt;span style=&#34;color:#66d9ef&#34;&gt;base&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This approach allows you to fix your concurrent testing issues, even if you can&amp;rsquo;t fix all of your problems straight away.&lt;/p&gt;
 &lt;p&gt;If you can&amp;rsquo;t get rid of the base class at all, look for candidates that are only used in some places, and pull these down, so at least new dependencies added will see this approach, and you have a new gravity well approach for others to follow.&lt;/p&gt;
 &lt;h2 id=&#34;advanced-topics&#34;&gt;Advanced Topics&lt;/h2&gt;
 &lt;p&gt;I said I would mention is service injection into methods.  This is something that containers won&amp;rsquo;t do for you, but there are approaches available in other frameworks and libraries that could allow you to follow a similar pattern. Worst-case an &lt;a href=&#34;https://en.wikipedia.org/wiki/Adapter_pattern&#34;&gt;Adapter&lt;/a&gt; could be used to achieve this as another layer in your MVC, or use Lazy objects to at least simulate the run-time benefits this creates.&lt;/p&gt;
 &lt;p&gt;The implementation of the method looks as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;
-public class CustomerController : Controller 
-{   
-    public Customer Get(int customerId, ICustomerService customerService)
-    {
-        return CustomerService.GetOrderById(orderId);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;As well as our parameters, we pass the services along here as well. This way, our controller method only requires the services it really uses, not all the services for all methods in this controller. As I said, you &lt;em&gt;should&lt;/em&gt; only have services that most of your actions need anyway, of you have a solid single responsibility in this controller.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CustomerController&lt;/span&gt; : Controller 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{   
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Customer Get(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; customerId, ICustomerService customerService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; CustomerService.GetOrderById(orderId);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As well as our parameters, we pass the services along here as well. This way, our controller method only requires the services it really uses, not all the services for all methods in this controller. As I said, you &lt;em&gt;should&lt;/em&gt; only have services that most of your actions need anyway, of you have a solid single responsibility in this controller.&lt;/p&gt;
 &lt;p&gt;The way to simulate some of these benefits, as mentioned before, would look something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class CustomerController : Controller 
-{
-    private Lazy&amp;lt;ICustomerService&amp;gt; _customerService;
-
-    public CustomerController(Lazy&amp;lt;ICustomerService&amp;gt; customerService)
-    {
-         _customerService = customerService;
-    }
-    
-    public Customer Get(int customerId)
-    {
-        return _customerService.Value.GetOrderById(orderId);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Given we have a container, we now we only actually create a service and all of its dependencies in the method where we actually use it, and not anywhere else.  Slight gain, but if you are trying to tidy up your controllers, this little trick could come in useful.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CustomerController&lt;/span&gt; : Controller 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; Lazy&amp;lt;ICustomerService&amp;gt; _customerService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; CustomerController(Lazy&amp;lt;ICustomerService&amp;gt; customerService)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         _customerService = customerService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Customer Get(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; customerId)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _customerService.Value.GetOrderById(orderId);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Given we have a container, we now we only actually create a service and all of its dependencies in the method where we actually use it, and not anywhere else.  Slight gain, but if you are trying to tidy up your controllers, this little trick could come in useful.&lt;/p&gt;
 &lt;h3 id=&#34;parting-words&#34;&gt;Parting words&lt;/h3&gt;
 &lt;p&gt;If you&amp;rsquo;ve made it this far, thanks for sticking with me, I know it has been a long one.  What might render this discussion moot, or highly important is this small piece of advice:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -297,46 +290,43 @@ public class CustomerController : Controller
 &lt;p&gt;Here is an example from work today that I think shows the simplicity of this principle, that is often missed or overlooked.&lt;/p&gt;
 &lt;h3 id=&#34;the-problem&#34;&gt;The Problem&lt;/h3&gt;
 &lt;p&gt;We have a class FooService. Now this class is responsible for getting us some Foo. (really need to find a picture of what a Foo actually looks like, the internet thinks it looks like &lt;a href=&#34;http://images.google.com/search?tbm=isch&amp;amp;q=Foo&#34;&gt;a Dave Grohl&lt;/a&gt;).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class FooService : IFooService
-{
-    public Foo GetFoo(CustomerId id)
-    {
-        Foo foo;
-        ... //Actual implementation logic
-        return foo
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The implementation is not important. It might be a database call, or a restful call, a reading from a hardware device, whatever.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;FooService&lt;/span&gt; : IFooService
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Foo GetFoo(CustomerId id)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Foo foo;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ... &lt;span style=&#34;color:#75715e&#34;&gt;//Actual implementation logic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; foo
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The implementation is not important. It might be a database call, or a restful call, a reading from a hardware device, whatever.&lt;/p&gt;
 &lt;p&gt;Now we have this requirement that we are calling the Service from several places (properly injected and scoped of course) but we realise that we are calling it several times per request scope (lets assume this is MVC). We want to be able to reuse the result across the request scope, but not any wider.&lt;/p&gt;
 &lt;h3 id=&#34;solution-decision&#34;&gt;Solution Decision&lt;/h3&gt;
 &lt;p&gt;One thing we could do, is make a call at the start of the scope, and pass the result along to where it is needed. The problem there would be that we are a modular system and we have 4-5 calls between us and the place we need the value. Also they are down two different use case paths, and everything is constructor injected.  Lets try another approach. Caching.&lt;/p&gt;
 &lt;p&gt;Caching is a great way to reuse a result temporarily. In fact I would argue that&amp;rsquo;s exactly what its for. So let&amp;rsquo;s start with the naive version.&lt;/p&gt;
 &lt;h3 id=&#34;solution-implementation-the-wrong-way&#34;&gt;Solution Implementation: the wrong way&lt;/h3&gt;
 &lt;p&gt;Lets add caching to our class. Should be fairly simple, something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class FooService : IFooService
-{
-    Dictionary&amp;lt;CustomerId, Foo&amp;gt; _cache = new Dictionary&amp;lt;CustomerId, Foo&amp;gt;();
-    public Foo GetFoo(CustomerId id)
-    {
-        Foo foo;
-
-        if(_cache.ContainsKey(id){
-            return _cache[id];
-        }
-
-        ... //Actual implementation logic
-
-        _cache[id] = foo;
-
-        return foo
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Looks fine right? Sure thing, but we should take care of the scope in our container so it gets correctly set to request scope.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;Bind&amp;lt;IFooService&amp;gt;().To&amp;lt;FooService&amp;gt;().InRequestScope();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Something resembling a container setup. Cool.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;FooService&lt;/span&gt; : IFooService
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Dictionary&amp;lt;CustomerId, Foo&amp;gt; _cache = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Dictionary&amp;lt;CustomerId, Foo&amp;gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Foo GetFoo(CustomerId id)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Foo foo;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(_cache.ContainsKey(id){
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _cache[id];
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ... &lt;span style=&#34;color:#75715e&#34;&gt;//Actual implementation logic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _cache[id] = foo;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; foo
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Looks fine right? Sure thing, but we should take care of the scope in our container so it gets correctly set to request scope.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Bind&amp;lt;IFooService&amp;gt;().To&amp;lt;FooService&amp;gt;().InRequestScope();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Something resembling a container setup. Cool.&lt;/p&gt;
 &lt;p&gt;Why is this the wrong approach?  I have two specific issues with this code.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;We have two concerns to our class now. &lt;em&gt;Retrieving&lt;/em&gt; and &lt;em&gt;Caching&lt;/em&gt;.&lt;/li&gt;
@@ -346,55 +336,51 @@ public class CustomerController : Controller
 &lt;p&gt;The second is almost more subtle though. Here, we are separating the same concern, caching, into different places. because the cache logic is internal, you can&amp;rsquo;t see it from where it is used. That is fine, since that is not your concern where you use it. But to configure it, you rely on the container for your IOC framework to be configured correctly. It is not clear from the cache code what the lifetime is, and not clear from the lifetime that it relates to caching.  We need to bring these two pieces of information closer together. Luckily, by pulling out the cache concern from the service, we almost get that for fee. Lets see how.&lt;/p&gt;
 &lt;h3 id=&#34;solution-implementation-the-right-way&#34;&gt;Solution Implementation: the right way&lt;/h3&gt;
 &lt;p&gt;We start by going back to our original implementation.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class FooService : IFooService
-{
-    public Foo GetFoo(CustomerId id)
-    {
-        Foo foo;
-        ... //Actual implementation logic
-        return foo
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Instead of writing the caching inside the existing class, we create a new &lt;em&gt;wrapper&lt;/em&gt; class instead.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class FooServiceCacheWrapper : IFooService
-{
-    private IFooService _actual;
-
-    public FooServiceCacheWrapper(IFooService actual)
-    {
-    	_actual = actual;
-    }
-
-    public Foo GetFoo(CustomerId id)
-    {
-        Foo foo;
-
-        if(_cache.ContainsKey(id){
-            return _cache[id];
-        }
-
-        foo = _actual.GetFoo(id);
-
-        _cache[id] = foo;
-
-        return foo
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There are three key parts to point out in this implementation. It adds almost exactly the same code as we were going to add (no extra work was required to go this alternate root). We didn&amp;rsquo;t have to change the existing code to do it. And third, we are implementing the same interface as the original, and wrapping around it a sort of caching layer. This is almost &lt;a href=&#34;https://en.wikipedia.org/wiki/Aspect-oriented_programming&#34;&gt;AOP&lt;/a&gt;, and is making use of the &lt;a href=&#34;https://en.wikipedia.org/?title=Proxy_pattern&#34;&gt;Proxy Pattern&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;FooService&lt;/span&gt; : IFooService
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Foo GetFoo(CustomerId id)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Foo foo;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ... &lt;span style=&#34;color:#75715e&#34;&gt;//Actual implementation logic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; foo
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Instead of writing the caching inside the existing class, we create a new &lt;em&gt;wrapper&lt;/em&gt; class instead.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;FooServiceCacheWrapper&lt;/span&gt; : IFooService
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; IFooService _actual;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; FooServiceCacheWrapper(IFooService actual)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    	_actual = actual;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Foo GetFoo(CustomerId id)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Foo foo;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(_cache.ContainsKey(id){
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _cache[id];
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        foo = _actual.GetFoo(id);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _cache[id] = foo;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; foo
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are three key parts to point out in this implementation. It adds almost exactly the same code as we were going to add (no extra work was required to go this alternate root). We didn&amp;rsquo;t have to change the existing code to do it. And third, we are implementing the same interface as the original, and wrapping around it a sort of caching layer. This is almost &lt;a href=&#34;https://en.wikipedia.org/wiki/Aspect-oriented_programming&#34;&gt;AOP&lt;/a&gt;, and is making use of the &lt;a href=&#34;https://en.wikipedia.org/?title=Proxy_pattern&#34;&gt;Proxy Pattern&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The second part is in our IOC config:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;Bind&amp;lt;IFooService&amp;gt;()
-    .To&amp;lt;FooServiceCacheWrapper&amp;gt;()
-    .UsingConstructorParameter&amp;lt;FooService&amp;gt;()
-    .InRequestScope();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;or&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;Bind&amp;lt;IFooService&amp;gt;()
-    .To(c=&amp;gt; new FooServiceCacheWrapper(c.Resolve&amp;lt;FooService&amp;gt;))
-    .InRequestScope();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The syntaxes are made up, but the concept is there, and hopefully one looks familiar enough for you to implement in your IOC of choice. We Resolve our existing interface to our new Wrapper class instead. And part of resolving our wrapper class, is to use the concrete version of the service that will do the actual work. This is a simplistic approach similar to the idea of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern&#34;&gt;Chain of responsibility pattern&lt;/a&gt;. We are now composing together our classes to achieve the desired result.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Bind&amp;lt;IFooService&amp;gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .To&amp;lt;FooServiceCacheWrapper&amp;gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .UsingConstructorParameter&amp;lt;FooService&amp;gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .InRequestScope();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;or&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Bind&amp;lt;IFooService&amp;gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .To(c=&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; FooServiceCacheWrapper(c.Resolve&amp;lt;FooService&amp;gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .InRequestScope();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The syntaxes are made up, but the concept is there, and hopefully one looks familiar enough for you to implement in your IOC of choice. We Resolve our existing interface to our new Wrapper class instead. And part of resolving our wrapper class, is to use the concrete version of the service that will do the actual work. This is a simplistic approach similar to the idea of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern&#34;&gt;Chain of responsibility pattern&lt;/a&gt;. We are now composing together our classes to achieve the desired result.&lt;/p&gt;
 &lt;p&gt;As a bonus, we see now that the place where we configure our caching around the service, we also define the scope of the cache class. Much nicer to see these two concepts in the same place now, don&amp;rsquo;t you think?&lt;/p&gt;
 &lt;p&gt;Hopefully this opens your eyes and starts you thinking. Keep looking out for places where you have been ignoring the single responsibility pattern, and make &lt;strong&gt;more small classes&lt;/strong&gt;.&lt;/p&gt;
 </description>
@@ -436,115 +422,110 @@ public class CustomerController : Controller
       <description>&lt;p&gt;When we write out classes and variables, we are pretty good at naming them for what they represent. What I mean by this, is that when we declare a customer first name variable, we don&amp;rsquo;t call it &lt;code&gt;firstNameString&lt;/code&gt;, or &lt;code&gt;cfnString&lt;/code&gt;, and we have also lost the bad habit of &lt;code&gt;firstNameStr&lt;/code&gt; or &lt;code&gt;strFirstName&lt;/code&gt;.  The implementation detail simply doesn&amp;rsquo;t matter. Semantically, it represents the customer&amp;rsquo;s first name, so we use &lt;code&gt;customerFirstName&lt;/code&gt;. Or if we are clearly in the context of the customer we can simply use &lt;code&gt;firstName&lt;/code&gt; or &lt;code&gt;customer.FirstName&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;By describing things by what they represent and not how they are represented, we make them more resistant to implementation changes, and we also make it clearer what it is we expect from their use. Why then do we not treat types the same way?&lt;/p&gt;
 &lt;p&gt;Well we do, you might say. Sure we name our classes well. We have &lt;code&gt;Customer&lt;/code&gt;, which is an class which has a name that matches it&amp;rsquo;s semantic meaning. But why does it have a constructor signature like this?&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public Customer(string firstName, string surname, string preferredName, int age, decimal weight, decimal height) {...}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Can you tell from this constructor what each positional parameter represents? What if we did the following, is it still obvious?&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public Customer(string a, string b, string c, int d, decimal e, decimal f) {...}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Ok so my example is contrived, but my point is simple. Positional parameters of value types are indistinguishable to the compiler, which neither knows nor cares what they mean, just that the types match so it can compile.  If you called this method using &lt;code&gt;new Customer(&amp;quot;Jones&amp;quot;, &amp;quot;Bobby&amp;quot;, &amp;quot;Robert&amp;quot;, 24, 1.68m, 91.3m)&lt;/code&gt; the compiler doesn&amp;rsquo;t care that you created the lightest giant in the world called Jones Bobby with a nickname of Robert, how is it to know that&amp;rsquo;s not what you meant?  What we need is a way to add semantic meaning to the positional parameters, which adds extra meaning to the data being passed around, and helps us avoid this transposition of errors, among other things.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Customer(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; firstName, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; surname, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; preferredName, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; age, &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; weight, &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; height) {...}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Can you tell from this constructor what each positional parameter represents? What if we did the following, is it still obvious?&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Customer(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; a, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; b, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; c, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; d, &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; e, &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; f) {...}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ok so my example is contrived, but my point is simple. Positional parameters of value types are indistinguishable to the compiler, which neither knows nor cares what they mean, just that the types match so it can compile.  If you called this method using &lt;code&gt;new Customer(&amp;quot;Jones&amp;quot;, &amp;quot;Bobby&amp;quot;, &amp;quot;Robert&amp;quot;, 24, 1.68m, 91.3m)&lt;/code&gt; the compiler doesn&amp;rsquo;t care that you created the lightest giant in the world called Jones Bobby with a nickname of Robert, how is it to know that&amp;rsquo;s not what you meant?  What we need is a way to add semantic meaning to the positional parameters, which adds extra meaning to the data being passed around, and helps us avoid this transposition of errors, among other things.&lt;/p&gt;
 &lt;p&gt;I have come across several names for this technique, &lt;em&gt;Tiny Types&lt;/em&gt;, &lt;em&gt;Value Types&lt;/em&gt;, &lt;em&gt;Micro Types&lt;/em&gt; and &lt;em&gt;Semantic Types&lt;/em&gt;.  I think my favourite is Semantic Types personally, but in discussion with others you may come across all of these and more.  The point is that we create new types in our system that might be domain specific, or may be valid across various disparate systems.  These types encapsulate the implementation types used to represent the data and stand in their place as an immutable value object.&lt;/p&gt;
 &lt;p&gt;It is worth noting that Enumerations are a kind of tiny type, but you do get some interesting behaviour with these sometimes when the int implementation leaks out, especially when casting and serialisation is involved.&lt;/p&gt;
 &lt;p&gt;Lets go back to our example and see what the end result looks like, and work backwards with an implementation. Here is our constructor in more detail this time.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public Customer
-{
-    ... [Auto properties probably here]
-    
-    public Customer(FirstName firstName, FamilyName familyName, PreferredName preferredName, 
-                    Age age, Weight weight, Height height)
-    {
-    ...
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Ok now lets look at what we have here.  The types of the parameters are objects that encapsulate the data they represent. Now whether you split your names like this or have a &lt;em&gt;Name&lt;/em&gt; type that represents this as a whole is up to you, but the point is that you can&amp;rsquo;t mix us the height with the weight since the types won&amp;rsquo;t match, and it won&amp;rsquo;t compile.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Customer
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ... [Auto properties probably here]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Customer(FirstName firstName, FamilyName familyName, PreferredName preferredName, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    Age age, Weight weight, Height height)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ok now lets look at what we have here.  The types of the parameters are objects that encapsulate the data they represent. Now whether you split your names like this or have a &lt;em&gt;Name&lt;/em&gt; type that represents this as a whole is up to you, but the point is that you can&amp;rsquo;t mix us the height with the weight since the types won&amp;rsquo;t match, and it won&amp;rsquo;t compile.&lt;/p&gt;
 &lt;p&gt;There are other benefits other then transposing parameters.  Overloads that expect different types of data can be created instead of having unique names just for overloading what string represents. If you use calculations on the data, you won&amp;rsquo;t add or subtract things that are not compatible accidentally, like our height and our weight.  Even something as simple as wrapping your entity keys in semantic types means you can&amp;rsquo;t pass a &lt;code&gt;CustomerKey&lt;/code&gt; into a method like &lt;code&gt;public Document[] GetForms(AccountKey key)&lt;/code&gt; because the compiler will catch it for you.  If you need to change your representation, this is also easy, without having to update all references to the implementation type everywhere, say if you need to add precision to your int by using decimal.&lt;/p&gt;
 &lt;p&gt;Lets take a look now at what implementing a tiny type might look like.  Basically its an object. It will have a property to expose the primitive implementation, since at some point this will have to interface with something outside your control (see suggested exercises for more on this).  You will also need to overload the equality operations to ensure you can compare these objects without any issue.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Height: IEquatable&amp;lt;Height&amp;gt;
-{
-    private readonly decimal _value;
-
-    public Height(decimal dataValue)
-    {
-        _value = dataValue;
-    }
-
-    public decimal Value { get { return _value; } }
-
-    public override bool Equals(System.Object obj)
-    {
-        // If parameter is null return false.
-        if (obj == null)
-        {
-            return false;
-        }
-
-        // If parameter cannot be cast to Height return false.
-        Height h = obj as Height;
-        if ((System.Object)h == null)
-        {
-            return false;
-        }
-
-        // Return true if the fields match:
-        return Value == h.Value;
-    }
-
-    public bool Equals(Height h)
-    {
-        // If parameter is null return false:
-        if ((object)h == null)
-        {
-            return false;
-        }
-
-        // Return true if the fields match:
-        return Value == h.Value;
-    }
-
-    public override int GetHashCode()
-    {
-        return Value.GetHashCode();
-    }
-
-    public static bool operator ==(Height a, Height b)
-    {
-        // If both are null, or both are same instance, return true.
-        if (System.Object.ReferenceEquals(a, b))
-        {
-            return true;
-        }
-
-        // If one is null, but not both, return false.
-        if (((object)a == null) || ((object)b == null))
-        {
-            return false;
-        }
-
-        // Return true if the fields match:
-        return a.Value == b.Value;
-    }
-
-    public static bool operator !=(Height a, Height b)
-    {
-        return !(a == b);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(If your interest, my implementation is based on &lt;a href=&#34;http://msdn.microsoft.com/en-us/library/ms173147%28v=vs.80%29.aspx&#34;&gt;this msdn guide&lt;/a&gt;.)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Height&lt;/span&gt;: IEquatable&amp;lt;Height&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;readonly&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; _value;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Height(&lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; dataValue)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _value = dataValue;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; Value { &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt; { &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _value; } }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;override&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; Equals(System.Object obj)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// If parameter is null return false.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (obj == &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// If parameter cannot be cast to Height return false.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        Height h = obj &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; Height;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ((System.Object)h == &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// Return true if the fields match:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Value == h.Value;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; Equals(Height h)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// If parameter is null return false:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ((&lt;span style=&#34;color:#66d9ef&#34;&gt;object&lt;/span&gt;)h == &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// Return true if the fields match:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Value == h.Value;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;override&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; GetHashCode()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Value.GetHashCode();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;operator&lt;/span&gt; ==(Height a, Height b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// If both are null, or both are same instance, return true.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (System.Object.ReferenceEquals(a, b))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// If one is null, but not both, return false.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (((&lt;span style=&#34;color:#66d9ef&#34;&gt;object&lt;/span&gt;)a == &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;) || ((&lt;span style=&#34;color:#66d9ef&#34;&gt;object&lt;/span&gt;)b == &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// Return true if the fields match:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; a.Value == b.Value;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;operator&lt;/span&gt; !=(Height a, Height b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; !(a == b);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(If your interest, my implementation is based on &lt;a href=&#34;http://msdn.microsoft.com/en-us/library/ms173147%28v=vs.80%29.aspx&#34;&gt;this msdn guide&lt;/a&gt;.)&lt;/p&gt;
 &lt;p&gt;There&amp;rsquo;s a lot of code here, so lets look at it in pieces. First its a class with a property value that we can set in the constructor.  We make it a getter only with a read only backing field, making it immutable.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class Height: IEquatable&amp;lt;Height&amp;gt;
-{
-    private readonly decimal _value;
-
-    public Height(decimal dataValue)
-    {
-        _value = dataValue;
-    }
-
-    public decimal Value { get { return _value; } }
-    ...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To make sure we can compare our tiny types in a standard way, we implement a bunch of the comparable implementation details. Specifically we override GetHashCode and Equals.  We also overload the == and != operator to make it even easier to use correctly, and lastly we implement IEquatable&amp;lt;Height&amp;gt; so we can compare two instances of the same type without all the object reference stuff all the time.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Height&lt;/span&gt;: IEquatable&amp;lt;Height&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;readonly&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; _value;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Height(&lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; dataValue)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _value = dataValue;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; Value { &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt; { &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _value; } }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To make sure we can compare our tiny types in a standard way, we implement a bunch of the comparable implementation details. Specifically we override GetHashCode and Equals.  We also overload the == and != operator to make it even easier to use correctly, and lastly we implement IEquatable&amp;lt;Height&amp;gt; so we can compare two instances of the same type without all the object reference stuff all the time.&lt;/p&gt;
 &lt;p&gt;Obviously you could take this approach and build out a generic base class with most of the common logic.  Here is a list of things you might want to try out to get your head around the approach of building these types of objects on your own.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Implement a generic base class representing a single primitive value wrapped in a Semantic Type.&lt;/li&gt;

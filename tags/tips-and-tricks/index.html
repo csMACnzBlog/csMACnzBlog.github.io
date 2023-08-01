@@ -206,7 +206,7 @@ Why didn&rsquo;t it work? My collection was an array of Structs. When I pulled a
     <section class="post-excerpt" itemprop="description">
         <p>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
 Basically I was trying this:
-docker run -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 …</p>
+docker run -v &#34;$(pwd):C:/work&#34; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This …</p>
     </section>
 </div><div>
     <header class="post-header">
@@ -216,8 +216,8 @@ docker run -v &quot;$(pwd):C:/work&quot; -w C:/work -it --rm microsoft/dotnet:1.
 
     <section class="post-excerpt" itemprop="description">
         <p>The docker guidance says you can run docker build piping the dockerfile:
-#On linux$ docker build - &lt; Dockerfileand on Windows it says to do this:
-#PowerShellGet-Content Dockerfile | docker build -Nice. But I&rsquo;ve been getting this error all day&hellip;
+#On linux$ docker build - &lt; Dockerfile and on Windows it says to do this:
+#PowerShellGet-Content Dockerfile | docker build - Nice. But I&rsquo;ve been getting this error all day&hellip;
 &gt; Get-Content Dockerfile | docker build -unable to …</p>
     </section>
 </div><div>
@@ -259,8 +259,8 @@ Console Break So you are writing a console app? Cool. Want to see the output? Of
     <section class="post-excerpt" itemprop="description">
         <p>A lesson in powershell.
 I typed this:
-&gt; iisresetWhich responded with this:
-Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group.So I typed this:
+&gt; iisreset Which responded with this:
+Access denied, you must be an administrator of the remote computer to use this command. Either have your account added to the administrator local group of the remote computer or to the domain administrator global group. So I typed this:
 &gt; …</p>
     </section>
 </div><div>

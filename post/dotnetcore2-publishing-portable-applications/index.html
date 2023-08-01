@@ -149,7 +149,7 @@
 <p>We can now take everything we have learned and start publishing our applications. Luckily, there is a command for that too.</p>
 <h3 id="the-setup">The Setup</h3>
 <p>I don&rsquo;t know why I bother saying anything here, this is pretty straight-forward by now.</p>
-<pre><code>mkdir MyPackagedApp
+<pre tabindex="0"><code>mkdir MyPackagedApp
 cd MyPackagedApp
 mkdir MyApp
 cd MyApp
@@ -158,9 +158,8 @@ cd ../
 dotnet new sln
 dotnet sln add .\MyApp\MyApp.csproj
 dotnet build
-</code></pre>
-<p>And again, we replace the contents of Program.cs. This time, let&rsquo;s try printing a few verses of <a href="http://www.djron.com/jokes/suess.html">Dr. Seuss Explaining Computers</a></p>
-<pre><code>using System;
+</code></pre><p>And again, we replace the contents of Program.cs. This time, let&rsquo;s try printing a few verses of <a href="http://www.djron.com/jokes/suess.html">Dr. Seuss Explaining Computers</a></p>
+<pre tabindex="0"><code>using System;
 
 namespace MyApp
 {
@@ -168,28 +167,25 @@ namespace MyApp
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine(&quot;Dr. Seuss Explains Computers&quot;);
-            Console.WriteLine(&quot;============================&quot;);
-            Console.WriteLine(&quot;&quot;);
-            Console.WriteLine(&quot;If a Packet Hits a pocket on a socket on a port, and the bus is interrupted as a very last resort, and the address of the memory makes your floppy disk abort, then the socket packet pocket has an error to report.&quot;);
-            Console.WriteLine(&quot;If your cursor finds a menu item followed by a dash, and the double-clicking icon puts your window in the trash, and your data is corrupted 'cause the index doesn't hash, then the situation's hopeless and your systems gonna crash!&quot;);
-            Console.WriteLine(&quot;&quot;);
-            Console.WriteLine(&quot;&quot;);
-            Console.WriteLine(&quot;Read the rest at: http://computerjokes.net/112.asp&quot;);
-            Console.WriteLine(&quot;&quot;);
+            Console.WriteLine(&#34;Dr. Seuss Explains Computers&#34;);
+            Console.WriteLine(&#34;============================&#34;);
+            Console.WriteLine(&#34;&#34;);
+            Console.WriteLine(&#34;If a Packet Hits a pocket on a socket on a port, and the bus is interrupted as a very last resort, and the address of the memory makes your floppy disk abort, then the socket packet pocket has an error to report.&#34;);
+            Console.WriteLine(&#34;If your cursor finds a menu item followed by a dash, and the double-clicking icon puts your window in the trash, and your data is corrupted &#39;cause the index doesn&#39;t hash, then the situation&#39;s hopeless and your systems gonna crash!&#34;);
+            Console.WriteLine(&#34;&#34;);
+            Console.WriteLine(&#34;&#34;);
+            Console.WriteLine(&#34;Read the rest at: http://computerjokes.net/112.asp&#34;);
+            Console.WriteLine(&#34;&#34;);
         }
     }
 }
-</code></pre>
-<p>And for good measure another build.</p>
-<pre><code>dotnet build
-</code></pre>
-<h3 id="publishing">Publishing</h3>
+</code></pre><p>And for good measure another build.</p>
+<pre tabindex="0"><code>dotnet build
+</code></pre><h3 id="publishing">Publishing</h3>
 <p>To publish our application we use the most obvious of commands. As before with <code>dotnet test</code>, running this against the solution will result in publishing all projects that are publishable.</p>
-<pre><code>dotnet publish
-</code></pre>
-<p>Which results in the following file structure.</p>
-<pre><code>MyPackagedApp
+<pre tabindex="0"><code>dotnet publish
+</code></pre><p>Which results in the following file structure.</p>
+<pre tabindex="0"><code>MyPackagedApp
  +-- MyApp
       |-- MyApp.csproj
       |-- Program.cs
@@ -206,32 +202,28 @@ namespace MyApp
                           |-- MyApp.dll
                           |-- MyApp.pdb
                           \-- MyApp.runtimeconfig.json
-</code></pre>
-<p>The <code>publish</code> command adds a new build artifact folder - <code>publish</code>. Inside are all of the files for the application to distribute (to someone who has the runtime available). In this case, our application is a <code>netcoreapp2.0</code> app, so the distribution is the <code>dll</code>, to run with .Net Core runtime.</p>
+</code></pre><p>The <code>publish</code> command adds a new build artifact folder - <code>publish</code>. Inside are all of the files for the application to distribute (to someone who has the runtime available). In this case, our application is a <code>netcoreapp2.0</code> app, so the distribution is the <code>dll</code>, to run with .Net Core runtime.</p>
 <p>We can execute our application using the command <code>dotnet MyApp.dll</code> from inside the publish folder, or from the project folder using a relative path <code>dotnet .\MyApp\bin\Debug\netcoreapp2.0\MyApp.dll</code>.</p>
 <h4 id="output-folder">Output folder</h4>
 <p>We probably want to publish to a different location, so we can use the option <code>-o &lt;OUTPUT_PATH&gt;</code> to publish somewhere else. At the same time, we might use the <code>-c &lt;CONFIGURATION&gt;</code> option to specify a release build. (Note that output path is relative to the folder containing the <code>csproj</code>, not the folder running the command.)</p>
-<pre><code>dotnet publish -o &quot;../Pack/MyApp&quot; -c Release
-</code></pre>
-<p>Which will give you the following in the new Pack folder:</p>
-<pre><code>Pack
+<pre tabindex="0"><code>dotnet publish -o &#34;../Pack/MyApp&#34; -c Release
+</code></pre><p>Which will give you the following in the new Pack folder:</p>
+<pre tabindex="0"><code>Pack
  +-- MyApp
       |-- MyApp.deps.json
       |-- MyApp.dll
       |-- MyApp.pdb
       \-- MyApp.runtimeconfig.json
-</code></pre>
-<h4 id="include-files">Include Files</h4>
+</code></pre><h4 id="include-files">Include Files</h4>
 <p>We can also include extra files into our output folder. For instances, lets add a <code>README.md</code> file beside our <code>program.cs</code> file.</p>
-<pre><code>MyNewApp
+<pre tabindex="0"><code>MyNewApp
 ========
 
 version 1.0.0
 
 This app prints the first verse of a poem.
-</code></pre>
-<p>In our <code>csproj</code> file we can use the <a href="https://docs.microsoft.com/en-nz/nuget/reference/msbuild-targets#including-content-in-a-package">standard MSBuild settings</a> for adding files.</p>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+</code></pre><p>In our <code>csproj</code> file we can use the <a href="https://docs.microsoft.com/en-nz/nuget/reference/msbuild-targets#including-content-in-a-package">standard MSBuild settings</a> for adding files.</p>
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk&#34;&gt;
 
   &lt;PropertyGroup&gt;
     &lt;OutputType&gt;Exe&lt;/OutputType&gt;
@@ -239,19 +231,16 @@ This app prints the first verse of a poem.
   &lt;/PropertyGroup&gt;
   
   &lt;ItemGroup&gt;
-    &lt;Content Include=&quot;README.md&quot; CopyToPublishDirectory=&quot;Always&quot; /&gt;
+    &lt;Content Include=&#34;README.md&#34; CopyToPublishDirectory=&#34;Always&#34; /&gt;
   &lt;/ItemGroup&gt;
 
 &lt;/Project&gt;
-
-</code></pre>
-<pre><code>dotnet publish -o &quot;../Pack/MyApp&quot; -c Release
-</code></pre>
-<p>That&rsquo;s how easy it is to include extra files when publishing.</p>
+</code></pre><pre tabindex="0"><code>dotnet publish -o &#34;../Pack/MyApp&#34; -c Release
+</code></pre><p>That&rsquo;s how easy it is to include extra files when publishing.</p>
 <h3 id="publishing-net-452-applications">Publishing .Net 4.5.2 applications</h3>
 <p>Or 4.6, 4.6.2 &amp; 4.7. They all basically follow the same principles.</p>
 <p>It all starts with the <code>csproj</code> file. For reality sake, I am going to add to rather than replace the <code>netcoreapp2.0</code> target (as seen in <a href="/dotnetcore2-multi-targeting">the last article</a>).</p>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk&#34;&gt;
 
   &lt;PropertyGroup&gt;
     &lt;OutputType&gt;Exe&lt;/OutputType&gt;
@@ -259,16 +248,14 @@ This app prints the first verse of a poem.
   &lt;/PropertyGroup&gt;
   
   &lt;ItemGroup&gt;
-    &lt;Content Include=&quot;README.md&quot; CopyToPublishDirectory=&quot;Always&quot; /&gt;
+    &lt;Content Include=&#34;README.md&#34; CopyToPublishDirectory=&#34;Always&#34; /&gt;
   &lt;/ItemGroup&gt;
 
 &lt;/Project&gt;
-</code></pre>
-<pre><code>dotnet build  
-dotnet publish -o &quot;..\Pack\MyApp_Net452&quot; -c Release -f net452
-</code></pre>
-<p>Your Pack folder should now have two packaged application folders like the following:</p>
-<pre><code>Pack
+</code></pre><pre tabindex="0"><code>dotnet build  
+dotnet publish -o &#34;..\Pack\MyApp_Net452&#34; -c Release -f net452
+</code></pre><p>Your Pack folder should now have two packaged application folders like the following:</p>
+<pre tabindex="0"><code>Pack
  +-- MyApp
  |    |-- MyApp.deps.json
  |    |-- MyApp.dll
@@ -279,25 +266,22 @@ dotnet publish -o &quot;..\Pack\MyApp_Net452&quot; -c Release -f net452
      |-- MyApp.exe
      |-- MyApp.pdb
      \-- README.md
-</code></pre>
-<p>We now have a <code>.Net 4.5.2</code> <code>EXE</code> that we can run anywhere where <code>.Net 4.5.2</code> has been installed.</p>
+</code></pre><p>We now have a <code>.Net 4.5.2</code> <code>EXE</code> that we can run anywhere where <code>.Net 4.5.2</code> has been installed.</p>
 <p>One thing missing is an <code>App.Config</code>, which some of your existing applications likely use for useful things like configuration. You can simply add an include with a transform to map a file called <code>App.Config</code>, with a transformation to the more expected name of <code>%APPNAME%.exe.config</code>. (Although there are <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration">now better ways to do config</a>, you may find this useful as a transition path.)</p>
 <p>Add our <code>App.Config</code> file.</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;configuration&gt;
   &lt;appSettings&gt;
     &lt;!-- Settings go here, you know how to use them already? --&gt;
   &lt;/appSettings&gt;
 &lt;/configuration&gt;
-</code></pre>
-<p>And that&rsquo;s it. As on <code>SDK 2.1</code> that I am using, this is automatically loaded and used the same as it was in classic .Net.</p>
-<pre><code>dotnet build
+</code></pre><p>And that&rsquo;s it. As on <code>SDK 2.1</code> that I am using, this is automatically loaded and used the same as it was in classic .Net.</p>
+<pre tabindex="0"><code>dotnet build
 dotnet publish -f net452
 dotnet publish -f netcoreapp2.0
-</code></pre>
-<p>Remember, if you use <code>build</code>, <code>pack</code>, or <code>publish</code> without using <code>-f &lt;framework&gt;</code> you will get all target frameworks included. (And if you use <code>-f</code> and <code>-o</code> together with <code>publish</code>, it will dump the targets&rsquo; output on top of each other in the same folder. Probably don&rsquo;t do that.)</p>
+</code></pre><p>Remember, if you use <code>build</code>, <code>pack</code>, or <code>publish</code> without using <code>-f &lt;framework&gt;</code> you will get all target frameworks included. (And if you use <code>-f</code> and <code>-o</code> together with <code>publish</code>, it will dump the targets&rsquo; output on top of each other in the same folder. Probably don&rsquo;t do that.)</p>
 <p>Let&rsquo;s take one last look at the file tree in the <code>MyApp</code> project folder:</p>
-<pre><code>MyPackagedApp
+<pre tabindex="0"><code>MyPackagedApp
  +-- MyApp
       |-- MyApp.csproj
       |-- Program.cs
@@ -326,8 +310,7 @@ dotnet publish -f netcoreapp2.0
                           |-- MyApp.pdb
                           |-- MyApp.runtimeconfig.json
                           \-- README.md
-</code></pre>
-<p>Inside our publish folders, which are our <code>publish</code> outputs, it includes both the earlier <code>README.md</code> and the transformed <code>app.config</code> file ready to zip up and distribute as required.</p>
+</code></pre><p>Inside our publish folders, which are our <code>publish</code> outputs, it includes both the earlier <code>README.md</code> and the transformed <code>app.config</code> file ready to zip up and distribute as required.</p>
 <p>In reality, you might have to look for a bridging library to actually load the <code>app.config</code> in <code>netcoreapp2.0</code> but I haven&rsquo;t tried that recently so I leave that to you, if you want/need it. Investigate the <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration">new configuration</a>. Really.</p>
 <h3 id="onward-to-the-finish">Onward to the finish!</h3>
 <p>We are almost wrapped up, only one last piece to go, Self-contained Applications. Stay tuned.</p>

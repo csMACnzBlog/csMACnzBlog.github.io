@@ -158,13 +158,12 @@
 <p>I use a couple of conventions for naming things well. For instance, I might name something that is a boolean <code>IsOpen</code> rather than <code>Open</code> or <code>Opened</code>, and for a setting <code>CanOpen</code>.  <code>Is</code> and <code>Can</code> prefixes help readability of the code a lot. This is for properties but applies to methods just as much.</p>
 <p>Private fields always (always) start with an underscore (<code>_</code>). When you are reading code, it makes it easier to determine what belongs to the method, and what belongs to the class.</p>
 <p>Use long descriptive names, not single letter variables. Even if you are using Linq, if the name of the item in the lambda isn&rsquo;t obvious, still use a full name as the lambda parameter.</p>
-<pre><code>// bad
+<pre tabindex="0"><code>// bad
 var names = data.Select(w =&gt; w.Name).ToList();
 
 // better
 var names = data.Select(widget =&gt; widget.Name).ToList();
-</code></pre>
-<h3 id="hungarian-notation">Hungarian Notation</h3>
+</code></pre><h3 id="hungarian-notation">Hungarian Notation</h3>
 <p>Related to naming things is <a href="https://en.wikipedia.org/wiki/Hungarian_notation">Hungarian Notation</a>. Now there are two interpretations to this, the wrong one, and the original one. Most people remember Visual Basic, and using <code>btnSave</code> and <code>txtName</code> for UI controls, or the terrible <code>strName</code>.  This is the wrong interpretation of HN. Notation shouldn&rsquo;t be re-declaring the type which the reader can discover themselves, but instead to indicate the meaning of the data to avoid ambiguity. I think the name people use for the correct way is &ldquo;Apps Hungarian&rdquo;.</p>
 <p>Anyway, I use this when it is useful.  My simplest example is when I have an argument that is an <code>int</code> providing a time. I will call my parameter <code>timeoutInSeconds</code>. Not strictly Hungarian Notation, but serves a similar purpose.  Of course, if it makes more sense, I will use a <code>TimeSpan</code> instead, but sometimes an integer amount of seconds is a better API.</p>
 <p>This also extends to units of measure. If we are using real world values we name the variables with their unit of measure.  <code>lengthInMeters</code> and <code>lengthInInches</code> helps the readability of code, especially when you have to mix units. Also if your mixing amounts with volumes, it helps to have <code>qtyAmount</code>, <code>mnyUnitCost</code> and <code>mnyTotal</code> to identify which decimal is a quantity, and which is a monitary amount.</p>
@@ -174,7 +173,7 @@ var names = data.Select(widget =&gt; widget.Name).ToList();
 <p>I can&rsquo;t remember when I first saw this, but it took years to finally sink in and for me to <a href="https://en.wikipedia.org/wiki/Grok">grok</a> it. It has to do with long signatures.</p>
 <p>First, try not to have long signatures. decompose your classes to shrink their constructors, and use Parameter Objects to pass around instead.</p>
 <p>Sometimes the problem isn&rsquo;t the number of arguments, but the names of those arguments. Nice long descriptive class names will quickly lead to this problem, even with only two or three parameters, especially Constructors when IOC is in play (which is always, right?).</p>
-<pre><code>public•class•MyClass
+<pre tabindex="0"><code>public•class•MyClass
 {
 ••••public•MyClass•(MyFirstDependentServiceWithALongName•myFirstDependentServiceWithALongName,•AnotherDependencyYouNeed•anotherDependencyYouNeed)
 ••••{
@@ -183,15 +182,14 @@ var names = data.Select(widget =&gt; widget.Name).ToList();
 ...
 
 }
-</code></pre>
-<p>Is your screen wrapping, or is it just me?</p>
+</code></pre><p>Is your screen wrapping, or is it just me?</p>
 <p>There are two problems with this style.</p>
 <ul>
 <li>You need to scroll your code window to see the whole signature, and when you scroll you lose the rest of your code. (I don&rsquo;t care how wide your screen is, this can and will still happen.)</li>
 <li>Your source control tool with thrash on the signature line, with high potential for merge conflicts and such during development.</li>
 </ul>
 <p>Like I say, it took me years after reading this idea before actually using it. Let it stew a bit in your mind.</p>
-<pre><code>public•class•MyClass
+<pre tabindex="0"><code>public•class•MyClass
 {
 ••••public•MyClass•(
 ••••••••MyFirstDependentServiceWithALongName•myFirstDependentServiceWithALongName,
@@ -202,11 +200,10 @@ var names = data.Select(widget =&gt; widget.Name).ToList();
 ...
 
 }
-</code></pre>
-<p>We put each argument on a new line. They are indented an additional four spaces (the default indentation amount for one indent level).  That last closing brace is on the same line as the last argument. (Because it will have to change to a <code>,</code> anyway if we adding another arg, and the function body braces work better with it that way.)</p>
+</code></pre><p>We put each argument on a new line. They are indented an additional four spaces (the default indentation amount for one indent level).  That last closing brace is on the same line as the last argument. (Because it will have to change to a <code>,</code> anyway if we adding another arg, and the function body braces work better with it that way.)</p>
 <p>Always, always put the first argument on a new line. If you don&rsquo;t, the indentation is too wide, and if you rename the method, the indentation would keep shifting. You want to keep a stable, predictable indentation, within a method, and between methods. Consistency. (Again, this helps source control)</p>
 <p>Let&rsquo;s see that without the visible whitespace:</p>
-<pre><code>public class MyClass
+<pre tabindex="0"><code>public class MyClass
 {
     public MyClass (
         MyFirstDependentServiceWithALongName myFirstDependentServiceWithALongName,
@@ -217,32 +214,29 @@ var names = data.Select(widget =&gt; widget.Name).ToList();
 ...
 
 }
-</code></pre>
-<p>I find this style much easier to read, now.</p>
+</code></pre><p>I find this style much easier to read, now.</p>
 <p>It even works during the method calls:</p>
-<pre><code>var result = ProcessData(
+<pre tabindex="0"><code>var result = ProcessData(
     inputData,
     customers,
     authorisationData,
     filterOptions,
     sortOptions);
-</code></pre>
-<p>The main take-away for me is, follow the Yoda method. Do or do not.</p>
+</code></pre><p>The main take-away for me is, follow the Yoda method. Do or do not.</p>
 <p>Always put everything on one line, or always put all arguments on their own lines.</p>
 <h3 id="braces">Braces</h3>
 <p>Braces go on new lines, not like <code>JavaScript</code> where they start on the same line as the header line. Pretty sure that is standard.</p>
 <p>Always use braces when optional.</p>
 <p>So there is some great guidance that <code>if</code> statements and similar should only ever have one statement, so the braces for a body block should never be necessary. That&rsquo;s fine.  But the main reason for overriding it with my rule is the following. With no braces, you leave that code open to an edit vulnerability that can trick even the most experienced programmer to miss because our brains love to trick us.</p>
-<pre><code>if (someCondition(withAnArg))
+<pre tabindex="0"><code>if (someCondition(withAnArg))
     DoWork();
     
 if (aDifferentCondition(wthAnotherArg))
     DoDifferentWork();
     ButAlsoDoAnotherThing();
-</code></pre>
-<p>That second example is lying to you.</p>
+</code></pre><p>That second example is lying to you.</p>
 <p>look again with braces:</p>
-<pre><code>if (someCondition(withAnArg))
+<pre tabindex="0"><code>if (someCondition(withAnArg))
 {
     DoWork();
 }
@@ -252,9 +246,7 @@ if (aDifferentCondition(wthAnotherArg))
     DoDifferentWork();
 }
     ButAlsoDoAnotherThing();
-
-</code></pre>
-<p>Even without fixing the whitespace, there is no mistaking what the second set of code does, whether you can read C# or not. It is far too easy for someone to start with code like the first <code>if (someCondition(withAnArg))</code> and add another line that they think is inside the condition, but actually isn&rsquo;t, like what has happened to the <code>if (aDifferentCondition(wthAnotherArg))</code> condition in the first example.</p>
+</code></pre><p>Even without fixing the whitespace, there is no mistaking what the second set of code does, whether you can read C# or not. It is far too easy for someone to start with code like the first <code>if (someCondition(withAnArg))</code> and add another line that they think is inside the condition, but actually isn&rsquo;t, like what has happened to the <code>if (aDifferentCondition(wthAnotherArg))</code> condition in the first example.</p>
 <p>That is why I always enforce braces.</p>
 <p>Lambdas are fine. you can leave out the braces on one-liner lambdas because the compiler will sort you out if you get that wrong.</p>
 <h3 id="general-whitespace">General Whitespace</h3>
@@ -294,7 +286,7 @@ if (aDifferentCondition(wthAnotherArg))
 <li>GivenIHaveATestMethod_WhenINeedToNameIt_ThenISeperateTheGivenWhenThenComponentsByUnderscores</li>
 </ul>
 <p>I have more recently extended my ideas to following this further guidance of organising tests to now use nested classes, and inheritance:</p>
-<pre><code>public class GivenIHaveAUser
+<pre tabindex="0"><code>public class GivenIHaveAUser
 {
     public class GivenIHaveLoggedIn : GivenIHaveAUser
     {
@@ -320,14 +312,12 @@ if (aDifferentCondition(wthAnotherArg))
         }
     }
 }
-</code></pre>
-<h3 id="automation">Automation</h3>
+</code></pre><h3 id="automation">Automation</h3>
 <p>If you want to really care about the style of your code, I recommend installing a few NuGet packages into your projects to get compile-time enforcement (don&rsquo;t worry, the rules are configurable):</p>
-<pre><code>&lt;PackageReference Include=&quot;Microsoft.CodeAnalysis.FxCopAnalyzers&quot; Version=&quot;2.6.0&quot;  PrivateAssets=&quot;All&quot; /&gt;
-&lt;PackageReference Include=&quot;codecracker.CSharp&quot; Version=&quot;1.0.3&quot; PrivateAssets=&quot;All&quot; /&gt;
-&lt;PackageReference Include=&quot;StyleCop.Analyzers&quot; Version=&quot;1.1.0-beta004&quot; PrivateAssets=&quot;All&quot; /&gt;
-</code></pre>
-<p>(That needs a whole article in itself, but this is a taster.)</p>
+<pre tabindex="0"><code>&lt;PackageReference Include=&#34;Microsoft.CodeAnalysis.FxCopAnalyzers&#34; Version=&#34;2.6.0&#34;  PrivateAssets=&#34;All&#34; /&gt;
+&lt;PackageReference Include=&#34;codecracker.CSharp&#34; Version=&#34;1.0.3&#34; PrivateAssets=&#34;All&#34; /&gt;
+&lt;PackageReference Include=&#34;StyleCop.Analyzers&#34; Version=&#34;1.1.0-beta004&#34; PrivateAssets=&#34;All&#34; /&gt;
+</code></pre><p>(That needs a whole article in itself, but this is a taster.)</p>
 <h3 id="the-end">The End</h3>
 <p>I hope you enjoyed reading and thinking about code formatting. If you haven&rsquo;t taken something away to try, read it again and find something to challenge me on. If you can&rsquo;t make an argument for or against, maybe give it a go yourself, or suggest it to your team.</p>
 </section>

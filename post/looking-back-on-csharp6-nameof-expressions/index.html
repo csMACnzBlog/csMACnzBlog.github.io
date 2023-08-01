@@ -144,40 +144,37 @@
 <p>This is such a small feature but I use it everywhere.</p>
 <p>The <code>nameof</code> expression keyword acts like a function, that takes any reference as its argument, and evaluates to the string representing the name of the reference, rather than it&rsquo;s evaluated value. This is a compile-time feature that allows you to represent code as a string but in a referential way. Because this is an expression, and a compile-time behaviour, it can interact with code elements that most other runtime code cannot.</p>
 <p>Looking at the problem it solves is a good place to start getting your head around this feature.</p>
-<pre><code class="language-cs">var myVar = &quot;This is a variable&quot;;
-var message = &quot;This message references the name of `myVaar`&quot;; // see typo
-
-// Using the new `nameof` expression
-var message2 = String.Format(&quot;This message references the name of `{0}`&quot; + nameof(myVar));
-// if you used the type `nameof(myVaar)`, the code would not compile
-</code></pre>
-<p>Because of the referential integrity of the argument passed to <code>nameof</code>, you cannot have typos. Code refactoring also treats these as references, and so renaming correctly refactors these references as well.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> myVar = <span style="color:#e6db74">&#34;This is a variable&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> message = <span style="color:#e6db74">&#34;This message references the name of `myVaar`&#34;</span>; <span style="color:#75715e">// see typo</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Using the new `nameof` expression</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> message2 = String.Format(<span style="color:#e6db74">&#34;This message references the name of `{0}`&#34;</span> + nameof(myVar));
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// if you used the type `nameof(myVaar)`, the code would not compile</span>
+</span></span></code></pre></div><p>Because of the referential integrity of the argument passed to <code>nameof</code>, you cannot have typos. Code refactoring also treats these as references, and so renaming correctly refactors these references as well.</p>
 <p>The <code>nameof</code> expression can be passed variables, Methods, Classes, Properties, pretty much anything. You can even fully qualify <code>nameof(MyNameSpace.MyClass.MyStaticProperty)</code> to correctly generate the string <code>&quot;MyStaticProperty&quot;</code>. (Note that only the final part is generated.)</p>
 <p>One place I use this is with the Argument Exceptions:</p>
-<pre><code class="language-cs">public static void DoStuff(string aValue, int aNumber)
-{
-    if(aValue == null)
-    {
-        throw new ArgumentNullException(nameof(aValue));
-    }
-    
-    if(aNumber &lt; 0)
-    {
-        throw new ArgumentOutOfRangeException(nameof(aNumber), &quot;Must be Positive&quot;);
-    }
-
-    // Stuff happens here
-}
-</code></pre>
-<p>One other place I use this a bunch in  Xunit tests. You can use <code>MemberData</code> with <code>Theory</code> tests to programmatically provide data. Reflection is used on a string to locate the Property or Method with the given name. Using <code>nameof</code> here again avoids the risk of typos or failures after renaming things.</p>
-<pre><code class="language-cs">[Theory]
-[MemberData(nameof(PositiveTestCaseData))]
-public async Task WhenIDoStuff_ThenTheRightStuffHappens(string stuff, string expectedOutput)
-{
-    // ...
-}
-</code></pre>
-<p>This is also great for logging in general, so you can make reference to specific fields, types and properties without worrying about names getting out of sync.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> DoStuff(<span style="color:#66d9ef">string</span> aValue, <span style="color:#66d9ef">int</span> aNumber)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(aValue == <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(aValue));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(aNumber &lt; <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentOutOfRangeException(nameof(aNumber), <span style="color:#e6db74">&#34;Must be Positive&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Stuff happens here</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>One other place I use this a bunch in  Xunit tests. You can use <code>MemberData</code> with <code>Theory</code> tests to programmatically provide data. Reflection is used on a string to locate the Property or Method with the given name. Using <code>nameof</code> here again avoids the risk of typos or failures after renaming things.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#a6e22e">[Theory]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[MemberData(nameof(PositiveTestCaseData))]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task WhenIDoStuff_ThenTheRightStuffHappens(<span style="color:#66d9ef">string</span> stuff, <span style="color:#66d9ef">string</span> expectedOutput)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is also great for logging in general, so you can make reference to specific fields, types and properties without worrying about names getting out of sync.</p>
 <p>One of the smallest but most powerful feature to start using in your code if you haven&rsquo;t already. Hopefully, if you are not using this yourself, this explanation helps you understand when you are reading the code of others who are.</p>
 </section>
         

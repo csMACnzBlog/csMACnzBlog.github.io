@@ -146,182 +146,172 @@
 <p>&ldquo;Anonymous&rdquo; refers to the fact that the function has no name, and is not tied to an actual class or instance. The term comes from functional programming.</p>
 <p>In terms of implementation details, there are two categories of lambdas, those which stand alone and are pure functions, and those that have a captured scope, known as a closure. Closure, again, is a functional programming term. We capture variables from the scope of the parent and encapsulate them into this anonymous function instance.</p>
 <p>Pure functions can easily be refactored into a public static function in a static class very easily, and the compilation is very similar.</p>
-<pre><code class="language-cs">
-static Action&lt;int&gt; GetRandomValueFunction()
-{
-    Console.WriteLine(&quot;Use static value for counter: {0}&quot;, counter);
-    return () =&gt; 5;
-}
-
-// These two methods are the same as the above
-static Action&lt;int&gt; GetRandomValueFunction()
-{
-    Console.WriteLine(&quot;Use static value for counter: {0}&quot;, counter);
-    return StaticValueFunction;
-}
-
-static int StaticValueFunction()
-{
-    return 5;
-}
-</code></pre>
-<p>There is no simple construct equivalent for closures. Hopefully, by example, we can see how these transform into simple static methods anyway. (In an example stolen from <a href="https://stackoverflow.com/a/5438331/2118268">SO</a>)</p>
-<pre><code class="language-cs"> static Action CreateShowAndIncrementAction()
-{
-    Random rng = new Random();
-    int counter = rng.Next(10);
-    Console.WriteLine(&quot;Initial value for counter: {0}&quot;, counter);
-    return () =&gt;
-    {
-        Console.WriteLine(counter);
-        counter++;
-    };
-}
-</code></pre>
-<p>Given the above C# code, the compiled code will more closely resemble the below:</p>
-<pre><code class="language-cs">
-static Action CreateShowAndIncrementAction()
-{
-    ActionHelper helper = new ActionHelper();        
-    Random rng = new Random();
-    helper.counter = rng.Next(10);
-    Console.WriteLine(&quot;Initial value for counter: {0}&quot;, helper.counter);
-
-    // 
-    return helper.DoAction;
-}
-
-class ActionHelper
-{
-    public int counter;
-
-    public void DoAction()
-    {
-        Console.WriteLine(counter);
-        counter++;
-    }
-}
-</code></pre>
-<p>Because the compiler generates these, it also controls access and visibility, so that you cannot actually access it in this way from your code directly. But it does all this automatically for you, and with fewer lines of code to achieve the same logical execution. It is also clearer from the lambda version that the calling method is the owner of the function, and no one else can or should share it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> Action&lt;<span style="color:#66d9ef">int</span>&gt; GetRandomValueFunction()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    Console.WriteLine(<span style="color:#e6db74">&#34;Use static value for counter: {0}&#34;</span>, counter);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> () =&gt; <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// These two methods are the same as the above</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> Action&lt;<span style="color:#66d9ef">int</span>&gt; GetRandomValueFunction()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    Console.WriteLine(<span style="color:#e6db74">&#34;Use static value for counter: {0}&#34;</span>, counter);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> StaticValueFunction;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> StaticValueFunction()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There is no simple construct equivalent for closures. Hopefully, by example, we can see how these transform into simple static methods anyway. (In an example stolen from <a href="https://stackoverflow.com/a/5438331/2118268">SO</a>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span> <span style="color:#66d9ef">static</span> Action CreateShowAndIncrementAction()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    Random rng = <span style="color:#66d9ef">new</span> Random();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> counter = rng.Next(<span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>    Console.WriteLine(<span style="color:#e6db74">&#34;Initial value for counter: {0}&#34;</span>, counter);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> () =&gt;
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Console.WriteLine(counter);
+</span></span><span style="display:flex;"><span>        counter++;
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Given the above C# code, the compiled code will more closely resemble the below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> Action CreateShowAndIncrementAction()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ActionHelper helper = <span style="color:#66d9ef">new</span> ActionHelper();        
+</span></span><span style="display:flex;"><span>    Random rng = <span style="color:#66d9ef">new</span> Random();
+</span></span><span style="display:flex;"><span>    helper.counter = rng.Next(<span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>    Console.WriteLine(<span style="color:#e6db74">&#34;Initial value for counter: {0}&#34;</span>, helper.counter);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> helper.DoAction;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ActionHelper</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> counter;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoAction()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Console.WriteLine(counter);
+</span></span><span style="display:flex;"><span>        counter++;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Because the compiler generates these, it also controls access and visibility, so that you cannot actually access it in this way from your code directly. But it does all this automatically for you, and with fewer lines of code to achieve the same logical execution. It is also clearer from the lambda version that the calling method is the owner of the function, and no one else can or should share it.</p>
 <p>Clearly, lambdas reduce our lines of code and are superior.</p>
 <h2 id="working-with-lambdas">working with lambdas</h2>
 <p>Sometimes, though, your lambdas get complicated. When you have big complicated lambdas inside LINQ pipelines, it gets messy fast.</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
-{
-    var restriction =  _store.GetRestriction(restrictionNumber);
-    
-    
-    // This `where` clause is only going to get more complicated from here.
-    _store
-        .GetWidgets()
-        .Where(w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction)
-        .Select(Map)
-        .ToList();
-}
-</code></pre>
-<p>We have a few options prior to C# 7:</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
-{
-    var restriction =  _store.GetRestriction(restrictionNumber);
-    
-    _store
-        .GetWidgets()
-        .Where(w =&gt; Filter(w, plumb, restriction))
-        .Select(Map)
-        .ToList();
-}
-
-private bool Filter(Widget widget, string plumb, Restriction restriction)
-{
-    return (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction &gt; restriction;
-}
-</code></pre>
-<p>There are a couple of problems with this. We are now passing all the parameters through to the nested function. This is fine, but from a maintenance point of view, we might add more parameters and we now end up maintaining two signatures every time we change.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List&lt;Widget&gt; GetWidgetsByPlumbob(<span style="color:#66d9ef">string</span> plumb, <span style="color:#66d9ef">int</span> restrictionNumber)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> restriction =  _store.GetRestriction(restrictionNumber);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This `where` clause is only going to get more complicated from here.</span>
+</span></span><span style="display:flex;"><span>    _store
+</span></span><span style="display:flex;"><span>        .GetWidgets()
+</span></span><span style="display:flex;"><span>        .Where(w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction)
+</span></span><span style="display:flex;"><span>        .Select(Map)
+</span></span><span style="display:flex;"><span>        .ToList();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We have a few options prior to C# 7:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List&lt;Widget&gt; GetWidgetsByPlumbob(<span style="color:#66d9ef">string</span> plumb, <span style="color:#66d9ef">int</span> restrictionNumber)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> restriction =  _store.GetRestriction(restrictionNumber);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    _store
+</span></span><span style="display:flex;"><span>        .GetWidgets()
+</span></span><span style="display:flex;"><span>        .Where(w =&gt; Filter(w, plumb, restriction))
+</span></span><span style="display:flex;"><span>        .Select(Map)
+</span></span><span style="display:flex;"><span>        .ToList();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">bool</span> Filter(Widget widget, <span style="color:#66d9ef">string</span> plumb, Restriction restriction)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction &gt; restriction;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There are a couple of problems with this. We are now passing all the parameters through to the nested function. This is fine, but from a maintenance point of view, we might add more parameters and we now end up maintaining two signatures every time we change.</p>
 <p>Also, we open up for another function to start using the &ldquo;sharable&rdquo; filter function. Now we would be coupled to that new function. We can&rsquo;t change our own filter without affecting that other new function, and that adds brittle fragility. Sometimes duplicating logic that has different reasons to change is worth the duplication, but the architecture of this code does not guard against this.</p>
 <p>Another example is to pull the lambda into a variable:</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
-{
-    var restriction =  _store.GetRestriction(restrictionNumber);
-    
-    var filter = w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction);
-    
-    _store
-        .GetWidgets()
-        .Where(filter)
-        .Select(Map)
-        .ToList();
-}
-</code></pre>
-<p>Looking at the example, it adds some simplification. Because like the original example this lambda is a closure, the lambda can match the expected signature of the <code>Where</code> LINQ Extension.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List&lt;Widget&gt; GetWidgetsByPlumbob(<span style="color:#66d9ef">string</span> plumb, <span style="color:#66d9ef">int</span> restrictionNumber)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> restriction =  _store.GetRestriction(restrictionNumber);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> filter = w =&gt; (w.PlumbBob.StartsWith(plumbob) || w.PlumbBob.EndsWith(plumbob)) &amp;&amp; w.Restriction == restriction);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    _store
+</span></span><span style="display:flex;"><span>        .GetWidgets()
+</span></span><span style="display:flex;"><span>        .Where(filter)
+</span></span><span style="display:flex;"><span>        .Select(Map)
+</span></span><span style="display:flex;"><span>        .ToList();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Looking at the example, it adds some simplification. Because like the original example this lambda is a closure, the lambda can match the expected signature of the <code>Where</code> LINQ Extension.</p>
 <p>However, sometimes this approach causes issues with type interpolation. That is, if you pull out into a variable, often you can&rsquo;t use <code>var</code> or need to add explicit type casting to help the compiler out, or it will not compile.</p>
 <p>I don&rsquo;t think we have actually helped with the readability as much as we would like. It may not be obvious on the first pass of reading the function that this is a lambda, not a statement. This is also a simple example, and they can get more complex fast.</p>
 <h2 id="put-functions-inside-your-functions">Put functions inside your functions!</h2>
 <p>With C# 7, we can now use a nested function. This gives us the benefits of not polluting the namespace of the class, while also making it more readable. It also makes it clearer that the function is owned by the caller as the only consumer.</p>
-<pre><code class="language-cs">public List&lt;Widget&gt; GetWidgetsByPlumbob(string plumb, int restrictionNumber)
-{
-    var restriction =  _store.GetRestriction(restrictionNumber);
-    
-    bool Filter(Widget widget)
-    {
-        return (w.PlumbBob.StartsWith(plumb) || w.PlumbBob.EndsWith(plumb)) &amp;&amp; w.Restriction &gt; restriction;
-    }
-    
-    _store
-        .GetWidgets()
-        .Where(Filter)
-        .Select(Map)
-        .ToList();
-}
-</code></pre>
-<p>Our compiler now ensures no one else can use this function. It is only callable from this method and gives the reader the knowledge that this is a specific implementation detail for this function only and not a shared common piece of logic. (Encapsulation.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List&lt;Widget&gt; GetWidgetsByPlumbob(<span style="color:#66d9ef">string</span> plumb, <span style="color:#66d9ef">int</span> restrictionNumber)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> restriction =  _store.GetRestriction(restrictionNumber);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> Filter(Widget widget)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (w.PlumbBob.StartsWith(plumb) || w.PlumbBob.EndsWith(plumb)) &amp;&amp; w.Restriction &gt; restriction;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    _store
+</span></span><span style="display:flex;"><span>        .GetWidgets()
+</span></span><span style="display:flex;"><span>        .Where(Filter)
+</span></span><span style="display:flex;"><span>        .Select(Map)
+</span></span><span style="display:flex;"><span>        .ToList();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Our compiler now ensures no one else can use this function. It is only callable from this method and gives the reader the knowledge that this is a specific implementation detail for this function only and not a shared common piece of logic. (Encapsulation.)</p>
 <p>In this example it also still allows us to use the simplified <code>Where</code> call.</p>
 <p>The best example of where this is really useful is recursion.</p>
 <p>Often a recursive algorithm has a bootstrap function, that then calls the recursive part. Let&rsquo;s print a tree of items with indentations.</p>
-<pre><code class="language-cs">public static void PrintLines(TextWriter out, Tree items)
-{
-    out.WriteLine(items.Title);
-    foreach(var node in items.Children)
-    {
-        Print(out, node, &quot;&quot;);
-    }
-}
-
-private void Print(TextWriter out, TreeNode node, string indent)
-{
-    out.WriteLine(&quot;{0}{1}&quot;, indent, items.Title);
-    if(node.HasChildren)
-    {
-        foreach(var node in items.Children)
-        {
-            Print(out, node indent + &quot;    &quot;);
-        }
-    }
-}
-</code></pre>
-<p>For simplicity you can now write this:</p>
-<pre><code class="language-cs">public static void PrintLines(TextWriter out, Tree items)
-{
-    void Print(TreeNode node, string indent)
-    {
-        out.WriteLine(&quot;{0}{1}&quot;, indent, items.Title);
-        if(node.HasChildren)
-        {
-            foreach(var node in items.Children)
-            {
-                Print(out, node indent + &quot;    &quot;);
-            }
-        }
-    }
-
-    out.WriteLine(items.Title);
-    foreach(var node in items.Children)
-    {
-        Print(node, &quot;&quot;);
-    }
-}
-
-</code></pre>
-<p>This example may not reduce lines of code by much, but the cognitive load of the encapsulation can be hugely beneficial when in a class with more service methods as well.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> PrintLines(TextWriter <span style="color:#66d9ef">out</span>, Tree items)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">out</span>.WriteLine(items.Title);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span>(<span style="color:#66d9ef">var</span> node <span style="color:#66d9ef">in</span> items.Children)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Print(<span style="color:#66d9ef">out</span>, node, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> Print(TextWriter <span style="color:#66d9ef">out</span>, TreeNode node, <span style="color:#66d9ef">string</span> indent)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">out</span>.WriteLine(<span style="color:#e6db74">&#34;{0}{1}&#34;</span>, indent, items.Title);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(node.HasChildren)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span>(<span style="color:#66d9ef">var</span> node <span style="color:#66d9ef">in</span> items.Children)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            Print(<span style="color:#66d9ef">out</span>, node indent + <span style="color:#e6db74">&#34;    &#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>For simplicity you can now write this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> PrintLines(TextWriter <span style="color:#66d9ef">out</span>, Tree items)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> Print(TreeNode node, <span style="color:#66d9ef">string</span> indent)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">out</span>.WriteLine(<span style="color:#e6db74">&#34;{0}{1}&#34;</span>, indent, items.Title);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(node.HasChildren)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">foreach</span>(<span style="color:#66d9ef">var</span> node <span style="color:#66d9ef">in</span> items.Children)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                Print(<span style="color:#66d9ef">out</span>, node indent + <span style="color:#e6db74">&#34;    &#34;</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">out</span>.WriteLine(items.Title);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span>(<span style="color:#66d9ef">var</span> node <span style="color:#66d9ef">in</span> items.Children)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Print(node, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This example may not reduce lines of code by much, but the cognitive load of the encapsulation can be hugely beneficial when in a class with more service methods as well.</p>
 <h2 id="summary">Summary</h2>
 <p>The cliché &ldquo;another tool in the toolbelt&rdquo; comes to mind but this is certainly that, and sprinkled through code strategically can really help with readability and maintainability. Not a &ldquo;use often&rdquo; but certainly something I can and have used in my dotnet apps.</p>
 </section>

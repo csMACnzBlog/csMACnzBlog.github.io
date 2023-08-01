@@ -148,49 +148,46 @@ From their <em>Code Annotations</em> page in Visual Studio:</p>
 <p>Say you have a library DLL called <code>Beefeater.dll</code>. You would simply create <a href="https://github.com/csMACnz/Beefeater/blob/master/src/Beefeater/Beefeater.ExternalAnnotations.xml">a file</a> called <code>Beefeater.ExternalAnnotations.xml</code> that gets packaged into your NuGet file, in the same folder as the DLL. The naming convention is simply <code>*.ExternalAnnotations.xml</code> where <code>*</code> matches the name of your library without the <code>.dll</code> extension. (Notice the not so subtle plug for my library <a href="https://www.nuget.org/packages/Beefeater">Beefeater</a>. More on that in another post.)</p>
 <p>So what do we put in this file?  Well it&rsquo;s based on the <a href="https://msdn.microsoft.com/en-us/library/b2s063f7.aspx">XML Documentation</a> format. You know, the one you use in your comments, that can be exported to produce documentation? If you didn&rsquo;t know, watch out for more on that in a later post as well.  All you really need to know is that it describes the signature of a method and allows you do define attributes against the method, or it&rsquo;s parameters. Wherever you would put the attribute in code, you put it in that place in the file.</p>
 <p>Let&rsquo;s look at a specific example:</p>
-<pre><code class="language-cs">
-public struct NotNull&lt;T&gt;
-{
-    ...
-    public NotNull(T value) : this()
-    {
-        ...
-    }
-}
-
-public static class OptionExtensions
-{
-    ...
-    public static void Match&lt;TValue&gt;(
-      this Option&lt;TValue&gt; option, 
-      Action&lt;TValue&gt; some, 
-      Action none)
-    {
-        ...
-    }
-}
-
-</code></pre>
-<pre><code class="language-xml">&lt;assembly name=&quot;Beefeater&quot;&gt;
-    &lt;member name=&quot;M:Beefeater.NotNull`1.#ctor(`0)&quot;&gt;
-        &lt;parameter name=&quot;value&quot;&gt;
-            &lt;attribute ctor=&quot;M:JetBrains.Annotations.NotNullAttribute.#ctor&quot; /&gt;
-        &lt;/parameter&gt;
-    &lt;/member&gt;
-    &lt;member name=&quot;M:Beefeater.OptionExtensions.Match``1(Beefeater.Option{``0},System.Action{``0},System.Action)&quot;&gt;
-        &lt;parameter name=&quot;some&quot;&gt;
-            &lt;attribute ctor=&quot;M:JetBrains.Annotations.NotNullAttribute.#ctor&quot; /&gt;
-        &lt;/parameter&gt;
-        &lt;parameter name=&quot;none&quot;&gt;
-            &lt;attribute ctor=&quot;M:JetBrains.Annotations.NotNullAttribute.#ctor&quot; /&gt;
-        &lt;/parameter&gt;
-    &lt;/member&gt;
-    &lt;member name=&quot;P:Beefeater.Result`2.Error&quot;&gt;
-        &lt;attribute ctor=&quot;M:JetBrains.Annotations.NotNullAttribute.#ctor&quot; /&gt;
-    &lt;/member&gt;
-&lt;/assembly&gt;
-</code></pre>
-<p>We have good examples of a few different features so I will step through them with a bit of an explanation for each.  We start with the assembly, giving its name. Then we list many members inside this tag, one for each method we want to annotate.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NotNull</span>&lt;T&gt;
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> NotNull(T <span style="color:#66d9ef">value</span>) : <span style="color:#66d9ef">this</span>()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OptionExtensions</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Match&lt;TValue&gt;(
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span> Option&lt;TValue&gt; option, 
+</span></span><span style="display:flex;"><span>      Action&lt;TValue&gt; some, 
+</span></span><span style="display:flex;"><span>      Action none)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;assembly</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Beefeater&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;member</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;M:Beefeater.NotNull`1.#ctor(`0)&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;parameter</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;value&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;attribute</span> <span style="color:#a6e22e">ctor=</span><span style="color:#e6db74">&#34;M:JetBrains.Annotations.NotNullAttribute.#ctor&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/parameter&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/member&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;member</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;M:Beefeater.OptionExtensions.Match``1(Beefeater.Option{``0},System.Action{``0},System.Action)&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;parameter</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;some&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;attribute</span> <span style="color:#a6e22e">ctor=</span><span style="color:#e6db74">&#34;M:JetBrains.Annotations.NotNullAttribute.#ctor&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/parameter&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;parameter</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;none&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;attribute</span> <span style="color:#a6e22e">ctor=</span><span style="color:#e6db74">&#34;M:JetBrains.Annotations.NotNullAttribute.#ctor&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/parameter&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/member&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;member</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;P:Beefeater.Result`2.Error&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;attribute</span> <span style="color:#a6e22e">ctor=</span><span style="color:#e6db74">&#34;M:JetBrains.Annotations.NotNullAttribute.#ctor&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/member&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/assembly&gt;</span>
+</span></span></code></pre></div><p>We have good examples of a few different features so I will step through them with a bit of an explanation for each.  We start with the assembly, giving its name. Then we list many members inside this tag, one for each method we want to annotate.</p>
 <p>To annotate a constructor, We use the <code>M:</code> prefix, to define that this is for a method. We add the full namespace to the type, in this case, our class is <code>Beefeater.NotNull&lt;T&gt;</code>.  Our type is generic, so we use the <code> `1</code> syntax to declare that the type has a single generic type parameter. If we had 2 parameters we would have used <code> `2</code>. Because it is a constructor, we use the #ctor to represent its name.  Our constructor takes one parameter, and it is of type <code>T</code> from the generic, so we use <code> `0</code> to declare the first (zero-based indexing, of course) of the generic types.</p>
 <p>Next we have a nested parameter tag. This one declares the name of the parameter and contains any attributes applied to that parameter. The attribute has a <code>ctor</code> attribute where we put the fully qualified name of the constructor we use on that attribute. This is a repeat of the above syntax described for the member name.</p>
 <p>Our second method has a few extra bits of information to know.  Firstly, we are using the name .<code>Match``1</code> which is the actually method name since it isn&rsquo;t a constructor, and is generic since the method is generic, like the class was last time. Secondly, with parameters that are known types, we use their fully qualified name. We see the last parameter is a <code>System.Action</code>. The other two are generic types. This took me a while to figure out, but if your method is generic, your parameters are generic, and you need to match these together, you use the <code>{``0}</code> syntax, to say it has a generic argument, of type <code>`0</code>, where <code>`0</code> matches the first argument of the generics from the method (or class).</p>

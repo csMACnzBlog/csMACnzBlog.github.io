@@ -154,14 +154,13 @@
 <p>This URL is fun spoke rather than written, <a href="http://dot.net">dot.net</a> (dot dot net).  This is where you go to get started.</p>
 <p>Dotnet supports multiple versions side by side. Get 2.0 installed and you can get started following along with me.</p>
 <p>To check you have the correct version to follow along you can open a command line and type &lsquo;dotnet &ndash;version&rsquo;.</p>
-<pre><code>&gt; dotnet --version
+<pre tabindex="0"><code>&gt; dotnet --version
 2.0.3
-</code></pre>
-<h3 id="dotnet-cli">dotnet (CLI)</h3>
+</code></pre><h3 id="dotnet-cli">dotnet (CLI)</h3>
 <p>Ok, so you could just go <a href="https://www.microsoft.com/net/core#windows">RTFM</a>. But I will still go ahead and produce the Hello World of dotnet applications. <a href="http://www.mirror.co.uk/news/world-news/internet-full-experts-warn-web-5628789">The internet will be full soon</a>, I might as well do my bit.</p>
 <p>Firstly, like with git, we create a new folder and initialise it. In this case, the folder is the equivalent of a project folder.</p>
 <p>The command to create a project is <code>dotnet new [options]</code>. If you try to just run <code>dotnet new</code> (like your used to) you might see this:</p>
-<pre><code>Getting ready...
+<pre tabindex="0"><code>Getting ready...
 Usage: new [options]
 
 Options:
@@ -171,7 +170,7 @@ Options:
   -o, --output        Location to place the generated output.
   -i, --install       Installs a source or a template pack.
   -u, --uninstall     Uninstalls a source or a template pack.
-  --type              Filters templates based on available types. Predefined values are &quot;project&quot;, &quot;item&quot; or &quot;other&quot;.
+  --type              Filters templates based on available types. Predefined values are &#34;project&#34;, &#34;item&#34; or &#34;other&#34;.
   --force             Forces content to be generated even if it would change existing files.
   -lang, --language   Specifies the language of the template to create.
 
@@ -202,24 +201,20 @@ Examples:
     dotnet new mvc --auth Individual
     dotnet new classlib --framework netcoreapp2.0
     dotnet new --help
-</code></pre>
-<p>Mine might show more than yours. I have some extra templates installed (more on this later). But I digress.</p>
-<pre><code>mkdir MyNewApp
+</code></pre><p>Mine might show more than yours. I have some extra templates installed (more on this later). But I digress.</p>
+<pre tabindex="0"><code>mkdir MyNewApp
 cd MyNewApp
 dotnet new console
-</code></pre>
-<p>We should now have a new console application created with two files:</p>
+</code></pre><p>We should now have a new console application created with two files:</p>
 <ul>
 <li>Program.cs</li>
 <li>MyNewApp.csproj</li>
 </ul>
 <p>Technically, this is enough for a dotnet app.</p>
 <p>Now we can restore dependencies, build and run just by using the &lsquo;dotnet run&rsquo; command:</p>
-<pre><code>dotnet run
-</code></pre>
-<pre><code>Hello World!
-</code></pre>
-<p>That&rsquo;s it. The dotnet &lsquo;run&rsquo; command will automatically run the &lsquo;restore&rsquo; and &lsquo;build&rsquo; tasks automatically if it needs to. We have a fully executable .Net Core Application.</p>
+<pre tabindex="0"><code>dotnet run
+</code></pre><pre tabindex="0"><code>Hello World!
+</code></pre><p>That&rsquo;s it. The dotnet &lsquo;run&rsquo; command will automatically run the &lsquo;restore&rsquo; and &lsquo;build&rsquo; tasks automatically if it needs to. We have a fully executable .Net Core Application.</p>
 <h3 id="visual-studio">Visual Studio</h3>
 <p>Let&rsquo;s repeat with Visual Studio now. I have Visual Studio 2017., Even if you don&rsquo;t, you should still have something similar.</p>
 <p>Choose File-&gt; New -&gt; Project and Select the <code>Console Application (.Net Core)</code> template from under the new <code>.Net Core</code> C# category.</p>

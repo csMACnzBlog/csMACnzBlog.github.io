@@ -143,112 +143,104 @@
             <img class="post-image" src="https://images.unsplash.com/photo-1519508299351-658aa1d7f3a2?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE2ODI3fQ"><p>With C# 8 on our doorstep, I wanted to go through some of the C# 6 and 7 language features I have been using that you may have missed.</p>
 <p>We start with the Elvis Operator from C# 6. The real name is Null Conditional Operator I believe, but I prefer the former.</p>
 <p>It is always good to first look at what the simplest, common code scenario the feature addresses.</p>
-<pre><code class="language-cs">var widget = service.GetWidget(widgetId);
-
-if(widget.IsInStock())
-{
-   service.PurchaseWidgets(widgetId, quantity);
-}
-</code></pre>
-<p>A simple scenario to purchase some widgets. Pretty standard code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> widget = service.GetWidget(widgetId);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(widget.IsInStock())
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>   service.PurchaseWidgets(widgetId, quantity);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A simple scenario to purchase some widgets. Pretty standard code.</p>
 <p>But what if <code>GetWidget</code> returns <code>null</code> when the id is incorrect? (Whether returning nulls is a good idea is another topic, so we won&rsquo;t go into that here.)  We get a <code>NullReferenceException</code> when we try to check <code>widget.IsInStock()</code>.</p>
 <p>We can fix that:</p>
-<pre><code class="language-cs">var widget = service.GetWidget(widgetId);
-
-if(widget != null &amp;&amp; widget.IsInStock())
-{
-   service.PurchaseWidgets(widgetId, quantity);
-}
-</code></pre>
-<p>We add a <code>null</code> guard and everything works again as expected. The code becomes a bit more verbose for these very common use cases.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> widget = service.GetWidget(widgetId);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(widget != <span style="color:#66d9ef">null</span> &amp;&amp; widget.IsInStock())
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>   service.PurchaseWidgets(widgetId, quantity);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We add a <code>null</code> guard and everything works again as expected. The code becomes a bit more verbose for these very common use cases.</p>
 <p>Instead, we can use the new(ish) symbol, the Null Conditional Operator or &ldquo;Elvis Operator&rdquo;, which looks like <code>?.</code> when used, which at a squint looks a bit like two eyes (<code>..</code>) and a coif of hair resembling the look <a href="http://www.schwarzkopf.international/en/hairstyling/fiftieshairstyles/elvis-presley-hairstyle.html">made famous by Elvis Presley</a>. (Technically it&rsquo;s just the <code>?</code> but it usually ends up with a <code>.</code> following it.)</p>
 <p>This symbol is a Null Check. It means &ldquo;if the evaluated expression on the left is null, don&rsquo;t evaluate the right-hand side, and evaluate to a null value if required.&rdquo;</p>
 <p>Some example usages:</p>
-<pre><code class="language-cs">interface ITestInterface {
-    int ANumberProperty { get; }
-    void DoSomeWork();
-    string GetSomeData();
-    long GetALong();
-}
-
-// getValue returns an `ITestInterface`
-ITestInterface aValue = getValue();
-
-// Safely get the value from a Property when the object might be null
-int? aNumber = aValue?.ANumberProperty;
-
-// if aValue is not null, execute `.DoSomeWork()`
-aValue?.DoSomeWork();
-
-// if aValue is not null, execute `.GetSomeData()`
-// at this point, data could be null, and as a string, could have been anyway
-string data = aValue?.GetSomeData();
-
-// if aValue is not null, execute `.GetALong()`
-// at this point, the result is now nullable
-// We should all try to get along...
-long? aLong = aValue?.GetALong();
-</code></pre>
-<p>For our above example, this means we can now write this:</p>
-<pre><code class="language-cs">if(widget?.IsInStock() == true)
-{
-   service.PurchaseWidgets(widgetId, quantity);
-}
-</code></pre>
-<p>This is functionally identical code to the working example above. Note that because <code>if(...)</code> expects a boolean expression (something that evaluates to either true or false) we need to add <code>== true</code> to the end. This is because <code>widget?.IsInStock()</code> evaluates to <code>Nullable&lt;bool&gt;</code>, or <code>bool?</code> (The original <code>bool</code> becomes <code>bool?</code> thanks to the Elvis Operator.) Personally, I think this is very readable code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">ITestInterface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> ANumberProperty { <span style="color:#66d9ef">get</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> DoSomeWork();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> GetSomeData();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> GetALong();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// getValue returns an `ITestInterface`</span>
+</span></span><span style="display:flex;"><span>ITestInterface aValue = getValue();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Safely get the value from a Property when the object might be null</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int?</span> aNumber = aValue?.ANumberProperty;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// if aValue is not null, execute `.DoSomeWork()`</span>
+</span></span><span style="display:flex;"><span>aValue?.DoSomeWork();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// if aValue is not null, execute `.GetSomeData()`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// at this point, data could be null, and as a string, could have been anyway</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">string</span> data = aValue?.GetSomeData();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// if aValue is not null, execute `.GetALong()`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// at this point, the result is now nullable</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// We should all try to get along...</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">long?</span> aLong = aValue?.GetALong();
+</span></span></code></pre></div><p>For our above example, this means we can now write this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(widget?.IsInStock() == <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>   service.PurchaseWidgets(widgetId, quantity);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is functionally identical code to the working example above. Note that because <code>if(...)</code> expects a boolean expression (something that evaluates to either true or false) we need to add <code>== true</code> to the end. This is because <code>widget?.IsInStock()</code> evaluates to <code>Nullable&lt;bool&gt;</code>, or <code>bool?</code> (The original <code>bool</code> becomes <code>bool?</code> thanks to the Elvis Operator.) Personally, I think this is very readable code.</p>
 <p>One other ideal scenario for this is Function Pointers. Specifically, the language feature of Delegates, Funcs and Actions. To make this work, you have to use the <code>Invoke</code> method, rather than execute them like functions. Examples of what I mean are below.</p>
-<pre><code class="language-cs">public event PropertyChangedEventHandler PropertyChanged;
-
-private void OnPropertyChanged(string propertyName)
-{
-    // This is a pretty traditional EventHandler scenario implementation
-    var handler = PropertyChanged;
-    if (handler != null)
-        handler.Invoke(this, new PropertyChangedEventArgs(propertyName));
-}
-</code></pre>
-<p>If this code doesn&rsquo;t look familiar, skip to the next paragraph. Otherwise, I&rsquo;ll go on. Events and EventHandler code can have problems if no-one has actually subscribed to the event, the execution could fail. But that&rsquo;s where we update to use the Elvis Operator, and throw away a bunch of code. You don&rsquo;t even have to create a shadow-copy variable to avoid multithread update race conditions, because the code generated by the compiler does that for you!</p>
-<pre><code class="language-cs">private void OnPropertyChanged(string propertyName)
-{
-    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-}
-</code></pre>
-<p>For Funcs and Actions, you can safeguard against null values using the Elvis Operator as well.</p>
-<pre><code class="language-cs">public void DoWork(Action&lt;string&gt; logStuff)
-{
-    // Work happens here
-
-    // This throws when `logStuff` is null
-    // logStuff(&quot;Finished Doing Work.&quot;); 
-    
-    // This will work, only executing if logStuff is not null
-    logStuff?.Invoke(&quot;Finished Doing Work.&quot;);
-}
-
-public Stuff GetStuff(Func&lt;string&gt; getMoreStuff)
-{
-    // Work happens here
-    
-    // This also throws when `getMoreStuff` is null
-    // var moreStuff = getMoreStuff();
-    
-    // moreStuff will be null if getMoreStuff is null, OR if getMoreStuff returns null
-    // You still might do a null check if you care about the difference
-    var moreStuff = getMoreStuff?.Invoke();
-    
-    // We could also use the null coalescing operator (`??`) as well to fallback in both cases:
-    var another = getMoreStuff?.Invoke() ?? &quot;FallBack Value&quot;;
-    
-    return new Stuff
-    {
-        Thing1 = 3.4,
-        Thing2 = 3.3,
-        MoreStuff = moreStuff
-    };
-}
-
-</code></pre>
-<p>While I often hear people talking about &ldquo;clever code&rdquo; as an antipattern, and I totally agree with that statement, I find the argument for any particular feature or technique being &ldquo;clever&rdquo; is very time sensitive. As a language feature reaches a large enough common usage status, it is no longer considered &ldquo;clever&rdquo;. (Historical examples of this might be <code>foreach</code> Extension methods, lambdas, even LINQ statements and async compared to two years ago.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">event</span> PropertyChangedEventHandler PropertyChanged;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> OnPropertyChanged(<span style="color:#66d9ef">string</span> propertyName)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a pretty traditional EventHandler scenario implementation</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> handler = PropertyChanged;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (handler != <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>        handler.Invoke(<span style="color:#66d9ef">this</span>, <span style="color:#66d9ef">new</span> PropertyChangedEventArgs(propertyName));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>If this code doesn&rsquo;t look familiar, skip to the next paragraph. Otherwise, I&rsquo;ll go on. Events and EventHandler code can have problems if no-one has actually subscribed to the event, the execution could fail. But that&rsquo;s where we update to use the Elvis Operator, and throw away a bunch of code. You don&rsquo;t even have to create a shadow-copy variable to avoid multithread update race conditions, because the code generated by the compiler does that for you!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> OnPropertyChanged(<span style="color:#66d9ef">string</span> propertyName)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    PropertyChanged?.Invoke(<span style="color:#66d9ef">this</span>, <span style="color:#66d9ef">new</span> PropertyChangedEventArgs(propertyName));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>For Funcs and Actions, you can safeguard against null values using the Elvis Operator as well.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoWork(Action&lt;<span style="color:#66d9ef">string</span>&gt; logStuff)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Work happens here</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This throws when `logStuff` is null</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// logStuff(&#34;Finished Doing Work.&#34;); </span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This will work, only executing if logStuff is not null</span>
+</span></span><span style="display:flex;"><span>    logStuff?.Invoke(<span style="color:#e6db74">&#34;Finished Doing Work.&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Stuff GetStuff(Func&lt;<span style="color:#66d9ef">string</span>&gt; getMoreStuff)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Work happens here</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This also throws when `getMoreStuff` is null</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// var moreStuff = getMoreStuff();</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// moreStuff will be null if getMoreStuff is null, OR if getMoreStuff returns null</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// You still might do a null check if you care about the difference</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> moreStuff = getMoreStuff?.Invoke();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// We could also use the null coalescing operator (`??`) as well to fallback in both cases:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> another = getMoreStuff?.Invoke() ?? <span style="color:#e6db74">&#34;FallBack Value&#34;</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Stuff
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Thing1 = <span style="color:#ae81ff">3.4</span>,
+</span></span><span style="display:flex;"><span>        Thing2 = <span style="color:#ae81ff">3.3</span>,
+</span></span><span style="display:flex;"><span>        MoreStuff = moreStuff
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>While I often hear people talking about &ldquo;clever code&rdquo; as an antipattern, and I totally agree with that statement, I find the argument for any particular feature or technique being &ldquo;clever&rdquo; is very time sensitive. As a language feature reaches a large enough common usage status, it is no longer considered &ldquo;clever&rdquo;. (Historical examples of this might be <code>foreach</code> Extension methods, lambdas, even LINQ statements and async compared to two years ago.)</p>
 <p>That applies here as well. It is time to embrace the Elvis Operator in your code.</p>
 </section>
         

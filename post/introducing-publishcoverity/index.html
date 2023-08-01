@@ -137,20 +137,18 @@
             <p>As part of my open source development tooling investigation, I came across <a href="https://scan.coverity.com/">Coverity Scan</a> Static Analysis. And thanks to <a href="http://arkfps.github.io/2015/01/07/using-coverity-scan-with-appveyor/">Arkfps&rsquo; post</a> I could automate the process of submitting the results. And now <a href="http://help.appveyor.com/discussions/suggestions/497-coverity-static-analysis-support">Appveyor includes Coverity on it&rsquo;s images</a>. But I decided to take his work one step further, and so I built a small utility to compress and submit the results.</p>
 <p><a href="https://www.nuget.org/packages/PublishCoverity">PublishCoverity</a> is available on NuGet, and has two use cases: Compress and Publish.</p>
 <p>Compress takes a directory and compresses it to produce an output zip file.</p>
-<pre><code class="language-cmd">Signature:
-    PublishCoverity compress [-o &lt;file&gt;] [-i &lt;folder&gt;] [--overwrite] [--dryrun]
-
-Example:
-    PublishCoverity compress -o results.zip -i cov-int
-</code></pre>
-<p>Publish takes that file and some of your project data and posts it off to Coverity for you.</p>
-<pre><code class="language-cmd">Signature:
-    PublishCoverity publish -t &lt;token&gt; -e &lt;email&gt; [-r &lt;name&gt;] [-z &lt;file&gt;] [-d &lt;desc&gt;] [--codeVersion &lt;version&gt;] [--dryrun] [--nologo]
-    
-Example:
-    PublishCoverity publish -t COVERITYTOKEN -e example@example.com -r MyUser/MyProject -z results.zip -d &quot;my project&quot; --codeVersion 0.1.2.3
-</code></pre>
-<p>Although this is still evolving, the gist of what is above will be available to compress and/or publish your results to Coverity Scan. The idea is that anything that I can reasonably determine for you I will try and make optional. Such as your repository name from the AppVeyor Build Environment variables.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Signature:
+</span></span><span style="display:flex;"><span>    PublishCoverity compress [-o &lt;file&gt;] [-i &lt;folder&gt;] [--overwrite] [--dryrun]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Example:
+</span></span><span style="display:flex;"><span>    PublishCoverity compress -o results.zip -i cov-int
+</span></span></code></pre></div><p>Publish takes that file and some of your project data and posts it off to Coverity for you.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Signature:
+</span></span><span style="display:flex;"><span>    PublishCoverity publish -t &lt;token&gt; -e &lt;email&gt; [-r &lt;name&gt;] [-z &lt;file&gt;] [-d &lt;desc&gt;] [--codeVersion &lt;version&gt;] [--dryrun] [--nologo]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>Example:
+</span></span><span style="display:flex;"><span>    PublishCoverity publish -t COVERITYTOKEN -e example@example.com -r MyUser/MyProject -z results.zip -d <span style="color:#e6db74">&#34;my project&#34;</span> --codeVersion 0.1.2.3
+</span></span></code></pre></div><p>Although this is still evolving, the gist of what is above will be available to compress and/or publish your results to Coverity Scan. The idea is that anything that I can reasonably determine for you I will try and make optional. Such as your repository name from the AppVeyor Build Environment variables.</p>
 <p>I&rsquo;ve already had a request to add some guards around the results to ensure they are valid and complete before sending, but right now version 0.9 is available on NuGet for you to install and use, and the source is <a href="https://github.com/csMACnz/coveritypublisher">available on GitHub</a>  All feedback and features requests welcome as GitHub issues, or just comment on this post.</p>
 <p>Enjoy!</p>
 </section>

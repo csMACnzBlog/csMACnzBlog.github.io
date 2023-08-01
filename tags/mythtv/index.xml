@@ -43,34 +43,31 @@
       <description>&lt;p&gt;Ive had my mythbox up and running for about a month now, and its working perfectly. Here are a few wee changes i had to make from the default xfce mythbuntu 8.10 I had to make. Mythwelcome I have my mythbox set up to autologin and run with the remote, without a keyboard and mouse. for this reason i needed it to have some way of getting back into mythtv frontend without having to remote login or plug in a keyboard.&lt;/p&gt;
 &lt;p&gt;I went into the autostart folder for xfce and changed the mythtv.desktop file to run mythwelcome instead.&lt;/p&gt;
 &lt;p&gt;The problem that arose from this was that when i closed mythtv, mythwelcome would hide itself and left me at the desktop without a keyboard. I have found two ways of fixing this, both work equally well. The first is from a bug post for mythbuntu, &lt;a href=&#34;https://bugs.launchpad.net/mythbuntu/+bug/260429&#34;&gt;https://bugs.launchpad.net/mythbuntu/+bug/260429&lt;/a&gt; which outlines in the comments a way to get it working by adding the following to mythfrontend.sh.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/usr/share/mythtv/mythfrontend.sh
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/usr/share/mythtv/mythfrontend.sh
 ================================
 #source our dialog functions .
 /usr/share/mythtv/dialog_functions.sh +
 # deletes .ICEauthority resolves problems with mytharchive and mythwelcome +
 rm /home/gaby/.ICEauthority
 ================================
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The second option was to restart gdm using &lt;code&gt;sudo /etc/init.d/gdm restart&lt;/code&gt; which is run when i press a button on the remote.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The second option was to restart gdm using &lt;code&gt;sudo /etc/init.d/gdm restart&lt;/code&gt; which is run when i press a button on the remote.&lt;/p&gt;
 &lt;p&gt;to get this to work i had to add &lt;code&gt;mythuser &amp;quot;ALL = NOPASSWD: /etc/init.d/gdm&amp;quot;&lt;/code&gt; to the end of &lt;code&gt;/etc/sudoers&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Just a small note to myself mainly, don&amp;rsquo;t chmod /etc/sudoers, that ends badly, use sudo visudo. To get it working with my remote i just added a fwe lines to my .lircrc file (or in my case inside the .lirc directory, with mythbuntu&amp;rsquo;s mythbuntu-lirc-generator).&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;begin
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;begin
     remote = NOVA-T500
     prog = irexec
     button = Go
     config = sudo /etc/init.d/gdm restart
 end
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This added the command to my Go button on my remote and gave me a working Restart Gnome button. Terrestrial Freeview I have been using a UHF digital tuner card with New Zealand&amp;rsquo;s freeview, and this has been really good, nice high-definition quality tv. To get this working well i have been using a repository belonging to Paul Kendall, &lt;a href=&#34;https://launchpad.net/~paul-kcbbs/+archive&#34;&gt;https://launchpad.net/~paul-kcbbs/+archive&lt;/a&gt; using the following lines in &lt;code&gt;/etc/apt/sources.list deb http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main deb-src http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main&lt;/code&gt; This was the most important step in getting Terrestrial Freeview working on my Mythbox.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This added the command to my Go button on my remote and gave me a working Restart Gnome button. Terrestrial Freeview I have been using a UHF digital tuner card with New Zealand&amp;rsquo;s freeview, and this has been really good, nice high-definition quality tv. To get this working well i have been using a repository belonging to Paul Kendall, &lt;a href=&#34;https://launchpad.net/~paul-kcbbs/+archive&#34;&gt;https://launchpad.net/~paul-kcbbs/+archive&lt;/a&gt; using the following lines in &lt;code&gt;/etc/apt/sources.list deb http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main deb-src http://ppa.launchpad.net/paul-kcbbs/ubuntu intrepid main&lt;/code&gt; This was the most important step in getting Terrestrial Freeview working on my Mythbox.&lt;/p&gt;
 &lt;p&gt;I haven&amp;rsquo;t tryed the latest intrepid mythtv build of mythtv, but this works for me and i dont want to try anything while it works. Unfortunately the Freeview Broadcast EPG only shows previous, current and next, leaving me no chance to schedule recordings for anymore then an hour away usually. luckily there is a good python script that is compatable with the mythtv epg grabber settings that are built in. It was as easy as adding the py file into the right directory. &lt;a href=&#34;http://www.htpcnz.net/Setting_up_EPG_data#Linux&#34;&gt;http://www.htpcnz.net/Setting_up_EPG_data#Linux&lt;/a&gt; has the details of how and where to get the script.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ wget [http://nice.net.nz/scripts/tv_grab_nz-py](http://nice.net.nz/scripts/tv_grab_nz-py &amp;quot;http://nice.net.nz/scripts/tv_grab_nz-py&amp;quot;)
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ wget [http://nice.net.nz/scripts/tv_grab_nz-py](http://nice.net.nz/scripts/tv_grab_nz-py &amp;#34;http://nice.net.nz/scripts/tv_grab_nz-py&amp;#34;)
 # Download the file
 $ sudo mv tv_grab_nz-py /usr/local/bin/
 # Put it in a system directory
 $ sudo chmod 755 /usr/local/bin/tv_grab_nz-py
 # Make it executable 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then just find and use it from myth-setup&amp;rsquo;s video sources menus and it should be in the list of available grabbers. Whats next for me? Well I have a few more things to get working.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then just find and use it from myth-setup&amp;rsquo;s video sources menus and it should be in the list of available grabbers. Whats next for me? Well I have a few more things to get working.&lt;/p&gt;
 &lt;p&gt;I havent tried burning to dvds through mythtv yet. I also want to get auto encoding working too, these 4 or 5 gigabyte files are much too large to be storing for too long and nuvexport just doesnt want to work for me with xvid yet.&lt;/p&gt;
 </description>
     </item>

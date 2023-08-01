@@ -232,9 +232,8 @@ Really need table support here:
 <p>This test only ran across one solution with 30 C# projects, across 3 very similar machines, only 5 times each. For a more conclusive answer, you would want to run this across a whole range of extra solutions and machines. But from this limited view, I&rsquo;m really impressed by the perf increase of builds that 2015 provides me, for my particular code base, at this point in time.</p>
 <h3 id="other-findings">Other Findings</h3>
 <p>During this exercise of measuring I can across one other nice conclusion as well. Restoring NuGet packages on a large solution with a complex dependency graph is much faster when using the command line, rather than letting visual studio load them on demand right before a build.  I didn&rsquo;t get any hard numbers yet, but it feels significant. It took 2-4 minutes for VS to finish loading NuGet packages before it started building, versus the same dependencies loaded from the command line in 20 or 30 seconds.</p>
-<pre><code class="language-powershell">nuget restore src\mySolution.sln
-</code></pre>
-<p>It is true that I am using a locally hosted NuGet 2 server, and that could be a factor, so your mileage may vary. But I usually find that command line tasks do come out faster compared to GUI ones, and this is one I will change my habits over.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>nuget restore src\mySolution.sln
+</span></span></code></pre></div><p>It is true that I am using a locally hosted NuGet 2 server, and that could be a factor, so your mileage may vary. But I usually find that command line tasks do come out faster compared to GUI ones, and this is one I will change my habits over.</p>
 </section>
         
         <section class="share">

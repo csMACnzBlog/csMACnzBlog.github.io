@@ -49,29 +49,27 @@
       <description>&lt;p&gt;We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&amp;rsquo;t it be nice if we could detect that the subdirectory hasn&amp;rsquo;t changed and so has the same version it did last time we built it?&lt;/p&gt;
 &lt;p&gt;We use &lt;a href=&#34;https://github.com/GitTools/GitVersion&#34;&gt;gitversion&lt;/a&gt;, so we already have a way to get the version for the current commit.  Maybe we can use that to get the version for a subdirectories latest commit?  Sure we can!&lt;/p&gt;
 &lt;p&gt;To get the version for the latest commit, we need the latest commit.  Turns out you can use&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;$pathToFolder = &amp;quot;C:\dev\MyProject\MySubfolder&amp;quot;
-$commitHash = git log -n 1 --format=&amp;quot;%H&amp;quot; -- $pathToFolder
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here we run a &lt;code&gt;git log&lt;/code&gt; command to get the full commit hash, which we can save into a variable &lt;code&gt;$commitHash&lt;/code&gt;.  Now we have something to give to &lt;code&gt;gitversion&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$pathToFolder = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;C:\dev\MyProject\MySubfolder&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$commitHash = git log -n &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; --format=&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%H&amp;#34;&lt;/span&gt; -- $pathToFolder
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here we run a &lt;code&gt;git log&lt;/code&gt; command to get the full commit hash, which we can save into a variable &lt;code&gt;$commitHash&lt;/code&gt;.  Now we have something to give to &lt;code&gt;gitversion&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;There is a command in &lt;code&gt;gitversion&lt;/code&gt;, &lt;code&gt;\c&lt;/code&gt;, which takes a commit hash and runs for that instead of for the current commit. All we need to do is the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;$folderVersion = gitversion /c $commitHash | ConvertFrom-Json
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and new we have an object in &lt;code&gt;$folderVersion&lt;/code&gt; that we can inspect and get out all the version information, from &lt;code&gt;$folderVersion.SemVer&lt;/code&gt;, &lt;code&gt;$folderVersion.NuGetVersionV2&lt;/code&gt;, and even &lt;code&gt;$folderVersion.FullBuildMetaData&lt;/code&gt;!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$folderVersion = gitversion /c $commitHash | ConvertFrom-Json
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and new we have an object in &lt;code&gt;$folderVersion&lt;/code&gt; that we can inspect and get out all the version information, from &lt;code&gt;$folderVersion.SemVer&lt;/code&gt;, &lt;code&gt;$folderVersion.NuGetVersionV2&lt;/code&gt;, and even &lt;code&gt;$folderVersion.FullBuildMetaData&lt;/code&gt;!&lt;/p&gt;
 &lt;p&gt;What you do from here to integrate with the rest of your build scripts is up to you. One I have used is to go through that folder and replace version information, such as in *.nuspec files. Note here my *.nuspec file has a placeholder $version$ as the version number already in place.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$NewVersion = &amp;quot;&amp;quot; ## Version from some source, like gitversion
-$Sha = &amp;quot;&amp;quot; ## You can include the sha the version is from into the nuspec file
-$FileFullPath = &amp;quot;&amp;quot; ## filepath from some sort of search for *.nuspec files
-$TmpFile = $FileFullPath + &amp;quot;.tmp&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$NewVersion = &amp;#34;&amp;#34; ## Version from some source, like gitversion
+$Sha = &amp;#34;&amp;#34; ## You can include the sha the version is from into the nuspec file
+$FileFullPath = &amp;#34;&amp;#34; ## filepath from some sort of search for *.nuspec files
+$TmpFile = $FileFullPath + &amp;#34;.tmp&amp;#34;
 
 [ xml ] $fileContents = Get-Content -Path $o.FullName
 
 if ($fileContents.package.metadata.version -eq $null) {
-  $child = $fileContents.CreateElement(&amp;quot;version&amp;quot;, $fileContents.DocumentElement.NamespaceURI)
+  $child = $fileContents.CreateElement(&amp;#34;version&amp;#34;, $fileContents.DocumentElement.NamespaceURI)
   $fileContents.package.metadata.AppendChild($child)
-  $fileContents.package.metadata.version = &amp;quot;$version$&amp;quot;
+  $fileContents.package.metadata.version = &amp;#34;$version$&amp;#34;
 }
   
-$NewDescription = $fileContents.package.metadata.description + &#39; (&#39; + $Sha + &#39;)&#39;;
+$NewDescription = $fileContents.package.metadata.description + &amp;#39; (&amp;#39; + $Sha + &amp;#39;)&amp;#39;;
 $fileContents.package.metadata.description = $NewDescription
 
 if($Version) {
@@ -81,8 +79,7 @@ if($Version) {
 $fileContents.Save($TmpFile)    
      
 move-item $TmpFile $FileFullPath -force
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Another useful use-case is to execute GitVersion with &lt;code&gt;/updateassemblyinfo .\Properties\AssemblyInfo.cs&lt;/code&gt; as an argument, to target and update a specific project&amp;rsquo;s assembly info version as well.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Another useful use-case is to execute GitVersion with &lt;code&gt;/updateassemblyinfo .\Properties\AssemblyInfo.cs&lt;/code&gt; as an argument, to target and update a specific project&amp;rsquo;s assembly info version as well.&lt;/p&gt;
 </description>
     </item>
     
@@ -158,46 +155,43 @@ move-item $TmpFile $FileFullPath -force
 &lt;p&gt;The default output looks something like this:&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;The &lt;a href=&#34;https://gist.github.com/fbettag/748429&#34;&gt;missing gist code&lt;/a&gt; for this was:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;$ git log
-commit 9f0349d992f1c3e7f278096d27cd13d8d990c2df
-Author: Franz Bettag &amp;lt;franz@bett.ag&amp;gt;
-Date:   Fri Nov 12 20:46:19 2010 +0100
-
-    Now finally does frickin pull first.
-
-commit 1cc98b07391383addc5b998b4fcf1e5a4233faad
-Author: Franz Bettag &amp;lt;franz@bett.ag&amp;gt;
-Date:   Wed Nov 10 10:37:22 2010 +0100
-
-    Added auto-update.
-
-commit 405970a3947a8fa9f2b462df78a8dcd359051c52
-Author: Franz Bettag &amp;lt;franz@bett.ag&amp;gt;
-Date:   Wed Nov 10 10:24:27 2010 +0100
-
-    Initial import.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;He then went on to say:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git log
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;commit 9f0349d992f1c3e7f278096d27cd13d8d990c2df
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Author: Franz Bettag &amp;lt;franz@bett.ag&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Date&lt;/span&gt;:   Fri Nov 12 20:46:19 2010 +0100
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Now finally does frickin pull first.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;commit 1cc98b07391383addc5b998b4fcf1e5a4233faad
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Author: Franz Bettag &amp;lt;franz@bett.ag&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Date&lt;/span&gt;:   Wed Nov 10 10:37:22 2010 +0100
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Added auto-update.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;commit 405970a3947a8fa9f2b462df78a8dcd359051c52
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Author: Franz Bettag &amp;lt;franz@bett.ag&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;Date&lt;/span&gt;:   Wed Nov 10 10:24:27 2010 +0100
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Initial import.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;He then went on to say:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Imagine this for 300+ commits, you literally will never see the end of it.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;He then gave &lt;a href=&#34;https://gist.github.com/fbettag/748431&#34;&gt;a gist for his combination of parameters&lt;/a&gt; for the &lt;code&gt;git log&lt;/code&gt; command:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;$ git log --graph --decorate --pretty=oneline --abbrev-commit --all
-* 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
-* 1cc98b0 Added auto-update.
-* 405970a Initial import.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And lastly, the aliasing (&lt;a href=&#34;https://gist.github.com/fbettag/748451&#34;&gt;with gist&lt;/a&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git log --graph --decorate --pretty=oneline --abbrev-commit --all
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* 1cc98b0 Added auto-update.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* 405970a Initial import.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And lastly, the aliasing (&lt;a href=&#34;https://gist.github.com/fbettag/748451&#34;&gt;with gist&lt;/a&gt;):&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;After diddling around with git log parameters, i’ve come up with this neat constellation.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cmd&#34;&gt;$ git config --global --add alias.lol &amp;quot;log --graph --decorate --pretty=oneline --abbrev-commit --all&amp;quot;
-$ git lol
-* 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
-* 1cc98b0 Added auto-update.
-* 405970a Initial import.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So now I have another tool for my tool-belt (or alias of my git config) in adding &lt;code&gt;git lol&lt;/code&gt; to my repertoire of git commands.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git config --global --add alias.lol &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;log --graph --decorate --pretty=oneline --abbrev-commit --all&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git lol
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* 9f0349d (HEAD, origin/master, origin/HEAD, master) Now finally does frickin pull first.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* 1cc98b0 Added auto-update.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* 405970a Initial import.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So now I have another tool for my tool-belt (or alias of my git config) in adding &lt;code&gt;git lol&lt;/code&gt; to my repertoire of git commands.&lt;/p&gt;
 &lt;p&gt;For those of you new to git log, &lt;code&gt;up arrow&lt;/code&gt;, &lt;code&gt;down arrow&lt;/code&gt;, &lt;code&gt;page up&lt;/code&gt; and &lt;code&gt;page down&lt;/code&gt; move you up and down the buffer, and don&amp;rsquo;t forget to press &lt;code&gt;q&lt;/code&gt; when your done to close it out.&lt;/p&gt;
 </description>
     </item>
@@ -213,16 +207,14 @@ $ git lol
 &lt;p&gt;Most command-line shells have the concept of aliasing. This means you type one thing, and it represents an alternative way to call another command, maybe with implicit parameters baked in that you use all the time. So for me, I want to type &lt;code&gt;gs&lt;/code&gt; to perform a &lt;code&gt;git status&lt;/code&gt; call.&lt;/p&gt;
 &lt;h3 id=&#34;powershell&#34;&gt;PowerShell&lt;/h3&gt;
 &lt;p&gt;As a .Net developer, I use PowerShell as my preferred command line shell. This means when it comes to git, &lt;a href=&#34;http://blog.csmac.nz/visual-studio-powershell/&#34;&gt;I have PowerShell set up just so&lt;/a&gt;, and it can give me all these nice indicators around what branch I&amp;rsquo;m on etc.  But when It comes to aliases, PowerShell requires a native command to attach that alias to (of which &lt;code&gt;git status&lt;/code&gt; isn&amp;rsquo;t). It also doesn&amp;rsquo;t allow default arguments when you make these aliases.  But it can be done. The trick is to wrap it in a function:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;function Get-GitStatus { &amp;amp; git status }
-New-Alias -Name gs -Value Get-GitStatus
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;First we define a function that represents the command we want to execute (&lt;code&gt;git status&lt;/code&gt; in this case), then we call the New-Alias PowerShell command, and provide a name (&lt;code&gt;gs&lt;/code&gt;) and the defined function as the value. Easy.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; Get-GitStatus { &amp;amp; git status }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;New-Alias -Name gs -Value Get-GitStatus
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First we define a function that represents the command we want to execute (&lt;code&gt;git status&lt;/code&gt; in this case), then we call the New-Alias PowerShell command, and provide a name (&lt;code&gt;gs&lt;/code&gt;) and the defined function as the value. Easy.&lt;/p&gt;
 &lt;p&gt;As a convenience, I added these two lines to my &lt;code&gt;Microsoft.PowerShell_profile.ps1&lt;/code&gt; file (you can find this using the &lt;code&gt;$PROFILE&lt;/code&gt; variable in your PowerShell) so that the alias is always available when PowerShell starts.&lt;/p&gt;
 &lt;h3 id=&#34;bash&#34;&gt;BASH&lt;/h3&gt;
 &lt;p&gt;While Bash is not my primary shell, it is the go-to for most developers using. It is easy to get an alias set up in Bash. All you would need is to run the following command:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;alias gs=&#39;git status&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now whenever you type &lt;code&gt;gs&lt;/code&gt; it will run the &lt;code&gt;git status&lt;/code&gt; command. Again, you could put this in your &lt;a href=&#34;http://tldp.org/LDP/abs/html/sample-bashrc.html&#34;&gt;.bashrc file&lt;/a&gt; (or &lt;a href=&#34;http://stackoverflow.com/questions/6883760/git-for-windows-bashrc-or-equivalent-config-files-for-git-bash-shell&#34;&gt;windows equivalent&lt;/a&gt; to make this available whenever you launch the shell.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;alias gs=&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;git status&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now whenever you type &lt;code&gt;gs&lt;/code&gt; it will run the &lt;code&gt;git status&lt;/code&gt; command. Again, you could put this in your &lt;a href=&#34;http://tldp.org/LDP/abs/html/sample-bashrc.html&#34;&gt;.bashrc file&lt;/a&gt; (or &lt;a href=&#34;http://stackoverflow.com/questions/6883760/git-for-windows-bashrc-or-equivalent-config-files-for-git-bash-shell&#34;&gt;windows equivalent&lt;/a&gt; to make this available whenever you launch the shell.&lt;/p&gt;
 &lt;h3 id=&#34;til&#34;&gt;TIL&lt;/h3&gt;
 &lt;p&gt;So I was watching someone else give an introduction to git today, and found out that for some commands in git have built in, well established aliases already. one of these is the &lt;code&gt;status&lt;/code&gt; command, using &lt;code&gt;st&lt;/code&gt;. So if &lt;code&gt;git status&lt;/code&gt; is giving you trouble, maybe just look at using &lt;code&gt;git st&lt;/code&gt; instead. No custom aliasing required. I&amp;rsquo;m still going to keep using my &lt;code&gt;gs&lt;/code&gt; though, its still faster.&lt;/p&gt;
 </description>

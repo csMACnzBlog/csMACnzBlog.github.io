@@ -145,37 +145,37 @@
 <p>Now, the decision makes perfect sense to me. The new format is more expressive, gives more information and is the future. And vendors need to start using it and move away from the old format. But as you can imagine, JetBrains just hasn&rsquo;t gotten around to <a href="https://youtrack.jetbrains.com/issue/TW-46195">getting it right yet</a>. (There is some support in TC 10.0.2 but it seems there might be some teething issues and many of us are still on TC 9.X anyway.)</p>
 <p>So what do I do about this? Solve it with code of course! And the solution is xslt (Hey! it gets the job done ok?)</p>
 <p>Thanks to <a href="https://issues.jenkins-ci.org/browse/JENKINS-32999">some notes on this related Jenkins issue</a> from <a href="https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=tenwit">Paul Hicks</a>, I have this xslt page (with a small tweak to fix a value casing issue):</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
-  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;xsl:stylesheet version=&#34;2.0&#34; xmlns:xsl=&#34;http://www.w3.org/1999/XSL/Transform&#34;&gt;
+  &lt;xsl:output method=&#34;xml&#34; indent=&#34;yes&#34;/&gt;
 
-  &lt;xsl:template match=&quot;/test-run&quot;&gt;
-    &lt;testsuites tests=&quot;{@testcasecount}&quot; failures=&quot;{@failed}&quot; disabled=&quot;{@skipped}&quot; time=&quot;{@duration}&quot;&gt;
+  &lt;xsl:template match=&#34;/test-run&#34;&gt;
+    &lt;testsuites tests=&#34;{@testcasecount}&#34; failures=&#34;{@failed}&#34; disabled=&#34;{@skipped}&#34; time=&#34;{@duration}&#34;&gt;
       &lt;xsl:apply-templates/&gt;
     &lt;/testsuites&gt;
   &lt;/xsl:template&gt;
 
-  &lt;xsl:template match=&quot;test-suite&quot;&gt;
-    &lt;xsl:if test=&quot;test-case&quot;&gt;
-      &lt;testsuite tests=&quot;{@testcasecount}&quot; time=&quot;{@duration}&quot; errors=&quot;{@testcasecount - @passed - @skipped - @failed}&quot; failures=&quot;{@failed}&quot; skipped=&quot;{@skipped}&quot; timestamp=&quot;{@start-time}&quot;&gt;
-        &lt;xsl:attribute name=&quot;name&quot;&gt;
-          &lt;xsl:for-each select=&quot;ancestor-or-self::test-suite/@name&quot;&gt;
-            &lt;xsl:value-of select=&quot;concat(., '.')&quot;/&gt;
+  &lt;xsl:template match=&#34;test-suite&#34;&gt;
+    &lt;xsl:if test=&#34;test-case&#34;&gt;
+      &lt;testsuite tests=&#34;{@testcasecount}&#34; time=&#34;{@duration}&#34; errors=&#34;{@testcasecount - @passed - @skipped - @failed}&#34; failures=&#34;{@failed}&#34; skipped=&#34;{@skipped}&#34; timestamp=&#34;{@start-time}&#34;&gt;
+        &lt;xsl:attribute name=&#34;name&#34;&gt;
+          &lt;xsl:for-each select=&#34;ancestor-or-self::test-suite/@name&#34;&gt;
+            &lt;xsl:value-of select=&#34;concat(., &#39;.&#39;)&#34;/&gt;
           &lt;/xsl:for-each&gt;
         &lt;/xsl:attribute&gt;
-        &lt;xsl:apply-templates select=&quot;test-case&quot;/&gt;
+        &lt;xsl:apply-templates select=&#34;test-case&#34;/&gt;
       &lt;/testsuite&gt;
-      &lt;xsl:apply-templates select=&quot;test-suite&quot;/&gt;
+      &lt;xsl:apply-templates select=&#34;test-suite&#34;/&gt;
     &lt;/xsl:if&gt;
-    &lt;xsl:if test=&quot;not(test-case)&quot;&gt;
+    &lt;xsl:if test=&#34;not(test-case)&#34;&gt;
       &lt;xsl:apply-templates/&gt;
     &lt;/xsl:if&gt;
   &lt;/xsl:template&gt;
 
-  &lt;xsl:template match=&quot;test-case&quot;&gt;
-    &lt;xsl:variable name=&quot;lowerResult&quot; select=&quot;translate(@result,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')&quot;/&gt;
-    &lt;testcase name=&quot;{@name}&quot; assertions=&quot;{@asserts}&quot; time=&quot;{@duration}&quot; status=&quot;{$lowerResult}&quot; classname=&quot;{@classname}&quot;&gt;
-      &lt;xsl:if test=&quot;@runstate = 'Skipped' or @runstate = 'Ignored'&quot;&gt;
+  &lt;xsl:template match=&#34;test-case&#34;&gt;
+    &lt;xsl:variable name=&#34;lowerResult&#34; select=&#34;translate(@result,&#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;, &#39;abcdefghijklmnopqrstuvwxyz&#39;)&#34;/&gt;
+    &lt;testcase name=&#34;{@name}&#34; assertions=&#34;{@asserts}&#34; time=&#34;{@duration}&#34; status=&#34;{$lowerResult}&#34; classname=&#34;{@classname}&#34;&gt;
+      &lt;xsl:if test=&#34;@runstate = &#39;Skipped&#39; or @runstate = &#39;Ignored&#39;&#34;&gt;
         &lt;skipped/&gt;
       &lt;/xsl:if&gt;
       
@@ -183,48 +183,45 @@
     &lt;/testcase&gt;
   &lt;/xsl:template&gt;
 
-  &lt;xsl:template match=&quot;command-line&quot;/&gt;
-  &lt;xsl:template match=&quot;settings&quot;/&gt;
+  &lt;xsl:template match=&#34;command-line&#34;/&gt;
+  &lt;xsl:template match=&#34;settings&#34;/&gt;
 
-  &lt;xsl:template match=&quot;output&quot;&gt;
+  &lt;xsl:template match=&#34;output&#34;&gt;
     &lt;system-out&gt;
-      &lt;xsl:value-of select=&quot;output&quot;/&gt;
+      &lt;xsl:value-of select=&#34;output&#34;/&gt;
     &lt;/system-out&gt;
   &lt;/xsl:template&gt;
 
-  &lt;xsl:template match=&quot;stack-trace&quot;&gt;
+  &lt;xsl:template match=&#34;stack-trace&#34;&gt;
   &lt;/xsl:template&gt;
 
-  &lt;xsl:template match=&quot;test-case/failure&quot;&gt;
-    &lt;failure message=&quot;{./message}&quot;&gt;
-      &lt;xsl:value-of select=&quot;./stack-trace&quot;/&gt;
+  &lt;xsl:template match=&#34;test-case/failure&#34;&gt;
+    &lt;failure message=&#34;{./message}&#34;&gt;
+      &lt;xsl:value-of select=&#34;./stack-trace&#34;/&gt;
     &lt;/failure&gt;
   &lt;/xsl:template&gt;
 
-  &lt;xsl:template match=&quot;test-suite/failure&quot;/&gt;
+  &lt;xsl:template match=&#34;test-suite/failure&#34;/&gt;
 
-  &lt;xsl:template match=&quot;test-case/reason&quot;&gt;
-    &lt;skipped message=&quot;{./message}&quot;/&gt;
+  &lt;xsl:template match=&#34;test-case/reason&#34;&gt;
+    &lt;skipped message=&#34;{./message}&#34;/&gt;
   &lt;/xsl:template&gt;
 
-  &lt;xsl:template match=&quot;test-suite/reason&quot;/&gt;
+  &lt;xsl:template match=&#34;test-suite/reason&#34;/&gt;
 
-  &lt;xsl:template match=&quot;properties&quot;/&gt;
+  &lt;xsl:template match=&#34;properties&#34;/&gt;
 &lt;/xsl:stylesheet&gt;
-</code></pre>
-<p>And we can use this in a TeamCity runner:</p>
-<pre><code class="language-powershell">$xslt = new-object system.xml.xsl.xslcompiledtransform
-$xslt.load('%system.teamcity.build.workingDir%\nunit3-junit.xslt')
-$xslt.Transform('%system.teamcity.build.workingDir%\TestResult.xml', '%system.teamcity.build.workingDir%\TransformedTestResult.xml')
-Write-Host &quot;##teamcity[importData type='junit' path='TransformedTestResult.xml']&quot;
-</code></pre>
-<p>Which is PowerShell, and so this works well under windows.</p>
+</code></pre><p>And we can use this in a TeamCity runner:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$xslt = new-object system.xml.xsl.xslcompiledtransform
+</span></span><span style="display:flex;"><span>$xslt.load(<span style="color:#e6db74">&#39;%system.teamcity.build.workingDir%\nunit3-junit.xslt&#39;</span>)
+</span></span><span style="display:flex;"><span>$xslt.Transform(<span style="color:#e6db74">&#39;%system.teamcity.build.workingDir%\TestResult.xml&#39;</span>, <span style="color:#e6db74">&#39;%system.teamcity.build.workingDir%\TransformedTestResult.xml&#39;</span>)
+</span></span><span style="display:flex;"><span>Write-Host <span style="color:#e6db74">&#34;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedTestResult.xml&#39;]&#34;</span>
+</span></span></code></pre></div><p>Which is PowerShell, and so this works well under windows.</p>
 <p>But our latest thing is .Net Core in Docker containers on Linux, right? (right?) So we don&rsquo;t have PowerShell available. And it also seems that <a href="https://github.com/dotnet/corefx/issues/5593">there is currently no xslt support in .Net Core</a>, so that option is out. But there is another way:</p>
-<pre><code class="language-bash">apt-get install libsaxon-java
-saxon-xslt -o TransformedTestResult.xml TestResult.xml nunit3-junit.xslt
-echo &quot;##teamcity[importData type='junit' path='TransformedTestResult.xml']&quot;
-</code></pre>
-<p>You may want to just run the <code>apt-get</code> command on all your agents, rather than putting it into your build step.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-get install libsaxon-java
+</span></span><span style="display:flex;"><span>saxon-xslt -o TransformedTestResult.xml TestResult.xml nunit3-junit.xslt
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedTestResult.xml&#39;]&#34;</span>
+</span></span></code></pre></div><p>You may want to just run the <code>apt-get</code> command on all your agents, rather than putting it into your build step.</p>
 <p>And with that, we can publish our test results to TeamCity on Windows and on Linux build agents.</p>
 </section>
         

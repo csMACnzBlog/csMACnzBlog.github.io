@@ -138,119 +138,112 @@
 <p>I couldn&rsquo;t think of a good term to group the concepts of methods, constructors, and classes, so I will refer to these as &rsquo;things&rsquo; for the duration of this post.</p>
 <h3 id="public">&lsquo;public&rsquo;</h3>
 <p>This is pretty easy. It&rsquo;s <code>public</code>. Anyone can find it and use it if they have your assembly to link to.  This can be used on fields, properties, constructors, methods, classes, whether they are static things or instance things.</p>
-<pre><code class="language-cs">public class Foo 
-{
-    public Foo()
-    {
-        ...
-    }
-
-    public int num;
-    public string GetAFoo() { ... }
-    public static double FourtyTwo = 42.0;
-    public static string GetABar() { ... }
-}
-
-public static class Baz
-{
-    ...
-}
-</code></pre>
-<p>probably not worth spending a bunch of time on this. Onto the next one.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Foo()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> num;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> GetAFoo() { ... }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> FourtyTwo = <span style="color:#ae81ff">42.0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">string</span> GetABar() { ... }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Baz</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>probably not worth spending a bunch of time on this. Onto the next one.</p>
 <h3 id="private">&lsquo;private&rsquo;</h3>
 <p>The <code>private</code> modifier is also not complicated.  The access is restricted to the private scope of the class that holds it.</p>
-<pre><code class="language-cs">public class Foo
-{
-    private int _num;
-    private string GetAFoo() { ... }
-    private static double _fourtyTwo = 42.0;
-    private static string GetABar() { ... }
-
-    private class Bar 
-    {
-        ...
-    }
-
-    private static class Baz
-    {
-
-    }
-}
-</code></pre>
-<p>Any methods inside the scope of Foo have access to use any of the things marked as private.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> _num;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">string</span> GetAFoo() { ... }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> _fourtyTwo = <span style="color:#ae81ff">42.0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">string</span> GetABar() { ... }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bar</span> 
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Baz</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Any methods inside the scope of Foo have access to use any of the things marked as private.</p>
 <p>This has the effect that if you were to derive from this class, you couldn&rsquo;t access those things that have a private scope.</p>
-<pre><code class="language-cs">public class Derived : Foo 
-{
-    public void DoStuff()
-    {
-        //This method could not make use of _num, GetAFoo, _fourtyTwo, GetABar
-        //or the classes Bar or Baz
-    }
-}
-</code></pre>
-<p>The default for most things is private. If you don&rsquo;t declare a modifier, this is most likely what you get. Personally, I never rely on defaults, and always explicitly write private against anything in the code I write. The only exception to this is non-nested classes, which I&rsquo;ll cover in the <code>internal</code> section.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Derived</span> : Foo 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//This method could not make use of _num, GetAFoo, _fourtyTwo, GetABar</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//or the classes Bar or Baz</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The default for most things is private. If you don&rsquo;t declare a modifier, this is most likely what you get. Personally, I never rely on defaults, and always explicitly write private against anything in the code I write. The only exception to this is non-nested classes, which I&rsquo;ll cover in the <code>internal</code> section.</p>
 <p>Note that although classes cannot be private, they can if they are nested inside other classes. More on nested classes later on.</p>
 <h3 id="protected">&lsquo;protected&rsquo;</h3>
 <p>The <code>protected</code> scope can be used in practically all the same places as we use <code>private</code>.</p>
-<pre><code class="language-cs">public class Foo
-{
-    protected int Num;
-    protected string GetAFoo() { ... }
-    protected static double FourtyTwo = 42.0;
-    protected static string GetABar() { ... }
-
-    protected class Bar 
-    {
-        ...
-    }
-
-    protected static class Baz
-    {
-
-    }
-}
-</code></pre>
-<p>The key difference here is that they do become visible to the derived classes.</p>
-<pre><code class="language-cs">public void DoStuff()
-{
-    //This method can use Num, GetAFoo, FourtyTwo, GetABar
-    //and the classes Bar and Baz
-}
-</code></pre>
-<p>And like <code>private</code>, no one outside of the scope of the class or it&rsquo;s derived classes can access these things.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">int</span> Num;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">string</span> GetAFoo() { ... }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> FourtyTwo = <span style="color:#ae81ff">42.0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">string</span> GetABar() { ... }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bar</span> 
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Baz</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The key difference here is that they do become visible to the derived classes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//This method can use Num, GetAFoo, FourtyTwo, GetABar</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//and the classes Bar and Baz</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And like <code>private</code>, no one outside of the scope of the class or it&rsquo;s derived classes can access these things.</p>
 <h3 id="internal">&lsquo;internal&rsquo;</h3>
 <p>The <code>internal</code> modifier, sits somewhere just below public. It basically says public to all code inside the same assembly. But consider it not available to be directly referenced from outside.</p>
-<pre><code class="language-cs">public class Foo 
-{
-    internal Foo()
-    {
-    ...
-    }
-
-    internal int num;
-    internal string GetAFoo() { ... }
-    internal static double FourtyTwo = 42.0;
-    internal static string GetABar() { ... }
-}
-
-internal class Fizz
-{
-    ...
-}
-    
-internal static class Buzz
-{
-    ...
-}
-</code></pre>
-<p>Unlike <code>private</code> and <code>protected</code>, we can use internal on non-nested classes.  In fact, without a visibility modifier, this is the default of these classes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">internal</span> Foo()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">int</span> num;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">string</span> GetAFoo() { ... }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> FourtyTwo = <span style="color:#ae81ff">42.0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">string</span> GetABar() { ... }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Fizz</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Buzz</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Unlike <code>private</code> and <code>protected</code>, we can use internal on non-nested classes.  In fact, without a visibility modifier, this is the default of these classes.</p>
 <p>There is one feature forced on you when you make a class <code>internal</code>, however. You must not allow any public class to expose that other type. This means that a public property, method, or field cannot use the Type as the property or field type, or as a parameter, or return type of a method.</p>
 <h3 id="internalsvisibleto">InternalsVisibleTo</h3>
 <p>Now I said that <code>internal</code> means you cannot reference the internal thing from outside the assembly. I am now going to show you how to allow someone to access these from outside the assembly.</p>
 <p>Introducing <a href="https://msdn.microsoft.com/en-us/library/system.runtime.compilerservices.internalsvisibletoattribute(v=vs.110).aspx"><strong>InternalsVisibleToAttribute</strong></a>!  This attribute can be used to name an assembly that is allowed to access your internals.</p>
-<pre><code class="language-cs">[assembly:InternalsVisibleTo(&quot;Friend1a&quot;)]
-</code></pre>
-<p>Usually, you might find this in an AssemblyInfo.cs file. We are declaring that someone with an assembly name &ldquo;Friend1a&rdquo; has access to your <code>internal</code>s as if they were <code>public</code>. This can also be used with signed assemblies if required.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#a6e22e">[assembly:InternalsVisibleTo(&#34;Friend1a&#34;)]</span>
+</span></span></code></pre></div><p>Usually, you might find this in an AssemblyInfo.cs file. We are declaring that someone with an assembly name &ldquo;Friend1a&rdquo; has access to your <code>internal</code>s as if they were <code>public</code>. This can also be used with signed assemblies if required.</p>
 <p>Why would you use this? The only case I&rsquo;ve seen that makes sense is testing. Your test assembly will probably want to have tests covering your internal classes with unit tests. This gives them access to do so, without opening up the class to be public. Keep your internal classes hidden from anyone using your assembly, if they should not be using them.</p>
 <h3 id="the-new-modifier">The &rsquo;new&rsquo; Modifier</h3>
 <p>The <code>new</code> modifier is an interesting keyword. For clarity, I&rsquo;m not talking about these two usages:</p>
@@ -259,127 +252,119 @@ internal static class Buzz
 <li><code>public class Foo&lt;T&gt; where T: new() { ... }</code></li>
 </ul>
 <p>This usage is not one I recommend using, but from time to time, you get a hint that you are hiding a method and should use the new keyword. Let&rsquo;s look at a usage, and talk through the problem.</p>
-<pre><code class="language-cs">public class Foo
-{
-    public int GetNumber()
-    {
-        ...
-    }
-}
-    
-public class Bar : Foo
-{
-    public int GetNumber()
-    {
-        ...
-    }
-}
-</code></pre>
-<p>This generates a compiler warning. Basically, by adding new, we are getting rid of the compiler warning. But now someone reading the code can see that something is happening here, which they wouldn&rsquo;t easily see without the <code>new</code> keyword. There are two placements of the keyword, before or after the visibility modifier.</p>
-<pre><code class="language-cs">public class Bar : Foo
-{
-    new public int GetNumber()
-    {
-        ...
-    }
-}
-    
-public class Bar : Foo
-{
-    public new int GetNumber()
-    {
-        ...
-    }
-}
-</code></pre>
-<p>Usually, this warning is treated as an error and stops compilation.  So why is this bad?  Well, we basically have two versions of our value. One that belongs to Foo, and one that belongs to Bar, both with the same name. When you use that name from Bar, you are referring to the Bar version, when doing in regards to Foo, you mean the Foo version. This just gets damn confusing, and mistakes get made. Not to mention, as you cast back and forward, you toggle between which property gets used. Don&rsquo;t like it. Stop it now.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> GetNumber()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bar</span> : Foo
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> GetNumber()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This generates a compiler warning. Basically, by adding new, we are getting rid of the compiler warning. But now someone reading the code can see that something is happening here, which they wouldn&rsquo;t easily see without the <code>new</code> keyword. There are two placements of the keyword, before or after the visibility modifier.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bar</span> : Foo
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> GetNumber()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bar</span> : Foo
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span> GetNumber()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Usually, this warning is treated as an error and stops compilation.  So why is this bad?  Well, we basically have two versions of our value. One that belongs to Foo, and one that belongs to Bar, both with the same name. When you use that name from Bar, you are referring to the Bar version, when doing in regards to Foo, you mean the Foo version. This just gets damn confusing, and mistakes get made. Not to mention, as you cast back and forward, you toggle between which property gets used. Don&rsquo;t like it. Stop it now.</p>
 <p>The correct solution, of course, is to use virtual and override. I&rsquo;m not covering them in this post, but they let you have a single implementation for any instance, and no matter how you reference it, the correct one is used on the instance. Just do it.</p>
 <h3 id="nested-classes">Nested classes</h3>
 <p>I kind of touched on nested classes with visibility earlier. They can be public, private, protected or internal. That determines its visibility to external and derived classes as described above. Nested classes are private visibility by default. Cool.</p>
 <p>Also, their internal things are scoped following the normal rules.</p>
-<pre><code class="language-cs">public class Foo
-{
-    public class Bar
-    {
-        public int Num;
-        protected string GetAFoo() { ... }
-            
-        private class Baz
-        {
-            ...
-        }
-    }
-    public void DoStuff()
-    {
-        var b = new Bar();
-        var num = b.Num; //works, I can see and access public things
-        //I can't use b.GetAFoo() because its protected.
-        //I can't use  new Bar.Baz() because it's private.
-    }
-}
-</code></pre>
-<p>The fun starts here. We can access anything from inside the parent class while in the code belonging to the nested child. When inside the parent, we can see the parent&rsquo;s insides.</p>
-<pre><code class="language-cs">public class Foo
-{
-    public int Num;
-
-    protected string GetAFoo() { ... }
-
-    private class Baz
-    {
-        ...
-    }
-
-    public class Bar
-    {
-        public void DoStuff()
-        {
-            var f = new Foo();
-            var num = f.Num; //works, I can see and access public things.
-            f.GetAFoo(); // works, I can see and access Foo protected things.
-            var b = new Baz(); // works, I can see his private things.
-        } 
-    }
-}
-</code></pre>
-<p>This is the main benefit of being able to create and use nested classes. Breaking encapsulation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bar</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Num;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">string</span> GetAFoo() { ... }
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Baz</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            ...
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> b = <span style="color:#66d9ef">new</span> Bar();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> num = b.Num; <span style="color:#75715e">//works, I can see and access public things</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//I can&#39;t use b.GetAFoo() because its protected.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//I can&#39;t use  new Bar.Baz() because it&#39;s private.</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The fun starts here. We can access anything from inside the parent class while in the code belonging to the nested child. When inside the parent, we can see the parent&rsquo;s insides.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Num;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">string</span> GetAFoo() { ... }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Baz</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bar</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> DoStuff()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> f = <span style="color:#66d9ef">new</span> Foo();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> num = f.Num; <span style="color:#75715e">//works, I can see and access public things.</span>
+</span></span><span style="display:flex;"><span>            f.GetAFoo(); <span style="color:#75715e">// works, I can see and access Foo protected things.</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> b = <span style="color:#66d9ef">new</span> Baz(); <span style="color:#75715e">// works, I can see his private things.</span>
+</span></span><span style="display:flex;"><span>        } 
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is the main benefit of being able to create and use nested classes. Breaking encapsulation.</p>
 <h3 id="explicit-interface-implementation">Explicit interface implementation</h3>
 <p>The last story of visibility is this idea of explicit interface implementation. Let&rsquo;s use an example with a simple interface.</p>
-<pre><code class="language-cs">public interface IFooable
-{
-    int FooIt();
-}
-</code></pre>
-<p>We can implement it normally like this:</p>
-<pre><code class="language-cs">public class Fighter : IFooable
-{
-    public int FooIt()
-    {
-        return 666;
-    }
-}
-</code></pre>
-<p>This is known as implicit implementation. When we talk about explicit interface implementation we mean this:</p>
-<pre><code class="language-cs">public class Dave : IFooable
-{
-    int IFooable.FooIt()
-    {
-        return 666;
-    }
-}
-</code></pre>
-<p>So what&rsquo;s the difference? It becomes clear when we use at the usage code:</p>
-<pre><code class="language-cs">var fighter = new Fighter();
-fighter.FooIt();
-IFooable castedFighter = (IFooable)fighter;
-castedFighter.FooIt(); //The interface allows you to call this method
-
-var dave = new Dave();
-//dave.FooIt(); //This doesn't compile, the implementation is hidden
-IFooable castedDave = (IFooable)dave;
-castedDave.FooIt(); //The interface allows you to call this method
-</code></pre>
-<p>What this gives us is a way to hide the method from the class, but still allow it to meet the expectations of the interface. Why is this useful? If you have name collision on your interfaces or signature mismatches, you can use explicit implementations to implement all of the correct versions against the correct interface without the compiler yelling at you. You might decide to leave one implicit so you can use it on the object, or keep them all explicit.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IFooable</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> FooIt();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We can implement it normally like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Fighter</span> : IFooable
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> FooIt()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">666</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is known as implicit implementation. When we talk about explicit interface implementation we mean this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dave</span> : IFooable
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> IFooable.FooIt()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">666</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>So what&rsquo;s the difference? It becomes clear when we use at the usage code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> fighter = <span style="color:#66d9ef">new</span> Fighter();
+</span></span><span style="display:flex;"><span>fighter.FooIt();
+</span></span><span style="display:flex;"><span>IFooable castedFighter = (IFooable)fighter;
+</span></span><span style="display:flex;"><span>castedFighter.FooIt(); <span style="color:#75715e">//The interface allows you to call this method</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> dave = <span style="color:#66d9ef">new</span> Dave();
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//dave.FooIt(); //This doesn&#39;t compile, the implementation is hidden</span>
+</span></span><span style="display:flex;"><span>IFooable castedDave = (IFooable)dave;
+</span></span><span style="display:flex;"><span>castedDave.FooIt(); <span style="color:#75715e">//The interface allows you to call this method</span>
+</span></span></code></pre></div><p>What this gives us is a way to hide the method from the class, but still allow it to meet the expectations of the interface. Why is this useful? If you have name collision on your interfaces or signature mismatches, you can use explicit implementations to implement all of the correct versions against the correct interface without the compiler yelling at you. You might decide to leave one implicit so you can use it on the object, or keep them all explicit.</p>
 <p>Two common use cases are <code>IDisposable</code> (hide the <code>Dispose()</code> method unless you explicitly cast to <code>IDisposable</code>) and <code>IList</code> + <code>IList&lt;T&gt;</code>.  This second one has many methods that only differ by the return type, so it&rsquo;s nice to hide the non-generic versions from the long list of interface methods available. You can see this by casting a <code>List&lt;int&gt;</code> to <code>IList</code> or to <code>IEnumerable</code>, and see how the IntelliSense shows you different methods on the two references.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>So that&rsquo;s a bunch of stuff around visibility. I Hope that informed and entertained you. Drop me a line if you think I&rsquo;ve missed anything that comes under the visibility umbrella.</p>

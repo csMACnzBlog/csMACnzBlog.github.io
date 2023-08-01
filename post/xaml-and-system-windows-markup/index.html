@@ -137,65 +137,58 @@
             <p>On Wednesday I gave a talk on xaml usage outside of the UI. This post is basically a recap of that talk. There are three useful attributes in the System.Windows.Markup namespace that give you some control over how classes can be used in Xaml, and xaml tools like Expression Blend and Visual Studio. This has an impact mostly on human readability and legibility of the xaml, and can benefit anyone who reads and writes raw xaml markup. There are three main attributes in the System.Windows.Markup namespace: XmlnsDefinition, XmlnsPrefix and ContentProperty.</p>
 <h2 id="xmlnsdefinition">XmlnsDefinition</h2>
 <p>XmlnsDefinition is added to the AssemblyInfo.cs file in the following form.</p>
-<pre><code class="language-cs">[assembly: XmlnsDefinition(&quot;http://www.csmac.co.nz/default&quot;, &quot;csmac.XamlCollectionParsing.Default&quot;)] 
-</code></pre>
-<p>The first argument is the xml namespace you wish to associate with your .Net namespace, and the second is the .Net namepace. The first thing to note is that this can be used to associate a single xml namespace with multiple .Net namespaces. The opposite is also true the but the former is more useful, because this mapping is supported by Blend 4 and Visual Studio 2010. This means that you can designate and use your own namespace for your own class libraries  in the same way that <a href="http://schemas.microsoft.com/winfx/2006/xaml/presentation">http://schemas.microsoft.com/winfx/2006/xaml/presentation</a> is used to refer to the Silverlight or WPF Presentation framework classes such as Button and TextBlock.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#a6e22e">[assembly: XmlnsDefinition(&#34;http://www.csmac.co.nz/default&#34;, &#34;csmac.XamlCollectionParsing.Default&#34;)]</span> 
+</span></span></code></pre></div><p>The first argument is the xml namespace you wish to associate with your .Net namespace, and the second is the .Net namepace. The first thing to note is that this can be used to associate a single xml namespace with multiple .Net namespaces. The opposite is also true the but the former is more useful, because this mapping is supported by Blend 4 and Visual Studio 2010. This means that you can designate and use your own namespace for your own class libraries  in the same way that <a href="http://schemas.microsoft.com/winfx/2006/xaml/presentation">http://schemas.microsoft.com/winfx/2006/xaml/presentation</a> is used to refer to the Silverlight or WPF Presentation framework classes such as Button and TextBlock.</p>
 <p>Of course one thing to be careful that if you map multiple .Net namespaces to an xml namespace, is that each class name within this xml namespace is unique, to avoid ambiguity. If two classes in different .Net namespaces have the same class name, and are both used in the same xml namespace, Things may not work as expected, so try to avoid this. This feature is now used by the latest Silverlight 4 toolkit and sdk to give you a single namespace for each, rather than needing multiple clr-namespace declarations to use different parts of these libraries.</p>
 <h2 id="xmlnsprefix">XmlnsPrefix</h2>
 <p>The second attribute, XmlnsPrefix, is used is conjunction with XmlnsDefinition, and again is supported by Blend 4 and VS 2010. This is the default preferred prefix to use for a namespace, and looks like this.</p>
-<pre><code class="language-cs">[assembly:XmlnsPrefix(&quot;http://www.csmac.co.nz/default&quot;, &quot;default&quot;)]
-</code></pre>
-<p>The first argument is the xml namespace, as defined by an XmlnsDefinition, and the second is the preferred prefix. When you drag an item from the associated namespace from the toolbox onto the designer, the tool will use this prefix when declaring the namespace at the top of the file. <code>xmlns:default=&quot;http://www.csmac.co.nz/default&quot;</code> will be added to the root xml element, rather then using the default prefix <code>my</code>, <code>control</code>, or <code>csmac_xamlCollectionParsing_default</code> as you might see happen when you do not use these attributes. Both <code>XmlnsDefinition</code> and <code>XmlnsPrefix</code> can greatly improve readability of your xaml, and <code>XmlnsPrefix</code> is also used by the latest silverlight 4 toolkit and sdk, using the prefixes sdk and toolkit, good choices IMHO.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#a6e22e">[assembly:XmlnsPrefix(&#34;http://www.csmac.co.nz/default&#34;, &#34;default&#34;)]</span>
+</span></span></code></pre></div><p>The first argument is the xml namespace, as defined by an XmlnsDefinition, and the second is the preferred prefix. When you drag an item from the associated namespace from the toolbox onto the designer, the tool will use this prefix when declaring the namespace at the top of the file. <code>xmlns:default=&quot;http://www.csmac.co.nz/default&quot;</code> will be added to the root xml element, rather then using the default prefix <code>my</code>, <code>control</code>, or <code>csmac_xamlCollectionParsing_default</code> as you might see happen when you do not use these attributes. Both <code>XmlnsDefinition</code> and <code>XmlnsPrefix</code> can greatly improve readability of your xaml, and <code>XmlnsPrefix</code> is also used by the latest silverlight 4 toolkit and sdk, using the prefixes sdk and toolkit, good choices IMHO.</p>
 <h2 id="contentproperty">ContentProperty</h2>
 <p>The last of the three is the ContentProperty attribute. this is used at the class level, to mark at class with which property should be used as its Content property. In xaml, this is used for mapping the xml element(s) contained inside the class&rsquo; xml element to a property on that class. For example, if I have a class called SimpleObject, with a property called Value of type string, I can use the following attribute to mark up the class.</p>
-<pre><code class="language-cs">[ContentProperty(&quot;Value&quot;)] 
-public class SimpleObject... 
-</code></pre>
-<p>Now when I have the following xaml (note the namespace declaration) It will be parsed to set the Value property to the string &ldquo;Hello World!&rdquo;.</p>
-<pre><code class="language-xaml">&lt;SimpleObject xmlns=&quot;http://www.csmac.co.nz/default&quot;&gt;Hello World!&lt;/SimpleObject&gt;
-</code></pre>
-<p>This is the basics of how the content property works, and you are able to add other objects inside if the type of the property matches the type of that object. For example, if XObject has is Content Property set to a property of type YObject, we can use this in our xaml:</p>
-<pre><code class="language-xaml">&lt;Object xmlns=&quot;http://www.csmac.co.nz/default&quot;&gt; 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#a6e22e">[ContentProperty(&#34;Value&#34;)]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleObject</span>... 
+</span></span></code></pre></div><p>Now when I have the following xaml (note the namespace declaration) It will be parsed to set the Value property to the string &ldquo;Hello World!&rdquo;.</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;SimpleObject xmlns=&#34;http://www.csmac.co.nz/default&#34;&gt;Hello World!&lt;/SimpleObject&gt;
+</code></pre><p>This is the basics of how the content property works, and you are able to add other objects inside if the type of the property matches the type of that object. For example, if XObject has is Content Property set to a property of type YObject, we can use this in our xaml:</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;Object xmlns=&#34;http://www.csmac.co.nz/default&#34;&gt; 
     &lt;YObject&gt;Hello World!&lt;/YObject&gt;
 &lt;/XObject&gt;
-</code></pre>
-<p>And this can be extended out as deep as you are willing to make it.</p>
+</code></pre><p>And this can be extended out as deep as you are willing to make it.</p>
 <h2 id="collections">Collections</h2>
 <p>Now If you would like to set the content property to one that is a Collection type, things work in much the same way, although the parse is clever enough to be able to allow you to not have to declare the actual collection object in xaml, and instead will add the child objects to your existing collection. Basically you can add you objects directly inside the parent one after the other and it will add each one it turn to the collection. I will note that this is done by creating the list item object, then calling the add method on the content property which is of type ICollection (which is basically all standard collection types in C#).</p>
 <p>If we use our example from earlier, but change XObject&rsquo;s content property to be an ObservableCollection of YObjects we can do this:</p>
-<pre><code class="language-xaml">&lt;XObject xmlns=&quot;http://www.csmac.co.nz/default&quot;&gt; 
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;XObject xmlns=&#34;http://www.csmac.co.nz/default&#34;&gt; 
     &lt;YObject&gt;Hello World!&lt;/YObject&gt; 
     &lt;YObject&gt;HelloAgain&lt;/YObject&gt; 
 &lt;YObject&gt;Hi&lt;/YObject&gt; &lt;/XObject&gt; 
-</code></pre>
-<p>And this will just work, and works for all inheritance and all situations where you would be able to add that object to the collection normally. If you want to use collections of strings or other primative types, it is probably best create a reference to the system assembly and use the string object as an element tag like <code>&lt;sys:string&gt;This&lt;/sys:string&gt;</code>. This performs the correct string object creation and you can individually define the list items. This works with double and float, char and all the others as expected, based on how the xaml loader works.</p>
+</code></pre><p>And this will just work, and works for all inheritance and all situations where you would be able to add that object to the collection normally. If you want to use collections of strings or other primative types, it is probably best create a reference to the system assembly and use the string object as an element tag like <code>&lt;sys:string&gt;This&lt;/sys:string&gt;</code>. This performs the correct string object creation and you can individually define the list items. This works with double and float, char and all the others as expected, based on how the xaml loader works.</p>
 <p>If an element does not have any attributes, and has some content which is plain text, the Loader will attempt to find a way to convert the content text the the element class type. This generally is through the TypeConverter mechanism of .Net. This is something to be aware of and is made use of later in this post.</p>
 <h2 id="inline-strings">Inline Strings</h2>
 <p>Inline strings in xaml are a special case, as previously mentioned. In the case where we do declare an attribute and have inline text, the content property is used as the target for the string. Where this type is not of type string, the TypeConverter paradigm is again used.</p>
 <p>Now collections of objects work in a very similar fashion. If you have played with any of the presentation classes that accept Inlines, such as Textblock in Silverlight 4 or WPF, you will have noticed you can mix strings with Inline types and it manages to wrap a string into a Run(which is an Inline). Unfortunately this wrapping is not really an out of the box straight forward feature, as I learned the hard way. Fortunately, it uses a pretty standard way of doing this.</p>
 <p>IList has a method called Add that takes an object, and attempts to add this object to the collection. If this fails we get an exception. The presentation collections have a an implementation of the IList Add method which in a roundabout way determines that this is a string and wraps it into a Run. The good news here is that we too can modify the IList.Add method to create a custom string to object wrapping. I have done this using the Observable Collection as a base.</p>
-<pre><code class="language-cs">public class SimpleObjectCollection : ObservableCollection&lt;SimpleObject&gt;, IList
-{ 
-    int IList.Add(object value) 
-    { 
-        if (value is string) 
-        { 
-            SimpleObject c = new SimpleObject() { Text = value as string }; 
-            value = c; 
-        } 
-        if (value is SimpleObject) 
-        { 
-            Add((SimpleObject)value); 
-        } 
-        else 
-        { 
-            throw new ArgumentException(&quot;Invalid Type for adding to a Generic Collection of type SimpleObject&quot;);
-        } 
-        return (this.Count - 1); 
-    } 
-} 
-</code></pre>
-<p>What makes this possible is that the generic collections use private implementations of the IList Methods. this means that the implemented methods are not accessible unless you cast your object into the interface type.  This seems to allow the XamlReader to use our custom class&rsquo; IList.Add method instead of the ObservableCollections one. In my method I check if a string is being handed in and wrap it into a SimpleObject as required.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleObjectCollection</span> : ObservableCollection&lt;SimpleObject&gt;, IList
+</span></span><span style="display:flex;"><span>{ 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> IList.Add(<span style="color:#66d9ef">object</span> <span style="color:#66d9ef">value</span>) 
+</span></span><span style="display:flex;"><span>    { 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">value</span> <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">string</span>) 
+</span></span><span style="display:flex;"><span>        { 
+</span></span><span style="display:flex;"><span>            SimpleObject c = <span style="color:#66d9ef">new</span> SimpleObject() { Text = <span style="color:#66d9ef">value</span> <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">string</span> }; 
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">value</span> = c; 
+</span></span><span style="display:flex;"><span>        } 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">value</span> <span style="color:#66d9ef">is</span> SimpleObject) 
+</span></span><span style="display:flex;"><span>        { 
+</span></span><span style="display:flex;"><span>            Add((SimpleObject)<span style="color:#66d9ef">value</span>); 
+</span></span><span style="display:flex;"><span>        } 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> 
+</span></span><span style="display:flex;"><span>        { 
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentException(<span style="color:#e6db74">&#34;Invalid Type for adding to a Generic Collection of type SimpleObject&#34;</span>);
+</span></span><span style="display:flex;"><span>        } 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">this</span>.Count - <span style="color:#ae81ff">1</span>); 
+</span></span><span style="display:flex;"><span>    } 
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>What makes this possible is that the generic collections use private implementations of the IList Methods. this means that the implemented methods are not accessible unless you cast your object into the interface type.  This seems to allow the XamlReader to use our custom class&rsquo; IList.Add method instead of the ObservableCollections one. In my method I check if a string is being handed in and wrap it into a SimpleObject as required.</p>
 <h2 id="demo">Demo</h2>
 <p>Below is an application that implements a simple object and complex object, where the complex object contains a collection of simple objects. You can view some xaml and load it in to see if it is parse-able or not. I have used three difference scenarios here. Scenario 1 is default, where i have only added the above mentioned three attributes, and my collection is an <code>ObservableCollection&lt;SimpleObject&gt;</code>. Scenario 2 is Listed, where I have used my custom <code>SimpleObjectCollection</code> to wrap strings into SimpleObjects. In Scenario 3, Working, I have used the <code>SimpleObjectCollection</code> but added a type converter to my <code>ComplexObject</code>. This converter converts strings into ComplexObjects containing a single <code>SimpleObject</code> with that string. This is a special case for the scenario where you have no property attributes on your xml element, and the first item inside the element is a string. This, as mentioned earlier to string elements, will look for a converter to convert into the <code>ComplexObject</code>, and adding this converter here makes this situation work the way I intend it to. This examples is seen in sample 5.</p>
 <p>[silverlight: uploads/2010/11/csmac.XamlCollectionParsing.xap, 550, 250] (TODO: Fix this demo)</p>

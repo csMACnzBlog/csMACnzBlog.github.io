@@ -139,7 +139,7 @@
 <p>While development has been a slow work of labour over the last three years, the announcement of dotnet CLI tools (proper npm-style tools, not the weird interim dotnet-tool stuff&hellip;) with dotnet SDK 2.1, I had to jump in and get on board.</p>
 <h3 id="announcing-100">Announcing 1.0.0</h3>
 <p>Which brings me to announcing Coveralls.Net 1.0.0. This is a dotnet CLI tools compatible version of <code>csmacnz.Coveralls</code>. Easier to install. Easier to update. And a whole bunch new features, including more coverage options, and better autodetection processes in AppVeyor.</p>
-<pre><code># install globally
+<pre tabindex="0"><code># install globally
 dotnet tool install -g coveralls.net --version 1.0.0
 
 # if installed globally, this should just be available on your path
@@ -150,21 +150,19 @@ dotnet tool install coveralls.net --version 1.0.0 --tools-path tools
 
 # if installed into a tools path, you can run it from there.
 .\tools\csmacnz.Coveralls &lt;args&gt;
-</code></pre>
-<p>Now, I&rsquo;ve been struggling a bit with beta 0.8.0. It hasn&rsquo;t been easy to find time to test the new stuff I added, get others to test, and be happy to call it a stable release. But there was a bunch of new stuff and fixes in there. These have all rolled forward into the 1.0.0 Release now. (I might go back and call 0.8.0 stable now since it still works the old way. But for now the old way still works with stable <code>0.7.0</code> and <code>0.8.0-beta003</code>.)</p>
+</code></pre><p>Now, I&rsquo;ve been struggling a bit with beta 0.8.0. It hasn&rsquo;t been easy to find time to test the new stuff I added, get others to test, and be happy to call it a stable release. But there was a bunch of new stuff and fixes in there. These have all rolled forward into the 1.0.0 Release now. (I might go back and call 0.8.0 stable now since it still works the old way. But for now the old way still works with stable <code>0.7.0</code> and <code>0.8.0-beta003</code>.)</p>
 <p>Still not happy/comfortable with using CLI tools? Not using 2.1? That&rsquo;s ok. I&rsquo;ve used the power of the <a href="https://blog.csmac.nz/dotnetcore2-self-contained-applications/">self-contained app</a> to provide a <code>windows</code>, <code>linux</code> and <code>osx</code> native version (Linux targets the cross-compat Linux target) in a zip file under <a href="https://github.com/csMACnz/coveralls.net/releases/tag/1.0.0">the Releases folder on GitHub</a>.</p>
 <p>For windows in PowerShell you would use it something like this:</p>
-<pre><code># The TLS change was necessary on my development machine
+<pre tabindex="0"><code># The TLS change was necessary on my development machine
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$zipDownloadPath=&quot;https://github.com/csMACnz/coveralls.net/releases/download/1.0.0/coveralls.net.1.0.0-windows.zip&quot;
+$zipDownloadPath=&#34;https://github.com/csMACnz/coveralls.net/releases/download/1.0.0/coveralls.net.1.0.0-windows.zip&#34;
 Invoke-WebRequest -UseBasicParsing $zipDownloadPath -OutFile coveralls-windows.zip
 mkdir coveralls-windows
 Expand-Archive .\coveralls-windows.zip coveralls-windows
 
 .\coveralls-windows\csmacnz.Coveralls.exe
-</code></pre>
-<p>I hope to get more details added on the GitHub Wiki for linux and mac usage of the self-contained app, as well as updating all the samples over at <a href="https://github.com/csMACnz/Coveralls.net-Samples/">Coveralls.net-Samples</a>.</p>
+</code></pre><p>I hope to get more details added on the GitHub Wiki for linux and mac usage of the self-contained app, as well as updating all the samples over at <a href="https://github.com/csMACnz/Coveralls.net-Samples/">Coveralls.net-Samples</a>.</p>
 <h3 id="more-targets">More targets</h3>
 <p>Since the first release, targeting OpenCover coverage files (the most popular at the time), this has been expanded to include Visual Studio Coverage, monocov, Report Generator, Chutzpah javascript coverage, lcov, NCover and <a href="https://github.com/tonerdo/coverlet">Coverlet</a> cross-platform .Net coverage (via its opencover file format).</p>
 <h3 id="whats-next">What&rsquo;s Next?</h3>

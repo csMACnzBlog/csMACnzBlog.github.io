@@ -154,14 +154,13 @@
 <p>Let&rsquo;s set aside Application packing for later, and focus our attention on NuGet.</p>
 <h3 id="our-demo-library">Our Demo library</h3>
 <p>Again we will quickly whip up a library to use:</p>
-<pre><code>mkdir mynewpackage
+<pre tabindex="0"><code>mkdir mynewpackage
 cd mynewpackage
 dotnet new -t Lib
 dotnet restore
 dotnet build
-</code></pre>
-<p>Some quick touch-ups to make it more interesting. Replace Library.cs with this again:</p>
-<pre><code>namespace mynewpackage
+</code></pre><p>Some quick touch-ups to make it more interesting. Replace Library.cs with this again:</p>
+<pre tabindex="0"><code>namespace mynewpackage
 {
     public class Calculator
     {
@@ -171,14 +170,12 @@ dotnet build
         }
     }
 }
-</code></pre>
-<p>At least now our package contains something interesting.</p>
+</code></pre><p>At least now our package contains something interesting.</p>
 <h3 id="simple-packing">Simple Packing</h3>
 <p>It isn&rsquo;t very difficult to turn our library into a <code>nupkg</code> (pronounced <a href="https://twitter.com/csharpfritz/status/519927456191758336">NUP-KEG</a>, of course).</p>
-<pre><code>dotnet pack
-</code></pre>
-<p>This leaves us with a directory structure like so:</p>
-<pre><code>mynewpackage  
+<pre tabindex="0"><code>dotnet pack
+</code></pre><p>This leaves us with a directory structure like so:</p>
+<pre tabindex="0"><code>mynewpackage  
 |-- Library.cs
 |-- project.json
 |-- project.lock.json
@@ -190,29 +187,26 @@ dotnet build
                |-- mynewpackage.deps.json
                |-- mynewpackage.dll
                +-- mynewpackage.pdb
-</code></pre>
-<p>(Note that I have left out the <code>obj</code> folder), we can see two new files have been created under <code>/bin/Debug</code>: <code>mynewpackage.1.0.0.nupkg</code> and <code>mynewpackage.1.0.0.symbols.nupkg</code>.</p>
+</code></pre><p>(Note that I have left out the <code>obj</code> folder), we can see two new files have been created under <code>/bin/Debug</code>: <code>mynewpackage.1.0.0.nupkg</code> and <code>mynewpackage.1.0.0.symbols.nupkg</code>.</p>
 <p>These are the NuGet packages. Pretty easy huh?  The version number comes from the <code>project.json</code> file:</p>
-<pre><code>{
-  &quot;version&quot;: &quot;1.0.0-*&quot;,
-  &quot;buildOptions&quot;: {
-    &quot;debugType&quot;: &quot;portable&quot;
+<pre tabindex="0"><code>{
+  &#34;version&#34;: &#34;1.0.0-*&#34;,
+  &#34;buildOptions&#34;: {
+    &#34;debugType&#34;: &#34;portable&#34;
   },
-  &quot;dependencies&quot;: {},
-  &quot;frameworks&quot;: {
-    &quot;netstandard1.6&quot;: {
-      &quot;dependencies&quot;: {
-        &quot;NETStandard.Library&quot;: &quot;1.6.0&quot;
+  &#34;dependencies&#34;: {},
+  &#34;frameworks&#34;: {
+    &#34;netstandard1.6&#34;: {
+      &#34;dependencies&#34;: {
+        &#34;NETStandard.Library&#34;: &#34;1.6.0&#34;
       }
     }
   }
 }
-</code></pre>
-<p>But that was a <code>Debug</code> build. To produce a release build instead:</p>
-<pre><code>dotnet pack -c Release
-</code></pre>
-<p>Now we have some new files:</p>
-<pre><code>mynewpackage  
+</code></pre><p>But that was a <code>Debug</code> build. To produce a release build instead:</p>
+<pre tabindex="0"><code>dotnet pack -c Release
+</code></pre><p>Now we have some new files:</p>
+<pre tabindex="0"><code>mynewpackage  
 |-- Library.cs
 |-- project.json
 |-- project.lock.json
@@ -231,20 +225,18 @@ dotnet build
                |-- mynewpackage.deps.json
                |-- mynewpackage.dll
                |-- mynewpackage.pdb
-</code></pre>
-<p>We can see that we now have a <code>Release</code> folder (containing a <code>netstandard1.6</code> folder, thanks to an automatic build before the pack) and in the <code>Release</code> folder, we again have <code>mynewpackage.1.0.0.nupkg</code> and <code>mynewpackage.1.0.0.symbols.nupkg</code> files.</p>
+</code></pre><p>We can see that we now have a <code>Release</code> folder (containing a <code>netstandard1.6</code> folder, thanks to an automatic build before the pack) and in the <code>Release</code> folder, we again have <code>mynewpackage.1.0.0.nupkg</code> and <code>mynewpackage.1.0.0.symbols.nupkg</code> files.</p>
 <h3 id="crack-open-a-nupkg">Crack open a nupkg</h3>
 <p>What do these <code>nupkg</code> files look like on the inside? Using a tool like <a href="https://github.com/NuGetPackageExplorer/NuGetPackageExplorer">NuGet Package Explorer</a> we can take a look. The Release version looks like this:</p>
-<pre><code>mynewpackage.1.0.0.nupkg
+<pre tabindex="0"><code>mynewpackage.1.0.0.nupkg
 |-- mynewpackage.nuspec
 +-- lib
      +-- netstandard1.6
           +-- mynewpackage.dll
-</code></pre>
-<p>Some things to observe. We only have a lib file for <code>netstandard1.6</code> target profile. This means that our NuGet package only works with new .Net Core applications targeting NetStandard1.6 (and the upcoming 4.6.3).</p>
+</code></pre><p>Some things to observe. We only have a lib file for <code>netstandard1.6</code> target profile. This means that our NuGet package only works with new .Net Core applications targeting NetStandard1.6 (and the upcoming 4.6.3).</p>
 <p>Changing our attention to the contents of the <code>nuspec</code> file:</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;package xmlns=&quot;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&quot;&gt;
+<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;package xmlns=&#34;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&#34;&gt;
     &lt;metadata&gt;
         &lt;id&gt;mynewpackage&lt;/id&gt;
         &lt;version&gt;1.0.0&lt;/version&gt;
@@ -253,14 +245,13 @@ dotnet build
         &lt;requireLicenseAcceptance&gt;false&lt;/requireLicenseAcceptance&gt;
         &lt;description&gt;mynewpackage&lt;/description&gt;
         &lt;dependencies&gt;
-            &lt;group targetFramework=&quot;.NETStandard1.6&quot;&gt;
-                &lt;dependency id=&quot;NETStandard.Library&quot; version=&quot;1.6.0&quot; /&gt;
+            &lt;group targetFramework=&#34;.NETStandard1.6&#34;&gt;
+                &lt;dependency id=&#34;NETStandard.Library&#34; version=&#34;1.6.0&#34; /&gt;
             &lt;/group&gt;
         &lt;/dependencies&gt;
     &lt;/metadata&gt;
 &lt;/package&gt;
-</code></pre>
-<p>We didn&rsquo;t override any properties in our <code>project.json</code> file. But we can see here that the project folder name <code>mynewpackage</code> is used to populate the package <code>id</code>, <code>authors</code>, <code>owners</code> and <code>description</code>. Play around for yourself at setting the correct properties in the <code>project.json</code> to produce your desired <code>nupkg</code> values.</p>
+</code></pre><p>We didn&rsquo;t override any properties in our <code>project.json</code> file. But we can see here that the project folder name <code>mynewpackage</code> is used to populate the package <code>id</code>, <code>authors</code>, <code>owners</code> and <code>description</code>. Play around for yourself at setting the correct properties in the <code>project.json</code> to produce your desired <code>nupkg</code> values.</p>
 <p>We also see that under dependencies there is a <code>targetFramework=&quot;.NETStandard1.6&quot;</code> group, with a dependency on <code>NETStandard.Library</code> version <code>1.6.0</code>.</p>
 <h3 id="and-the-next-time">And the next time&hellip;</h3>
 <p>We can build packages to be used by new .Net Core applications. But we probably want to build libraries that can be used from our .Net 4.0, Windows Phone and UWP applications as well.  Next up, we see how to extend our package to handle just these situations.</p>

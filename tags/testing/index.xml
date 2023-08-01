@@ -34,71 +34,70 @@
 &lt;li&gt;&lt;a href=&#34;https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/SeleniumReduxSagaExtension.cs&#34;&gt;SeleniumReduxSagaExtension.cs&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs&#34;&gt;Program.cs (+ReduxSampleSystem)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;    public class BrowserDriver: IDisposable
-    {
-        private object _browserLock = new object();
-
-        private ChromeDriverService _driverService;
-        private ChromeOptions _options;
-        private ChromeDriver _driver;
-
-        public BrowserDriver()
-        {
-            _driverService = ChromeDriverService.CreateDefaultService(PlatformServices.Default.Application.ApplicationBasePath, &amp;quot;chromedriver.exe&amp;quot;);
-            _options = new ChromeOptions();
-            //_options.AddAdditionalCapability(&amp;quot;IsJavaScriptEnabled&amp;quot;, true);
-        }
-
-        public void LaunchUrl(string targetURL)
-        {
-            if (_driver != null)
-            {
-                Close();
-            }
-
-            _driver = new ChromeDriver(_driverService, _options);
-
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
-
-            _driver.Navigate().GoToUrl(targetURL);
-
-            wait.Until(driver =&amp;gt; driver.FindElement(By.TagName(&amp;quot;body&amp;quot;)));
-            wait.Until(driver =&amp;gt; ((IJavaScriptExecutor)driver).ExecuteScript(&amp;quot;return document.readyState&amp;quot;).Equals(&amp;quot;complete&amp;quot;));
-
-            IEnumerable&amp;lt;LogEntry&amp;gt; logs = _driver.Manage().Logs.GetLog(&amp;quot;browser&amp;quot;);
-
-            if (logs.Any(l =&amp;gt; l.Level == LogLevel.Warning || l.Level == LogLevel.Severe))
-            {
-                throw new Exception($&amp;quot;Warnings/Errors logged: \n{string.Join(&amp;quot;/n&amp;quot;, logs.Select(l =&amp;gt; l.Timestamp + &amp;quot;:::&amp;quot; + l.Message))}&amp;quot;);
-            }
-        }
-
-        public void Close()
-        {
-            if (_driver != null)
-            {
-                _driver.Quit();
-                _driver = null;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _driverService?.Dispose();
-                _driverService = null;
-            }
-        }
-    }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;    public class SeleniumReduxSagaExtension : IExtension
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;BrowserDriver&lt;/span&gt;: IDisposable
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;object&lt;/span&gt; _browserLock = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;object&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; ChromeDriverService _driverService;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; ChromeOptions _options;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; ChromeDriver _driver;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; BrowserDriver()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            _driverService = ChromeDriverService.CreateDefaultService(PlatformServices.Default.Application.ApplicationBasePath, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chromedriver.exe&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            _options = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ChromeOptions();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;//_options.AddAdditionalCapability(&amp;#34;IsJavaScriptEnabled&amp;#34;, true);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; LaunchUrl(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; targetURL)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (_driver != &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                Close();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            _driver = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ChromeDriver(_driverService, _options);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; wait = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; WebDriverWait(_driver, TimeSpan.FromSeconds(&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            _driver.Navigate().GoToUrl(targetURL);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            wait.Until(driver =&amp;gt; driver.FindElement(By.TagName(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;body&amp;#34;&lt;/span&gt;)));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            wait.Until(driver =&amp;gt; ((IJavaScriptExecutor)driver).ExecuteScript(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;return document.readyState&amp;#34;&lt;/span&gt;).Equals(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;complete&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            IEnumerable&amp;lt;LogEntry&amp;gt; logs = _driver.Manage().Logs.GetLog(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (logs.Any(l =&amp;gt; l.Level == LogLevel.Warning || l.Level == LogLevel.Severe))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Exception(&lt;span style=&#34;color:#e6db74&#34;&gt;$&amp;#34;Warnings/Errors logged: \n{string.Join(&amp;#34;&lt;/span&gt;/n&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, logs.Select(l =&amp;gt; l.Timestamp + &amp;#34;&lt;/span&gt;:::&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; + l.Message))}&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Close()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (_driver != &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                _driver.Quit();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                _driver = &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Dispose()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            Dispose(&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            GC.SuppressFinalize(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;protected&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Dispose(&lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; disposing)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (disposing)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                _driverService?.Dispose();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                _driverService = &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    public class SeleniumReduxSagaExtension : IExtension
     {
         public string Url { get; }
 
@@ -129,9 +128,9 @@
 
         private void LaunchPage()
         {
-            var url = Url.Contains(&amp;quot;?&amp;quot;)
-                ? Url + $&amp;quot;&amp;amp;StorytellerPort={Server.Port}&amp;quot;
-                : $&amp;quot;{Url}?StorytellerPort={Server.Port}&amp;quot;;
+            var url = Url.Contains(&amp;#34;?&amp;#34;)
+                ? Url + $&amp;#34;&amp;amp;StorytellerPort={Server.Port}&amp;#34;
+                : $&amp;#34;{Url}?StorytellerPort={Server.Port}&amp;#34;;
             _browserDriver.Value.LaunchUrl(url);
         }
 
@@ -156,20 +155,19 @@
 
         }
     }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;    public class ReduxSampleSystem : SimpleSystem
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    public class ReduxSampleSystem : SimpleSystem
     {
-        private const string WebHostUrl = &amp;quot;http://localhost:5050&amp;quot;;
+        private const string WebHostUrl = &amp;#34;http://localhost:5050&amp;#34;;
         private IWebHost _host;
 
         public ReduxSampleSystem()
         {
             // No request should take longer than 250 milliseconds
-            PerformancePolicies.PerfLimit(250, r =&amp;gt; r.Type == &amp;quot;Http Request&amp;quot;);
+            PerformancePolicies.PerfLimit(250, r =&amp;gt; r.Type == &amp;#34;Http Request&amp;#34;);
         }
         protected override void configureCellHandling(CellHandling handling)
         {
-            handling.Extensions.Add(new SeleniumReduxSagaExtension($&amp;quot;{WebHostUrl}/counter&amp;quot;));
+            handling.Extensions.Add(new SeleniumReduxSagaExtension($&amp;#34;{WebHostUrl}/counter&amp;#34;));
         }
 
         public override Task Warmup()
@@ -185,7 +183,7 @@
             
             string CalculateRelativeContentRootPath() =&amp;gt;
               Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
-                 @&amp;quot;..\..\..\..\myapp&amp;quot;);
+                 @&amp;#34;..\..\..\..\myapp&amp;#34;);
 
             return base.Warmup();
         }
@@ -199,8 +197,7 @@
             base.Dispose();
         }
     }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here is some explaination of the interesting parts of this that make it work. To use a startup in a test project, where you are using MVC views and &lt;code&gt;aspx&lt;/code&gt; pages, you need a few tweaks.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Here is some explaination of the interesting parts of this that make it work. To use a startup in a test project, where you are using MVC views and &lt;code&gt;aspx&lt;/code&gt; pages, you need a few tweaks.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;In the csproj there &lt;a href=&#34;https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/ReduxSamples.csproj#L30-L36&#34;&gt;is some extra code required&lt;/a&gt; to copy over the reference dependencies for the view page on-demand parsing of MVC.&lt;/li&gt;
 &lt;li&gt;You also need to &lt;a href=&#34;https://github.com/csMACnz/StorytellerReduxSample/blob/master/ReduxSamples/Program.cs#L50&#34;&gt;set the Content Root correctly&lt;/a&gt; (&lt;code&gt;CalculateRelativeContentRootPath&lt;/code&gt; above)&lt;/li&gt;
@@ -215,7 +212,7 @@
 &lt;p&gt;At this stage, when I run a test, it launches chrome through chromedriver, and the WebSocket connection should start. Storyteller is connected.&lt;/p&gt;
 &lt;h3 id=&#34;tests&#34;&gt;Tests&lt;/h3&gt;
 &lt;p&gt;My simplest test:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Simple sending and value checking
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Simple sending and value checking
 
 -&amp;gt; id = ab11ba6a-2181-4901-a389-2ef8daff4ee4
 -&amp;gt; lifecycle = Acceptance
@@ -227,16 +224,15 @@
 |&amp;gt; Increment
 |&amp;gt; CheckValue number=1
 ~~~
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which is based on this feature (not too dissimilar to the original sample):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;    public class CalculatorFixture : ReduxFixture
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Which is based on this feature (not too dissimilar to the original sample):&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    public class CalculatorFixture : ReduxFixture
     {
         public void GetInitialState()
         {
             this.ForceRefetchOfState().Wait();
         }
 
-        [SendJson(&amp;quot;INCREMENT_COUNT&amp;quot;)]
+        [SendJson(&amp;#34;INCREMENT_COUNT&amp;#34;)]
         public void Increment()
         {
             
@@ -245,12 +241,11 @@
         // SAMPLE: CheckJsonValue
         public IGrammar CheckValue()
         {
-            return CheckJsonValue&amp;lt;int&amp;gt;(&amp;quot;$.counter.count&amp;quot;, &amp;quot;The current counter should be {number}&amp;quot;);
+            return CheckJsonValue&amp;lt;int&amp;gt;(&amp;#34;$.counter.count&amp;#34;, &amp;#34;The current counter should be {number}&amp;#34;);
         }
         // ENDSAMPLE
     }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To make life easier, there is also an added feature to be able to &lt;code&gt;ForceRefetchOfState&lt;/code&gt;, because this isn&amp;rsquo;t currently populated when first connected, you had to issue your first command for it to trigger a refresh of state. (Feature request?) Adding this allows me to forcibly request the initial state. ReduxSamples aside, I think this was the only functional change I actually made to the original Storyteller.Redux project (apart from pulling in a copy of WebSocketsHandler from StorytellerRunner, and switching references to NuGets to make it run).&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To make life easier, there is also an added feature to be able to &lt;code&gt;ForceRefetchOfState&lt;/code&gt;, because this isn&amp;rsquo;t currently populated when first connected, you had to issue your first command for it to trigger a refresh of state. (Feature request?) Adding this allows me to forcibly request the initial state. ReduxSamples aside, I think this was the only functional change I actually made to the original Storyteller.Redux project (apart from pulling in a copy of WebSocketsHandler from StorytellerRunner, and switching references to NuGets to make it run).&lt;/p&gt;
 &lt;p&gt;With this setup, every test first launches a fresh browser window to the target URL. (It also closes any open window first - makes it nice seeing the results of the last run test still open, but that still cleans up after itself.) It may be beneficial to extend this example to also have the navigation ability in a fixture, too.&lt;/p&gt;
 &lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
 &lt;p&gt;Have a look at my GitHub repository at &lt;a href=&#34;https://github.com/csMACnz/StorytellerReduxSample&#34;&gt;github.com/csMACnz/StorytellerReduxSample&lt;/a&gt; for a working example of the solution outlined above. At some point, I should feedback the tweaks to Storyteller.Redux (or &lt;a href=&#34;https://github.com/jeremydmiller&#34;&gt;@jeremydmiller&lt;/a&gt; can just steal them&amp;hellip;) but until Storyteller 5 is stable, I would keep using my copy, anyway.&lt;/p&gt;
@@ -284,37 +279,37 @@
 &lt;p&gt;Now, the decision makes perfect sense to me. The new format is more expressive, gives more information and is the future. And vendors need to start using it and move away from the old format. But as you can imagine, JetBrains just hasn&amp;rsquo;t gotten around to &lt;a href=&#34;https://youtrack.jetbrains.com/issue/TW-46195&#34;&gt;getting it right yet&lt;/a&gt;. (There is some support in TC 10.0.2 but it seems there might be some teething issues and many of us are still on TC 9.X anyway.)&lt;/p&gt;
 &lt;p&gt;So what do I do about this? Solve it with code of course! And the solution is xslt (Hey! it gets the job done ok?)&lt;/p&gt;
 &lt;p&gt;Thanks to &lt;a href=&#34;https://issues.jenkins-ci.org/browse/JENKINS-32999&#34;&gt;some notes on this related Jenkins issue&lt;/a&gt; from &lt;a href=&#34;https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=tenwit&#34;&gt;Paul Hicks&lt;/a&gt;, I have this xslt page (with a small tweak to fix a value casing issue):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
-&amp;lt;xsl:stylesheet version=&amp;quot;2.0&amp;quot; xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;&amp;gt;
-  &amp;lt;xsl:output method=&amp;quot;xml&amp;quot; indent=&amp;quot;yes&amp;quot;/&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?&amp;gt;
+&amp;lt;xsl:stylesheet version=&amp;#34;2.0&amp;#34; xmlns:xsl=&amp;#34;http://www.w3.org/1999/XSL/Transform&amp;#34;&amp;gt;
+  &amp;lt;xsl:output method=&amp;#34;xml&amp;#34; indent=&amp;#34;yes&amp;#34;/&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;/test-run&amp;quot;&amp;gt;
-    &amp;lt;testsuites tests=&amp;quot;{@testcasecount}&amp;quot; failures=&amp;quot;{@failed}&amp;quot; disabled=&amp;quot;{@skipped}&amp;quot; time=&amp;quot;{@duration}&amp;quot;&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;/test-run&amp;#34;&amp;gt;
+    &amp;lt;testsuites tests=&amp;#34;{@testcasecount}&amp;#34; failures=&amp;#34;{@failed}&amp;#34; disabled=&amp;#34;{@skipped}&amp;#34; time=&amp;#34;{@duration}&amp;#34;&amp;gt;
       &amp;lt;xsl:apply-templates/&amp;gt;
     &amp;lt;/testsuites&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-suite&amp;quot;&amp;gt;
-    &amp;lt;xsl:if test=&amp;quot;test-case&amp;quot;&amp;gt;
-      &amp;lt;testsuite tests=&amp;quot;{@testcasecount}&amp;quot; time=&amp;quot;{@duration}&amp;quot; errors=&amp;quot;{@testcasecount - @passed - @skipped - @failed}&amp;quot; failures=&amp;quot;{@failed}&amp;quot; skipped=&amp;quot;{@skipped}&amp;quot; timestamp=&amp;quot;{@start-time}&amp;quot;&amp;gt;
-        &amp;lt;xsl:attribute name=&amp;quot;name&amp;quot;&amp;gt;
-          &amp;lt;xsl:for-each select=&amp;quot;ancestor-or-self::test-suite/@name&amp;quot;&amp;gt;
-            &amp;lt;xsl:value-of select=&amp;quot;concat(., &#39;.&#39;)&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-suite&amp;#34;&amp;gt;
+    &amp;lt;xsl:if test=&amp;#34;test-case&amp;#34;&amp;gt;
+      &amp;lt;testsuite tests=&amp;#34;{@testcasecount}&amp;#34; time=&amp;#34;{@duration}&amp;#34; errors=&amp;#34;{@testcasecount - @passed - @skipped - @failed}&amp;#34; failures=&amp;#34;{@failed}&amp;#34; skipped=&amp;#34;{@skipped}&amp;#34; timestamp=&amp;#34;{@start-time}&amp;#34;&amp;gt;
+        &amp;lt;xsl:attribute name=&amp;#34;name&amp;#34;&amp;gt;
+          &amp;lt;xsl:for-each select=&amp;#34;ancestor-or-self::test-suite/@name&amp;#34;&amp;gt;
+            &amp;lt;xsl:value-of select=&amp;#34;concat(., &amp;#39;.&amp;#39;)&amp;#34;/&amp;gt;
           &amp;lt;/xsl:for-each&amp;gt;
         &amp;lt;/xsl:attribute&amp;gt;
-        &amp;lt;xsl:apply-templates select=&amp;quot;test-case&amp;quot;/&amp;gt;
+        &amp;lt;xsl:apply-templates select=&amp;#34;test-case&amp;#34;/&amp;gt;
       &amp;lt;/testsuite&amp;gt;
-      &amp;lt;xsl:apply-templates select=&amp;quot;test-suite&amp;quot;/&amp;gt;
+      &amp;lt;xsl:apply-templates select=&amp;#34;test-suite&amp;#34;/&amp;gt;
     &amp;lt;/xsl:if&amp;gt;
-    &amp;lt;xsl:if test=&amp;quot;not(test-case)&amp;quot;&amp;gt;
+    &amp;lt;xsl:if test=&amp;#34;not(test-case)&amp;#34;&amp;gt;
       &amp;lt;xsl:apply-templates/&amp;gt;
     &amp;lt;/xsl:if&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-case&amp;quot;&amp;gt;
-    &amp;lt;xsl:variable name=&amp;quot;lowerResult&amp;quot; select=&amp;quot;translate(@result,&#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;, &#39;abcdefghijklmnopqrstuvwxyz&#39;)&amp;quot;/&amp;gt;
-    &amp;lt;testcase name=&amp;quot;{@name}&amp;quot; assertions=&amp;quot;{@asserts}&amp;quot; time=&amp;quot;{@duration}&amp;quot; status=&amp;quot;{$lowerResult}&amp;quot; classname=&amp;quot;{@classname}&amp;quot;&amp;gt;
-      &amp;lt;xsl:if test=&amp;quot;@runstate = &#39;Skipped&#39; or @runstate = &#39;Ignored&#39;&amp;quot;&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-case&amp;#34;&amp;gt;
+    &amp;lt;xsl:variable name=&amp;#34;lowerResult&amp;#34; select=&amp;#34;translate(@result,&amp;#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#39;, &amp;#39;abcdefghijklmnopqrstuvwxyz&amp;#39;)&amp;#34;/&amp;gt;
+    &amp;lt;testcase name=&amp;#34;{@name}&amp;#34; assertions=&amp;#34;{@asserts}&amp;#34; time=&amp;#34;{@duration}&amp;#34; status=&amp;#34;{$lowerResult}&amp;#34; classname=&amp;#34;{@classname}&amp;#34;&amp;gt;
+      &amp;lt;xsl:if test=&amp;#34;@runstate = &amp;#39;Skipped&amp;#39; or @runstate = &amp;#39;Ignored&amp;#39;&amp;#34;&amp;gt;
         &amp;lt;skipped/&amp;gt;
       &amp;lt;/xsl:if&amp;gt;
       
@@ -322,48 +317,45 @@
     &amp;lt;/testcase&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;command-line&amp;quot;/&amp;gt;
-  &amp;lt;xsl:template match=&amp;quot;settings&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;command-line&amp;#34;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;settings&amp;#34;/&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;output&amp;quot;&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;output&amp;#34;&amp;gt;
     &amp;lt;system-out&amp;gt;
-      &amp;lt;xsl:value-of select=&amp;quot;output&amp;quot;/&amp;gt;
+      &amp;lt;xsl:value-of select=&amp;#34;output&amp;#34;/&amp;gt;
     &amp;lt;/system-out&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;stack-trace&amp;quot;&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;stack-trace&amp;#34;&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-case/failure&amp;quot;&amp;gt;
-    &amp;lt;failure message=&amp;quot;{./message}&amp;quot;&amp;gt;
-      &amp;lt;xsl:value-of select=&amp;quot;./stack-trace&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-case/failure&amp;#34;&amp;gt;
+    &amp;lt;failure message=&amp;#34;{./message}&amp;#34;&amp;gt;
+      &amp;lt;xsl:value-of select=&amp;#34;./stack-trace&amp;#34;/&amp;gt;
     &amp;lt;/failure&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-suite/failure&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-suite/failure&amp;#34;/&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-case/reason&amp;quot;&amp;gt;
-    &amp;lt;skipped message=&amp;quot;{./message}&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-case/reason&amp;#34;&amp;gt;
+    &amp;lt;skipped message=&amp;#34;{./message}&amp;#34;/&amp;gt;
   &amp;lt;/xsl:template&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;test-suite/reason&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;test-suite/reason&amp;#34;/&amp;gt;
 
-  &amp;lt;xsl:template match=&amp;quot;properties&amp;quot;/&amp;gt;
+  &amp;lt;xsl:template match=&amp;#34;properties&amp;#34;/&amp;gt;
 &amp;lt;/xsl:stylesheet&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And we can use this in a TeamCity runner:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;$xslt = new-object system.xml.xsl.xslcompiledtransform
-$xslt.load(&#39;%system.teamcity.build.workingDir%\nunit3-junit.xslt&#39;)
-$xslt.Transform(&#39;%system.teamcity.build.workingDir%\TestResult.xml&#39;, &#39;%system.teamcity.build.workingDir%\TransformedTestResult.xml&#39;)
-Write-Host &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedTestResult.xml&#39;]&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which is PowerShell, and so this works well under windows.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And we can use this in a TeamCity runner:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$xslt = new-object system.xml.xsl.xslcompiledtransform
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$xslt.load(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;%system.teamcity.build.workingDir%\nunit3-junit.xslt&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$xslt.Transform(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;%system.teamcity.build.workingDir%\TestResult.xml&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;%system.teamcity.build.workingDir%\TransformedTestResult.xml&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Write-Host &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;##teamcity[importData type=&amp;#39;junit&amp;#39; path=&amp;#39;TransformedTestResult.xml&amp;#39;]&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Which is PowerShell, and so this works well under windows.&lt;/p&gt;
 &lt;p&gt;But our latest thing is .Net Core in Docker containers on Linux, right? (right?) So we don&amp;rsquo;t have PowerShell available. And it also seems that &lt;a href=&#34;https://github.com/dotnet/corefx/issues/5593&#34;&gt;there is currently no xslt support in .Net Core&lt;/a&gt;, so that option is out. But there is another way:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;apt-get install libsaxon-java
-saxon-xslt -o TransformedTestResult.xml TestResult.xml nunit3-junit.xslt
-echo &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedTestResult.xml&#39;]&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You may want to just run the &lt;code&gt;apt-get&lt;/code&gt; command on all your agents, rather than putting it into your build step.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apt-get install libsaxon-java
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;saxon-xslt -o TransformedTestResult.xml TestResult.xml nunit3-junit.xslt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;##teamcity[importData type=&amp;#39;junit&amp;#39; path=&amp;#39;TransformedTestResult.xml&amp;#39;]&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You may want to just run the &lt;code&gt;apt-get&lt;/code&gt; command on all your agents, rather than putting it into your build step.&lt;/p&gt;
 &lt;p&gt;And with that, we can publish our test results to TeamCity on Windows and on Linux build agents.&lt;/p&gt;
 </description>
     </item>
@@ -411,48 +403,46 @@ echo &amp;quot;##teamcity[importData type=&#39;junit&#39; path=&#39;TransformedT
 &lt;h4 id=&#34;what-is-a-unit-test&#34;&gt;What is a &amp;lsquo;unit&amp;rsquo; test?&lt;/h4&gt;
 &lt;p&gt;At first, I thought out tests were too big, they seemed to be testing a lot in one test. Then I realised most of the code in the test class in question was mocking, setup and preparation.  Why?  Well the main reason is the object we are testing has several dependencies, and they all needed to be mocked and faked, so that we could test this class as a unit.&lt;/p&gt;
 &lt;p&gt;for example, lets say we have a class, and it takes 4 services (should be enough to make a point).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public class CustomerService {
-    ...
-    public CustomerService(IEmployeeRepository employeeRepository,
-                           ICustomerRepository customerRepository,
-                           ISecurityProvider securityProvider,
-                           IInternationalisationProvider internationalisationProvider)
-    {
-    ...
-    }
-
-    public void Process(Customer newCustomer) {
-    ...
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We want to test this method, with mocking, we might end up with a setup like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[TestInitialise]
-public void Setup() 
-{
-    _employeeRepositoryMock = new Mock&amp;lt;IEmployeeRepository&amp;gt;();
-    _employeeRepositoryMock
-        .Setup(er =&amp;gt; er.FindEmployeeRecord(It.Is&amp;lt;Guid&amp;gt;(TEST_USER_ID)))
-        .Returns(CreateTestCustomerEmployeeRecord());
-	_employeeRepositoryMock
-        .Setup(er =&amp;gt; er.LoadEmployeeTypes())
-        .Returns(CreateEmployeeTypeData());
-	_employeeRepositoryMock
-        .Setup(er =&amp;gt; er.CreateNewEmployeeRecord(It.Is&amp;lt;Guid&amp;gt;(TEST_USER_ID), It.IsAny&amp;lt;CustomerEmployeeRecord&amp;gt;()))
-        .Returns(CreateDefaultSuccessResultForCreateEmployeeRecord());
-
-    _customerRepositoryMock = new Mock&amp;lt;ICustomerRepository&amp;gt;();
-    _customerRepositoryMock
-        .Setup(er =&amp;gt; er.GetCustomer(It.Is&amp;lt;Guid&amp;gt;(TEST_USER_ID)))
-        .Returns(CreateTestCustomer());
-     ...        
-    _customerServiceMock = new Mock&amp;lt;ISecurityProvider&amp;gt;();
-     ...
-    _internationalisationProviderMock = new Mock&amp;lt;IInternationalisationProvider&amp;gt;()
-     ...
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And you could imagine with more dependencies what else could crop up, not to mention the code that appears inside the tests themselves.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CustomerService&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; CustomerService(IEmployeeRepository employeeRepository,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                           ICustomerRepository customerRepository,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                           ISecurityProvider securityProvider,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                           IInternationalisationProvider internationalisationProvider)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Process(Customer newCustomer) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We want to test this method, with mocking, we might end up with a setup like:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;[TestInitialise]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; Setup() 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _employeeRepositoryMock = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Mock&amp;lt;IEmployeeRepository&amp;gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _employeeRepositoryMock
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Setup(er =&amp;gt; er.FindEmployeeRecord(It.Is&amp;lt;Guid&amp;gt;(TEST_USER_ID)))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Returns(CreateTestCustomerEmployeeRecord());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	_employeeRepositoryMock
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Setup(er =&amp;gt; er.LoadEmployeeTypes())
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Returns(CreateEmployeeTypeData());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	_employeeRepositoryMock
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Setup(er =&amp;gt; er.CreateNewEmployeeRecord(It.Is&amp;lt;Guid&amp;gt;(TEST_USER_ID), It.IsAny&amp;lt;CustomerEmployeeRecord&amp;gt;()))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Returns(CreateDefaultSuccessResultForCreateEmployeeRecord());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _customerRepositoryMock = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Mock&amp;lt;ICustomerRepository&amp;gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _customerRepositoryMock
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Setup(er =&amp;gt; er.GetCustomer(It.Is&amp;lt;Guid&amp;gt;(TEST_USER_ID)))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        .Returns(CreateTestCustomer());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     ...        
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _customerServiceMock = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Mock&amp;lt;ISecurityProvider&amp;gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _internationalisationProviderMock = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Mock&amp;lt;IInternationalisationProvider&amp;gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     ...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And you could imagine with more dependencies what else could crop up, not to mention the code that appears inside the tests themselves.&lt;/p&gt;
 &lt;p&gt;This is where the lesson is. Well, two lessons:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Try to minimise your dependencies so they are easier to mock, stub and fake.&lt;/li&gt;
@@ -464,22 +454,21 @@ public void Setup()
 &lt;p&gt;&lt;em&gt;Arrange&lt;/em&gt;: coordinate some setup for your test. This might be in the test method itself, creating an instance of the unit under test. This might be in the constructor, or per-test setup method. Having a lot of setup for a test is a code smell.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Act&lt;/em&gt;: perform the task that is being tested. Maybe a static method, or method on your unit under test. This should be a single atomic action, from your system code would be expected.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Assert&lt;/em&gt;: confirm that the state of play after acting is what is expected. Check the result of the method has the correct state, or check the state of the unit under test has been modified correctly.  Again, assert one thing. It might take multiple assert statements, but they should represent a single atomic state.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;[Test]
-public void CustomerService_CreateNewCalledWithValidCustomer_NoProblemsOccur()
-{
-    //Arrange
-    var sut = CreateService();
-    var newCustomer = GetValidCustomer();
-    
-    //Act
-    var saveResponse = sut.CreateNew(newCustomer);
-    
-    //Assert
-    Assert.True(saveResponse.Successful);
-    Assert.Empty(saveResponse.Warnings);
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Personally I don&amp;rsquo;t like having the comments in there, but spacing my test methods into the three sections make it much clearer to read what is happening at each stage, and what is the Act part.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;[Test]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; CustomerService_CreateNewCalledWithValidCustomer_NoProblemsOccur()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//Arrange&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; sut = CreateService();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; newCustomer = GetValidCustomer();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//Act&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; saveResponse = sut.CreateNew(newCustomer);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//Assert&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Assert.True(saveResponse.Successful);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Assert.Empty(saveResponse.Warnings);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Personally I don&amp;rsquo;t like having the comments in there, but spacing my test methods into the three sections make it much clearer to read what is happening at each stage, and what is the Act part.&lt;/p&gt;
 &lt;h4 id=&#34;test-code-is-code&#34;&gt;Test code is code&lt;/h4&gt;
 &lt;p&gt;The quality of test code is appalling.  Yeah, this is an over-generalisation. I should be clearer and say, the quality of the code people write when they start writing tests is appalling.  I&amp;rsquo;m guilty of it, and I&amp;rsquo;ve seen it with other people when they start out writing tests.  Now this could be a localised issue and be related to the testing and mocking frameworks &amp;lsquo;éxperienced&amp;rsquo; testers use in .Net, and the inherent complexity they introduce. The other thing it could be, and the one I&amp;rsquo;m conscious of, is that people don&amp;rsquo;t seem to treat test code with the same respect they do the rest of the code in their application.  Quality, standards and best practice goes out the window, it seems, when they write their test code. Follow the rules and everything gets better fast. SOLID anyone?&lt;/p&gt;
 &lt;h4 id=&#34;automated-ui-testing&#34;&gt;Automated UI Testing&lt;/h4&gt;

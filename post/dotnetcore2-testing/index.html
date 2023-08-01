@@ -148,7 +148,7 @@
 <p>(At the time of writing, 2.1.4. I use windows, you don&rsquo;t have to!)</p>
 <h3 id="the-setup">The Setup</h3>
 <p>Like before, we will rattle off a new project.</p>
-<pre><code>mkdir MyTestApplicationRepo
+<pre tabindex="0"><code>mkdir MyTestApplicationRepo
 cd MyTestApplicationRepo
 mkdir MyLib
 cd MyLib
@@ -156,10 +156,9 @@ dotnet new classlib
 cd ../
 dotnet new sln
 dotnet sln add ./MyLib/MyLib.csproj
-</code></pre>
-<p>(Refer back to <a href="dotnetcore2-using-multiple-projects">Using Multiple Projects</a> where we learned these commands)</p>
+</code></pre><p>(Refer back to <a href="dotnetcore2-using-multiple-projects">Using Multiple Projects</a> where we learned these commands)</p>
 <p>And we will also replace <code>.\MyLib\Class1.cs</code> content:</p>
-<pre><code>using System;
+<pre tabindex="0"><code>using System;
 
 namespace MyLib  
 {
@@ -171,24 +170,20 @@ namespace MyLib
         }
     }
 }
-</code></pre>
-<p>And to be sure that everything is working, we can do a build.</p>
-<pre><code>dotnet build
-</code></pre>
-<p>This puts us in a similar situation to the <a href="https://blog.csmac.nz/dotnetcore2-using-multiple-projects/">last post</a> (minus the application).</p>
+</code></pre><p>And to be sure that everything is working, we can do a build.</p>
+<pre tabindex="0"><code>dotnet build
+</code></pre><p>This puts us in a similar situation to the <a href="https://blog.csmac.nz/dotnetcore2-using-multiple-projects/">last post</a> (minus the application).</p>
 <h3 id="add-a-test-project">Add a test project</h3>
 <p>On with the testing. Getting the project set up is not much different to the way we linked a library and app last time.</p>
-<pre><code>mkdir MyLib.Tests
+<pre tabindex="0"><code>mkdir MyLib.Tests
 cd MyLib.Tests
 dotnet new xunit
-</code></pre>
-<p>For good measure, we will add this to our solution as well.</p>
-<pre><code>cd ../
+</code></pre><p>For good measure, we will add this to our solution as well.</p>
+<pre tabindex="0"><code>cd ../
 dotnet sln add MyLib.Tests/MyLib.Tests.csproj
-</code></pre>
-<h3 id="test-the-project">Test the project!</h3>
+</code></pre><h3 id="test-the-project">Test the project!</h3>
 <p>If we open up the <code>.\MyLib.Tests\UnitTest1.cs</code> file we see:</p>
-<pre><code>using System;
+<pre tabindex="0"><code>using System;
 using Xunit;
 
 namespace MyLib.Tests
@@ -202,11 +197,9 @@ namespace MyLib.Tests
         }
     }
 }
-</code></pre>
-<p>Pretty straightforward. So if everything is set up correctly we should be able to just run the test.</p>
-<pre><code>dotnet test
-</code></pre>
-<pre><code>Build started, please wait...
+</code></pre><p>Pretty straightforward. So if everything is set up correctly we should be able to just run the test.</p>
+<pre tabindex="0"><code>dotnet test
+</code></pre><pre tabindex="0"><code>Build started, please wait...
 Build started, please wait...
 Build completed.
 
@@ -215,7 +208,7 @@ Microsoft (R) Test Execution Command Line Tool Version 15.5.0
 Copyright (c) Microsoft Corporation.  All rights reserved.
 
 Starting test execution, please wait...
-No test is available in C:\dev\MyTestApplicationRepo\MyLib\bin\Debug\netstandard2.0\MyLib.dll. Make sure test project has a NuGet reference for the package &quot;Microsoft.NET.Test.Sdk&quot; and framework version settings are appropriate and try again.
+No test is available in C:\dev\MyTestApplicationRepo\MyLib\bin\Debug\netstandard2.0\MyLib.dll. Make sure test project has a NuGet reference for the package &#34;Microsoft.NET.Test.Sdk&#34; and framework version settings are appropriate and try again.
 
 Test Run Aborted.
 Build completed.
@@ -233,23 +226,18 @@ Starting test execution, please wait...
 Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
 Test Run Successful.
 Test execution time: 1.3026 Seconds
-</code></pre>
-<p>A successful test run. Though there were some errors at the start. Something to keep in mind when you run tests from the solution, it will try and run tests from every project in the solution. This may not be a problem for you, but if it annoys you, you can just test the one project using:</p>
-<pre><code>dotnet test .\MyLib.Tests\MyLib.Tests.csproj
-</code></pre>
-<p>You can also just run <code>dotnet test</code> from inside the project folder instead.</p>
+</code></pre><p>A successful test run. Though there were some errors at the start. Something to keep in mind when you run tests from the solution, it will try and run tests from every project in the solution. This may not be a problem for you, but if it annoys you, you can just test the one project using:</p>
+<pre tabindex="0"><code>dotnet test .\MyLib.Tests\MyLib.Tests.csproj
+</code></pre><p>You can also just run <code>dotnet test</code> from inside the project folder instead.</p>
 <p>As usual, calling <code>dotnet test</code> can also cause a restore and/or a build, if it is required.</p>
 <h3 id="reference-the-project">Reference the project</h3>
 <p>We need to reference the library from the test project. Just like last time, we can use the add reference CLI functionality.</p>
-<pre><code>cd ./MyLib.Tests
+<pre tabindex="0"><code>cd ./MyLib.Tests
 dotnet add reference ..\MyLib\MyLib.csproj
-</code></pre>
-<pre><code>Reference `..\MyLib\MyLib.csproj` added to the project.
-</code></pre>
-<p>To make sure we are in good order:</p>
-<pre><code>dotnet test
-</code></pre>
-<pre><code>Build started, please wait...
+</code></pre><pre tabindex="0"><code>Reference `..\MyLib\MyLib.csproj` added to the project.
+</code></pre><p>To make sure we are in good order:</p>
+<pre tabindex="0"><code>dotnet test
+</code></pre><pre tabindex="0"><code>Build started, please wait...
 Build completed.
 
 Test run for C:\dev\MyTestApplicationRepo\MyLib.Tests\bin\Debug\netcoreapp2.0\MyLib.Tests.dll(.NETCoreApp,Version=v2.0)
@@ -265,25 +253,21 @@ Starting test execution, please wait...
 Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
 Test Run Successful.
 Test execution time: 2.6617 Seconds
-</code></pre>
-<h3 id="test-the-library">Test the library</h3>
+</code></pre><h3 id="test-the-library">Test the library</h3>
 <p>It&rsquo;s one thing to reference the project, it is another to actually use its code.</p>
 <p>First, we will add a <code>using</code> to our <code>UnitTest1.cs</code> file:</p>
-<pre><code>using MyLib;
-</code></pre>
-<p>And add another test:</p>
-<pre><code>[Fact]
+<pre tabindex="0"><code>using MyLib;
+</code></pre><p>And add another test:</p>
+<pre tabindex="0"><code>[Fact]
 public void OnePlusOneIsTwo()
 {
     var calculator = new Calculator();
     var result = calculator.Add(1, 1);
     Assert.Equal(2, result);
 }
-</code></pre>
-<p>Since we can build and test with one command, run:</p>
-<pre><code>dotnet test
-</code></pre>
-<pre><code>Build started, please wait...
+</code></pre><p>Since we can build and test with one command, run:</p>
+<pre tabindex="0"><code>dotnet test
+</code></pre><pre tabindex="0"><code>Build started, please wait...
 Build completed.
 
 Test run for C:\dev\MyTestApplicationRepo\MyLib.Tests\bin\Debug\netcoreapp2.0\MyLib.Tests.dll(.NETCoreApp,Version=v2.0)
@@ -299,8 +283,7 @@ Starting test execution, please wait...
 Total tests: 2. Passed: 2. Failed: 0. Skipped: 0.
 Test Run Successful.
 Test execution time: 1.4901 Seconds
-</code></pre>
-<p>We now have a successful test passing in the xUnit.net CLI test runner using code from our own .Net Core library.</p>
+</code></pre><p>We now have a successful test passing in the xUnit.net CLI test runner using code from our own .Net Core library.</p>
 <h3 id="stay-tuned">Stay Tuned&hellip;</h3>
 <p>Before we can think about publishing our awesome library we need a way to pack it up. Tune in next week.</p>
 </section>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <script>
+            if(!/blog\.csmac\.nz/.test(window.location.host)) {
+                window.location = "https:\/\/blog.csmac.nz\/post\/my-idea-of-an-ideal-cicd-pipeline-2023\/";
+            }
+        </script>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+        <meta name='language' content='EN'>
+        <meta name='medium' content='blog'>
+
+    
+        <title>My idea of an ideal CICD pipeline - csMACnz&#39;s Blog</title>
+        <meta name="description" content="This article represents my current thoughts around building and deploying software (circa 2023). It is a general straw man. As usual in software development, the caveats apply that there is no one size fits all silver …">
+        <meta name='keywords' content='csMACnz, Continuous Delivery'>
+
+        
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="My idea of an ideal CICD pipeline"/>
+        <meta property="og:description" content="This article represents my current thoughts around building and deploying software (circa 2023). It is a general straw man. As usual in software development, the caveats apply that there is no one size fits all silver …"/>
+        <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+        <meta property="og:url" content="https://blog.csmac.nz/post/my-idea-of-an-ideal-cicd-pipeline-2023/"/>
+        <meta property="og:image" content="https://csmac.nz/Content/icon/icon.png"/>
+
+        
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="My idea of an ideal CICD pipeline"/>
+        <meta name="twitter:description" content="This article represents my current thoughts around building and deploying software (circa 2023). It is a general straw man. As usual in software development, the caveats apply that there is no one size fits all silver …"/>
+        <meta name="twitter:image" content="https://csmac.nz/Content/icon/icon.png"/>
+        <meta name="twitter:site" content="@csMACnz"/>
+        <meta name="twitter:creator" content="@csMACnz"/>
+    
+
+        <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+        <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+        <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+        <script>
+            var d_id  = 'csmacnz',
+                g_id  = 'UA-18464866-2',
+                g_url = 'auto';
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+        <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+        <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
+        crossorigin="anonymous"></script>
+
+        
+        
+        <script type="application/ld+json">
+        {
+            "@context" : "https://schema.org",
+            "@type" : "Article",
+            "publisher": {
+                "@type": "Organization",
+                "name": "csMACnz&#x27;s Blog",
+                "logo": "https:\/\/blog.csmac.nz\/images\/icon\/apple-touch-icon-144x144-precomposed.png"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Mark Clearwater",
+                "image": {
+                    "@type": "ImageObject",
+                    "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                    "width": 440,
+                    "height": 295
+                },
+                "url": "https:\/\/blog.csmac.nz",
+                "sameAs": [
+                    "https://csmac.nz"
+                ]
+            },
+            "articleSection" : "post",
+            "name" : "My idea of an ideal CICD pipeline",
+            "headline" : "My idea of an ideal CICD pipeline",
+            "url" : "https:\/\/blog.csmac.nz\/post\/my-idea-of-an-ideal-cicd-pipeline-2023\/",
+            "datePublished": "2023-08-01T05:00:00.000Z",
+            "dateModified" : "2023-08-01T05:00:00.000Z",
+            "image" : {
+                "@type": "ImageObject",
+                "url": "https:\/\/images.unsplash.com\/photo-1622534376374-fe4480328daa?ixlib=rb-4.0.3\u0026ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\u0026auto=format\u0026fit=crop\u0026w=1074\u0026q=80",
+                "width": 440,
+                "height": 295
+            },
+            "keywords" : [ "Continuous Delivery" ]
+            "description" : "This article represents my current thoughts around building and deploying software (circa 2023). It is a general straw man. As usual in software development, the caveats apply that there is no one size fits all silver bullet pattern. This is where I start as a \u0026ldquo;given no further constraints\u0026rdquo; approach. It is highly likely to be too complex for a single-dev piece of software and is equally as likely not to be suitable for large monolithic applications either.",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https:\/\/blog.csmac.nz"
+            }
+            "inLanguage" : "en-US",
+            "author" : "Mark Clearwater",
+            "creator" : "Mark Clearwater",
+            "accountablePerson" : "Mark Clearwater",
+            "copyrightHolder" : "Mark Clearwater",
+            "copyrightYear" : "2023",
+            "wordCount" : "2066",
+        }
+        </script>
+        
+        
+        
+    </head>
+    <body class="blog">
+        <div class="page-area">
+
+            <header class="header-area">
+                <h1 class="header-area-title">csMACnz</h1>
+            </header>
+            <nav class="navigation-area header-bar-parent">
+                <div class="header-bar header-bar-blog">
+                    <ul class="menu">
+                        <li class="menu-item"><a class="menu-item-content" href="https://csmac.nz">Home</a></li>
+                        <li class="menu-item"><a class="menu-item-content" href="https://csmac.nz/BaconVaders">Bacon Vaders</a></li>
+                        <li class="menu-item"><a class="menu-item-content CurrentButton" href="/">Blog</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div id="content" class="content-area">
+
+<!--Page Content Begins-->
+
+<article>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2023-08-01"  itemprop="datePublished">01 Aug 23</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/continuous-delivery">Continuous Delivery</a></span>
+<h1 class="post-title" itemprop="headline">My idea of an ideal CICD pipeline</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <img class="post-image" src="https://images.unsplash.com/photo-1622534376374-fe4480328daa?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1074&amp;q=80"><p>This article represents my current thoughts around building and deploying software (circa 2023). It is a general straw man. As usual in software development, the caveats apply that there is no one size fits all silver bullet pattern. This is where I start as a &ldquo;given no further constraints&rdquo; approach. It is highly likely to be too complex for a single-dev piece of software and is equally as likely not to be suitable for large monolithic applications either. However, for software somewhere in between those two it may fit your needs as it does mine.</p>
+<h2 id="why-cicd">Why CICD?</h2>
+<p>My definition of <code>CICD</code> is continuous static analysis, build, test, publish, deploy, verification and releasing to customers, for every change. While <code>CI</code> stands for <code>Continuous Integration</code>, CD ambiguously stands for either <code>Continuous Delivery</code> or <code>Continuous Deployment</code>, where <code>Delivery</code> and <code>Deployment</code> are equally ambiguous and have debatable definitions. So, while I will use the acronym here, see my definition above for what that means to me.</p>
+<p>The crux of <code>CICD</code> is: always shipping, always automatically.</p>
+<p>This unintuitively implies having automated gates that can stop and halt these deployments, and that somewhere right at the beginning the automation is kicked off by an initial interaction or contribution (such as a file change in a code repository). Also, do have a rollback plan handy.</p>
+<p>The benefits we are trying to achieve are faster feedback loops, and changing mindset to help find and fix issues sooner, much closer to where the associated change was thought through and implemented. This is often referred to as <a href="https://devopedia.org/shift-left">Shift Left</a>. In other cases, it allows us to reduce the time between a production issue being discovered, and the last time that component was being worked on by a human (which could be the difference between months in between, and hours/minutes in between thanks to CICD).</p>
+<h2 id="a-brief-digression-into-testing">A brief digression into testing</h2>
+<p>Testing could be its own series of blog posts, so we will gloss over it slightly here. But it is necessary to say that automated testing is a large part of doing CICD well. And the ability to perform enough manual testing when required needs to be accounted for. This is how we achieve our safety and trust to enable straight-shot pipelines all the way to being in front of customers. We can look at a high-level view of these briefly.</p>
+<h3 id="automated-testing">Automated Testing</h3>
+<p>Automated testing should cover as much of the application as possible. This can range across unit tests, property-based tests, composition tests, mutation tests, boundary tests, snapshot tests, integration tests, acceptance tests, specification tests, regression tests, end-to-end tests, UI tests, smoke tests and any other kinds of tests you can think of to have run automated before code can go to production.</p>
+<p>A new project might aim for a minimal subset of the above (such as unit, integration, and smoke) while a more established piece of software may have most or all of these in place.</p>
+<p>The main goal in terms of CICD is to ensure most of your testing runs before merging in changes to a release candidate, and enough validation testing is run during and after deployment to ensure fidelity.</p>
+<h3 id="manual-testing">Manual Testing</h3>
+<p>Manual testing requires enough real dependencies to be meaningful, or else you may as well just automate any task that you are testing using fakes or mocks. Largely this is exploratory testing or deep testing of something complex requiring a human eye for validation.</p>
+<p>The two tools I would lean on here are having a feature flagging and dark release pattern in your development process and having a secondary manual test environment to deploy pre-release changes to.</p>
+<p>Feature flagging allows you to deploy to preproduction and production with inert functionality (sometimes called a shadow release). You can then enable this functionality either isolated to a canary server instance, per environment (e.g. preproduction only) or per user in a way that enables testers or beta users to interact with the flagged changes before a wider release.</p>
+<p>Having an additional pre-production environment you can deploy changes to will enable Pull Requests or feature branches to be deployed there and manually tested before they are merged into a production candidate release.</p>
+<h2 id="reliability-engineering">Reliability Engineering</h2>
+<p>One aspect that makes this all come together and work is the developer thinking through production, and how they will know and trust it is working. Ongoing monitoring and alerting in place is a key part of this strategy. Without monitoring and alerting detecting and escalating issues you are effectively in chaos.</p>
+<p>Automated tests catch the known failure scenarios, making sure they do not occur, or regress. But there are unknown failure scenarios, as well. We can detect these using signals such as error log count, <code>400</code> or <code>500</code> HTTP status codes, or request/response time spikes. These don&rsquo;t tell us what the problem is but are great at signalling we do have a problem.</p>
+<p>The feedback loop of monitoring tools alerting the developer who wrote the code (or their on-call proxy who can reach out to them) is what gives the confidence to release changes straight to production, complementing the other testing guards in place that catch the known issues before they reach customers so we can also catch these unknown issues after they reach customers.</p>
+<p>I&rsquo;ve left automated rollback out of this pipeline currently, as it adds additional challenges in understanding what is safe and when it isn&rsquo;t. However, this is the next step you would consider as you delved into the CICD space. Having a manual plan, though, is essential. (I often use roll-forward to roll back. Either with a re-deploy of an older version, or with a patch+merge+release - often both together.)</p>
+<h2 id="a-side-note-on-the-shape-of-software">A side note on the shape of software</h2>
+<p>What is it that we are testing and deploying?  My philosophy is to include everything that makes up this component. By which I mean the application, any infrastructure (using configuration-as-code) and any side-car utilities (such as queues, caches, stores etc) not shared with other components.</p>
+<p>It follows that all our static verification and testing also covers these infra and sidecar deployments as well.</p>
+<p>If you do have queues, stores, or caches that are shared, you will want to extract these as their own components and deployments separately. But I&rsquo;ve found where these are coupled and self-contained to a particular application, then having them co-located in a repository and deployed in the same pipeline is a simplification worth having.</p>
+<p>Also note that your configuration-as-code for anything in the permanent storage capacity has appropriate backups, as well as the right checks and balances to restrict the pipeline from doing anything destructive automatically.</p>
+<p>If feasible, you might also leverage configuration as code for your monitoring and alerting tools in the same way through this pipeline.</p>
+<h2 id="the-pipeline">The pipeline</h2>
+<p>CICD is a pipeline, and these are the key phases and steps in that pipeline in my ideal model:</p>
+
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="monospace"
+      
+        viewBox="0 0 1376 57"
+      >
+      <g transform='translate(8,16)'>
+<path d='M 0,0 L 120,0' fill='none' stroke='currentColor'></path>
+<path d='M 168,0 L 200,0' fill='none' stroke='currentColor'></path>
+<path d='M 248,0 L 360,0' fill='none' stroke='currentColor'></path>
+<path d='M 408,0 L 584,0' fill='none' stroke='currentColor'></path>
+<path d='M 632,0 L 776,0' fill='none' stroke='currentColor'></path>
+<path d='M 824,0 L 968,0' fill='none' stroke='currentColor'></path>
+<path d='M 1016,0 L 1128,0' fill='none' stroke='currentColor'></path>
+<path d='M 1176,0 L 1360,0' fill='none' stroke='currentColor'></path>
+<path d='M 120,16 L 144,16' fill='none' stroke='currentColor'></path>
+<path d='M 216,16 L 240,16' fill='none' stroke='currentColor'></path>
+<path d='M 360,16 L 400,16' fill='none' stroke='currentColor'></path>
+<path d='M 584,16 L 624,16' fill='none' stroke='currentColor'></path>
+<path d='M 776,16 L 816,16' fill='none' stroke='currentColor'></path>
+<path d='M 968,16 L 1008,16' fill='none' stroke='currentColor'></path>
+<path d='M 1128,16 L 1168,16' fill='none' stroke='currentColor'></path>
+<path d='M 0,32 L 120,32' fill='none' stroke='currentColor'></path>
+<path d='M 168,32 L 200,32' fill='none' stroke='currentColor'></path>
+<path d='M 248,32 L 360,32' fill='none' stroke='currentColor'></path>
+<path d='M 408,32 L 584,32' fill='none' stroke='currentColor'></path>
+<path d='M 632,32 L 776,32' fill='none' stroke='currentColor'></path>
+<path d='M 824,32 L 968,32' fill='none' stroke='currentColor'></path>
+<path d='M 1016,32 L 1128,32' fill='none' stroke='currentColor'></path>
+<path d='M 1176,32 L 1360,32' fill='none' stroke='currentColor'></path>
+<path d='M 0,0 L 0,32' fill='none' stroke='currentColor'></path>
+<path d='M 120,0 L 120,16' fill='none' stroke='currentColor'></path>
+<path d='M 120,16 L 120,32' fill='none' stroke='currentColor'></path>
+<path d='M 248,0 L 248,32' fill='none' stroke='currentColor'></path>
+<path d='M 360,0 L 360,16' fill='none' stroke='currentColor'></path>
+<path d='M 360,16 L 360,32' fill='none' stroke='currentColor'></path>
+<path d='M 408,0 L 408,32' fill='none' stroke='currentColor'></path>
+<path d='M 584,0 L 584,16' fill='none' stroke='currentColor'></path>
+<path d='M 584,16 L 584,32' fill='none' stroke='currentColor'></path>
+<path d='M 632,0 L 632,32' fill='none' stroke='currentColor'></path>
+<path d='M 776,0 L 776,16' fill='none' stroke='currentColor'></path>
+<path d='M 776,16 L 776,32' fill='none' stroke='currentColor'></path>
+<path d='M 824,0 L 824,32' fill='none' stroke='currentColor'></path>
+<path d='M 968,0 L 968,16' fill='none' stroke='currentColor'></path>
+<path d='M 968,16 L 968,32' fill='none' stroke='currentColor'></path>
+<path d='M 1016,0 L 1016,32' fill='none' stroke='currentColor'></path>
+<path d='M 1128,0 L 1128,16' fill='none' stroke='currentColor'></path>
+<path d='M 1128,16 L 1128,32' fill='none' stroke='currentColor'></path>
+<path d='M 1176,0 L 1176,32' fill='none' stroke='currentColor'></path>
+<path d='M 1360,0 L 1360,32' fill='none' stroke='currentColor'></path>
+<polygon points='152.000000,16.000000 140.000000,10.400000 140.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 144.000000, 16.000000)'></polygon>
+<polygon points='248.000000,16.000000 236.000000,10.400000 236.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 240.000000, 16.000000)'></polygon>
+<polygon points='408.000000,16.000000 396.000000,10.400000 396.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 400.000000, 16.000000)'></polygon>
+<polygon points='632.000000,16.000000 620.000000,10.400000 620.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 624.000000, 16.000000)'></polygon>
+<polygon points='824.000000,16.000000 812.000000,10.400000 812.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 816.000000, 16.000000)'></polygon>
+<polygon points='1016.000000,16.000000 1004.000000,10.400000 1004.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 1008.000000, 16.000000)'></polygon>
+<polygon points='1176.000000,16.000000 1164.000000,10.400000 1164.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 1168.000000, 16.000000)'></polygon>
+<path d='M 168,0 A 16,16 0 0,0 152,16' fill='none' stroke='currentColor'></path>
+<path d='M 200,0 A 16,16 0 0,1 216,16' fill='none' stroke='currentColor'></path>
+<path d='M 152,16 A 16,16 0 0,0 168,32' fill='none' stroke='currentColor'></path>
+<path d='M 216,16 A 16,16 0 0,1 200,32' fill='none' stroke='currentColor'></path>
+<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>P</text>
+<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='40' y='20' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>R</text>
+<text text-anchor='middle' x='64' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>q</text>
+<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='96' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='104' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='168' y='20' fill='currentColor' style='font-size:1em'>M</text>
+<text text-anchor='middle' x='176' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='184' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='192' y='20' fill='currentColor' style='font-size:1em'>g</text>
+<text text-anchor='middle' x='200' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='264' y='20' fill='currentColor' style='font-size:1em'>T</text>
+<text text-anchor='middle' x='272' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='280' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='288' y='20' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='296' y='20' fill='currentColor' style='font-size:1em'>k</text>
+<text text-anchor='middle' x='312' y='20' fill='currentColor' style='font-size:1em'>b</text>
+<text text-anchor='middle' x='320' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='328' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='336' y='20' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='344' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='424' y='20' fill='currentColor' style='font-size:1em'>P</text>
+<text text-anchor='middle' x='432' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='440' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='448' y='20' fill='currentColor' style='font-size:1em'>-</text>
+<text text-anchor='middle' x='456' y='20' fill='currentColor' style='font-size:1em'>P</text>
+<text text-anchor='middle' x='464' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='472' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='480' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='496' y='20' fill='currentColor' style='font-size:1em'>D</text>
+<text text-anchor='middle' x='504' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='512' y='20' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='520' y='20' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='528' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='536' y='20' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='544' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='552' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='560' y='20' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='568' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='648' y='20' fill='currentColor' style='font-size:1em'>P</text>
+<text text-anchor='middle' x='656' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='664' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='680' y='20' fill='currentColor' style='font-size:1em'>P</text>
+<text text-anchor='middle' x='688' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='696' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='704' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='720' y='20' fill='currentColor' style='font-size:1em'>V</text>
+<text text-anchor='middle' x='728' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='736' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='744' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='752' y='20' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='760' y='20' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='840' y='20' fill='currentColor' style='font-size:1em'>P</text>
+<text text-anchor='middle' x='848' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='856' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='864' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='880' y='20' fill='currentColor' style='font-size:1em'>D</text>
+<text text-anchor='middle' x='888' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='896' y='20' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='904' y='20' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='912' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='920' y='20' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='928' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='936' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='944' y='20' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='952' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='1032' y='20' fill='currentColor' style='font-size:1em'>P</text>
+<text text-anchor='middle' x='1040' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='1048' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='1056' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='1072' y='20' fill='currentColor' style='font-size:1em'>V</text>
+<text text-anchor='middle' x='1080' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='1088' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='1096' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='1104' y='20' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='1112' y='20' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='1192' y='20' fill='currentColor' style='font-size:1em'>R</text>
+<text text-anchor='middle' x='1200' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='1208' y='20' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='1216' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='1224' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='1232' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='1240' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='1256' y='20' fill='currentColor' style='font-size:1em'>N</text>
+<text text-anchor='middle' x='1264' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='1272' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='1280' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='1288' y='20' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='1296' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='1304' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='1312' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='1320' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='1328' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='1336' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='1344' y='20' fill='currentColor' style='font-size:1em'>n</text>
+</g>
+
+    </svg>
+  
+</div><p>We will break this into a few chunks for a deeper discussion.</p>
+<h3 id="pre-merge">Pre merge</h3>
+<p>Ideally, I want trunk (e.g. <code>main</code> branch) to always be production capable. Achieving this means ensuring the quality and fidelity of any changes before they are merged in. This may look like a Pull Request with automated pre-build checks (e.g. GitHub Actions) and code reviews. It may also look like git commit hooks that are run and confirmed ahead of a merge. Exactly what you implement here is dependent on the software in question, and the engineers working on it.</p>
+<p>For me, this encompasses linting and other static analysis, security scanning, compiling, and executing all tests, and producing candidate artifacts that can also be verified and validated here too.</p>
+<p>Ideally, for the fasted feedback, you want this to take as little time as possible. If this takes more than 10 minutes (ideally 5 or less) you will want to consider reducing scope, performance tuning, or potentially splitting something monolithic up somehow.</p>
+<h3 id="trunk-build">Trunk Build</h3>
+<p>At all times, you want to be able to validate trunk against the same lint, build and test as you would for any candidate commit. Ensuring you can run the same checks in both places maintains the validity of your trunk.</p>
+<p>In addition, we would also take the generated artifacts and make them available to the further deployment processes coming up next in the pipeline. So our trunk build also publishes artifacts somewhere.</p>
+<h3 id="preproduction-deploy-and-verify">Preproduction deploy and verify</h3>
+<p>It is important to have an environment that is production-like but isn&rsquo;t serving customers to first test your artifacts in. Despite your best efforts of testing, some bugs and misconfigurations can&rsquo;t be spotted until you run a real deployment, and watch the software interact with real dependencies (or at least their preproduction equivalents).</p>
+<p>Before deploying to production proper you will want to run through deployment and post-deployment verification testing in such an environment to provide extra automated confidence before reaching real customers.</p>
+<p>This post-deployment verification is also your last chance to have automated checks catch issues before they get released out to real customers.</p>
+<p>In some situations, this may be a canary or an early-adopters group, though ideally you want something without real customers to do this testing on, and instead use feature flags for beta user test groups, and any A/B testing.</p>
+<h3 id="production-deploy-and-verify">Production Deploy and Verify</h3>
+<p>It is now time to deploy to production. You&rsquo;ve satisfied your tests and verified that it can work in a deployed environment after deploying, mitigating any issues in the production deployment process (which assumes your pre-prod and prod deployment processes are near-identical).</p>
+<p>We repeat our deployment and verify steps once more only this time against our customer-facing production environment. Our change has now reached production.</p>
+<p>If you do find production issues, you will want to go back and add regression checks to the testing at the appropriate point in the pipeline to make sure the same issue halts deployments in the future. This is one of the feedback cycles you need to adhere to when taking on CICD in this way, to strengthen the reliability and trust in the process.</p>
+<h3 id="notification">Notification</h3>
+<p>Once you have a deployed and verified production deployment, you&rsquo;ll want to make sure anyone (or any system) that wants to know about it can do so.</p>
+<p>Specifically, you want to have release notes publish, to have any APM systems notified of the release, Internal Comms published on something like Slack or Discord, as well as any documentation related to the changes updated and published.</p>
+<p>Ideally, all of this is automated and automatic. For documentation and release notes, having a way to derive these from the source itself, or from the Source Control revision history or commit messages, or Pull Request titles etc. This saves a bunch of manual busy work which would otherwise distract a human on every deployment.</p>
+<p>The same goes for using APIs to post to Slack or other chat systems to notify other internal or external stakeholders of the change. A great way to identify the cause of a system outage can be to know which of your dependencies have made releases around the time an outage was introduced. Be nice to your API consumers.</p>
+<h2 id="wrap-up">Wrap Up</h2>
+<p>The above largely outlines a strawman of my MVP. Ideally, I would go through and set up at least the skeleton of this for any new service where I expect it to live in production for any period of time. (If I don&rsquo;t think this code will be productionised and is merely a toy or demo, such overhead isn&rsquo;t worth investing in). This would largely be even before any functionality is implemented (e.g. deploying the new empty project).</p>
+<p>Having the Pipeline in place, we continue to extend the testing to improve confidence in the deployment process, and this goes hand-in-hand with building out the functionality.</p>
+<p>Iteratively and continuously build and ship the software to meet the requirements of the project of work.</p>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="https://twitter.com/share?text=My%20idea%20of%20an%20ideal%20CICD%20pipeline&url=https%3a%2f%2fblog.csmac.nz%2fpost%2fmy-idea-of-an-ideal-cicd-pipeline-2023%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.csmac.nz%2fpost%2fmy-idea-of-an-ideal-cicd-pipeline-2023%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = 'My idea of an ideal CICD pipeline';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+<!--Page Content Ends-->
+
+            </div><aside class="sidebar-area">
+
+<!--Sidebar Content Begins-->
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-twitter">Twitter</div>
+                    
+                    <a class="twitter-timeline" data-lang="en" data-height="510" data-dnt="true" href="https://twitter.com/csMACnz?ref_src=twsrc%5Etfw">Tweets by csMACnz</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    
+                </div>
+
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-rss">Subscribe</div>
+                    
+                    <a href="/rssfeeds/" title="csMACnz's Blog">RSS Feeds</a>
+                    <a href="https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Ffeeds.feedburner.com%2FcsmacnzBlog" target="_blank" title="csMACnz&amp;#039;s Blog"><img src="https://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                    <a href="https://feeds.feedburner.com/csmacnzBlog" target="_blank"><img src="https://feeds.feedburner.com/~fc/csmacnzBlog?bg=fabb45&amp;fg=4B4B4B&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+                    <br />
+                    <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                    
+                    
+                </div>
+
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-xbox">Gamercard</div>
+                    
+
+                    <div>
+                        <a href="https://www.exophase.com/xbox/user/csMACnz/"><img width="288px" src="https://card.exophase.com/1/1476805.png"></a>
+                        <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="https://www.steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                    </div>
+                    
+                </div>
+
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-ads">Advertisement</div>
+                    
+                    <div>
+                        
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-4517187877737982"
+                            data-ad-slot="3618449993"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                    
+                </div>
+
+<!--Sidebar Content Ends-->
+
+            </aside>
+
+            <footer class="footer-area">
+
+            <p>
+                Designed and Maintained by Mark Clearwater; Last updated August 2021.
+                <!-- This used to be something useful, now it is just a hack I left it to make layout easier but also as a fun reminder for me of what it used to be -->
+                <br /><a class="footer-link" >¯\_(ツ)_/¯</a>
+            </p>
+
+            </footer>
+        </div>
+
+<!--body scripts Begins-->
+
+        
+        <script src="/js/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+        <script src="/js/codetoggle.js"></script> 
+
+        
+        <script>
+            var _gaq = [['_setAccount', g_id], ['_trackPageview']];
+            (function (d, t) {
+                var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+                s.parentNode.insertBefore(g, s);
+            }(document, 'script'));
+        </script>
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!--body scripts Ends-->
+
+
+<!-------------------------------->
+<!--                            -->
+<!--  _(\    |@@|               -->
+<!-- (__/\__ \--/ __            -->
+<!--    \___|----|  |   __      -->
+<!--        \ }{ /\ )_ / _\     -->
+<!--        /\__/\ \__O (__     -->
+<!--       (--/\--)    \__/     -->
+<!--       _)(  )(_             -->
+<!--      `---''---`            -->
+<!--                            -->
+<!-- https://github.com/csMACnz -->
+<!-------------------------------->
+
+    </body>
+</html>

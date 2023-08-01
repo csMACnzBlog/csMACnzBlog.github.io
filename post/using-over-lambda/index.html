@@ -17,13 +17,13 @@
 
     
         <title>using over lambda - csMACnz&#39;s Blog</title>
-        <meta name="description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &quot;Some Sort of Metadata for timing&quot;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult …">
+        <meta name="description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &#34;Some Sort of Metadata for timing&#34;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult resul; …">
         <meta name='keywords' content='csMACnz, C Sharp'>
 
         
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="using over lambda"/>
-        <meta property="og:description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &quot;Some Sort of Metadata for timing&quot;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult …"/>
+        <meta property="og:description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &#34;Some Sort of Metadata for timing&#34;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult resul; …"/>
         <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
         <meta property="og:url" content="https://blog.csmac.nz/post/using-over-lambda/"/>
         <meta property="og:image" content="https://csmac.nz/Content/icon/icon.png"/>
@@ -31,7 +31,7 @@
         
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:title" content="using over lambda"/>
-        <meta name="twitter:description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &quot;Some Sort of Metadata for timing&quot;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult …"/>
+        <meta name="twitter:description" content="Let&rsquo;s talk about these two patterns: public void GetSomethingDone() {     var metaData = &#34;Some Sort of Metadata for timing&#34;;     var result = DoTimedWork(metaData, () =&gt;     {         MyResult resul; …"/>
         <meta name="twitter:image" content="https://csmac.nz/Content/icon/icon.png"/>
         <meta name="twitter:site" content="@csMACnz"/>
         <meta name="twitter:creator" content="@csMACnz"/>
@@ -91,7 +91,7 @@
             "datePublished": "2016-06-22T05:59:37.000Z",
             "dateModified" : "2016-06-22T05:59:37.000Z",
             "keywords" : [ "C Sharp" ]
-            "description" : "Let\u0026rsquo;s talk about these two patterns:\npublic void GetSomethingDone()\r{\rvar metaData = \u0026quot;Some Sort of Metadata for timing\u0026quot;;\rvar result = DoTimedWork(metaData, () =\u0026gt;\r{\rMyResult resul;\r\/\/Some other complicated work\/method-call happens here\rreturn result;\r});\r\/\/either uses or returns result here\r}\rpublic T DoTimedWork(string metaData, Func\u0026lt;T\u0026gt; action)\r{\r\/\/Setup code probably here\rusing(var timer = new MetricsTimer(metaData))\r{\rreturn action();\r}\r}\rAnd another:\npublic void GetSomethingDone()\r{\rvar metaData = \u0026quot;Some Sort of Metadata for timing\u0026quot;;\rMyResult result;\rUsing(DoTimedWork(metaData))\r{\r\/\/Some other complicated work\/method-call happens here\rresult = complicatedWorkResultSomehow;\r};\r\/\/either uses or returns result here\r}\rpublic IDisposable DoTimedWork(string metaData)\r{\r\/\/Setup code probably here\rreturn new MetricsTimer(metaData);\r}\rLet\u0026rsquo;s discuss shall we?",
+            "description" : "Let\u0026rsquo;s talk about these two patterns:\npublic void GetSomethingDone() { var metaData = \u0026#34;Some Sort of Metadata for timing\u0026#34;; var result = DoTimedWork(metaData, () =\u0026gt; { MyResult resul; \/\/Some other complicated work\/method-call happens here return result; }); \/\/either uses or returns result here } public T DoTimedWork(string metaData, Func\u0026lt;T\u0026gt; action) { \/\/Setup code probably here using(var timer = new MetricsTimer(metaData)) { return action(); } } And another:\npublic void GetSomethingDone() { var metaData = \u0026#34;Some Sort of Metadata for timing\u0026#34;; MyResult result; Using(DoTimedWork(metaData)) { \/\/Some other complicated work\/method-call happens here result = complicatedWorkResultSomehow; }; \/\/either uses or returns result here } public IDisposable DoTimedWork(string metaData) { \/\/Setup code probably here return new MetricsTimer(metaData); } Let\u0026rsquo;s discuss shall we?",
             "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": "https:\/\/blog.csmac.nz"
@@ -135,126 +135,114 @@
     
         <section class="post-content"  itemprop="articleBody">
             <p>Let&rsquo;s talk about these two patterns:</p>
-<pre><code class="language-cs">public void GetSomethingDone()
-{
-    var metaData = &quot;Some Sort of Metadata for timing&quot;;
-    var result = DoTimedWork(metaData, () =&gt;
-    {
-        MyResult resul;
-        //Some other complicated work/method-call happens here
-        return result;
-    });
-    
-    //either uses or returns result here
-}
-
-public T DoTimedWork(string metaData, Func&lt;T&gt; action)
-{
-    //Setup code probably here
-    using(var timer = new MetricsTimer(metaData))
-    {
-        return action();
-    }
-}
-</code></pre>
-<p>And another:</p>
-<pre><code class="language-cs">public void GetSomethingDone()
-{
-    var metaData = &quot;Some Sort of Metadata for timing&quot;;
-    MyResult result;
-    Using(DoTimedWork(metaData))
-    {
-        //Some other complicated work/method-call happens here
-        result = complicatedWorkResultSomehow;
-    };
-    
-    //either uses or returns result here
-}
-
-public IDisposable DoTimedWork(string metaData)
-{
-    //Setup code probably here
-    return new MetricsTimer(metaData);
-}
-</code></pre>
-<p>Let&rsquo;s discuss shall we?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> GetSomethingDone()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> metaData = <span style="color:#e6db74">&#34;Some Sort of Metadata for timing&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> result = DoTimedWork(metaData, () =&gt;
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        MyResult resul;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//Some other complicated work/method-call happens here</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//either uses or returns result here</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> T DoTimedWork(<span style="color:#66d9ef">string</span> metaData, Func&lt;T&gt; action)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Setup code probably here</span>
+</span></span><span style="display:flex;"><span>    using(<span style="color:#66d9ef">var</span> timer = <span style="color:#66d9ef">new</span> MetricsTimer(metaData))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> action();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And another:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> GetSomethingDone()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> metaData = <span style="color:#e6db74">&#34;Some Sort of Metadata for timing&#34;</span>;
+</span></span><span style="display:flex;"><span>    MyResult result;
+</span></span><span style="display:flex;"><span>    Using(DoTimedWork(metaData))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//Some other complicated work/method-call happens here</span>
+</span></span><span style="display:flex;"><span>        result = complicatedWorkResultSomehow;
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//either uses or returns result here</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> IDisposable DoTimedWork(<span style="color:#66d9ef">string</span> metaData)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Setup code probably here</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MetricsTimer(metaData);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Let&rsquo;s discuss shall we?</p>
 <h3 id="idiomatic">Idiomatic</h3>
 <p>my first instinct is that the second one is more idiomatic. Let&rsquo;s focus on these two lines of code in each:</p>
-<pre><code class="language-cs">    var result = DoTimedWork(metaData, () =&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> result = DoTimedWork(metaData, () =&gt;
+</span></span><span style="display:flex;"><span>    {
+</span></span></code></pre></div><pre tabindex="0"><code>    Using(DoTimedWork(metaData))
     {
-</code></pre>
-<pre><code>    Using(DoTimedWork(metaData))
-    {
-</code></pre>
-<p>The <code>using</code> keyword has been in the language <a href="https://msdn.microsoft.com/en-gb/library/yh598w02(v=vs.71).aspx">since at least .Net 1.1</a> and has some key observations to anyone reading it. Specifically, that regardless of any exceptions inside the block of code, <code>Dispose()</code> is always called on the argument at the end of the code block. Since this is a timing function, we can infer that the timer stops when this block ends.</p>
+</code></pre><p>The <code>using</code> keyword has been in the language <a href="https://msdn.microsoft.com/en-gb/library/yh598w02(v=vs.71).aspx">since at least .Net 1.1</a> and has some key observations to anyone reading it. Specifically, that regardless of any exceptions inside the block of code, <code>Dispose()</code> is always called on the argument at the end of the code block. Since this is a timing function, we can infer that the timer stops when this block ends.</p>
 <p>This second example uses callbacks. Specifically <code>Func&lt;TResult&gt;</code>, but it could have been <code>Func&lt;T,TResult&gt;</code> or even <code>Action</code> or <code>Action&lt;T&gt;</code>, all of which have been around <a href="https://msdn.microsoft.com/en-us/library/bb534960(v=vs.90).aspx">since .Net 3.5</a>. I would consider .Net 3.5 as a reasonable baseline of language features to expect a C# developer to know.  However, there is some missing knowledge required here. Namely, you need to go and read the method (at least the signature if not the implementation) to understand what to expect from this method.  More work is required to read over and understand what is happening, beyond the two lines of code shown. This only gets more complicated if we were to add more lambdas.</p>
 <h3 id="srp">SRP</h3>
 <p>This function we have written is a helper for the timing action.</p>
-<pre><code class="language-cs">public IDisposible DoTimedWork(string metaData)
-{
-    //Setup code probably here
-    return new MetricsTimer(metaData);
-}
-
-</code></pre>
-<p>However, this next function is one that times some action that is performed on a very specific (or very generic) function passed in.</p>
-<pre><code class="language-cs">public T DoTimedWork(string metaData, Func&lt;T&gt; action)
-{
-    //Setup code probably here
-    using(var timer = new MetricsTimer(metaData))
-    {
-        return action();
-    }
-}
-</code></pre>
-<p>This function has two reasons to change. We could be updating our timing code, or we could be updating the result/response types we use with this helper. If we change the way we use this helper, we have to change its implementation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> IDisposible DoTimedWork(<span style="color:#66d9ef">string</span> metaData)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Setup code probably here</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MetricsTimer(metaData);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>However, this next function is one that times some action that is performed on a very specific (or very generic) function passed in.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> T DoTimedWork(<span style="color:#66d9ef">string</span> metaData, Func&lt;T&gt; action)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Setup code probably here</span>
+</span></span><span style="display:flex;"><span>    using(<span style="color:#66d9ef">var</span> timer = <span style="color:#66d9ef">new</span> MetricsTimer(metaData))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> action();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This function has two reasons to change. We could be updating our timing code, or we could be updating the result/response types we use with this helper. If we change the way we use this helper, we have to change its implementation.</p>
 <p>The first function has one simple reason to change, that the timing code needs to be changed. It does not care about anything else. One reason to change. SRP.</p>
 <p>You can imagine what the conversation around Open/Closed and other SOLID principles might go.</p>
 <h3 id="contract-changes">Contract Changes</h3>
 <p>There is very little I can imagine you could change about the contract here:</p>
-<pre><code class="language-cs">public IDisposable DoTimedWork(string metaData);
-</code></pre>
-<p>Sure, we could add overloads with new arguments, and by adding defaults we could be sure that the usages still compile. But the return value is always <code>IDisposable</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> IDisposable DoTimedWork(<span style="color:#66d9ef">string</span> metaData);
+</span></span></code></pre></div><p>Sure, we could add overloads with new arguments, and by adding defaults we could be sure that the usages still compile. But the return value is always <code>IDisposable</code>.</p>
 <p>But what about this signature?</p>
-<pre><code class="language-cs">public T DoTimedWork(string metaData, Func&lt;T&gt; action)
-</code></pre>
-<p>I&rsquo;ve already mentioned a few: <code>Func&lt;TResult&gt;</code>, <code>Func&lt;T, TResult&gt;</code>, <code>Action</code>, <code>Action&lt;T&gt;</code>, <code>Action&lt;T1, T2&gt;</code>. We might have to evolve and cater for various new input scenarios. Let&rsquo;s look at a concrete one:</p>
-<pre><code class="language-cs">public TResult DoTimedWork(string metaData, T input, Func&lt;T, TResult&gt; action)
-</code></pre>
-<p>There are so many problems with this. We are really just changing to support our addiction to delegates. Having gone down this rabbit-hole before, there are too many variations on this method to enumerate through - this is the best way to <a href="http://www.goodreads.com/quotes/536587-measuring-programming-progress-by-lines-of-code-is-like-measuring">increase your LOC statistics</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> T DoTimedWork(<span style="color:#66d9ef">string</span> metaData, Func&lt;T&gt; action)
+</span></span></code></pre></div><p>I&rsquo;ve already mentioned a few: <code>Func&lt;TResult&gt;</code>, <code>Func&lt;T, TResult&gt;</code>, <code>Action</code>, <code>Action&lt;T&gt;</code>, <code>Action&lt;T1, T2&gt;</code>. We might have to evolve and cater for various new input scenarios. Let&rsquo;s look at a concrete one:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> TResult DoTimedWork(<span style="color:#66d9ef">string</span> metaData, T input, Func&lt;T, TResult&gt; action)
+</span></span></code></pre></div><p>There are so many problems with this. We are really just changing to support our addiction to delegates. Having gone down this rabbit-hole before, there are too many variations on this method to enumerate through - this is the best way to <a href="http://www.goodreads.com/quotes/536587-measuring-programming-progress-by-lines-of-code-is-like-measuring">increase your LOC statistics</a>.</p>
 <p>With so many overloads, you are bound to start confusing the compiler, and resort to adding casts on your lambdas to get this to build.  This is a dangerous path to go down.</p>
 <p>There are two groups of arguments here, one for passing through the lambda and one for building the timer. Don&rsquo;t mix the two.</p>
 <h3 id="final-words">Final words</h3>
 <p>If you really are intent to go down the path of actions at all, I leave you with this approach, if only to make the hole in your foot a little smaller:</p>
-<pre><code class="language-cs">public void GetSomethingDone()
-{
-    var metaData = &quot;Some Sort of Metadata for timing&quot;;
-    MyResult result = Using(DoTimedWork(metaData), () =&gt;
-    {
-        //Some other complicated work/method-call happens here
-        result = complicatedWorkResultSomehow;
-    });
-    
-    //either uses or returns result here
-}
-
-public IDisposable DoTimedWork(string metaData)
-{
-    //Setup code probably here
-    return new MetricsTimer(metaData);
-}
-
-public Using(IDisposable disposable, Func&lt;T&gt; action)
-{
-    //Setup code probably here
-    using(disposable)
-    {
-        return action();
-    }
-}
-
-</code></pre>
-<p>As always, I love to be challenged and hear new opinions, or else I cannot grow as a developer. But until then I will be sticking with <code>using</code> over <code>lambda</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> GetSomethingDone()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> metaData = <span style="color:#e6db74">&#34;Some Sort of Metadata for timing&#34;</span>;
+</span></span><span style="display:flex;"><span>    MyResult result = Using(DoTimedWork(metaData), () =&gt;
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//Some other complicated work/method-call happens here</span>
+</span></span><span style="display:flex;"><span>        result = complicatedWorkResultSomehow;
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//either uses or returns result here</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> IDisposable DoTimedWork(<span style="color:#66d9ef">string</span> metaData)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Setup code probably here</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MetricsTimer(metaData);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Using(IDisposable disposable, Func&lt;T&gt; action)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Setup code probably here</span>
+</span></span><span style="display:flex;"><span>    using(disposable)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> action();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>As always, I love to be challenged and hear new opinions, or else I cannot grow as a developer. But until then I will be sticking with <code>using</code> over <code>lambda</code>.</p>
 </section>
         
         <section class="share">

@@ -22,29 +22,27 @@
       <description>&lt;p&gt;We have lots of NuGet. Every time we build, we publish a new version. but every build does not change the source code of the code in that version. wouldn&amp;rsquo;t it be nice if we could detect that the subdirectory hasn&amp;rsquo;t changed and so has the same version it did last time we built it?&lt;/p&gt;
 &lt;p&gt;We use &lt;a href=&#34;https://github.com/GitTools/GitVersion&#34;&gt;gitversion&lt;/a&gt;, so we already have a way to get the version for the current commit.  Maybe we can use that to get the version for a subdirectories latest commit?  Sure we can!&lt;/p&gt;
 &lt;p&gt;To get the version for the latest commit, we need the latest commit.  Turns out you can use&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;$pathToFolder = &amp;quot;C:\dev\MyProject\MySubfolder&amp;quot;
-$commitHash = git log -n 1 --format=&amp;quot;%H&amp;quot; -- $pathToFolder
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here we run a &lt;code&gt;git log&lt;/code&gt; command to get the full commit hash, which we can save into a variable &lt;code&gt;$commitHash&lt;/code&gt;.  Now we have something to give to &lt;code&gt;gitversion&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$pathToFolder = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;C:\dev\MyProject\MySubfolder&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$commitHash = git log -n &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; --format=&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%H&amp;#34;&lt;/span&gt; -- $pathToFolder
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here we run a &lt;code&gt;git log&lt;/code&gt; command to get the full commit hash, which we can save into a variable &lt;code&gt;$commitHash&lt;/code&gt;.  Now we have something to give to &lt;code&gt;gitversion&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;There is a command in &lt;code&gt;gitversion&lt;/code&gt;, &lt;code&gt;\c&lt;/code&gt;, which takes a commit hash and runs for that instead of for the current commit. All we need to do is the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;$folderVersion = gitversion /c $commitHash | ConvertFrom-Json
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and new we have an object in &lt;code&gt;$folderVersion&lt;/code&gt; that we can inspect and get out all the version information, from &lt;code&gt;$folderVersion.SemVer&lt;/code&gt;, &lt;code&gt;$folderVersion.NuGetVersionV2&lt;/code&gt;, and even &lt;code&gt;$folderVersion.FullBuildMetaData&lt;/code&gt;!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$folderVersion = gitversion /c $commitHash | ConvertFrom-Json
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and new we have an object in &lt;code&gt;$folderVersion&lt;/code&gt; that we can inspect and get out all the version information, from &lt;code&gt;$folderVersion.SemVer&lt;/code&gt;, &lt;code&gt;$folderVersion.NuGetVersionV2&lt;/code&gt;, and even &lt;code&gt;$folderVersion.FullBuildMetaData&lt;/code&gt;!&lt;/p&gt;
 &lt;p&gt;What you do from here to integrate with the rest of your build scripts is up to you. One I have used is to go through that folder and replace version information, such as in *.nuspec files. Note here my *.nuspec file has a placeholder $version$ as the version number already in place.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$NewVersion = &amp;quot;&amp;quot; ## Version from some source, like gitversion
-$Sha = &amp;quot;&amp;quot; ## You can include the sha the version is from into the nuspec file
-$FileFullPath = &amp;quot;&amp;quot; ## filepath from some sort of search for *.nuspec files
-$TmpFile = $FileFullPath + &amp;quot;.tmp&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$NewVersion = &amp;#34;&amp;#34; ## Version from some source, like gitversion
+$Sha = &amp;#34;&amp;#34; ## You can include the sha the version is from into the nuspec file
+$FileFullPath = &amp;#34;&amp;#34; ## filepath from some sort of search for *.nuspec files
+$TmpFile = $FileFullPath + &amp;#34;.tmp&amp;#34;
 
 [ xml ] $fileContents = Get-Content -Path $o.FullName
 
 if ($fileContents.package.metadata.version -eq $null) {
-  $child = $fileContents.CreateElement(&amp;quot;version&amp;quot;, $fileContents.DocumentElement.NamespaceURI)
+  $child = $fileContents.CreateElement(&amp;#34;version&amp;#34;, $fileContents.DocumentElement.NamespaceURI)
   $fileContents.package.metadata.AppendChild($child)
-  $fileContents.package.metadata.version = &amp;quot;$version$&amp;quot;
+  $fileContents.package.metadata.version = &amp;#34;$version$&amp;#34;
 }
   
-$NewDescription = $fileContents.package.metadata.description + &#39; (&#39; + $Sha + &#39;)&#39;;
+$NewDescription = $fileContents.package.metadata.description + &amp;#39; (&amp;#39; + $Sha + &amp;#39;)&amp;#39;;
 $fileContents.package.metadata.description = $NewDescription
 
 if($Version) {
@@ -54,8 +52,7 @@ if($Version) {
 $fileContents.Save($TmpFile)    
      
 move-item $TmpFile $FileFullPath -force
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Another useful use-case is to execute GitVersion with &lt;code&gt;/updateassemblyinfo .\Properties\AssemblyInfo.cs&lt;/code&gt; as an argument, to target and update a specific project&amp;rsquo;s assembly info version as well.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Another useful use-case is to execute GitVersion with &lt;code&gt;/updateassemblyinfo .\Properties\AssemblyInfo.cs&lt;/code&gt; as an argument, to target and update a specific project&amp;rsquo;s assembly info version as well.&lt;/p&gt;
 </description>
     </item>
     
@@ -468,20 +465,19 @@ The coverage results don&amp;rsquo;t seem accurate just yet, but jump to the end
 &lt;p&gt;So I started building a &lt;a href=&#34;https://github.com/csMACnz/Coveralls.net-Samples&#34;&gt;sample library&lt;/a&gt; with CI on github and very easily got examples working for AppVeyor on windows.  But I wanted to get monocov working as a sample with Travis-CI before I built support for it.  I found pretty quickly that monocov is not installed on Travis-ci, and in fact there is no package available to install it either that I could find.&lt;/p&gt;
 &lt;p&gt;Thanks to github forks, I found someone else had forked and updated the source for monocov to work with a newer Xamarin version of the mono installation.  So naturally I forked this fork so I could make my own changes if necessary.&lt;/p&gt;
 &lt;p&gt;Using a few tricks I was able to get my Travis-CI build to clone down the git fork, build it and install it on the build server.  I did have to change a compile setting and set a variable based on &lt;a href=&#34;http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13&#34;&gt;this blog post&lt;/a&gt;, and I had to pull down the &lt;a href=&#34;https://www.nuget.org/packages/Mono.Cecil/&#34;&gt;mono.cecil nuget package&lt;/a&gt; so I had the Mono.Cecil.dll file required by the C# side of monocov. I also made to install gtk-sharp2 for the GUI library to build with make, although I don&amp;rsquo;t use it. After all these steps I finally got it to a point where it was installed.  The Travis-CI code ended up using these instructions in the install section:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;- sudo apt-get install gtk-sharp2
-- curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &amp;gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip
-- unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil
-- cp /tmp/cecil/lib/net40/Mono.Cecil.dll .
-- cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/
-- git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov
-- cd ../../csMACnz/monocov
-- cp /tmp/cecil/Mono.Cecil.dll .
-- ./configure
-- make
-- sudo make install
-- cd ../../csMACnz/Coveralls.net-Samples 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Note I changed directories a few times, and pulled monocov into a directory beside my actual repo build folder.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;sudo apt-get install gtk-sharp2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &amp;gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;cp /tmp/cecil/lib/net40/Mono.Cecil.dll .&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;cd ../../csMACnz/monocov&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;cp /tmp/cecil/Mono.Cecil.dll .&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;./configure&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;make&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;sudo make install&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;cd ../../csMACnz/Coveralls.net-Samples &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note I changed directories a few times, and pulled monocov into a directory beside my actual repo build folder.&lt;/p&gt;
 &lt;p&gt;To get it to run over my tests, I had to use a couple of options:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;set the load library path as seen in the &lt;a href=&#34;http://keithnordstrom.com/getting-the-monocov-profiler-to-link-on-ubuntu-13&#34;&gt;blog post&lt;/a&gt; I mentioned earlier.&lt;/li&gt;
@@ -491,37 +487,35 @@ The coverage results don&amp;rsquo;t seem accurate just yet, but jump to the end
 &lt;li&gt;run a second step afterwards to convert the *.cov file into a folder of detailed xml files&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The resulting code for this looked like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;- export LD_LIBRARY_PATH=/usr/local/lib
-- mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow
-- monocov --export-xml=monocovCoverage monocovCoverage.cov
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So whats the next steps? Well now I have actual results I will get &lt;a href=&#34;https://github.com/csMACnz/coveralls.net&#34;&gt;coveralls.net&lt;/a&gt; support written and get it published to nuget and usable on my Travis-CI build, so it is passing.  After that I will look at the accuracy of the existing code, since my initial results haven&amp;rsquo;t really looked that accurate.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;export LD_LIBRARY_PATH=/usr/local/lib&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ae81ff&#34;&gt;monocov --export-xml=monocovCoverage monocovCoverage.cov&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So whats the next steps? Well now I have actual results I will get &lt;a href=&#34;https://github.com/csMACnz/coveralls.net&#34;&gt;coveralls.net&lt;/a&gt; support written and get it published to nuget and usable on my Travis-CI build, so it is passing.  After that I will look at the accuracy of the existing code, since my initial results haven&amp;rsquo;t really looked that accurate.&lt;/p&gt;
 &lt;p&gt;In summary, and If you just skipped to the end, my full &lt;code&gt;travis.yml&lt;/code&gt; file running monocov over my .net project on Travis-CI looks like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;language: csharp
-solution: ./src/GameOfLife.sln
-install:
-  - nuget restore ./src/GameOfLife.sln
-  - chmod +x ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe
-  - sudo apt-get install nunit-console
-  - sudo apt-get install gtk-sharp2
-  - curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &amp;gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip
-  - unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil
-  - cp /tmp/cecil/lib/net40/Mono.Cecil.dll .
-  - cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/
-  - git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov
-  - cd ../../csMACnz/monocov
-  - cp /tmp/cecil/Mono.Cecil.dll .
-  - ./configure
-  - make
-  - sudo make install
-  - cd ../../csMACnz/Coveralls.net-Samples
-script:
-  - xbuild /p:Configuration=Release ./src/GameOfLife.sln
-  - export LD_LIBRARY_PATH=/usr/local/lib
-  - mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow
-  - monocov --export-xml=monocovCoverage monocovCoverage.cov
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Hope someone finds this useful, and stay tuned for the coveralls.io update.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;language&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;csharp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;solution&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;./src/GameOfLife.sln&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;install&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;nuget restore ./src/GameOfLife.sln&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;chmod +x ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;sudo apt-get install nunit-console&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;sudo apt-get install gtk-sharp2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;curl -sS https://api.nuget.org/packages/mono.cecil.0.9.5.4.nupkg &amp;gt; /tmp/mono.cecil.0.9.5.4.nupkg.zip&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;unzip /tmp/mono.cecil.0.9.5.4.nupkg.zip -d /tmp/cecil&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;cp /tmp/cecil/lib/net40/Mono.Cecil.dll .&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;cp /tmp/cecil/lib/net40/Mono.Cecil.dll /tmp/cecil/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;git clone --depth=50 git://github.com/csMACnz/monocov.git ../../csMACnz/monocov&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;cd ../../csMACnz/monocov&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;cp /tmp/cecil/Mono.Cecil.dll .&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;./configure&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;make&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;sudo make install&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;cd ../../csMACnz/Coveralls.net-Samples&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;xbuild /p:Configuration=Release ./src/GameOfLife.sln&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;export LD_LIBRARY_PATH=/usr/local/lib&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;mono --debug --profile=monocov:outfile=monocovCoverage.cov,+[GameOfLife],+[GameOfLife.xUnit.Tests] ./src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./src/GameOfLife.xUnit.Tests/bin/Release/GameOfLife.xUnit.Tests.dll  /noshadow&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;monocov --export-xml=monocovCoverage monocovCoverage.cov&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Hope someone finds this useful, and stay tuned for the coveralls.io update.&lt;/p&gt;
 </description>
     </item>
     
@@ -533,28 +527,25 @@ script:
       <guid>https://blog.csmac.nz/post/travis-ci-c-and-pcl/</guid>
       <description>&lt;p&gt;As any good library should do, I&amp;rsquo;m building my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;BCLExtensions project&lt;/a&gt;(extensions for the .net base class library) using PCL (Portable class library, Profile328 to be exact).  It works great on my &lt;a href=&#34;https://ci.appveyor.com/project/MarkClearwater/bclextensions&#34;&gt;AppVeyor CI builds&lt;/a&gt;, which is a great .Net windows build server.&lt;/p&gt;
 &lt;p&gt;I recently discovered &lt;a href=&#34;http://docs.travis-ci.com/user/languages/csharp/&#34;&gt;Travis-CI has added beta C# support&lt;/a&gt; so I connected it up with my &lt;a href=&#34;http://github.com/csmacnz/bclextensions&#34;&gt;GitHub prooject&lt;/a&gt;, which is designed to eventually work with mono anyway, and gave it a go. But no, that&amp;rsquo;s a no go.  The awesome error I was getting was this cryptic thing:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;	Target GetReferenceAssemblyPaths:
-		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets:  warning : Unable to find framework corresponding to the target framework moniker &#39;.NETPortable,Version=v4.0,Profile=Profile328&#39;. Framework assembly references will be resolved from the GAC, which might not be the intended behavior.
-		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets: error : PCL Reference Assemblies not installed.
-	Task &amp;quot;GetReferenceAssemblyPaths&amp;quot; execution -- FAILED
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Turns out since I&amp;rsquo;m using PCL (remember how i said i was using PCL), which the Xamarin mono bits on linux don&amp;rsquo;t come with, and there are no debian packages that contain these PCL frameworks, the bits I need are not there on the Travis build vm.  It wont compile without them. Damn.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	Target GetReferenceAssemblyPaths:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets:  warning : Unable to find framework corresponding to the target framework moniker &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.NETPortable,Version=v4.0,Profile=Profile328&amp;#39;&lt;/span&gt;. Framework assembly references will be resolved from the GAC, which might not be the intended behavior.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		/usr/lib/mono/xbuild/12.0/bin/Microsoft.Common.targets: error : PCL Reference Assemblies not installed.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	Task &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GetReferenceAssemblyPaths&amp;#34;&lt;/span&gt; execution -- FAILED
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Turns out since I&amp;rsquo;m using PCL (remember how i said i was using PCL), which the Xamarin mono bits on linux don&amp;rsquo;t come with, and there are no debian packages that contain these PCL frameworks, the bits I need are not there on the Travis build vm.  It wont compile without them. Damn.&lt;/p&gt;
 &lt;p&gt;Luckily for me, thanks to some fast work from the Travis-CI guys, I got the following added to my .travis.yml file:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;	install:
-		- curl -sS http://storage.bos.xamarin.com/bot-provisioning/PortableReferenceAssemblies-2014-04-14.zip &amp;gt; /tmp/pcl-assemblies.zip
-		- unzip /tmp/pcl-assemblies.zip -d /tmp/pcl-assemblies &amp;amp;&amp;amp; mv /tmp/pcl-assemblies/PortableReferenceAssemblies-2014-04-14 /tmp/pcl-assemblies/.NETPortable
-		- export XBUILD_FRAMEWORK_FOLDERS_PATH=/tmp/pcl-assemblies/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;They even put it in a &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions/pull/2&#34;&gt;nice PR&lt;/a&gt; for me.  This allowed the build server to download the PCL references from Xamarin, set the environment variable for the location of the assemblies (well done xbuild for including that little gem in their source, and all my builds came to life.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#f92672&#34;&gt;install&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		- &lt;span style=&#34;color:#ae81ff&#34;&gt;curl -sS http://storage.bos.xamarin.com/bot-provisioning/PortableReferenceAssemblies-2014-04-14.zip &amp;gt; /tmp/pcl-assemblies.zip&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		- &lt;span style=&#34;color:#ae81ff&#34;&gt;unzip /tmp/pcl-assemblies.zip -d /tmp/pcl-assemblies &amp;amp;&amp;amp; mv /tmp/pcl-assemblies/PortableReferenceAssemblies-2014-04-14 /tmp/pcl-assemblies/.NETPortable&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		- &lt;span style=&#34;color:#ae81ff&#34;&gt;export XBUILD_FRAMEWORK_FOLDERS_PATH=/tmp/pcl-assemblies/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;They even put it in a &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions/pull/2&#34;&gt;nice PR&lt;/a&gt; for me.  This allowed the build server to download the PCL references from Xamarin, set the environment variable for the location of the assemblies (well done xbuild for including that little gem in their source, and all my builds came to life.&lt;/p&gt;
 &lt;p&gt;The only other hurdle i had was my mstest projects wouldn&amp;rsquo;t compile, no mstest on mono.  This was easily fixed by changing to xUnit, which is cross platform, and I&amp;rsquo;m loving as a test framework so far. easy to add using nuget packages and this in your .yml:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;    install:
-        - nuget restore MySolution.sln
-        - chmod +x ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe
-    script:
-        - xbuild /p:Configuration=Release ./MySolution.sln
-        - mono ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./MyProject.Tests/bin/Release/MyProject.Tests.dll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And now today I got an &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions/pull/2#issuecomment-67963660&#34;&gt;update from the guys at Travis&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;install&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        - &lt;span style=&#34;color:#ae81ff&#34;&gt;nuget restore MySolution.sln&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        - &lt;span style=&#34;color:#ae81ff&#34;&gt;chmod +x ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        - &lt;span style=&#34;color:#ae81ff&#34;&gt;xbuild /p:Configuration=Release ./MySolution.sln&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        - &lt;span style=&#34;color:#ae81ff&#34;&gt;mono ./packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./MyProject.Tests/bin/Release/MyProject.Tests.dll&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And now today I got an &lt;a href=&#34;https://github.com/csmacnz/BCLExtensions/pull/2#issuecomment-67963660&#34;&gt;update from the guys at Travis&lt;/a&gt;:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/akoeplinger&#34;&gt;@akoeplinger&lt;/a&gt; commented&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/csmacnz&#34;&gt;@csmacnz&lt;/a&gt; just FYI, we are now installing the new referenceassemblies-pcl Debian package from Xamarin in the Travis C# support, so this workaround shouldn&amp;rsquo;t be necessary any longer :)&lt;/p&gt;

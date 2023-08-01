@@ -151,48 +151,46 @@
 <h4 id="what-is-a-unit-test">What is a &lsquo;unit&rsquo; test?</h4>
 <p>At first, I thought out tests were too big, they seemed to be testing a lot in one test. Then I realised most of the code in the test class in question was mocking, setup and preparation.  Why?  Well the main reason is the object we are testing has several dependencies, and they all needed to be mocked and faked, so that we could test this class as a unit.</p>
 <p>for example, lets say we have a class, and it takes 4 services (should be enough to make a point).</p>
-<pre><code class="language-cs">public class CustomerService {
-    ...
-    public CustomerService(IEmployeeRepository employeeRepository,
-                           ICustomerRepository customerRepository,
-                           ISecurityProvider securityProvider,
-                           IInternationalisationProvider internationalisationProvider)
-    {
-    ...
-    }
-
-    public void Process(Customer newCustomer) {
-    ...
-    }
-}
-</code></pre>
-<p>We want to test this method, with mocking, we might end up with a setup like:</p>
-<pre><code class="language-cs">[TestInitialise]
-public void Setup() 
-{
-    _employeeRepositoryMock = new Mock&lt;IEmployeeRepository&gt;();
-    _employeeRepositoryMock
-        .Setup(er =&gt; er.FindEmployeeRecord(It.Is&lt;Guid&gt;(TEST_USER_ID)))
-        .Returns(CreateTestCustomerEmployeeRecord());
-	_employeeRepositoryMock
-        .Setup(er =&gt; er.LoadEmployeeTypes())
-        .Returns(CreateEmployeeTypeData());
-	_employeeRepositoryMock
-        .Setup(er =&gt; er.CreateNewEmployeeRecord(It.Is&lt;Guid&gt;(TEST_USER_ID), It.IsAny&lt;CustomerEmployeeRecord&gt;()))
-        .Returns(CreateDefaultSuccessResultForCreateEmployeeRecord());
-
-    _customerRepositoryMock = new Mock&lt;ICustomerRepository&gt;();
-    _customerRepositoryMock
-        .Setup(er =&gt; er.GetCustomer(It.Is&lt;Guid&gt;(TEST_USER_ID)))
-        .Returns(CreateTestCustomer());
-     ...        
-    _customerServiceMock = new Mock&lt;ISecurityProvider&gt;();
-     ...
-    _internationalisationProviderMock = new Mock&lt;IInternationalisationProvider&gt;()
-     ...
-}
-</code></pre>
-<p>And you could imagine with more dependencies what else could crop up, not to mention the code that appears inside the tests themselves.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomerService</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> CustomerService(IEmployeeRepository employeeRepository,
+</span></span><span style="display:flex;"><span>                           ICustomerRepository customerRepository,
+</span></span><span style="display:flex;"><span>                           ISecurityProvider securityProvider,
+</span></span><span style="display:flex;"><span>                           IInternationalisationProvider internationalisationProvider)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Process(Customer newCustomer) {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We want to test this method, with mocking, we might end up with a setup like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#a6e22e">[TestInitialise]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Setup() 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    _employeeRepositoryMock = <span style="color:#66d9ef">new</span> Mock&lt;IEmployeeRepository&gt;();
+</span></span><span style="display:flex;"><span>    _employeeRepositoryMock
+</span></span><span style="display:flex;"><span>        .Setup(er =&gt; er.FindEmployeeRecord(It.Is&lt;Guid&gt;(TEST_USER_ID)))
+</span></span><span style="display:flex;"><span>        .Returns(CreateTestCustomerEmployeeRecord());
+</span></span><span style="display:flex;"><span>	_employeeRepositoryMock
+</span></span><span style="display:flex;"><span>        .Setup(er =&gt; er.LoadEmployeeTypes())
+</span></span><span style="display:flex;"><span>        .Returns(CreateEmployeeTypeData());
+</span></span><span style="display:flex;"><span>	_employeeRepositoryMock
+</span></span><span style="display:flex;"><span>        .Setup(er =&gt; er.CreateNewEmployeeRecord(It.Is&lt;Guid&gt;(TEST_USER_ID), It.IsAny&lt;CustomerEmployeeRecord&gt;()))
+</span></span><span style="display:flex;"><span>        .Returns(CreateDefaultSuccessResultForCreateEmployeeRecord());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    _customerRepositoryMock = <span style="color:#66d9ef">new</span> Mock&lt;ICustomerRepository&gt;();
+</span></span><span style="display:flex;"><span>    _customerRepositoryMock
+</span></span><span style="display:flex;"><span>        .Setup(er =&gt; er.GetCustomer(It.Is&lt;Guid&gt;(TEST_USER_ID)))
+</span></span><span style="display:flex;"><span>        .Returns(CreateTestCustomer());
+</span></span><span style="display:flex;"><span>     ...        
+</span></span><span style="display:flex;"><span>    _customerServiceMock = <span style="color:#66d9ef">new</span> Mock&lt;ISecurityProvider&gt;();
+</span></span><span style="display:flex;"><span>     ...
+</span></span><span style="display:flex;"><span>    _internationalisationProviderMock = <span style="color:#66d9ef">new</span> Mock&lt;IInternationalisationProvider&gt;()
+</span></span><span style="display:flex;"><span>     ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And you could imagine with more dependencies what else could crop up, not to mention the code that appears inside the tests themselves.</p>
 <p>This is where the lesson is. Well, two lessons:</p>
 <ul>
 <li>Try to minimise your dependencies so they are easier to mock, stub and fake.</li>
@@ -204,22 +202,21 @@ public void Setup()
 <p><em>Arrange</em>: coordinate some setup for your test. This might be in the test method itself, creating an instance of the unit under test. This might be in the constructor, or per-test setup method. Having a lot of setup for a test is a code smell.</p>
 <p><em>Act</em>: perform the task that is being tested. Maybe a static method, or method on your unit under test. This should be a single atomic action, from your system code would be expected.</p>
 <p><em>Assert</em>: confirm that the state of play after acting is what is expected. Check the result of the method has the correct state, or check the state of the unit under test has been modified correctly.  Again, assert one thing. It might take multiple assert statements, but they should represent a single atomic state.</p>
-<pre><code class="language-cs">[Test]
-public void CustomerService_CreateNewCalledWithValidCustomer_NoProblemsOccur()
-{
-    //Arrange
-    var sut = CreateService();
-    var newCustomer = GetValidCustomer();
-    
-    //Act
-    var saveResponse = sut.CreateNew(newCustomer);
-    
-    //Assert
-    Assert.True(saveResponse.Successful);
-    Assert.Empty(saveResponse.Warnings);
-}
-</code></pre>
-<p>Personally I don&rsquo;t like having the comments in there, but spacing my test methods into the three sections make it much clearer to read what is happening at each stage, and what is the Act part.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#a6e22e">[Test]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> CustomerService_CreateNewCalledWithValidCustomer_NoProblemsOccur()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Arrange</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> sut = CreateService();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> newCustomer = GetValidCustomer();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Act</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> saveResponse = sut.CreateNew(newCustomer);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Assert</span>
+</span></span><span style="display:flex;"><span>    Assert.True(saveResponse.Successful);
+</span></span><span style="display:flex;"><span>    Assert.Empty(saveResponse.Warnings);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Personally I don&rsquo;t like having the comments in there, but spacing my test methods into the three sections make it much clearer to read what is happening at each stage, and what is the Act part.</p>
 <h4 id="test-code-is-code">Test code is code</h4>
 <p>The quality of test code is appalling.  Yeah, this is an over-generalisation. I should be clearer and say, the quality of the code people write when they start writing tests is appalling.  I&rsquo;m guilty of it, and I&rsquo;ve seen it with other people when they start out writing tests.  Now this could be a localised issue and be related to the testing and mocking frameworks &lsquo;éxperienced&rsquo; testers use in .Net, and the inherent complexity they introduce. The other thing it could be, and the one I&rsquo;m conscious of, is that people don&rsquo;t seem to treat test code with the same respect they do the rest of the code in their application.  Quality, standards and best practice goes out the window, it seems, when they write their test code. Follow the rules and everything gets better fast. SOLID anyone?</p>
 <h4 id="automated-ui-testing">Automated UI Testing</h4>

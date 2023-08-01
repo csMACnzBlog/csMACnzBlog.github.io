@@ -146,46 +146,43 @@
 <p>Here is an example from work today that I think shows the simplicity of this principle, that is often missed or overlooked.</p>
 <h3 id="the-problem">The Problem</h3>
 <p>We have a class FooService. Now this class is responsible for getting us some Foo. (really need to find a picture of what a Foo actually looks like, the internet thinks it looks like <a href="http://images.google.com/search?tbm=isch&amp;q=Foo">a Dave Grohl</a>).</p>
-<pre><code class="language-cs">public class FooService : IFooService
-{
-    public Foo GetFoo(CustomerId id)
-    {
-        Foo foo;
-        ... //Actual implementation logic
-        return foo
-    }
-}
-</code></pre>
-<p>The implementation is not important. It might be a database call, or a restful call, a reading from a hardware device, whatever.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FooService</span> : IFooService
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Foo GetFoo(CustomerId id)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Foo foo;
+</span></span><span style="display:flex;"><span>        ... <span style="color:#75715e">//Actual implementation logic</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> foo
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The implementation is not important. It might be a database call, or a restful call, a reading from a hardware device, whatever.</p>
 <p>Now we have this requirement that we are calling the Service from several places (properly injected and scoped of course) but we realise that we are calling it several times per request scope (lets assume this is MVC). We want to be able to reuse the result across the request scope, but not any wider.</p>
 <h3 id="solution-decision">Solution Decision</h3>
 <p>One thing we could do, is make a call at the start of the scope, and pass the result along to where it is needed. The problem there would be that we are a modular system and we have 4-5 calls between us and the place we need the value. Also they are down two different use case paths, and everything is constructor injected.  Lets try another approach. Caching.</p>
 <p>Caching is a great way to reuse a result temporarily. In fact I would argue that&rsquo;s exactly what its for. So let&rsquo;s start with the naive version.</p>
 <h3 id="solution-implementation-the-wrong-way">Solution Implementation: the wrong way</h3>
 <p>Lets add caching to our class. Should be fairly simple, something like this:</p>
-<pre><code class="language-cs">public class FooService : IFooService
-{
-    Dictionary&lt;CustomerId, Foo&gt; _cache = new Dictionary&lt;CustomerId, Foo&gt;();
-    public Foo GetFoo(CustomerId id)
-    {
-        Foo foo;
-
-        if(_cache.ContainsKey(id){
-            return _cache[id];
-        }
-
-        ... //Actual implementation logic
-
-        _cache[id] = foo;
-
-        return foo
-    }
-}
-</code></pre>
-<p>Looks fine right? Sure thing, but we should take care of the scope in our container so it gets correctly set to request scope.</p>
-<pre><code class="language-cs">Bind&lt;IFooService&gt;().To&lt;FooService&gt;().InRequestScope();
-</code></pre>
-<p>Something resembling a container setup. Cool.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FooService</span> : IFooService
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    Dictionary&lt;CustomerId, Foo&gt; _cache = <span style="color:#66d9ef">new</span> Dictionary&lt;CustomerId, Foo&gt;();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Foo GetFoo(CustomerId id)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Foo foo;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(_cache.ContainsKey(id){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> _cache[id];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ... <span style="color:#75715e">//Actual implementation logic</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        _cache[id] = foo;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> foo
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Looks fine right? Sure thing, but we should take care of the scope in our container so it gets correctly set to request scope.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>Bind&lt;IFooService&gt;().To&lt;FooService&gt;().InRequestScope();
+</span></span></code></pre></div><p>Something resembling a container setup. Cool.</p>
 <p>Why is this the wrong approach?  I have two specific issues with this code.</p>
 <ul>
 <li>We have two concerns to our class now. <em>Retrieving</em> and <em>Caching</em>.</li>
@@ -195,55 +192,51 @@
 <p>The second is almost more subtle though. Here, we are separating the same concern, caching, into different places. because the cache logic is internal, you can&rsquo;t see it from where it is used. That is fine, since that is not your concern where you use it. But to configure it, you rely on the container for your IOC framework to be configured correctly. It is not clear from the cache code what the lifetime is, and not clear from the lifetime that it relates to caching.  We need to bring these two pieces of information closer together. Luckily, by pulling out the cache concern from the service, we almost get that for fee. Lets see how.</p>
 <h3 id="solution-implementation-the-right-way">Solution Implementation: the right way</h3>
 <p>We start by going back to our original implementation.</p>
-<pre><code class="language-cs">public class FooService : IFooService
-{
-    public Foo GetFoo(CustomerId id)
-    {
-        Foo foo;
-        ... //Actual implementation logic
-        return foo
-    }
-}
-</code></pre>
-<p>Instead of writing the caching inside the existing class, we create a new <em>wrapper</em> class instead.</p>
-<pre><code class="language-cs">public class FooServiceCacheWrapper : IFooService
-{
-    private IFooService _actual;
-
-    public FooServiceCacheWrapper(IFooService actual)
-    {
-    	_actual = actual;
-    }
-
-    public Foo GetFoo(CustomerId id)
-    {
-        Foo foo;
-
-        if(_cache.ContainsKey(id){
-            return _cache[id];
-        }
-
-        foo = _actual.GetFoo(id);
-
-        _cache[id] = foo;
-
-        return foo
-    }
-}
-</code></pre>
-<p>There are three key parts to point out in this implementation. It adds almost exactly the same code as we were going to add (no extra work was required to go this alternate root). We didn&rsquo;t have to change the existing code to do it. And third, we are implementing the same interface as the original, and wrapping around it a sort of caching layer. This is almost <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">AOP</a>, and is making use of the <a href="https://en.wikipedia.org/?title=Proxy_pattern">Proxy Pattern</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FooService</span> : IFooService
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Foo GetFoo(CustomerId id)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Foo foo;
+</span></span><span style="display:flex;"><span>        ... <span style="color:#75715e">//Actual implementation logic</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> foo
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Instead of writing the caching inside the existing class, we create a new <em>wrapper</em> class instead.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FooServiceCacheWrapper</span> : IFooService
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> IFooService _actual;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> FooServiceCacheWrapper(IFooService actual)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    	_actual = actual;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Foo GetFoo(CustomerId id)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Foo foo;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(_cache.ContainsKey(id){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> _cache[id];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        foo = _actual.GetFoo(id);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        _cache[id] = foo;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> foo
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There are three key parts to point out in this implementation. It adds almost exactly the same code as we were going to add (no extra work was required to go this alternate root). We didn&rsquo;t have to change the existing code to do it. And third, we are implementing the same interface as the original, and wrapping around it a sort of caching layer. This is almost <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">AOP</a>, and is making use of the <a href="https://en.wikipedia.org/?title=Proxy_pattern">Proxy Pattern</a>.</p>
 <p>The second part is in our IOC config:</p>
-<pre><code class="language-cs">Bind&lt;IFooService&gt;()
-    .To&lt;FooServiceCacheWrapper&gt;()
-    .UsingConstructorParameter&lt;FooService&gt;()
-    .InRequestScope();
-</code></pre>
-<p>or</p>
-<pre><code class="language-cs">Bind&lt;IFooService&gt;()
-    .To(c=&gt; new FooServiceCacheWrapper(c.Resolve&lt;FooService&gt;))
-    .InRequestScope();
-</code></pre>
-<p>The syntaxes are made up, but the concept is there, and hopefully one looks familiar enough for you to implement in your IOC of choice. We Resolve our existing interface to our new Wrapper class instead. And part of resolving our wrapper class, is to use the concrete version of the service that will do the actual work. This is a simplistic approach similar to the idea of the <a href="https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Chain of responsibility pattern</a>. We are now composing together our classes to achieve the desired result.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>Bind&lt;IFooService&gt;()
+</span></span><span style="display:flex;"><span>    .To&lt;FooServiceCacheWrapper&gt;()
+</span></span><span style="display:flex;"><span>    .UsingConstructorParameter&lt;FooService&gt;()
+</span></span><span style="display:flex;"><span>    .InRequestScope();
+</span></span></code></pre></div><p>or</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span>Bind&lt;IFooService&gt;()
+</span></span><span style="display:flex;"><span>    .To(c=&gt; <span style="color:#66d9ef">new</span> FooServiceCacheWrapper(c.Resolve&lt;FooService&gt;))
+</span></span><span style="display:flex;"><span>    .InRequestScope();
+</span></span></code></pre></div><p>The syntaxes are made up, but the concept is there, and hopefully one looks familiar enough for you to implement in your IOC of choice. We Resolve our existing interface to our new Wrapper class instead. And part of resolving our wrapper class, is to use the concrete version of the service that will do the actual work. This is a simplistic approach similar to the idea of the <a href="https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Chain of responsibility pattern</a>. We are now composing together our classes to achieve the desired result.</p>
 <p>As a bonus, we see now that the place where we configure our caching around the service, we also define the scope of the cache class. Much nicer to see these two concepts in the same place now, don&rsquo;t you think?</p>
 <p>Hopefully this opens your eyes and starts you thinking. Keep looking out for places where you have been ignoring the single responsibility pattern, and make <strong>more small classes</strong>.</p>
 </section>

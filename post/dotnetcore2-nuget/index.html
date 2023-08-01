@@ -149,7 +149,7 @@
 <p>Let&rsquo;s set aside Application packing for later, and focus our attention on NuGet.</p>
 <h3 id="our-demo-library">Our Demo library</h3>
 <p>Again we will quickly whip up a library to use:</p>
-<pre><code>mkdir MyPackageRepo
+<pre tabindex="0"><code>mkdir MyPackageRepo
 cd MyPackageRepo
 mkdir MyLib
 cd MyLib
@@ -158,9 +158,8 @@ cd ../
 dotnet new sln
 dotnet sln add ./MyLib/MyLib.csproj
 dotnet build
-</code></pre>
-<p>Some quick touch-ups to make it more interesting. Replace <code>.\MyLib\Class1.cs</code> with this again:</p>
-<pre><code>using System;
+</code></pre><p>Some quick touch-ups to make it more interesting. Replace <code>.\MyLib\Class1.cs</code> with this again:</p>
+<pre tabindex="0"><code>using System;
 
 namespace MyLib
 {
@@ -172,11 +171,9 @@ namespace MyLib
         }
     }
 }
-</code></pre>
-<p>At least now our package contains something interesting. One more <code>dotnet build</code> to ensure our code is correct.</p>
-<pre><code>dotnet build
-</code></pre>
-<pre><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
+</code></pre><p>At least now our package contains something interesting. One more <code>dotnet build</code> to ensure our code is correct.</p>
+<pre tabindex="0"><code>dotnet build
+</code></pre><pre tabindex="0"><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
   Restore completed in 15.94 ms for C:\dev\MyPackageRepo\MyLib\MyLib.csproj.
@@ -187,20 +184,17 @@ Build succeeded.
     0 Error(s)
 
 Time Elapsed 00:00:01.80
-</code></pre>
-<h3 id="simple-packing">Simple Packing</h3>
+</code></pre><h3 id="simple-packing">Simple Packing</h3>
 <p>It isn&rsquo;t very difficult to turn our library into a <code>nupkg</code> (pronounced <a href="https://twitter.com/csharpfritz/status/519927456191758336">NUP-KEG</a>, of course).</p>
-<pre><code>dotnet pack
-</code></pre>
-<pre><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
+<pre tabindex="0"><code>dotnet pack
+</code></pre><pre tabindex="0"><code>Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
   Restore completed in 15.86 ms for C:\dev\MyPackageRepo\MyLib\MyLib.csproj.
   MyLib -&gt; C:\dev\MyPackageRepo\MyLib\bin\Debug\netstandard2.0\MyLib.dll
-  Successfully created package 'C:\dev\MyPackageRepo\MyLib\bin\Debug\MyLib.1.0.0.nupkg'.
-</code></pre>
-<p>This leaves us with a directory structure like so:</p>
-<pre><code>MyPackageRepo
+  Successfully created package &#39;C:\dev\MyPackageRepo\MyLib\bin\Debug\MyLib.1.0.0.nupkg&#39;.
+</code></pre><p>This leaves us with a directory structure like so:</p>
+<pre tabindex="0"><code>MyPackageRepo
 |-- nugetdemo.sln
 +-- MyLib
      |-- Class1.cs
@@ -212,14 +206,12 @@ Copyright (C) Microsoft Corporation. All rights reserved.
                     |-- MyLib.deps.json
                     |-- MyLib.dll
                     \-- MyLib.pdb
-</code></pre>
-<p>(Note that I have left out the <code>obj</code> folder), we can see a new file has been created under <code>/bin/Debug</code>, called <code>MyLib.1.0.0.nupkg</code>.</p>
+</code></pre><p>(Note that I have left out the <code>obj</code> folder), we can see a new file has been created under <code>/bin/Debug</code>, called <code>MyLib.1.0.0.nupkg</code>.</p>
 <p>This is a NuGet package (<code>nupkg</code>). Pretty easy huh?  The default version number comes from the <code>*.csproj</code> file. (More on that soon.)</p>
 <p>But that was a <code>Debug</code> build. To produce a release build instead:</p>
-<pre><code>dotnet pack -c Release
-</code></pre>
-<p>Now we have more new files:</p>
-<pre><code>MyPackageRepo
+<pre tabindex="0"><code>dotnet pack -c Release
+</code></pre><p>Now we have more new files:</p>
+<pre tabindex="0"><code>MyPackageRepo
 |-- nugetdemo.sln
 +-- MyLib
      |-- Class1.cs
@@ -237,20 +229,18 @@ Copyright (C) Microsoft Corporation. All rights reserved.
                     |-- MyLib.deps.json
                     |-- MyLib.dll
                     \-- MyLib.pdb
-</code></pre>
-<p>We can see that we now have a <code>Release</code> folder (containing a <code>netstandard2.0</code> folder, thanks to an automatic build before the pack) and in the <code>Release</code> folder, we again have a <code>MyLib.1.0.0.nupkg</code> file.</p>
+</code></pre><p>We can see that we now have a <code>Release</code> folder (containing a <code>netstandard2.0</code> folder, thanks to an automatic build before the pack) and in the <code>Release</code> folder, we again have a <code>MyLib.1.0.0.nupkg</code> file.</p>
 <h3 id="crack-open-a-nupkg">Crack open a nupkg</h3>
 <p>What do these <code>nupkg</code> files look like on the inside? Using a tool like <a href="https://github.com/NuGetPackageExplorer/NuGetPackageExplorer">NuGet Package Explorer</a> we can take a look. The Release version looks like this:</p>
-<pre><code>MyLib.1.0.0.nupkg
+<pre tabindex="0"><code>MyLib.1.0.0.nupkg
 |-- MyLib.nuspec
 +-- lib
      +-- netstandard2.0
           \-- MyLib.dll
-</code></pre>
-<p>Some things to observe. We only have a lib file for <code>netstandard2.0</code> target profile. This means that our NuGet package only works with new .Net Core applications compatible with NetStandard2.0 or newer. (Remember that <a href="https://github.com/dotnet/standard/blob/master/docs/versions.md">version compatibility table?</a>)</p>
+</code></pre><p>Some things to observe. We only have a lib file for <code>netstandard2.0</code> target profile. This means that our NuGet package only works with new .Net Core applications compatible with NetStandard2.0 or newer. (Remember that <a href="https://github.com/dotnet/standard/blob/master/docs/versions.md">version compatibility table?</a>)</p>
 <p>Changing our attention to the contents of the <code>nuspec</code> file:</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;package xmlns=&quot;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&quot;&gt;
+<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;package xmlns=&#34;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&#34;&gt;
   &lt;metadata&gt;
     &lt;id&gt;MyLib&lt;/id&gt;
     &lt;version&gt;1.0.0&lt;/version&gt;
@@ -259,36 +249,33 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     &lt;requireLicenseAcceptance&gt;false&lt;/requireLicenseAcceptance&gt;
     &lt;description&gt;Package Description&lt;/description&gt;
     &lt;dependencies&gt;
-      &lt;group targetFramework=&quot;.NETStandard2.0&quot; /&gt;
+      &lt;group targetFramework=&#34;.NETStandard2.0&#34; /&gt;
     &lt;/dependencies&gt;
   &lt;/metadata&gt;
 &lt;/package&gt;
-</code></pre>
-<p>We didn&rsquo;t add any extra settings our <code>*.csproj</code> file. But we can see here that the <code>csproj</code> and project folder name <code>MyLib</code> is used to populate the package <code>id</code>, <code>authors</code> and <code>owners</code>. Let&rsquo;s remind ourselves what the <code>csproj</code> looks like:</p>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+</code></pre><p>We didn&rsquo;t add any extra settings our <code>*.csproj</code> file. But we can see here that the <code>csproj</code> and project folder name <code>MyLib</code> is used to populate the package <code>id</code>, <code>authors</code> and <code>owners</code>. Let&rsquo;s remind ourselves what the <code>csproj</code> looks like:</p>
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk&#34;&gt;
 
   &lt;PropertyGroup&gt;
     &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
   &lt;/PropertyGroup&gt;
 
 &lt;/Project&gt;
-</code></pre>
-<p>We also see that under dependencies there is a group for the <code>targetFramework</code> <code>&quot;.NETStandard2.0&quot;</code>, although currently, it has no dependencies.</p>
+</code></pre><p>We also see that under dependencies there is a group for the <code>targetFramework</code> <code>&quot;.NETStandard2.0&quot;</code>, although currently, it has no dependencies.</p>
 <h3 id="custom-metadata">Custom Metadata</h3>
 <p>We looked at some of the <code>csproj</code> metadata in <a href="/dotnetcore2-whats-in-the-box/#metadata">Part 2, what&rsquo;s in the box</a>. We saw you could set the following properties:</p>
-<pre><code>&lt;PropertyGroup&gt;
+<pre tabindex="0"><code>&lt;PropertyGroup&gt;
     &lt;Authors&gt;csMACnz&lt;/Authors&gt;
     &lt;NeutralLanguage&gt;en-NZ&lt;/NeutralLanguage&gt;
     &lt;Company&gt;csMACnz&lt;/Company&gt;
     &lt;Product&gt;MyApp&lt;/Product&gt;
     &lt;Copyright&gt;Copyright © csMACnz 2018&lt;/Copyright&gt;
   &lt;/PropertyGroup&gt;
-</code></pre>
-<p>These will map metadata into our NuGet package. Let&rsquo;s learn some more properties before we try generating a new <code>nupkg</code>.</p>
+</code></pre><p>These will map metadata into our NuGet package. Let&rsquo;s learn some more properties before we try generating a new <code>nupkg</code>.</p>
 <p>We have <code>AssemblyTitle</code>, <code>Title</code>, and <code>Description</code> that out <code>nupkg</code> can take advantage of (as well as other build processes that might want them, such as the <code>dll</code> name).  We also have some <code>Package*</code> properties specifically for packages. <code>PackageId</code>, <code>PackageRequireLicenseAcceptance</code>, <code>PackageLicenseUrl</code>, <code>PackageIconUrl</code>, <code>PackageTags</code> <code>PackageVersion</code> and <code>PackageReleaseNotes</code>.</p>
 <p>Special mention for <code>PackageVersion</code>. This is optional, and by default, the <code>Version</code> property value will be used. You can explicitly add <code>Version</code>, or it will implicitly be <code>1.0.0</code>, as we saw earlier on.</p>
 <p>We can now update our <code>csproj</code> to look like this:</p>
-<pre><code>&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+<pre tabindex="0"><code>&lt;Project Sdk=&#34;Microsoft.NET.Sdk&#34;&gt;
 
   &lt;PropertyGroup&gt;
     &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
@@ -311,14 +298,12 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   &lt;/PropertyGroup&gt;
 
 &lt;/Project&gt;
-</code></pre>
-<p>And again we pack, and review the <code>nuspec</code> file inside the generated <code>nupkg</code>.</p>
-<pre><code>dotnet pack -c Release
-</code></pre>
-<p>This time, we have a <code>MyLib.PackageId.1.2.3.nupkg</code> file, which is because we used <code>PackageId</code> to get <code>MyLib.PackageId</code> and <code>PackageVersion</code> to get the <code>1.2.3</code>.</p>
+</code></pre><p>And again we pack, and review the <code>nuspec</code> file inside the generated <code>nupkg</code>.</p>
+<pre tabindex="0"><code>dotnet pack -c Release
+</code></pre><p>This time, we have a <code>MyLib.PackageId.1.2.3.nupkg</code> file, which is because we used <code>PackageId</code> to get <code>MyLib.PackageId</code> and <code>PackageVersion</code> to get the <code>1.2.3</code>.</p>
 <p>Inside the <code>MyLib.PackageId.1.2.3.nupkg</code> there is a <code>MyLib.PackageId.nuspec</code> which looks like the followiing:</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;package xmlns=&quot;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&quot;&gt;
+<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;package xmlns=&#34;http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd&#34;&gt;
   &lt;metadata&gt;
     &lt;id&gt;MyLib.PackageId&lt;/id&gt;
     &lt;version&gt;1.2.3&lt;/version&gt;
@@ -334,12 +319,11 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     &lt;copyright&gt;Copyright © csMACnz 2018&lt;/copyright&gt;
     &lt;tags&gt;sample test lib stuff things&lt;/tags&gt;
     &lt;dependencies&gt;
-      &lt;group targetFramework=&quot;.NETStandard2.0&quot; /&gt;
+      &lt;group targetFramework=&#34;.NETStandard2.0&#34; /&gt;
     &lt;/dependencies&gt;
   &lt;/metadata&gt;
 &lt;/package&gt;
-</code></pre>
-<p>Most mappings from <code>csproj</code> to <code>nuspec</code> are self-explanatory. Also, some are not used here (<code>Product</code>, <code>Company</code>, <code>AssemblyTitle</code>) but you will find these as metadata on the <code>dll</code> instead.</p>
+</code></pre><p>Most mappings from <code>csproj</code> to <code>nuspec</code> are self-explanatory. Also, some are not used here (<code>Product</code>, <code>Company</code>, <code>AssemblyTitle</code>) but you will find these as metadata on the <code>dll</code> instead.</p>
 <p>I haven&rsquo;t been completely comprehensive here. The full documentation of the NuGet metadata properties is <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties">in the docs</a>.</p>
 <h3 id="and-the-next-time">And the next time&hellip;</h3>
 <p>We can build packages to be used by new .Net Core applications and <code>NetStandard2.0</code> compatible application. But we probably want to build libraries that can be used from older .Net 4.0, Windows Phone, older UWP applications and .Net Core 1.0 apps as well.  Next up, we see how to extend our package to handle just these situations.</p>

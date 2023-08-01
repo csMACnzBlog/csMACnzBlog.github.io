@@ -160,9 +160,8 @@
 <p>Windows Subsystem for Linux (wsl) is an interesting new development. With this, I can install Ubuntu and have a bash shell I can run Linux commands in. This is what Cygwin always wanted to grow up to be.</p>
 <p>The neat thing is you can pass commands back and forward from Powershell and wsl.</p>
 <p>In powershell, you can type a command such as:</p>
-<pre><code class="language-powershell">wsl find . -name *.csproj | % { cat $_ | wsl grep Framework }
-</code></pre>
-<p>This command will execute the command <code>wsl find . -name *.csproj</code> from the current directory in Linux, pass list of file paths generated back to Powershell, then for each path, execute a <code>grep</code> search on Linux again. We could now take the collection of results and pipe them once more through PowerShell, or another Linux command for further processing. Clever.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>wsl find . -name *.csproj | % { cat $_ | wsl grep Framework }
+</span></span></code></pre></div><p>This command will execute the command <code>wsl find . -name *.csproj</code> from the current directory in Linux, pass list of file paths generated back to Powershell, then for each path, execute a <code>grep</code> search on Linux again. We could now take the collection of results and pipe them once more through PowerShell, or another Linux command for further processing. Clever.</p>
 <p>If you are already a Linux Shell Pro, you will probably find this ability a true PowerUser feature for you.</p>
 <h3 id="wrap-up">Wrap up</h3>
 <p>These are just a few of the Shell features I have been loving to use lately. There are so many more cool tips and tricks out there. What are your favourites?</p>

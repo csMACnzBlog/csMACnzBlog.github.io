@@ -143,11 +143,11 @@
 <li><a href="https://nightroman.wordpress.com/2006/09/26/watch-command-ps1-watch-commands-output-repeatedly/">https://nightroman.wordpress.com/2006/09/26/watch-command-ps1-watch-commands-output-repeatedly/</a></li>
 </ul>
 <p>From these, I cobbled together what is now in my <code>Microsoft.PowerShell_profile.ps1</code> file:</p>
-<pre><code># Watch in Powershell
+<pre tabindex="0"><code># Watch in Powershell
 function Invoke-Watch {
     param(
         [string]$Folder,
-        [string]$Filter = &quot;*.*&quot;,
+        [string]$Filter = &#34;*.*&#34;,
         [scriptblock]$Action,
         [Switch]$IncludeSubdirectories = $true
     )
@@ -156,7 +156,7 @@ function Invoke-Watch {
         EnableRaisingEvents = $true
     }
 
-    Write-Host &quot;Now Watching (ctrl+c to stop)&quot;
+    Write-Host &#34;Now Watching (ctrl+c to stop)&#34;
     $global:PSWatchFileChanged = $false
     $onChange = Register-ObjectEvent $Watcher Changed -Action {$global:PSWatchFileChanged = $true}
     try{
@@ -174,12 +174,10 @@ function Invoke-Watch {
     }
 }
 New-Alias -Name watch -Value Invoke-Watch
-</code></pre>
-<p>To use it, You pass a few parameters to the script:</p>
-<pre><code># Watch tsc compile my ts files
-watch -Folder &quot;${PWD}&quot; =Filter &quot;*.ts&quot; -Action { tsc }
-</code></pre>
-<p>At some point, the parameters will change, and I might make it prettier, or more intuitive. (There is also a nasty global in there, so running more than one at a time is either a feature or a bug, depending on how you use it&hellip;)</p>
+</code></pre><p>To use it, You pass a few parameters to the script:</p>
+<pre tabindex="0"><code># Watch tsc compile my ts files
+watch -Folder &#34;${PWD}&#34; =Filter &#34;*.ts&#34; -Action { tsc }
+</code></pre><p>At some point, the parameters will change, and I might make it prettier, or more intuitive. (There is also a nasty global in there, so running more than one at a time is either a feature or a bug, depending on how you use it&hellip;)</p>
 <p>I will probably gist this at some point and keep it up to date with those changes.</p>
 </section>
         
