@@ -3,15 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.csmac.nz/</loc>
-    <lastmod>2021-08-10T20:30:00+00:00</lastmod>
+    <lastmod>2023-08-01T05:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.csmac.nz/categories/</loc>
+    <lastmod>2023-08-01T05:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.csmac.nz/tags/continuous-delivery/</loc>
+    <lastmod>2023-08-01T05:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.csmac.nz/post/my-idea-of-an-ideal-cicd-pipeline-2023/</loc>
+    <lastmod>2023-08-01T05:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.csmac.nz/post/</loc>
+    <lastmod>2023-08-01T05:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.csmac.nz/categories/software-engineering/</loc>
+    <lastmod>2023-08-01T05:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.csmac.nz/tags/</loc>
+    <lastmod>2023-08-01T05:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.csmac.nz/post/an-almost-seamless-transition-from-ghost-to-hugo/</loc>
     <lastmod>2021-08-10T20:30:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.csmac.nz/tags/blog-update/</loc>
-    <lastmod>2021-08-10T20:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.csmac.nz/categories/</loc>
     <lastmod>2021-08-10T20:30:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.csmac.nz/tags/ghost/</loc>
@@ -20,16 +35,7 @@
     <loc>https://blog.csmac.nz/tags/hugo/</loc>
     <lastmod>2021-08-10T20:30:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.csmac.nz/post/</loc>
-    <lastmod>2021-08-10T20:30:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.csmac.nz/categories/projects/</loc>
-    <lastmod>2021-08-10T20:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.csmac.nz/categories/software-engineering/</loc>
-    <lastmod>2021-08-10T20:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.csmac.nz/tags/</loc>
     <lastmod>2021-08-10T20:30:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.csmac.nz/post/terraform-newrelic-provider-facepalm/</loc>
@@ -451,9 +457,6 @@
   </url><url>
     <loc>https://blog.csmac.nz/post/the-new-8060-rule-for-testing/</loc>
     <lastmod>2015-11-30T06:24:46+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.csmac.nz/tags/continuous-delivery/</loc>
-    <lastmod>2015-11-22T15:05:14+00:00</lastmod>
   </url><url>
     <loc>https://blog.csmac.nz/post/on-gitversioning-subdirectories/</loc>
     <lastmod>2015-11-22T15:05:14+00:00</lastmod>

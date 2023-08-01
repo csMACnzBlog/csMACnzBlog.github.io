@@ -12,7 +12,242 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Tue, 10 Aug 2021 20:30:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Aug 2023 05:00:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My idea of an ideal CICD pipeline</title>
+      <link>https://blog.csmac.nz/post/my-idea-of-an-ideal-cicd-pipeline-2023/</link>
+      <pubDate>Tue, 01 Aug 2023 05:00:00 +0000</pubDate>
+      
+      <guid>https://blog.csmac.nz/post/my-idea-of-an-ideal-cicd-pipeline-2023/</guid>
+      <description>&lt;p&gt;This article represents my current thoughts around building and deploying software (circa 2023). It is a general straw man. As usual in software development, the caveats apply that there is no one size fits all silver bullet pattern. This is where I start as a &amp;ldquo;given no further constraints&amp;rdquo; approach. It is highly likely to be too complex for a single-dev piece of software and is equally as likely not to be suitable for large monolithic applications either. However, for software somewhere in between those two it may fit your needs as it does mine.&lt;/p&gt;
+&lt;h2 id=&#34;why-cicd&#34;&gt;Why CICD?&lt;/h2&gt;
+&lt;p&gt;My definition of &lt;code&gt;CICD&lt;/code&gt; is continuous static analysis, build, test, publish, deploy, verification and releasing to customers, for every change. While &lt;code&gt;CI&lt;/code&gt; stands for &lt;code&gt;Continuous Integration&lt;/code&gt;, CD ambiguously stands for either &lt;code&gt;Continuous Delivery&lt;/code&gt; or &lt;code&gt;Continuous Deployment&lt;/code&gt;, where &lt;code&gt;Delivery&lt;/code&gt; and &lt;code&gt;Deployment&lt;/code&gt; are equally ambiguous and have debatable definitions. So, while I will use the acronym here, see my definition above for what that means to me.&lt;/p&gt;
+&lt;p&gt;The crux of &lt;code&gt;CICD&lt;/code&gt; is: always shipping, always automatically.&lt;/p&gt;
+&lt;p&gt;This unintuitively implies having automated gates that can stop and halt these deployments, and that somewhere right at the beginning the automation is kicked off by an initial interaction or contribution (such as a file change in a code repository). Also, do have a rollback plan handy.&lt;/p&gt;
+&lt;p&gt;The benefits we are trying to achieve are faster feedback loops, and changing mindset to help find and fix issues sooner, much closer to where the associated change was thought through and implemented. This is often referred to as &lt;a href=&#34;https://devopedia.org/shift-left&#34;&gt;Shift Left&lt;/a&gt;. In other cases, it allows us to reduce the time between a production issue being discovered, and the last time that component was being worked on by a human (which could be the difference between months in between, and hours/minutes in between thanks to CICD).&lt;/p&gt;
+&lt;h2 id=&#34;a-brief-digression-into-testing&#34;&gt;A brief digression into testing&lt;/h2&gt;
+&lt;p&gt;Testing could be its own series of blog posts, so we will gloss over it slightly here. But it is necessary to say that automated testing is a large part of doing CICD well. And the ability to perform enough manual testing when required needs to be accounted for. This is how we achieve our safety and trust to enable straight-shot pipelines all the way to being in front of customers. We can look at a high-level view of these briefly.&lt;/p&gt;
+&lt;h3 id=&#34;automated-testing&#34;&gt;Automated Testing&lt;/h3&gt;
+&lt;p&gt;Automated testing should cover as much of the application as possible. This can range across unit tests, property-based tests, composition tests, mutation tests, boundary tests, snapshot tests, integration tests, acceptance tests, specification tests, regression tests, end-to-end tests, UI tests, smoke tests and any other kinds of tests you can think of to have run automated before code can go to production.&lt;/p&gt;
+&lt;p&gt;A new project might aim for a minimal subset of the above (such as unit, integration, and smoke) while a more established piece of software may have most or all of these in place.&lt;/p&gt;
+&lt;p&gt;The main goal in terms of CICD is to ensure most of your testing runs before merging in changes to a release candidate, and enough validation testing is run during and after deployment to ensure fidelity.&lt;/p&gt;
+&lt;h3 id=&#34;manual-testing&#34;&gt;Manual Testing&lt;/h3&gt;
+&lt;p&gt;Manual testing requires enough real dependencies to be meaningful, or else you may as well just automate any task that you are testing using fakes or mocks. Largely this is exploratory testing or deep testing of something complex requiring a human eye for validation.&lt;/p&gt;
+&lt;p&gt;The two tools I would lean on here are having a feature flagging and dark release pattern in your development process and having a secondary manual test environment to deploy pre-release changes to.&lt;/p&gt;
+&lt;p&gt;Feature flagging allows you to deploy to preproduction and production with inert functionality (sometimes called a shadow release). You can then enable this functionality either isolated to a canary server instance, per environment (e.g. preproduction only) or per user in a way that enables testers or beta users to interact with the flagged changes before a wider release.&lt;/p&gt;
+&lt;p&gt;Having an additional pre-production environment you can deploy changes to will enable Pull Requests or feature branches to be deployed there and manually tested before they are merged into a production candidate release.&lt;/p&gt;
+&lt;h2 id=&#34;reliability-engineering&#34;&gt;Reliability Engineering&lt;/h2&gt;
+&lt;p&gt;One aspect that makes this all come together and work is the developer thinking through production, and how they will know and trust it is working. Ongoing monitoring and alerting in place is a key part of this strategy. Without monitoring and alerting detecting and escalating issues you are effectively in chaos.&lt;/p&gt;
+&lt;p&gt;Automated tests catch the known failure scenarios, making sure they do not occur, or regress. But there are unknown failure scenarios, as well. We can detect these using signals such as error log count, &lt;code&gt;400&lt;/code&gt; or &lt;code&gt;500&lt;/code&gt; HTTP status codes, or request/response time spikes. These don&amp;rsquo;t tell us what the problem is but are great at signalling we do have a problem.&lt;/p&gt;
+&lt;p&gt;The feedback loop of monitoring tools alerting the developer who wrote the code (or their on-call proxy who can reach out to them) is what gives the confidence to release changes straight to production, complementing the other testing guards in place that catch the known issues before they reach customers so we can also catch these unknown issues after they reach customers.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve left automated rollback out of this pipeline currently, as it adds additional challenges in understanding what is safe and when it isn&amp;rsquo;t. However, this is the next step you would consider as you delved into the CICD space. Having a manual plan, though, is essential. (I often use roll-forward to roll back. Either with a re-deploy of an older version, or with a patch+merge+release - often both together.)&lt;/p&gt;
+&lt;h2 id=&#34;a-side-note-on-the-shape-of-software&#34;&gt;A side note on the shape of software&lt;/h2&gt;
+&lt;p&gt;What is it that we are testing and deploying?  My philosophy is to include everything that makes up this component. By which I mean the application, any infrastructure (using configuration-as-code) and any side-car utilities (such as queues, caches, stores etc) not shared with other components.&lt;/p&gt;
+&lt;p&gt;It follows that all our static verification and testing also covers these infra and sidecar deployments as well.&lt;/p&gt;
+&lt;p&gt;If you do have queues, stores, or caches that are shared, you will want to extract these as their own components and deployments separately. But I&amp;rsquo;ve found where these are coupled and self-contained to a particular application, then having them co-located in a repository and deployed in the same pipeline is a simplification worth having.&lt;/p&gt;
+&lt;p&gt;Also note that your configuration-as-code for anything in the permanent storage capacity has appropriate backups, as well as the right checks and balances to restrict the pipeline from doing anything destructive automatically.&lt;/p&gt;
+&lt;p&gt;If feasible, you might also leverage configuration as code for your monitoring and alerting tools in the same way through this pipeline.&lt;/p&gt;
+&lt;h2 id=&#34;the-pipeline&#34;&gt;The pipeline&lt;/h2&gt;
+&lt;p&gt;CICD is a pipeline, and these are the key phases and steps in that pipeline in my ideal model:&lt;/p&gt;
+
+
+
+&lt;div class=&#34;goat svg-container &#34;&gt;
+  
+    &lt;svg
+      xmlns=&#34;http://www.w3.org/2000/svg&#34;
+      font-family=&#34;monospace&#34;
+      
+        viewBox=&#34;0 0 1376 57&#34;
+      &gt;
+      &lt;g transform=&#39;translate(8,16)&#39;&gt;
+&lt;path d=&#39;M 0,0 L 120,0&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 168,0 L 200,0&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 248,0 L 360,0&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 408,0 L 584,0&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 632,0 L 776,0&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 824,0 L 968,0&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1016,0 L 1128,0&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1176,0 L 1360,0&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 120,16 L 144,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 216,16 L 240,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 360,16 L 400,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 584,16 L 624,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 776,16 L 816,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 968,16 L 1008,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1128,16 L 1168,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 0,32 L 120,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 168,32 L 200,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 248,32 L 360,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 408,32 L 584,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 632,32 L 776,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 824,32 L 968,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1016,32 L 1128,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1176,32 L 1360,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 0,0 L 0,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 120,0 L 120,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 120,16 L 120,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 248,0 L 248,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 360,0 L 360,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 360,16 L 360,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 408,0 L 408,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 584,0 L 584,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 584,16 L 584,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 632,0 L 632,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 776,0 L 776,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 776,16 L 776,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 824,0 L 824,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 968,0 L 968,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 968,16 L 968,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1016,0 L 1016,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1128,0 L 1128,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1128,16 L 1128,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1176,0 L 1176,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 1360,0 L 1360,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;polygon points=&#39;152.000000,16.000000 140.000000,10.400000 140.000000,21.600000&#39; fill=&#39;currentColor&#39; transform=&#39;rotate(0.000000, 144.000000, 16.000000)&#39;&gt;&lt;/polygon&gt;
+&lt;polygon points=&#39;248.000000,16.000000 236.000000,10.400000 236.000000,21.600000&#39; fill=&#39;currentColor&#39; transform=&#39;rotate(0.000000, 240.000000, 16.000000)&#39;&gt;&lt;/polygon&gt;
+&lt;polygon points=&#39;408.000000,16.000000 396.000000,10.400000 396.000000,21.600000&#39; fill=&#39;currentColor&#39; transform=&#39;rotate(0.000000, 400.000000, 16.000000)&#39;&gt;&lt;/polygon&gt;
+&lt;polygon points=&#39;632.000000,16.000000 620.000000,10.400000 620.000000,21.600000&#39; fill=&#39;currentColor&#39; transform=&#39;rotate(0.000000, 624.000000, 16.000000)&#39;&gt;&lt;/polygon&gt;
+&lt;polygon points=&#39;824.000000,16.000000 812.000000,10.400000 812.000000,21.600000&#39; fill=&#39;currentColor&#39; transform=&#39;rotate(0.000000, 816.000000, 16.000000)&#39;&gt;&lt;/polygon&gt;
+&lt;polygon points=&#39;1016.000000,16.000000 1004.000000,10.400000 1004.000000,21.600000&#39; fill=&#39;currentColor&#39; transform=&#39;rotate(0.000000, 1008.000000, 16.000000)&#39;&gt;&lt;/polygon&gt;
+&lt;polygon points=&#39;1176.000000,16.000000 1164.000000,10.400000 1164.000000,21.600000&#39; fill=&#39;currentColor&#39; transform=&#39;rotate(0.000000, 1168.000000, 16.000000)&#39;&gt;&lt;/polygon&gt;
+&lt;path d=&#39;M 168,0 A 16,16 0 0,0 152,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 200,0 A 16,16 0 0,1 216,16&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 152,16 A 16,16 0 0,0 168,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;path d=&#39;M 216,16 A 16,16 0 0,1 200,32&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;P&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;R&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;q&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;M&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;176&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;184&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;192&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;g&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;200&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;264&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;T&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;272&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;280&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;288&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;296&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;k&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;312&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;b&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;320&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;328&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;336&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;344&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;424&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;P&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;432&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;440&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;448&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;-&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;456&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;P&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;464&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;472&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;480&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;496&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;D&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;504&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;512&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;p&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;520&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;528&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;536&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;y&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;544&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;552&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;560&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;568&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;648&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;P&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;656&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;664&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;680&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;P&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;688&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;696&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;704&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;720&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;V&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;728&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;736&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;744&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;752&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;760&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;y&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;840&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;P&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;848&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;856&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;864&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;880&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;D&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;888&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;896&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;p&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;904&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;912&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;920&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;y&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;928&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;936&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;944&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;952&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1032&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;P&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1040&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1048&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1056&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1072&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;V&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1080&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1088&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1096&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1104&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1112&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;y&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1192&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;R&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1200&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1208&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1216&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1224&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1232&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1240&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1256&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;N&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1264&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1272&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1280&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1288&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1296&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1304&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1312&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1320&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1328&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1336&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
+&lt;text text-anchor=&#39;middle&#39; x=&#39;1344&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
+&lt;/g&gt;
+
+    &lt;/svg&gt;
+  
+&lt;/div&gt;&lt;p&gt;We will break this into a few chunks for a deeper discussion.&lt;/p&gt;
+&lt;h3 id=&#34;pre-merge&#34;&gt;Pre merge&lt;/h3&gt;
+&lt;p&gt;Ideally, I want trunk (e.g. &lt;code&gt;main&lt;/code&gt; branch) to always be production capable. Achieving this means ensuring the quality and fidelity of any changes before they are merged in. This may look like a Pull Request with automated pre-build checks (e.g. GitHub Actions) and code reviews. It may also look like git commit hooks that are run and confirmed ahead of a merge. Exactly what you implement here is dependent on the software in question, and the engineers working on it.&lt;/p&gt;
+&lt;p&gt;For me, this encompasses linting and other static analysis, security scanning, compiling, and executing all tests, and producing candidate artifacts that can also be verified and validated here too.&lt;/p&gt;
+&lt;p&gt;Ideally, for the fasted feedback, you want this to take as little time as possible. If this takes more than 10 minutes (ideally 5 or less) you will want to consider reducing scope, performance tuning, or potentially splitting something monolithic up somehow.&lt;/p&gt;
+&lt;h3 id=&#34;trunk-build&#34;&gt;Trunk Build&lt;/h3&gt;
+&lt;p&gt;At all times, you want to be able to validate trunk against the same lint, build and test as you would for any candidate commit. Ensuring you can run the same checks in both places maintains the validity of your trunk.&lt;/p&gt;
+&lt;p&gt;In addition, we would also take the generated artifacts and make them available to the further deployment processes coming up next in the pipeline. So our trunk build also publishes artifacts somewhere.&lt;/p&gt;
+&lt;h3 id=&#34;preproduction-deploy-and-verify&#34;&gt;Preproduction deploy and verify&lt;/h3&gt;
+&lt;p&gt;It is important to have an environment that is production-like but isn&amp;rsquo;t serving customers to first test your artifacts in. Despite your best efforts of testing, some bugs and misconfigurations can&amp;rsquo;t be spotted until you run a real deployment, and watch the software interact with real dependencies (or at least their preproduction equivalents).&lt;/p&gt;
+&lt;p&gt;Before deploying to production proper you will want to run through deployment and post-deployment verification testing in such an environment to provide extra automated confidence before reaching real customers.&lt;/p&gt;
+&lt;p&gt;This post-deployment verification is also your last chance to have automated checks catch issues before they get released out to real customers.&lt;/p&gt;
+&lt;p&gt;In some situations, this may be a canary or an early-adopters group, though ideally you want something without real customers to do this testing on, and instead use feature flags for beta user test groups, and any A/B testing.&lt;/p&gt;
+&lt;h3 id=&#34;production-deploy-and-verify&#34;&gt;Production Deploy and Verify&lt;/h3&gt;
+&lt;p&gt;It is now time to deploy to production. You&amp;rsquo;ve satisfied your tests and verified that it can work in a deployed environment after deploying, mitigating any issues in the production deployment process (which assumes your pre-prod and prod deployment processes are near-identical).&lt;/p&gt;
+&lt;p&gt;We repeat our deployment and verify steps once more only this time against our customer-facing production environment. Our change has now reached production.&lt;/p&gt;
+&lt;p&gt;If you do find production issues, you will want to go back and add regression checks to the testing at the appropriate point in the pipeline to make sure the same issue halts deployments in the future. This is one of the feedback cycles you need to adhere to when taking on CICD in this way, to strengthen the reliability and trust in the process.&lt;/p&gt;
+&lt;h3 id=&#34;notification&#34;&gt;Notification&lt;/h3&gt;
+&lt;p&gt;Once you have a deployed and verified production deployment, you&amp;rsquo;ll want to make sure anyone (or any system) that wants to know about it can do so.&lt;/p&gt;
+&lt;p&gt;Specifically, you want to have release notes publish, to have any APM systems notified of the release, Internal Comms published on something like Slack or Discord, as well as any documentation related to the changes updated and published.&lt;/p&gt;
+&lt;p&gt;Ideally, all of this is automated and automatic. For documentation and release notes, having a way to derive these from the source itself, or from the Source Control revision history or commit messages, or Pull Request titles etc. This saves a bunch of manual busy work which would otherwise distract a human on every deployment.&lt;/p&gt;
+&lt;p&gt;The same goes for using APIs to post to Slack or other chat systems to notify other internal or external stakeholders of the change. A great way to identify the cause of a system outage can be to know which of your dependencies have made releases around the time an outage was introduced. Be nice to your API consumers.&lt;/p&gt;
+&lt;h2 id=&#34;wrap-up&#34;&gt;Wrap Up&lt;/h2&gt;
+&lt;p&gt;The above largely outlines a strawman of my MVP. Ideally, I would go through and set up at least the skeleton of this for any new service where I expect it to live in production for any period of time. (If I don&amp;rsquo;t think this code will be productionised and is merely a toy or demo, such overhead isn&amp;rsquo;t worth investing in). This would largely be even before any functionality is implemented (e.g. deploying the new empty project).&lt;/p&gt;
+&lt;p&gt;Having the Pipeline in place, we continue to extend the testing to improve confidence in the deployment process, and this goes hand-in-hand with building out the functionality.&lt;/p&gt;
+&lt;p&gt;Iteratively and continuously build and ship the software to meet the requirements of the project of work.&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>An almost seamless transition from Ghost to Hugo</title>
       <link>https://blog.csmac.nz/post/an-almost-seamless-transition-from-ghost-to-hugo/</link>
@@ -1009,65 +1244,6 @@ from &lt;a href=&#34;https://twitter.com/suksr&#34;&gt;Susanne Kaiser&lt;/a&gt; 
 &lt;p&gt;Of course, most if not all of the talks were recorded and appear online (links added where available) but as usual you have missed the hallway conversations by not being here. These are usually the best part of any conference and this has been no exception.  One great conversation leads to quoting the statement that never had anyone said or seen a system that would be described as too gold plated, or too well tested. Most systems instead suffer from not being of a good enough quality or lacking in test coverage.&lt;/p&gt;
 &lt;p&gt;In other conversations being able to share structures and strategies gives insight into what is or isn&amp;rsquo;t working for other teams and companies and gives a relative look at where they are on their journey compared to you with yours. But based on the guidance and experience of others here, we all seem to be heading in a similar direction through SOA to DDD and Microservices.&lt;/p&gt;
 &lt;p&gt;Stay tuned for a summary of my day 3 experience.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Looking Back on C# 7: throw expressions</title>
-      <link>https://blog.csmac.nz/post/looking-back-on-csharp7-throw-expressions/</link>
-      <pubDate>Mon, 27 May 2019 10:30:00 +0000</pubDate>
-      
-      <guid>https://blog.csmac.nz/post/looking-back-on-csharp7-throw-expressions/</guid>
-      <description>&lt;p&gt;With C# 8 on our doorstep, I figure it is a good time to reflect on recent additions to the language that have come before. There are some great improvements you may have missed, some that I really enjoy using, and some I consider have reached canonical usage status that I think are all worth some reflection.&lt;/p&gt;
-&lt;p&gt;Throwing Exceptions is both a blessing and a curse in C#. You can throw from anywhere to unwind the stack. But adding exception throwing and handling code can cause overheads that you need to be wary of. Not to mention making the code harder to reason about with control flow.&lt;/p&gt;
-&lt;p&gt;Regardless, we have them, and we use them, so the language should make that as easy as possible to do so. with C# 7 this was enhanced to support using &lt;code&gt;throw&lt;/code&gt; as an expression. Up until this point, it was always a statement, which means there are places in the code that throw could not go.&lt;/p&gt;
-&lt;p&gt;One new language feature that only supports expressions and not statements is the Elvis Operator (or Null Conditional Operator, which we &lt;a href=&#34;looking-back-on-csharp6-elvis-operator/&#34;&gt;already looked back at&lt;/a&gt;) and another is the null coalescing operator. When it comes to validating code, these two features shine together.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; MyClass(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; firstArg, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; secondArg, Widget widget)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(firstArg &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(firstArg));
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(secondArg &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(secondArg));
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(widget &lt;span style=&#34;color:#66d9ef&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(widget));
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _firstArg = firstArg;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _secondArgLength = secondArg.Length;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _widget = widget;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So verbose! wouldn&amp;rsquo;t it be nice to collapse it together a bit?  With throw expressions, we can.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; MyClass(&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; firstArg, &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; secondArg, Widget widget)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _firstArg = firstArg ?? &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(firstArg));
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _secondArg = secondArg?.Length ?? &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(secondArg));
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _widget = widget ?? &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentNullException(nameof(widget));
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So much shorter and more concise. This saves typing time and reading the time. The magic is that the right-hand-side of the null coalescing operator has to take an expression that evaluates to the right type. Because throw is now an expression, it can do exactly that and satisfy the compilation.&lt;/p&gt;
-&lt;p&gt;Also remember how we looked at &lt;a href=&#34;https://blog.csmac.nz/looking-back-on-csharp6-expression-body-members&#34;&gt;Expression body members in C# 6&lt;/a&gt; and &lt;a href=&#34;looking-back-on-csharp7-more-expression-body-members&#34;&gt;more in c# 7&lt;/a&gt;? Well as the name suggests, the body &lt;em&gt;is&lt;/em&gt; an expression. Now that we have throw expressions, the bodies can use them too!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Widget&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Widget() =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArgumentException(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Requires arguments, none provided.&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; ~Widget() =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; NotSupportedException(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;What are you building that needs a destructor, anyway? (Just curious.)&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; MyValueProperty =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; NotImplementedException();
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;decimal&lt;/span&gt; CalculateTheAnswer() =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; NotImplementedException();
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; T[] _items = &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; T[&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;];
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; T &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i]
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;get&lt;/span&gt; =&amp;gt; _items?[i] ?? &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Exception(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Not initialised somehow.&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt; =&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; NotSupportedException(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;An interface made me do this.&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are other use-cases out there, expressions are used all over the place. But I will leave that as an exercise to the reader to discover along the way.&lt;/p&gt;
 </description>
     </item>
     
