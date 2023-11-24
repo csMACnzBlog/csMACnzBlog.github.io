@@ -310,6 +310,9 @@ pre code {
   .header-bar-twitter::before {
     background-image: url('/images/tiles/twittertile.png');
   }
+  .header-bar-mastodon::before {
+    background-image: url('/images/tiles/mastodontile.png');
+  }
 }
 @media screen and (min-width: 1100px) {
   .content-area {
