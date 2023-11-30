@@ -12,7 +12,68 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 26 Jul 2020 02:00:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/c-sharp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Dec 2023 11:18:13 +1300</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/c-sharp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>.NET Conf 2023 Review</title>
+      <link>https://blog.csmac.nz/post/dotnetconf-2023-review/</link>
+      <pubDate>Fri, 01 Dec 2023 11:18:13 +1300</pubDate>
+      
+      <guid>https://blog.csmac.nz/post/dotnetconf-2023-review/</guid>
+      <description>&lt;p&gt;This year I watched a bunch of the sessions from .NET Conf, both live streams and in the days following. I&amp;rsquo;ve collated my top recommendations and my reviews and thoughts on others that may be of interest to some Developers in the Microsoft ecosystem.&lt;/p&gt;
+&lt;p&gt;Without any further ado, we&amp;rsquo;ll crack into the must-watch list for 2023.&lt;/p&gt;
+&lt;h2 id=&#34;must-watch&#34;&gt;Must Watch&lt;/h2&gt;
+&lt;p&gt;Why not kick into it with the main keynote? This talk gives a great overview of all the great new advancements released as part of .Net 8 so you can learn more about what you want to dive deeper into.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/mna5fg7QGz8?si=dacpISAhXWlxlj-2&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Follow this up with a deeper dive into all the enhanced cloud-native capabilities delivered to us this year as well, including your first look at the new &lt;a href=&#34;https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview&#34;&gt;.Net Aspire stack&lt;/a&gt;.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/z1M-7Bms1Jg?si=lM3S7yGHrTUyhDad&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Pivoting to C# 12 which drops with .Net 8, check out the newest features to learn what&amp;rsquo;s been added to the language.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/by-GL-SjHdc?si=VgQodH7EAqNPozuN&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And if you are still on .Net 6 or a few versions behind on what has been developing, here is a wider look across the last few releases to catch up on what you&amp;rsquo;ve missed.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/Ci-FTnC-j84?si=39lYE-hDo-5pC4jn&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;But to round that off with the question &amp;ldquo;What should I do with all this new info?&amp;rdquo; I recommend Bill Wagner&amp;rsquo;s pragmatic view of Everyday C# to guide you in how to pick and choose the best bits for you.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/xZk8T-9kI3w?si=Ae-vb1ZvIw7TGmEG&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;a-focus-on-aspnet-core&#34;&gt;A focus on ASP.Net Core&lt;/h2&gt;
+&lt;p&gt;We now switch focus to the API hosting application space with ASP.Net Core. This part is probably not relevant to all Developers so I&amp;rsquo;ve kept it out of must-watch. However, if you are a web app or MVC Developer then these are probably still on your &amp;ldquo;must-watch&amp;rdquo; list according to me.&lt;/p&gt;
+&lt;p&gt;If you want a really good high-level overview, look no further than ASP.NET Basics for experts with Layla - covering minimal APIs, open telemetry and the new Aspire tooling.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/GDCMiBu_2gI?si=nQ4pFChTWSa60Nx1&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;For a more targeted look at Open Telemetry, I highly recommend this video, especially if you haven&amp;rsquo;t started your journey in this space as it has become easier to enable than ever.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/BnjHArsYGLM?si=p6o5rAWlaqo5Bw4I&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Similarly, whether you haven&amp;rsquo;t looked at Polly, or are already on the Polly train, this resiliency talk is a must-see.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/BDZpuFI8mMM?si=9eiaoA1iv_phOp1t&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;dive-deeper-into-specifics&#34;&gt;Dive deeper into specifics&lt;/h2&gt;
+&lt;p&gt;Here are some great deep dives into areas you may have some familiarity with but want to get a deep look into.&lt;/p&gt;
+&lt;p&gt;Starting with a configuration Deep dive, to catch you up on the power of the IConfiguration patterns built into .Net.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/aOXaBZFB0-0?si=v8Zw4K1hLwobfCFC&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And if you are working with containers at all you&amp;rsquo;ll watch to check out the latest advancements here&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/scIAwLrruMY?si=_aVsNFlyBPHub_tp&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;There were some great architecture talks, especially for organising your code in large systems.&lt;/p&gt;
+&lt;p&gt;Starting with a great Vertical Slice Architecture talk that opens with a brilliant overview of spaghetti, layered, and clean architecture to set the scene first.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/T-EwN9UqRwE?si=O4Lp4Aqp6Pant3u3&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;(Here is an earlier presentation to help fill the gaps where the live demo gods failed us on the day -
+&lt;a href=&#34;https://youtu.be/dMgj1MdwrRE&#34;&gt;Pick a Side - Clean vs Vertical Slice Architecture | Luke Parker&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;And if you are still sold on Clean Architecture after those videos, you will want to check out this great talk from Steve Smith.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/yF9SwL0p0Y0?si=gBtfFCPUUCbw_5_6&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;blazor&#34;&gt;Blazor&lt;/h2&gt;
+&lt;p&gt;Blazor is going to be a small subset of Developers still, so whether you are new to it and want to learn more, or use it and want to see what is new, this video will satisfy you.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/YwZdtLEtROA?si=y56PMdQlZdcF3XKc&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;niche-pro-user-tools&#34;&gt;Niche pro-user tools&lt;/h2&gt;
+&lt;p&gt;For those already more familiar with most of what .Net has to offer, there were some great deep-dives into some technologies that won&amp;rsquo;t be for every day, but have some very specific use cases you may cross paths with.&lt;/p&gt;
+&lt;p&gt;Starting with the new source generators:&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/Yf8t7GqA6zA?si=UP-BqhOAsoqPLevk&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And a great reverse-proxy solution called YARP (Yet Another Reverse Proxy)&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/P8y8NAroVKk?si=tgJNJhm9ikn_atES&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And for the Swagger/OpenAPI users, we get an introduction to &lt;a href=&#34;https://learn.microsoft.com/en-us/openapi/kiota/overview&#34;&gt;Kiota&lt;/a&gt; - an opinionated cross-platform client code generator for open API specifications.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/sQ9Pv-rQ1s8?si=WNItKbCTxDohjnHF&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;If you want to build and distribute &lt;code&gt;dotnet new&lt;/code&gt; templates of your own, take a look at Making templates with Rob Conery:&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/XzD-95qfWJM?si=C9npWhtL-QU7Rsjs&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;and-more&#34;&gt;And more&lt;/h2&gt;
+&lt;p&gt;This is by no means the total list of all the sessions. If you haven&amp;rsquo;t seen what you were looking for here, there is a &lt;a href=&#34;https://sessionfinder.dotnetconf.net/&#34;&gt;Session Finder&lt;/a&gt; to search for more videos to watch and learn.&lt;/p&gt;
+&lt;p&gt;The conference website as always is found at &lt;a href=&#34;https://www.dotnetconf.net/&#34;&gt;dotnetconf.net&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;See you all for the next one in 2024! Happy viewing.&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>Nullable and notnull Serialisation Properties</title>
       <link>https://blog.csmac.nz/post/nullable-and-notnull-serialisation-properties/</link>
@@ -1298,201 +1359,6 @@ app.UseCustomisedMvc();
 &lt;p&gt;However, if you have a more aspect-specific &lt;code&gt;MapWhen&lt;/code&gt;, (such as &amp;ldquo;When the URL is &lt;code&gt;/ping&lt;/code&gt; return a 200&amp;rdquo;) this can probably still be pulled out into an Extension. The above only really applies when you have branched complex middleware pipelines.&lt;/p&gt;
 &lt;h3 id=&#34;sample&#34;&gt;Sample&lt;/h3&gt;
 &lt;p&gt;I ran a &lt;code&gt;dotnet new mvc&lt;/code&gt; to produce a new project. I created a before and after version and you can see an example of the refactoring following the above rules. This can be found at &lt;a href=&#34;https://github.com/csMacnzBlog/CleanStartup&#34;&gt;github.com/csMacnzBlog/CleanStartup&lt;/a&gt;. There is also a &lt;a href=&#34;https://github.com/csMacnzBlog/CleanStartup/blob/FullPipeline/after/Startup.cs&#34;&gt;Full Pipeline branched version&lt;/a&gt; available.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>My C# naming conventions</title>
-      <link>https://blog.csmac.nz/post/my-c-naming-conventions/</link>
-      <pubDate>Sun, 25 Mar 2018 05:00:00 +0000</pubDate>
-      
-      <guid>https://blog.csmac.nz/post/my-c-naming-conventions/</guid>
-      <description>&lt;p&gt;I have opinions!&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;ve been meaning to write this article for a while.  I have various opinions about code formatting, and they may or may not conform to the norm. Also, they change occasionally as and when I get a good explanation of why a different way is better, or when I discover a technique while learning a language that I just have to incorporate into my C# code.&lt;/p&gt;
-&lt;p&gt;Firstly, let&amp;rsquo;s just say that there are Guidelines and Opinions. I might not be clear exactly which one something is below, but it will be one or the other.  That means that what I say won&amp;rsquo;t fit all situations. Don&amp;rsquo;t take it as a hard and fast rule. Use your own judgement.&lt;/p&gt;
-&lt;p&gt;Also, I love feedback, it is how I change and evolve my own style. I would love to revisit this in another couple of years and share how it might have changed. Please leave comments at the end.&lt;/p&gt;
-&lt;p&gt;One final thought before I start: Decide this as a team. If your whole team have individual styles and conventions, the code can feel like reading a book with multiple authors, disjointed and hard to follow. Just like a book, different chapters can have different authors and work well, the code can have different styles in different modules (libraries, packages, repositories). As long as the whole team is using the same style in the same code together, it will become more cohesive to read, write and maintain. And that is the ultimate point of applying Style Guidelines in the first place.&lt;/p&gt;
-&lt;h2 id=&#34;an-overview&#34;&gt;An Overview&lt;/h2&gt;
-&lt;p&gt;Before I go into my styles, let&amp;rsquo;s look at something more general, and standard.&lt;/p&gt;
-&lt;h3 id=&#34;microsoft-guidance&#34;&gt;Microsoft Guidance&lt;/h3&gt;
-&lt;p&gt;Starting with something simple. If you are new to Microsoft Development and .Net, I would recommend reading their &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/naming-guidelines&#34;&gt;Naming Guidelines&lt;/a&gt; and &lt;a href=&#34;https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/general-naming-conventions&#34;&gt;General Naming Conventions&lt;/a&gt;. At the very least, it makes it easier to read other peoples code. If they write in C#, there is a high chance that they follow these guidelines. Either because they are part of a team that enforces them or the tooling uses it by default (Visual Studio, VSCode, Resharper, Rider etc) by their auto-formatter, or something like &lt;a href=&#34;https://github.com/dotnet/roslyn-analyzers#recommended-version-of-analyzer-packages&#34;&gt;FxCop&lt;/a&gt; or &lt;a href=&#34;https://github.com/StyleCop/StyleCop&#34;&gt;StyleCop&lt;/a&gt; is enforcing it.&lt;/p&gt;
-&lt;p&gt;I may deviate a little, but this guidance was my starting point when I first began writing C# code.&lt;/p&gt;
-&lt;h3 id=&#34;contracts-public-vs-private&#34;&gt;Contracts: Public Vs Private&lt;/h3&gt;
-&lt;p&gt;There are two places where you can apply your style and convention. Internally in your code, as you write it, and externally in the public API and contracts that your library exposes to other programs to use.&lt;/p&gt;
-&lt;p&gt;Before taking anything else into account, I recommend that any public signatures (e.g. naming conventions - class names, method names, parameter names, properties etc) Should follow the guidance from Microsoft. People using your library should not have to deal with your style and conventions, they should match what the expected C# library conventions are. This can also include protected methods and properties if your library is extensible.&lt;/p&gt;
-&lt;p&gt;Inside your code, its all up to you. Anything private (and protected if the class is sealed) is never exposed to the consumer, you can do what you like. Similarly, the layout of your code (whitespace, braces, class/file distribution) is all up to you (and your team).&lt;/p&gt;
-&lt;h2 id=&#34;check-out-m-style&#34;&gt;Check Out M&amp;rsquo; Style&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s get specific on how I do.&lt;/p&gt;
-&lt;p&gt;In general my rules are pretty hard to describe, so hopefully, the examples will help (I will use &lt;code&gt;•&lt;/code&gt; as the representative of space and &lt;code&gt;⟶&lt;/code&gt; as the representative of tab - SPOILER: I will never use this tab character&amp;hellip;)&lt;/p&gt;
-&lt;h3 id=&#34;naming-conventions&#34;&gt;Naming Conventions&lt;/h3&gt;
-&lt;p&gt;Every person and every language has their own approach to naming conventions. In C# there are a few basics: Capital letters starting Namespaces, Classes, Methods, and Properties and we use &lt;code&gt;PascalCase&lt;/code&gt; by default, and not underscores.  Properties do not start their name with &amp;ldquo;Get&amp;rdquo;.&lt;/p&gt;
-&lt;p&gt;I stick to this as a strong rule. All methods, All Properties, anything public.&lt;/p&gt;
-&lt;p&gt;In general, variables and parameters use &lt;code&gt;camelCase&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;I use a couple of conventions for naming things well. For instance, I might name something that is a boolean &lt;code&gt;IsOpen&lt;/code&gt; rather than &lt;code&gt;Open&lt;/code&gt; or &lt;code&gt;Opened&lt;/code&gt;, and for a setting &lt;code&gt;CanOpen&lt;/code&gt;.  &lt;code&gt;Is&lt;/code&gt; and &lt;code&gt;Can&lt;/code&gt; prefixes help readability of the code a lot. This is for properties but applies to methods just as much.&lt;/p&gt;
-&lt;p&gt;Private fields always (always) start with an underscore (&lt;code&gt;_&lt;/code&gt;). When you are reading code, it makes it easier to determine what belongs to the method, and what belongs to the class.&lt;/p&gt;
-&lt;p&gt;Use long descriptive names, not single letter variables. Even if you are using Linq, if the name of the item in the lambda isn&amp;rsquo;t obvious, still use a full name as the lambda parameter.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// bad
-var names = data.Select(w =&amp;gt; w.Name).ToList();
-
-// better
-var names = data.Select(widget =&amp;gt; widget.Name).ToList();
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;hungarian-notation&#34;&gt;Hungarian Notation&lt;/h3&gt;
-&lt;p&gt;Related to naming things is &lt;a href=&#34;https://en.wikipedia.org/wiki/Hungarian_notation&#34;&gt;Hungarian Notation&lt;/a&gt;. Now there are two interpretations to this, the wrong one, and the original one. Most people remember Visual Basic, and using &lt;code&gt;btnSave&lt;/code&gt; and &lt;code&gt;txtName&lt;/code&gt; for UI controls, or the terrible &lt;code&gt;strName&lt;/code&gt;.  This is the wrong interpretation of HN. Notation shouldn&amp;rsquo;t be re-declaring the type which the reader can discover themselves, but instead to indicate the meaning of the data to avoid ambiguity. I think the name people use for the correct way is &amp;ldquo;Apps Hungarian&amp;rdquo;.&lt;/p&gt;
-&lt;p&gt;Anyway, I use this when it is useful.  My simplest example is when I have an argument that is an &lt;code&gt;int&lt;/code&gt; providing a time. I will call my parameter &lt;code&gt;timeoutInSeconds&lt;/code&gt;. Not strictly Hungarian Notation, but serves a similar purpose.  Of course, if it makes more sense, I will use a &lt;code&gt;TimeSpan&lt;/code&gt; instead, but sometimes an integer amount of seconds is a better API.&lt;/p&gt;
-&lt;p&gt;This also extends to units of measure. If we are using real world values we name the variables with their unit of measure.  &lt;code&gt;lengthInMeters&lt;/code&gt; and &lt;code&gt;lengthInInches&lt;/code&gt; helps the readability of code, especially when you have to mix units. Also if your mixing amounts with volumes, it helps to have &lt;code&gt;qtyAmount&lt;/code&gt;, &lt;code&gt;mnyUnitCost&lt;/code&gt; and &lt;code&gt;mnyTotal&lt;/code&gt; to identify which decimal is a quantity, and which is a monitary amount.&lt;/p&gt;
-&lt;p&gt;Or better yet, use &lt;a href=&#34;https://blog.csmac.nz/semantics-vs-implementation-detail/&#34;&gt;Value Types&lt;/a&gt; for all of the above, instead.&lt;/p&gt;
-&lt;h3 id=&#34;method-signatures&#34;&gt;Method signatures&lt;/h3&gt;
-&lt;p&gt;If anything in this article will surprise you, it is probably this one.&lt;/p&gt;
-&lt;p&gt;I can&amp;rsquo;t remember when I first saw this, but it took years to finally sink in and for me to &lt;a href=&#34;https://en.wikipedia.org/wiki/Grok&#34;&gt;grok&lt;/a&gt; it. It has to do with long signatures.&lt;/p&gt;
-&lt;p&gt;First, try not to have long signatures. decompose your classes to shrink their constructors, and use Parameter Objects to pass around instead.&lt;/p&gt;
-&lt;p&gt;Sometimes the problem isn&amp;rsquo;t the number of arguments, but the names of those arguments. Nice long descriptive class names will quickly lead to this problem, even with only two or three parameters, especially Constructors when IOC is in play (which is always, right?).&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public•class•MyClass
-{
-••••public•MyClass•(MyFirstDependentServiceWithALongName•myFirstDependentServiceWithALongName,•AnotherDependencyYouNeed•anotherDependencyYouNeed)
-••••{
-••••}
-
-...
-
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Is your screen wrapping, or is it just me?&lt;/p&gt;
-&lt;p&gt;There are two problems with this style.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;You need to scroll your code window to see the whole signature, and when you scroll you lose the rest of your code. (I don&amp;rsquo;t care how wide your screen is, this can and will still happen.)&lt;/li&gt;
-&lt;li&gt;Your source control tool with thrash on the signature line, with high potential for merge conflicts and such during development.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Like I say, it took me years after reading this idea before actually using it. Let it stew a bit in your mind.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public•class•MyClass
-{
-••••public•MyClass•(
-••••••••MyFirstDependentServiceWithALongName•myFirstDependentServiceWithALongName,
-••••••••AnotherDependencyYouNeed•anotherDependencyYouNeed)
-••••{
-••••}
-
-...
-
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We put each argument on a new line. They are indented an additional four spaces (the default indentation amount for one indent level).  That last closing brace is on the same line as the last argument. (Because it will have to change to a &lt;code&gt;,&lt;/code&gt; anyway if we adding another arg, and the function body braces work better with it that way.)&lt;/p&gt;
-&lt;p&gt;Always, always put the first argument on a new line. If you don&amp;rsquo;t, the indentation is too wide, and if you rename the method, the indentation would keep shifting. You want to keep a stable, predictable indentation, within a method, and between methods. Consistency. (Again, this helps source control)&lt;/p&gt;
-&lt;p&gt;Let&amp;rsquo;s see that without the visible whitespace:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public class MyClass
-{
-    public MyClass (
-        MyFirstDependentServiceWithALongName myFirstDependentServiceWithALongName,
-        AnotherDependencyYouNeed anotherDependencyYouNeed)
-    {
-    }
-
-...
-
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I find this style much easier to read, now.&lt;/p&gt;
-&lt;p&gt;It even works during the method calls:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var result = ProcessData(
-    inputData,
-    customers,
-    authorisationData,
-    filterOptions,
-    sortOptions);
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The main take-away for me is, follow the Yoda method. Do or do not.&lt;/p&gt;
-&lt;p&gt;Always put everything on one line, or always put all arguments on their own lines.&lt;/p&gt;
-&lt;h3 id=&#34;braces&#34;&gt;Braces&lt;/h3&gt;
-&lt;p&gt;Braces go on new lines, not like &lt;code&gt;JavaScript&lt;/code&gt; where they start on the same line as the header line. Pretty sure that is standard.&lt;/p&gt;
-&lt;p&gt;Always use braces when optional.&lt;/p&gt;
-&lt;p&gt;So there is some great guidance that &lt;code&gt;if&lt;/code&gt; statements and similar should only ever have one statement, so the braces for a body block should never be necessary. That&amp;rsquo;s fine.  But the main reason for overriding it with my rule is the following. With no braces, you leave that code open to an edit vulnerability that can trick even the most experienced programmer to miss because our brains love to trick us.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;if (someCondition(withAnArg))
-    DoWork();
-    
-if (aDifferentCondition(wthAnotherArg))
-    DoDifferentWork();
-    ButAlsoDoAnotherThing();
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;That second example is lying to you.&lt;/p&gt;
-&lt;p&gt;look again with braces:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;if (someCondition(withAnArg))
-{
-    DoWork();
-}
-    
-if (aDifferentCondition(wthAnotherArg))
-{
-    DoDifferentWork();
-}
-    ButAlsoDoAnotherThing();
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Even without fixing the whitespace, there is no mistaking what the second set of code does, whether you can read C# or not. It is far too easy for someone to start with code like the first &lt;code&gt;if (someCondition(withAnArg))&lt;/code&gt; and add another line that they think is inside the condition, but actually isn&amp;rsquo;t, like what has happened to the &lt;code&gt;if (aDifferentCondition(wthAnotherArg))&lt;/code&gt; condition in the first example.&lt;/p&gt;
-&lt;p&gt;That is why I always enforce braces.&lt;/p&gt;
-&lt;p&gt;Lambdas are fine. you can leave out the braces on one-liner lambdas because the compiler will sort you out if you get that wrong.&lt;/p&gt;
-&lt;h3 id=&#34;general-whitespace&#34;&gt;General Whitespace&lt;/h3&gt;
-&lt;p&gt;StyleCop has really helped me get stricter with my whitespace, enforcing my rules at compile time.&lt;/p&gt;
-&lt;p&gt;These are really minor things, but I find they aid readability.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Use a space before &lt;code&gt;(&lt;/code&gt; in method signatures (but not in calls)&lt;/li&gt;
-&lt;li&gt;(As Mentioned above) signatures on lines longer than 80 chars wide puts each arg on a new line.&lt;/li&gt;
-&lt;li&gt;If you have your curly braces (&lt;code&gt;{&lt;/code&gt; &lt;code&gt;}&lt;/code&gt;) on one line, they should have spaces on either side.&lt;/li&gt;
-&lt;li&gt;between class names and the base-class/interface, one space either side of the colon (&lt;code&gt;public class MyClass : IMyInterface&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;spaces either side of lambda arrows (&lt;code&gt;w =&amp;gt; w.Name&lt;/code&gt;)  (Also most symbols really)&lt;/li&gt;
-&lt;li&gt;One space after starting a comment line/block (This is law, &lt;a href=&#34;https://stackoverflow.blog/2018/03/14/podcast-123-jon-skeet-wants-you-to-be-a-feminist/&#34;&gt;John Skeet declared it so on a podcast&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;Use 4 spaces for indentation&lt;/li&gt;
-&lt;li&gt;No tabs, ever&lt;/li&gt;
-&lt;li&gt;No spaces on empty lines (Just being anal)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Mostly, I just follow the Out-Of-The-Box settings from StyleCop.&lt;/p&gt;
-&lt;h3 id=&#34;privates&#34;&gt;Privates&lt;/h3&gt;
-&lt;p&gt;As mentioned, I enforce underscore (&lt;code&gt;_&lt;/code&gt;) prefixes for private fields. And &lt;a href=&#34;http://stackoverflow.com/questions/4540146/naming-convention-for-private-fields/11461218#11461218&#34;&gt;I am not alone&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;(stolen from the comment linked above:)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;It eliminates conflicts with camel-cased parameter names - no need to use &amp;ldquo;this&amp;rdquo;&lt;/li&gt;
-&lt;li&gt;It&amp;rsquo;s a visual indicator that the internal persistent state of the object is being read, or - more importantly - being written. It&amp;rsquo;s a flag saying &lt;em&gt;&amp;ldquo;this has side effects outside of the particular method I happen to be looking at&amp;rdquo;&lt;/em&gt;, which is very important to know when looking at unfamiliar code.&lt;/li&gt;
-&lt;li&gt;Although you can apply the above as a reverse argument for &lt;code&gt;this&lt;/code&gt;, the above will be enforced by the compiler non-optional, while &lt;code&gt;this&lt;/code&gt; can be left off by choice.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Statics tend to vary a bit. If they are &lt;code&gt;static&lt;/code&gt; and &lt;code&gt;readonly&lt;/code&gt;, I have been known to use a starting Capital letter &lt;code&gt;PascalCase&lt;/code&gt;. For consistency, often Mutable Statics are named the same.&lt;/p&gt;
-&lt;p&gt;I have been known to use ALLCAPS for Constants. This is a carry-over from C I suspect but makes it easier to spot a Constant in code. Sometimes this feels too harsh, and I may use &lt;code&gt;PascalCase&lt;/code&gt; here instead. What is the difference to the end user between a &lt;code&gt;private static readonly&lt;/code&gt; and a &lt;code&gt;private const&lt;/code&gt; anyway?&lt;/p&gt;
-&lt;p&gt;My thinking is that if it starts with a Capital letter (&lt;code&gt;PascalCase&lt;/code&gt;), it isn&amp;rsquo;t owned by you. Either it belongs to the class you called to get it (property) or it doesn&amp;rsquo;t belong to this instance (Static). For this thinking, I often will use Pascal Case for Protected fields as well, so that derived classes can tell they do not own it, either.&lt;/p&gt;
-&lt;p&gt;These rules are a bit less thought through, and I don&amp;rsquo;t tend to be any stricter than my tooling tells me to be. (If Resharper or StyleCop says to change it, I usually will.)&lt;/p&gt;
-&lt;h3 id=&#34;tests&#34;&gt;Tests&lt;/h3&gt;
-&lt;p&gt;This is probably the most controversial and the most varied. Somehow, when it comes to tests, it feels easier to break the rules.&lt;/p&gt;
-&lt;p&gt;Don&amp;rsquo;t get me wrong, I subscribe to Uncle Bob, and your tests should be given the care and attention that any of your code is given. SOLID, DRY, Coupling vs cohesion, modularisation etc etc.  But tests exercise requirements, so readability is more important than expected standards.  Also, tests are all under your domain, your style can flourish, you are the only consumer.&lt;/p&gt;
-&lt;p&gt;What I am talking about primarily is using underscores in test names rather than strict PascalCase.&lt;/p&gt;
-&lt;p&gt;I have been experimenting, and I have two approaches I use:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Every_Word_Is_Seperated_By_An_Underscore_So_That_It_Forms_A_Descriptive_Sentence&lt;/li&gt;
-&lt;li&gt;GivenIHaveATestMethod_WhenINeedToNameIt_ThenISeperateTheGivenWhenThenComponentsByUnderscores&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I have more recently extended my ideas to following this further guidance of organising tests to now use nested classes, and inheritance:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;public class GivenIHaveAUser
-{
-    public class GivenIHaveLoggedIn : GivenIHaveAUser
-    {
-        public class GivenINavigateToTheFormPage : GivenIHaveLoggedIn
-        {
-            public class GivenISubmitAValidForm : GivenINavigateToTheFormPage
-            {
-                [Test]
-                public void ItSubmitsSuccessfully()
-                {
-                   ...
-                }
-            }
-
-            public class GivenISubmitAnInvalidForm : GivenINavigateToTheFormPage
-            {
-                [Test]
-                public void ItShowsValidationMessages()
-                {
-                   ...
-                }
-            }
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;automation&#34;&gt;Automation&lt;/h3&gt;
-&lt;p&gt;If you want to really care about the style of your code, I recommend installing a few NuGet packages into your projects to get compile-time enforcement (don&amp;rsquo;t worry, the rules are configurable):&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;PackageReference Include=&amp;#34;Microsoft.CodeAnalysis.FxCopAnalyzers&amp;#34; Version=&amp;#34;2.6.0&amp;#34;  PrivateAssets=&amp;#34;All&amp;#34; /&amp;gt;
-&amp;lt;PackageReference Include=&amp;#34;codecracker.CSharp&amp;#34; Version=&amp;#34;1.0.3&amp;#34; PrivateAssets=&amp;#34;All&amp;#34; /&amp;gt;
-&amp;lt;PackageReference Include=&amp;#34;StyleCop.Analyzers&amp;#34; Version=&amp;#34;1.1.0-beta004&amp;#34; PrivateAssets=&amp;#34;All&amp;#34; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(That needs a whole article in itself, but this is a taster.)&lt;/p&gt;
-&lt;h3 id=&#34;the-end&#34;&gt;The End&lt;/h3&gt;
-&lt;p&gt;I hope you enjoyed reading and thinking about code formatting. If you haven&amp;rsquo;t taken something away to try, read it again and find something to challenge me on. If you can&amp;rsquo;t make an argument for or against, maybe give it a go yourself, or suggest it to your team.&lt;/p&gt;
 </description>
     </item>
     

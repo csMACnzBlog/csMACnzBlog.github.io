@@ -87,6 +87,17 @@
   <h1>dotnetcore tags</h1>
   <span class="post-meta">in <a href="/tags">tags</a></span><div>
     <header class="post-header">
+        <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/dotnet-build-targeting-full-net451-on-nanoserver-2/" rel="bookmark">dotnet build, targeting full .Net 4.5.1 on nanoserver docker</a></h2><span class="post-meta"><time datetime="2017-03-31"  itemprop="datePublished">31 Mar 17</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/dotnetcore">dotnetcore</a>,  <a href="/tags/docker">docker</a>,  <a href="/tags/tips-and-tricks">Tips and Tricks</a></span>
+<a href="/post/dotnet-build-targeting-full-net451-on-nanoserver-2/#disqus_thread"></a>
+    </header>
+
+    <section class="post-excerpt" itemprop="description">
+        <p>I have been struggling to get dotnet build to work on nanoserver via docker. I had already given up on git, because I can perform git tasks outside the container first.
+Basically I was trying this:
+docker run -v &#34;$(pwd):C:/work&#34; -w C:/work -it --rm microsoft/dotnet:1.1.1-sdk-nanoserver powershell build.ps1 This …</p>
+    </section>
+</div><div>
+    <header class="post-header">
         <h2 class="post-title" itemprop="headline"><a class="post-title-link" href="/post/migrating-onto-dotnet-tools-1-0-0/" rel="bookmark">Migrating onto dotnet tools 1.0.0</a></h2><span class="post-meta"><time datetime="2017-03-11"  itemprop="datePublished">11 Mar 17</time> in <a href="/categories/software-engineering">Software Engineering</a> on <a href="/tags/dotnetcore">dotnetcore</a>,  <a href="/tags/c-sharp">C Sharp</a>,  <a href="/tags/visual-studio">Visual Studio</a></span>
 <a href="/post/migrating-onto-dotnet-tools-1-0-0/#disqus_thread"></a>
     </header>
@@ -299,7 +310,7 @@ Getting Started &lt;=(We are here) What&rsquo;s in the box Using Multiple Projec
             <footer class="footer-area">
 
             <p>
-                Designed and Maintained by Mark Clearwater; Last updated August 2021.
+                Designed and Maintained by Mark Clearwater; Last updated November 2023.
                 <!-- This used to be something useful, now it is just a hack I left it to make layout easier but also as a fun reminder for me of what it used to be -->
                 <br /><a class="footer-link" >¯\_(ツ)_/¯</a>
             </p>

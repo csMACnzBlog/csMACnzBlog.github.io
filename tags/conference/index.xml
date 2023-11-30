@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>conference on csMACnz&#39;s Blog</title>
+    <link>https://blog.csmac.nz/tags/conference/</link>
+    <description>Recent content in conference on csMACnz&#39;s Blog</description>
+    <image>
+      <url>https://blog.csmac.nz/favicon.png</url>
+      <title>csMACnz&#39;s Blog</title>
+      <link>https://blog.csmac.nz</link>
+    </image>
+    <ttl>1440</ttl>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-nz</language>
+    <lastBuildDate>Fri, 01 Dec 2023 11:18:13 +1300</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/conference/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>.NET Conf 2023 Review</title>
+      <link>https://blog.csmac.nz/post/dotnetconf-2023-review/</link>
+      <pubDate>Fri, 01 Dec 2023 11:18:13 +1300</pubDate>
+      
+      <guid>https://blog.csmac.nz/post/dotnetconf-2023-review/</guid>
+      <description>&lt;p&gt;This year I watched a bunch of the sessions from .NET Conf, both live streams and in the days following. I&amp;rsquo;ve collated my top recommendations and my reviews and thoughts on others that may be of interest to some Developers in the Microsoft ecosystem.&lt;/p&gt;
+&lt;p&gt;Without any further ado, we&amp;rsquo;ll crack into the must-watch list for 2023.&lt;/p&gt;
+&lt;h2 id=&#34;must-watch&#34;&gt;Must Watch&lt;/h2&gt;
+&lt;p&gt;Why not kick into it with the main keynote? This talk gives a great overview of all the great new advancements released as part of .Net 8 so you can learn more about what you want to dive deeper into.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/mna5fg7QGz8?si=dacpISAhXWlxlj-2&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Follow this up with a deeper dive into all the enhanced cloud-native capabilities delivered to us this year as well, including your first look at the new &lt;a href=&#34;https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview&#34;&gt;.Net Aspire stack&lt;/a&gt;.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/z1M-7Bms1Jg?si=lM3S7yGHrTUyhDad&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Pivoting to C# 12 which drops with .Net 8, check out the newest features to learn what&amp;rsquo;s been added to the language.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/by-GL-SjHdc?si=VgQodH7EAqNPozuN&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And if you are still on .Net 6 or a few versions behind on what has been developing, here is a wider look across the last few releases to catch up on what you&amp;rsquo;ve missed.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/Ci-FTnC-j84?si=39lYE-hDo-5pC4jn&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;But to round that off with the question &amp;ldquo;What should I do with all this new info?&amp;rdquo; I recommend Bill Wagner&amp;rsquo;s pragmatic view of Everyday C# to guide you in how to pick and choose the best bits for you.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/xZk8T-9kI3w?si=Ae-vb1ZvIw7TGmEG&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;a-focus-on-aspnet-core&#34;&gt;A focus on ASP.Net Core&lt;/h2&gt;
+&lt;p&gt;We now switch focus to the API hosting application space with ASP.Net Core. This part is probably not relevant to all Developers so I&amp;rsquo;ve kept it out of must-watch. However, if you are a web app or MVC Developer then these are probably still on your &amp;ldquo;must-watch&amp;rdquo; list according to me.&lt;/p&gt;
+&lt;p&gt;If you want a really good high-level overview, look no further than ASP.NET Basics for experts with Layla - covering minimal APIs, open telemetry and the new Aspire tooling.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/GDCMiBu_2gI?si=nQ4pFChTWSa60Nx1&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;For a more targeted look at Open Telemetry, I highly recommend this video, especially if you haven&amp;rsquo;t started your journey in this space as it has become easier to enable than ever.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/BnjHArsYGLM?si=p6o5rAWlaqo5Bw4I&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Similarly, whether you haven&amp;rsquo;t looked at Polly, or are already on the Polly train, this resiliency talk is a must-see.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/BDZpuFI8mMM?si=9eiaoA1iv_phOp1t&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;dive-deeper-into-specifics&#34;&gt;Dive deeper into specifics&lt;/h2&gt;
+&lt;p&gt;Here are some great deep dives into areas you may have some familiarity with but want to get a deep look into.&lt;/p&gt;
+&lt;p&gt;Starting with a configuration Deep dive, to catch you up on the power of the IConfiguration patterns built into .Net.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/aOXaBZFB0-0?si=v8Zw4K1hLwobfCFC&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And if you are working with containers at all you&amp;rsquo;ll watch to check out the latest advancements here&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/scIAwLrruMY?si=_aVsNFlyBPHub_tp&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;There were some great architecture talks, especially for organising your code in large systems.&lt;/p&gt;
+&lt;p&gt;Starting with a great Vertical Slice Architecture talk that opens with a brilliant overview of spaghetti, layered, and clean architecture to set the scene first.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/T-EwN9UqRwE?si=O4Lp4Aqp6Pant3u3&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;(Here is an earlier presentation to help fill the gaps where the live demo gods failed us on the day -
+&lt;a href=&#34;https://youtu.be/dMgj1MdwrRE&#34;&gt;Pick a Side - Clean vs Vertical Slice Architecture | Luke Parker&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;And if you are still sold on Clean Architecture after those videos, you will want to check out this great talk from Steve Smith.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/yF9SwL0p0Y0?si=gBtfFCPUUCbw_5_6&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;blazor&#34;&gt;Blazor&lt;/h2&gt;
+&lt;p&gt;Blazor is going to be a small subset of Developers still, so whether you are new to it and want to learn more, or use it and want to see what is new, this video will satisfy you.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/YwZdtLEtROA?si=y56PMdQlZdcF3XKc&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;niche-pro-user-tools&#34;&gt;Niche pro-user tools&lt;/h2&gt;
+&lt;p&gt;For those already more familiar with most of what .Net has to offer, there were some great deep-dives into some technologies that won&amp;rsquo;t be for every day, but have some very specific use cases you may cross paths with.&lt;/p&gt;
+&lt;p&gt;Starting with the new source generators:&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/Yf8t7GqA6zA?si=UP-BqhOAsoqPLevk&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And a great reverse-proxy solution called YARP (Yet Another Reverse Proxy)&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/P8y8NAroVKk?si=tgJNJhm9ikn_atES&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And for the Swagger/OpenAPI users, we get an introduction to &lt;a href=&#34;https://learn.microsoft.com/en-us/openapi/kiota/overview&#34;&gt;Kiota&lt;/a&gt; - an opinionated cross-platform client code generator for open API specifications.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/sQ9Pv-rQ1s8?si=WNItKbCTxDohjnHF&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;If you want to build and distribute &lt;code&gt;dotnet new&lt;/code&gt; templates of your own, take a look at Making templates with Rob Conery:&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/XzD-95qfWJM?si=C9npWhtL-QU7Rsjs&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;and-more&#34;&gt;And more&lt;/h2&gt;
+&lt;p&gt;This is by no means the total list of all the sessions. If you haven&amp;rsquo;t seen what you were looking for here, there is a &lt;a href=&#34;https://sessionfinder.dotnetconf.net/&#34;&gt;Session Finder&lt;/a&gt; to search for more videos to watch and learn.&lt;/p&gt;
+&lt;p&gt;The conference website as always is found at &lt;a href=&#34;https://www.dotnetconf.net/&#34;&gt;dotnetconf.net&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;See you all for the next one in 2024! Happy viewing.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

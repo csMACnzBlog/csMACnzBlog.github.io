@@ -12,7 +12,68 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Sun, 26 Jul 2020 02:00:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/dotnetcore/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Dec 2023 11:18:13 +1300</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/dotnetcore/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>.NET Conf 2023 Review</title>
+      <link>https://blog.csmac.nz/post/dotnetconf-2023-review/</link>
+      <pubDate>Fri, 01 Dec 2023 11:18:13 +1300</pubDate>
+      
+      <guid>https://blog.csmac.nz/post/dotnetconf-2023-review/</guid>
+      <description>&lt;p&gt;This year I watched a bunch of the sessions from .NET Conf, both live streams and in the days following. I&amp;rsquo;ve collated my top recommendations and my reviews and thoughts on others that may be of interest to some Developers in the Microsoft ecosystem.&lt;/p&gt;
+&lt;p&gt;Without any further ado, we&amp;rsquo;ll crack into the must-watch list for 2023.&lt;/p&gt;
+&lt;h2 id=&#34;must-watch&#34;&gt;Must Watch&lt;/h2&gt;
+&lt;p&gt;Why not kick into it with the main keynote? This talk gives a great overview of all the great new advancements released as part of .Net 8 so you can learn more about what you want to dive deeper into.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/mna5fg7QGz8?si=dacpISAhXWlxlj-2&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Follow this up with a deeper dive into all the enhanced cloud-native capabilities delivered to us this year as well, including your first look at the new &lt;a href=&#34;https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview&#34;&gt;.Net Aspire stack&lt;/a&gt;.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/z1M-7Bms1Jg?si=lM3S7yGHrTUyhDad&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Pivoting to C# 12 which drops with .Net 8, check out the newest features to learn what&amp;rsquo;s been added to the language.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/by-GL-SjHdc?si=VgQodH7EAqNPozuN&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And if you are still on .Net 6 or a few versions behind on what has been developing, here is a wider look across the last few releases to catch up on what you&amp;rsquo;ve missed.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/Ci-FTnC-j84?si=39lYE-hDo-5pC4jn&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;But to round that off with the question &amp;ldquo;What should I do with all this new info?&amp;rdquo; I recommend Bill Wagner&amp;rsquo;s pragmatic view of Everyday C# to guide you in how to pick and choose the best bits for you.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/xZk8T-9kI3w?si=Ae-vb1ZvIw7TGmEG&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;a-focus-on-aspnet-core&#34;&gt;A focus on ASP.Net Core&lt;/h2&gt;
+&lt;p&gt;We now switch focus to the API hosting application space with ASP.Net Core. This part is probably not relevant to all Developers so I&amp;rsquo;ve kept it out of must-watch. However, if you are a web app or MVC Developer then these are probably still on your &amp;ldquo;must-watch&amp;rdquo; list according to me.&lt;/p&gt;
+&lt;p&gt;If you want a really good high-level overview, look no further than ASP.NET Basics for experts with Layla - covering minimal APIs, open telemetry and the new Aspire tooling.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/GDCMiBu_2gI?si=nQ4pFChTWSa60Nx1&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;For a more targeted look at Open Telemetry, I highly recommend this video, especially if you haven&amp;rsquo;t started your journey in this space as it has become easier to enable than ever.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/BnjHArsYGLM?si=p6o5rAWlaqo5Bw4I&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Similarly, whether you haven&amp;rsquo;t looked at Polly, or are already on the Polly train, this resiliency talk is a must-see.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/BDZpuFI8mMM?si=9eiaoA1iv_phOp1t&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;dive-deeper-into-specifics&#34;&gt;Dive deeper into specifics&lt;/h2&gt;
+&lt;p&gt;Here are some great deep dives into areas you may have some familiarity with but want to get a deep look into.&lt;/p&gt;
+&lt;p&gt;Starting with a configuration Deep dive, to catch you up on the power of the IConfiguration patterns built into .Net.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/aOXaBZFB0-0?si=v8Zw4K1hLwobfCFC&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And if you are working with containers at all you&amp;rsquo;ll watch to check out the latest advancements here&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/scIAwLrruMY?si=_aVsNFlyBPHub_tp&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;There were some great architecture talks, especially for organising your code in large systems.&lt;/p&gt;
+&lt;p&gt;Starting with a great Vertical Slice Architecture talk that opens with a brilliant overview of spaghetti, layered, and clean architecture to set the scene first.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/T-EwN9UqRwE?si=O4Lp4Aqp6Pant3u3&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;(Here is an earlier presentation to help fill the gaps where the live demo gods failed us on the day -
+&lt;a href=&#34;https://youtu.be/dMgj1MdwrRE&#34;&gt;Pick a Side - Clean vs Vertical Slice Architecture | Luke Parker&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;And if you are still sold on Clean Architecture after those videos, you will want to check out this great talk from Steve Smith.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/yF9SwL0p0Y0?si=gBtfFCPUUCbw_5_6&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;blazor&#34;&gt;Blazor&lt;/h2&gt;
+&lt;p&gt;Blazor is going to be a small subset of Developers still, so whether you are new to it and want to learn more, or use it and want to see what is new, this video will satisfy you.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/YwZdtLEtROA?si=y56PMdQlZdcF3XKc&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;niche-pro-user-tools&#34;&gt;Niche pro-user tools&lt;/h2&gt;
+&lt;p&gt;For those already more familiar with most of what .Net has to offer, there were some great deep-dives into some technologies that won&amp;rsquo;t be for every day, but have some very specific use cases you may cross paths with.&lt;/p&gt;
+&lt;p&gt;Starting with the new source generators:&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/Yf8t7GqA6zA?si=UP-BqhOAsoqPLevk&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And a great reverse-proxy solution called YARP (Yet Another Reverse Proxy)&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/P8y8NAroVKk?si=tgJNJhm9ikn_atES&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;And for the Swagger/OpenAPI users, we get an introduction to &lt;a href=&#34;https://learn.microsoft.com/en-us/openapi/kiota/overview&#34;&gt;Kiota&lt;/a&gt; - an opinionated cross-platform client code generator for open API specifications.&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/sQ9Pv-rQ1s8?si=WNItKbCTxDohjnHF&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;If you want to build and distribute &lt;code&gt;dotnet new&lt;/code&gt; templates of your own, take a look at Making templates with Rob Conery:&lt;/p&gt;
+&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/XzD-95qfWJM?si=C9npWhtL-QU7Rsjs&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;h2 id=&#34;and-more&#34;&gt;And more&lt;/h2&gt;
+&lt;p&gt;This is by no means the total list of all the sessions. If you haven&amp;rsquo;t seen what you were looking for here, there is a &lt;a href=&#34;https://sessionfinder.dotnetconf.net/&#34;&gt;Session Finder&lt;/a&gt; to search for more videos to watch and learn.&lt;/p&gt;
+&lt;p&gt;The conference website as always is found at &lt;a href=&#34;https://www.dotnetconf.net/&#34;&gt;dotnetconf.net&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;See you all for the next one in 2024! Happy viewing.&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>Nullable and notnull Serialisation Properties</title>
       <link>https://blog.csmac.nz/post/nullable-and-notnull-serialisation-properties/</link>
@@ -2415,284 +2476,6 @@ Test execution time: 1.4901 Seconds
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We now have a successful test passing in the xUnit.net CLI test runner using code from our own .Net Core library.&lt;/p&gt;
 &lt;h3 id=&#34;stay-tuned&#34;&gt;Stay Tuned&amp;hellip;&lt;/h3&gt;
 &lt;p&gt;Before we can think about publishing our awesome library we need a way to pack it up. Tune in next week.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>.Net Core SDK 2.* Series - Using Multiple Projects</title>
-      <link>https://blog.csmac.nz/post/dotnetcore2-using-multiple-projects/</link>
-      <pubDate>Mon, 05 Feb 2018 04:45:00 +0000</pubDate>
-      
-      <guid>https://blog.csmac.nz/post/dotnetcore2-using-multiple-projects/</guid>
-      <description>&lt;p&gt;This is a series on the latest 2.* .Net Core bits, Following on from the original &lt;a href=&#34;https://blog.csmac.nz/dotnetcore-getting-started&#34;&gt;.Net Core Series&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Using Multiple Projects &amp;lt;=(We are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-testing&#34;&gt;Testing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-nuget&#34;&gt;NuGet&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-multi-targeting&#34;&gt;Multi-targeting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-publishing-portable-applications&#34;&gt;Publishing Portable Applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-self-contained-applications&#34;&gt;Self-contained Applications&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;(At the time of writing, 2.1.4. I use windows, you don&amp;rsquo;t have to!)&lt;/p&gt;
-&lt;p&gt;We know how to create new projects, we know how to build and run our application and we know (roughly) what the content in the &lt;code&gt;csproj&lt;/code&gt; file means. But most projects tend to require multiple projects.&lt;/p&gt;
-&lt;p&gt;We are going to create a library project, and an application project. We can reference the library from the application, to see how referencing projects work.&lt;/p&gt;
-&lt;h3 id=&#34;file---new-application&#34;&gt;File -&amp;gt; New Application&lt;/h3&gt;
-&lt;p&gt;We should be old pros at this bit so let&amp;rsquo;s go:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mkdir MyNewApp
-cd MyNewApp
-dotnet new console
-dotnet run
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;file---new-library&#34;&gt;File -&amp;gt; New Library&lt;/h3&gt;
-&lt;p&gt;As well as creating empty console applications, &lt;code&gt;dotnet&lt;/code&gt; can also create other things. If you try typing &lt;code&gt;dotnet new&lt;/code&gt; you will see a full list of all templates available, which you may remember from &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-getting-started&#34;&gt;Getting Started&lt;/a&gt;:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Usage: new [options]
-
-Options:
-  -h, --help          Displays help for this command.
-  -l, --list          Lists templates containing the specified name. If no name is specified, lists all templates.
-  -n, --name          The name for the output being created. If no name is specified, the name of the current directory is used.
-  -o, --output        Location to place the generated output.
-  -i, --install       Installs a source or a template pack.
-  -u, --uninstall     Uninstalls a source or a template pack.
-  --type              Filters templates based on available types. Predefined values are &amp;#34;project&amp;#34;, &amp;#34;item&amp;#34; or &amp;#34;other&amp;#34;.
-  --force             Forces content to be generated even if it would change existing files.
-  -lang, --language   Specifies the language of the template to create.
-
-
-Templates                                         Short Name       Language          Tags
---------------------------------------------------------------------------------------------------------
-Console Application                               console          [C#], F#, VB      Common/Console
-Class library                                     classlib         [C#], F#, VB      Common/Library
-Unit Test Project                                 mstest           [C#], F#, VB      Test/MSTest
-xUnit Test Project                                xunit            [C#], F#, VB      Test/xUnit
-ASP.NET Core Empty                                web              [C#], F#          Web/Empty
-ASP.NET Core Web App (Model-View-Controller)      mvc              [C#], F#          Web/MVC
-ASP.NET Core Web App                              razor            [C#]              Web/MVC/Razor Pages
-ASP.NET Core with Angular                         angular          [C#]              Web/MVC/SPA
-ASP.NET Core with React.js                        react            [C#]              Web/MVC/SPA
-ASP.NET Core with React.js and Redux              reactredux       [C#]              Web/MVC/SPA
-ASP.NET Core Web API                              webapi           [C#], F#          Web/WebAPI
-global.json file                                  globaljson                         Config
-NuGet Config                                      nugetconfig                        Config
-Web Config                                        webconfig                          Config
-Solution File                                     sln                                Solution
-Razor Page                                        page                               Web/ASP.NET
-MVC ViewImports                                   viewimports                        Web/ASP.NET
-MVC ViewStart                                     viewstart                          Web/ASP.NET
-
-Examples:
-    dotnet new mvc --auth Individual
-    dotnet new console
-    dotnet new --help
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(Again the caveat that mine might be longer than yours because of some extra templates I have installed. This is also much changed since dotnet v1)&lt;/p&gt;
-&lt;p&gt;We want a Library so will use &lt;code&gt;classlib&lt;/code&gt;.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd ../
-mkdir MyNewLib
-cd MyNewLib
-dotnet new classlib
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;The template &amp;#34;Class library&amp;#34; was created successfully.
-
-Processing post-creation actions...
-Running &amp;#39;dotnet restore&amp;#39; on C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj...
-  Restoring packages for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj...
-  Generating MSBuild file C:\dev\MyComplexApplicationRepo\MyNewLib\obj\MyNewLib.csproj.nuget.g.props.
-  Generating MSBuild file C:\dev\MyComplexApplicationRepo\MyNewLib\obj\MyNewLib.csproj.nuget.g.targets.
-  Restore completed in 115.85 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
-
-Restore succeeded.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We briefly looked at the differences between these projects in the previous section &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-whats-in-the-box&#34;&gt;What&amp;rsquo;s in the box&lt;/a&gt;. (Specifically, the app will have an extra &lt;code&gt;&amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;&lt;/code&gt; setting in the &lt;code&gt;csproj&lt;/code&gt; file, and targeting &lt;code&gt;netcoreapp2.0&lt;/code&gt; for the app and &lt;code&gt;netstandard2.0&lt;/code&gt; for the library.)&lt;/p&gt;
-&lt;p&gt;.Net Standard Compatibility is a bit of a topic on its own. You can review the &lt;a href=&#34;https://github.com/dotnet/standard/blob/master/docs/versions.md&#34;&gt;Version Compatibility Grid&lt;/a&gt; for dotnet to determine which target you want for your library. If you do leave it as &lt;code&gt;netstandard2.0&lt;/code&gt;, then it will be compatible with dotnet core runtime version &lt;code&gt;2.0&lt;/code&gt; or newer, .Net full framework version &lt;code&gt;4.6.1&lt;/code&gt; or newer, Mono &lt;code&gt;5.4&lt;/code&gt;, and Windows UWP version &lt;code&gt;10.0.16299&lt;/code&gt; or newer. Click through to see the full table, including Xamarin and Windows Phone/Silverlight compatibility. The idea is the higher your version, the more base class libraries and methods are available, the lower the version gives you wider compatibility.&lt;/p&gt;
-&lt;p&gt;So the classlib has access to different library classes and methods depending on which version you target. These are implicitly available to you to use (unlike dotnet v1 where the standard library was an explicit dependency). The dotnet application project target &lt;code&gt;netcoreapp2.0&lt;/code&gt; also includes implicitly available core runtime types, classes and methods as well.  Additional libraries are then available from NuGet. (More on that later on in the series)&lt;/p&gt;
-&lt;p&gt;We can build our library, but of course, it cannot be run - its a library.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dotnet build
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  Restore completed in 22.02 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
-  MyNewLib -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewLib\bin\Debug\netstandard2.0\MyNewLib.dll
-
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:01.75
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;ppppppphttpsenwikipediaorgwiki7_ps_military_adage&#34;&gt;PPPPPPP(&lt;a href=&#34;https://en.wikipedia.org/wiki/7_Ps_(military_adage)&#34;&gt;*&lt;/a&gt;)&lt;/h3&gt;
-&lt;p&gt;Before we can reference between the two projects, we probably need something to depend on. We can go into the file &lt;code&gt;Class1.cs&lt;/code&gt; and make a few changes.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;namespace MyNewLib
-{
-    public class Class1
-    {
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Our class can be called &lt;code&gt;Calculator&lt;/code&gt;, and we can implement a simple method, &lt;code&gt;Add&lt;/code&gt;.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;using System;
-
-namespace MyNewLib
-{
-    public class Calculator
-    {
-        public int Add(int first, int second)
-        {
-            return first + second;
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now it is a bit more interesting, at least.&lt;/p&gt;
-&lt;h3 id=&#34;project-references&#34;&gt;Project References&lt;/h3&gt;
-&lt;p&gt;Last time we briefly glossed over &lt;a href=&#34;https://blog.csmac.nz/dotnetcore2-whats-in-the-box/#frameworksanddependencies&#34;&gt;Frameworks and Dependencies&lt;/a&gt;. Let&amp;rsquo;s go over this again in more detail.&lt;/p&gt;
-&lt;p&gt;First, we want to reference our library from our application.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd ../MyNewApp
-dotnet add reference ../MyNewLib/MyNewLib.csproj
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Reference `..\MyNewLib\MyNewLib.csproj` added to the project.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If we look at our &lt;code&gt;csproj&lt;/code&gt; file now, we can see the reference has been added.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;Project Sdk=&amp;#34;Microsoft.NET.Sdk&amp;#34;&amp;gt;
-
-  &amp;lt;ItemGroup&amp;gt;
-    &amp;lt;ProjectReference Include=&amp;#34;..\MyNewLib\MyNewLib.csproj&amp;#34; /&amp;gt;
-  &amp;lt;/ItemGroup&amp;gt;
-
-  &amp;lt;PropertyGroup&amp;gt;
-    &amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;
-    &amp;lt;TargetFramework&amp;gt;netcoreapp2.0&amp;lt;/TargetFramework&amp;gt;
-  &amp;lt;/PropertyGroup&amp;gt;
-
-&amp;lt;/Project&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You can basically give any relative path to any csproj and this will work.&lt;/p&gt;
-&lt;p&gt;One to note: Whenever you now build MyNewApp, it will recursively try and build the project MyNewLib as well.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dotnet build
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  Restoring packages for C:\dev\MyComplexApplicationRepo\MyNewApp\MyNewApp.csproj...
-  Restore completed in 21.63 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
-  Restore completed in 141.95 ms for C:\dev\MyComplexApplicationRepo\MyNewApp\MyNewApp.csproj.
-  MyNewLib -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewLib\bin\Debug\netstandard2.0\MyNewLib.dll
-  MyNewApp -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewApp\bin\Debug\netcoreapp2.0\MyNewApp.dll
-
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:02.68
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And we will add some code to make the dependency complete. Open MyNewApp&amp;rsquo;s &lt;code&gt;Program.cs&lt;/code&gt; file and add a call to our Calculator.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;using System;
-using MyNewLib;
-
-namespace MyNewApp
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Calculator calc = new Calculator();
-            var answer = calc.Add(18, 24);
-            Console.WriteLine($&amp;#34;The answer is {answer}.&amp;#34;);
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;build-and-run&#34;&gt;Build and Run&lt;/h3&gt;
-&lt;p&gt;From the MyNewApp folder, we can now build and run our application, including the library code from MyNewLib. All of this can be done by just using dotnet run (which will do a restore, if required, as well as a build, if required).&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dotnet run
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And we can see from the output that both projects are built and we see the correct output from our application.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;The answer is 42.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Because we used &lt;code&gt;run&lt;/code&gt;, the restore and build output has been done silently. This is not the case if it fails, you will see the errors on restore, or errors on build.  Often when errors are encountered, it pays to run the actual command to see all of the output for diagnosis.&lt;/p&gt;
-&lt;p&gt;Now we have 2 projects, and a reference between them. For convenience, though, we probably want to group these into some kind of working solution.&lt;/p&gt;
-&lt;h3 id=&#34;file---new-solution&#34;&gt;File -&amp;gt; New Solution&lt;/h3&gt;
-&lt;p&gt;Unlike dotnet v1, dotnet 2.* SDK is using real MSBuild and has native support built into it to not only run against Visual Studio Solution (&lt;code&gt;.sln&lt;/code&gt;) files but manage them as well.&lt;/p&gt;
-&lt;p&gt;We start by creating a new solution in our parent folder:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd ../
-dotnet new sln
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;The template &amp;#34;Solution File&amp;#34; was created successfully.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&amp;ldquo;Solution File&amp;rdquo; is just another template available, which shows some of the flexibility and power of the dotnet template engine.  This will have created a file in the parent folder called &lt;code&gt;MyComplexApplicationRepo.sln&lt;/code&gt;, which comes from the parent folder. You can rename this file if desired.&lt;/p&gt;
-&lt;p&gt;As we have come to expect from the dotnet CLI, a minimal &lt;code&gt;sln&lt;/code&gt; file is created:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
-MinimumVisualStudioVersion = 15.0.26124.0
-Global
-        GlobalSection(SolutionConfigurationPlatforms) = preSolution
-                Debug|Any CPU = Debug|Any CPU
-                Debug|x64 = Debug|x64
-                Debug|x86 = Debug|x86
-                Release|Any CPU = Release|Any CPU
-                Release|x64 = Release|x64
-                Release|x86 = Release|x86
-        EndGlobalSection
-        GlobalSection(SolutionProperties) = preSolution
-                HideSolutionNode = FALSE
-        EndGlobalSection
-EndGlobal
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To fill it up, we add our projects to the solution using the &lt;code&gt;dotnet sln ...&lt;/code&gt; commands:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dotnet sln add .\MyNewApp\MyNewApp.csproj
-dotnet sln add .\MyNewLib\MyNewLib.csproj
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This updates the &lt;code&gt;sln&lt;/code&gt; file.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
-MinimumVisualStudioVersion = 15.0.26124.0
-Project(&amp;#34;{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}&amp;#34;) = &amp;#34;MyNewApp&amp;#34;, &amp;#34;MyNewApp\MyNewApp.csproj&amp;#34;, &amp;#34;{32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}&amp;#34;
-EndProject
-Project(&amp;#34;{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}&amp;#34;) = &amp;#34;MyNewLib&amp;#34;, &amp;#34;MyNewLib\MyNewLib.csproj&amp;#34;, &amp;#34;{76D11E26-4764-4051-B597-9E1D88015259}&amp;#34;
-EndProject
-Global
-        GlobalSection(SolutionConfigurationPlatforms) = preSolution
-                Debug|Any CPU = Debug|Any CPU
-                Debug|x64 = Debug|x64
-                Debug|x86 = Debug|x86
-                Release|Any CPU = Release|Any CPU
-                Release|x64 = Release|x64
-                Release|x86 = Release|x86
-        EndGlobalSection
-        GlobalSection(SolutionProperties) = preSolution
-                HideSolutionNode = FALSE
-        EndGlobalSection
-        GlobalSection(ProjectConfigurationPlatforms) = postSolution
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|x64.ActiveCfg = Debug|x64
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|x64.Build.0 = Debug|x64
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|x86.ActiveCfg = Debug|x86
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Debug|x86.Build.0 = Debug|x86
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|Any CPU.Build.0 = Release|Any CPU
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|x64.ActiveCfg = Release|x64
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|x64.Build.0 = Release|x64
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|x86.ActiveCfg = Release|x86
-                {32BA1F6D-4996-4F9E-A55A-D5ECC5A834A1}.Release|x86.Build.0 = Release|x86
-                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|Any CPU.Build.0 = Debug|Any CPU
-                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|x64.ActiveCfg = Debug|x64
-                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|x64.Build.0 = Debug|x64
-                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|x86.ActiveCfg = Debug|x86
-                {76D11E26-4764-4051-B597-9E1D88015259}.Debug|x86.Build.0 = Debug|x86
-                {76D11E26-4764-4051-B597-9E1D88015259}.Release|Any CPU.ActiveCfg = Release|Any CPU
-                {76D11E26-4764-4051-B597-9E1D88015259}.Release|Any CPU.Build.0 = Release|Any CPU
-                {76D11E26-4764-4051-B597-9E1D88015259}.Release|x64.ActiveCfg = Release|x64
-                {76D11E26-4764-4051-B597-9E1D88015259}.Release|x64.Build.0 = Release|x64
-                {76D11E26-4764-4051-B597-9E1D88015259}.Release|x86.ActiveCfg = Release|x86
-                {76D11E26-4764-4051-B597-9E1D88015259}.Release|x86.Build.0 = Release|x86
-        EndGlobalSection
-EndGlobal
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;While there is a lot of noise in here, the main thing is the first few lines where the 2 projects are set.&lt;/p&gt;
-&lt;p&gt;Now we have a single entry point to be able to build our application.&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dotnet build
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Microsoft (R) Build Engine version 15.5.180.51428 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-  Restore completed in 15.72 ms for C:\dev\MyComplexApplicationRepo\MyNewLib\MyNewLib.csproj.
-  Restore completed in 16.16 ms for C:\dev\MyComplexApplicationRepo\MyNewApp\MyNewApp.csproj.
-  MyNewLib -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewLib\bin\Debug\netstandard2.0\MyNewLib.dll
-  MyNewApp -&amp;gt; C:\dev\MyComplexApplicationRepo\MyNewApp\bin\Debug\netcoreapp2.0\MyNewApp.dll
-
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:03.77
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You can also explicitly name the solution file when using the commands like &lt;code&gt;dotnet build .\MyComplexApplicationRepo.sln&lt;/code&gt;.&lt;/p&gt;
-&lt;h3 id=&#34;up-next&#34;&gt;Up Next&lt;/h3&gt;
-&lt;p&gt;Of course, we don&amp;rsquo;t just want to build and ship code, we want to test it actually works.  Next time we will create a test project, and write some tests against our library code above.&lt;/p&gt;
 </description>
     </item>
     
