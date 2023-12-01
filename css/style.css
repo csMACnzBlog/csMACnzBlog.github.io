@@ -135,6 +135,13 @@ pre code {
   padding: 10px 20px 20px 20px;
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 640px) {
+  .content-area .content-box .post-content iframe {
+    width: 100%;
+  }
+}
+
 .sidebar-area {
   box-sizing: border-box;
   vertical-align: top;
@@ -229,7 +236,7 @@ pre code {
     width: 409px;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 950px) {
   body {
     background-color: #ffffff;
     background-image: url('/images/DarkBackground.jpg');
