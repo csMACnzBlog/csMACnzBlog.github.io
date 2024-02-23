@@ -228,6 +228,21 @@ pre code {
     max-width: 100%;  
 }
 
+.mt-container {
+  display: block;
+  height: 600px;
+  font-size: 0.7em;
+}
+
+.mt-body {
+  margin: 0;
+  padding: 0;
+}
+
+.mt-post {
+  margin: 0;
+}
+
 @media screen and (min-width: 450px) {
   .header-area {
     background-image: url('/images/headerbanner_dark_half.png');
