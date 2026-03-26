@@ -2,11 +2,11 @@
   display: inline-block;
   margin: 0 0 5px 0;
   font-size: 0.8em;
-  color: #00bbf2;
+  color: #0077aa;
 }
 
 .post-meta a {
-  color: #00bbf2;
+  color: #0077aa;
   text-decoration: none;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .post-title-link:hover {
-  color: #00bbf2; 
+  color: #0077aa; 
 }
 
 .post-content {
@@ -50,7 +50,7 @@
 }
 
 .page-item.active .page-link {
-  color: #00bbf2;
+  color: #0077aa;
 }
 
 .page-item.disabled .page-link {
@@ -67,7 +67,7 @@
   background-color: #fabb45;
   border-radius: 15px;
   padding: 4px;
-  color: #FFF;
+  color: #000000;
   min-width: 20px;
   text-align: center;
 }
