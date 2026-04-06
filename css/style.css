@@ -3,6 +3,8 @@ body {
   color: #000000;
   font-family: ff-yoga-web-pro, Georgia, serif;
   font-size: 20px;
+  margin: 0;
+  line-height: 1.6;
 }
 h1 {
   display: block;
@@ -198,7 +200,7 @@ pre code {
   color: #9b6800;
   margin: 0;
   padding: 0 8px 0 8px;
-  height: 27px;
+  height: 32px;
   text-decoration: none;
   transition: color ease 0.3s;
   transition: background ease 0.3s;
@@ -257,6 +259,7 @@ pre code {
     background-image: url('/images/DarkBackground.jpg');
     background-position: center top;
     background-repeat: repeat;
+    margin: 8px;
   }
   .page-area {
     background-clip: padding-box;
@@ -304,8 +307,8 @@ pre code {
     border-width: 3px;
     border-radius: 6px;
     box-shadow: 3px 3px 2px 2px rgba(0, 0, 0, 0.3);
-    height: 32px;
-    margin: -15px -15px 10px -15px;
+    height: 38px;
+    margin: -18px -15px 10px -10px;
     padding-left: 36px;
   }
   .header-bar-xbox::before {
@@ -316,6 +319,12 @@ pre code {
   }
   .header-bar-blog::before {
     background-image: url('/images/tiles/blogtile.png');
+  }
+  .header-bar-vibeblog::before {
+    background-image: url('/images/tiles/vbtile.png');
+  }
+  .header-bar-metablog::before {
+    background-image: url('/images/tiles/metatile.png');
   }
   .header-bar-baconvaders::before {
     background-image: url('/images/tiles/bvtile.png');
