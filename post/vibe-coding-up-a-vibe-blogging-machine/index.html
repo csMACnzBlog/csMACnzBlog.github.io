@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <script>
+            if(!/blog\.csmac\.nz/.test(window.location.host)) {
+                window.location = "https:\/\/blog.csmac.nz\/post\/vibe-coding-up-a-vibe-blogging-machine\/";
+            }
+        </script>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name='author' content='Mark Clearwater, csmacnz@csmac.co.nz'>
+        <meta name='language' content='EN'>
+        <meta name='medium' content='blog'>
+        <meta name="google-adsense-account" content="ca-pub-4517187877737982">
+
+    
+        <title>Vibe Coding up a Vibe Blogging Machine - csMACnz&#39;s Blog</title>
+        <meta name="description" content="Introducing VibeBlog, my playground for exploring GitHub&rsquo;s agentic workflows (that&rsquo;s the whole AI-powered automation thing everyone&rsquo;s talking about). It&rsquo;s also a daily experiment in AI-generated …">
+        <meta name='keywords' content='csMACnz, Projects, GitHub, AI, Blog Update'>
+
+        
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Vibe Coding up a Vibe Blogging Machine"/>
+        <meta property="og:description" content="Introducing VibeBlog, my playground for exploring GitHub&rsquo;s agentic workflows (that&rsquo;s the whole AI-powered automation thing everyone&rsquo;s talking about). It&rsquo;s also a daily experiment in AI-generated …"/>
+        <meta property="og:site_name" content="csMACnz&#39;s Blog"/>
+        <meta property="og:url" content="https://blog.csmac.nz/post/vibe-coding-up-a-vibe-blogging-machine/"/>
+        <meta property="og:image" content="https://csmac.nz/Content/icon/icon.png"/>
+
+        
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="Vibe Coding up a Vibe Blogging Machine"/>
+        <meta name="twitter:description" content="Introducing VibeBlog, my playground for exploring GitHub&rsquo;s agentic workflows (that&rsquo;s the whole AI-powered automation thing everyone&rsquo;s talking about). It&rsquo;s also a daily experiment in AI-generated …"/>
+        <meta name="twitter:image" content="https://csmac.nz/Content/icon/icon.png"/>
+        <meta name="twitter:site" content="@csMACnz"/>
+        <meta name="twitter:creator" content="@csMACnz"/>
+    
+
+        <link rel="apple-touch-icon-precomposed" href="/images/icon/apple-touch-icon-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/icon/apple-touch-icon-72x72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/icon/apple-touch-icon-114x114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/icon/apple-touch-icon-144x144-precomposed.png">
+        <link rel="icon" type="image/png" href="/images/icon/icon.png" />
+        <link rel='me' type='text/html' href='https://github.com/csMACnz'>
+
+        <script>
+            var d_id  = 'csmacnz';
+        </script>
+
+        <link rel="stylesheet" href="/css/mastodon-timeline.min.css" />
+
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/css/blogstyle.css" />
+
+        <link rel="alternate stylesheet" title="dark-code" type="text/css" href="/css/solarized_dark.css" disabled>
+        <link rel="stylesheet" title="light-code" type="text/css" href="/css/github-gist.css" disabled>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4517187877737982"
+        crossorigin="anonymous"></script>
+
+        
+        
+        <script type="application/ld+json">
+        {
+            "@context" : "https://schema.org",
+            "@type" : "Article",
+            "publisher": {
+                "@type": "Organization",
+                "name": "csMACnz&#x27;s Blog",
+                "logo": "https:\/\/blog.csmac.nz\/images\/icon\/apple-touch-icon-144x144-precomposed.png"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Mark Clearwater",
+                "image": {
+                    "@type": "ImageObject",
+                    "url": "//www.gravatar.com/avatar/c97410951ec3738a3fd4a2dfb17a5d9c?d=404&s=250",
+                    "width": 440,
+                    "height": 295
+                },
+                "url": "https:\/\/blog.csmac.nz",
+                "sameAs": [
+                    "https://csmac.nz"
+                ]
+            },
+            "articleSection" : "post",
+            "name" : "Vibe Coding up a Vibe Blogging Machine",
+            "headline" : "Vibe Coding up a Vibe Blogging Machine",
+            "url" : "https:\/\/blog.csmac.nz\/post\/vibe-coding-up-a-vibe-blogging-machine\/",
+            "datePublished": "2026-04-07T01:11:00.000Z",
+            "dateModified" : "2026-04-07T01:11:00.000Z",
+            "keywords" : [ "Projects", "GitHub", "AI", "Blog Update" ]
+            "description" : "Introducing VibeBlog, my playground for exploring GitHub\u0026rsquo;s agentic workflows (that\u0026rsquo;s the whole AI-powered automation thing everyone\u0026rsquo;s talking about). It\u0026rsquo;s also a daily experiment in AI-generated writing—one post per day, initially curated from my own knowledge but eventually evolving into a learning tool based on whatever topics catch my interest. The goal? Produce publicly useful content while I play copyeditor to Copilot\u0026rsquo;s drafts, turning AI output into genuinely informative articles.\nSeriously, as a learning exercise in various Github Copilot features, it has been great fun to build out a daily generated blog site with minimal human-in-the-loop vibes.",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https:\/\/blog.csmac.nz"
+            }
+            "inLanguage" : "en-US",
+            "author" : "Mark Clearwater",
+            "creator" : "Mark Clearwater",
+            "accountablePerson" : "Mark Clearwater",
+            "copyrightHolder" : "Mark Clearwater",
+            "copyrightYear" : "2026",
+            "wordCount" : "2087",
+        }
+        </script>
+        
+        
+        
+    </head>
+    <body class="blog">
+        <div class="page-area">
+
+            <header class="header-area">
+                <h1 class="header-area-title">csMACnz</h1>
+            </header>
+            <nav class="navigation-area header-bar-parent">
+                <div class="header-bar header-bar-blog">
+                    <ul class="menu">
+                        <li class="menu-item"><a class="menu-item-content" href="https://csmac.nz">Home</a></li>
+                        <li class="menu-item"><a class="menu-item-content" href="https://csmac.nz/baconvaders">Bacon Vaders</a></li>
+                        <li class="menu-item"><a class="menu-item-content CurrentButton" href="https://blog.csmac.nz">Blog</a></li>
+                        <li class="menu-item"><a class="menu-item-content" href="https://blog.csmac.nz/Vibeblogging">VibeBlog</a></li>
+                        <li class="menu-item"><a class="menu-item-content" href="https://csmac.nz/metablog">Meta</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div id="content" class="content-area">
+
+<!--Page Content Begins-->
+
+<article>
+    <div class="content-box" itemscope itemtype=" https://schema.org/Article"><span class="post-meta"><time datetime="2026-04-07"  itemprop="datePublished">07 Apr 26</time> in <a href="/categories/software-engineering">Software Engineering</a>,  <a href="/categories/projects">Projects</a> on <a href="/tags/projects">Projects</a>,  <a href="/tags/github">GitHub</a>,  <a href="/tags/ai">AI</a>,  <a href="/tags/blog-update">Blog Update</a></span>
+<h1 class="post-title" itemprop="headline">Vibe Coding up a Vibe Blogging Machine</h1>
+    
+        <section class="post-content"  itemprop="articleBody">
+            <p>Introducing VibeBlog, my playground for exploring GitHub&rsquo;s agentic workflows (that&rsquo;s the whole AI-powered automation thing everyone&rsquo;s talking about). It&rsquo;s also a daily experiment in AI-generated writing—one post per day, initially curated from my own knowledge but eventually evolving into a learning tool based on whatever topics catch my interest. The goal? Produce publicly useful content while I play copyeditor to Copilot&rsquo;s drafts, turning AI output into genuinely informative articles.</p>
+<p>Seriously, as a learning exercise in various Github Copilot features, it has been great fun to build out a daily generated blog site with minimal human-in-the-loop vibes.</p>
+<p>What follows is a bit of a diary of the development and how I got here.</p>
+<h2 id="the-setup">The Setup</h2>
+<p>I didn’t start by “writing posts.” I started by building a machine that could publish them reliably.</p>
+<p>When creating a repository in GitHub, you can start with an initial prompt, So I did.</p>
+<blockquote>
+<p>A static site generated blog. Articles will be written and stored as markdown and rendered as a static site. Uses GitHub Actions to build and publish. Agwntic instruction files will support copilot agent tasks to write the posts.</p>
+<p>C# is the preferred language for any code used in this repository</p>
+</blockquote>
+<p>Yeah, I went with what I know, C#. I could have left it up to the AI but I did want to at least feel confident that what it produced was valid, safe and maintainable code.</p>
+<p>While I did review what it created, I left this as the first prototype and commited without change. As I went on, reviews often fell into more of a YOLO camp, but I did try to stick to a couple of guardrails:</p>
+<ul>
+<li>Read everything before it gets merged</li>
+<li>Don&rsquo;t produce any commits directly</li>
+</ul>
+<p>(I only had a couple of late-stage exceptions to that second rule, due to trying to save a few premium session tokens on one-lineer changes.)</p>
+<p>This PR was complete enough that will a few extra clicks to enable GitHub Pages, I had a live blog with a working generator and deploy pipeline within minutes of creating the repo. From there, I just iterated on the codebase and the agentic workflow, with the goal of making it more robust and more automated over time.</p>
+<p>From this point on, every PR started as an agentic session prompt, and proceeded as a Pull Request collaboration workflow.</p>
+<p>I went straight into a CICD mindset and added automated tests, especially leveraging playwright, and some GitHub Actions for doing more robust build and deploy. The first prompt out of the gate did manage to provide a build and deploy which was great.</p>
+<blockquote>
+<p>It looks like we gave no tests. We should add some xunit and playwright .net tests for both the generator app and the generated site. These tests should be part of the github actions, and verified against pull requests too.</p>
+</blockquote>
+<p>Fortunately for me, I was able to give a very vague prompt for CI and it ran with it, producing more and better that I probably would have even thought to ask for.</p>
+<blockquote>
+<p>Review the github actions for build and test and offer improvements</p>
+</blockquote>
+<p>I went through a short manual testing and feedback phase at this point, where I identified some bugs. Since I was already using a custom domain for GitHub Pages, it did require a little bit of change to make the expected relative paths work, but that was a quick fix. From this, I layered on some extra integrity checking of the site as well.</p>
+<p>I managed to even get it to scrape my styles from the existing blog for consistency. This was a lesson on the Github copilot Firewall configuration. It wasn&rsquo;t perfect, but it got the job done with a bit of iteration.</p>
+<p><a href="https://github.com/csMACnzBlog/Vibeblogging/agents/pull/14">Updating site design to align with parent blog</a></p>
+<blockquote>
+<p>The style of the site needs updated. Id like to follow the style of the existing parent site blog.csmac.nz Ensure the pull request has a screenshot of the design attached as a comment. Please make sure you also download background images referenced in the css for reuse in this site as well</p>
+</blockquote>
+<p>As I went, I tried to add additional improvement to both avoid regression, and add automation to catch the same or similar issues from resurfacing. Each time it did something wrong, I would correct it, but ask it to &ldquo;remember&rdquo; essentially.</p>
+<blockquote>
+<p>Please fix this articles title length.</p>
+<p>Please also update the agent prompts to always enforce this, even if the title provided is too long, enforce a shorter alternative title to the suggested one. This restriction is higher priority than keeping the suggested title.</p>
+</blockquote>
+<h2 id="becoming-a-publishing-platform">Becoming a publishing platform</h2>
+<p>The foundations were set, now the writing could begin.</p>
+<p>This went through a couple of refining phases:</p>
+<p><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/5">Updating Copilot agent instructions toward the actual writing style</a></p>
+<blockquote>
+<p>Take a look at my site <a href="https://github.com/csMACnzBlog/csMACnzBlog.github.io">https://github.com/csMACnzBlog/csMACnzBlog.github.io</a> and improve the writing style guidance to match my writing style in github copilot markdown instructions</p>
+</blockquote>
+<p><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/18">Enhance blog-post-writer style guide with patterns from csMACnzBlog</a></p>
+<blockquote>
+<p>I would like a review of the writing style from the articles on blog.csmac.nz compared with the writing style used in this VibeBlog so far. I would like to enhance the style guides in this repository with any missing refinements or details for producing future posts.</p>
+</blockquote>
+<p>This improved the voice of the articles. These two prompts together did a great job of refining the style and tone of the writing, and I was pretty happy with the results. It was able to pick up on some of the nuances of my writing style that I hadn&rsquo;t explicitly called out in the instructions, which was great. The <a href="https://github.com/csMACnzBlog/Vibeblogging/blob/main/.copilot/agents/blog-post-writer.md">final blog-post-writer.md agent</a> is now pretty detailed and specific, and I think it will do a good job of maintaining a consistent voice across future posts.</p>
+<h2 id="robustness-phase">Robustness phase</h2>
+<p>I followed up by adding some more robustness to the publishing process, with a focus on making sure that the quality gates were in place and that the agent instructions were well-defined and versioned. This included:</p>
+<ul>
+<li>
+<p>Featured image support: <strong>PR #20</strong> (merged <strong>2026-02-27</strong>)<br>
+<a href="https://github.com/csMACnzBlog/Vibeblogging/pull/20">https://github.com/csMACnzBlog/Vibeblogging/pull/20</a></p>
+</li>
+<li>
+<p>Adding baseline validation steps to that setup flow: <strong>PR #102</strong> (merged <strong>2026-03-28</strong>)<br>
+<a href="https://github.com/csMACnzBlog/Vibeblogging/pull/102">https://github.com/csMACnzBlog/Vibeblogging/pull/102</a></p>
+</li>
+<li>
+<p>Pagination (15 posts/page): <strong>PR #62</strong> (merged <strong>2026-03-18</strong>)<br>
+<a href="https://github.com/csMACnzBlog/Vibeblogging/pull/62">https://github.com/csMACnzBlog/Vibeblogging/pull/62</a></p>
+</li>
+<li>
+<p>Search page via lazy-loaded modal iframe: <strong>PR #64</strong> (merged <strong>2026-03-19</strong>)<br>
+<a href="https://github.com/csMACnzBlog/Vibeblogging/pull/64">https://github.com/csMACnzBlog/Vibeblogging/pull/64</a></p>
+</li>
+<li>
+<p>Search UX fixes + tag focus/order: <strong>PR #66</strong> (merged <strong>2026-03-19</strong>)<br>
+<a href="https://github.com/csMACnzBlog/Vibeblogging/pull/66">https://github.com/csMACnzBlog/Vibeblogging/pull/66</a></p>
+</li>
+<li>
+<p>Clicking a tag opens search pre-filtered: <strong>PR #103</strong> (merged <strong>2026-03-29</strong>)<br>
+<a href="https://github.com/csMACnzBlog/Vibeblogging/pull/103">https://github.com/csMACnzBlog/Vibeblogging/pull/103</a></p>
+</li>
+</ul>
+<h2 id="image-generation">Image Generation</h2>
+<p>This took a few iterations to get working but I was able to leverage some python and the Hugging Face API to get some blog images being generated for me as part of the build process. This was a fun one to iterate on, and I had to learn a bit about how to use the Hugging Face API and how to handle credentials in GitHub Actions. I tried out the familiarity of Powershell to start with but in the end went with what the models know best - Python. I also had to iterate on the prompt a bit to get it to generate images that were actually relevant and looked good. I ended up with a pretty good prompt that I can reuse for future image generation tasks as well. Maybe as a reduction exercise I&rsquo;ll see if I can migrate what I have back to Powershell, but for now I&rsquo;m happy with the Python solution.</p>
+<ul>
+<li>Image generation pipeline moved from PowerShell → Python + HuggingFace client: <strong>PR #21</strong> (merged <strong>2026-02-27</strong>)<br>
+<a href="https://github.com/csMACnzBlog/Vibeblogging/pull/21">https://github.com/csMACnzBlog/Vibeblogging/pull/21</a></li>
+</ul>
+<p>It did take a bunch of trial-and-error to get the credentials and API calls working correctly, but I got there in the end. The images are now being generated and uploaded to the site as part of the PR generation lifecycle process, which is pretty cool. Most of my drama came from fighting different environment sandboxes and differences between Copilot, and Workflow.</p>
+<p>I even did a bit of experimenting with the new <a href="https://github.github.com/gh-aw/">https://github.github.com/gh-aw/</a>. It is pretty cool, but wasn&rsquo;t the right tool for this particular job, since the repository sits public in the open. But I have some ideas for how I might be able to leverage it in the future for some of my more private repositories, so it was worth playing around with it a bit.</p>
+<h2 id="finishing-the-automation">Finishing the automation</h2>
+<p>I had a pretty good workflow going at this point, but I wanted to get to the point where I could just merge a PR and have it go live without any manual steps. This involved making sure that all the quality gates were in place and that the agent instructions were well-defined.</p>
+<p>I was still triggering and reviewing the daily post generation manually, but I wanted to get to the point where it was fully automated. So I tried a few different strategies and landed on the following approach:</p>
+<ul>
+<li>In another repository, I trigger the creation of a new Issue into the repository, and assign it to Copilot to work on</li>
+<li>Copilot then creates a new branch, and starts working on the post in that branch, using the agent instructions and style guide to produce the content</li>
+<li>Once the post is ready, it creates a PR from that branch into main, and assigns it to me for review</li>
+<li>Another automation checks over the PR for quality gates (links, accessibility, etc) and if it passes, it merges the PR automatically, which triggers the build and deploy process to publish the new post</li>
+</ul>
+<p>I read every post daily. So far I haven&rsquo;t really had to make any changes to the articles, and find them both accurate and interesting to read.</p>
+<p>I even followed up with an automation that can investigate a topic suggestion and raise a more detailed Issue. If one of these is present, it uses that to assign to copilot instead of the generic &ldquo;write a post about X&rdquo; issue. This allows me to have a bit more control over the topic and the direction of the post, while still leveraging the automation to do the heavy lifting of writing and publishing.</p>
+<h2 id="a-working-system">A working system</h2>
+<p>By early April 2026, the engineering arc looks like this:</p>
+<ul>
+<li>A C# generator that deploys cleanly to Pages (<strong>PR #1</strong>)</li>
+<li>CI + testing from day one (<strong>PR #2</strong>, <strong>PR #4</strong>)</li>
+<li>Deployment correctness handled early (subpath link fix) (<strong>PR #9</strong>)</li>
+<li>Publishing quality gates baked in (<strong>PR #10</strong>, <strong>PR #105</strong>)</li>
+<li>Agent instructions + setup treated as versioned system components (<strong>PR #5</strong>, <strong>PR #6</strong>, <strong>PR #24</strong>, <strong>PR #102</strong>)</li>
+<li>Media pipeline with real-world credential iteration (<strong>PR #20</strong>, <strong>PR #21</strong>, <strong>PR #88</strong>, <strong>PR #92</strong>)</li>
+<li>Scale features (pagination + search) (<strong>PR #62</strong>, <strong>PR #64</strong>, <strong>PR #66</strong>, <strong>PR #103</strong>)</li>
+<li>A daily agentic publishing workflow that’s been battle-tested through break/fix cycles (<strong>PR #68</strong>, <strong>PR #79–#86</strong>, <strong>PR #77/#87</strong>)</li>
+</ul>
+<p>Towards this later couple of weeks I&rsquo;ve been focusing more on the main site and blog, trying to tie this new part into the larger site more seamlessly. This has identified many opportunities to apply similar learnings back to the way I opperate in the rest of the site&rsquo;s development.</p>
+<h2 id="whats-next">What&rsquo;s Next?</h2>
+<p>Well I&rsquo;m pretty well set up for the moment. At some point topic choice might get interesting, and I don&rsquo;t know what the LLM is going to do. I do have my mechanism to generate topics and topic notes, so perhaps that feeds it for a while. It is one I am very interested to watch.</p>
+<p>Otherwise, I just need to keep an eye on the daily workflow and make sure it doesn&rsquo;t break. I have a good sense of what the failure modes are, so hopefully I can catch and fix them quickly if they come up. And since it runs on GitHub workflows, I get notifications when it fails, so that should help me stay on top of it.</p>
+<p>Security is always a concern, but since this is a public repo with no sensitive data, the main risk is someone trying to break the workflow or inject bad content. I&rsquo;ll need to monitor for that and be ready to revert if necessary. Hopefully I&rsquo;ve locked down enough of the accesses that it is resilient to obvious attack vectors.</p>
+<h2 id="appendix">Appendix</h2>
+<p>Some of the PRs are referenced directly for your interest and further reading.</p>
+<ul>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/1">PR #1: Generator + Pages deploy</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/2">PR #2: xUnit + Playwright + CI</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/4">PR #4: CI/CD optimizations</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/9">PR #9: fix broken links</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/10">PR #10: quality gates (link/html/a11y)</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/20">PR #20: featured images</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/21">PR #21: image pipeline → Python/HF</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/24">PR #24: copilot-setup-steps</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/62">PR #62: pagination</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/64">PR #64: search</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/68">PR #68: daily-post workflow</a></li>
+<li>PR #79–#86: hardening fixes</li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/102">PR #102: baseline validation in setup</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/105">PR #105: a11y runner fix</a></li>
+<li><a href="https://github.com/csMACnzBlog/Vibeblogging/pull/119">PR #119: example content PR (Rate Limiting)</a></li>
+</ul>
+</section>
+        
+        <section class="share">
+            Share: 
+            <a class="icon-twitter" href="https://twitter.com/share?text=Vibe%20Coding%20up%20a%20Vibe%20Blogging%20Machine&url=https%3a%2f%2fblog.csmac.nz%2fpost%2fvibe-coding-up-a-vibe-blogging-machine%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span>Twitter</span>
+            </a>
+            |
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.csmac.nz%2fpost%2fvibe-coding-up-a-vibe-blogging-machine%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span>Facebook</span>
+            </a>
+        </section>
+    </div>
+    <div class="content-box">
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = d_id; 
+            var disqus_title = 'Vibe Coding up a Vibe Blogging Machine';
+            
+             
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
+</article>
+
+<!--Page Content Ends-->
+
+            </div><aside class="sidebar-area">
+
+<!--Sidebar Content Begins-->
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-mastodon">Mastodon</div>
+                    
+                    <div id="mt-container" class="mt-container">
+                        <div class="mt-body" role="feed">
+                            <div class="mt-loading-spinner"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-rss">Subscribe</div>
+                    
+                    <a href="/rssfeeds/" title="csMACnz's Blog">RSS Feeds</a>
+                    <a href="https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Ffeeds.feedburner.com%2FcsmacnzBlog" target="_blank" title="csMACnz&amp;#039;s Blog"><img src="https://s3.feedly.com/feedburner/feedly.png" alt="" style="border:0"/></a>
+                    <br />
+                    <a href="https://www.patreon.com/csMACnz" target="_blank"><img src="/images/patreon.png" /></a>
+                    
+                    
+                </div>
+
+
+                <div class="header-bar-parent sidebar-item">
+                    <div class="header-bar header-bar-xbox">Gamercard</div>
+                    
+
+                    <div>
+                        <a href="https://www.exophase.com/xbox/user/csMACnz/"><img width="288px" src="https://card.exophase.com/1/1476805.png"></a>
+                        <a href="http://steamcommunity.com/id/csMACnz/" target="_blank"><img src="https://www.steamsignature.com/status/english/76561197994712512.png" alt="" title="csMACnz's Steam Profile" /></a>
+                    </div>
+                    
+                </div>
+
+<!--Sidebar Content Ends-->
+
+            </aside>
+
+            <footer class="footer-area">
+
+            <p>
+                Designed and Maintained by Mark Clearwater; Last updated February 2024.
+                <!-- This used to be something useful, now it is just a hack I left it to make layout easier but also as a fun reminder for me of what it used to be -->
+                <br /><a class="footer-link" >¯\_(ツ)_/¯</a>
+            </p>
+
+            </footer>
+        </div>
+
+<!--body scripts Begins-->
+
+        
+        <script src="/js/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+        <script src="/js/codetoggle.js"></script> 
+
+        
+        <script src="/js/htmx.min.js"></script>
+
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-08VK9VD3ET"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-08VK9VD3ET');
+        </script>
+
+        <script src="/js/mastodon-timeline.min.js"></script>
+        <script>
+            const myTimeline = new MastodonTimeline({
+                instanceUrl: "https://mastodon.nz",
+                timelineType: "profile",
+                userId: "109867048963758953",
+                profileName: "@csMACnz",
+                maxNbPostShow: 10,
+                hideReblog: true,
+            });
+
+        </script>
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!--body scripts Ends-->
+
+
+<!-------------------------------->
+<!--                            -->
+<!--  _(\    |@@|               -->
+<!-- (__/\__ \--/ __            -->
+<!--    \___|----|  |   __      -->
+<!--        \ }{ /\ )_ / _\     -->
+<!--        /\__/\ \__O (__     -->
+<!--       (--/\--)    \__/     -->
+<!--       _)(  )(_             -->
+<!--      `---''---`            -->
+<!--                            -->
+<!-- https://github.com/csMACnz -->
+<!-------------------------------->
+
+    </body>
+</html>

@@ -12,7 +12,149 @@
     <ttl>1440</ttl>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-nz</language>
-    <lastBuildDate>Mon, 27 Aug 2018 06:00:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Apr 2026 01:11:00 +0000</lastBuildDate><atom:link href="https://blog.csmac.nz/tags/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vibe Coding up a Vibe Blogging Machine</title>
+      <link>https://blog.csmac.nz/post/vibe-coding-up-a-vibe-blogging-machine/</link>
+      <pubDate>Tue, 07 Apr 2026 01:11:00 +0000</pubDate>
+      
+      <guid>https://blog.csmac.nz/post/vibe-coding-up-a-vibe-blogging-machine/</guid>
+      <description>&lt;p&gt;Introducing VibeBlog, my playground for exploring GitHub&amp;rsquo;s agentic workflows (that&amp;rsquo;s the whole AI-powered automation thing everyone&amp;rsquo;s talking about). It&amp;rsquo;s also a daily experiment in AI-generated writing—one post per day, initially curated from my own knowledge but eventually evolving into a learning tool based on whatever topics catch my interest. The goal? Produce publicly useful content while I play copyeditor to Copilot&amp;rsquo;s drafts, turning AI output into genuinely informative articles.&lt;/p&gt;
+&lt;p&gt;Seriously, as a learning exercise in various Github Copilot features, it has been great fun to build out a daily generated blog site with minimal human-in-the-loop vibes.&lt;/p&gt;
+&lt;p&gt;What follows is a bit of a diary of the development and how I got here.&lt;/p&gt;
+&lt;h2 id=&#34;the-setup&#34;&gt;The Setup&lt;/h2&gt;
+&lt;p&gt;I didn’t start by “writing posts.” I started by building a machine that could publish them reliably.&lt;/p&gt;
+&lt;p&gt;When creating a repository in GitHub, you can start with an initial prompt, So I did.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A static site generated blog. Articles will be written and stored as markdown and rendered as a static site. Uses GitHub Actions to build and publish. Agwntic instruction files will support copilot agent tasks to write the posts.&lt;/p&gt;
+&lt;p&gt;C# is the preferred language for any code used in this repository&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Yeah, I went with what I know, C#. I could have left it up to the AI but I did want to at least feel confident that what it produced was valid, safe and maintainable code.&lt;/p&gt;
+&lt;p&gt;While I did review what it created, I left this as the first prototype and commited without change. As I went on, reviews often fell into more of a YOLO camp, but I did try to stick to a couple of guardrails:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Read everything before it gets merged&lt;/li&gt;
+&lt;li&gt;Don&amp;rsquo;t produce any commits directly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(I only had a couple of late-stage exceptions to that second rule, due to trying to save a few premium session tokens on one-lineer changes.)&lt;/p&gt;
+&lt;p&gt;This PR was complete enough that will a few extra clicks to enable GitHub Pages, I had a live blog with a working generator and deploy pipeline within minutes of creating the repo. From there, I just iterated on the codebase and the agentic workflow, with the goal of making it more robust and more automated over time.&lt;/p&gt;
+&lt;p&gt;From this point on, every PR started as an agentic session prompt, and proceeded as a Pull Request collaboration workflow.&lt;/p&gt;
+&lt;p&gt;I went straight into a CICD mindset and added automated tests, especially leveraging playwright, and some GitHub Actions for doing more robust build and deploy. The first prompt out of the gate did manage to provide a build and deploy which was great.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It looks like we gave no tests. We should add some xunit and playwright .net tests for both the generator app and the generated site. These tests should be part of the github actions, and verified against pull requests too.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Fortunately for me, I was able to give a very vague prompt for CI and it ran with it, producing more and better that I probably would have even thought to ask for.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Review the github actions for build and test and offer improvements&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I went through a short manual testing and feedback phase at this point, where I identified some bugs. Since I was already using a custom domain for GitHub Pages, it did require a little bit of change to make the expected relative paths work, but that was a quick fix. From this, I layered on some extra integrity checking of the site as well.&lt;/p&gt;
+&lt;p&gt;I managed to even get it to scrape my styles from the existing blog for consistency. This was a lesson on the Github copilot Firewall configuration. It wasn&amp;rsquo;t perfect, but it got the job done with a bit of iteration.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/agents/pull/14&#34;&gt;Updating site design to align with parent blog&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The style of the site needs updated. Id like to follow the style of the existing parent site blog.csmac.nz Ensure the pull request has a screenshot of the design attached as a comment. Please make sure you also download background images referenced in the css for reuse in this site as well&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;As I went, I tried to add additional improvement to both avoid regression, and add automation to catch the same or similar issues from resurfacing. Each time it did something wrong, I would correct it, but ask it to &amp;ldquo;remember&amp;rdquo; essentially.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Please fix this articles title length.&lt;/p&gt;
+&lt;p&gt;Please also update the agent prompts to always enforce this, even if the title provided is too long, enforce a shorter alternative title to the suggested one. This restriction is higher priority than keeping the suggested title.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;becoming-a-publishing-platform&#34;&gt;Becoming a publishing platform&lt;/h2&gt;
+&lt;p&gt;The foundations were set, now the writing could begin.&lt;/p&gt;
+&lt;p&gt;This went through a couple of refining phases:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/5&#34;&gt;Updating Copilot agent instructions toward the actual writing style&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Take a look at my site &lt;a href=&#34;https://github.com/csMACnzBlog/csMACnzBlog.github.io&#34;&gt;https://github.com/csMACnzBlog/csMACnzBlog.github.io&lt;/a&gt; and improve the writing style guidance to match my writing style in github copilot markdown instructions&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/18&#34;&gt;Enhance blog-post-writer style guide with patterns from csMACnzBlog&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I would like a review of the writing style from the articles on blog.csmac.nz compared with the writing style used in this VibeBlog so far. I would like to enhance the style guides in this repository with any missing refinements or details for producing future posts.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This improved the voice of the articles. These two prompts together did a great job of refining the style and tone of the writing, and I was pretty happy with the results. It was able to pick up on some of the nuances of my writing style that I hadn&amp;rsquo;t explicitly called out in the instructions, which was great. The &lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/blob/main/.copilot/agents/blog-post-writer.md&#34;&gt;final blog-post-writer.md agent&lt;/a&gt; is now pretty detailed and specific, and I think it will do a good job of maintaining a consistent voice across future posts.&lt;/p&gt;
+&lt;h2 id=&#34;robustness-phase&#34;&gt;Robustness phase&lt;/h2&gt;
+&lt;p&gt;I followed up by adding some more robustness to the publishing process, with a focus on making sure that the quality gates were in place and that the agent instructions were well-defined and versioned. This included:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Featured image support: &lt;strong&gt;PR #20&lt;/strong&gt; (merged &lt;strong&gt;2026-02-27&lt;/strong&gt;)&lt;br&gt;
+&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/20&#34;&gt;https://github.com/csMACnzBlog/Vibeblogging/pull/20&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Adding baseline validation steps to that setup flow: &lt;strong&gt;PR #102&lt;/strong&gt; (merged &lt;strong&gt;2026-03-28&lt;/strong&gt;)&lt;br&gt;
+&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/102&#34;&gt;https://github.com/csMACnzBlog/Vibeblogging/pull/102&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pagination (15 posts/page): &lt;strong&gt;PR #62&lt;/strong&gt; (merged &lt;strong&gt;2026-03-18&lt;/strong&gt;)&lt;br&gt;
+&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/62&#34;&gt;https://github.com/csMACnzBlog/Vibeblogging/pull/62&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Search page via lazy-loaded modal iframe: &lt;strong&gt;PR #64&lt;/strong&gt; (merged &lt;strong&gt;2026-03-19&lt;/strong&gt;)&lt;br&gt;
+&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/64&#34;&gt;https://github.com/csMACnzBlog/Vibeblogging/pull/64&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Search UX fixes + tag focus/order: &lt;strong&gt;PR #66&lt;/strong&gt; (merged &lt;strong&gt;2026-03-19&lt;/strong&gt;)&lt;br&gt;
+&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/66&#34;&gt;https://github.com/csMACnzBlog/Vibeblogging/pull/66&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Clicking a tag opens search pre-filtered: &lt;strong&gt;PR #103&lt;/strong&gt; (merged &lt;strong&gt;2026-03-29&lt;/strong&gt;)&lt;br&gt;
+&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/103&#34;&gt;https://github.com/csMACnzBlog/Vibeblogging/pull/103&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;image-generation&#34;&gt;Image Generation&lt;/h2&gt;
+&lt;p&gt;This took a few iterations to get working but I was able to leverage some python and the Hugging Face API to get some blog images being generated for me as part of the build process. This was a fun one to iterate on, and I had to learn a bit about how to use the Hugging Face API and how to handle credentials in GitHub Actions. I tried out the familiarity of Powershell to start with but in the end went with what the models know best - Python. I also had to iterate on the prompt a bit to get it to generate images that were actually relevant and looked good. I ended up with a pretty good prompt that I can reuse for future image generation tasks as well. Maybe as a reduction exercise I&amp;rsquo;ll see if I can migrate what I have back to Powershell, but for now I&amp;rsquo;m happy with the Python solution.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Image generation pipeline moved from PowerShell → Python + HuggingFace client: &lt;strong&gt;PR #21&lt;/strong&gt; (merged &lt;strong&gt;2026-02-27&lt;/strong&gt;)&lt;br&gt;
+&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/21&#34;&gt;https://github.com/csMACnzBlog/Vibeblogging/pull/21&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It did take a bunch of trial-and-error to get the credentials and API calls working correctly, but I got there in the end. The images are now being generated and uploaded to the site as part of the PR generation lifecycle process, which is pretty cool. Most of my drama came from fighting different environment sandboxes and differences between Copilot, and Workflow.&lt;/p&gt;
+&lt;p&gt;I even did a bit of experimenting with the new &lt;a href=&#34;https://github.github.com/gh-aw/&#34;&gt;https://github.github.com/gh-aw/&lt;/a&gt;. It is pretty cool, but wasn&amp;rsquo;t the right tool for this particular job, since the repository sits public in the open. But I have some ideas for how I might be able to leverage it in the future for some of my more private repositories, so it was worth playing around with it a bit.&lt;/p&gt;
+&lt;h2 id=&#34;finishing-the-automation&#34;&gt;Finishing the automation&lt;/h2&gt;
+&lt;p&gt;I had a pretty good workflow going at this point, but I wanted to get to the point where I could just merge a PR and have it go live without any manual steps. This involved making sure that all the quality gates were in place and that the agent instructions were well-defined.&lt;/p&gt;
+&lt;p&gt;I was still triggering and reviewing the daily post generation manually, but I wanted to get to the point where it was fully automated. So I tried a few different strategies and landed on the following approach:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In another repository, I trigger the creation of a new Issue into the repository, and assign it to Copilot to work on&lt;/li&gt;
+&lt;li&gt;Copilot then creates a new branch, and starts working on the post in that branch, using the agent instructions and style guide to produce the content&lt;/li&gt;
+&lt;li&gt;Once the post is ready, it creates a PR from that branch into main, and assigns it to me for review&lt;/li&gt;
+&lt;li&gt;Another automation checks over the PR for quality gates (links, accessibility, etc) and if it passes, it merges the PR automatically, which triggers the build and deploy process to publish the new post&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I read every post daily. So far I haven&amp;rsquo;t really had to make any changes to the articles, and find them both accurate and interesting to read.&lt;/p&gt;
+&lt;p&gt;I even followed up with an automation that can investigate a topic suggestion and raise a more detailed Issue. If one of these is present, it uses that to assign to copilot instead of the generic &amp;ldquo;write a post about X&amp;rdquo; issue. This allows me to have a bit more control over the topic and the direction of the post, while still leveraging the automation to do the heavy lifting of writing and publishing.&lt;/p&gt;
+&lt;h2 id=&#34;a-working-system&#34;&gt;A working system&lt;/h2&gt;
+&lt;p&gt;By early April 2026, the engineering arc looks like this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A C# generator that deploys cleanly to Pages (&lt;strong&gt;PR #1&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;CI + testing from day one (&lt;strong&gt;PR #2&lt;/strong&gt;, &lt;strong&gt;PR #4&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;Deployment correctness handled early (subpath link fix) (&lt;strong&gt;PR #9&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;Publishing quality gates baked in (&lt;strong&gt;PR #10&lt;/strong&gt;, &lt;strong&gt;PR #105&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;Agent instructions + setup treated as versioned system components (&lt;strong&gt;PR #5&lt;/strong&gt;, &lt;strong&gt;PR #6&lt;/strong&gt;, &lt;strong&gt;PR #24&lt;/strong&gt;, &lt;strong&gt;PR #102&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;Media pipeline with real-world credential iteration (&lt;strong&gt;PR #20&lt;/strong&gt;, &lt;strong&gt;PR #21&lt;/strong&gt;, &lt;strong&gt;PR #88&lt;/strong&gt;, &lt;strong&gt;PR #92&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;Scale features (pagination + search) (&lt;strong&gt;PR #62&lt;/strong&gt;, &lt;strong&gt;PR #64&lt;/strong&gt;, &lt;strong&gt;PR #66&lt;/strong&gt;, &lt;strong&gt;PR #103&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;A daily agentic publishing workflow that’s been battle-tested through break/fix cycles (&lt;strong&gt;PR #68&lt;/strong&gt;, &lt;strong&gt;PR #79–#86&lt;/strong&gt;, &lt;strong&gt;PR #77/#87&lt;/strong&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Towards this later couple of weeks I&amp;rsquo;ve been focusing more on the main site and blog, trying to tie this new part into the larger site more seamlessly. This has identified many opportunities to apply similar learnings back to the way I opperate in the rest of the site&amp;rsquo;s development.&lt;/p&gt;
+&lt;h2 id=&#34;whats-next&#34;&gt;What&amp;rsquo;s Next?&lt;/h2&gt;
+&lt;p&gt;Well I&amp;rsquo;m pretty well set up for the moment. At some point topic choice might get interesting, and I don&amp;rsquo;t know what the LLM is going to do. I do have my mechanism to generate topics and topic notes, so perhaps that feeds it for a while. It is one I am very interested to watch.&lt;/p&gt;
+&lt;p&gt;Otherwise, I just need to keep an eye on the daily workflow and make sure it doesn&amp;rsquo;t break. I have a good sense of what the failure modes are, so hopefully I can catch and fix them quickly if they come up. And since it runs on GitHub workflows, I get notifications when it fails, so that should help me stay on top of it.&lt;/p&gt;
+&lt;p&gt;Security is always a concern, but since this is a public repo with no sensitive data, the main risk is someone trying to break the workflow or inject bad content. I&amp;rsquo;ll need to monitor for that and be ready to revert if necessary. Hopefully I&amp;rsquo;ve locked down enough of the accesses that it is resilient to obvious attack vectors.&lt;/p&gt;
+&lt;h2 id=&#34;appendix&#34;&gt;Appendix&lt;/h2&gt;
+&lt;p&gt;Some of the PRs are referenced directly for your interest and further reading.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/1&#34;&gt;PR #1: Generator + Pages deploy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/2&#34;&gt;PR #2: xUnit + Playwright + CI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/4&#34;&gt;PR #4: CI/CD optimizations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/9&#34;&gt;PR #9: fix broken links&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/10&#34;&gt;PR #10: quality gates (link/html/a11y)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/20&#34;&gt;PR #20: featured images&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/21&#34;&gt;PR #21: image pipeline → Python/HF&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/24&#34;&gt;PR #24: copilot-setup-steps&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/62&#34;&gt;PR #62: pagination&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/64&#34;&gt;PR #64: search&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/68&#34;&gt;PR #68: daily-post workflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;PR #79–#86: hardening fixes&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/102&#34;&gt;PR #102: baseline validation in setup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/105&#34;&gt;PR #105: a11y runner fix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/csMACnzBlog/Vibeblogging/pull/119&#34;&gt;PR #119: example content PR (Rate Limiting)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
     <item>
       <title>Time-tracking Analysis - Parsing and Presenting a Heatmap of your working week from Toggl Data</title>
       <link>https://blog.csmac.nz/post/time-tracking-analysis/</link>
